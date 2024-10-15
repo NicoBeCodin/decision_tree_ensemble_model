@@ -355,7 +355,7 @@ Node nodeInitiate(Matrix parameters, vector<float> results){
     vector<float> rightResults;
 
     //Get int vector that will tell which indexes go right or left
-    vector<int> goRightIndex = splitOnThreshold(nodeThreshold, parameters, results);
+    vector<int> goRightIndex = splitOnThreshold(nodeThreshold, parameters);
     for (int i =0; i<parameters.size(); ++i){
         if (goRightIndex[i] == 0){
             leftValues.push_back(parameters[i]);
