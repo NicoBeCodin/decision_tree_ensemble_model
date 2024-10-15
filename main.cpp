@@ -320,7 +320,7 @@ Threshold findBestSplitRandom(Matrix values, vector<float> results, int sample_s
     return best_threshold; 
 }
 //returns a list 
-vector<int> splitOnThreshold(Threshold threshold, Matrix values, vector<float> results){
+vector<int> splitOnThreshold(Threshold threshold, Matrix values){
     vector<int> goRight(values.size());
     for (int i =0; i<values.size(); ++i){
         if (values[i][threshold.feature_index] < threshold.value){
@@ -416,7 +416,7 @@ int main(){
     printf("test_threshold feature_index: %d , value: %d, weighted_variance: %f \n",test_best_threshold.feature_index, test_best_threshold.value, test_best_threshold.weighted_variance);
 
 
-    
+
 
 
     
