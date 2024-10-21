@@ -1,3 +1,6 @@
+#ifndef DECISION_TREE_H
+#define DECISION_TREE_H
+
 #include <fstream>
 #include <string>
 #include <vector>
@@ -6,10 +9,6 @@
 #include <variant>
 #include <random>
 #include <algorithm>
-
-#ifndef DECISION_TREE_H
-#define DECISION_TREE_H
-
 
 using namespace std;
 

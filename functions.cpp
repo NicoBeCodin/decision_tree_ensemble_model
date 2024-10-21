@@ -1,12 +1,3 @@
-#include <fstream>
-#include <string>
-#include <vector>
-#include <sstream>
-#include <iostream>
-#include <variant>
-#include <random>
-#include <algorithm>
-
 #include "functions.h"
 
 using namespace std;
