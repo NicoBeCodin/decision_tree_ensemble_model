@@ -1,24 +1,16 @@
-# Variables
-CXX = g++
-CXXFLAGS = -Wall -std=c++11
-TARGET = main
-OBJS = main.o functions.o
+# 根目录下的Makefile
 
-# Default rule
-all: $(TARGET)
+# 定义子目录
+SUBDIRS = data_clean
 
-# Linking
-$(TARGET): $(OBJS)
-	$(CXX) -o $(TARGET) $(OBJS)
+# 默认目标，递归调用所有子目录的Makefile
+all:
+	@for dir in $(SUBDIRS); do \
+	    $(MAKE) -C $$dir; \
+	done
 
-# Compiling main.cpp
-main.o: main.cpp functions.h
-	$(CXX) $(CXXFLAGS) -c main.cpp
-
-# Compiling functions.cpp
-functions.o: functions.cpp functions.h
-	$(CXX) $(CXXFLAGS) -c functions.cpp
-
-# Clean rule
+# 清理目标，递归调用子目录的clean
 clean:
-	rm -f $(OBJS) $(TARGET)
+	@for dir in $(SUBDIRS); do \
+	    $(MAKE) -C $$dir clean; \
+	done
