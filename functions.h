@@ -57,23 +57,23 @@ Functions for tree decisions
 //calculate variance of array of ints 
 float calculateVariance(const vector<int>& result_values);
 
-int getMaxFeature(Matrix values, int feature_index);
+int getMaxFeature(Matrix& values, int feature_index);
 
-int getMinFeature(Matrix values, int feature_index);
+int getMinFeature(Matrix& values, int feature_index);
 
-float getMeanFeature(Matrix values, int feature_index);
+float getMeanFeature(Matrix& values, int feature_index);
 
 vector<int> drawUniqueNumbers(int n, int rows);
 
-Threshold compareThresholds(vector<Threshold> thresholds);
+Threshold compareThresholds(vector<Threshold>& thresholds);
 
-Threshold bestThresholdColumn(Matrix values, vector<float> results, int column_index);
+Threshold bestThresholdColumn(Matrix& values, vector<float>& results, int column_index);
 
-Threshold findBestSplitRandom(Matrix values, vector<float> results, int sample_size);
+Threshold findBestSplitRandom(Matrix& values, vector<float>& results, int sample_size);
 
-vector<int> splitOnThreshold(Threshold threshold, Matrix values);
+vector<int> splitOnThreshold(Threshold& threshold, Matrix& values);
 
-Node nodeInitiate(Matrix parameters, vector<float> results);
+Node nodeInitiate(Matrix& parameters, vector<float>& results);
 
 Node nodeBuilder(Node parentNode, Matrix parameters, vector<float> results);
 

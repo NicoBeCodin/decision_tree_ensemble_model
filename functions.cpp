@@ -246,7 +246,7 @@ vector<int> drawUniqueNumbers(int n, int rows){
 
 
 //compares the different best thresholds of each feature and returns the one m=with min weighted variance
-Threshold compareThresholds(vector<Threshold> thresholds){
+Threshold compareThresholds(vector<Threshold>& thresholds){
     Threshold best_threshold = thresholds[0]; 
     int thresholds_size = thresholds.size();
     
@@ -259,7 +259,7 @@ Threshold compareThresholds(vector<Threshold> thresholds){
 }
 
 //Find for a feature the best threshold by minimizing variance 
-Threshold bestThresholdColumn(Matrix values, vector<float> results, int column_index){
+Threshold bestThresholdColumn(Matrix& values, vector<float>& results, int column_index){
 
     int best_threshold = 0;
     float min_weighted_variance = 999999.0;
@@ -292,7 +292,7 @@ Threshold bestThresholdColumn(Matrix values, vector<float> results, int column_i
 }
 
 //Implement random sampling: instead of trying out all the different threshholds, sample for example 30 values and try them out as thresholds.
-Threshold findBestSplitRandom(Matrix values, vector<float> results, int sample_size){
+Threshold findBestSplitRandom(Matrix& values, vector<float>& results, int sample_size){
     
     //Generate our sample Matrix of size sample_size
     Matrix sample_tab;
@@ -314,7 +314,7 @@ Threshold findBestSplitRandom(Matrix values, vector<float> results, int sample_s
 }
 
 //returns a list 
-vector<int> splitOnThreshold(Threshold threshold, Matrix values){
+vector<int> splitOnThreshold(Threshold& threshold, Matrix& values){
     vector<int> goRight(values.size());
     int row_size = values.size();
     for (int i =0; i<row_size; ++i){
@@ -330,7 +330,7 @@ vector<int> splitOnThreshold(Threshold threshold, Matrix values){
 
 
 //Create initial node with all the data that will then create the other ones
-Node nodeInitiate(Matrix parameters, vector<float> results){
+Node nodeInitiate(Matrix& parameters, vector<float>& results){
     Node initialNode;
 
     //Finds the best threshold
