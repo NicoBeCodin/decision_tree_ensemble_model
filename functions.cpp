@@ -243,8 +243,6 @@ vector<int> drawUniqueNumbers(int n, int rows){
 }
 
 
-
-
 //compares the different best thresholds of each feature and returns the one m=with min weighted variance
 Threshold compareThresholds(vector<Threshold>& thresholds){
     Threshold best_threshold = thresholds[0]; 
@@ -369,12 +367,12 @@ Node* nodeInitiate(Matrix& parameters, vector<float>& results){
 
     //create an adress code for each node
     Node* leftNode = nodeBuilder(initialNode, leftValues, leftResults, false);
-    leftNode->adress.push_back(0);
+
     initialNode->left = leftNode;
     printf("initialNode.left process finished...\n");
 
     Node* rightNode = nodeBuilder(initialNode, rightValues, rightResults, true);
-    rightNode->adress.push_back(1);
+
     initialNode->right = rightNode;
     printf("initialNode.right process finished...\n");
 
