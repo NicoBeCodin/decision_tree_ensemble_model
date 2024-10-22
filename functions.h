@@ -9,6 +9,8 @@
 #include <variant>
 #include <random>
 #include <algorithm>
+#include <numeric>
+
 
 using namespace std;
 
@@ -73,6 +75,13 @@ vector<int> splitOnThreshold(Threshold threshold, Matrix values);
 
 Node nodeInitiate(Matrix parameters, vector<float> results);
 
-Node nodeBuilder(Node parentNode);
+Node nodeBuilder(Node parentNode, Matrix parameters, vector<float> results);
+
+
+//print tree functions
+void nodePrinter(Node node);
+
+void treePrinter(Node tree);
+
 
 #endif // DECISION_TREE_H

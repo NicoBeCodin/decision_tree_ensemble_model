@@ -37,12 +37,17 @@ int main(){
     printf("test_threshold feature_index: %d , value: %d, weighted_variance: %f \n",test_thresh.feature_index, test_thresh.value, test_thresh.weighted_variance);
 
 
-    printf("\n trying to find best threshold on bigger dataset... \n");
+    printf("\nTrying to find best threshold on bigger dataset... \n");
     int sample_size = 30;
     Threshold test_best_threshold = findBestSplitRandom(parameters_values, results_values, sample_size); 
     printf("test_threshold feature_index: %d , value: %d, weighted_variance: %f \n",test_best_threshold.feature_index, test_best_threshold.value, test_best_threshold.weighted_variance);
 
 
+    printf("\nTrying to build tree...\n");
+    Node tree = nodeInitiate(parameters_values, results_values);
+    printf("\nTrying to print tree... \n");
+
+    treePrinter(tree);
 
     return 0;
 }
