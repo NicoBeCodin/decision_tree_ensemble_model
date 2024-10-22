@@ -288,7 +288,7 @@ Threshold bestThresholdColumn(Matrix& values, vector<float>& results, int column
         }
     }
 
-    return Threshold{column_index, best_threshold, min_weighted_variance};
+    return Threshold(column_index, best_threshold, min_weighted_variance);
 }
 
 //Implement random sampling: instead of trying out all the different threshholds, sample for example 30 values and try them out as thresholds.
@@ -315,7 +315,7 @@ Threshold findBestSplitRandom(Matrix& values, vector<float>& results, int sample
 
 //returns a list 
 vector<int> splitOnThreshold(Threshold& threshold, Matrix& values){
-    vector<int> goRight(values.size());
+    vector<int> goRight;
     int row_size = values.size();
     for (int i =0; i<row_size; ++i){
         if (values[i][threshold.feature_index] < threshold.value){
@@ -330,16 +330,17 @@ vector<int> splitOnThreshold(Threshold& threshold, Matrix& values){
 
 
 //Create initial node with all the data that will then create the other ones
-Node nodeInitiate(Matrix& parameters, vector<float>& results){
-    Node initialNode;
+Node* nodeInitiate(Matrix& parameters, vector<float>& results){
+    Node* initialNode = new Node();
 
     //Finds the best threshold
     //Sample size is defined as 30 but this has to be optimized, find a function with a good tradeoff between performance and accuracy
     Threshold nodeThreshold= findBestSplitRandom(parameters, results, 30);
-    initialNode.threshold = nodeThreshold;
+    initialNode->threshold = nodeThreshold;
     //We're building nodes not leaves (=final results of regression)
-    initialNode.isLeaf = false;
-    initialNode.nodeDepth = 1;
+    initialNode->isLeaf = false;
+    initialNode->nodeDepth = 1;
+    initialNode->data_size = (int)parameters.size();
 
     //Perform the split
     Matrix leftValues;
@@ -367,11 +368,14 @@ Node nodeInitiate(Matrix& parameters, vector<float>& results){
     //Need to create the two subnodes with the splitted dataset by calling nodeBuilder function. Then have to put the two pointers in left and right
 
     //create an adress code for each node
-    
-    *initialNode.left = nodeBuilder(initialNode, leftValues, leftResults);
+    Node* leftNode = nodeBuilder(initialNode, leftValues, leftResults, false);
+    leftNode->adress.push_back(0);
+    initialNode->left = leftNode;
     printf("initialNode.left process finished...\n");
 
-    *initialNode.right = nodeBuilder(initialNode, rightValues, rightResults);
+    Node* rightNode = nodeBuilder(initialNode, rightValues, rightResults, true);
+    rightNode->adress.push_back(1);
+    initialNode->right = rightNode;
     printf("initialNode.right process finished...\n");
 
     return initialNode;
@@ -379,23 +383,31 @@ Node nodeInitiate(Matrix& parameters, vector<float>& results){
 
 //this is a recursive function that should build two nodes from one parentNode
 //node builder is the same as nodeInitiate except it needs a parentNode
-Node nodeBuilder(Node parentNode, Matrix parameters, vector<float> results){
+Node* nodeBuilder(Node* parentNode, Matrix& parameters, vector<float>& results, bool right){
     //Break case if depth is too big
-    int max_depth = 1;
-    Node currentNode;
-    if (parentNode.nodeDepth > max_depth){
+    int max_depth = 3;
+    Node* currentNode = new Node();
+    currentNode->data_size = (int)parameters.size();
+
+    int r = right ? 1: 0; 
+    currentNode->adress = parentNode->adress; 
+    currentNode->adress.push_back(r);
+    
+    printf("Node has %d values to start\n", (int)parameters.size());
+    if (parentNode->nodeDepth > max_depth){
         //return a leaf = end of tree
-        currentNode.isLeaf =true;
-        currentNode.nodeDepth = parentNode.nodeDepth +1;
+        currentNode->isLeaf =true;
+        currentNode->nodeDepth = parentNode->nodeDepth +1;
         float mean = accumulate(results.begin(), results.end(), 0) / (float)results.size();
-        currentNode.value = mean;
+        currentNode->value = mean;
         printf("Leaf node created with mean: %f\n", mean);
     } else {
         //General case
-        currentNode.isLeaf = false;
-        currentNode.nodeDepth = parentNode.nodeDepth + 1;
+        currentNode->isLeaf = false;
+        currentNode->nodeDepth = parentNode->nodeDepth + 1;
         Threshold nodeThreshold = findBestSplitRandom(parameters, results, 30);
-        currentNode.threshold = nodeThreshold;
+        currentNode->threshold = nodeThreshold;
+        printf("Threshold calculated to be on feature %d, value: %d, weighted_var: %f\n", nodeThreshold.feature_index, nodeThreshold.value, nodeThreshold.weighted_variance);
 
         Matrix leftValues;
         vector<float> leftResults;
@@ -415,35 +427,43 @@ Node nodeBuilder(Node parentNode, Matrix parameters, vector<float> results){
         }
         }
         printf("nodeBuilder splitting finished...\n");
+        printf("Left group size: %d, Right group size %d\n", (int)leftValues.size(), (int)rightValues.size());
 
-        *currentNode.left = nodeBuilder(currentNode, leftValues, leftResults);
-        printf("nodeBuilder.left process finished...\n");
-        *currentNode.right = nodeBuilder(currentNode, rightValues, rightResults);
+        Node* leftNode = nodeBuilder(currentNode, leftValues, leftResults, false);
+        currentNode->left = leftNode;
+
+        Node* rightNode = nodeBuilder(currentNode, rightValues, rightResults, true);
+        currentNode->right = rightNode;
+        
         printf("nodeBuilder process finished...\n");
     }
 
-    printf("Returning currentNode");
+    printf("Returning currentNode\n");
     return currentNode;
 }  
 
 
 //print the tree structure and it's values
-void treePrinter(Node tree){
+void treePrinter(Node* tree){
     printf("Printing tree...\n");
     nodePrinter(tree);
 }
 
-void nodePrinter(Node node){
-    if (!node.isLeaf){
-        printf("node depth: %d\n threshold feature_index: %d\n threshold value %d\n weighted_variance %f\n\n", node.nodeDepth, node.threshold.feature_index, node.threshold.value, node.threshold.weighted_variance);
-        nodePrinter(*node.left);
-        nodePrinter(*node.right);        
+void nodePrinter(Node* node){
+    if (!node->isLeaf){
+        printf("node adress: ");
+        for (auto i : node->adress) printf("%d", i);
+        printf("\n");
+        printf("node depth: %d\ndata size: %d\nthreshold feature_index: %d\nthreshold value %d\nweighted_variance %f\n\n", node->nodeDepth, node->data_size, node->threshold.feature_index, node->threshold.value, node->threshold.weighted_variance);
+        nodePrinter(node->left);
+        nodePrinter(node->right);        
 
     }
     else {
-        printf("Leaf node: \n");
-        printf("leaf depth: %d\n mean value: %f\n", node.nodeDepth, node.value);
-        //CODE TO COMPLETE
+        printf("\nleaf adress: ");
+        for (auto i : node->adress) printf("%d", i);
+        printf("\n");
+        printf("leaf depth: %d\ndata size: %d \nmean value: %f\n", node->nodeDepth, node->data_size, node->value);
     }
 
 }

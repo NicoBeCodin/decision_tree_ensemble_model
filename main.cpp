@@ -44,9 +44,9 @@ int main(){
 
 
     printf("\nTrying to build tree...\n");
-    Node tree = nodeInitiate(parameters_values, results_values);
-    printf("\nTrying to print tree... \n");
+    Node* tree = nodeInitiate(parameters_values, results_values);
 
+    printf("\n");
     treePrinter(tree);
 
     return 0;

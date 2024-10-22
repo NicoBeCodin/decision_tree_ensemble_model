@@ -38,6 +38,9 @@ struct Threshold {
     int feature_index;
     int value;
     float weighted_variance;
+
+    Threshold(): feature_index(-1), value(-999), weighted_variance(999.99) {}
+    Threshold(int f, int v, float wv): feature_index(f), value(v), weighted_variance(wv) {}
 };
 
 //tree structure = leaves & nodes
@@ -48,6 +51,11 @@ struct Node {
     int nodeDepth; 
     Node* left; //Left child node
     Node* right; //Right child node
+    //Information
+    vector<int> adress; //0 is left 1 is right, list gives the adress of nodes: adress.size() == depth
+    int data_size; //How many rows go through node
+
+    Node(): isLeaf(false), value(0.0), threshold(Threshold()), nodeDepth(0), left(nullptr), right(nullptr), adress({}), data_size(0) {}
 };
 
 /*
@@ -73,15 +81,15 @@ Threshold findBestSplitRandom(Matrix& values, vector<float>& results, int sample
 
 vector<int> splitOnThreshold(Threshold& threshold, Matrix& values);
 
-Node nodeInitiate(Matrix& parameters, vector<float>& results);
+Node* nodeInitiate(Matrix& parameters, vector<float>& results);
 
-Node nodeBuilder(Node parentNode, Matrix parameters, vector<float> results);
+Node* nodeBuilder(Node* parentNode, Matrix& parameters, vector<float>& results, bool right);
 
 
 //print tree functions
-void nodePrinter(Node node);
+void nodePrinter(Node* node);
 
-void treePrinter(Node tree);
+void treePrinter(Node* tree);
 
 
 #endif // DECISION_TREE_H
