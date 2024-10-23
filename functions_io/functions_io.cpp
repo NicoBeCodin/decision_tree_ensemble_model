@@ -1,4 +1,7 @@
 #include "functions_io.h"
+#include "functions_tree.h"
+
+
 
 using namespace std;
 
@@ -77,8 +80,11 @@ vector<vector<string>> openCSVLimited(string fname, int n){
 
 // 打印CSV文件内容
 void printStringCSV(vector<vector<string>> content){
-    for (size_t i = 0; i < content.size(); ++i){  // 遍历每一行
-        for (size_t j = 0; j < content[i].size(); ++j){  // 遍历每一列
+    int row_size = content.size();
+    int col_size = content[0].size();
+
+    for (size_t i = 0; i < row_size; ++i){  // 遍历每一行
+        for (size_t j = 0; j < col_size; ++j){  // 遍历每一列
             cout<<content[i][j]<<" ";  // 打印当前单元格的值
         }
         cout<<"\n";  // 换行
@@ -166,3 +172,30 @@ void printParamAndResults(vector<string> header, Matrix parameters, vector<float
         cout << results[i] << " " << endl;  // 打印结果
     }
 }
+
+void nodePrinter(Node* node){
+    if (!node->isLeaf){
+        printf("node adress: ");
+        for (auto i : node->adress) printf("%d", i);
+        printf("\n");
+        printf("node depth: %d\ndata size: %d\nthreshold feature_index: %d\nthreshold value %d\nweighted_variance %f\n\n", node->nodeDepth, node->data_size, node->threshold.feature_index, node->threshold.value, node->threshold.weighted_variance);
+        nodePrinter(node->left);
+        nodePrinter(node->right);        
+
+    }
+    else {
+        printf("\nleaf adress: ");
+        for (auto i : node->adress) printf("%d", i);
+        printf("\n");
+        printf("leaf depth: %d\ndata size: %d \nmean value: %f\n", node->nodeDepth, node->data_size, node->value);
+    }
+
+}
+
+//print the tree structure and it's values
+void treePrinter(Node* root){
+    printf("Printing tree...\n");
+    nodePrinter(root);
+}
+
+

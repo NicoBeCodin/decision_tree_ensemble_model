@@ -1,11 +1,14 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
+
 #include <vector>
 #include <string>
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include "functions_tree.h"
+
 
 using namespace std;
 
@@ -26,5 +29,10 @@ Matrix processParametersCSV(vector<vector<string>> content);  // 处理CSV参数
 vector<float> processResultsCSV(vector<vector<string>> content);  // 处理CSV结果部分
 
 void printParamAndResults(vector<string> header, Matrix parameters, vector<float> results);  // 打印参数和结果
+
+//print tree functions
+void nodePrinter(Node* node);
+
+void treePrinter(Node* node);
 
 #endif // FUNCTIONS_H

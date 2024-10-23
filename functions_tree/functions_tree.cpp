@@ -4,184 +4,284 @@
 #include <random>    // 引入random头文件
 #include <algorithm> // 引入algorithm头文件以使用std::shuffle
 
-namespace tree {
+using namespace std;
 
-typedef std::vector<std::vector<int>> Matrix;  // 定义Matrix为二维整数向量的别名
 
-// 计算整数数组的方差
-float calculateVariance(const std::vector<int>& result_values) {
+
+//calculate variance of array of ints 
+float calculateVariance(const vector<int>& result_values){
     if (result_values.empty()) {
-        printf("result_values empty, can't calculate average! returning 0.0\n");
+        //This isn't an error case but still has to be noted
+        //printf("result_values empty, can't calculate average! returning 0.0\n");
         return 0.0;
     }
-    float mean = 0.0;
-    for (float val : result_values) {
-        mean += val;  // 计算总和
+    float mean=0.0;
+    for (float val: result_values) {
+        mean+=val;
     }
-    mean /= (float)result_values.size();  // 计算平均值
+    mean /= (float)result_values.size();
 
-    printf("Mean value: %f\n", mean);  // 打印平均值
-
-    float variance = 0.0;
-    for (int val : result_values) {
-        variance += ((float)val - mean) * ((float)val - mean);  // 计算方差
+    float variance =0.0;
+    for (int val: result_values){
+        variance += ((float)val - mean) * ((float)val -mean );
     }
+    //Could return variance / (result_values.size() -1) for unbiased estimator;
+    return variance / (float)result_values.size();
 
-    float result = variance / (float)result_values.size();
-    printf("Variance: %f\n", result);  // 打印方差
-
-    return result;  // 返回方差
 }
 
-// 获取某特征列的最大值
-int getMaxFeature(Matrix values, int feature_index) {
-    int max = 0;
-    for (size_t i = 0; i < values.size(); ++i) {
-        if (values[i][feature_index] > max) max = values[i][feature_index];  // 找到最大值
+//instead of trying out all values, get the min, max and mean of a feature list and work from there
+int getMaxFeature(Matrix values, int feature_index){
+    int max =0;
+    int row_size = values.size();
+    for (int i =0; i<row_size; ++i){
+        if(values[i][feature_index]>max) max = values[i][feature_index];
     }
     return max;
 }
 
-// 获取某特征列的最小值
-int getMinFeature(Matrix values, int feature_index) {
-    int min = 999999;  // 假设最大值为999999
-    for (size_t i = 0; i < values.size(); ++i) {
-        if (values[i][feature_index] < min) min = values[i][feature_index];  // 找到最小值
+int getMinFeature(Matrix values, int feature_index){
+    int min =999999;
+    int row_size = values.size();
+    for (int i =0; i<row_size; ++i){
+        if(values[i][feature_index]<min) min = values[i][feature_index];
     }
     return min;
 }
 
-// 计算某特征列的平均值
-float getMeanFeature(Matrix values, int feature_index) {
-    int mean = 0;
-    for (size_t i = 0; i < values.size(); ++i) {
-        mean += values[i][feature_index];  // 计算总和
+float getMeanFeature(Matrix values, int feature_index){
+    int mean =0;
+    int row_size = values.size();
+    for (int i =0; i<row_size; ++i){
+        mean += values[i][feature_index];
     }
-    float average = (float)mean / (float)values.size();  // 返回平均值
+    float average = (float)mean / ((float)values.size()); 
     return average;
 }
 
-// 生成唯一的随机数，用作随机抽样的行索引
-std::vector<int> drawUniqueNumbers(int n, int rows) {
-    if (n > rows + 1) {
-        printf("Row number is smaller than sample size, setting n = rows");
-        n = rows;
+
+//Draw unique numbers to serve as indexes for rows in random sampling
+vector<int> drawUniqueNumbers(int n, int rows){
+    if (n > rows +1){
+        printf("Row number is smaller than sample size, setting n =rows");
+        n=rows; 
+        //return just a simple incremented array, no need for randomness
+        vector<int> vec(n);
+        generate(vec.begin(), vec.end(), [] {
+        static int i = 0;
+        return i++;
+        });
+        return vec;
     }
 
-    std::vector<int> numbers(rows);  // 创建一个行数大小的向量
-    for (int i = 0; i < rows; ++i) {
-        numbers[i] = i;  // 初始化行号
+    vector<int> numbers(rows);
+    for (int i =0; i<rows; ++i){
+        numbers[i] = i;
     }
-    std::random_device rd;
-    std::mt19937 g(rd());
+    random_device rd;
+    mt19937 g(rd());
 
-    std::shuffle(numbers.begin(), numbers.end(), g);  // 随机打乱行号
-    std::vector<int> result(numbers.begin(), numbers.begin() + n);  // 返回前n个作为结果
+    shuffle(numbers.begin(), numbers.end(), g);
+    vector<int> result (numbers.begin(),numbers.begin()+n );
     return result;
+
 }
 
-// 比较不同特征的最佳阈值，并返回加权方差最小的那个
-Threshold compareThresholds(std::vector<Threshold> thresholds) {
-    Threshold best_threshold = thresholds[0];
 
-    for (size_t i = 1; i < thresholds.size(); ++i) {
-        if (thresholds[i].weighted_variance < best_threshold.weighted_variance) {
-            best_threshold = thresholds[i];  // 更新最佳阈值
+//compares the different best thresholds of each feature and returns the one m=with min weighted variance
+Threshold compareThresholds(vector<Threshold>& thresholds){
+    Threshold best_threshold = thresholds[0]; 
+    int thresholds_size = thresholds.size();
+    
+    for (int i=1; i<thresholds_size; ++i){
+        if (thresholds[i].weighted_variance < best_threshold.weighted_variance){
+            best_threshold = thresholds[i];
         }
     }
     return best_threshold;
 }
 
-// 为某特征找到最小化方差的最佳分裂阈值
-Threshold bestThresholdColumn(Matrix values, std::vector<float> results, int column_index) {
+//Find for a feature the best threshold by minimizing variance 
+Threshold bestThresholdColumn(Matrix& values, vector<float>& results, int column_index){
+
     int best_threshold = 0;
     float min_weighted_variance = 999999.0;
-    for (size_t i = 0; i < values.size(); ++i) {
-        int threshold = values[i][column_index];
-        std::vector<int> left;
-        std::vector<int> right;
+    int row_size = values.size();
+    //For every value in of feature[i], use it as a threshold and see best score
+    for (int i =0; i<row_size; ++i){
 
-        for (size_t j = 0; j < values.size(); ++j) {
-            if (values[j][column_index] < threshold) {
+        int threshold = values[i][column_index];
+        vector<int> left;
+        vector<int> right;
+
+        for (int j = 0; j<row_size; ++j){
+            //Strictly inferior, could also be inferior, could replace by float (int+ 0.5) for better splitting (don't know)
+
+            //We split the data into two subgroups and calculate the weighted variance
+            if (values[j][column_index] < threshold ){
                 left.push_back(values[j][column_index]);
             } else {
                 right.push_back(values[j][column_index]);
             }
         }
-        float weighted_variance = (calculateVariance(left) * (float)left.size() + calculateVariance(right) * (float)right.size()) / values.size();
-        if (weighted_variance < min_weighted_variance) {
+        float weighted_variance = (calculateVariance(left)* (float)left.size() + calculateVariance(right) * (float)right.size())/values.size();
+        if (weighted_variance < min_weighted_variance){
             min_weighted_variance = weighted_variance;
-            best_threshold = threshold;  // 更新最佳阈值
+            best_threshold = threshold;
         }
     }
 
-    return Threshold{column_index, best_threshold, min_weighted_variance};
+    return Threshold(column_index, best_threshold, min_weighted_variance);
 }
 
-// 实现随机采样，获取最佳分裂阈值，而不是尝试所有可能的阈值
-Threshold findBestSplitRandom(Matrix values, std::vector<float> results, int sample_size) {
+//Implement random sampling: instead of trying out all the different threshholds, sample for example 30 values and try them out as thresholds.
+Threshold findBestSplitRandom(Matrix& values, vector<float>& results, int sample_size){
+    
+    //Generate our sample Matrix of size sample_size
     Matrix sample_tab;
-    std::vector<float> sample_results;
-    std::vector<int> tab_indexes = drawUniqueNumbers(sample_size, values.size());
-    for (int index : tab_indexes) {
+    vector<float> sample_results;
+    vector<int> tab_indexes = drawUniqueNumbers(sample_size, values.size());
+    for (int index: tab_indexes){
         sample_tab.push_back(values[index]);
         sample_results.push_back(results[index]);
     }
 
-    std::vector<Threshold> feature_threshold;
-    for (size_t i = 0; i < values[0].size(); ++i) {
+    //Iterate through columns, finds best threshold for each column
+    vector<Threshold> feature_threshold;
+    int col_size = values[0].size();
+    for (int i =0; i<col_size; ++i){
         feature_threshold.push_back(bestThresholdColumn(sample_tab, sample_results, i));
     }
     Threshold best_threshold = compareThresholds(feature_threshold);
-    return best_threshold;
+    return best_threshold; 
 }
 
-// 根据最佳分裂阈值对数据进行分割
-std::vector<int> splitOnThreshold(Threshold threshold, Matrix values) {
-    std::vector<int> goRight(values.size());
-    for (size_t i = 0; i < values.size(); ++i) {
-        if (values[i][threshold.feature_index] < threshold.value) {
-            goRight[i] = 0;  // 左子树
-        } else {
-            goRight[i] = 1;  // 右子树
+//returns a list 
+vector<int> splitOnThreshold(Threshold& threshold, Matrix& values){
+    vector<int> goRight;
+    int row_size = values.size();
+    for (int i =0; i<row_size; ++i){
+        if (values[i][threshold.feature_index] < threshold.value){
+            goRight.push_back(0);
         }
+        else{
+            goRight.push_back(1);
+        } 
     }
     return goRight;
 }
 
 
-// 创建初始节点，进行数据分裂
-Node nodeInitiate(Matrix parameters, std::vector<float> results) {
-    Node initialNode;
+//Create initial node with all the data that will then create the other ones
+Node* nodeInitiate(Matrix& parameters, vector<float>& results){
+    Node* initialNode = new Node();
 
-    Threshold nodeThreshold = findBestSplitRandom(parameters, results, 30);
-    initialNode.threshold = nodeThreshold;
-    initialNode.isLeaf = false;
-    initialNode.nodeDepth = 1;
+    //Finds the best threshold
+    //Sample size is defined as 30 but this has to be optimized, find a function with a good tradeoff between performance and accuracy
+    Threshold nodeThreshold= findBestSplitRandom(parameters, results, 30);
+    initialNode->threshold = nodeThreshold;
+    //We're building nodes not leaves (=final results of regression)
+    initialNode->isLeaf = false;
+    initialNode->nodeDepth = 1;
+    initialNode->data_size = (int)parameters.size();
 
+    //Perform the split
     Matrix leftValues;
-    std::vector<float> leftResults;
+    vector<float> leftResults;
     Matrix rightValues;
-    std::vector<float> rightResults;
+    vector<float> rightResults;
 
-    std::vector<int> goRightIndex = splitOnThreshold(nodeThreshold, parameters);
-    for (size_t i = 0; i < parameters.size(); ++i) {
-        if (goRightIndex[i] == 0) {
+    //Get int vector that will tell which indexes go right or left
+    vector<int> goRightIndex = splitOnThreshold(nodeThreshold, parameters);
+    int row_size = parameters.size();
+    for (int i =0; i<row_size; ++i){
+        if (goRightIndex[i] == 0){
             leftValues.push_back(parameters[i]);
             leftResults.push_back(results[i]);
-        } else {
+        }
+        else {
             rightValues.push_back(parameters[i]);
             rightResults.push_back(results[i]);
         }
     }
+    printf("nodeInitiate split finished...\n");
+
+
+    //CODE TO COMPLETE!!
+    //Need to create the two subnodes with the splitted dataset by calling nodeBuilder function. Then have to put the two pointers in left and right
+
+    //create an adress code for each node
+    Node* leftNode = nodeBuilder(initialNode, leftValues, leftResults, false);
+
+    initialNode->left = leftNode;
+    printf("initialNode.left process finished...\n");
+
+    Node* rightNode = nodeBuilder(initialNode, rightValues, rightResults, true);
+
+    initialNode->right = rightNode;
+    printf("initialNode.right process finished...\n");
+
     return initialNode;
 }
 
-// 递归构建子节点
-Node nodeBuilder(Node parentNode) {
-    Node node;
-    // 递归调用构建左右子树
-    return node;
-}
+//this is a recursive function that should build two nodes from one parentNode
+//node builder is the same as nodeInitiate except it needs a parentNode
+Node* nodeBuilder(Node* parentNode, Matrix& parameters, vector<float>& results, bool right){
+    //Break case if depth is too big
+    int max_depth = 3;
+    Node* currentNode = new Node();
+    currentNode->data_size = (int)parameters.size();
 
-}  // 命名空间 tree 结束
+    int r = right ? 1: 0; 
+    currentNode->adress = parentNode->adress; 
+    currentNode->adress.push_back(r);
+    
+    printf("Node has %d values to start\n", (int)parameters.size());
+    if (parentNode->nodeDepth > max_depth){
+        //return a leaf = end of tree
+        currentNode->isLeaf =true;
+        currentNode->nodeDepth = parentNode->nodeDepth +1;
+        float mean = accumulate(results.begin(), results.end(), 0) / (float)results.size();
+        currentNode->value = mean;
+        printf("Leaf node created with mean: %f\n", mean);
+    } else {
+        //General case
+        currentNode->isLeaf = false;
+        currentNode->nodeDepth = parentNode->nodeDepth + 1;
+        Threshold nodeThreshold = findBestSplitRandom(parameters, results, 30);
+        currentNode->threshold = nodeThreshold;
+        printf("Threshold calculated to be on feature %d, value: %d, weighted_var: %f\n", nodeThreshold.feature_index, nodeThreshold.value, nodeThreshold.weighted_variance);
+
+        Matrix leftValues;
+        vector<float> leftResults;
+        Matrix rightValues;
+        vector<float> rightResults;
+
+        vector<int> goRightIndex = splitOnThreshold(nodeThreshold, parameters);
+        int row_size = parameters.size();
+        for (int i =0; i<row_size; ++i){
+        if (goRightIndex[i] == 0){
+            leftValues.push_back(parameters[i]);
+            leftResults.push_back(results[i]);
+        }
+        else {
+            rightValues.push_back(parameters[i]);
+            rightResults.push_back(results[i]);
+        }
+        }
+        printf("nodeBuilder splitting finished...\n");
+        printf("Left group size: %d, Right group size %d\n", (int)leftValues.size(), (int)rightValues.size());
+
+        Node* leftNode = nodeBuilder(currentNode, leftValues, leftResults, false);
+        currentNode->left = leftNode;
+
+        Node* rightNode = nodeBuilder(currentNode, rightValues, rightResults, true);
+        currentNode->right = rightNode;
+        
+        printf("nodeBuilder process finished...\n");
+    }
+
+    printf("Returning currentNode\n");
+    return currentNode;
+}  
+

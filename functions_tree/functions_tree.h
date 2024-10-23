@@ -5,38 +5,61 @@
 #include <random>
 #include <iostream>
 
-namespace tree {
+#include "functions_io.h"
+
+
 
 // 定义Matrix为二维整数向量的别名
 typedef std::vector<std::vector<int>> Matrix;
 
 // 定义Threshold结构体，用于存储分裂阈值的信息
 struct Threshold {
-    int feature_index;       // 特征列索引
-    int value;               // 分裂阈值
-    float weighted_variance; // 加权方差
+    int feature_index;
+    int value;
+    float weighted_variance;
+
+    Threshold(): feature_index(-1), value(-999), weighted_variance(999.99) {}
+    Threshold(int f, int v, float wv): feature_index(f), value(v), weighted_variance(wv) {}
 };
 
 // 定义Node结构体，表示树的节点
 struct Node {
-    Threshold threshold;  // 节点的分裂阈值
-    bool isLeaf;          // 是否是叶子节点
-    int nodeDepth;        // 节点的深度
+    bool isLeaf;
+    float value; //If leaf node, store predicted value (mean of target values)
+    Threshold threshold; //Threshold to split on
+    int nodeDepth; 
+    Node* left; //Left child node
+    Node* right; //Right child node
+    //Information
+    vector<int> adress; //0 is left 1 is right, list gives the adress of nodes: adress.size() == depth
+    int data_size; //How many rows go through node
+
+    Node(): isLeaf(false), value(0.0), threshold(Threshold()), nodeDepth(0), left(nullptr), right(nullptr), adress({}), data_size(0) {}
 };
 
-// 函数声明
-float calculateVariance(const std::vector<int>& result_values);  // 计算方差
-int getMaxFeature(Matrix values, int feature_index);  // 获取特征列的最大值
-int getMinFeature(Matrix values, int feature_index);  // 获取特征列的最小值
-float getMeanFeature(Matrix values, int feature_index);  // 计算特征列的平均值
-std::vector<int> drawUniqueNumbers(int n, int rows);  // 生成唯一的随机数，用于随机抽样
-Threshold compareThresholds(std::vector<Threshold> thresholds);  // 比较不同阈值，找到最佳阈值
-Threshold bestThresholdColumn(Matrix values, std::vector<float> results, int column_index);  // 找到某列的最佳分裂阈值
-Threshold findBestSplitRandom(Matrix values, std::vector<float> results, int sample_size);  // 实现随机采样，找到最佳分裂阈值
-std::vector<int> splitOnThreshold(Threshold threshold, Matrix values);  // 根据阈值分割数据
-Node nodeInitiate(Matrix parameters, std::vector<float> results);  // 创建初始节点
-Node nodeBuilder(Node parentNode);  // 递归构建子节点
+//calculate variance of array of ints 
+float calculateVariance(const vector<int>& result_values);
 
-} // namespace tree
+int getMaxFeature(Matrix& values, int feature_index);
+
+int getMinFeature(Matrix& values, int feature_index);
+
+float getMeanFeature(Matrix& values, int feature_index);
+
+vector<int> drawUniqueNumbers(int n, int rows);
+
+Threshold compareThresholds(vector<Threshold>& thresholds);
+
+Threshold bestThresholdColumn(Matrix& values, vector<float>& results, int column_index);
+
+Threshold findBestSplitRandom(Matrix& values, vector<float>& results, int sample_size);
+
+vector<int> splitOnThreshold(Threshold& threshold, Matrix& values);
+
+Node* nodeInitiate(Matrix& parameters, vector<float>& results);
+
+Node* nodeBuilder(Node* parentNode, Matrix& parameters, vector<float>& results, bool right);
+
+// namespace tree
 
 #endif // FUNCTIONS_TREE_H

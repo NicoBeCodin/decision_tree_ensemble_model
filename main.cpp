@@ -7,7 +7,11 @@
 #include <random>
 #include <algorithm>
 
-#include "functions.h"
+
+#include "functions_tree/functions_tree.h"
+#include "functions_io/functions_io.h"
+
+using namespace std;
 
 
 int main(){
@@ -47,7 +51,9 @@ int main(){
     Node* tree = nodeInitiate(parameters_values, results_values);
 
     printf("\n");
+     
     treePrinter(tree);
 
     return 0;
 }
+
