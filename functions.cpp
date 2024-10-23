@@ -4,6 +4,9 @@ using namespace std;
 
 typedef vector<vector<int>> Matrix;
 
+/* The openCSV function reads a csv file and transforms its *
+ * lines into a vector then stores it in a global vector      */
+
 vector<vector<string>> openCSV(string fname){
     vector<vector<string>> content;
     vector<string> row;
@@ -29,14 +32,18 @@ vector<vector<string>> openCSV(string fname){
     return content;
 }
 
+/* Same as openCSV, with an additional condition for reading the lines (with a loop) *
+ * , we take an additional parameter in input n, which will allow to stop the number * 
+ * of lines taken. This function is useful for tests to not take too many values     */
+
 vector<vector<string>> openCSVLimited(string fname, int n){
     vector<vector<string>> content;
     vector<string> row;
     string line, word;
     fstream file (fname, ios::in);
-    int i =0;
+    int i = 0;
     if (file.is_open()){
-        while(getline(file, line)&& i<n){
+        while(getline(file, line) && i<n){
             row.clear();
 
             stringstream str(line);
@@ -46,7 +53,6 @@ vector<vector<string>> openCSVLimited(string fname, int n){
             }
             content.push_back(row);
         }
-
     }
     else{
         //If it can't open csv file
@@ -56,30 +62,41 @@ vector<vector<string>> openCSVLimited(string fname, int n){
 }
 
 
+/* The printStringCSV function, print the file when it's a string in input */
 
-//Print the file when it's a string
 void printStringCSV(vector<vector<string>> content){
+    // Check if the vector is empty
+    if (content.empty()) {
+        cout << "The content is empty" << endl;
+        return;
+    }
+
     int row_size = content.size();
     int col_size = content[0].size();
 
-    for (int i = 0; i<row_size;++i){
-        for (int j=0; j<col_size;++j){
+    for (int i = 0; i < row_size; ++i){
+        for (int j = 0; j < col_size; ++j) {
             cout<<content[i][j]<<" ";
         }
         cout<<"\n";
     }
 }
 
+/* the getColumnIndex function seeks to determine the index of a specific column in a vector. *
+ * It returns the index if the column is found, and returns -1 if the column doesn't exist.   */
+
 int getColumnIndex(vector<string> header, string column_name){
     int header_size = header.size();
-    for (int i =0; i<header_size; ++i){
+    for (int i = 0; i < header_size; ++i) {
         if (header[i] == column_name) return i;
     }
     return -1;
 }
 
+/* The convertToInt function converts a character string into an integer. If the conversion *
+ * fails due to an invalid argument or an out-of-range value, it handles the error by       *
+ * displaying an explanatory message and re-throwing the exception.                         */                     
 
-//These converting functions are not "no-value" proof, this could be added
 int convertToInt(const std::string& str){
 
     try {
@@ -93,6 +110,8 @@ int convertToInt(const std::string& str){
     }
 }
 
+/* The convertToFloat function is same as the convertToInt function but for a float */
+
 float convertToFloat(const std::string& str) {
     try {
         return std::stof(str);  // Convert to float
@@ -105,9 +124,11 @@ float convertToFloat(const std::string& str) {
     }
 }
 
+/* The processParametersCSV function takes as input the contents of a CSV file in the        *
+ * form of vectors of string vectors. It passes the first line, which is a header, and then  *
+ * converts the integer values of each line (except for the last line, which concerns power, *
+ * which must not be converted).                                                             */
 
-//These two processing functions assumme the result is in last column
-//If this turns out not to be necessarly the case, getColumnIndex can be implemented
 Matrix processParametersCSV(vector<vector<string>>content)
 {
     int column_number = content[0].size();
@@ -117,13 +138,15 @@ Matrix processParametersCSV(vector<vector<string>>content)
     for (int i = 1; i<row_number; ++i){
         vector<int> processed_row;
         //Don't convert last row to int (performance is a float)
-        for (int j =0; j<column_number- 1; ++j){
+        for (int j = 0; j < column_number - 1; ++j){
             processed_row.push_back(convertToInt(content[i][j]));
         }
         processed_parameters.push_back(processed_row);
     }
     return processed_parameters;
 }
+
+
 
 vector<float> processResultsCSV(vector<vector<string>> content){
     vector<float> processed_result;
