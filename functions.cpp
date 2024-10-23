@@ -59,8 +59,11 @@ vector<vector<string>> openCSVLimited(string fname, int n){
 
 //Print the file when it's a string
 void printStringCSV(vector<vector<string>> content){
-        for (int i = 0; i<content.size();++i){
-        for (int j=0; j<content[i].size();++j){
+    int row_size = content.size();
+    int col_size = content[0].size();
+
+    for (int i = 0; i<row_size;++i){
+        for (int j=0; j<col_size;++j){
             cout<<content[i][j]<<" ";
         }
         cout<<"\n";
@@ -68,7 +71,8 @@ void printStringCSV(vector<vector<string>> content){
 }
 
 int getColumnIndex(vector<string> header, string column_name){
-    for (int i =0; i<header.size(); ++i){
+    int header_size = header.size();
+    for (int i =0; i<header_size; ++i){
         if (header[i] == column_name) return i;
     }
     return -1;
@@ -106,8 +110,8 @@ float convertToFloat(const std::string& str) {
 //If this turns out not to be necessarly the case, getColumnIndex can be implemented
 Matrix processParametersCSV(vector<vector<string>>content)
 {
-    size_t column_number = content[0].size();
-    size_t row_number = content.size();
+    int column_number = content[0].size();
+    int row_number = content.size();
     Matrix processed_parameters;
     //Skip first row (header)
     for (int i = 1; i<row_number; ++i){
@@ -124,8 +128,9 @@ Matrix processParametersCSV(vector<vector<string>>content)
 vector<float> processResultsCSV(vector<vector<string>> content){
     vector<float> processed_result;
     int result_column = content[0].size()-1;
+    int row_size = content.size();
     //Skip first row (header)
-    for (int i =1; i<content.size(); ++i){
+    for (int i =1; i<row_size; ++i){
         processed_result.push_back(convertToFloat(content[i][result_column]));
     }
     return processed_result;
@@ -133,8 +138,8 @@ vector<float> processResultsCSV(vector<vector<string>> content){
 
 
 void printParamAndResults(vector<string> header,Matrix parameters, vector<float> results){
-    size_t column_number = header.size();
-    size_t row_number = parameters.size();
+    int column_number = header.size();
+    int row_number = parameters.size();
 
     for (int k = 0; k<column_number; k++){
         cout<<header[k]<<" ";
@@ -162,7 +167,7 @@ Functions for tree decisions
 float calculateVariance(const vector<int>& result_values){
     if (result_values.empty()) {
         //This isn't an error case but still has to be noted
-        printf("result_values empty, can't calculate average! returning 0.0\n");
+        //printf("result_values empty, can't calculate average! returning 0.0\n");
         return 0.0;
     }
     float mean=0.0;
@@ -183,7 +188,8 @@ float calculateVariance(const vector<int>& result_values){
 //instead of trying out all values, get the min, max and mean of a feature list and work from there
 int getMaxFeature(Matrix values, int feature_index){
     int max =0;
-    for (int i =0; i<values.size(); ++i){
+    int row_size = values.size();
+    for (int i =0; i<row_size; ++i){
         if(values[i][feature_index]>max) max = values[i][feature_index];
     }
     return max;
@@ -191,7 +197,8 @@ int getMaxFeature(Matrix values, int feature_index){
 
 int getMinFeature(Matrix values, int feature_index){
     int min =999999;
-    for (int i =0; i<values.size(); ++i){
+    int row_size = values.size();
+    for (int i =0; i<row_size; ++i){
         if(values[i][feature_index]<min) min = values[i][feature_index];
     }
     return min;
@@ -199,18 +206,27 @@ int getMinFeature(Matrix values, int feature_index){
 
 float getMeanFeature(Matrix values, int feature_index){
     int mean =0;
-    for (int i =0; i<values.size(); ++i){
+    int row_size = values.size();
+    for (int i =0; i<row_size; ++i){
         mean += values[i][feature_index];
     }
     float average = (float)mean / ((float)values.size()); 
     return average;
 }
 
+
 //Draw unique numbers to serve as indexes for rows in random sampling
 vector<int> drawUniqueNumbers(int n, int rows){
     if (n > rows +1){
         printf("Row number is smaller than sample size, setting n =rows");
         n=rows; 
+        //return just a simple incremented array, no need for randomness
+        vector<int> vec(n);
+        generate(vec.begin(), vec.end(), [] {
+        static int i = 0;
+        return i++;
+        });
+        return vec;
     }
 
     vector<int> numbers(rows);
@@ -227,13 +243,12 @@ vector<int> drawUniqueNumbers(int n, int rows){
 }
 
 
-
-
 //compares the different best thresholds of each feature and returns the one m=with min weighted variance
-Threshold compareThresholds(vector<Threshold> thresholds){
+Threshold compareThresholds(vector<Threshold>& thresholds){
     Threshold best_threshold = thresholds[0]; 
+    int thresholds_size = thresholds.size();
     
-    for (int i=1; i<thresholds.size(); ++i){
+    for (int i=1; i<thresholds_size; ++i){
         if (thresholds[i].weighted_variance < best_threshold.weighted_variance){
             best_threshold = thresholds[i];
         }
@@ -242,18 +257,19 @@ Threshold compareThresholds(vector<Threshold> thresholds){
 }
 
 //Find for a feature the best threshold by minimizing variance 
-Threshold bestThresholdColumn(Matrix values, vector<float> results, int column_index){
+Threshold bestThresholdColumn(Matrix& values, vector<float>& results, int column_index){
 
     int best_threshold = 0;
     float min_weighted_variance = 999999.0;
+    int row_size = values.size();
     //For every value in of feature[i], use it as a threshold and see best score
-    for (int i =0; i<values.size(); ++i){
+    for (int i =0; i<row_size; ++i){
 
         int threshold = values[i][column_index];
         vector<int> left;
         vector<int> right;
 
-        for (int j = 0; j<values.size(); ++j){
+        for (int j = 0; j<row_size; ++j){
             //Strictly inferior, could also be inferior, could replace by float (int+ 0.5) for better splitting (don't know)
 
             //We split the data into two subgroups and calculate the weighted variance
@@ -270,11 +286,11 @@ Threshold bestThresholdColumn(Matrix values, vector<float> results, int column_i
         }
     }
 
-    return Threshold{column_index, best_threshold, min_weighted_variance};
+    return Threshold(column_index, best_threshold, min_weighted_variance);
 }
 
 //Implement random sampling: instead of trying out all the different threshholds, sample for example 30 values and try them out as thresholds.
-Threshold findBestSplitRandom(Matrix values, vector<float> results, int sample_size){
+Threshold findBestSplitRandom(Matrix& values, vector<float>& results, int sample_size){
     
     //Generate our sample Matrix of size sample_size
     Matrix sample_tab;
@@ -287,8 +303,8 @@ Threshold findBestSplitRandom(Matrix values, vector<float> results, int sample_s
 
     //Iterate through columns, finds best threshold for each column
     vector<Threshold> feature_threshold;
-
-    for (int i =0; i<values[0].size(); ++i){
+    int col_size = values[0].size();
+    for (int i =0; i<col_size; ++i){
         feature_threshold.push_back(bestThresholdColumn(sample_tab, sample_results, i));
     }
     Threshold best_threshold = compareThresholds(feature_threshold);
@@ -296,9 +312,10 @@ Threshold findBestSplitRandom(Matrix values, vector<float> results, int sample_s
 }
 
 //returns a list 
-vector<int> splitOnThreshold(Threshold threshold, Matrix values){
-    vector<int> goRight(values.size());
-    for (int i =0; i<values.size(); ++i){
+vector<int> splitOnThreshold(Threshold& threshold, Matrix& values){
+    vector<int> goRight;
+    int row_size = values.size();
+    for (int i =0; i<row_size; ++i){
         if (values[i][threshold.feature_index] < threshold.value){
             goRight.push_back(0);
         }
@@ -311,16 +328,17 @@ vector<int> splitOnThreshold(Threshold threshold, Matrix values){
 
 
 //Create initial node with all the data that will then create the other ones
-Node nodeInitiate(Matrix parameters, vector<float> results){
-    Node initialNode;
+Node* nodeInitiate(Matrix& parameters, vector<float>& results){
+    Node* initialNode = new Node();
 
     //Finds the best threshold
     //Sample size is defined as 30 but this has to be optimized, find a function with a good tradeoff between performance and accuracy
     Threshold nodeThreshold= findBestSplitRandom(parameters, results, 30);
-    initialNode.threshold = nodeThreshold;
+    initialNode->threshold = nodeThreshold;
     //We're building nodes not leaves (=final results of regression)
-    initialNode.isLeaf = false;
-    initialNode.nodeDepth = 1;
+    initialNode->isLeaf = false;
+    initialNode->nodeDepth = 1;
+    initialNode->data_size = (int)parameters.size();
 
     //Perform the split
     Matrix leftValues;
@@ -330,7 +348,8 @@ Node nodeInitiate(Matrix parameters, vector<float> results){
 
     //Get int vector that will tell which indexes go right or left
     vector<int> goRightIndex = splitOnThreshold(nodeThreshold, parameters);
-    for (int i =0; i<parameters.size(); ++i){
+    int row_size = parameters.size();
+    for (int i =0; i<row_size; ++i){
         if (goRightIndex[i] == 0){
             leftValues.push_back(parameters[i]);
             leftResults.push_back(results[i]);
@@ -340,17 +359,110 @@ Node nodeInitiate(Matrix parameters, vector<float> results){
             rightResults.push_back(results[i]);
         }
     }
+    printf("nodeInitiate split finished...\n");
+
+
     //CODE TO COMPLETE!!
     //Need to create the two subnodes with the splitted dataset by calling nodeBuilder function. Then have to put the two pointers in left and right
 
-    return initialNode;
+    //create an adress code for each node
+    Node* leftNode = nodeBuilder(initialNode, leftValues, leftResults, false);
 
+    initialNode->left = leftNode;
+    printf("initialNode.left process finished...\n");
+
+    Node* rightNode = nodeBuilder(initialNode, rightValues, rightResults, true);
+
+    initialNode->right = rightNode;
+    printf("initialNode.right process finished...\n");
+
+    return initialNode;
 }
 
 //this is a recursive function that should build two nodes from one parentNode
-//There must be a max depth limit
-Node nodeBuilder(Node parentNode){
-    Node node;
-    return node;
-}   
+//node builder is the same as nodeInitiate except it needs a parentNode
+Node* nodeBuilder(Node* parentNode, Matrix& parameters, vector<float>& results, bool right){
+    //Break case if depth is too big
+    int max_depth = 3;
+    Node* currentNode = new Node();
+    currentNode->data_size = (int)parameters.size();
+
+    int r = right ? 1: 0; 
+    currentNode->adress = parentNode->adress; 
+    currentNode->adress.push_back(r);
+    
+    printf("Node has %d values to start\n", (int)parameters.size());
+    if (parentNode->nodeDepth > max_depth){
+        //return a leaf = end of tree
+        currentNode->isLeaf =true;
+        currentNode->nodeDepth = parentNode->nodeDepth +1;
+        float mean = accumulate(results.begin(), results.end(), 0) / (float)results.size();
+        currentNode->value = mean;
+        printf("Leaf node created with mean: %f\n", mean);
+    } else {
+        //General case
+        currentNode->isLeaf = false;
+        currentNode->nodeDepth = parentNode->nodeDepth + 1;
+        Threshold nodeThreshold = findBestSplitRandom(parameters, results, 30);
+        currentNode->threshold = nodeThreshold;
+        printf("Threshold calculated to be on feature %d, value: %d, weighted_var: %f\n", nodeThreshold.feature_index, nodeThreshold.value, nodeThreshold.weighted_variance);
+
+        Matrix leftValues;
+        vector<float> leftResults;
+        Matrix rightValues;
+        vector<float> rightResults;
+
+        vector<int> goRightIndex = splitOnThreshold(nodeThreshold, parameters);
+        int row_size = parameters.size();
+        for (int i =0; i<row_size; ++i){
+        if (goRightIndex[i] == 0){
+            leftValues.push_back(parameters[i]);
+            leftResults.push_back(results[i]);
+        }
+        else {
+            rightValues.push_back(parameters[i]);
+            rightResults.push_back(results[i]);
+        }
+        }
+        printf("nodeBuilder splitting finished...\n");
+        printf("Left group size: %d, Right group size %d\n", (int)leftValues.size(), (int)rightValues.size());
+
+        Node* leftNode = nodeBuilder(currentNode, leftValues, leftResults, false);
+        currentNode->left = leftNode;
+
+        Node* rightNode = nodeBuilder(currentNode, rightValues, rightResults, true);
+        currentNode->right = rightNode;
+        
+        printf("nodeBuilder process finished...\n");
+    }
+
+    printf("Returning currentNode\n");
+    return currentNode;
+}  
+
+
+//print the tree structure and it's values
+void treePrinter(Node* tree){
+    printf("Printing tree...\n");
+    nodePrinter(tree);
+}
+
+void nodePrinter(Node* node){
+    if (!node->isLeaf){
+        printf("node adress: ");
+        for (auto i : node->adress) printf("%d", i);
+        printf("\n");
+        printf("node depth: %d\ndata size: %d\nthreshold feature_index: %d\nthreshold value %d\nweighted_variance %f\n\n", node->nodeDepth, node->data_size, node->threshold.feature_index, node->threshold.value, node->threshold.weighted_variance);
+        nodePrinter(node->left);
+        nodePrinter(node->right);        
+
+    }
+    else {
+        printf("\nleaf adress: ");
+        for (auto i : node->adress) printf("%d", i);
+        printf("\n");
+        printf("leaf depth: %d\ndata size: %d \nmean value: %f\n", node->nodeDepth, node->data_size, node->value);
+    }
+
+}
 
