@@ -32,7 +32,10 @@ vector<vector<string>> openCSV(string fname){
     return content;
 }
 
-// Function: Returns the number of rows in a CSV file
+/* The countCSVRows function counts the number of rows in a specified CSV file. *
+ * It reads the file line by line and increments a counter for each line.       *
+ * If the file cannot be opened, an error message is printed.                   */
+
 int countCSVRows(const std::string& filePath) {
     std::ifstream file(filePath);
     std::string line;
