@@ -1,36 +1,34 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
-
 #include <vector>
 #include <string>
 #include <fstream>
 #include <sstream>
 #include <iostream>
-#include "functions_tree.h"
-
+#include "../functions_tree/functions_tree.h"
 
 using namespace std;
 
-// 定义Matrix为二维整数向量的别名
+// Define Matrix as an alias for a 2D integer vector
 typedef vector<vector<int>> Matrix;
 
-// 函数声明
-vector<vector<string>> openCSV(string fname);  // 打开CSV文件并读取内容
-int countCSVRows(const std::string& filePath);  // 返回CSV文件的行数
-vector<vector<string>> openCSVLimited(string fname, int n);  // 读取指定行数的CSV数据
-void printStringCSV(vector<vector<string>> content);  // 打印CSV文件内容
+// Function declarations
+vector<vector<string>> openCSV(string fname);  // Open a CSV file and read its contents
+int countCSVRows(const std::string& filePath);  // Return the number of rows in a CSV file
+vector<vector<string>> openCSVLimited(string fname, int n);  // Read a specified number of rows from a CSV file
+void printStringCSV(vector<vector<string>> content);  // Print CSV file contents
 
-int getColumnIndex(vector<string> header, string column_name);  // 获取列名索引
-int convertToInt(const std::string& str);  // 将字符串转换为整数
-float convertToFloat(const std::string& str);  // 将字符串转换为浮点数
+int getColumnIndex(vector<string> header, string column_name);  // Get the index of a column by name
+int convertToInt(const std::string& str);  // Convert a string to an integer
+float convertToFloat(const std::string& str);  // Convert a string to a float
 
-Matrix processParametersCSV(vector<vector<string>> content);  // 处理CSV参数部分
-vector<float> processResultsCSV(vector<vector<string>> content);  // 处理CSV结果部分
+Matrix processParametersCSV(vector<vector<string>> content);  // Process the parameter part of the CSV file
+vector<float> processResultsCSV(vector<vector<string>> content);  // Process the result part of the CSV file
 
-void printParamAndResults(vector<string> header, Matrix parameters, vector<float> results);  // 打印参数和结果
+void printParamAndResults(vector<string> header, Matrix parameters, vector<float> results);  // Print parameters and results
 
-//print tree functions
+// Print tree functions
 void nodePrinter(Node* node);
 
 void treePrinter(Node* node);

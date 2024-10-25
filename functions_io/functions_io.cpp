@@ -1,44 +1,44 @@
 #include "functions_io.h"
-#include "functions_tree.h"
-
-
+#include "../functions_tree/functions_tree.h"
 
 using namespace std;
 
-typedef vector<vector<int>> Matrix;  // 定义Matrix为二维整数向量的别名
+typedef vector<vector<int>> Matrix;  // Define Matrix as an alias for a 2D integer vector
 
-// 打开CSV文件并读取内容，返回一个二维字符串向量
+/* The openCSV function reads a csv file and transforms its *
+ * lines into a vector then stores it in a global vector      */
+
 vector<vector<string>> openCSV(string fname){
-    vector<vector<string>> content;  // 存储CSV文件的内容
-    vector<string> row;  // 存储每一行的数据
-    string line, word;  // 用于存储读取的行和单词
-    fstream file (fname, ios::in);  // 打开文件以读取模式
+    vector<vector<string>> content;  // Store the contents of the CSV file
+    vector<string> row;  // Store each row's data
+    string line, word;  // Used to store the line and word being read
+    fstream file (fname, ios::in);  // Open the file in read mode
     if (file.is_open()){
         while(getline(file, line)){
-            row.clear();  // 清空行向量
+            row.clear();  // Clear the row vector
 
-            stringstream str(line);  // 将行数据转换为字符串流
+            stringstream str(line);  // Convert the line data into a string stream
 
-            while(getline(str, word, ',')){  // 按逗号分隔
-                row.push_back(word);  // 将单词添加到当前行
+            while(getline(str, word, ',')){  // Separate by comma
+                row.push_back(word);  // Add the word to the current row
             }
-            content.push_back(row);  // 将行添加到内容中
+            content.push_back(row);  // Add the row to the content
         }
 
     } else {
-        // 如果无法打开文件
-        cout<<"Failed to open " << fname <<endl;
+        // If unable to open the file
+        cout << "Failed to open " << fname << endl;
     }
     return content;
 }
 
-// 函数：返回CSV文件的行数
+// Function: Returns the number of rows in a CSV file
 int countCSVRows(const std::string& filePath) {
     std::ifstream file(filePath);
     std::string line;
     int rowCount = 0;
 
-    // 打开文件并逐行读取，统计行数
+    // Open the file and read line by line to count rows
     if (file.is_open()) {
         while (std::getline(file, line)) {
             rowCount++;
@@ -51,58 +51,67 @@ int countCSVRows(const std::string& filePath) {
     return rowCount;
 }
 
-// 打开CSV文件并读取指定行数的数据
+/* Same as openCSV, with an additional condition for reading the lines (with a loop) *
+ * , we take an additional parameter in input n, which will allow to stop the number * 
+ * of lines taken. This function is useful for tests to not take too many values     */
+
 vector<vector<string>> openCSVLimited(string fname, int n){
-    vector<vector<string>> content;  // 存储CSV文件的内容
-    vector<string> row;  // 存储每一行的数据
-    string line, word;  // 用于存储读取的行和单词
-    fstream file (fname, ios::in);  // 打开文件以读取模式
+    vector<vector<string>> content;  // Store the contents of the CSV file
+    vector<string> row;  // Store each row's data
+    string line, word;  // Used to store the line and word being read
+    fstream file (fname, ios::in);  // Open the file in read mode
     int i = 0;
     if (file.is_open()){
-        while(getline(file, line) && i < n){  // 读取指定数量的行
-            row.clear();  // 清空行向量
+        while(getline(file, line) && i < n){  // Read up to the specified number of rows
+            row.clear();  // Clear the row vector
 
-            stringstream str(line);  // 将行数据转换为字符串流
+            stringstream str(line);  // Convert the line data into a string stream
 
-            while(getline(str, word, ',')){  // 按逗号分隔
-                row.push_back(word);  // 将单词添加到当前行
+            while(getline(str, word, ',')){  // Separate by comma
+                row.push_back(word);  // Add the word to the current row
             }
-            content.push_back(row);  // 将行添加到内容中
-            i++;  // 增加行计数
+            content.push_back(row);  // Add the row to the content
+            i++;  // Increase the row count
         }
 
     } else {
-        // 如果无法打开文件
-        cout<<"Failed to open " << fname <<endl;
+        // If unable to open the file
+        cout << "Failed to open " << fname << endl;
     }
     return content;
 }
 
-// 打印CSV文件内容
+/* The printStringCSV function, print the content of file when it's a vetor of string vector in input */
+
 void printStringCSV(vector<vector<string>> content){
     int row_size = content.size();
     int col_size = content[0].size();
 
-    for (size_t i = 0; i < row_size; ++i){  // 遍历每一行
-        for (size_t j = 0; j < col_size; ++j){  // 遍历每一列
-            cout<<content[i][j]<<" ";  // 打印当前单元格的值
+    for (size_t i = 0; i < row_size; ++i){  // Iterate over each row
+        for (size_t j = 0; j < col_size; ++j){  // Iterate over each column
+            cout << content[i][j] << " ";  // Print the current cell value
         }
-        cout<<"\n";  // 换行
+        cout << "\n";  // New line
     }
 }
 
-// 获取列名在表头中的索引
+/* the getColumnIndex function seeks to determine the index of a specific column in a vector. *
+ * It returns the index if the column is found, and returns -1 if the column doesn't exist.   */
+
 int getColumnIndex(vector<string> header, string column_name){
     for (size_t i = 0; i < header.size(); ++i){
-        if (header[i] == column_name) return i;  // 找到列名对应的索引
+        if (header[i] == column_name) return i;  // Find the index corresponding to the column name
     }
-    return -1;  // 如果未找到返回-1
+    return -1;  // Return -1 if not found
 }
 
-// 将字符串转换为整数
+/* The convertToInt function converts a character string into an integer. If the conversion *
+ * fails due to an invalid argument or an out-of-range value, it handles the error by       *
+ * displaying an explanatory message and re-throwing the exception.                         */
+
 int convertToInt(const std::string& str){
     try {
-        return std::stoi(str);  // 转换为整数
+        return std::stoi(str);  // Convert to integer
     } catch (const std::invalid_argument& e) {
         std::cerr << "Invalid argument: Cannot convert '" << str << "' to int.\n";
         throw;
@@ -112,10 +121,11 @@ int convertToInt(const std::string& str){
     }
 }
 
-// 将字符串转换为浮点数
+/* The convertToFloat function is same as the convertToInt function but for a float */
+
 float convertToFloat(const std::string& str) {
     try {
-        return std::stof(str);  // 转换为浮点数
+        return std::stof(str);  // Convert to float
     } catch (const std::invalid_argument& e) {
         std::cerr << "Invalid argument: Cannot convert '" << str << "' to float.\n";
         throw;
@@ -125,77 +135,90 @@ float convertToFloat(const std::string& str) {
     }
 }
 
-// 处理CSV文件的参数部分，假设结果列是最后一列，返回矩阵
+/* The processParametersCSV function takes as input the contents of a CSV file in the        *
+ * form of vectors of string vectors. It passes the first line, which is a header, and then  *
+ * converts the integer values of each line (except for the last line, which concerns power, *
+ * which must not be converted).                                                             */
+
 Matrix processParametersCSV(vector<vector<string>> content){
-    size_t column_number = content[0].size();  // 获取列数
-    size_t row_number = content.size();  // 获取行数
-    Matrix processed_parameters;  // 存储处理后的参数
-    // 跳过表头行
+    size_t column_number = content[0].size();  // Get the number of columns
+    size_t row_number = content.size();  // Get the number of rows
+    Matrix processed_parameters;  // Store the processed parameters
+    // Skip the header row
     for (size_t i = 1; i < row_number; ++i){
         vector<int> processed_row;
-        // 将除最后一列外的列转换为整数
+        // Convert columns except the last one to integers
         for (size_t j = 0; j < column_number - 1; ++j){
-            processed_row.push_back(convertToInt(content[i][j]));  // 转换为整数
+            processed_row.push_back(convertToInt(content[i][j]));  // Convert to integer
         }
-        processed_parameters.push_back(processed_row);  // 添加处理后的行
+        processed_parameters.push_back(processed_row);  // Add the processed row
     }
     return processed_parameters;
 }
 
-// 处理CSV文件的结果部分，假设结果在最后一列，返回浮点数向量
+/* The processResultsCSV function takes as input the contents of a CSV file in the 
+ * form of vectors of string vectors. It skips the first line, which is a header, and then
+ * converts the values in the last column of each line (assumed to be the result or target values)
+ * to floating-point numbers, storing them in a vector to be returned. */
+
 vector<float> processResultsCSV(vector<vector<string>> content){
-    vector<float> processed_result;  // 存储处理后的结果
-    int result_column = content[0].size() - 1;  // 获取结果列的索引
-    // 跳过表头行
+    vector<float> processed_result;  // Store the processed results
+    int result_column = content[0].size() - 1;  // Get the index of the result column
+    // Skip the header row
     for (size_t i = 1; i < content.size(); ++i){
-        processed_result.push_back(convertToFloat(content[i][result_column]));  // 转换为浮点数并添加到结果
+        processed_result.push_back(convertToFloat(content[i][result_column]));  // Convert to float and add to results
     }
     return processed_result;
 }
 
-// 打印参数和结果
-void printParamAndResults(vector<string> header, Matrix parameters, vector<float> results){
-    size_t column_number = header.size();  // 获取列数
-    size_t row_number = parameters.size();  // 获取行数
+/* The printParamAndResults function displays the headers, parameters and associated results of a data set in an array format */
 
-    // 打印表头
+void printParamAndResults(vector<string> header, Matrix parameters, vector<float> results){
+    size_t column_number = header.size();  // Get the number of columns
+    size_t row_number = parameters.size();  // Get the number of rows
+
+    // Print header
     for (size_t k = 0; k < column_number; k++){
         cout << header[k] << " ";
     }
     printf("\n");
 
-    // 打印参数和对应的结果
+    // Print parameters and corresponding results
     for (size_t i = 0; i < row_number; ++i){
         for (size_t j = 0; j < column_number - 1; ++j){
-            cout << parameters[i][j] << " ";  // 打印每行参数
+            cout << parameters[i][j] << " ";  // Print each row's parameters
         }
-        cout << results[i] << " " << endl;  // 打印结果
+        cout << results[i] << " " << endl;  // Print the result
     }
 }
 
+/* The nodePrinter function recursively prints details of a given node in the tree.                      *
+ * For non-leaf nodes, it displays the address, depth, data size, threshold feature index,               *
+ * threshold value, and weighted variance, then recursively calls itself on the left and right children. *
+ * For leaf nodes, it displays the address, depth, data size, and mean value.                            */
 void nodePrinter(Node* node){
     if (!node->isLeaf){
-        printf("node adress: ");
-        for (auto i : node->adress) printf("%d", i);
+        printf("Node address: ");
+        for (auto i : node->address) printf("%d", i);
         printf("\n");
-        printf("node depth: %d\ndata size: %d\nthreshold feature_index: %d\nthreshold value %d\nweighted_variance %f\n\n", node->nodeDepth, node->data_size, node->threshold.feature_index, node->threshold.value, node->threshold.weighted_variance);
+        printf("Node depth: %d\nData size: %d\nThreshold feature_index: %d\nThreshold value: %d\nWeighted variance: %f\n\n", node->nodeDepth, node->data_size, node->threshold.feature_index, node->threshold.value, node->threshold.weighted_variance);
         nodePrinter(node->left);
         nodePrinter(node->right);        
 
     }
     else {
-        printf("\nleaf adress: ");
-        for (auto i : node->adress) printf("%d", i);
+        printf("\nLeaf address: ");
+        for (auto i : node->address) printf("%d", i);
         printf("\n");
-        printf("leaf depth: %d\ndata size: %d \nmean value: %f\n", node->nodeDepth, node->data_size, node->value);
+        printf("Leaf depth: %d\nData size: %d\nMean value: %f\n", node->nodeDepth, node->data_size, node->value);
     }
-
 }
 
-//print the tree structure and it's values
+/* The treePrinter function serves as the main entry point for printing the structure        *
+ * and details of the entire tree. It starts by printing a header and then calls nodePrinter *
+ * on the root node, which recursively traverses and prints each node in the tree.           */
+
 void treePrinter(Node* root){
     printf("Printing tree...\n");
     nodePrinter(root);
 }
-
-
