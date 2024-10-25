@@ -1,14 +1,19 @@
 #include "functions_tree.h"
-#include <iostream>  // 引入iostream头文件以使用标准库中的输出函数
-#include <vector>    // 引入vector头文件
-#include <random>    // 引入random头文件
-#include <algorithm> // 引入algorithm头文件以使用std::shuffle
+#include <iostream>  // Include the iostream header to use output functions from the standard library
+#include <vector>    // Include the vector header
+#include <random>    // Include the random header
+#include <algorithm> // Include the algorithm header to use std::shuffle
 
 using namespace std;
 
 
 
-//calculate variance of array of ints 
+/* The calculateVariance function computes the variance of an array of integers. *
+ * It first checks if the array is empty, returning 0.0 if it is.                *
+ * Then, it calculates the mean of the values and determines the variance        *
+ * based on that mean. The function returns the calculated variance.             *
+ * It could be adjusted to provide an unbiased estimate of variance.             */
+ 
 float calculateVariance(const vector<int>& result_values){
     if (result_values.empty()) {
         //This isn't an error case but still has to be noted
@@ -30,7 +35,11 @@ float calculateVariance(const vector<int>& result_values){
 
 }
 
-//instead of trying out all values, get the min, max and mean of a feature list and work from there
+/* The getMaxFeature function finds the maximum value of a specific feature  *
+ * across all rows in a given matrix. It iterates through each row, checking *
+ * the specified feature index and updating the maximum value accordingly.   *
+ * The function returns the highest value found for the specified feature.   */
+
 int getMaxFeature(Matrix values, int feature_index){
     int max =0;
     int row_size = values.size();
@@ -40,6 +49,11 @@ int getMaxFeature(Matrix values, int feature_index){
     return max;
 }
 
+/* The getMinFeature function finds the minimum value of a specific feature  *
+ * across all rows in a given matrix. It iterates through each row, checking *
+ * the specified feature index and updating the minimum value accordingly.   *
+ * The function returns the lowest value found for the specified feature.    */
+
 int getMinFeature(Matrix values, int feature_index){
     int min =999999;
     int row_size = values.size();
@@ -48,6 +62,12 @@ int getMinFeature(Matrix values, int feature_index){
     }
     return min;
 }
+
+/* The getMeanFeature function calculates the mean value of a specific feature  *
+ * across all rows in a given matrix. It iterates through each row, summing the *
+ * values of the specified feature index. The average is then computed by       *
+ * dividing the total sum by the number of rows. The function returns the       *
+ * calculated mean value for the specified feature.                             */
 
 float getMeanFeature(Matrix values, int feature_index){
     int mean =0;
@@ -60,7 +80,13 @@ float getMeanFeature(Matrix values, int feature_index){
 }
 
 
-//Draw unique numbers to serve as indexes for rows in random sampling
+/* The drawUniqueNumbers function generates a vector of unique indices for        *
+ * random sampling from a given number of rows. If the sample size (n) is         *
+ * greater than the total number of rows, it adjusts n to be equal to rows and    *
+ * returns a simple incremented array. Otherwise, it initializes a vector with    *
+ * row indices, shuffles them randomly, and selects the first n unique indices.   *
+ * The function returns a vector containing the randomly selected unique indices. */
+
 vector<int> drawUniqueNumbers(int n, int rows){
     if (n > rows +1){
         printf("Row number is smaller than sample size, setting n =rows");
@@ -88,7 +114,13 @@ vector<int> drawUniqueNumbers(int n, int rows){
 }
 
 
-//compares the different best thresholds of each feature and returns the one m=with min weighted variance
+/* The compareThresholds function evaluates the best thresholds from a vector    *
+ * of Threshold objects and returns the one with the minimum weighted variance.  *
+ * It initializes the best_threshold to the first element and iterates through   *
+ * the remaining thresholds, updating the best_threshold whenever it finds a     *
+ * threshold with a lower weighted variance. The function ultimately returns the *
+ * threshold that minimizes the weighted variance.                               */
+
 Threshold compareThresholds(vector<Threshold>& thresholds){
     Threshold best_threshold = thresholds[0]; 
     int thresholds_size = thresholds.size();
@@ -101,7 +133,15 @@ Threshold compareThresholds(vector<Threshold>& thresholds){
     return best_threshold;
 }
 
-//Find for a feature the best threshold by minimizing variance 
+/* The bestThresholdColumn function determines the optimal threshold for a       *
+ * specified feature in order to minimize the variance. It iterates through each *
+ * value of the feature as a potential threshold, splitting the data into two    *
+ * subgroups based on this threshold. For each split, it calculates the weighted *
+ * variance of the left and right subgroups. The function keeps track of the     *
+ * threshold that results in the lowest weighted variance. Finally, it returns a *
+ * Threshold object containing the column index, the best threshold, and the     *
+ * minimum weighted variance found.                                              */
+
 Threshold bestThresholdColumn(Matrix& values, vector<float>& results, int column_index){
 
     int best_threshold = 0;
@@ -134,7 +174,15 @@ Threshold bestThresholdColumn(Matrix& values, vector<float>& results, int column
     return Threshold(column_index, best_threshold, min_weighted_variance);
 }
 
-//Implement random sampling: instead of trying out all the different threshholds, sample for example 30 values and try them out as thresholds.
+/* The findBestSplitRandom function implements random sampling to determine the    *
+ * optimal threshold for splitting data in a given feature. Instead of evaluating  *
+ * all possible thresholds, it randomly samples a specified number of values from  *
+ * the dataset to use as potential thresholds. The function first generates a      *
+ * sample matrix and corresponding results based on unique random indexes. It then *
+ * iterates through each feature column, determining the best threshold for each   *
+ * column using the sampled data. Finally, it compares the thresholds across all   *
+ * features and returns the threshold with the lowest weighted variance.           */
+
 Threshold findBestSplitRandom(Matrix& values, vector<float>& results, int sample_size){
     
     //Generate our sample Matrix of size sample_size
@@ -156,7 +204,13 @@ Threshold findBestSplitRandom(Matrix& values, vector<float>& results, int sample
     return best_threshold; 
 }
 
-//returns a list 
+/* The splitOnThreshold function takes a Threshold object and a matrix of values as   *
+ * inputs. It iterates through each row of the matrix, checking the specified feature *
+ * index against the threshold value. For each row, it appends a value to the output  *
+ * vector: a 0 if the feature value is less than the threshold, and a 1 if it is      *
+ * greater than or equal to the threshold. The function returns a vector indicating   *
+ * the direction (left or right) for each row based on the threshold.                 */
+
 vector<int> splitOnThreshold(Threshold& threshold, Matrix& values){
     vector<int> goRight;
     int row_size = values.size();
@@ -172,7 +226,15 @@ vector<int> splitOnThreshold(Threshold& threshold, Matrix& values){
 }
 
 
-//Create initial node with all the data that will then create the other ones
+/* The nodeInitiate function creates an initial node for a decision tree using a matrix of    *
+ * parameters and a vector of results. It first finds the best threshold for splitting the    *
+ * data by calling the findBestSplitRandom function with a sample size of 30, which should    *
+ * be optimized for performance and accuracy. The function initializes the node's properties, *
+ * such as depth and data size, and then splits the data into left and right subsets based    *
+ * on the selected threshold. It subsequently calls the nodeBuilder function to create        *
+ * subnodes for the left and right splits, assigning them to the initial node's left and      *
+ * right pointers, respectively. Finally, it returns the initialized node.                    */
+
 Node* nodeInitiate(Matrix& parameters, vector<float>& results){
     Node* initialNode = new Node();
 
@@ -224,8 +286,15 @@ Node* nodeInitiate(Matrix& parameters, vector<float>& results){
     return initialNode;
 }
 
-//this is a recursive function that should build two nodes from one parentNode
-//node builder is the same as nodeInitiate except it needs a parentNode
+/* The nodeBuilder function is a recursive function that constructs child nodes from a given *
+ * parent node in a decision tree. It first checks if the maximum depth of the tree has      *
+ * been reached; if so, it creates a leaf node with the mean of the results as its value.    *
+ * If the depth is within limits, it calculates the best threshold for splitting the data    *
+ * using the findBestSplitRandom function. The data is then divided into left and right      *
+ * subsets based on this threshold. The function then recursively calls itself to build      *
+ * left and right child nodes, linking them to the current node. Finally, it returns the     *
+ * newly created node, which could either be a leaf or a decision node.                      */
+
 Node* nodeBuilder(Node* parentNode, Matrix& parameters, vector<float>& results, bool right){
     //Break case if depth is too big
     int max_depth = 3;
