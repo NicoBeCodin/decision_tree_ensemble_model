@@ -9,8 +9,8 @@
 #include <numeric>
 
 int main() {
-    std::string inputFilePath = "datasets/15k_random.csv"; // Input CSV file path
-    std::string outputFilePath = "datasets/cleaned_data.csv"; // Output CSV file path
+    std::string inputFilePath = "/home/yifan/桌面/31_10_ppn/decision_tree_ensemble_model/datasets/15k_random.csv"; // Input CSV file path
+    std::string outputFilePath = "/home/yifan/桌面/31_10_ppn/decision_tree_ensemble_model/datasets/cleaned_data.csv"; // Output CSV file path
     std::string header;  // To save the header
     int numBins = 50;  // Number of bins for binning
 
