@@ -87,8 +87,8 @@ vector<vector<string>> openCSVLimited(string fname, int n){
 /* The printStringCSV function, print the content of file when it's a vetor of string vector in input */
 
 void printStringCSV(vector<vector<string>> content){
-    int row_size = content.size();
-    int col_size = content[0].size();
+    size_t row_size = content.size();
+    size_t col_size = content[0].size();
 
     for (size_t i = 0; i < row_size; ++i){  // Iterate over each row
         for (size_t j = 0; j < col_size; ++j){  // Iterate over each column
@@ -202,7 +202,7 @@ void printParamAndResults(vector<string> header, Matrix parameters, vector<float
 void nodePrinter(Node* node){
     if (!node->isLeaf){
         printf("Node address: ");
-        for (auto i : node->address) printf("%d", i);
+        for (auto i : node->adress) printf("%d", i);
         printf("\n");
         printf("Node depth: %d\nData size: %d\nThreshold feature_index: %d\nThreshold value: %d\nWeighted variance: %f\n\n", node->nodeDepth, node->data_size, node->threshold.feature_index, node->threshold.value, node->threshold.weighted_variance);
         nodePrinter(node->left);
@@ -211,7 +211,7 @@ void nodePrinter(Node* node){
     }
     else {
         printf("\nLeaf address: ");
-        for (auto i : node->address) printf("%d", i);
+        for (auto i : node->adress) printf("%d", i);
         printf("\n");
         printf("Leaf depth: %d\nData size: %d\nMean value: %f\n", node->nodeDepth, node->data_size, node->value);
     }
