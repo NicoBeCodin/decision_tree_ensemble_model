@@ -1,14 +1,16 @@
-#ifndef FUNCTIONS_H
-#define FUNCTIONS_H
+#ifndef FUNCTIONS_IO_H
+#define FUNCTIONS_IO_H
 
 #include <vector>
 #include <string>
 #include <fstream>
 #include <sstream>
 #include <iostream>
-#include "../functions_tree/functions_tree.h"
 
 using namespace std;
+
+// Early declaration of Node to avoid circular dependencies
+struct Node;
 
 // Define Matrix as an alias for a 2D integer vector
 typedef vector<vector<int>> Matrix;
@@ -33,4 +35,4 @@ void nodePrinter(Node* node);
 
 void treePrinter(Node* node);
 
-#endif // FUNCTIONS_H
+#endif // FUNCTIONS_IO_H
