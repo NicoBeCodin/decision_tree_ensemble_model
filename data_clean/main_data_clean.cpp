@@ -14,18 +14,18 @@ int main() {
     std::string header;  // To save the header
     int numBins = 50;  // Number of bins for binning
 
-    // 读取数据并保存表头
+
     std::vector<DataRow> dataset = readCSV(inputFilePath, header);
 
-    // 先进行 Z 分数清理
+    // cleaning by the Z function
     std::vector<DataRow> cleanedData = removeOutliers(dataset);
     std::cout << "Z 分数清理已完成。" << std::endl;
 
-    // 再进行分箱清理
+    // cleaning bag
     cleanedData = removeOutliersByBinning(cleanedData, numBins);
     std::cout << "分箱清理已完成。" << std::endl;
 
-    // 将清理后的数据写入新的 CSV 文件
+    // write the data after cleaning into the new csv
     writeCSV(outputFilePath, header, cleanedData);
 
     std::cout << "清理后的数据已保存至 " << outputFilePath << std::endl;
