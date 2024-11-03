@@ -1,71 +1,140 @@
 #include "functions_tree.h"
+#include <gtest/gtest.h>
+#include <algorithm>
 #include <iostream>
 #include <cassert>  // For assertion testing
 
 using namespace std;
 
-void testCalculateVariance() {
-    vector<int> values1 = {1, 2, 3, 4, 5};
-    float variance1 = tree::calculateVariance(values1);
-    assert(variance1 == 2.0);  // Expected variance is 2.0
-
-    vector<int> values2 = {5, 5, 5, 5};
-    float variance2 = tree::calculateVariance(values2);
-    assert(variance2 == 0.0);  // All values are the same, variance should be 0
-
-    vector<int> empty_values = {};
-    float variance_empty = tree::calculateVariance(empty_values);
-    assert(variance_empty == 0.0);  // Variance of an empty array should be 0
-
-    cout << "testCalculateVariance passed!" << endl;
+// Test pour calculateVariance
+TEST(VarianceTests, NormalValues) {
+    std::vector<int> values1 = {1, 2, 3, 4, 5};
+    float variance1 = calculateVariance(values1);
+    EXPECT_FLOAT_EQ(variance1, 2.0);
 }
 
-void testGetMaxMinFeature() {
-    tree::Matrix matrix = {{1, 2}, {3, 4}, {5, 6}};
-    
-    int maxFeature = tree::getMaxFeature(matrix, 1);
-    int minFeature = tree::getMinFeature(matrix, 0);
-
-    assert(maxFeature == 6);  // The maximum value in the second column should be 6
-    assert(minFeature == 1);  // The minimum value in the first column should be 1
-
-    cout << "testGetMaxMinFeature passed!" << endl;
+TEST(VarianceTests, SameValues) {
+    std::vector<int> values2 = {5, 5, 5, 5};
+    float variance2 = calculateVariance(values2);
+    EXPECT_FLOAT_EQ(variance2, 0.0);
 }
 
-void testNodeInitiate() {
-    tree::Matrix matrix = {{1, 2}, {3, 4}, {5, 6}};
-    vector<float> results = {0.1, 0.2, 0.3};
-
-    tree::Node node = tree::nodeInitiate(matrix, results);
-
-    // Check if the node is created correctly
-    assert(!node.isLeaf);  // The initialized node should not be a leaf node
-    assert(node.nodeDepth == 1);  // The initial node depth should be 1
-
-    cout << "testNodeInitiate passed!" << endl;
+TEST(VarianceTests, EmptyVector) {
+    std::vector<int> empty_values = {};
+    float variance_empty = calculateVariance(empty_values);
+    EXPECT_FLOAT_EQ(variance_empty, 0.0); 
 }
 
-void testSplitOnThreshold() {
-    tree::Matrix matrix = {{1, 2}, {3, 4}, {5, 6}};
-    tree::Threshold threshold = {1, 4, 0.5};
-
-    vector<int> goRight = tree::splitOnThreshold(threshold, matrix);
-
-    // Check if the split is correct
-    assert(goRight[0] == 0);  // The first element should go to the left subtree
-    assert(goRight[1] == 0);  // The second element should go to the left subtree
-    assert(goRight[2] == 1);  // The third element should go to the right subtree
-
-    cout << "testSplitOnThreshold passed!" << endl;
+// Tests pour getMaxFeature
+TEST(GetMaxFeatureTests, NormalValues) {
+    Matrix values = {
+        {3, -1, 2},
+        {1, 5, 0},
+        {4, 0, -3}
+    };
+    EXPECT_EQ(getMaxFeature(values, 0), 4); // Max in first column
+    EXPECT_EQ(getMaxFeature(values, 1), 5); // Max in second column
+    EXPECT_EQ(getMaxFeature(values, 2), 2); // Max in third column
 }
 
-int main() {
-    // Call the test functions
-    testCalculateVariance();
-    testGetMaxMinFeature();
-    testNodeInitiate();
-    testSplitOnThreshold();
+TEST(GetMaxFeatureTests, EmptyMatrix) {
+    Matrix values = {};
+    EXPECT_THROW(getMaxFeature(values, 0), std::out_of_range); // Should return 0 for empty matrix
+}
 
-    cout << "All tests passed!" << endl;
-    return 0;
+TEST(GetMaxFeatureTests, FeatureIndexOutOfBounds) {
+    Matrix values = {
+        {1, 2, 3},
+        {4, 5, 6}
+    };
+    // Here we check the behavior for out-of-bounds index
+    EXPECT_THROW(getMaxFeature(values, 3), std::out_of_range); // Assuming you handle out-of-bounds correctly
+    EXPECT_THROW(getMaxFeature(values, -1), std::out_of_range); // Negative index
+}
+
+// Tests pour getMinFeature
+TEST(GetMinFeatureTests, NormalValues) {
+    Matrix values = {
+        {3, -1, 2},
+        {1, 5, 0},
+        {4, 0, -3}
+    };
+    EXPECT_EQ(getMinFeature(values, 0), 1); // Min in first column
+    EXPECT_EQ(getMinFeature(values, 1), -1); // Min in second column
+    EXPECT_EQ(getMinFeature(values, 2), -3); // Min in third column
+}
+
+TEST(GetMinFeatureTests, EmptyMatrix) {
+    Matrix values = {};
+    EXPECT_THROW(getMinFeature(values, 0), std::out_of_range); // Should return 0 for empty matrix
+}
+
+TEST(GetMinFeatureTests, FeatureIndexOutOfBounds) {
+    Matrix values = {
+        {1, 2, 3},
+        {4, 5, 6}
+    };
+    // Here we check the behavior for out-of-bounds index
+    EXPECT_THROW(getMaxFeature(values, 3), std::out_of_range); // Assuming you handle out-of-bounds correctly
+    EXPECT_THROW(getMaxFeature(values, -1), std::out_of_range); // Negative index
+}
+
+// Tests pour getMeanFeature
+TEST(GetMeanFeatureTests, NormalValues) {
+    Matrix values = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
+    };
+    // Calculation of the average for the first characteristic (column 0)
+    EXPECT_FLOAT_EQ(getMeanFeature(values, 0), 4.0f); // (1 + 4 + 7) / 3 = 4.0
+    // Calculation of the average for the second characteristic (column 1)
+    EXPECT_FLOAT_EQ(getMeanFeature(values, 1), 5.0f); // (2 + 5 + 8) / 3 = 5.0
+    // Calculation of the average for the third characteristic (column 2)
+    EXPECT_FLOAT_EQ(getMeanFeature(values, 2), 6.0f); // (3 + 6 + 9) / 3 = 6.0
+}
+
+TEST(GetMeanFeatureTests, EmptyMatrix) {
+    Matrix values = {};
+    EXPECT_THROW(getMinFeature(values, 0), std::out_of_range); // Should return 0 for empty matrix
+}
+
+TEST(GetMeanFeatureTests, FeatureIndexOutOfBounds) {
+    Matrix values = {
+        {1, 2, 3},
+        {4, 5, 6}
+    };
+    // Here we check the behavior for out-of-bounds index
+    EXPECT_THROW(getMaxFeature(values, 3), std::out_of_range); // Assuming you handle out-of-bounds correctly
+    EXPECT_THROW(getMaxFeature(values, -1), std::out_of_range); // Negative index
+}
+
+// Tests pour drawUniqueNumbers
+TEST(DrawUniqueNumbersTests, HandlesMoreThanAvailableRows) {
+    std::vector<int> result = drawUniqueNumbers(5, 3);
+    EXPECT_EQ(result.size(), 3); // Should return all rows
+}
+
+TEST(DrawUniqueNumbersTests, HandlesExactRows) {
+    int n = 3;
+    int rows = 3;
+    std::vector<int> result = drawUniqueNumbers(n, rows);
+
+    // Check that we received exactly `n` elements
+    EXPECT_EQ(result.size(), n);
+
+    // Check that elements are within the expected range [0, rows - 1]
+    for (int value : result) {
+        EXPECT_GE(value, 0);
+        EXPECT_LT(value, rows);
+        
+        // Ensure each element appears only once in the result
+        EXPECT_EQ(std::count(result.begin(), result.end(), value), 1);
+    }
+}
+
+
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }

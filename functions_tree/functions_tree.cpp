@@ -41,9 +41,20 @@ float calculateVariance(const vector<int>& result_values){
  * The function returns the highest value found for the specified feature.   */
 
 int getMaxFeature(Matrix& values, int feature_index){
-    int max =0;
+    // Check if matrix is empty
+    if (values.empty() || values[0].empty()) {
+        throw std::out_of_range("Matrix is empty");
+    }
+
+    // Checks whether the characteristic index is outside the limits
+    if (feature_index < 0 || feature_index >= (int)values[0].size()) {
+        throw std::out_of_range("Feature index is out of bounds");
+    }
+
+    int max = values[0][feature_index];
     int row_size = values.size();
-    for (int i =0; i<row_size; ++i){
+
+    for (int i = 0; i < row_size; ++i){
         if(values[i][feature_index]>max) max = values[i][feature_index];
     }
     return max;
@@ -55,9 +66,19 @@ int getMaxFeature(Matrix& values, int feature_index){
  * The function returns the lowest value found for the specified feature.    */
 
 int getMinFeature(Matrix& values, int feature_index){
-    int min =999999;
+    // Check if matrix is empty
+    if (values.empty() || values[0].empty()) {
+        throw std::out_of_range("Matrix is empty");
+    }
+
+    // Checks whether the characteristic index is outside the limits
+    if (feature_index < 0 || feature_index >= (int)values[0].size()) {
+        throw std::out_of_range("Feature index is out of bounds");
+    }
+
+    int min = values[0][feature_index];
     int row_size = values.size();
-    for (int i =0; i<row_size; ++i){
+    for (int i = 0; i < row_size; ++i){
         if(values[i][feature_index]<min) min = values[i][feature_index];
     }
     return min;
@@ -70,9 +91,20 @@ int getMinFeature(Matrix& values, int feature_index){
  * calculated mean value for the specified feature.                             */
 
 float getMeanFeature(Matrix& values, int feature_index){
-    int mean =0;
+    // Check if matrix is empty
+    if (values.empty() || values[0].empty()) {
+        throw std::out_of_range("Matrix is empty");
+    }
+
+    // Checks whether the characteristic index is outside the limits
+    if (feature_index < 0 || feature_index >= (int)values[0].size()) {
+        throw std::out_of_range("Feature index is out of bounds");
+    }
+
+    int mean = 0;
     int row_size = values.size();
-    for (int i =0; i<row_size; ++i){
+
+    for (int i = 0; i < row_size; ++i){
         mean += values[i][feature_index];
     }
     float average = (float)mean / ((float)values.size()); 
