@@ -40,7 +40,7 @@ float calculateVariance(const vector<int>& result_values){
  * the specified feature index and updating the maximum value accordingly.   *
  * The function returns the highest value found for the specified feature.   */
 
-int getMaxFeature(Matrix values, int feature_index){
+int getMaxFeature(Matrix& values, int feature_index){
     int max =0;
     int row_size = values.size();
     for (int i =0; i<row_size; ++i){
@@ -54,7 +54,7 @@ int getMaxFeature(Matrix values, int feature_index){
  * the specified feature index and updating the minimum value accordingly.   *
  * The function returns the lowest value found for the specified feature.    */
 
-int getMinFeature(Matrix values, int feature_index){
+int getMinFeature(Matrix& values, int feature_index){
     int min =999999;
     int row_size = values.size();
     for (int i =0; i<row_size; ++i){
@@ -69,7 +69,7 @@ int getMinFeature(Matrix values, int feature_index){
  * dividing the total sum by the number of rows. The function returns the       *
  * calculated mean value for the specified feature.                             */
 
-float getMeanFeature(Matrix values, int feature_index){
+float getMeanFeature(Matrix& values, int feature_index){
     int mean =0;
     int row_size = values.size();
     for (int i =0; i<row_size; ++i){
