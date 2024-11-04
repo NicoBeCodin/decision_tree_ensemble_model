@@ -6,7 +6,7 @@
 
 using namespace std;
 
-// Test pour calculateVariance
+// Test for calculateVariance
 TEST(VarianceTests, NormalValues) {
     std::vector<int> values1 = {1, 2, 3, 4, 5};
     float variance1 = calculateVariance(values1);
@@ -25,7 +25,7 @@ TEST(VarianceTests, EmptyVector) {
     EXPECT_FLOAT_EQ(variance_empty, 0.0); 
 }
 
-// Tests pour getMaxFeature
+// Tests for getMaxFeature
 TEST(GetMaxFeatureTests, NormalValues) {
     Matrix values = {
         {3, -1, 2},
@@ -52,7 +52,7 @@ TEST(GetMaxFeatureTests, FeatureIndexOutOfBounds) {
     EXPECT_THROW(getMaxFeature(values, -1), std::out_of_range); // Negative index
 }
 
-// Tests pour getMinFeature
+// Tests for getMinFeature
 TEST(GetMinFeatureTests, NormalValues) {
     Matrix values = {
         {3, -1, 2},
@@ -79,7 +79,7 @@ TEST(GetMinFeatureTests, FeatureIndexOutOfBounds) {
     EXPECT_THROW(getMaxFeature(values, -1), std::out_of_range); // Negative index
 }
 
-// Tests pour getMeanFeature
+// Tests for getMeanFeature
 TEST(GetMeanFeatureTests, NormalValues) {
     Matrix values = {
         {1, 2, 3},
@@ -109,7 +109,7 @@ TEST(GetMeanFeatureTests, FeatureIndexOutOfBounds) {
     EXPECT_THROW(getMaxFeature(values, -1), std::out_of_range); // Negative index
 }
 
-// Tests pour drawUniqueNumbers
+// Tests for drawUniqueNumbers
 TEST(DrawUniqueNumbersTests, HandlesMoreThanAvailableRows) {
     std::vector<int> result = drawUniqueNumbers(5, 3);
     EXPECT_EQ(result.size(), 3); // Should return all rows
@@ -131,6 +131,42 @@ TEST(DrawUniqueNumbersTests, HandlesExactRows) {
         // Ensure each element appears only once in the result
         EXPECT_EQ(std::count(result.begin(), result.end(), value), 1);
     }
+}
+
+// Tests for compareThresholds
+TEST(CompareThresholdsTest, ReturnsMinVarianceThreshold) {
+    // Create multiple thresholds with different weighted variances
+    std::vector<Threshold> thresholds = {
+        Threshold(0, 10, 5.0),  // Feature 0, threshold value 10, variance 5.0
+        Threshold(1, 20, 2.5),  // Feature 1, threshold value 20, variance 2.5 (smallest)
+        Threshold(2, 15, 7.0),  // Feature 2, threshold value 15, variance 7.0
+        Threshold(0, 30, 4.0)   // Feature 0, threshold value 30, variance 4.0
+    };
+
+    // Call the compareThresholds function
+    Threshold best_threshold = compareThresholds(thresholds);
+
+    // Check that the returned threshold is indeed the one with the smallest weighted variance
+    EXPECT_EQ(best_threshold.feature_index, 1);
+    EXPECT_EQ(best_threshold.value, 20);
+    EXPECT_FLOAT_EQ(best_threshold.weighted_variance, 2.5);
+}
+
+TEST(CompareThresholdsTest, HandlesSameVariancesThreshold) {
+    // Create multiple thresholds with the same weighted variances
+    std::vector<Threshold> thresholds = {
+        Threshold(0, 10, 3.5),  // Feature 0, threshold value 10, variance 3.5
+        Threshold(1, 20, 3.5),  // Feature 1, threshold value 20, variance 3.5
+        Threshold(2, 15, 3.5),  // Feature 2, threshold value 15, variance 3.5
+    };
+
+    // Call the compareThresholds function
+    Threshold best_threshold = compareThresholds(thresholds);
+
+    // Check that the returned threshold is indeed the first one with the smallest weighted variance
+    EXPECT_EQ(best_threshold.feature_index, 0);
+    EXPECT_EQ(best_threshold.value, 10);
+    EXPECT_FLOAT_EQ(best_threshold.weighted_variance, 3.5);
 }
 
 
