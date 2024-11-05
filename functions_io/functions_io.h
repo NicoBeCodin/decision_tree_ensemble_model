@@ -3,36 +3,34 @@
 
 #include <vector>
 #include <string>
-#include <fstream>
-#include <sstream>
-#include <iostream>
+#include <utility>
+/* Code Explanation
 
-using namespace std;
+    readCSV method: Reads data from a CSV file, treating the last value in each row as the target variable 'performance', and the remaining values as features.
+        Uses std::ifstream to open the CSV file.
+        Skips the first line, assuming it is a header.
+        Parses each line's data as type double, storing it in a feature matrix and target vector.
+        Returns a std::pair, where the first element is the feature matrix and the second element is the target vector.
 
-// Early declaration of Node to avoid circular dependencies
-struct Node;
+    writeResults method: Writes prediction results to a specified file, with each result on a new line.
+        Uses std::ofstream to open the output file.
+        Writes each prediction result line by line. */
 
-// Define Matrix as an alias for a 2D integer vector
-typedef vector<vector<int>> Matrix;
-
-// Function declarations
-vector<vector<string>> openCSV(string fname);  // Open a CSV file and read its contents
-int countCSVRows(const std::string& filePath);  // Return the number of rows in a CSV file
-vector<vector<string>> openCSVLimited(string fname, int n);  // Read a specified number of rows from a CSV file
-void printStringCSV(vector<vector<string>> content);  // Print CSV file contents
-
-int getColumnIndex(vector<string> header, string column_name);  // Get the index of a column by name
-int convertToInt(const std::string& str);  // Convert a string to an integer
-float convertToFloat(const std::string& str);  // Convert a string to a float
-
-Matrix processParametersCSV(vector<vector<string>> content);  // Process the parameter part of the CSV file
-vector<float> processResultsCSV(vector<vector<string>> content);  // Process the result part of the CSV file
-
-void printParamAndResults(vector<string> header, Matrix parameters, vector<float> results);  // Print parameters and results
-
-// Print tree functions
-void nodePrinter(Node* node);
-
-void treePrinter(Node* node);
+class DataIO {
+public:
+    /**
+     * Reads data from a CSV file.
+     * @param filename The path to the CSV file
+     * @return A pair containing the feature matrix and target vector; the first element is the feature matrix, and the second element is the target vector
+     */
+    std::pair<std::vector<std::vector<double>>, std::vector<double>> readCSV(const std::string& filename);
+    
+    /**
+     * Writes prediction results to a file.
+     * @param results The vector of prediction results to write
+     * @param filename The path to the file to save the results
+     */
+    void writeResults(const std::vector<double>& results, const std::string& filename);
+};
 
 #endif // FUNCTIONS_IO_H
