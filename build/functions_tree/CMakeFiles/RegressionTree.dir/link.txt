@@ -1,0 +1,2 @@
+/usr/bin/ar qc libRegressionTree.a CMakeFiles/RegressionTree.dir/regression_tree.cpp.o
+/usr/bin/ranlib libRegressionTree.a
