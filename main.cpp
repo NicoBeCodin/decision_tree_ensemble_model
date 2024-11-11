@@ -1,38 +1,69 @@
-#include "functions_io/functions_io.h"       // Include data input/output class
-#include "functions_tree/regression_tree.h"  // Include regression tree class
-#include "functions_tree/splitting_criteria.h" // Include splitting criteria
+#include "functions_io/functions_io.h"          // Include data input/output class
+#include "functions_tree/splitting_criteria.h"  // Include splitting criteria
+#include "ensemble_bagging/bagging.h"           // Include bagging class
+#include "ensemble_boosting/boosting.h"         // Include boosting class
 #include <iostream>
+#include <string>
 
 int main() {
     // 1. Load data
     DataIO data_io;
-    auto [X, y] = data_io.readCSV("/home/yifan/桌面/CHPS_M1/M1_projet/05_11/decision_tree_ensemble_model/datasets/sample_400_rows.csv");  // Load feature matrix X and target vector y from CSV file
+    auto [X, y] = data_io.readCSV("/Users/doriandrivet/test_Tree/decision_tree_ensemble_model/datasets/sample_400_rows.csv");  // Load feature matrix X and target vector y from CSV file
 
     // 2. Define splitting criteria
     MeanSquaredError mse;  // Use Mean Squared Error (MSE) as the splitting criterion
 
-    // 3. Create regression tree instance
-    int maxDepth = 5;  // Maximum depth of the tree; can be adjusted as needed
-    RegressionTree reg_tree(maxDepth, &mse);
+    // 3. Select method: Bagging or Boosting
+    std::string method;
+    std::cout << "Enter the ensemble method to use (bagging/boosting): ";
+    std::cin >> method;
 
-    // 4. Train model
-    reg_tree.train(X, y);  // Train the regression tree with the loaded data
+    if (method == "bagging") {
+        std::cout << "Running Bagging method..." << std::endl;  // Message indicating Bagging is selected
+        int num_trees = 10;        // Number of trees in the ensemble
+        int max_depth = 5;         // Maximum depth of each tree
+        Bagging bagging_model(num_trees, max_depth, &mse);  // Initialize bagging model
 
-    // 5. Model evaluation (assuming test set X_test and y_test are available in the data)
-    // In practice, the test set is usually separate from the training set.
-    auto [X_test, y_test] = data_io.readCSV("/home/yifan/桌面/CHPS_M1/M1_projet/05_11/decision_tree_ensemble_model/datasets/sample_100_rows.csv");  // Load test set data
+        // Train the bagging model
+        bagging_model.train(X, y);
 
-    double mse_value = reg_tree.evaluate(X_test, y_test);  // Evaluate model performance with the test set
-    std::cout << "Model Mean Squared Error (MSE): " << mse_value << std::endl;
+        // Evaluate the bagging model
+        auto [X_test, y_test] = data_io.readCSV("/Users/doriandrivet/test_Tree/decision_tree_ensemble_model/datasets/sample_400_rows.csv");  // Load test set
+        double mse_value = bagging_model.evaluate(X_test, y_test);
+        std::cout << "Bagging Model Mean Squared Error (MSE): " << mse_value << std::endl;
 
-    // 6. Model prediction
-    std::vector<double> predictions;
-    for (const auto& sample : X_test) {
-        predictions.push_back(reg_tree.predict(sample));  // Make predictions on test set samples
+        // Make predictions and save results
+        std::vector<double> predictions;
+        for (const auto& sample : X_test) {
+            predictions.push_back(bagging_model.predict(sample));
+        }
+        data_io.writeResults(predictions, "bagging_predictions.csv");
+
+    } else if (method == "boosting") {
+        std::cout << "Running Boosting method..." << std::endl;  // Message indicating Boosting is selected
+        int num_trees = 10;        // Number of trees in the boosting ensemble
+        int max_depth = 5;         // Maximum depth of each tree
+        Boosting boosting_model(num_trees, max_depth, &mse);  // Initialize boosting model
+
+        // Train the boosting model
+        boosting_model.train(X, y);
+
+        // Evaluate the boosting model
+        auto [X_test, y_test] = data_io.readCSV("/Users/doriandrivet/test_Tree/decision_tree_ensemble_model/datasets/sample_400_rows.csv");  // Load test set
+        double mse_value = boosting_model.evaluate(X_test, y_test);
+        std::cout << "Boosting Model Mean Squared Error (MSE): " << mse_value << std::endl;
+
+        // Make predictions and save results
+        std::vector<double> predictions;
+        for (const auto& sample : X_test) {
+            predictions.push_back(boosting_model.predict(sample));
+        }
+        data_io.writeResults(predictions, "boosting_predictions.csv");
+
+    } else {
+        std::cerr << "Invalid method. Please enter either 'bagging' or 'boosting'." << std::endl;
+        return 1;
     }
-
-    // 7. Save prediction results
-    data_io.writeResults(predictions, "predictions.csv");  // Save prediction results to a file
 
     return 0;
 }
