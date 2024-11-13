@@ -127,6 +127,9 @@ std::pair<int, double> RegressionTree::findBestSplit(const std::vector<std::vect
  * Calculate the mean of the samples
  */
 double RegressionTree::calculateMean(const std::vector<double>& labels) {
+    if (labels.empty()) {
+        return 0.0;  // Return 0 if labels are empty, to prevent undefined behavior
+    }
     double sum = 0.0;
     for (double value : labels) sum += value;
     return sum / labels.size();
@@ -136,6 +139,9 @@ double RegressionTree::calculateMean(const std::vector<double>& labels) {
  * Calculate the Mean Squared Error (MSE)
  */
 double RegressionTree::calculateMSE(const std::vector<double>& labels) {
+    if (labels.empty()) {
+        return 0.0;  // Return 0 to handle empty label case, preventing division by zero
+    }
     double mean = calculateMean(labels);
     double mse = 0.0;
     for (double value : labels) mse += std::pow(value - mean, 2);

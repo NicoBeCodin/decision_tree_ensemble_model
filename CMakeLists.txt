@@ -1,19 +1,27 @@
-# Minimum CMake version required
+# Root CMakeLists.txt
 cmake_minimum_required(VERSION 3.10)
+project(DecisionTreeEnsembleModel)
 
-# Define project name and project language
-project(RegressionTreeProject LANGUAGES CXX)
-
-# Set C++ standard to C++11 or higher
+# Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-# Add source and header file paths
+# Add subdirectories for modules
 add_subdirectory(functions_io)
 add_subdirectory(functions_tree)
+add_subdirectory(ensemble_bagging)
+add_subdirectory(ensemble_boosting)
 
-# Specify main.cpp as the main program source file
-add_executable(RegressionTreeApp main.cpp)
+# Main executable
+add_executable(MainEnsemble main.cpp)
 
-# Link functions_io and functions_tree to the main program
-target_link_libraries(RegressionTreeApp PRIVATE FunctionsIO RegressionTree)
+# Link libraries to the executable
+target_link_libraries(MainEnsemble PUBLIC FunctionsIO RegressionTree Bagging Boosting)
+
+# Include directories
+target_include_directories(MainEnsemble PUBLIC 
+    ${CMAKE_CURRENT_SOURCE_DIR}/functions_io
+    ${CMAKE_CURRENT_SOURCE_DIR}/functions_tree
+    ${CMAKE_CURRENT_SOURCE_DIR}/ensemble_bagging
+    ${CMAKE_CURRENT_SOURCE_DIR}/ensemble_boosting
+)

@@ -1,4 +1,4 @@
-Les datasets contiennent des résultats d'exécution d'un programme avec plusieurs configurations.
+Les datasets contiennent des résultats d'exécution d'un programme avec plusieurs configurations【；.
 
 Ce programme est un benchmark pour le noyau dgetrf (factorisation LU) de la librairie LAPACK.
 Même si ce benchmark utilise des meta-repetitions, on estime un bruit de mesure d'environ 10 %.

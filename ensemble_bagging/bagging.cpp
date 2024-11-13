@@ -1,11 +1,6 @@
-// Constructor for the Bagging function
-// Uses the average method to calculate results
-// Yifan
-// 03.11
-#include "bagging.h"       
-#include <random>          
-#include <numeric>         
-
+#include "bagging.h"
+#include <random>
+#include <numeric>
 
 Bagging::Bagging(int num_trees, int max_depth, SplittingCriteria* criteria)
     : numTrees(num_trees), maxDepth(max_depth), criteria(criteria) {
@@ -15,12 +10,12 @@ Bagging::Bagging(int num_trees, int max_depth, SplittingCriteria* criteria)
     }
 }
 
-
 std::pair<std::vector<std::vector<double>>, std::vector<double>> 
 Bagging::bootstrapSample(const std::vector<std::vector<double>>& data, const std::vector<double>& labels) {
     std::vector<std::vector<double>> sampled_data;  // Stores the sampled feature matrix
     std::vector<double> sampled_labels;             // Stores the sampled target values vector
-    std::default_random_engine generator;           // Creates a random number generator
+    std::random_device rd;                          // Random device to seed the random engine
+    std::default_random_engine generator(rd());     // Creates a random number generator with a random seed
     std::uniform_int_distribution<size_t> distribution(0, data.size() - 1);  // Uniform distribution in the range [0, data.size() - 1]
 
     // Perform bootstrap sampling for each sample
@@ -32,7 +27,6 @@ Bagging::bootstrapSample(const std::vector<std::vector<double>>& data, const std
 
     return {sampled_data, sampled_labels};  // Return the sampled feature matrix and target values vector
 }
-
 
 void Bagging::train(const std::vector<std::vector<double>>& data, const std::vector<double>& labels) {
     // For each decision tree, generate a bootstrap sampled dataset and train the tree
