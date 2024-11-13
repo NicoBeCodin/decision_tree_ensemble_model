@@ -8,7 +8,7 @@
 int main() {
     // 加载数据
     DataIO data_io;
-    auto [X, y] = data_io.readCSV("/home/yifan/桌面/CHPS_M1/M1_projet/05_11/decision_tree_ensemble_model/datasets/cleaned_data.csv");
+    auto [X, y] = data_io.readCSV("/home/yifan/桌面/CHPS_M1/M1_projet/05_11/decision_tree_ensemble_model/datasets/sample_400_rows.csv");
     if (X.empty() || y.empty()) {
         std::cerr << "Failed to load data." << std::endl;
         return -1;
@@ -57,7 +57,7 @@ int main() {
     } else if (choice == 3) {
         // Boosting
         int n_estimators = 10;
-        int max_depth = 3;
+        int max_depth = 5;
         double learning_rate = 0.1;
         MeanSquaredError mse;  // 分裂标准
         auto loss_function = std::make_unique<LeastSquaresLoss>();
