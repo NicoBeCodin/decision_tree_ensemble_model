@@ -18,7 +18,7 @@ add_subdirectory(ensemble_boosting)
 add_executable(MainEnsemble main.cpp)
 
 # Link all necessary libraries to the main executable
-target_link_libraries(MainEnsemble PUBLIC FunctionsIO RegressionTree Bagging Boosting)
+target_link_libraries(MainEnsemble PUBLIC FunctionsIO FunctionsTree Bagging Boosting)
 
 # Include directories for the main executable
 target_include_directories(MainEnsemble PUBLIC 

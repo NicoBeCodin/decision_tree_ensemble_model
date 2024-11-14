@@ -1,5 +1,6 @@
-# Compile regression_tree.cpp as a static library named RegressionTree
-add_library(RegressionTree regression_tree.cpp)
+add_library(FunctionsTree
+    regression_tree.cpp
+    decision_tree_single.cpp
+)
 
-# Include header file path
-target_include_directories(RegressionTree PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(FunctionsTree PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
