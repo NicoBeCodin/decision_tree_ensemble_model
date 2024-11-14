@@ -1,7 +1,18 @@
+//boosing
+//Yifan
+//14.11
 #include "boosting.h"
 #include <numeric>
 #include <iostream>
 
+/**
+ * @brief Constructeur pour initialiser le modèle de Boosting
+ * @param n_estimators Nombre de faibles apprenants (arbres de décision)
+ * @param max_depth Profondeur maximale pour chaque arbre
+ * @param learning_rate Taux d'apprentissage
+ * @param criteria Critère de division
+ * @param loss_function Fonction de perte (pour calculer le gradient et la perte)
+ */
 Boosting::Boosting(int n_estimators, int max_depth, double learning_rate, SplittingCriteria* criteria,
                    std::unique_ptr<LossFunction> loss_function)
     : n_estimators(n_estimators),
@@ -11,39 +22,52 @@ Boosting::Boosting(int n_estimators, int max_depth, double learning_rate, Splitt
       loss_function(std::move(loss_function)),
       initial_prediction(0.0) {}
 
+/**
+ * @brief Initialiser la prédiction initiale avec la moyenne des valeurs y
+ * @param y Vecteur des étiquettes cibles
+ */
 void Boosting::initializePrediction(const std::vector<double>& y) {
-    // 初始化预测值为 y 的均值
     initial_prediction = std::accumulate(y.begin(), y.end(), 0.0) / y.size();
 }
 
+/**
+ * @brief Entraîner le modèle de Boosting
+ * @param X Matrice des caractéristiques
+ * @param y Vecteur des étiquettes cibles
+ */
 void Boosting::train(const std::vector<std::vector<double>>& X,
                      const std::vector<double>& y) {
     size_t n_samples = y.size();
-    initializePrediction(y);
-    std::vector<double> y_pred(n_samples, initial_prediction);
+    initializePrediction(y); // Initialiser la prédiction
+    std::vector<double> y_pred(n_samples, initial_prediction); // Initialiser les prédictions
 
     for (int i = 0; i < n_estimators; ++i) {
-        // 计算负梯度（伪残差）
+        // Calculer le gradient négatif (pseudo-résidus)
         std::vector<double> residuals = loss_function->negativeGradient(y, y_pred);
 
-        // 训练弱学习器（回归树）拟合残差
+        // Entraîner un faible apprenant (arbre de régression) pour ajuster les résidus
         auto tree = std::make_unique<RegressionTree>(max_depth, criteria);
         tree->train(X, residuals);
 
-        // 更新预测值
+        // Mettre à jour les prédictions
         for (size_t j = 0; j < n_samples; ++j) {
             y_pred[j] += learning_rate * tree->predict(X[j]);
         }
 
-        // 保存弱学习器
+        // Sauvegarder le faible apprenant
         estimators.push_back(std::move(tree));
 
-        // 可选：输出当前损失值
+        // Afficher la perte actuelle (optionnel)
         double loss = loss_function->computeLoss(y, y_pred);
-        std::cout << "Estimator " << i + 1 << ", Loss: " << loss << std::endl;
+        std::cout << "Estimateur " << i + 1 << ", Perte: " << loss << std::endl;
     }
 }
 
+/**
+ * @brief Prédire pour un seul échantillon
+ * @param x Vecteur des caractéristiques d'un échantillon
+ * @return Prédiction pour l'échantillon
+ */
 double Boosting::predict(const std::vector<double>& x) const {
     double y_pred = initial_prediction;
     for (const auto& tree : estimators) {
@@ -52,10 +76,16 @@ double Boosting::predict(const std::vector<double>& x) const {
     return y_pred;
 }
 
+/**
+ * @brief Prédire pour plusieurs échantillons
+ * @param X Matrice des caractéristiques
+ * @return Vecteur des prédictions pour chaque échantillon
+ */
 std::vector<double> Boosting::predict(const std::vector<std::vector<double>>& X) const {
     size_t n_samples = X.size();
     std::vector<double> y_pred(n_samples, initial_prediction);
 
+    // Mettre à jour les prédictions pour chaque arbre
     for (const auto& tree : estimators) {
         for (size_t i = 0; i < n_samples; ++i) {
             y_pred[i] += learning_rate * tree->predict(X[i]);
@@ -63,11 +93,18 @@ std::vector<double> Boosting::predict(const std::vector<std::vector<double>>& X)
     }
     return y_pred;
 }
+
+/**
+ * @brief Évaluer la performance du modèle sur un ensemble de test
+ * @param X_test Matrice des caractéristiques de test
+ * @param y_test Vecteur des étiquettes cibles de test
+ * @return Erreur quadratique moyenne (MSE)
+ */
 double Boosting::evaluate(const std::vector<std::vector<double>>& X_test, const std::vector<double>& y_test) const {
     double total_error = 0.0;
     for (size_t i = 0; i < X_test.size(); ++i) {
         double prediction = predict(X_test[i]);
         total_error += std::pow(prediction - y_test[i], 2);
     }
-    return total_error / X_test.size();  // 返回均方误差 (MSE)
+    return total_error / X_test.size();  // Retourner l'erreur quadratique moyenne (MSE)
 }
