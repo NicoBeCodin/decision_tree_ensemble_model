@@ -2,12 +2,12 @@
 //Yifan
 //14.11
 
-#include "decision_tree_single.h"
 #include <limits>
 #include <algorithm>
 #include <numeric>
 #include <cmath>
 #include <queue>
+#include "decision_tree_single.h"
 
     /**
      * @brief Constructeur : initialise la profondeur maximale, la taille minimale de feuille, 
@@ -19,23 +19,23 @@ DecisionTreeSingle::DecisionTreeSingle(int MaxDepth, int MinLeafLarge, double Mi
     /**
      * @brief Fonction d'entraînement pour l'arbre de décision.
      */
-void DecisionTreeSingle::Train(const std::vector<std::vector<double>>& Data, const std::vector<double>& Labels) {
+void DecisionTreeSingle::train(const std::vector<std::vector<double>>& Data, const std::vector<double>& Labels) {
     Root = std::make_unique<Tree>(); // Créer un nouvel arbre et l'assigner au pointeur Root.
     std::vector<int> Indices(Data.size()); // Initialiser les indices à la taille des données.
     std::iota(Indices.begin(), Indices.end(), 0); // Initialiser les indices.
-    SplitNode(Root.get(), Data, Labels, Indices, 0); // Démarrer la division.
+    splitNode(Root.get(), Data, Labels, Indices, 0); // Démarrer la division.
 }
 
     /**
      * @brief Fonction pour diviser un nœud.
      */
-void DecisionTreeSingle::SplitNode(Tree* Node, const std::vector<std::vector<double>>& Data, const std::vector<double>& Labels, const std::vector<int>& Indices, int Depth) {
-    double CurrentMSE = CalculateMSE(Labels, Indices); // Calculer la MSE (Erreur Quadratique Moyenne) du nœud actuel.
+void DecisionTreeSingle::splitNode(Tree* Node, const std::vector<std::vector<double>>& Data, const std::vector<double>& Labels, const std::vector<int>& Indices, int Depth) {
+    double CurrentMSE = calculateMSE(Labels, Indices); // Calculer la MSE (Erreur Quadratique Moyenne) du nœud actuel.
 
     // Vérifier les conditions d'arrêt.
     if (Depth >= MaxDepth || Indices.size() < static_cast<size_t>(MinLeafLarge) || CurrentMSE < 1e-6) {
         Node->IsLeaf = true; // Marquer le nœud comme une feuille.
-        Node->Prediction = CalculateMean(Labels, Indices); // Calculer la moyenne pour la prédiction.
+        Node->Prediction = calculateMean(Labels, Indices); // Calculer la moyenne pour la prédiction.
         return;
     }
 
@@ -43,13 +43,13 @@ void DecisionTreeSingle::SplitNode(Tree* Node, const std::vector<std::vector<dou
     // BestFeature : Indice de la meilleure caractéristique.
     // BestThreshold : Seuil optimal pour la division.
     // BestImpurityDecrease : Réduction de l'impureté.
-    auto [BestFeature, BestThreshold, BestImpurityDecrease] = FindBestSplit(Data, Labels, Indices, CurrentMSE);
+    auto [BestFeature, BestThreshold, BestImpurityDecrease] = findBestSplit(Data, Labels, Indices, CurrentMSE);
     
     // Pruning (élagage) précoce.
     // Si la réduction d'impureté est insuffisante, arrêter la division.
     if (BestFeature == -1 || BestImpurityDecrease < MinError) {
         Node->IsLeaf = true;
-        Node->Prediction = CalculateMean(Labels, Indices);
+        Node->Prediction = calculateMean(Labels, Indices);
         return;
     }
 
@@ -68,20 +68,20 @@ void DecisionTreeSingle::SplitNode(Tree* Node, const std::vector<std::vector<dou
 
     Node->Left = std::make_unique<Tree>(); // Créer un nœud à gauche.
     Node->Right = std::make_unique<Tree>(); // Créer un nœud à droite.
-    SplitNode(Node->Left.get(), Data, Labels, LeftIndices, Depth + 1); // Appel récursif pour le nœud gauche.
-    SplitNode(Node->Right.get(), Data, Labels, RightIndices, Depth + 1); // Appel récursif pour le nœud droit.
+    splitNode(Node->Left.get(), Data, Labels, LeftIndices, Depth + 1); // Appel récursif pour le nœud gauche.
+    splitNode(Node->Right.get(), Data, Labels, RightIndices, Depth + 1); // Appel récursif pour le nœud droit.
 }
 
 /**
  * @brief Recherche du meilleur point de division.
  */
-std::tuple<int, double, double> DecisionTreeSingle::FindBestSplit(const std::vector<std::vector<double>>& Data, const std::vector<double>& Labels, const std::vector<int>& Indices, double CurrentMSE) {
+std::tuple<int, double, double> DecisionTreeSingle::findBestSplit(const std::vector<std::vector<double>>& Data, const std::vector<double>& Labels, const std::vector<int>& Indices, double CurrentMSE) {
     int BestFeature = -1; // Initialiser l'indice de la meilleure caractéristique à -1.
     double BestThreshold = 0.0; // Initialiser le seuil optimal.
     double BestImpurityDecrease = 0.0; // Initialiser la meilleure réduction d'impureté.
 
     size_t NumFeatures = Data[0].size(); // Obtenir le nombre de caractéristiques.
-    auto SortedFeatureIndices = PreSortFeatures(Data, Indices); // Pré-trier les caractéristiques.
+    auto SortedFeatureIndices = preSortFeatures(Data, Indices); // Pré-trier les caractéristiques.
 
     // Boucler sur chaque caractéristique.
     for (size_t Feature = 0; Feature < NumFeatures; ++Feature) {
@@ -135,7 +135,7 @@ std::tuple<int, double, double> DecisionTreeSingle::FindBestSplit(const std::vec
 }
 
 // Prédire pour un seul échantillon.
-double DecisionTreeSingle::Predict(const std::vector<double>& Sample) const {
+double DecisionTreeSingle::predict(const std::vector<double>& Sample) const {
     const Tree* CurrentNode = Root.get();
     while (!CurrentNode->IsLeaf) {
         if (Sample[CurrentNode->FeatureIndex] <= CurrentNode->MaxValue) {
@@ -148,15 +148,15 @@ double DecisionTreeSingle::Predict(const std::vector<double>& Sample) const {
 }
 
 // Calculer la moyenne des étiquettes.
-double DecisionTreeSingle::CalculateMean(const std::vector<double>& Labels, const std::vector<int>& Indices) {
+double DecisionTreeSingle::calculateMean(const std::vector<double>& Labels, const std::vector<int>& Indices) {
     double Sum = 0.0;
     for (int Idx : Indices) Sum += Labels[Idx];
     return Sum / Indices.size();
 }
 
 // Calculer l'erreur quadratique moyenne (MSE).
-double DecisionTreeSingle::CalculateMSE(const std::vector<double>& Labels, const std::vector<int>& Indices) {
-    double Mean = CalculateMean(Labels, Indices);
+double DecisionTreeSingle::calculateMSE(const std::vector<double>& Labels, const std::vector<int>& Indices) {
+    double Mean = calculateMean(Labels, Indices);
     double MSE = 0.0;
     for (int Idx : Indices) {
         double Value = Labels[Idx];
@@ -166,7 +166,7 @@ double DecisionTreeSingle::CalculateMSE(const std::vector<double>& Labels, const
 }
 
 // Pré-trier les indices des caractéristiques.
-std::vector<std::vector<int>> DecisionTreeSingle::PreSortFeatures(const std::vector<std::vector<double>>& Data, const std::vector<int>& Indices) {
+std::vector<std::vector<int>> DecisionTreeSingle::preSortFeatures(const std::vector<std::vector<double>>& Data, const std::vector<int>& Indices) {
     size_t NumFeatures = Data[0].size();
     std::vector<std::vector<int>> SortedIndices(NumFeatures, Indices);
 
@@ -178,3 +178,90 @@ std::vector<std::vector<int>> DecisionTreeSingle::PreSortFeatures(const std::vec
     }
     return SortedIndices;
 }
+
+
+void DecisionTreeSingle::serializeNode(const Tree* node, std::ostream& out) {
+    if (!node) {
+        out << "#\n"; // Use "#" to mark a null node
+        return;
+    }
+
+    // Write the current node's data
+    out << node->FeatureIndex << " "
+        << node->MaxValue << " "
+        << node->Prediction << " "
+        << node->IsLeaf << "\n";
+
+    // Recursively serialize the left and right children
+    serializeNode(node->Left.get(), out);
+    serializeNode(node->Right.get(), out);
+}
+
+
+void DecisionTreeSingle::saveTree(const std::string& filename) {
+    std::filesystem::path currentPath = std::filesystem::current_path();
+    std::filesystem::path savePath = currentPath.parent_path() / "saved_models";
+
+    // Create the directory if it doesn't exist
+    std::filesystem::create_directories(savePath);
+    
+    std::ofstream outFile(  savePath / filename);
+ 
+    if (!outFile.is_open()) {
+        throw std::runtime_error("Unable to open file for saving the tree.");
+    }
+
+    // Save parameters
+    outFile << MaxDepth << " " << MinLeafLarge << " " << MinError << "\n";
+
+    // Serialize the tree structure
+    serializeNode(Root.get(), outFile);
+
+    outFile.close();
+}
+
+std::unique_ptr<DecisionTreeSingle::Tree> DecisionTreeSingle::deserializeNode(std::istream& in) {
+    std::string line;
+    if (!std::getline(in, line) || line == "#") {
+        return nullptr; // Return null for "#" marker or end of input
+    }
+
+    auto node = std::make_unique<Tree>();
+    std::istringstream ss(line);
+
+    // Read node data
+    ss >> node->FeatureIndex >> node->MaxValue >> node->Prediction >> node->IsLeaf;
+
+    // Recursively deserialize the left and right children
+    node->Left = deserializeNode(in);
+    node->Right = deserializeNode(in);
+
+    return node;
+}
+
+void DecisionTreeSingle::loadTree(const std::string& filename) {
+    std::filesystem::path currentPath = std::filesystem::current_path();
+    std::filesystem::path savePath = currentPath.parent_path() / "saved_models";
+
+    // Create the directory if it doesn't exist
+    
+
+    std::ifstream inFile(savePath / filename);
+
+
+    if (!inFile.is_open()) {
+        throw std::runtime_error("Unable to open file for loading the tree.");
+    }
+
+    // Load parameters
+    inFile >> MaxDepth >> MinLeafLarge >> MinError;
+    inFile.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Skip to the next line
+
+    // Deserialize the tree structure
+    Root = deserializeNode(inFile);
+
+    inFile.close();
+}
+
+
+

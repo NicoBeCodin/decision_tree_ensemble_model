@@ -3,11 +3,14 @@
 //14.11
 #ifndef DECISION_TREE_SINGLE_H
 #define DECISION_TREE_SINGLE_H
-#include "splitting_criteria.h"
-
+#include <fstream>
+#include <filesystem>
+#include <sstream>
 #include <vector>
 #include <memory>
 #include <tuple>
+#include "splitting_criteria.h"
+
 
 class DecisionTreeSingle
 {
@@ -30,27 +33,41 @@ private:
     /**
      * @brief Fonction pour diviser un nœud
      */
-    void SplitNode(Tree* Node, const std::vector<std::vector<double>>& Data, const std::vector<double>& Labels, const std::vector<int>& Indices, int Depth);
+    void splitNode(Tree* Node, const std::vector<std::vector<double>>& Data, const std::vector<double>& Labels, const std::vector<int>& Indices, int Depth);
     
     /**
      * @brief Fonction pour trouver la meilleure caractéristique et le meilleur seuil pour la division
      */
-    std::tuple<int, double, double> FindBestSplit(const std::vector<std::vector<double>>& Data, const std::vector<double>& Labels, const std::vector<int>& Indices, double CurrentMSE);
+    std::tuple<int, double, double> findBestSplit(const std::vector<std::vector<double>>& Data, const std::vector<double>& Labels, const std::vector<int>& Indices, double CurrentMSE);
 
     /**
      * @brief Calculer la moyenne des valeurs d'un nœud
      */
-    double CalculateMean(const std::vector<double>& Labels, const std::vector<int>& Indices);
+    double calculateMean(const std::vector<double>& Labels, const std::vector<int>& Indices);
 
     /**
      * @brief Calculer l'erreur quadratique moyenne (MSE)
      */
-    double CalculateMSE(const std::vector<double>& Labels, const std::vector<int>& Indices);
+    double calculateMSE(const std::vector<double>& Labels, const std::vector<int>& Indices);
     
     /**
      * @brief Pré-trier les indices des caractéristiques
      */
-    std::vector<std::vector<int>> PreSortFeatures(const std::vector<std::vector<double>>& Data, const std::vector<int>& Indices);
+    std::vector<std::vector<int>> preSortFeatures(const std::vector<std::vector<double>>& Data, const std::vector<int>& Indices);
+
+    
+
+
+    /**
+     * @brief Recursive function to serialize a node
+     */
+    void serializeNode(const Tree* node, std::ostream& out);
+
+    /**
+     * 
+     * @brief Recursive function to deserialize a node
+     */
+    std::unique_ptr<DecisionTreeSingle::Tree> deserializeNode(std::istream& in);
 
 public:
     /**
@@ -61,12 +78,24 @@ public:
     /**
      * @brief Fonction pour entraîner l'arbre de décision
      */
-    void Train(const std::vector<std::vector<double>>& Data, const std::vector<double>& Labels);
+    void train(const std::vector<std::vector<double>>& Data, const std::vector<double>& Labels);
     
     /**
      * @brief Fonction pour prédire une valeur pour un échantillon donné
      */
-    double Predict(const std::vector<double>& Sample) const;
+    double predict(const std::vector<double>& Sample) const;
+
+    /** 
+    * @brief Save the tree to a file
+    */
+   void saveTree(const std::string &filename);
+
+    /** 
+    * @brief Load the tree from a file
+    */
+   void loadTree(const std::string &filename);
+
+
 };
 
 #endif

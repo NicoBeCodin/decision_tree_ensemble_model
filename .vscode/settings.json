@@ -55,6 +55,10 @@
         "stdexcept": "cpp",
         "cinttypes": "cpp",
         "typeinfo": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "codecvt": "cpp",
+        "cstring": "cpp",
+        "forward_list": "cpp",
+        "valarray": "cpp"
     }
 }

@@ -4,6 +4,7 @@
 #include <vector>
 #include <numeric>
 #include <cmath>
+#include "math_functions.h"
 
 /**
  * SplittingCriteria abstract base class, defines the interface for splitting criteria

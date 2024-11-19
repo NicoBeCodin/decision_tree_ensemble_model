@@ -1,6 +1,6 @@
 add_library(Boosting
     boosting.cpp
-    loss_function.cpp
+    
 )
 
 # Include header file path
