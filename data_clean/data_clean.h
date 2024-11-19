@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include "math_functions.h"
 
 // Structure representing the data of each row
 struct DataRow {
@@ -13,8 +14,7 @@ struct DataRow {
 };
 
 // Function declarations
-double calculateMean(const std::vector<double>& data);
-double calculateStdDev(const std::vector<double>& data, double mean);
+
 std::vector<DataRow> readCSV(const std::string& filePath, std::string& header);
 std::vector<DataRow> removeOutliers(const std::vector<DataRow>& dataset, double threshold = 3.0);
 std::vector<int> equalFrequencyBinning(std::vector<double> data, int numBins);

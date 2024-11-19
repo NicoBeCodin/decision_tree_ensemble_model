@@ -1,4 +1,5 @@
 add_library(FunctionsTree
+    math_functions.cpp
     regression_tree.cpp
     decision_tree_single.cpp
 )

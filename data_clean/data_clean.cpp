@@ -10,19 +10,10 @@
 
 // 这里不再定义 DataRow 结构体，直接使用 data_clean.h 中的定义
 
-// Function to calculate the mean
-double calculateMean(const std::vector<double>& data) {
-    return std::accumulate(data.begin(), data.end(), 0.0) / data.size();
-}
+
 
 // Function to calculate the standard deviation
-double calculateStdDev(const std::vector<double>& data, double mean) {
-    double sum = 0.0;
-    for (const auto& value : data) {
-        sum += std::pow(value - mean, 2);
-    }
-    return std::sqrt(sum / data.size());
-}
+
 
 // Function to read a CSV file and parse it into a vector of DataRow structures
 std::vector<DataRow> readCSV(const std::string& filePath, std::string& header) {
@@ -62,9 +53,10 @@ std::vector<DataRow> removeOutliers(const std::vector<DataRow>& dataset, double 
     for (const auto& row : dataset) {
         performances.push_back(row.performance);
     }
+    
 
-    double mean = calculateMean(performances);
-    double stdDev = calculateStdDev(performances, mean);
+    double mean = Math::calculateMean(performances);
+    double stdDev = Math::calculateStdDev(performances, mean);
 
     // Remove rows where the Z-score exceeds the threshold
     std::vector<DataRow> cleanedData;
@@ -122,8 +114,8 @@ std::vector<DataRow> removeOutliersByBinning(const std::vector<DataRow>& dataset
         if (performancesInBin.empty()) continue;  // Skip empty bins
 
         // Calculate Z-scores within the bin
-        double mean = calculateMean(performancesInBin);
-        double stdDev = calculateStdDev(performancesInBin, mean);
+        double mean = Math::calculateMean(performancesInBin);
+        double stdDev = Math::calculateStdDev(performancesInBin, mean);
         for (size_t i = 0; i < rowsInBin.size(); ++i) {
             double z = (performancesInBin[i] - mean) / stdDev;
             if (std::abs(z) <= zThreshold) {

@@ -4,12 +4,13 @@
 #include <vector>
 #include <memory>
 #include "splitting_criteria.h"
+#include "math_functions.h"
 
 /**
  * RegressionTree class
  * Used for training, splitting, and predicting with a regression tree, managing nodes with smart pointers.
  */
-class RegressionTree {
+class RegressionTree: public Math {
 public:
     /**
      * Constructor
@@ -71,19 +72,6 @@ private:
      */
     std::pair<int, double> findBestSplit(const std::vector<std::vector<double>>& data, const std::vector<double>& labels);
 
-    /**
-     * Calculate the mean of the samples in the node
-     * @param labels Target values of the current node
-     * @return Prediction value for this node
-     */
-    double calculateMean(const std::vector<double>& labels);
-
-    /**
-     * Calculate the Mean Squared Error (MSE) of the samples in the node
-     * @param labels Target values of the current node
-     * @return MSE value
-     */
-    double calculateMSE(const std::vector<double>& labels);
 };
 
 #endif // REGRESSION_TREE_H
