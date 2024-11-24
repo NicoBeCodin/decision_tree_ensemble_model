@@ -11,9 +11,40 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # Enable compiler warnings
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
-# Add the library object file (data_clean.o equivalent)
-add_library(data_clean OBJECT data_clean.cpp)
+# Créer la bibliothèque DataClean
+add_library(DataClean
+    data_clean.cpp
+)
 
-# Add the executable and link it with the object library
-add_executable(main_data_clean main_data_clean.cpp $<TARGET_OBJECTS:data_clean>)
+# Configurer les chemins d'inclusion et les dépendances
+target_include_directories(DataClean PUBLIC 
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_SOURCE_DIR}/functions_tree
+)
+
+target_link_libraries(DataClean
+    PUBLIC
+    FunctionsTree
+)
+
+# Ajouter l'exécutable principal
+add_executable(DataCleanMain main_data_clean.cpp)
+target_link_libraries(DataCleanMain 
+    PRIVATE 
+    DataClean 
+    FunctionsTree
+)
+
+# Configuration des tests
+add_executable(DataCleanTests test_data_clean.cpp)
+target_link_libraries(DataCleanTests
+    PRIVATE
+    GTest::GTest
+    GTest::Main
+    DataClean
+    FunctionsTree
+)
+
+# Ajouter le test à CTest
+add_test(NAME DataCleanTests COMMAND DataCleanTests)
 

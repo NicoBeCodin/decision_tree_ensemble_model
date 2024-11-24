@@ -45,12 +45,6 @@ public:
      */
     double evaluate(const std::vector<std::vector<double>>& test_data, const std::vector<double>& test_labels);
 
-private:
-    int numTrees;  // Stores the number of decision trees
-    int maxDepth;  // Stores the maximum depth of the decision trees
-    SplittingCriteria* criteria;  // Pointer to the splitting criteria, used to determine splitting rules
-    std::vector<std::unique_ptr<RegressionTree>> trees;  // Vector of smart pointers to store instances of all decision trees
-    
     /**
      * Bootstrap a sample dataset (sampling with replacement)
      * @param data Original dataset's feature matrix
@@ -58,6 +52,12 @@ private:
      * @return Pair of feature matrix and target vector of the sampled dataset
      */
     std::pair<std::vector<std::vector<double>>, std::vector<double>> bootstrapSample(const std::vector<std::vector<double>>& data, const std::vector<double>& labels);
+
+private:
+    int numTrees;  // Stores the number of decision trees
+    int maxDepth;  // Stores the maximum depth of the decision trees
+    SplittingCriteria* criteria;  // Pointer to the splitting criteria, used to determine splitting rules
+    std::vector<std::unique_ptr<RegressionTree>> trees;  // Vector of smart pointers to store instances of all decision trees
 };
 
 #endif

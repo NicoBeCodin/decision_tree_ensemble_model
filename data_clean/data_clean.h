@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <string>
-#include "math_functions.h"
+#include "../functions_tree/math_functions.h"
 
 // Structure representing the data of each row
 struct DataRow {
