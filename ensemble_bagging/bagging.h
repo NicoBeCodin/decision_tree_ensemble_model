@@ -1,63 +1,64 @@
-// Header file for the Bagging function
-// Yifan
-// 03.11
 #ifndef BAGGING_H
 #define BAGGING_H
 
 #include <vector>
 #include <memory>
-#include "../functions_tree/regression_tree.h"
+#include "../functions_tree/decision_tree_single.h"
 
 /**
  * Bagging Class
- * This class implements the Bagging algorithm with multiple decision trees.
+ * Implements the Bagging algorithm using multiple decision trees
  */
 class Bagging
 {
 public:
     /**
      * @brief Constructor
-     * @param num_trees Specifies the number of decision trees to create
-     * @param max_depth Specifies the maximum depth of each tree
-     * @param criteria Pointer to the splitting criteria
+     * @param num_trees Number of trees in the ensemble
+     * @param max_depth Maximum depth of each tree
+     * @param min_samples_split Minimum number of samples required to split a node
+     * @param min_impurity_decrease Minimum impurity decrease required for a split
      */
-    Bagging(int num_trees, int max_depth, SplittingCriteria* criteria);
+    Bagging(int num_trees, int max_depth, int min_samples_split, double min_impurity_decrease);
 
     /**
-     * @brief Train the bagging model
-     * @param data Feature matrix representing the features of each row
-     * @param labels Vector of target values corresponding to each row
+     * @brief Train the Bagging model
+     * @param data Feature matrix
+     * @param labels Target vector
      */
     void train(const std::vector<std::vector<double>>& data, const std::vector<double>& labels);
 
     /**
-     * @brief Predict for a single sample
+     * @brief Predict the target value for a single sample
      * @param sample A single feature vector
-     * @return Prediction (average of predictions from multiple decision trees)
+     * @return Prediction from the ensemble (average of all trees)
      */
-    double predict(const std::vector<double>& sample);
+    double predict(const std::vector<double>& sample) const;
 
     /**
-     * @brief Evaluate model performance (calculates mean squared error on test set)
-     * @param test_data Feature matrix of the test set
-     * @param test_labels Vector of target values for the test set
-     * @return Mean squared error
+     * @brief Evaluate the model performance on a test set
+     * @param test_data Test feature matrix
+     * @param test_labels Test target vector
+     * @return Mean Squared Error (MSE)
      */
-    double evaluate(const std::vector<std::vector<double>>& test_data, const std::vector<double>& test_labels);
+    double evaluate(const std::vector<std::vector<double>>& test_data, const std::vector<double>& test_labels) const;
 
 private:
-    int numTrees;  // Stores the number of decision trees
-    int maxDepth;  // Stores the maximum depth of the decision trees
-    SplittingCriteria* criteria;  // Pointer to the splitting criteria, used to determine splitting rules
-    std::vector<std::unique_ptr<RegressionTree>> trees;  // Vector of smart pointers to store instances of all decision trees
-    
+    int numTrees;  // Number of trees in the ensemble
+    int maxDepth;  // Maximum depth of each tree
+    int minSamplesSplit; // Minimum number of samples to split a node
+    double minImpurityDecrease; // Minimum impurity decrease for splitting
+    std::vector<std::unique_ptr<DecisionTreeSingle>> trees;  // Ensemble of decision trees
+
     /**
-     * Bootstrap a sample dataset (sampling with replacement)
+     * @brief Bootstrap a sample dataset (sampling with replacement)
      * @param data Original dataset's feature matrix
      * @param labels Original dataset's target vector
-     * @return Pair of feature matrix and target vector of the sampled dataset
+     * @param sampled_data Output parameter for the sampled feature matrix
+     * @param sampled_labels Output parameter for the sampled target vector
      */
-    std::pair<std::vector<std::vector<double>>, std::vector<double>> bootstrapSample(const std::vector<std::vector<double>>& data, const std::vector<double>& labels);
+    void bootstrapSample(const std::vector<std::vector<double>>& data, const std::vector<double>& labels,
+                         std::vector<std::vector<double>>& sampled_data, std::vector<double>& sampled_labels);
 };
 
 #endif
