@@ -1,63 +1,50 @@
-//decision_tree_single.cpp
-//Yifan
-//14.11
+#include "decision_tree_single.h"
 
 #include <limits>
 #include <algorithm>
 #include <numeric>
 #include <cmath>
 #include <queue>
-#include "decision_tree_single.h"
 
-    /**
-     * @brief Constructeur : initialise la profondeur maximale, la taille minimale de feuille, 
-     * l'erreur minimale et le critère de division.
-     */
-DecisionTreeSingle::DecisionTreeSingle(int MaxDepth, int MinLeafLarge, double MinError, SplittingCriteria* Criteria)
-    : MaxDepth(MaxDepth), MinLeafLarge(MinLeafLarge), MinError(MinError), Criteria(Criteria), Root(nullptr) {}
+// 构造函数
+DecisionTreeSingle::DecisionTreeSingle(int MaxDepth, int MinLeafLarge, double MinError)
+    : MaxDepth(MaxDepth), MinLeafLarge(MinLeafLarge), MinError(MinError), Root(nullptr) {}
 
-    /**
-     * @brief Fonction d'entraînement pour l'arbre de décision.
-     */
+// 训练函数
 void DecisionTreeSingle::train(const std::vector<std::vector<double>>& Data, const std::vector<double>& Labels) {
-    Root = std::make_unique<Tree>(); // Créer un nouvel arbre et l'assigner au pointeur Root.
-    std::vector<int> Indices(Data.size()); // Initialiser les indices à la taille des données.
-    std::iota(Indices.begin(), Indices.end(), 0); // Initialiser les indices.
-    splitNode(Root.get(), Data, Labels, Indices, 0); // Démarrer la division.
+    Root = std::make_unique<Tree>();
+    std::vector<int> Indices(Data.size());
+    std::iota(Indices.begin(), Indices.end(), 0);
+    splitNode(Root.get(), Data, Labels, Indices, 0);
 }
 
-    /**
-     * @brief Fonction pour diviser un nœud.
-     */
-void DecisionTreeSingle::splitNode(Tree* Node, const std::vector<std::vector<double>>& Data, const std::vector<double>& Labels, const std::vector<int>& Indices, int Depth) {
-    double CurrentMSE = calculateMSE(Labels, Indices); // Calculer la MSE (Erreur Quadratique Moyenne) du nœud actuel.
+// 分裂节点函数
+void DecisionTreeSingle::splitNode(Tree* Node, const std::vector<std::vector<double>>& Data,
+                                   const std::vector<double>& Labels, const std::vector<int>& Indices, int Depth) {
+    double CurrentMSE = calculateMSE(Labels, Indices);
 
-    // Vérifier les conditions d'arrêt.
-    if (Depth >= MaxDepth || Indices.size() < static_cast<size_t>(MinLeafLarge) || CurrentMSE < 1e-6) {
-        Node->IsLeaf = true; // Marquer le nœud comme une feuille.
-        Node->Prediction = calculateMean(Labels, Indices); // Calculer la moyenne pour la prédiction.
-        return;
-    }
-
-    // Recherche du meilleur point de division.
-    // BestFeature : Indice de la meilleure caractéristique.
-    // BestThreshold : Seuil optimal pour la division.
-    // BestImpurityDecrease : Réduction de l'impureté.
-    auto [BestFeature, BestThreshold, BestImpurityDecrease] = findBestSplit(Data, Labels, Indices, CurrentMSE);
-    
-    // Pruning (élagage) précoce.
-    // Si la réduction d'impureté est insuffisante, arrêter la division.
-    if (BestFeature == -1 || BestImpurityDecrease < MinError) {
+    // 停止条件
+    if (Depth >= MaxDepth || Indices.size() < static_cast<size_t>(MinLeafLarge) || CurrentMSE < MinError) {
         Node->IsLeaf = true;
         Node->Prediction = calculateMean(Labels, Indices);
         return;
     }
 
-    Node->FeatureIndex = BestFeature; // Stocker l'indice de la meilleure caractéristique.
-    Node->MaxValue = BestThreshold; // Stocker le seuil optimal.
+    // 查找最佳分裂点
+    auto [BestFeature, BestThreshold, BestImpurityDecrease] = findBestSplit(Data, Labels, Indices, CurrentMSE);
 
-    // Diviser les données.
-    std::vector<int> LeftIndices, RightIndices; // Créer les indices pour les feuilles gauche et droite.
+    // 如果无法找到更好的分裂点，停止分裂
+    if (BestFeature == -1) {
+        Node->IsLeaf = true;
+        Node->Prediction = calculateMean(Labels, Indices);
+        return;
+    }
+
+    Node->FeatureIndex = BestFeature;
+    Node->MaxValue = BestThreshold;
+
+    // 分裂数据
+    std::vector<int> LeftIndices, RightIndices;
     for (int Idx : Indices) {
         if (Data[Idx][BestFeature] <= BestThreshold) {
             LeftIndices.push_back(Idx);
@@ -66,39 +53,36 @@ void DecisionTreeSingle::splitNode(Tree* Node, const std::vector<std::vector<dou
         }
     }
 
-    Node->Left = std::make_unique<Tree>(); // Créer un nœud à gauche.
-    Node->Right = std::make_unique<Tree>(); // Créer un nœud à droite.
-    splitNode(Node->Left.get(), Data, Labels, LeftIndices, Depth + 1); // Appel récursif pour le nœud gauche.
-    splitNode(Node->Right.get(), Data, Labels, RightIndices, Depth + 1); // Appel récursif pour le nœud droit.
+    Node->Left = std::make_unique<Tree>();
+    Node->Right = std::make_unique<Tree>();
+    splitNode(Node->Left.get(), Data, Labels, LeftIndices, Depth + 1);
+    splitNode(Node->Right.get(), Data, Labels, RightIndices, Depth + 1);
 }
 
-/**
- * @brief Recherche du meilleur point de division.
- */
-std::tuple<int, double, double> DecisionTreeSingle::findBestSplit(const std::vector<std::vector<double>>& Data, const std::vector<double>& Labels, const std::vector<int>& Indices, double CurrentMSE) {
-    int BestFeature = -1; // Initialiser l'indice de la meilleure caractéristique à -1.
-    double BestThreshold = 0.0; // Initialiser le seuil optimal.
-    double BestImpurityDecrease = 0.0; // Initialiser la meilleure réduction d'impureté.
+// 查找最佳分裂点
+std::tuple<int, double, double> DecisionTreeSingle::findBestSplit(const std::vector<std::vector<double>>& Data,
+                                                                  const std::vector<double>& Labels, const std::vector<int>& Indices, double CurrentMSE) {
+    int BestFeature = -1;
+    double BestThreshold = 0.0;
+    double BestImpurityDecrease = 0.0;
 
-    size_t NumFeatures = Data[0].size(); // Obtenir le nombre de caractéristiques.
-    auto SortedFeatureIndices = preSortFeatures(Data, Indices); // Pré-trier les caractéristiques.
+    size_t NumFeatures = Data[0].size();
+    auto SortedFeatureIndices = preSortFeatures(Data, Indices);
 
-    // Boucler sur chaque caractéristique.
     for (size_t Feature = 0; Feature < NumFeatures; ++Feature) {
-        const auto& FeatureIndices = SortedFeatureIndices[Feature]; // Utiliser l'ordre trié.
+        const auto& FeatureIndices = SortedFeatureIndices[Feature];
 
-        double LeftSum = 0.0, LeftSqSum = 0.0; // Initialiser les sommes pour le sous-ensemble gauche.
-        size_t LeftCount = 0; // Compter les échantillons à gauche.
+        double LeftSum = 0.0, LeftSqSum = 0.0;
+        size_t LeftCount = 0;
 
         double RightSum = 0.0, RightSqSum = 0.0;
         size_t RightCount = Indices.size();
         for (int Idx : FeatureIndices) {
             double Label = Labels[Idx];
-            RightSum += Label; // Initialiser pour le sous-ensemble droit.
-            RightSqSum += Label * Label; // Somme des carrés.
+            RightSum += Label;
+            RightSqSum += Label * Label;
         }
 
-        // Déplacer les échantillons du sous-ensemble droit vers le sous-ensemble gauche.
         for (size_t i = 0; i < FeatureIndices.size() - 1; ++i) {
             int Idx = FeatureIndices[i];
             double Value = Data[Idx][Feature];
@@ -113,7 +97,7 @@ std::tuple<int, double, double> DecisionTreeSingle::findBestSplit(const std::vec
             RightCount--;
 
             double NextValue = Data[FeatureIndices[i + 1]][Feature];
-            if (Value == NextValue) continue; // Ignorer les valeurs identiques.
+            if (Value == NextValue) continue;
 
             double LeftMean = LeftSum / LeftCount;
             double LeftMSE = (LeftSqSum - 2 * LeftMean * LeftSum + LeftCount * LeftMean * LeftMean) / LeftCount;
@@ -134,7 +118,7 @@ std::tuple<int, double, double> DecisionTreeSingle::findBestSplit(const std::vec
     return {BestFeature, BestThreshold, BestImpurityDecrease};
 }
 
-// Prédire pour un seul échantillon.
+// 预测函数
 double DecisionTreeSingle::predict(const std::vector<double>& Sample) const {
     const Tree* CurrentNode = Root.get();
     while (!CurrentNode->IsLeaf) {
@@ -147,14 +131,14 @@ double DecisionTreeSingle::predict(const std::vector<double>& Sample) const {
     return CurrentNode->Prediction;
 }
 
-// Calculer la moyenne des étiquettes.
+// 计算均值
 double DecisionTreeSingle::calculateMean(const std::vector<double>& Labels, const std::vector<int>& Indices) {
     double Sum = 0.0;
     for (int Idx : Indices) Sum += Labels[Idx];
     return Sum / Indices.size();
 }
 
-// Calculer l'erreur quadratique moyenne (MSE).
+// 计算均方误差（MSE）
 double DecisionTreeSingle::calculateMSE(const std::vector<double>& Labels, const std::vector<int>& Indices) {
     double Mean = calculateMean(Labels, Indices);
     double MSE = 0.0;
@@ -165,7 +149,7 @@ double DecisionTreeSingle::calculateMSE(const std::vector<double>& Labels, const
     return MSE / Indices.size();
 }
 
-// Pré-trier les indices des caractéristiques.
+// 预排序特征索引
 std::vector<std::vector<int>> DecisionTreeSingle::preSortFeatures(const std::vector<std::vector<double>>& Data, const std::vector<int>& Indices) {
     size_t NumFeatures = Data[0].size();
     std::vector<std::vector<int>> SortedIndices(NumFeatures, Indices);
@@ -179,89 +163,84 @@ std::vector<std::vector<int>> DecisionTreeSingle::preSortFeatures(const std::vec
     return SortedIndices;
 }
 
-
+// 序列化节点
 void DecisionTreeSingle::serializeNode(const Tree* node, std::ostream& out) {
     if (!node) {
-        out << "#\n"; // Use "#" to mark a null node
+        out << "#\n"; // 用 "#" 标记空节点
         return;
     }
 
-    // Write the current node's data
+    // 写入当前节点的数据
     out << node->FeatureIndex << " "
         << node->MaxValue << " "
         << node->Prediction << " "
         << node->IsLeaf << "\n";
 
-    // Recursively serialize the left and right children
+    // 递归序列化左子树和右子树
     serializeNode(node->Left.get(), out);
     serializeNode(node->Right.get(), out);
 }
 
-
+// 保存树
 void DecisionTreeSingle::saveTree(const std::string& filename) {
     std::filesystem::path currentPath = std::filesystem::current_path();
     std::filesystem::path savePath = currentPath.parent_path() / "saved_models";
 
-    // Create the directory if it doesn't exist
+    // 创建目录（如果不存在）
     std::filesystem::create_directories(savePath);
-    
-    std::ofstream outFile(  savePath / filename);
- 
+
+    std::ofstream outFile(savePath / filename);
+
     if (!outFile.is_open()) {
         throw std::runtime_error("Unable to open file for saving the tree.");
     }
 
-    // Save parameters
+    // 保存参数
     outFile << MaxDepth << " " << MinLeafLarge << " " << MinError << "\n";
 
-    // Serialize the tree structure
+    // 序列化树结构
     serializeNode(Root.get(), outFile);
 
     outFile.close();
 }
 
+// 反序列化节点
 std::unique_ptr<DecisionTreeSingle::Tree> DecisionTreeSingle::deserializeNode(std::istream& in) {
     std::string line;
     if (!std::getline(in, line) || line == "#") {
-        return nullptr; // Return null for "#" marker or end of input
+        return nullptr; // 返回空节点
     }
 
     auto node = std::make_unique<Tree>();
     std::istringstream ss(line);
 
-    // Read node data
+    // 读取节点数据
     ss >> node->FeatureIndex >> node->MaxValue >> node->Prediction >> node->IsLeaf;
 
-    // Recursively deserialize the left and right children
+    // 递归反序列化左子树和右子树
     node->Left = deserializeNode(in);
     node->Right = deserializeNode(in);
 
     return node;
 }
 
+// 加载树
 void DecisionTreeSingle::loadTree(const std::string& filename) {
     std::filesystem::path currentPath = std::filesystem::current_path();
     std::filesystem::path savePath = currentPath.parent_path() / "saved_models";
 
-    // Create the directory if it doesn't exist
-    
-
     std::ifstream inFile(savePath / filename);
-
 
     if (!inFile.is_open()) {
         throw std::runtime_error("Unable to open file for loading the tree.");
     }
 
-    // Load parameters
+    // 加载参数
     inFile >> MaxDepth >> MinLeafLarge >> MinError;
-    inFile.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Skip to the next line
+    inFile.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // 跳到下一行
 
-    // Deserialize the tree structure
+    // 反序列化树结构
     Root = deserializeNode(inFile);
 
     inFile.close();
 }
-
-
-
