@@ -1,18 +1,18 @@
-//boosting
-//Yifan
-//14.11
 #ifndef BOOSTING_H
-
 #define BOOSTING_H
 
-#include "../functions_tree/regression_tree.h"
+#include "../functions_tree/decision_tree_single.h"
 #include "loss_function.h"
 #include <vector>
 #include <memory>
 
+/**
+ * @brief Boosting 类
+ * 实现梯度提升算法，使用多个弱学习器（决策树）
+ */
 class Boosting {
 public:
-    /**
+     /**
      * @brief Constructeur pour initialiser le modèle de boosting
      * @param n_estimators Nombre de faibles apprenants (arbres de décision)
      * @param max_depth Profondeur maximale pour chaque arbre
@@ -20,8 +20,9 @@ public:
      * @param criteria Critère de division pour les arbres
      * @param loss_function Fonction de perte à minimiser
      */
-    Boosting(int n_estimators, int max_depth, double learning_rate,
-             SplittingCriteria* criteria, std::unique_ptr<LossFunction> loss_function);
+    Boosting(int n_estimators, double learning_rate,
+             std::unique_ptr<LossFunction> loss_function,
+             int max_depth, int min_samples_split, double min_impurity_decrease);
 
     /**
      * @brief Entraîner le modèle de boosting
@@ -53,16 +54,16 @@ public:
      */
     double evaluate(const std::vector<std::vector<double>>& X_test, const std::vector<double>& y_test) const;
 
-
 private:
-    int n_estimators;   // Nombre de faibles apprenants (arbres de décision)
-    int max_depth;      // Profondeur maximale pour chaque arbre
-    double learning_rate; // Taux d'apprentissage
-    SplittingCriteria* criteria;  // Critère de division pour les arbres
-    std::unique_ptr<LossFunction> loss_function; // Fonction de perte à minimiser
+    int n_estimators;  
+    int max_depth;      
+    int min_samples_split; 
+    double min_impurity_decrease;
+    double learning_rate; 
+    std::unique_ptr<LossFunction> loss_function;
 
-    std::vector<std::unique_ptr<RegressionTree>> estimators; // Collection de faibles apprenants
-    double initial_prediction; // Prédiction initiale (modèle constant)
+    std::vector<std::unique_ptr<DecisionTreeSingle>> estimators; // 弱学习器集合
+    double initial_prediction; 
 
     /**
      * @brief Initialiser la prédiction initiale basée sur le vecteur cible

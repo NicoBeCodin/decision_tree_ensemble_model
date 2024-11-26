@@ -1,10 +1,8 @@
 add_library(Boosting
     boosting.cpp
-    
+    loss_function.cpp
 )
 
-# Include header file path
-target_include_directories(Boosting PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/functions_tree)
+target_include_directories(Boosting PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
-# Link dependencies
 target_link_libraries(Boosting PUBLIC FunctionsTree)
