@@ -1,6 +1,5 @@
 #include "bagging.h"
 #include <random>
-#include <numeric>
 
 /**
  * Constructor for Bagging

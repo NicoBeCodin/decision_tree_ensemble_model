@@ -2,6 +2,7 @@
 #define MATH_FUNCTIONS_H
 #include <vector>
 #include <cmath>
+#include <algorithm>
 
 
 class Math{
@@ -13,8 +14,15 @@ public:
      */
     static double calculateMean (const std::vector<double>& labels) ;
 
+    static double calculateMeanWithIndices(const std::vector<double>& Labels, const std::vector<int>& Indices);
+
+    static double calculateMSEWithIndices(const std::vector<double>& Labels, const std::vector<int>& Indices);
+
     static double calculateStdDev(const std::vector<double>& data, double mean)  ;
     
+    static double calculateMedian(const std::vector<double>& values);
+
+    static double calculateMAE(const std::vector<double>& values, double median);
     /**
      * Calculate the Mean Squared Error (MSE) of the samples in the node
      * @param labels Target values of the current node

@@ -2,6 +2,7 @@
 #include <numeric>
 #include <iostream>
 
+
 /**
  * @brief Constructeur pour initialiser le modèle de Boosting
  * @param n_estimators Nombre de faibles apprenants (arbres de décision)

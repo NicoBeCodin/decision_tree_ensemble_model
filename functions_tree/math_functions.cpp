@@ -14,6 +14,22 @@ double Math::calculateMean(const std::vector<double> &labels)
         sum += value;
     return sum / labels.size();
 }
+double Math::calculateMeanWithIndices(const std::vector<double>& Labels, const std::vector<int>& Indices) {
+    double Sum = 0.0;
+    for (int Idx : Indices) Sum += Labels[Idx];
+    return Sum / Indices.size();
+}
+
+double Math::calculateMSEWithIndices(const std::vector<double>& Labels, const std::vector<int>& Indices) {
+    double Mean = Math::calculateMeanWithIndices(Labels, Indices);
+    double MSE = 0.0;
+    for (int Idx : Indices) {
+        double Value = Labels[Idx];
+        MSE += (Value - Mean) * (Value - Mean);
+    }
+    return MSE / Indices.size();
+}
+
 //Takes also mean as parameter for optimization in data_clean.cpp
 double Math::calculateStdDev(const std::vector<double>& data, double mean) {
         double sum = 0.0;
@@ -37,6 +53,25 @@ double Math::calculateMSE(const std::vector<double> &labels)
     for (double value : labels)
         mse += std::pow(value - mean, 2);
     return mse / labels.size();
+}
+
+double Math::calculateMedian(const std::vector<double>& values) {
+    std::vector<double> sortedValues = values;
+    std::sort(sortedValues.begin(), sortedValues.end());
+    size_t n = sortedValues.size();
+    if (n % 2 == 0) {
+        return (sortedValues[n / 2 - 1] + sortedValues[n / 2]) / 2.0;
+    } else {
+        return sortedValues[n / 2];
+    }
+}
+
+double Math::calculateMAE(const std::vector<double>& values, double median) {
+    double error = 0.0;
+    for (double value : values) {
+        error += std::abs(value - median);
+    }
+    return error / values.size();
 }
 
 // Loss functions
