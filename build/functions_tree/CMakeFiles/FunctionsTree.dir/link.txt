@@ -1,0 +1,2 @@
+/usr/bin/ar qc libFunctionsTree.a CMakeFiles/FunctionsTree.dir/math_functions.cpp.o CMakeFiles/FunctionsTree.dir/decision_tree_single.cpp.o
+/usr/bin/ranlib libFunctionsTree.a
