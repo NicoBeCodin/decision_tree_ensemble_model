@@ -1,2 +1,0 @@
-/usr/bin/ar qc libFunctionsIO.a CMakeFiles/FunctionsIO.dir/functions_io.cpp.o
-/usr/bin/ranlib libFunctionsIO.a
