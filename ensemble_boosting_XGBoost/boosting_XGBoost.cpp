@@ -4,20 +4,13 @@
 #include <iostream>
 
 /**
- * @brief Constructeur d'un arbre de régression.
- */
-RegressionTree::RegressionTree() : constant_prediction(0.0) {}
-
-void RegressionTree::train(const std::vector<std::vector<double>>& X, const std::vector<double>& residuals) {
-    constant_prediction = std::accumulate(residuals.begin(), residuals.end(), 0.0) / residuals.size();
-}
-
-double RegressionTree::predict(const std::vector<double>& x) const {
-    return constant_prediction;
-}
-
-/**
- * @brief Constructeur de XGBoost.
+ * @brief Constructeur pour initialiser le modèle XGBoost pour le boosting
+ * @param n_estimators Nombre de faibles apprenants (arbres de décision)
+ * @param max_depth Profondeur maximale pour chaque arbre
+ * @param learning_rate Taux d'apprentissage
+ * @param lambda Paramètre de régularisation L2
+ * @param alpha Paramètre de régularisation L1
+ * @param loss_function Fonction de perte (pour calculer le gradient et la perte)
  */
 XGBoost::XGBoost(int n_estimators, int max_depth, double learning_rate, double lambda, double alpha,
                  std::unique_ptr<LossFunction> loss_function)
@@ -26,13 +19,16 @@ XGBoost::XGBoost(int n_estimators, int max_depth, double learning_rate, double l
 
 /**
  * @brief Initialisation de la prédiction initiale avec la moyenne des valeurs y.
+ * @param y Vecteur des étiquettes cibles)
  */
 void XGBoost::initializePrediction(const std::vector<double>& y) {
     initial_prediction = std::accumulate(y.begin(), y.end(), 0.0) / y.size();
 }
 
 /**
- * @brief Entraîner le modèle XGBoost.
+ * @brief Entraîner le modèle de Boosting
+ * @param X Matrice des caractéristiques
+ * @param y Vecteur des étiquettes cibles
  */
 void XGBoost::train(const std::vector<std::vector<double>>& X, const std::vector<double>& y) {
     size_t n_samples = y.size();
@@ -47,9 +43,13 @@ void XGBoost::train(const std::vector<std::vector<double>>& X, const std::vector
             residuals[j] -= lambda * y_pred[j] + alpha * std::abs(y_pred[j]);
         }
 
-        auto tree = std::make_unique<RegressionTree>();
-        tree->train(X, residuals);
+        // Initialisation d'un nouvel arbre
+        auto tree = std::make_unique<DecisionTreeXGBoost>(max_depth, min_leaf_size, lambda, gamma);
 
+        // Utilisation de y_pred comme troisième argument
+        tree->train(X, residuals, y_pred);
+
+        // Mise à jour des prédictions
         for (size_t j = 0; j < n_samples; ++j) {
             y_pred[j] += learning_rate * tree->predict(X[j]);
         }
@@ -62,7 +62,9 @@ void XGBoost::train(const std::vector<std::vector<double>>& X, const std::vector
 }
 
 /**
- * @brief Prédire pour un seul échantillon.
+ * @brief Prédire pour un seul échantillon
+ * @param x Vecteur des caractéristiques d'un échantillon
+ * @return Prédiction pour l'échantillon
  */
 double XGBoost::predict(const std::vector<double>& x) const {
     double y_pred = initial_prediction;
@@ -73,7 +75,9 @@ double XGBoost::predict(const std::vector<double>& x) const {
 }
 
 /**
- * @brief Prédire pour plusieurs échantillons.
+ * @brief Prédire pour plusieurs échantillons
+ * @param X Matrice des caractéristiques
+ * @return Vecteur des prédictions pour chaque échantillon
  */
 std::vector<double> XGBoost::predict(const std::vector<std::vector<double>>& X) const {
     size_t n_samples = X.size();
@@ -85,4 +89,15 @@ std::vector<double> XGBoost::predict(const std::vector<std::vector<double>>& X) 
         }
     }
     return y_pred;
+}
+
+/**
+ * @brief Évaluer la performance du modèle sur un ensemble de test
+ * @param X_test Matrice des caractéristiques de test
+ * @param y_test Vecteur des étiquettes cibles de test
+ * @return Erreur quadratique moyenne (MSE)
+ */
+double XGBoost::evaluate(const std::vector<std::vector<double>>& X_test, const std::vector<double>& y_test) const {
+    std::vector<double> y_pred = predict(X_test);
+    return loss_function->computeLoss(y_test, y_pred);
 }

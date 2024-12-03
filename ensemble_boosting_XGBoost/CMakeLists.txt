@@ -10,12 +10,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Inclure tous les fichiers sources et headers
 set(SOURCES
-    main.cpp
-    xgboost.cpp
+    main_XGBoost.cpp
+    boosting_XGBoost.cpp
+    decision_tree_XGBoost.cpp
+    ../ensemble_boosting/loss_function.cpp
 )
 
 set(HEADERS
-    xgboost.h
+    boosting_XGBoost.h
+    decision_tree_XGBoost.h
+    ../ensemble_boosting/loss_function.h
 )
 
 # Ajouter l'exécutable

@@ -7,8 +7,8 @@ int main() {
     };
     std::vector<double> y = {1.0, 2.0, 3.0, 4.0};
 
-    auto loss_function = std::make_unique<LossFunction>();
-    XGBoost model(10, 3, 0.1, 1.0, 0.0, std::move(loss_function));
+    std::unique_ptr<LossFunction> loss = std::make_unique<LeastSquaresLoss>();
+    XGBoost model(10, 3, 0.1, 1.0, 0.0, std::move(loss));
     model.train(X, y);
 
     auto predictions = model.predict(X);
