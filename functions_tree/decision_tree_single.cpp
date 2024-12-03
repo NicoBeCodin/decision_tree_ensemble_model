@@ -20,19 +20,20 @@ void DecisionTreeSingle::train(const std::vector<std::vector<double>>& Data, con
 // 分裂节点函数
 void DecisionTreeSingle::splitNode(Tree* Node, const std::vector<std::vector<double>>& Data,
                                    const std::vector<double>& Labels, const std::vector<int>& Indices, int Depth) {
-    double CurrentMSE = Math::calculateMSEWithIndices(Labels, Indices);
+    // Calcul des métriques du nœud
+    Node->NodeMSE = Math::calculateMSEWithIndices(Labels, Indices);
+    Node->NodeSamples = Indices.size();
 
-    // 停止条件
-    if (Depth >= MaxDepth || Indices.size() < static_cast<size_t>(MinLeafLarge) || CurrentMSE < MinError) {
+    // Conditions d'arrêt
+    if (Depth >= MaxDepth || Indices.size() < static_cast<size_t>(MinLeafLarge) || Node->NodeMSE < MinError) {
         Node->IsLeaf = true;
         Node->Prediction = Math::calculateMeanWithIndices(Labels, Indices);
         return;
     }
 
-    // 查找最佳分裂点
-    auto [BestFeature, BestThreshold, BestImpurityDecrease] = findBestSplit(Data, Labels, Indices, CurrentMSE);
+    // Recherche du meilleur split
+    auto [BestFeature, BestThreshold, BestImpurityDecrease] = findBestSplit(Data, Labels, Indices, Node->NodeMSE);
 
-    // 如果无法找到更好的分裂点，停止分裂
     if (BestFeature == -1) {
         Node->IsLeaf = true;
         Node->Prediction = Math::calculateMeanWithIndices(Labels, Indices);
@@ -42,7 +43,7 @@ void DecisionTreeSingle::splitNode(Tree* Node, const std::vector<std::vector<dou
     Node->FeatureIndex = BestFeature;
     Node->MaxValue = BestThreshold;
 
-    // 分裂数据
+    // Division des données
     std::vector<int> LeftIndices, RightIndices;
     for (int Idx : Indices) {
         if (Data[Idx][BestFeature] <= BestThreshold) {

@@ -54,6 +54,9 @@ public:
      */
     double evaluate(const std::vector<std::vector<double>>& X_test, const std::vector<double>& y_test) const;
 
+    // Nouvelle méthode pour accéder aux estimateurs
+    const std::vector<std::unique_ptr<DecisionTreeSingle>>& getEstimators() const { return estimators; }
+
 private:
     int n_estimators;  
     int max_depth;      
@@ -70,6 +73,8 @@ private:
      * @param y Vecteur des étiquettes cibles
      */
     void initializePrediction(const std::vector<double>& y);
+
+    friend class FeatureImportance;
 };
 
 #endif // BOOSTING_H
