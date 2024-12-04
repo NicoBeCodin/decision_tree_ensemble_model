@@ -1,36 +1,7 @@
-# Version minimale de CMake
-cmake_minimum_required(VERSION 3.10)
-
-# Nom du projet
-project(XGBoostCpp VERSION 1.0)
-
-# Définir le standard C++ utilisé
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
-
-# Inclure tous les fichiers sources et headers
-set(SOURCES
-    main_XGBoost.cpp
+add_library(Boosting_XGBoost
     boosting_XGBoost.cpp
-    decision_tree_XGBoost.cpp
-    ../ensemble_boosting/loss_function.cpp
 )
 
-set(HEADERS
-    boosting_XGBoost.h
-    decision_tree_XGBoost.h
-    ../ensemble_boosting/loss_function.h
-)
+target_include_directories(Boosting_XGBoost PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
-# Ajouter l'exécutable
-add_executable(XGBoostCpp ${SOURCES} ${HEADERS})
-
-# Option pour le mode Debug
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    target_compile_options(XGBoostCpp PRIVATE -g -O0)
-endif()
-
-# Afficher les messages à la compilation
-message(STATUS "Configuration de projet : ${PROJECT_NAME}")
-message(STATUS "Version de projet       : ${PROJECT_VERSION}")
-message(STATUS "Mode de construction    : ${CMAKE_BUILD_TYPE}")
+target_link_libraries(Boosting_XGBoost PUBLIC FunctionsTree)

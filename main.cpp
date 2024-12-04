@@ -4,6 +4,7 @@
 #include "ensemble_bagging/bagging.h"
 #include "ensemble_boosting/boosting.h"
 #include "ensemble_boosting/loss_function.h"
+#include "ensemble_boosting_XGBoost/boosting_XGBoost.h"
 #include <iostream>
 #include <chrono>
 
@@ -27,6 +28,7 @@ int main()
     std::cout << "1: Simple Decision Tree\n";
     std::cout << "2: Bagging\n";
     std::cout << "3: Boosting\n";
+    std::cout << "4: Boosting modèle XGBoost";
     int choice;
     std::cin >> choice;
 
@@ -118,6 +120,34 @@ int main()
 
         auto eval_start = std::chrono::high_resolution_clock::now();
         double mse_value = boosting_model.evaluate(X_test, y_test);
+        auto eval_end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> eval_duration = eval_end - eval_start;
+        std::cout << "Evaluation time: " << eval_duration.count() << " seconds\n";
+
+        std::cout << "Boosting Mean Squared Error (MSE): " << mse_value << "\n";
+    }
+    else if (choice == 4)
+    {
+        std::cout << "Boosting process started, please wait...\n";
+        int n_estimators = 20;
+        int max_depth = 60;
+        int min_samples_split = 2;
+        double min_impurity_decrease = 1e-6;
+        double learning_rate = 0.1;
+        double lambda = 1.0;
+        double alpha = 0.0;
+
+        auto loss_function = std::make_unique<LeastSquaresLoss>();
+        XGBoost XGBoost_model(n_estimators, max_depth, learning_rate, lambda, alpha, std::move(loss_function));
+
+        auto train_start = std::chrono::high_resolution_clock::now();
+        XGBoost_model.train(X_train, y_train);
+        auto train_end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> train_duration = train_end - train_start;
+        std::cout << "Training time: " << train_duration.count() << " seconds\n";
+
+        auto eval_start = std::chrono::high_resolution_clock::now();
+        double mse_value = XGBoost_model.evaluate(X_test, y_test);
         auto eval_end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> eval_duration = eval_end - eval_start;
         std::cout << "Evaluation time: " << eval_duration.count() << " seconds\n";

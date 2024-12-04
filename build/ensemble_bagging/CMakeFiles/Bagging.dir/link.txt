@@ -1,2 +1,0 @@
-/usr/bin/ar qc libBagging.a CMakeFiles/Bagging.dir/bagging.cpp.o
-/usr/bin/ranlib libBagging.a
