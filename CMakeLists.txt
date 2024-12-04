@@ -7,6 +7,7 @@ add_subdirectory(functions_io)
 add_subdirectory(functions_tree)
 add_subdirectory(ensemble_bagging)
 add_subdirectory(ensemble_boosting)
+add_subdirectory(ensemble_boosting_XGBoost)
 
 add_executable(MainEnsemble main.cpp)
 
@@ -16,6 +17,7 @@ target_link_libraries(MainEnsemble
     FunctionsTree
     Bagging
     Boosting
+    Boosting_XGBoost
 )
 
 
@@ -24,4 +26,5 @@ target_include_directories(MainEnsemble PRIVATE
     functions_tree
     ensemble_bagging
     ensemble_boosting
+    ensemble_boosting_XGBoost
 )
