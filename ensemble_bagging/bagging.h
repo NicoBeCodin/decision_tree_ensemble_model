@@ -43,6 +43,12 @@ public:
      */
     double evaluate(const std::vector<std::vector<double>>& test_data, const std::vector<double>& test_labels) const;
 
+    /**
+     * @brief Get the trees in the ensemble
+     * @return A vector of pointers to the trees in the ensemble
+     */
+    const std::vector<std::unique_ptr<DecisionTreeSingle>>& getTrees() const { return trees; }
+
 private:
     int numTrees;  // Number of trees in the ensemble
     int maxDepth;  // Maximum depth of each tree
@@ -59,6 +65,8 @@ private:
      */
     void bootstrapSample(const std::vector<std::vector<double>>& data, const std::vector<double>& labels,
                          std::vector<std::vector<double>>& sampled_data, std::vector<double>& sampled_labels);
+
+    friend class FeatureImportance;
 };
 
 #endif
