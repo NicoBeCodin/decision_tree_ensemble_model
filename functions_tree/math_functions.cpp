@@ -1,4 +1,5 @@
 #include "math_functions.h"
+#include <numeric>
 
 /**
  * Calculate the mean of the samples
@@ -9,9 +10,7 @@ double Math::calculateMean(const std::vector<double> &labels)
     {
         return 0.0; // Return 0 if labels are empty, to prevent undefined behavior
     }
-    double sum = 0.0;
-    for (double value : labels)
-        sum += value;
+    double sum = std::accumulate(labels.begin(), labels.end(),0);
     return sum / labels.size();
 }
 double Math::calculateMeanWithIndices(const std::vector<double>& Labels, const std::vector<int>& Indices) {
@@ -25,7 +24,7 @@ double Math::calculateMSEWithIndices(const std::vector<double>& Labels, const st
     double MSE = 0.0;
     for (int Idx : Indices) {
         double Value = Labels[Idx];
-        MSE += (Value - Mean) * (Value - Mean);
+        MSE += std::pow(Value - Mean, 2);
     }
     return MSE / Indices.size();
 }
@@ -91,8 +90,7 @@ double Math::computeLoss(const std::vector<double> &y_true, const std::vector<do
     double loss = 0.0;
     for (size_t i = 0; i < y_true.size(); ++i)
     {
-        double diff = y_true[i] - y_pred[i];
-        loss += diff * diff;
+        loss += std::pow(y_true[i]-y_pred[i], 2);
     }
     return loss / y_true.size();
 }
