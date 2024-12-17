@@ -29,6 +29,38 @@ double Math::calculateMSEWithIndices(const std::vector<double>& Labels, const st
     return MSE / Indices.size();
 }
 
+double Math::calculateMAEWithIndices(const std::vector<double>& Labels, const std::vector<int>& Indices) {
+    if (Indices.empty()) {
+        return 0.0;
+    }
+
+    // Step 1: Extract target labels for this node
+    std::vector<double> NodeLabels;
+    for (int idx : Indices) {
+        NodeLabels.push_back(Labels[idx]);
+    }
+
+    // Step 2: Calculate the median of labels (MAE uses the median)
+    std::sort(NodeLabels.begin(), NodeLabels.end());
+    double Median;
+    size_t size = NodeLabels.size();
+    if (size % 2 == 0) {
+        Median = (NodeLabels[size / 2 - 1] + NodeLabels[size / 2]) / 2.0;
+    } else {
+        Median = NodeLabels[size / 2];
+    }
+
+    // Step 3: Calculate the Mean Absolute Error
+    double MAE = 0.0;
+    for (double label : NodeLabels) {
+        MAE += std::abs(label - Median);
+    }
+    MAE /= NodeLabels.size();
+
+    return MAE;
+}
+
+
 //Takes also mean as parameter for optimization in data_clean.cpp
 double Math::calculateStdDev(const std::vector<double>& data, double mean) {
         double sum = 0.0;
@@ -65,6 +97,16 @@ double Math::calculateMedian(const std::vector<double>& values) {
     }
 }
 
+double Math::calculateMedianSorted(const std::vector<double>& sortedValues) {
+    size_t n = sortedValues.size();
+    if (n % 2 == 0) {
+        return (sortedValues[n / 2 - 1] + sortedValues[n / 2]) / 2.0;
+    } else {
+        return sortedValues[n / 2];
+    }
+}
+
+
 double Math::calculateMAE(const std::vector<double>& values, double median) {
     double error = 0.0;
     for (double value : values) {
@@ -72,6 +114,7 @@ double Math::calculateMAE(const std::vector<double>& values, double median) {
     }
     return error / values.size();
 }
+
 
 // Loss functions
 std::vector<double> Math::negativeGradient(const std::vector<double> &y_true,

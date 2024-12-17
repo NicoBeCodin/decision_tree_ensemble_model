@@ -22,6 +22,10 @@ public:
     
     static double calculateMedian(const std::vector<double>& values);
 
+    static double calculateMedianSorted(const std::vector<double>& sortedValues);
+
+    static double calculateMAEWithIndices(const std::vector<double>& Labels, const std::vector<int>& Indices);
+
     static double calculateMAE(const std::vector<double>& values, double median);
     /**
      * Calculate the Mean Squared Error (MSE) of the samples in the node

@@ -24,7 +24,7 @@ public:
 
     // Constructeur et méthodes existantes...
     DecisionTreeSingle(int MaxDepth, int MinLeafLarge, double MinError);
-    void train(const std::vector<std::vector<double>> &Data, const std::vector<double> &Labels);
+    void train(const std::vector<std::vector<double>> &Data, const std::vector<double> &Labels, int criteria);
     double predict(const std::vector<double> &Sample) const;
     void saveTree(const std::string &filename);
     void loadTree(const std::string &filename);
@@ -41,6 +41,9 @@ private:
     double MinError;           
 
     void splitNode(Tree *Node, const std::vector<std::vector<double>> &Data,
+                  const std::vector<double> &Labels,
+                  const std::vector<int> &Indices, int Depth);
+    void splitNodeMAE(Tree *Node, const std::vector<std::vector<double>> &Data,
                   const std::vector<double> &Labels,
                   const std::vector<int> &Indices, int Depth);
 

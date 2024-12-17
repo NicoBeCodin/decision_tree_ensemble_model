@@ -4,24 +4,32 @@
 #include <algorithm>
 #include <numeric>
 #include <cmath>
+#include <iostream>
 
 // 构造函数
 DecisionTreeSingle::DecisionTreeSingle(int MaxDepth, int MinLeafLarge, double MinError)
     : MaxDepth(MaxDepth), MinLeafLarge(MinLeafLarge), MinError(MinError), Root(nullptr) {}
 
 // 训练函数
-void DecisionTreeSingle::train(const std::vector<std::vector<double>>& Data, const std::vector<double>& Labels) {
+void DecisionTreeSingle::train(const std::vector<std::vector<double>>& Data, const std::vector<double>& Labels, int criteria) {
     Root = std::make_unique<Tree>();
     std::vector<int> Indices(Data.size());
     std::iota(Indices.begin(), Indices.end(), 0);
-    splitNode(Root.get(), Data, Labels, Indices, 0);
+    if (criteria==0){
+        splitNode(Root.get(), Data, Labels, Indices, 0);
+    }
+    else if (criteria==1){
+        splitNodeMAE(Root.get(), Data, Labels, Indices, 0);
+    }
 }
 
 // 分裂节点函数
 void DecisionTreeSingle::splitNode(Tree* Node, const std::vector<std::vector<double>>& Data,
                                    const std::vector<double>& Labels, const std::vector<int>& Indices, int Depth) {
     // Calcul des métriques du nœud
+
     Node->NodeMSE = Math::calculateMSEWithIndices(Labels, Indices);
+    //Node->NodeMSE = Math::calculateMAEWithIndices(Labels, Indices);
     Node->NodeSamples = Indices.size();
 
     // Conditions d'arrêt
@@ -58,6 +66,54 @@ void DecisionTreeSingle::splitNode(Tree* Node, const std::vector<std::vector<dou
     splitNode(Node->Left.get(), Data, Labels, LeftIndices, Depth + 1);
     splitNode(Node->Right.get(), Data, Labels, RightIndices, Depth + 1);
 }
+
+
+// 分裂节点函数
+
+//SplitNode with MAE so currently testing
+void DecisionTreeSingle::splitNodeMAE(Tree* Node, const std::vector<std::vector<double>>& Data,
+                                   const std::vector<double>& Labels, const std::vector<int>& Indices, int Depth) {
+    // Calcul des métriques du nœud
+
+    // Node->NodeMSE = Math::calculateMSEWithIndices(Labels, Indices);
+    Node->NodeMSE = Math::calculateMAEWithIndices(Labels, Indices);
+    Node->NodeSamples = Indices.size();
+
+    // Conditions d'arrêt
+    if (Depth >= MaxDepth || Indices.size() < static_cast<size_t>(MinLeafLarge) || Node->NodeMSE < MinError) {
+        Node->IsLeaf = true;
+        Node->Prediction = Math::calculateMeanWithIndices(Labels, Indices);
+        return;
+    }
+
+    // Recherche du meilleur split
+    auto [BestFeature, BestThreshold, BestImpurityDecrease] = findBestSplitUsingMAE(Data, Labels, Indices, Node->NodeMSE);
+
+    if (BestFeature == -1) {
+        Node->IsLeaf = true;
+        Node->Prediction = Math::calculateMeanWithIndices(Labels, Indices);
+        return;
+    }
+
+    Node->FeatureIndex = BestFeature;
+    Node->MaxValue = BestThreshold;
+
+    // Division des données
+    std::vector<int> LeftIndices, RightIndices;
+    for (int Idx : Indices) {
+        if (Data[Idx][BestFeature] <= BestThreshold) {
+            LeftIndices.push_back(Idx);
+        } else {
+            RightIndices.push_back(Idx);
+        }
+    }
+
+    Node->Left = std::make_unique<Tree>();
+    Node->Right = std::make_unique<Tree>();
+    splitNode(Node->Left.get(), Data, Labels, LeftIndices, Depth + 1);
+    splitNode(Node->Right.get(), Data, Labels, RightIndices, Depth + 1);
+}
+
 
 // 查找最佳分裂点
 //Variance minimization
@@ -120,61 +176,6 @@ std::tuple<int, double, double> DecisionTreeSingle::findBestSplit(const std::vec
 }
 
 
-std::tuple<int, double, double> DecisionTreeSingle::findBestSplitUsingMAE(
-    const std::vector<std::vector<double>>& Data,
-    const std::vector<double>& Labels, 
-    const std::vector<int>& Indices, 
-    double CurrentMAE) {
-
-    int BestFeature = -1;
-    double BestThreshold = 0.0;
-    double BestImpurityDecrease = 0.0;
-
-    size_t NumFeatures = Data[0].size();
-    auto SortedFeatureIndices = preSortFeatures(Data, Indices);
-
-    for (size_t Feature = 0; Feature < NumFeatures; ++Feature) {
-        const auto& FeatureIndices = SortedFeatureIndices[Feature];
-
-        std::vector<double> LeftLabels, RightLabels;
-        for (int Idx : FeatureIndices) {
-            RightLabels.push_back(Labels[Idx]);
-        }
-
-        for (size_t i = 0; i < FeatureIndices.size() - 1; ++i) {
-            int Idx = FeatureIndices[i];
-            double Value = Data[Idx][Feature];
-            double Label = Labels[Idx];
-
-            LeftLabels.push_back(Label);
-            RightLabels.erase(std::remove(RightLabels.begin(), RightLabels.end(), Label), RightLabels.end());
-
-            if (i + 1 < FeatureIndices.size() && Value == Data[FeatureIndices[i + 1]][Feature]) {
-                continue;
-            }
-
-            double LeftMedian = Math::calculateMedian(LeftLabels);
-            double RightMedian = Math::calculateMedian(RightLabels);
-
-            double LeftMAE = Math::calculateMAE(LeftLabels, LeftMedian);
-            double RightMAE = Math::calculateMAE(RightLabels, RightMedian);
-
-            double WeightedImpurity = 
-                (LeftMAE * LeftLabels.size() + RightMAE * RightLabels.size()) / Indices.size();
-            double ImpurityDecrease = CurrentMAE - WeightedImpurity;
-
-            if (ImpurityDecrease > BestImpurityDecrease) {
-                BestImpurityDecrease = ImpurityDecrease;
-                BestFeature = Feature;
-                BestThreshold = (Value + Data[FeatureIndices[i + 1]][Feature]) / 2.0;
-            }
-        }
-    }
-
-    return {BestFeature, BestThreshold, BestImpurityDecrease};
-}
-
-
 
 // 预测函数
 double DecisionTreeSingle::predict(const std::vector<double>& Sample) const {
@@ -222,6 +223,76 @@ void DecisionTreeSingle::serializeNode(const Tree* node, std::ostream& out) {
     serializeNode(node->Left.get(), out);
     serializeNode(node->Right.get(), out);
 }
+
+
+std::tuple<int, double, double> DecisionTreeSingle::findBestSplitUsingMAE(
+    const std::vector<std::vector<double>>& Data,
+    const std::vector<double>& Labels,
+    const std::vector<int>& Indices,
+    double CurrentMAE) 
+{
+    int BestFeature = -1;
+    double BestThreshold = 0.0;
+    double BestImpurityDecrease = 0.0;
+
+    size_t NumFeatures = Data[0].size();
+    auto SortedFeatureIndices = preSortFeatures(Data, Indices);
+
+    for (size_t Feature = 0; Feature < NumFeatures; ++Feature) {
+        const auto& FeatureIndices = SortedFeatureIndices[Feature];
+
+        // Left and right partitions
+        std::vector<double> LeftLabels, RightLabels;
+        double LeftSum = 0.0, RightSum = 0.0;
+
+        // Initialize right partition
+        for (int idx : FeatureIndices) {
+            RightLabels.push_back(Labels[idx]);
+            RightSum += Labels[idx];
+        }
+
+        // Iterate over split candidates
+        for (size_t i = 0; i < FeatureIndices.size() - 1; ++i) {
+            int idx = FeatureIndices[i];
+            double Value = Data[idx][Feature];
+            double Label = Labels[idx];
+
+            // Move label from right partition to left partition
+            LeftLabels.push_back(Label);
+            LeftSum += Label;
+
+            RightSum -= Label;
+            RightLabels.erase(std::remove(RightLabels.begin(), RightLabels.end(), Label), RightLabels.end());
+
+            // Skip duplicates
+            double NextValue = Data[FeatureIndices[i + 1]][Feature];
+            if (Value == NextValue) continue;
+
+            // Calculate medians
+            double LeftMedian = Math::calculateMedianSorted(LeftLabels);
+            double RightMedian = Math::calculateMedianSorted(RightLabels);
+
+            // Calculate MAE for left and right partitions
+            double LeftMAE = Math::calculateMAE(LeftLabels, LeftMedian);
+            double RightMAE = Math::calculateMAE(RightLabels, RightMedian);
+
+            // Weighted MAE
+            double WeightedMAE = (LeftMAE * LeftLabels.size() + RightMAE * RightLabels.size()) / Indices.size();
+            double ImpurityDecrease = CurrentMAE - WeightedMAE;
+
+            // Update best split
+            if (ImpurityDecrease > BestImpurityDecrease) {
+                BestImpurityDecrease = ImpurityDecrease;
+                BestFeature = Feature;
+                BestThreshold = (Value + NextValue) / 2.0;
+            }
+        }
+    }
+
+    return {BestFeature, BestThreshold, BestImpurityDecrease};
+}
+
+
 
 // 保存树
 void DecisionTreeSingle::saveTree(const std::string& filename) {

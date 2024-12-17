@@ -104,7 +104,7 @@ int main()
             DecisionTreeSingle single_tree(maxDepth, minSamplesSplit, minImpurityDecrease);
 
             auto train_start = std::chrono::high_resolution_clock::now();
-            single_tree.train(X_train, y_train);
+            single_tree.train(X_train, y_train,0);
             auto train_end = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> train_duration = train_end - train_start;
             std::cout << "Training time: " << train_duration.count() << " seconds\n";

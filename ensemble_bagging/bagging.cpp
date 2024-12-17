@@ -50,7 +50,7 @@
 
             // Create and train a new DecisionTreeSingle
             auto tree = std::make_unique<DecisionTreeSingle>(maxDepth, minSamplesSplit, minImpurityDecrease);
-            tree->train(sampled_data, sampled_labels);
+            tree->train(sampled_data, sampled_labels, 0);
             trees.push_back(std::move(tree));
         }
     }

@@ -50,12 +50,15 @@ int main()
     std::cout << "1: Simple Decision Tree\n";
     std::cout << "2: Bagging\n";
     std::cout << "3: Boosting\n";
-    std::cout << "4: Boosting modèle XGBoost";
+    std::cout << "4: Boosting modèle XGBoost\n";
     int choice;
     std::cin >> choice;
 
     if (choice == 1)
     {
+        std::cout<< "Which method do you want as a splitting criteria: MSE (0) (faster for the moment) or MAE (1) ?"<<std::endl;
+        int criteria;
+        std::cin>>criteria;
         std::cout << "Training a single decision tree, please wait...\n";
         int maxDepth = 60;
         int minSamplesSplit = 2;
@@ -64,7 +67,7 @@ int main()
         DecisionTreeSingle single_tree(maxDepth, minSamplesSplit, minImpurityDecrease);
 
         auto train_start = std::chrono::high_resolution_clock::now();
-        single_tree.train(X_train, y_train);
+        single_tree.train(X_train, y_train, criteria);
         auto train_end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> train_duration = train_end - train_start;
         std::cout << "Training time: " << train_duration.count() << " seconds\n";

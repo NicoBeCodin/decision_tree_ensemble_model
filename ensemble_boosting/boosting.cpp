@@ -48,7 +48,8 @@ void Boosting::train(const std::vector<std::vector<double>>& X,
 
    
         auto tree = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease);
-        tree->train(X, residuals);
+        //training with MSE only for the moment
+        tree->train(X, residuals, 0);
 
         for (size_t j = 0; j < n_samples; ++j) {
             y_pred[j] += learning_rate * tree->predict(X[j]);
