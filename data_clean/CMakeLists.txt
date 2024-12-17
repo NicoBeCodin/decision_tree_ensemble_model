@@ -1,20 +1,7 @@
-# Version minimale de CMake
-cmake_minimum_required(VERSION 3.10)
-
-# Définir le standard C++ utilisé
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
-
-# Inclure tous les fichiers sources et headers
-set(SOURCES
-    main_data_clean.cpp
+add_library(Data_Clean
     data_clean.cpp
-    ../functions_tree/math_functions.cpp
 )
 
-set(HEADERS
-    data_clean.h
-    ../functions_tree/math_functions.h
-)
-# Ajouter l'exécutable
-add_executable(DATACLEAN ${SOURCES} ${HEADERS})
+target_include_directories(Data_Clean PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+
+target_link_libraries(Data_Clean PUBLIC FunctionsTree)

@@ -8,9 +8,23 @@ add_subdirectory(functions_tree)
 add_subdirectory(ensemble_bagging)
 add_subdirectory(ensemble_boosting)
 add_subdirectory(ensemble_boosting_XGBoost)
+add_subdirectory(data_clean)
 
+add_executable(DataClean main_data_clean.cpp)
 add_executable(MainEnsemble main.cpp)
 add_executable(MainKFold main_kfold.cpp)
+
+target_link_libraries(DataClean 
+    Data_Clean
+)
+
+target_link_libraries(MainEnsemble 
+    FunctionsIO
+    FunctionsTree
+    Bagging
+    Boosting
+    Boosting_XGBoost
+)
 
 target_link_libraries(MainEnsemble 
     FunctionsIO
