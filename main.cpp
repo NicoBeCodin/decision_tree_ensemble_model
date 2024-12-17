@@ -1,12 +1,28 @@
 #include "functions_io/functions_io.h"
 #include "functions_tree/decision_tree_single.h"
 #include "functions_tree/math_functions.h"
+#include "functions_tree/feature_importance.h"
+#include "functions_tree/tree_visualization.h"
 #include "ensemble_bagging/bagging.h"
 #include "ensemble_boosting/boosting.h"
 #include "ensemble_boosting/loss_function.h"
 #include "ensemble_boosting_XGBoost/boosting_XGBoost.h"
 #include <iostream>
 #include <chrono>
+#include <iomanip>
+
+void displayFeatureImportance(const std::vector<FeatureImportance::FeatureScore>& scores) {
+    std::cout << "\nImportance des caractéristiques :\n";
+    std::cout << std::setw(15) << "Caractéristique" << std::setw(15) << "Importance (%)\n";
+    std::cout << std::string(30, '-') << "\n";
+    
+    for (const auto& score : scores) {
+        std::cout << std::setw(15) << score.feature_name 
+                  << std::setw(15) << std::fixed << std::setprecision(2) 
+                  << score.importance_score * 100.0 << "\n";
+    }
+    std::cout << std::endl;
+}
 
 int main()
 {
@@ -17,6 +33,12 @@ int main()
         std::cerr << "Unable to open the data file, please check the path." << std::endl;
         return -1;
     }
+
+    // Noms des caractéristiques
+    std::vector<std::string> feature_names = {
+        "p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8",
+        "matrix_size_x", "matrix_size_y"
+    };
 
     size_t train_size = static_cast<size_t>(X.size() * 0.8);
     std::vector<std::vector<double>> X_train(X.begin(), X.begin() + train_size);
@@ -63,6 +85,10 @@ int main()
         std::cout << "Evaluation time: " << eval_duration.count() << " seconds\n";
         std::cout << "Mean Squared Error (MSE): " << mse_value << "\n";
 
+        // Calcul et affichage de l'importance des caractéristiques
+        auto feature_importance = FeatureImportance::calculateTreeImportance(single_tree, feature_names);
+        displayFeatureImportance(feature_importance);
+
         std::cout << "Would you like to save this tree? (0 = no, 1 = yes)\n";
         int answer = 0;
         std::cin >> answer;
@@ -74,6 +100,11 @@ int main()
             std::cout << "Saving tree as: " << filename << std::endl;
             single_tree.saveTree(filename);
         }
+
+        // Ajout de la visualisation
+        std::cout << "Génération de la visualisation de l'arbre..." << std::endl;
+        TreeVisualization::generateDotFile(single_tree, "single_tree", feature_names);
+        std::cout << "Visualisation générée dans le dossier 'visualizations'" << std::endl;
     }
     else if (choice == 2)
     {
@@ -98,6 +129,15 @@ int main()
         std::cout << "Evaluation time (Bagging): " << eval_duration.count() << " seconds\n";
 
         std::cout << "Bagging Mean Squared Error (MSE): " << mse_value << "\n";
+
+        // Calcul et affichage de l'importance des caractéristiques pour le bagging
+        auto feature_importance = FeatureImportance::calculateBaggingImportance(bagging_model, feature_names);
+        displayFeatureImportance(feature_importance);
+
+        // Ajout de la visualisation
+        std::cout << "Génération des visualisations des arbres..." << std::endl;
+        TreeVisualization::generateEnsembleDotFiles(bagging_model.getTrees(), "bagging", feature_names);
+        std::cout << "Visualisations générées dans le dossier 'visualizations'" << std::endl;
     }
     else if (choice == 3)
     {
@@ -125,6 +165,15 @@ int main()
         std::cout << "Evaluation time: " << eval_duration.count() << " seconds\n";
 
         std::cout << "Boosting Mean Squared Error (MSE): " << mse_value << "\n";
+
+        // Calcul et affichage de l'importance des caractéristiques pour le boosting
+        auto feature_importance = FeatureImportance::calculateBoostingImportance(boosting_model, feature_names);
+        displayFeatureImportance(feature_importance);
+
+        // Ajout de la visualisation
+        std::cout << "Génération des visualisations des arbres..." << std::endl;
+        TreeVisualization::generateEnsembleDotFiles(boosting_model.getEstimators(), "boosting", feature_names);
+        std::cout << "Visualisations générées dans le dossier 'visualizations'" << std::endl;
     }
     else if (choice == 4)
     {

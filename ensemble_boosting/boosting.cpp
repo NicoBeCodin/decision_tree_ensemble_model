@@ -2,6 +2,7 @@
 #include <numeric>
 #include <iostream>
 
+
 /**
  * @brief Constructeur pour initialiser le modèle de Boosting
  * @param n_estimators Nombre de faibles apprenants (arbres de décision)
@@ -83,7 +84,6 @@ double Boosting::predict(const std::vector<double>& x) const {
 std::vector<double> Boosting::predict(const std::vector<std::vector<double>>& X) const {
     size_t n_samples = X.size();
     std::vector<double> y_pred(n_samples, initial_prediction);
-
  
     for (const auto& tree : estimators) {
         for (size_t i = 0; i < n_samples; ++i) {

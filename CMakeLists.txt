@@ -10,7 +10,7 @@ add_subdirectory(ensemble_boosting)
 add_subdirectory(ensemble_boosting_XGBoost)
 
 add_executable(MainEnsemble main.cpp)
-
+add_executable(MainKFold main_kfold.cpp)
 
 target_link_libraries(MainEnsemble 
     FunctionsIO
@@ -20,6 +20,12 @@ target_link_libraries(MainEnsemble
     Boosting_XGBoost
 )
 
+target_link_libraries(MainKFold 
+    FunctionsIO
+    FunctionsTree
+    Bagging
+    Boosting
+)
 
 target_include_directories(MainEnsemble PRIVATE
     functions_io
@@ -27,4 +33,11 @@ target_include_directories(MainEnsemble PRIVATE
     ensemble_bagging
     ensemble_boosting
     ensemble_boosting_XGBoost
+)
+
+target_include_directories(MainKFold PRIVATE
+    functions_io
+    functions_tree
+    ensemble_bagging
+    ensemble_boosting
 )
