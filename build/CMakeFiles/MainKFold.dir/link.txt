@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/MainKFold.dir/main_kfold.cpp.o -o MainKFold  functions_io/libFunctionsIO.a functions_tree/libFunctionsTree.a ensemble_bagging/libBagging.a ensemble_boosting/libBoosting.a functions_tree/libFunctionsTree.a 

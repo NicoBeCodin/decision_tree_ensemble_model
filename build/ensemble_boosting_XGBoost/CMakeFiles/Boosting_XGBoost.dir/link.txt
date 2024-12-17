@@ -1,2 +1,0 @@
-/usr/bin/ar qc libBoosting_XGBoost.a CMakeFiles/Boosting_XGBoost.dir/boosting_XGBoost.cpp.o
-/usr/bin/ranlib libBoosting_XGBoost.a
