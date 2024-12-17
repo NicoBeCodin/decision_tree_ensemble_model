@@ -1,8 +1,13 @@
-#include "data_clean.h"
+#include "data_clean/data_clean.h"
 
-int main() {
-    std::string inputFilePath = "/mnt/d/Desktop/decision_tree_ensemble_model/datasets/15k_random.csv"; // Input CSV file path
-    std::string outputFilePath = "/mnt/d/Desktop/decision_tree_ensemble_model/datasets/cleaned_data.csv"; // Output CSV file path
+int main(int argc, char* argv[]) {
+    if (argc < 3) {
+        std::cerr << "Usage: " << argv[0] << " <inputFilePath> <outputFilePath>" << std::endl;
+        return 1;
+    }
+
+    std::string inputFilePath = argv[1]; // Input CSV file path
+    std::string outputFilePath = argv[2]; // Output CSV file path
     std::string header;  // To save the header
     int numBins = 50;  // Number of bins for binning
 

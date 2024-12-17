@@ -1,7 +1,7 @@
 #ifndef XGBOOST_H
 #define XGBOOST_H
 
-#include "decision_tree_XGBoost.h"
+#include "../functions_tree/decision_tree_XGBoost.h"
 #include "../ensemble_boosting/loss_function.h"
 #include <vector>
 #include <memory>
