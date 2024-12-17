@@ -1,0 +1,2 @@
+/usr/bin/ar qc libBoosting.a CMakeFiles/Boosting.dir/boosting.cpp.o CMakeFiles/Boosting.dir/loss_function.cpp.o
+/usr/bin/ranlib libBoosting.a
