@@ -151,7 +151,7 @@ int main() {
   } else if (choice == 2) {
 
     
-    std::cout << "You can customize parameters for the bagging process adn it's trees\n";
+    std::cout << "You can customize parameters for the bagging process and it's trees\n";
     std::cout << "Press Enter to use the default value or type a new value and "
                  "press Enter.\n";
 
@@ -192,6 +192,11 @@ int main() {
     std::cout << "Visualisations générées dans le dossier 'visualizations'"
               << std::endl;
   } else if (choice == 3) {
+        std::cout << "You can customize parameters for the boosting process and it's trees\n";
+    std::cout << "Press Enter to use the default value or type a new value and "
+                 "press Enter.\n";
+
+
     int n_estimators =  getInputWithDefault("Enter number of estimators", 20);
     int max_depth =  getInputWithDefault("Enter max depth", 60);
     int min_samples_split =  getInputWithDefault("Enter minimum sample split", 2);
@@ -230,6 +235,10 @@ int main() {
     std::cout << "Visualisations générées dans le dossier 'visualizations'"
               << std::endl;
   } else if (choice == 4) {
+    std::cout << "You can customize parameters for the XGBoosting process and it's trees\n";
+    std::cout << "Press Enter to use the default value or type a new value and "
+                 "press Enter.\n";
+
     int n_estimators =  getInputWithDefault("Enter number of estimators", 20);
     int max_depth =  getInputWithDefault("Enter max depth", 60);
     int min_samples_split = getInputWithDefault("Enter minimum sample split", 2);
@@ -258,7 +267,7 @@ int main() {
     std::cout << "Boosting Mean Squared Error (MSE): " << mse_value << "\n";
   } else {
     std::cerr
-        << "Invalid choice! Please rerun the program and choose 1, 2, or 3."
+        << "Invalid choice! Please rerun the program and choose 1, 2, 3 or 4"
         << std::endl;
     return -1;
   }
