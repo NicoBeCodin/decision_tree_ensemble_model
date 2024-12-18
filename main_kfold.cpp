@@ -6,6 +6,7 @@
 #include "ensemble_boosting/loss_function.h"
 #include <iostream>
 #include <chrono>
+#include <memory>
 #include <numeric>
 #include <algorithm>
 #include <random>
@@ -135,7 +136,7 @@ int main()
             int min_samples_split = 2;
             double min_impurity_decrease = 1e-6;
 
-            Bagging bagging_model(num_trees, max_depth, min_samples_split, min_impurity_decrease);
+            Bagging bagging_model(num_trees, max_depth, min_samples_split, min_impurity_decrease, std::unique_ptr<LeastSquaresLoss>());
 
             auto train_start = std::chrono::high_resolution_clock::now();
             bagging_model.train(X_train, y_train);

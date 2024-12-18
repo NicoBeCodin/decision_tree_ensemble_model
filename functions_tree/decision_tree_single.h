@@ -16,15 +16,15 @@ public:
         double MaxValue = 0.0;                 
         double Prediction = 0.0;               
         bool IsLeaf = false;                   
-        double NodeMetric = 0.0;                  // MSE au niveau du nœud
-        size_t NodeSamples = 0;               // Nombre d'échantillons au niveau du nœud
+        double NodeMetric = 0.0;                  // Evaulation metric for node
+        size_t NodeSamples = 0;               // Number of samples at node
         std::unique_ptr<Tree> Left = nullptr;  
         std::unique_ptr<Tree> Right = nullptr; 
     };
 
     // Constructeur et méthodes existantes...
     DecisionTreeSingle(int MaxDepth, int MinLeafLarge, double MinError);
-    void train(const std::vector<std::vector<double>> &Data, const std::vector<double> &Labels, int criteria);
+    void train(const std::vector<std::vector<double>> &Data, const std::vector<double> &Labels, int criteria = 0);
     double predict(const std::vector<double> &Sample) const;
     void saveTree(const std::string &filename);
     void loadTree(const std::string &filename);

@@ -34,7 +34,7 @@ public:
      */
     void train(const std::vector<std::vector<double>>& X,
                const std::vector<double>& y,
-               const int criteria);
+               const int criteria = 0);
 
     /**
      * @brief Prédire une valeur pour un échantillon donné

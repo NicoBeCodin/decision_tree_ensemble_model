@@ -133,8 +133,6 @@ int main() {
     auto eval_end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> eval_duration = eval_end - eval_start;
 
-    // std::string metric = (criteria == 0) ? "Mean Squared Error (MSE)" : "Mean Absolute Error (MAE)";
-
     std::cout << "Evaluation time: " << eval_duration.count() << " seconds\n";
     std::cout<<"Mean Squared Loss (MSE): " << mse_value << std::endl;
     std::cout <<"Mean Absolute Loss (MAE): " <<mae_value<<std::endl;
@@ -160,7 +158,7 @@ int main() {
     std::cout << "Génération de la visualisation de l'arbre..." << std::endl;
     TreeVisualization::generateDotFile(single_tree, "single_tree",
                                        feature_names);
-    std::cout << "Visualisation générée dans le dossier 'visualizations'"
+    std::cout << "Image genrated in folder: 'visualizations'"
               << std::endl;
   } else if (choice == 2) {
 
@@ -169,20 +167,37 @@ int main() {
     std::cout << "Press Enter to use the default value or type a new value and "
                  "press Enter.\n";
 
+
+    int which_loss_func = getInputWithDefault("MSE (0) or MAE (1) for comparing trees", 0);
+    int criteria = getInputWithDefault("MSE (0) or MAE (1) for splitting criteria", 0);
     int num_trees =
         getInputWithDefault("Enter number of trees to generate", 20);
     int max_depth = getInputWithDefault("Enter max depth", 60);
     int min_samples_split =
-        getInputWithDefault("Enter minimu samples to split", 2);
+        getInputWithDefault("Enter minimum samples to split", 2);
     double min_impurity_decrease =
         getInputWithDefault("Enter minimum impurity decrease", 1e-6);
 
+    std::unique_ptr<LeastSquaresLoss> ls_loss =
+    std::make_unique<LeastSquaresLoss>();
+    std::unique_ptr<MeanAbsoluteLoss> ma_loss =
+        std::make_unique<MeanAbsoluteLoss>();
+
+    std::unique_ptr<LossFunction> loss_function;
+
+    if (which_loss_func == 0) {
+      loss_function = std::move(ls_loss);
+    } else {
+      loss_function = std::move(ma_loss);
+    }
+
+
     std::cout << "Bagging process started, please wait...\n";
     Bagging bagging_model(num_trees, max_depth, min_samples_split,
-                          min_impurity_decrease);
+                          min_impurity_decrease, std::move(loss_function));
 
     auto train_start = std::chrono::high_resolution_clock::now();
-    bagging_model.train(X_train, y_train);
+    bagging_model.train(X_train, y_train, criteria);
     auto train_end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> train_duration = train_end - train_start;
     std::cout << "Training time (Bagging): " << train_duration.count()
@@ -205,10 +220,10 @@ int main() {
     displayFeatureImportance(feature_importance);
 
     // Ajout de la visualisation
-    std::cout << "Génération des visualisations des arbres..." << std::endl;
+    std::cout << "Generating tree images..." << std::endl;
     TreeVisualization::generateEnsembleDotFiles(bagging_model.getTrees(),
                                                 "bagging", feature_names);
-    std::cout << "Visualisations générées dans le dossier 'visualizations'"
+    std::cout << "Images generated in folder: 'visualizations'"
               << std::endl;
   } else if (choice == 3) {
     std::cout << "You can customize parameters for the boosting process and "
@@ -218,9 +233,7 @@ int main() {
 
     int which_loss_func = getInputWithDefault("MSE (0) or MAE (1) to compare trees", 0);
     int criteria = getInputWithDefault("MSE (0) or MAE (1) for splitting criteria", 0);
-    std::cout<<"Criteria is :" << criteria <<std::endl;
     int n_estimators = getInputWithDefault("Enter number of estimators", 20);
-    std::cout<<"n_estimators is :" << n_estimators <<std::endl;
     int max_depth = getInputWithDefault("Enter max depth", 60);
     int min_samples_split =
         getInputWithDefault("Enter minimum sample split", 2);
@@ -261,7 +274,7 @@ int main() {
 
     std::string metric = (which_loss_func == 0) ? "MSE" : "MAE";
 
-    std::cout << "Boosting Error " << metric << " : "<< metric_value << "\n";
+    std::cout << "Boosting Error with " << metric << " : "<< metric_value << "\n";
 
     // Calcul et affichage de l'importance des caractéristiques pour le boosting
     auto feature_importance = FeatureImportance::calculateBoostingImportance(
@@ -269,10 +282,10 @@ int main() {
     displayFeatureImportance(feature_importance);
 
     // Ajout de la visualisation
-    std::cout << "Génération des visualisations des arbres..." << std::endl;
+    std::cout << "Generating tree images..." << std::endl;
     TreeVisualization::generateEnsembleDotFiles(boosting_model.getEstimators(),
                                                 "boosting", feature_names);
-    std::cout << "Visualisations générées dans le dossier 'visualizations'"
+    std::cout << "Image generated in folder:  'visualizations'"
               << std::endl;
   } else if (choice == 4) {
     std::cout << "You can customize parameters for the XGBoosting process and "
