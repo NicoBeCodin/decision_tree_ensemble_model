@@ -14,9 +14,7 @@
 
 void displayFeatureImportance(
     const std::vector<FeatureImportance::FeatureScore> &scores) {
-  std::cout << "\nImportance des caractéristiques :\n";
-  std::cout << std::setw(15) << "Caractéristique" << std::setw(15)
-            << "Importance (%)\n";
+  std::cout << "\nFeature importance :\n";
   std::cout << std::string(30, '-') << "\n";
 
   for (const auto &score : scores) {
@@ -27,7 +25,7 @@ void displayFeatureImportance(
   std::cout << std::endl;
 }
 
-// Generic input function to set parameters with defaults
+// input function to set parameters with defaults
 template <typename T>
 T getInputWithDefault(const std::string &prompt, T defaultValue) {
   std::cout << prompt << " (Default: " << defaultValue << "): ";
@@ -76,7 +74,7 @@ int main() {
   std::cout << "1: Simple Decision Tree\n";
   std::cout << "2: Bagging\n";
   std::cout << "3: Boosting\n";
-  std::cout << "4: Boosting modèle XGBoost\n";
+  std::cout << "4: Boosting model with XGBoost\n";
   int choice;
   std::cin >> choice;
 
