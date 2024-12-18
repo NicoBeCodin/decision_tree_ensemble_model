@@ -59,6 +59,13 @@ int main() {
     return -1;
   }
 
+  // Créer le dossier saved_models s'il n'existe pas
+  std::filesystem::path models_dir = "../saved_models";
+  if (!std::filesystem::exists(models_dir)) {
+      std::filesystem::create_directories(models_dir);
+      std::cout << "Directory created: " << models_dir << std::endl;
+  }
+
   // Noms des caractéristiques
   std::vector<std::string> feature_names = {
       "p1",           "p2", "p3", "p4", "p5", "p6", "p7", "p8", "matrix_size_x",
@@ -79,11 +86,18 @@ int main() {
   std::cin >> choice;
 
   if (choice == 1) {
-    Boosting boosting_model(0, 0.0, nullptr, 0, 0, 0.0);  // Initialisation temporaire
+    DecisionTreeSingle single_tree(0, 0, 0.0); // Initialisation temporaire
     bool load_existing = false;
 
+    // Créer le dossier tree_models s'il n'existe pas
+    std::filesystem::path models_dir = "../saved_models/tree_models";
+    if (!std::filesystem::exists(models_dir)) {
+        std::filesystem::create_directories(models_dir);
+        std::cout << "Directory created: " << models_dir << std::endl;
+    }
+
     // Demander à l'utilisateur s'il veut charger ou créer un modèle
-    std::cout << "Would you like to load an existing tree model? (1 = Yes, 0 = No): ";
+    std::cout << "Would you like to load an existing tree model? (1 = Yes (for the moment, no use), 0 = No): ";
     std::cin >> load_existing;
 
     if (load_existing) {
@@ -94,7 +108,7 @@ int main() {
       std::string path = "../saved_models/tree_models/" + model_filename;
 
       try {
-        boosting_model.load(path);
+        single_tree.loadTree(path);
         std::cout << "Model loaded successfully from " << model_filename << "\n";
       } catch (const std::runtime_error& e) {
         std::cerr << "Error loading the model: " << e.what() << "\n";
@@ -171,52 +185,99 @@ int main() {
                 << std::endl;
     }
   } else if (choice == 2) {
+    Bagging bagging_model(0, 0, 0, 0.0);
+    bool load_existing = false;
 
-    
-    std::cout << "You can customize parameters for the bagging process and it's trees\n";
-    std::cout << "Press Enter to use the default value or type a new value and "
-                 "press Enter.\n";
+    // Créer le dossier bagging_models s'il n'existe pas
+    std::filesystem::path models_dir = "../saved_models/bagging_models";
+    if (!std::filesystem::exists(models_dir)) {
+        std::filesystem::create_directories(models_dir);
+        std::cout << "Directory created: " << models_dir << std::endl;
+    }
 
-    int num_trees =  getInputWithDefault("Enter number of trees to generate", 20);
-    int max_depth =  getInputWithDefault("Enter mas depth", 60);
-    int min_samples_split =  getInputWithDefault("Enter minimu samples to split", 2);
-    double min_impurity_decrease =  getInputWithDefault("Enter minimum impurity decrease", 1e-6);
+    // Demander à l'utilisateur s'il veut charger ou créer un modèle
+    std::cout << "Would you like to load an existing model? (1 = Yes (for the moment, no use), 0 = No): ";
+    std::cin >> load_existing;
 
-    std::cout << "Bagging process started, please wait...\n";
-    Bagging bagging_model(num_trees, max_depth, min_samples_split,
-                          min_impurity_decrease);
+    if (load_existing) {
+      std::string model_filename;
+      std::cout << "Enter the filename of the model to load: ";
+      std::cin >> model_filename;
 
-    auto train_start = std::chrono::high_resolution_clock::now();
-    bagging_model.train(X_train, y_train);
-    auto train_end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> train_duration = train_end - train_start;
-    std::cout << "Training time (Bagging): " << train_duration.count()
-              << " seconds\n";
+      std::string path = "../saved_models/bagging_models/" + model_filename;
 
-    auto eval_start = std::chrono::high_resolution_clock::now();
-    double mse_value = bagging_model.evaluate(X_test, y_test);
-    auto eval_end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> eval_duration = eval_end - eval_start;
-    std::cout << "Evaluation time (Bagging): " << eval_duration.count()
-              << " seconds\n";
+      try {
+        bagging_model.load(model_filename);
+        std::cout << "Model loaded successfully from " << model_filename << "\n";
+      } catch (const std::runtime_error& e) {
+        std::cerr << "Error loading the model: " << e.what() << "\n";
+        return -1;
+      }
+    } else {
+      std::cout << "You can customize parameters for the bagging process and it's trees\n";
+      std::cout << "Press Enter to use the default value or type a new value and "
+                  "press Enter.\n";
 
-    std::cout << "Bagging Mean Squared Error (MSE): " << mse_value << "\n";
+      int num_trees =  getInputWithDefault("Enter number of trees to generate", 20);
+      int max_depth =  getInputWithDefault("Enter mas depth", 60);
+      int min_samples_split =  getInputWithDefault("Enter minimu samples to split", 2);
+      double min_impurity_decrease =  getInputWithDefault("Enter minimum impurity decrease", 1e-6);
 
-    // Calcul et affichage de l'importance des caractéristiques pour le bagging
-    auto feature_importance = FeatureImportance::calculateBaggingImportance(
-        bagging_model, feature_names);
-    displayFeatureImportance(feature_importance);
+      std::cout << "Bagging process started, please wait...\n";
+      Bagging bagging_model(num_trees, max_depth, min_samples_split,
+                            min_impurity_decrease);
 
-    // Ajout de la visualisation
-    std::cout << "Génération des visualisations des arbres..." << std::endl;
-    TreeVisualization::generateEnsembleDotFiles(bagging_model.getTrees(),
-                                                "bagging", feature_names);
-    std::cout << "Visualisations générées dans le dossier 'visualizations'"
-              << std::endl;
+      auto train_start = std::chrono::high_resolution_clock::now();
+      bagging_model.train(X_train, y_train);
+      auto train_end = std::chrono::high_resolution_clock::now();
+      std::chrono::duration<double> train_duration = train_end - train_start;
+      std::cout << "Training time (Bagging): " << train_duration.count()
+                << " seconds\n";
+
+      auto eval_start = std::chrono::high_resolution_clock::now();
+      double mse_value = bagging_model.evaluate(X_test, y_test);
+      auto eval_end = std::chrono::high_resolution_clock::now();
+      std::chrono::duration<double> eval_duration = eval_end - eval_start;
+      std::cout << "Evaluation time (Bagging): " << eval_duration.count()
+                << " seconds\n";
+
+      std::cout << "Bagging Mean Squared Error (MSE): " << mse_value << "\n";
+
+      // Calcul et affichage de l'importance des caractéristiques pour le bagging
+      auto feature_importance = FeatureImportance::calculateBaggingImportance(bagging_model, feature_names);
+      displayFeatureImportance(feature_importance);
+
+      // Sauvegarde du modèle si l'utilisateur le souhaite
+      bool save_model = false;
+      std::cout << "Would you like to save this model? (1 = Yes, 0 = No): ";
+      std::cin >> save_model;
+
+      if (save_model) {
+          std::string filename;
+          std::cout << "Enter the filename to save the model: ";
+          std::cin >> filename;
+          std::string path = "../saved_models/bagging_models/" + filename;
+          bagging_model.save(path);
+          std::cout << "Model saved successfully as " << filename << "in this path : " << path << "\n";
+      }
+
+      // Ajout de la visualisation
+      std::cout << "Génération des visualisations des arbres..." << std::endl;
+      TreeVisualization::generateEnsembleDotFiles(bagging_model.getTrees(),
+                                                  "bagging", feature_names);
+      std::cout << "Visualisations générées dans le dossier 'visualizations'"
+                << std::endl;
+    }
   } else if (choice == 3) {
-
     Boosting boosting_model(0, 0.0, nullptr, 0, 0, 0.0);  // Initialisation temporaire
     bool load_existing = false;
+
+    // Créer le dossier boosting_models s'il n'existe pas
+    std::filesystem::path models_dir = "../saved_models/boosting_models";
+    if (!std::filesystem::exists(models_dir)) {
+        std::filesystem::create_directories(models_dir);
+        std::cout << "Directory created: " << models_dir << std::endl;
+    }
 
     // Demander à l'utilisateur s'il veut charger ou créer un modèle
     std::cout << "Would you like to load an existing model? (1 = Yes, 0 = No): ";
@@ -227,8 +288,10 @@ int main() {
       std::cout << "Enter the filename of the model to load: ";
       std::cin >> model_filename;
 
+      std::string path = "../saved_models/boosting_models/" + model_filename;
+
       try {
-        boosting_model.load(model_filename);
+        boosting_model.load(path);
         std::cout << "Model loaded successfully from " << model_filename << "\n";
       } catch (const std::runtime_error& e) {
         std::cerr << "Error loading the model: " << e.what() << "\n";
@@ -268,6 +331,10 @@ int main() {
 
       std::cout << "Boosting Mean Squared Error (MSE): " << mse_value << "\n";
 
+      // Calcul et affichage de l'importance des caractéristiques pour le boosting
+      auto feature_importance = FeatureImportance::calculateBoostingImportance(boosting_model, feature_names);
+      displayFeatureImportance(feature_importance);
+
       // Sauvegarde du modèle si l'utilisateur le souhaite
       bool save_model = false;
       std::cout << "Would you like to save this model? (1 = Yes, 0 = No): ";
@@ -282,46 +349,86 @@ int main() {
           std::cout << "Model saved successfully as " << filename << "in this path : " << path << "\n";
       }
 
-      // Calcul et affichage de l'importance des caractéristiques pour le boosting
-      auto feature_importance = FeatureImportance::calculateBoostingImportance(boosting_model, feature_names);
-      displayFeatureImportance(feature_importance);
-
       // Ajout de la visualisation
       std::cout << "Génération des visualisations des arbres..." << std::endl;
       TreeVisualization::generateEnsembleDotFiles(boosting_model.getEstimators(), "boosting", feature_names);
       std::cout << "Visualisations générées dans le dossier 'visualizations'" << std::endl;
     }
   } else if (choice == 4) {
-    std::cout << "You can customize parameters for the XGBoosting process and it's trees\n";
-    std::cout << "Press Enter to use the default value or type a new value and "
-                 "press Enter.\n";
+    XGBoost XGBoost_model(0, 0, 0.0, 0.0, 0.0, nullptr);  // Initialisation temporaire
+    bool load_existing = false;
 
-    int n_estimators =  getInputWithDefault("Enter number of estimators", 75);
-    int max_depth =  getInputWithDefault("Enter max depth", 10);
-    int min_samples_split = getInputWithDefault("Enter minimum sample split", 3);
-    double min_impurity_decrease =  getInputWithDefault("Enter minimum impurity decrease", 1e-5);
-    double learning_rate = getInputWithDefault("Enter learning rate", 0.07);
-    double lambda =  getInputWithDefault("Enter lambda", 0.3);
-    double alpha =  getInputWithDefault("Enter alpha", 0.05);
+    // Créer le dossier boosting_XGBoost_models s'il n'existe pas
+    std::filesystem::path models_dir = "../saved_models/boosting_XGBoost_models";
+    if (!std::filesystem::exists(models_dir)) {
+        std::filesystem::create_directories(models_dir);
+        std::cout << "Directory created: " << models_dir << std::endl;
+    }
 
-    std::cout << "Boosting process started, please wait...\n";
-    auto loss_function = std::make_unique<LeastSquaresLoss>();
-    XGBoost XGBoost_model(n_estimators, max_depth, learning_rate, lambda, alpha,
-                          std::move(loss_function));
+    // Demander à l'utilisateur s'il veut charger ou créer un modèle
+    std::cout << "Would you like to load an existing model? (1 = Yes, 0 = No): ";
+    std::cin >> load_existing;
 
-    auto train_start = std::chrono::high_resolution_clock::now();
-    XGBoost_model.train(X_train, y_train);
-    auto train_end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> train_duration = train_end - train_start;
-    std::cout << "Training time: " << train_duration.count() << " seconds\n";
+    if (load_existing) {
+      std::string model_filename;
+      std::cout << "Enter the filename of the model to load: ";
+      std::cin >> model_filename;
 
-    auto eval_start = std::chrono::high_resolution_clock::now();
-    double mse_value = XGBoost_model.evaluate(X_test, y_test);
-    auto eval_end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> eval_duration = eval_end - eval_start;
-    std::cout << "Evaluation time: " << eval_duration.count() << " seconds\n";
+      std::string path = "../saved_models/boosting_XGBoost_models/" + model_filename;
 
-    std::cout << "Boosting Mean Squared Error (MSE): " << mse_value << "\n";
+      try {
+        XGBoost_model.load(path);
+        std::cout << "Model loaded successfully from " << model_filename << "\n";
+      } catch (const std::runtime_error& e) {
+        std::cerr << "Error loading the model: " << e.what() << "\n";
+        return -1;
+      }
+    } else {
+      std::cout << "You can customize parameters for the XGBoosting process and it's trees\n";
+      std::cout << "Press Enter to use the default value or type a new value and "
+                  "press Enter.\n";
+
+      int n_estimators =  getInputWithDefault("Enter number of estimators", 75);
+      int max_depth =  getInputWithDefault("Enter max depth", 10);
+      int min_samples_split = getInputWithDefault("Enter minimum sample split", 3);
+      double min_impurity_decrease =  getInputWithDefault("Enter minimum impurity decrease", 1e-5);
+      double learning_rate = getInputWithDefault("Enter learning rate", 0.07);
+      double lambda =  getInputWithDefault("Enter lambda", 0.3);
+      double alpha =  getInputWithDefault("Enter alpha", 0.05);
+
+      std::cout << "Boosting process started, please wait...\n";
+      auto loss_function = std::make_unique<LeastSquaresLoss>();
+      XGBoost XGBoost_model(n_estimators, max_depth, learning_rate, lambda, alpha,
+                            std::move(loss_function));
+
+      auto train_start = std::chrono::high_resolution_clock::now();
+      XGBoost_model.train(X_train, y_train);
+      auto train_end = std::chrono::high_resolution_clock::now();
+      std::chrono::duration<double> train_duration = train_end - train_start;
+      std::cout << "Training time: " << train_duration.count() << " seconds\n";
+
+      auto eval_start = std::chrono::high_resolution_clock::now();
+      double mse_value = XGBoost_model.evaluate(X_test, y_test);
+      auto eval_end = std::chrono::high_resolution_clock::now();
+      std::chrono::duration<double> eval_duration = eval_end - eval_start;
+      std::cout << "Evaluation time: " << eval_duration.count() << " seconds\n";
+
+      std::cout << "Boosting Mean Squared Error (MSE): " << mse_value << "\n";
+
+      // Sauvegarde du modèle si l'utilisateur le souhaite
+      bool save_model = false;
+      std::cout << "Would you like to save this model? (1 = Yes, 0 = No): ";
+      std::cin >> save_model;
+
+      if (save_model) {
+          std::string filename;
+          std::cout << "Enter the filename to save the model: ";
+          std::cin >> filename;
+          std::string path = "../saved_models/boosting_XGBoost_models/" + filename;
+          XGBoost_model.save(path);
+          std::cout << "Model saved successfully as " << filename << "in this path : " << path << "\n";
+      }
+    }
   } else {
     std::cerr
         << "Invalid choice! Please rerun the program and choose 1, 2, 3 or 4"
