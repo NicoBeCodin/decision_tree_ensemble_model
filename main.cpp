@@ -29,30 +29,37 @@ void displayFeatureImportance(
 // input function to set parameters with defaults
 template <typename T>
 T getInputWithDefault(const std::string &prompt, T defaultValue) {
-  std::cout << prompt << " (Default: " << defaultValue << "): ";
-  
-  // make sure no leftover input in buffer
-  std::cin.clear();
-  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-  
-  std::string input;
-  std::getline(std::cin, input); // Read user input as string
-
-  // default if empty
-  if (input.empty()) {
-    return defaultValue;
+  // Clear any leftover input (for the first call)
+  if (std::cin.peek() == '\n') {
+    std::cin.ignore();
   }
 
-  std::istringstream iss(input);
-  T value;
-  iss >> value;
+  while (true) {
+    std::cout << prompt << " (Default: " << defaultValue << "): ";
 
-  if (iss.fail()) {
-    std::cerr << "Invalid input. Using default value: " << defaultValue << "\n";
-    return defaultValue;
+    std::string input;
+    std::getline(std::cin, input); // Read user input as string
+
+    // If input is empty, return the default value
+    if (input.empty()) {
+      return defaultValue;
+    }
+
+    // Convert input to the desired type
+    std::istringstream iss(input);
+    T value;
+    iss >> value;
+
+    if (!iss.fail() && iss.eof()) {
+      // Successfully converted input to desired type
+      return value;
+    } else {
+      // Invalid input, retry
+      std::cerr << "Invalid input. Please try again.\n";
+    }
   }
-  return value;
 }
+
 
 int main() {
   DataIO data_io;
@@ -114,6 +121,7 @@ int main() {
 
     auto eval_start = std::chrono::high_resolution_clock::now();
     double mse_value = 0.0;
+    double mae_value = 0.0;
     size_t test_size = X_test.size();
     std::vector<double> y_pred;
     y_pred.reserve(test_size);
@@ -121,11 +129,16 @@ int main() {
       y_pred.push_back(single_tree.predict(X));
     }
     mse_value = Math::computeLossMSE(y_test, y_pred);
+    mae_value = Math::computeLossMAE(y_test, y_pred);
     auto eval_end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> eval_duration = eval_end - eval_start;
 
+    // std::string metric = (criteria == 0) ? "Mean Squared Error (MSE)" : "Mean Absolute Error (MAE)";
+
     std::cout << "Evaluation time: " << eval_duration.count() << " seconds\n";
-    std::cout << "Mean Squared Error (MSE): " << mse_value << "\n";
+    std::cout<<"Mean Squared Loss (MSE): " << mse_value << std::endl;
+    std::cout <<"Mean Absolute Loss (MAE): " <<mae_value<<std::endl;
+
 
     // Calcul et affichage de l'importance des caractéristiques
     auto feature_importance =
@@ -176,13 +189,15 @@ int main() {
               << " seconds\n";
 
     auto eval_start = std::chrono::high_resolution_clock::now();
-    double mse_value = bagging_model.evaluate(X_test, y_test);
+    double metric_value = bagging_model.evaluate(X_test, y_test);
     auto eval_end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> eval_duration = eval_end - eval_start;
     std::cout << "Evaluation time (Bagging): " << eval_duration.count()
               << " seconds\n";
 
-    std::cout << "Bagging Mean Squared Error (MSE): " << mse_value << "\n";
+
+
+    std::cout << "Bagging Error : " << metric_value << "\n";
 
     // Calcul et affichage de l'importance des caractéristiques pour le bagging
     auto feature_importance = FeatureImportance::calculateBaggingImportance(
@@ -202,8 +217,10 @@ int main() {
                  "press Enter.\n";
 
     int which_loss_func = getInputWithDefault("MSE (0) or MAE (1) to compare trees", 0);
-
+    int criteria = getInputWithDefault("MSE (0) or MAE (1) for splitting criteria", 0);
+    std::cout<<"Criteria is :" << criteria <<std::endl;
     int n_estimators = getInputWithDefault("Enter number of estimators", 20);
+    std::cout<<"n_estimators is :" << n_estimators <<std::endl;
     int max_depth = getInputWithDefault("Enter max depth", 60);
     int min_samples_split =
         getInputWithDefault("Enter minimum sample split", 2);
@@ -226,30 +243,25 @@ int main() {
 
     std::cout << "Boosting process started, please wait...\n";
 
-    // auto loss_function = std::make_unique<LeastSquaresLoss>();
-    //  std::unique_ptr<LossFunction> loss_function=  (which_loss_func== 0) ?
-    //   std::make_unique<LeastSquaresLoss>()
-    //   : std::make_unique<MeanAbsoluteLoss>();
-
-
-
     Boosting boosting_model(n_estimators, learning_rate,
                             std::move(loss_function), max_depth,
                             min_samples_split, min_impurity_decrease);
 
     auto train_start = std::chrono::high_resolution_clock::now();
-    boosting_model.train(X_train, y_train);
+    boosting_model.train(X_train, y_train, criteria);
     auto train_end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> train_duration = train_end - train_start;
     std::cout << "Training time: " << train_duration.count() << " seconds\n";
 
     auto eval_start = std::chrono::high_resolution_clock::now();
-    double mse_value = boosting_model.evaluate(X_test, y_test);
+    double metric_value = boosting_model.evaluate(X_test, y_test);
     auto eval_end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> eval_duration = eval_end - eval_start;
     std::cout << "Evaluation time: " << eval_duration.count() << " seconds\n";
 
-    std::cout << "Boosting Mean Squared Error (MSE): " << mse_value << "\n";
+    std::string metric = (which_loss_func == 0) ? "MSE" : "MAE";
+
+    std::cout << "Boosting Error " << metric << " : "<< metric_value << "\n";
 
     // Calcul et affichage de l'importance des caractéristiques pour le boosting
     auto feature_importance = FeatureImportance::calculateBoostingImportance(

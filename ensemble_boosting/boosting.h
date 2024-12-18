@@ -33,7 +33,8 @@ public:
      * @param y Vecteur des étiquettes cibles d'entraînement
      */
     void train(const std::vector<std::vector<double>>& X,
-               const std::vector<double>& y);
+               const std::vector<double>& y,
+               const int criteria);
 
     /**
      * @brief Prédire une valeur pour un échantillon donné

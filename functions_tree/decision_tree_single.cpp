@@ -53,7 +53,7 @@ void DecisionTreeSingle::splitNode(Tree* Node, const std::vector<std::vector<dou
     Node->FeatureIndex = BestFeature;
     Node->MaxValue = BestThreshold;
 
-    // Division des données
+        // Division des données
     std::vector<int> LeftIndices, RightIndices;
     for (int Idx : Indices) {
         if (Data[Idx][BestFeature] <= BestThreshold) {

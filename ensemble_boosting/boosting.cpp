@@ -41,9 +41,10 @@ void Boosting::initializePrediction(const std::vector<double>& y) {
  * @brief Entraîner le modèle de Boosting
  * @param X Matrice des caractéristiques
  * @param y Vecteur des étiquettes cibles
+ * @param criteria MSE or MAE as a loss function (0 or 1)
  */
 void Boosting::train(const std::vector<std::vector<double>>& X,
-                     const std::vector<double>& y) {
+                     const std::vector<double>& y, int criteria) {
     size_t n_samples = y.size();
     initializePrediction(y);
     std::vector<double> y_pred(n_samples, initial_prediction); //
@@ -55,7 +56,7 @@ void Boosting::train(const std::vector<std::vector<double>>& X,
    
         auto tree = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease);
         //training with MSE only for the moment
-        tree->train(X, residuals, 0);
+        tree->train(X, residuals, criteria);
 
         for (size_t j = 0; j < n_samples; ++j) {
             y_pred[j] += learning_rate * tree->predict(X[j]);

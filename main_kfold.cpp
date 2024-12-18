@@ -167,7 +167,8 @@ int main()
                                     max_depth, min_samples_split, min_impurity_decrease);
 
             auto train_start = std::chrono::high_resolution_clock::now();
-            boosting_model.train(X_train, y_train);
+            //Criteria default is 0 for MSE (faster)
+            boosting_model.train(X_train, y_train, 0);
             auto train_end = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> train_duration = train_end - train_start;
             std::cout << "Training time: " << train_duration.count() << " seconds\n";
