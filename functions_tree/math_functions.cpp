@@ -153,7 +153,7 @@ std::vector<double> Math::negativeGradient(const std::vector<double> &y_true,
     return residuals;
 }
 
-double Math::computeLoss(const std::vector<double> &y_true, const std::vector<double> &y_pred) 
+double Math::computeLossMSE(const std::vector<double> &y_true, const std::vector<double> &y_pred) 
 {
     double loss = 0.0;
     for (size_t i = 0; i < y_true.size(); ++i)
@@ -161,4 +161,13 @@ double Math::computeLoss(const std::vector<double> &y_true, const std::vector<do
         loss += std::pow(y_true[i]-y_pred[i], 2);
     }
     return loss / y_true.size();
+}
+
+double Math::computeLossMAE(const std::vector<double> &y_true, const std::vector<double>& y_pred){
+    double loss =0.0;
+    for (size_t i = 0; i<y_true.size() ; ++i){
+        loss+= std::abs(y_true[i]-y_pred[i]);
+    }
+    return loss /y_true.size();
+
 }

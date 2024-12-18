@@ -10,6 +10,7 @@
 #include <chrono>
 #include <iomanip>
 #include <iostream>
+#include <memory>
 #include <string>
 
 void displayFeatureImportance(
@@ -29,20 +30,23 @@ void displayFeatureImportance(
 template <typename T>
 T getInputWithDefault(const std::string &prompt, T defaultValue) {
   std::cout << prompt << " (Default: " << defaultValue << "): ";
+  
+  // make sure no leftover input in buffer
+  std::cin.clear();
+  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  
   std::string input;
   std::getline(std::cin, input); // Read user input as string
 
-    //If empty return default
+  // default if empty
   if (input.empty()) {
     return defaultValue;
   }
 
-  
   std::istringstream iss(input);
   T value;
   iss >> value;
 
-  
   if (iss.fail()) {
     std::cerr << "Invalid input. Using default value: " << defaultValue << "\n";
     return defaultValue;
@@ -98,7 +102,6 @@ int main() {
     double minImpurityDecrease =
         getInputWithDefault("Enter minimum impurity decrease", 1e-12);
 
-
     std::cout << "Training a single decision tree, please wait...\n";
     DecisionTreeSingle single_tree(maxDepth, minSamplesSplit,
                                    minImpurityDecrease);
@@ -117,7 +120,7 @@ int main() {
     for (const auto &X : X_test) {
       y_pred.push_back(single_tree.predict(X));
     }
-    mse_value = Math::computeLoss(y_test, y_pred);
+    mse_value = Math::computeLossMSE(y_test, y_pred);
     auto eval_end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> eval_duration = eval_end - eval_start;
 
@@ -148,15 +151,18 @@ int main() {
               << std::endl;
   } else if (choice == 2) {
 
-    
-    std::cout << "You can customize parameters for the bagging process and it's trees\n";
+    std::cout << "You can customize parameters for the bagging process and "
+                 "it's trees\n";
     std::cout << "Press Enter to use the default value or type a new value and "
                  "press Enter.\n";
 
-    int num_trees =  getInputWithDefault("Enter number of trees to generate", 20);
-    int max_depth =  getInputWithDefault("Enter max depth", 60);
-    int min_samples_split =  getInputWithDefault("Enter minimu samples to split", 2);
-    double min_impurity_decrease =  getInputWithDefault("Enter minimum impurity decrease", 1e-6);
+    int num_trees =
+        getInputWithDefault("Enter number of trees to generate", 20);
+    int max_depth = getInputWithDefault("Enter max depth", 60);
+    int min_samples_split =
+        getInputWithDefault("Enter minimu samples to split", 2);
+    double min_impurity_decrease =
+        getInputWithDefault("Enter minimum impurity decrease", 1e-6);
 
     std::cout << "Bagging process started, please wait...\n";
     Bagging bagging_model(num_trees, max_depth, min_samples_split,
@@ -190,19 +196,43 @@ int main() {
     std::cout << "Visualisations générées dans le dossier 'visualizations'"
               << std::endl;
   } else if (choice == 3) {
-        std::cout << "You can customize parameters for the boosting process and it's trees\n";
+    std::cout << "You can customize parameters for the boosting process and "
+                 "it's trees\n";
     std::cout << "Press Enter to use the default value or type a new value and "
                  "press Enter.\n";
 
+    int which_loss_func = getInputWithDefault("MSE (0) or MAE (1) to compare trees", 0);
 
-    int n_estimators =  getInputWithDefault("Enter number of estimators", 20);
-    int max_depth =  getInputWithDefault("Enter max depth", 60);
-    int min_samples_split =  getInputWithDefault("Enter minimum sample split", 2);
-    double min_impurity_decrease =  getInputWithDefault("Enter minimum impuroty decrease", 1e-6);
-    double learning_rate =  getInputWithDefault("Enter learning rate", 0.1);
+    int n_estimators = getInputWithDefault("Enter number of estimators", 20);
+    int max_depth = getInputWithDefault("Enter max depth", 60);
+    int min_samples_split =
+        getInputWithDefault("Enter minimum sample split", 2);
+    double min_impurity_decrease =
+        getInputWithDefault("Enter minimum impurity decrease", 1e-6);
+    double learning_rate = getInputWithDefault("Enter learning rate", 0.1);
+
+    std::unique_ptr<LeastSquaresLoss> ls_loss =
+        std::make_unique<LeastSquaresLoss>();
+    std::unique_ptr<MeanAbsoluteLoss> ma_loss =
+        std::make_unique<MeanAbsoluteLoss>();
+
+    std::unique_ptr<LossFunction> loss_function;
+
+    if (which_loss_func == 0) {
+      loss_function = std::move(ls_loss);
+    } else {
+      loss_function = std::move(ma_loss);
+    }
 
     std::cout << "Boosting process started, please wait...\n";
-    auto loss_function = std::make_unique<LeastSquaresLoss>();
+
+    // auto loss_function = std::make_unique<LeastSquaresLoss>();
+    //  std::unique_ptr<LossFunction> loss_function=  (which_loss_func== 0) ?
+    //   std::make_unique<LeastSquaresLoss>()
+    //   : std::make_unique<MeanAbsoluteLoss>();
+
+
+
     Boosting boosting_model(n_estimators, learning_rate,
                             std::move(loss_function), max_depth,
                             min_samples_split, min_impurity_decrease);
@@ -233,17 +263,20 @@ int main() {
     std::cout << "Visualisations générées dans le dossier 'visualizations'"
               << std::endl;
   } else if (choice == 4) {
-    std::cout << "You can customize parameters for the XGBoosting process and it's trees\n";
+    std::cout << "You can customize parameters for the XGBoosting process and "
+                 "it's trees\n";
     std::cout << "Press Enter to use the default value or type a new value and "
                  "press Enter.\n";
 
-    int n_estimators =  getInputWithDefault("Enter number of estimators", 20);
-    int max_depth =  getInputWithDefault("Enter max depth", 60);
-    int min_samples_split = getInputWithDefault("Enter minimum sample split", 2);
-    double min_impurity_decrease =  getInputWithDefault("Enter minimum impurity decrease", 1e-6);
+    int n_estimators = getInputWithDefault("Enter number of estimators", 20);
+    int max_depth = getInputWithDefault("Enter max depth", 60);
+    int min_samples_split =
+        getInputWithDefault("Enter minimum sample split", 2);
+    double min_impurity_decrease =
+        getInputWithDefault("Enter minimum impurity decrease", 1e-6);
     double learning_rate = getInputWithDefault("Enter learning rate", 0.1);
-    double lambda =  getInputWithDefault("Enter lambda", 1.0);
-    double alpha =  getInputWithDefault("Enter alpha", 0.0);
+    double lambda = getInputWithDefault("Enter lambda", 1.0);
+    double alpha = getInputWithDefault("Enter alpha", 0.0);
 
     std::cout << "Boosting process started, please wait...\n";
     auto loss_function = std::make_unique<LeastSquaresLoss>();

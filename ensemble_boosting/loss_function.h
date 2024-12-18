@@ -41,4 +41,14 @@ public:
                        const std::vector<double>& y_pred) const override;
 };
 
+class MeanAbsoluteLoss: public LossFunction{
+    public:
+    std::vector<double> negativeGradient(const std::vector<double>& y_true,
+                                         const std::vector<double>& y_pred) const override;
+
+    double computeLoss(const std::vector<double>& y_true,
+                       const std::vector<double>& y_pred) const override;
+
+};
+
 #endif // LOSS_FUNCTION_H

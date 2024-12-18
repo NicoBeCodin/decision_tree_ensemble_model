@@ -41,7 +41,9 @@ public:
 
     static std::vector<double> negativeGradient(const std::vector<double>& y_true, const std::vector<double>& y_pred) ;
 
-    static double computeLoss(const std::vector<double>& y_true, const std::vector<double>& y_pred) ;    
+    static double computeLossMSE(const std::vector<double>& y_true, const std::vector<double>& y_pred) ;    
+
+    static double computeLossMAE(const std::vector<double>& y_true, const std::vector<double>& y_pred);
 };
 
 #endif

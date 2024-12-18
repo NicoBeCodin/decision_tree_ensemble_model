@@ -118,7 +118,7 @@ int main()
             {
                 y_pred.push_back(single_tree.predict(X_sample));
             }
-            mse_value = Math::computeLoss(y_test, y_pred);
+            mse_value = Math::computeLossMSE(y_test, y_pred);
             auto eval_end = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> eval_duration = eval_end - eval_start;
 
