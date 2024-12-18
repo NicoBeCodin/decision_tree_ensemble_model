@@ -15,19 +15,19 @@ std::map<int, double> FeatureImportance::calculateNodeImportances(
     }
 
     // Calcul de l'importance pour ce nœud
-    double current_importance = (parent_mse - node->NodeMSE) * (node->NodeSamples / weighted_n_samples);
+    double current_importance = (parent_mse - node->NodeMetric) * (node->NodeSamples / weighted_n_samples);
     importances[node->FeatureIndex] = current_importance;
 
     // Récursion sur les sous-arbres
     if (node->Left) {
-        auto left_importances = calculateNodeImportances(node->Left.get(), weighted_n_samples, node->NodeMSE);
+        auto left_importances = calculateNodeImportances(node->Left.get(), weighted_n_samples, node->NodeMetric);
         for (const auto& [feature, importance] : left_importances) {
             importances[feature] += importance;
         }
     }
     
     if (node->Right) {
-        auto right_importances = calculateNodeImportances(node->Right.get(), weighted_n_samples, node->NodeMSE);
+        auto right_importances = calculateNodeImportances(node->Right.get(), weighted_n_samples, node->NodeMetric);
         for (const auto& [feature, importance] : right_importances) {
             importances[feature] += importance;
         }

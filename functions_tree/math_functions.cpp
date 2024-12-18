@@ -1,5 +1,5 @@
 #include "math_functions.h"
-#include <numeric>
+
 
 /**
  * Calculate the mean of the samples
@@ -18,6 +18,31 @@ double Math::calculateMeanWithIndices(const std::vector<double>& Labels, const s
     for (int Idx : Indices) Sum += Labels[Idx];
     return Sum / Indices.size();
 }
+
+double Math::calculateMedianWithIndices(const std::vector<double>& Labels, const std::vector<int>& Indices) {
+    if (Indices.empty()) {
+        throw std::invalid_argument("Indices cannot be empty for median calculation.");
+    }
+
+    // Extract the relevant labels
+    std::vector<double> Subset;
+    Subset.reserve(Indices.size());
+    for (int Idx : Indices) {
+        Subset.push_back(Labels[Idx]);
+    }
+
+    // Sort the subset to find the median
+    std::sort(Subset.begin(), Subset.end());
+
+    // Calculate the median
+    size_t n = Subset.size();
+    if (n % 2 == 0) {
+        return (Subset[n / 2 - 1] + Subset[n / 2]) / 2.0; // Average of two middle elements
+    } else {
+        return Subset[n / 2]; // Middle element
+    }
+}
+
 
 double Math::calculateMSEWithIndices(const std::vector<double>& Labels, const std::vector<int>& Indices) {
     double Mean = Math::calculateMeanWithIndices(Labels, Indices);
@@ -107,10 +132,10 @@ double Math::calculateMedianSorted(const std::vector<double>& sortedValues) {
 }
 
 
-double Math::calculateMAE(const std::vector<double>& values, double median) {
+double Math::calculateMAE(const std::vector<double>& values, double mean) {
     double error = 0.0;
     for (double value : values) {
-        error += std::abs(value - median);
+        error += std::abs(value - mean);
     }
     return error / values.size();
 }

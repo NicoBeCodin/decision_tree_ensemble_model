@@ -154,7 +154,7 @@ int main() {
                  "press Enter.\n";
 
     int num_trees =  getInputWithDefault("Enter number of trees to generate", 20);
-    int max_depth =  getInputWithDefault("Enter mas depth", 60);
+    int max_depth =  getInputWithDefault("Enter max depth", 60);
     int min_samples_split =  getInputWithDefault("Enter minimu samples to split", 2);
     double min_impurity_decrease =  getInputWithDefault("Enter minimum impurity decrease", 1e-6);
 

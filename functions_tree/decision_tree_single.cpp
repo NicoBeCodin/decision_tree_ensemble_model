@@ -15,9 +15,11 @@ void DecisionTreeSingle::train(const std::vector<std::vector<double>>& Data, con
     Root = std::make_unique<Tree>();
     std::vector<int> Indices(Data.size());
     std::iota(Indices.begin(), Indices.end(), 0);
+    //Will use MSE
     if (criteria==0){
         splitNode(Root.get(), Data, Labels, Indices, 0);
     }
+    //Will use MAE
     else if (criteria==1){
         splitNodeMAE(Root.get(), Data, Labels, Indices, 0);
     }
@@ -28,19 +30,19 @@ void DecisionTreeSingle::splitNode(Tree* Node, const std::vector<std::vector<dou
                                    const std::vector<double>& Labels, const std::vector<int>& Indices, int Depth) {
     // Calcul des métriques du nœud
 
-    Node->NodeMSE = Math::calculateMSEWithIndices(Labels, Indices);
-    //Node->NodeMSE = Math::calculateMAEWithIndices(Labels, Indices);
+    Node->NodeMetric = Math::calculateMSEWithIndices(Labels, Indices);
+    
     Node->NodeSamples = Indices.size();
 
     // Conditions d'arrêt
-    if (Depth >= MaxDepth || Indices.size() < static_cast<size_t>(MinLeafLarge) || Node->NodeMSE < MinError) {
+    if (Depth >= MaxDepth || Indices.size() < static_cast<size_t>(MinLeafLarge) || Node->NodeMetric < MinError) {
         Node->IsLeaf = true;
         Node->Prediction = Math::calculateMeanWithIndices(Labels, Indices);
         return;
     }
 
     // Recherche du meilleur split
-    auto [BestFeature, BestThreshold, BestImpurityDecrease] = findBestSplit(Data, Labels, Indices, Node->NodeMSE);
+    auto [BestFeature, BestThreshold, BestImpurityDecrease] = findBestSplit(Data, Labels, Indices, Node->NodeMetric);
 
     if (BestFeature == -1) {
         Node->IsLeaf = true;
@@ -73,25 +75,25 @@ void DecisionTreeSingle::splitNode(Tree* Node, const std::vector<std::vector<dou
 //SplitNode with MAE so currently testing
 void DecisionTreeSingle::splitNodeMAE(Tree* Node, const std::vector<std::vector<double>>& Data,
                                    const std::vector<double>& Labels, const std::vector<int>& Indices, int Depth) {
-    // Calcul des métriques du nœud
+    
 
-    // Node->NodeMSE = Math::calculateMSEWithIndices(Labels, Indices);
-    Node->NodeMSE = Math::calculateMAEWithIndices(Labels, Indices);
+    
+    Node->NodeMetric = Math::calculateMAEWithIndices(Labels, Indices);
     Node->NodeSamples = Indices.size();
 
     // Conditions d'arrêt
-    if (Depth >= MaxDepth || Indices.size() < static_cast<size_t>(MinLeafLarge) || Node->NodeMSE < MinError) {
+    if (Depth >= MaxDepth || Indices.size() < static_cast<size_t>(MinLeafLarge) || Node->NodeMetric < MinError) {
         Node->IsLeaf = true;
-        Node->Prediction = Math::calculateMeanWithIndices(Labels, Indices);
+        Node->Prediction = Math::calculateMedianWithIndices(Labels, Indices);
         return;
     }
 
     // Recherche du meilleur split
-    auto [BestFeature, BestThreshold, BestImpurityDecrease] = findBestSplitUsingMAE(Data, Labels, Indices, Node->NodeMSE);
+    auto [BestFeature, BestThreshold, BestImpurityDecrease] = findBestSplitUsingMAE(Data, Labels, Indices, Node->NodeMetric);
 
     if (BestFeature == -1) {
         Node->IsLeaf = true;
-        Node->Prediction = Math::calculateMeanWithIndices(Labels, Indices);
+        Node->Prediction = Math::calculateMedianWithIndices(Labels, Indices);
         return;
     }
 
@@ -213,12 +215,12 @@ void DecisionTreeSingle::serializeNode(const Tree* node, std::ostream& out) {
         return;
     }
 
-    // 写入当前节点的数据，包括 NodeMSE 和 NodeSamples
+    // 写入当前节点的数据，包括 NodeMetric 和 NodeSamples
     out << node->FeatureIndex << " "
         << node->MaxValue << " "
         << node->Prediction << " "
         << node->IsLeaf << " "
-        << node->NodeMSE << " "
+        << node->NodeMetric << " "
         << node->NodeSamples << "\n";
 
     // 递归序列化左子树和右子树
@@ -270,7 +272,7 @@ std::tuple<int, double, double> DecisionTreeSingle::findBestSplitUsingMAE(
             double NextValue = Data[FeatureIndices[i + 1]][Feature];
             if (Value == NextValue) continue;
 
-            // Calculate medians
+            //Calculate medians which minimizes the MAE
             double LeftMedian = Math::calculateMedianSorted(LeftLabels);
             double RightMedian = Math::calculateMedianSorted(RightLabels);
 
@@ -279,6 +281,7 @@ std::tuple<int, double, double> DecisionTreeSingle::findBestSplitUsingMAE(
             double RightMAE = Math::calculateMAE(RightLabels, RightMedian);
 
             // Weighted MAE
+            if (LeftLabels.empty() || RightLabels.empty()) continue;
             double WeightedMAE = (LeftMAE * LeftLabels.size() + RightMAE * RightLabels.size()) / Indices.size();
             double ImpurityDecrease = CurrentMAE - WeightedMAE;
 
@@ -326,7 +329,7 @@ std::unique_ptr<DecisionTreeSingle::Tree> DecisionTreeSingle::deserializeNode(st
         >> node->MaxValue
         >> node->Prediction
         >> node->IsLeaf
-        >> node->NodeMSE
+        >> node->NodeMetric
         >> node->NodeSamples;
 
     node->Left = deserializeNode(in);

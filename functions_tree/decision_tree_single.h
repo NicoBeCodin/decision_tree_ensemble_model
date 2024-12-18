@@ -16,7 +16,7 @@ public:
         double MaxValue = 0.0;                 
         double Prediction = 0.0;               
         bool IsLeaf = false;                   
-        double NodeMSE = 0.0;                  // MSE au niveau du nœud
+        double NodeMetric = 0.0;                  // MSE au niveau du nœud
         size_t NodeSamples = 0;               // Nombre d'échantillons au niveau du nœud
         std::unique_ptr<Tree> Left = nullptr;  
         std::unique_ptr<Tree> Right = nullptr; 
@@ -31,7 +31,7 @@ public:
 
     // Nouvelles méthodes pour l'importance des caractéristiques
     const Tree* getRoot() const { return Root.get(); }
-    double getRootMSE() const { return Root ? Root->NodeMSE : 0.0; }
+    double getRootMSE() const { return Root ? Root->NodeMetric : 0.0; }
     size_t getRootSamples() const { return Root ? Root->NodeSamples : 0; }
 
 private:
