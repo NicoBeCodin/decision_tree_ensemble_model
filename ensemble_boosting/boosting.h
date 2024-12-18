@@ -5,6 +5,9 @@
 #include "loss_function.h"
 #include <vector>
 #include <memory>
+#include <random>
+#include <algorithm>
+#include <stdexcept>
 
 /**
  * @brief Boosting 类
@@ -55,17 +58,22 @@ public:
     double evaluate(const std::vector<std::vector<double>>& X_test, const std::vector<double>& y_test) const;
 
     // Nouvelle méthode pour accéder aux estimateurs
-    const std::vector<std::unique_ptr<DecisionTreeSingle>>& getEstimators() const { return estimators; }
+    const std::vector<std::unique_ptr<DecisionTreeSingle>>& getEstimators() const { return trees; }
+
+    // Méthodes de sérialisation
+    void save(const std::string& filename) const;
+    void load(const std::string& filename);
+    double getInitialPrediction() const { return initial_prediction; }
 
 private:
     int n_estimators;  
     int max_depth;      
-    int min_samples_split; 
+    int min_samples_split;
     double min_impurity_decrease;
     double learning_rate; 
     std::unique_ptr<LossFunction> loss_function;
 
-    std::vector<std::unique_ptr<DecisionTreeSingle>> estimators; // 弱学习器集合
+    std::vector<std::unique_ptr<DecisionTreeSingle>> trees; // 弱学习器集合
     double initial_prediction; 
 
     /**

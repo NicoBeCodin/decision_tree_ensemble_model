@@ -2,6 +2,10 @@
 #include <numeric>
 #include <cmath>
 #include <iostream>
+#include <random>
+#include <algorithm>
+#include <stdexcept>
+#include <fstream>
 
 /**
  * @brief Constructeur pour initialiser le modèle XGBoost pour le boosting
@@ -15,7 +19,9 @@
 XGBoost::XGBoost(int n_estimators, int max_depth, double learning_rate, double lambda, double alpha,
                  std::unique_ptr<LossFunction> loss_function)
     : n_estimators(n_estimators), max_depth(max_depth), learning_rate(learning_rate),
-      lambda(lambda), alpha(alpha), loss_function(std::move(loss_function)), initial_prediction(0.0) {}
+      lambda(lambda), alpha(alpha), loss_function(std::move(loss_function)), initial_prediction(0.0) {
+    trees.reserve(n_estimators);
+}
 
 /**
  * @brief Initialisation de la prédiction initiale avec la moyenne des valeurs y.
@@ -44,9 +50,7 @@ void XGBoost::train(const std::vector<std::vector<double>>& X, const std::vector
         }
 
         // Initialisation d'un nouvel arbre
-        auto tree = std::make_unique<DecisionTreeXGBoost>(max_depth, min_leaf_size, lambda, gamma);
-
-        // Utilisation de y_pred comme troisième argument
+        auto tree = std::make_unique<DecisionTreeXGBoost>(max_depth, 1, lambda, alpha);
         tree->train(X, residuals, y_pred);
 
         // Mise à jour des prédictions
@@ -54,10 +58,10 @@ void XGBoost::train(const std::vector<std::vector<double>>& X, const std::vector
             y_pred[j] += learning_rate * tree->predict(X[j]);
         }
 
-        estimators.push_back(std::move(tree));
+        trees.push_back(std::move(tree));
 
         double loss = loss_function->computeLoss(y, y_pred);
-        std::cout << "Estimateur " << i + 1 << ", Perte: " << loss << std::endl;
+        std::cout << "Iteration " << i + 1 << ", Loss: " << loss << std::endl;
     }
 }
 
@@ -68,7 +72,7 @@ void XGBoost::train(const std::vector<std::vector<double>>& X, const std::vector
  */
 double XGBoost::predict(const std::vector<double>& x) const {
     double y_pred = initial_prediction;
-    for (const auto& tree : estimators) {
+    for (const auto& tree : trees) {
         y_pred += learning_rate * tree->predict(x);
     }
     return y_pred;
@@ -83,7 +87,7 @@ std::vector<double> XGBoost::predict(const std::vector<std::vector<double>>& X) 
     size_t n_samples = X.size();
     std::vector<double> y_pred(n_samples, initial_prediction);
 
-    for (const auto& tree : estimators) {
+    for (const auto& tree : trees) {
         for (size_t i = 0; i < n_samples; ++i) {
             y_pred[i] += learning_rate * tree->predict(X[i]);
         }
@@ -100,4 +104,55 @@ std::vector<double> XGBoost::predict(const std::vector<std::vector<double>>& X) 
 double XGBoost::evaluate(const std::vector<std::vector<double>>& X_test, const std::vector<double>& y_test) const {
     std::vector<double> y_pred = predict(X_test);
     return loss_function->computeLoss(y_test, y_pred);
+}
+
+void XGBoost::save(const std::string& filename) const {
+    std::ofstream file(filename);
+    if (!file.is_open()) {
+        throw std::runtime_error("Cannot open file for writing: " + filename);
+    }
+    
+    // Sauvegarder tous les paramètres du modèle
+    file << n_estimators << " " 
+         << max_depth << " " 
+         << learning_rate << " "
+         << lambda << " " 
+         << alpha << " " 
+         << initial_prediction << "\n";
+    
+    // Sauvegarder chaque arbre avec un nom unique
+    for (size_t i = 0; i < trees.size(); ++i) {
+        std::string tree_filename = filename + "_tree_" + std::to_string(i);
+        trees[i]->saveTree(tree_filename);
+    }
+    
+    file.close();
+}
+
+void XGBoost::load(const std::string& filename) {
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        throw std::runtime_error("Cannot open file for reading: " + filename);
+    }
+    
+    // Charger tous les paramètres du modèle
+    file >> n_estimators 
+         >> max_depth 
+         >> learning_rate 
+         >> lambda 
+         >> alpha 
+         >> initial_prediction;
+    
+    // Réinitialiser et recharger les arbres
+    trees.clear();
+    trees.resize(n_estimators);
+    
+    // Charger chaque arbre
+    for (int i = 0; i < n_estimators; ++i) {
+        std::string tree_filename = filename + "_tree_" + std::to_string(i);
+        trees[i] = std::make_unique<DecisionTreeXGBoost>(max_depth, 1, lambda, alpha);
+        trees[i]->loadTree(tree_filename);
+    }
+    
+    file.close();
 }

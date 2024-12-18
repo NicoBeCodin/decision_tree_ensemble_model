@@ -213,11 +213,13 @@ void DecisionTreeSingle::serializeNode(const Tree* node, std::ostream& out) {
         return;
     }
 
-    // 写入当前节点的数据
+    // 写入当前节点的数据，包括 NodeMSE 和 NodeSamples
     out << node->FeatureIndex << " "
         << node->MaxValue << " "
         << node->Prediction << " "
-        << node->IsLeaf << "\n";
+        << node->IsLeaf << " "
+        << node->NodeMSE << " "
+        << node->NodeSamples << "\n";
 
     // 递归序列化左子树和右子树
     serializeNode(node->Left.get(), out);
@@ -296,41 +298,37 @@ std::tuple<int, double, double> DecisionTreeSingle::findBestSplitUsingMAE(
 
 // 保存树
 void DecisionTreeSingle::saveTree(const std::string& filename) {
-    std::filesystem::path currentPath = std::filesystem::current_path();
-    std::filesystem::path savePath = currentPath.parent_path() / "saved_models";
-
-    // 创建目录（如果不存在）
-    std::filesystem::create_directories(savePath);
-
-    std::ofstream outFile(savePath / filename);
-
-    if (!outFile.is_open()) {
-        throw std::runtime_error("Unable to open file for saving the tree.");
+    std::ofstream out(filename);
+    if (!out.is_open()) {
+        throw std::runtime_error("Cannot open file for writing: " + filename);
     }
-
-    // 保存参数
-    outFile << MaxDepth << " " << MinLeafLarge << " " << MinError << "\n";
-
-    // 序列化树结构
-    serializeNode(Root.get(), outFile);
-
-    outFile.close();
+    
+    // Écrire les paramètres de l'arbre
+    out << MaxDepth << " " << MinLeafLarge << " " << MinError << "\n";
+    
+    // Sérialiser l'arbre
+    serializeNode(Root.get(), out);
+    out.close();
 }
 
 // 反序列化节点
 std::unique_ptr<DecisionTreeSingle::Tree> DecisionTreeSingle::deserializeNode(std::istream& in) {
     std::string line;
-    if (!std::getline(in, line) || line == "#") {
-        return nullptr; // 返回空节点
+    std::getline(in, line);
+    
+    if (line == "#") {
+        return nullptr;
     }
 
     auto node = std::make_unique<Tree>();
-    std::istringstream ss(line);
+    std::istringstream iss(line);
+    iss >> node->FeatureIndex
+        >> node->MaxValue
+        >> node->Prediction
+        >> node->IsLeaf
+        >> node->NodeMSE
+        >> node->NodeSamples;
 
-    // 读取节点数据
-    ss >> node->FeatureIndex >> node->MaxValue >> node->Prediction >> node->IsLeaf;
-
-    // 递归反序列化左子树和右子树
     node->Left = deserializeNode(in);
     node->Right = deserializeNode(in);
 
@@ -339,21 +337,16 @@ std::unique_ptr<DecisionTreeSingle::Tree> DecisionTreeSingle::deserializeNode(st
 
 // 加载树
 void DecisionTreeSingle::loadTree(const std::string& filename) {
-    std::filesystem::path currentPath = std::filesystem::current_path();
-    std::filesystem::path savePath = currentPath.parent_path() / "saved_models";
-
-    std::ifstream inFile(savePath / filename);
-
-    if (!inFile.is_open()) {
-        throw std::runtime_error("Unable to open file for loading the tree.");
+    std::ifstream in(filename);
+    if (!in.is_open()) {
+        throw std::runtime_error("Cannot open file for reading: " + filename);
     }
-
-    // 加载参数
-    inFile >> MaxDepth >> MinLeafLarge >> MinError;
-    inFile.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // 跳到下一行
-
-    // 反序列化树结构
-    Root = deserializeNode(inFile);
-
-    inFile.close();
+    
+    // Lire les paramètres de l'arbre
+    in >> MaxDepth >> MinLeafLarge >> MinError;
+    in.ignore(); // Ignorer le retour à la ligne
+    
+    // Désérialiser l'arbre
+    Root = deserializeNode(in);
+    in.close();
 }

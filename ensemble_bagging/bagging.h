@@ -1,9 +1,12 @@
 #ifndef BAGGING_H
 #define BAGGING_H
 
+#include "../functions_tree/decision_tree_single.h"
 #include <vector>
 #include <memory>
-#include "../functions_tree/decision_tree_single.h"
+#include <random>
+#include <algorithm>
+#include <stdexcept>
 
 /**
  * Bagging Class
@@ -48,6 +51,18 @@ public:
      * @return A vector of pointers to the trees in the ensemble
      */
     const std::vector<std::unique_ptr<DecisionTreeSingle>>& getTrees() const { return trees; }
+
+    /**
+     * @brief Save the Bagging model to a file
+     * @param filename The filename to save the model to
+     */
+    void save(const std::string& filename) const;
+
+    /**
+     * @brief Load the Bagging model from a file
+     * @param filename The filename to load the model from
+     */
+    void load(const std::string& filename);
 
 private:
     int numTrees;  // Number of trees in the ensemble

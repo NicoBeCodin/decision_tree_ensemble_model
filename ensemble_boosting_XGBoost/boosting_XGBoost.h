@@ -1,10 +1,13 @@
-#ifndef XGBOOST_H
-#define XGBOOST_H
+#ifndef BOOSTING_XGBOOST_H
+#define BOOSTING_XGBOOST_H
 
 #include "../functions_tree/decision_tree_XGBoost.h"
 #include "../ensemble_boosting/loss_function.h"
 #include <vector>
 #include <memory>
+#include <random>
+#include <algorithm>
+#include <stdexcept>
 
 /**
  * @brief Classe principale implémentant XGBoost.
@@ -13,14 +16,12 @@ class XGBoost {
 private:
     int n_estimators;
     int max_depth;
-    int min_leaf_size;
     double learning_rate;
-    double lambda;
-    double alpha;
-    double gamma;
-    double initial_prediction;
-    std::vector<std::unique_ptr<DecisionTreeXGBoost>> estimators;
+    double lambda;  // L2 regularization
+    double alpha;   // L1 regularization
     std::unique_ptr<LossFunction> loss_function;
+    std::vector<std::unique_ptr<DecisionTreeXGBoost>> trees;
+    double initial_prediction;
 
     /**
      * @brief Initialisation de la prédiction initiale avec la moyenne des valeurs y.
@@ -73,6 +74,11 @@ public:
      * @brief Destructeur de XGBoost
     */
     ~XGBoost() = default;
+
+    // Méthodes de sérialisation
+    void save(const std::string& filename) const;
+    void load(const std::string& filename);
+    double getInitialPrediction() const { return initial_prediction; }
 };
 
-#endif // XGBOOST_H
+#endif // BOOSTING_XGBOOST_H

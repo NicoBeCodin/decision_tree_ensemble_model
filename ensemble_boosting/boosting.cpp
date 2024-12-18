@@ -1,6 +1,10 @@
 #include "boosting.h"
 #include <numeric>
 #include <iostream>
+#include <random>
+#include <algorithm>
+#include <stdexcept>
+#include <fstream>
 
 
 /**
@@ -20,7 +24,9 @@ Boosting::Boosting(int n_estimators, double learning_rate,
       min_impurity_decrease(min_impurity_decrease),
       learning_rate(learning_rate),
       loss_function(std::move(loss_function)),
-      initial_prediction(0.0) {}
+      initial_prediction(0.0) {
+    trees.reserve(n_estimators);
+}
 
 /**
  * @brief Initialiser la prédiction initiale avec la moyenne des valeurs y
@@ -55,11 +61,11 @@ void Boosting::train(const std::vector<std::vector<double>>& X,
             y_pred[j] += learning_rate * tree->predict(X[j]);
         }
 
-        estimators.push_back(std::move(tree));
+        trees.push_back(std::move(tree));
 
        
         double loss = loss_function->computeLoss(y, y_pred);
-        std::cout << " iteration " << i + 1 << "，value loss: " << loss << std::endl;
+        std::cout << "Iteration " << i + 1 << ", Loss: " << loss << std::endl;
     }
 }
 
@@ -70,7 +76,7 @@ void Boosting::train(const std::vector<std::vector<double>>& X,
  */
 double Boosting::predict(const std::vector<double>& x) const {
     double y_pred = initial_prediction;
-    for (const auto& tree : estimators) {
+    for (const auto& tree : trees) {
         y_pred += learning_rate * tree->predict(x);
     }
     return y_pred;
@@ -86,7 +92,7 @@ std::vector<double> Boosting::predict(const std::vector<std::vector<double>>& X)
     size_t n_samples = X.size();
     std::vector<double> y_pred(n_samples, initial_prediction);
  
-    for (const auto& tree : estimators) {
+    for (const auto& tree : trees) {
         for (size_t i = 0; i < n_samples; ++i) {
             y_pred[i] += learning_rate * tree->predict(X[i]);
         }
@@ -103,4 +109,55 @@ std::vector<double> Boosting::predict(const std::vector<std::vector<double>>& X)
 double Boosting::evaluate(const std::vector<std::vector<double>>& X_test, const std::vector<double>& y_test) const {
     std::vector<double> y_pred = predict(X_test);
     return loss_function->computeLoss(y_test, y_pred);
+}
+
+void Boosting::save(const std::string& filename) const {
+    std::ofstream file(filename);
+    if (!file.is_open()) {
+        throw std::runtime_error("Cannot open file for writing: " + filename);
+    }
+    
+    // Sauvegarder tous les paramètres du modèle
+    file << n_estimators << " " 
+         << learning_rate << " " 
+         << max_depth << " " 
+         << min_samples_split << " " 
+         << min_impurity_decrease << " "
+         << initial_prediction << "\n";
+    
+    // Sauvegarder chaque arbre avec un nom unique
+    for (size_t i = 0; i < trees.size(); ++i) {
+        std::string tree_filename = filename + "_tree_" + std::to_string(i);
+        trees[i]->saveTree(tree_filename);
+    }
+    
+    file.close();
+}
+
+void Boosting::load(const std::string& filename) {
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        throw std::runtime_error("Cannot open file for reading: " + filename);
+    }
+    
+    // Charger tous les paramètres du modèle
+    file >> n_estimators 
+         >> learning_rate 
+         >> max_depth 
+         >> min_samples_split 
+         >> min_impurity_decrease
+         >> initial_prediction;
+    
+    // Réinitialiser et recharger les arbres
+    trees.clear();
+    trees.resize(n_estimators);
+    
+    // Charger chaque arbre
+    for (int i = 0; i < n_estimators; ++i) {
+        std::string tree_filename = filename + "_tree_" + std::to_string(i);
+        trees[i] = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease);
+        trees[i]->loadTree(tree_filename);
+    }
+    
+    file.close();
 }
