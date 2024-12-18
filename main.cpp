@@ -79,73 +79,97 @@ int main() {
   std::cin >> choice;
 
   if (choice == 1) {
-    std::cout << "Which method do you want as a splitting criteria: MSE (0) "
-                 "(faster for the moment) or MAE (1) ?"
-              << std::endl;
-    int criteria;
-    std::cin >> criteria;
+    Boosting boosting_model(0, 0.0, nullptr, 0, 0, 0.0);  // Initialisation temporaire
+    bool load_existing = false;
 
-    std::cout << "You can customize parameters for the decision tree.\n";
-    std::cout << "Press Enter to use the default value or type a new value and "
-                 "press Enter.\n";
+    // Demander à l'utilisateur s'il veut charger ou créer un modèle
+    std::cout << "Would you like to load an existing tree model? (1 = Yes, 0 = No): ";
+    std::cin >> load_existing;
 
-    // Configurable parameters
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),
-                    '\n'); // Clear buffer
-    int maxDepth = getInputWithDefault("Enter maximum depth", 60);
-    int minSamplesSplit =
-        getInputWithDefault("Enter minimum number of samples to split", 2);
-    double minImpurityDecrease =
-        getInputWithDefault("Enter minimum impurity decrease", 1e-12);
+    if (load_existing) {
+      std::string model_filename;
+      std::cout << "Enter the filename of the model to load: ";
+      std::cin >> model_filename;
+
+      std::string path = "../saved_models/tree_models/" + model_filename;
+
+      try {
+        boosting_model.load(path);
+        std::cout << "Model loaded successfully from " << model_filename << "\n";
+      } catch (const std::runtime_error& e) {
+        std::cerr << "Error loading the model: " << e.what() << "\n";
+        return -1;
+      }
+    } else {
+      std::cout << "Which method do you want as a splitting criteria: MSE (0) "
+                  "(faster for the moment) or MAE (1) ?"
+                << std::endl;
+      int criteria;
+      std::cin >> criteria;
+
+      std::cout << "You can customize parameters for the decision tree.\n";
+      std::cout << "Press Enter to use the default value or type a new value and "
+                  "press Enter.\n";
+
+      // Configurable parameters
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),
+                      '\n'); // Clear buffer
+      int maxDepth = getInputWithDefault("Enter maximum depth", 60);
+      int minSamplesSplit =
+          getInputWithDefault("Enter minimum number of samples to split", 2);
+      double minImpurityDecrease =
+          getInputWithDefault("Enter minimum impurity decrease", 1e-12);
 
 
-    std::cout << "Training a single decision tree, please wait...\n";
-    DecisionTreeSingle single_tree(maxDepth, minSamplesSplit,
-                                   minImpurityDecrease);
+      std::cout << "Training a single decision tree, please wait...\n";
+      DecisionTreeSingle single_tree(maxDepth, minSamplesSplit,
+                                    minImpurityDecrease);
 
-    auto train_start = std::chrono::high_resolution_clock::now();
-    single_tree.train(X_train, y_train, criteria);
-    auto train_end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> train_duration = train_end - train_start;
-    std::cout << "Training time: " << train_duration.count() << " seconds\n";
+      auto train_start = std::chrono::high_resolution_clock::now();
+      single_tree.train(X_train, y_train, criteria);
+      auto train_end = std::chrono::high_resolution_clock::now();
+      std::chrono::duration<double> train_duration = train_end - train_start;
+      std::cout << "Training time: " << train_duration.count() << " seconds\n";
 
-    auto eval_start = std::chrono::high_resolution_clock::now();
-    double mse_value = 0.0;
-    size_t test_size = X_test.size();
-    std::vector<double> y_pred;
-    y_pred.reserve(test_size);
-    for (const auto &X : X_test) {
-      y_pred.push_back(single_tree.predict(X));
+      auto eval_start = std::chrono::high_resolution_clock::now();
+      double mse_value = 0.0;
+      size_t test_size = X_test.size();
+      std::vector<double> y_pred;
+      y_pred.reserve(test_size);
+      for (const auto &X : X_test) {
+        y_pred.push_back(single_tree.predict(X));
+      }
+      mse_value = Math::computeLoss(y_test, y_pred);
+      auto eval_end = std::chrono::high_resolution_clock::now();
+      std::chrono::duration<double> eval_duration = eval_end - eval_start;
+
+      std::cout << "Evaluation time: " << eval_duration.count() << " seconds\n";
+      std::cout << "Mean Squared Error (MSE): " << mse_value << "\n";
+
+      // Calcul et affichage de l'importance des caractéristiques
+      auto feature_importance =
+      FeatureImportance::calculateTreeImportance(single_tree, feature_names);
+      displayFeatureImportance(feature_importance);
+
+      std::cout << "Would you like to save this tree? (0 = no, 1 = yes)\n";
+      int answer = 0;
+      std::cin >> answer;
+      if (answer == 1) {
+        std::cout << "Please type the name you want to give to the .txt file: \n";
+        std::string filename;
+        std::cin >> filename;
+        std::string path = "../saved_models/tree/" + filename;
+        std::cout << "Saving tree as: " << filename << "in this path : " << path << std::endl;
+        single_tree.saveTree(path);
+      }
+
+      // Ajout de la visualisation
+      std::cout << "Génération de la visualisation de l'arbre..." << std::endl;
+      TreeVisualization::generateDotFile(single_tree, "single_tree",
+                                        feature_names);
+      std::cout << "Visualisation générée dans le dossier 'visualizations'"
+                << std::endl;
     }
-    mse_value = Math::computeLoss(y_test, y_pred);
-    auto eval_end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> eval_duration = eval_end - eval_start;
-
-    std::cout << "Evaluation time: " << eval_duration.count() << " seconds\n";
-    std::cout << "Mean Squared Error (MSE): " << mse_value << "\n";
-
-    // Calcul et affichage de l'importance des caractéristiques
-    auto feature_importance =
-        FeatureImportance::calculateTreeImportance(single_tree, feature_names);
-    displayFeatureImportance(feature_importance);
-
-    std::cout << "Would you like to save this tree? (0 = no, 1 = yes)\n";
-    int answer = 0;
-    std::cin >> answer;
-    if (answer == 1) {
-      std::cout << "Please type the name you want to give to the .txt file: \n";
-      std::string filename;
-      std::cin >> filename;
-      std::cout << "Saving tree as: " << filename << std::endl;
-      single_tree.saveTree(filename);
-    }
-
-    // Ajout de la visualisation
-    std::cout << "Génération de la visualisation de l'arbre..." << std::endl;
-    TreeVisualization::generateDotFile(single_tree, "single_tree",
-                                       feature_names);
-    std::cout << "Visualisation générée dans le dossier 'visualizations'"
-              << std::endl;
   } else if (choice == 2) {
 
     
@@ -190,48 +214,83 @@ int main() {
     std::cout << "Visualisations générées dans le dossier 'visualizations'"
               << std::endl;
   } else if (choice == 3) {
-        std::cout << "You can customize parameters for the boosting process and it's trees\n";
-    std::cout << "Press Enter to use the default value or type a new value and "
-                 "press Enter.\n";
 
+    Boosting boosting_model(0, 0.0, nullptr, 0, 0, 0.0);  // Initialisation temporaire
+    bool load_existing = false;
 
-    int n_estimators =  getInputWithDefault("Enter number of estimators", 75);
-    int max_depth =  getInputWithDefault("Enter max depth", 15);
-    int min_samples_split =  getInputWithDefault("Enter minimum sample split", 3);
-    double min_impurity_decrease =  getInputWithDefault("Enter minimum impuroty decrease", 1e-5);
-    double learning_rate =  getInputWithDefault("Enter learning rate", 0.07);
+    // Demander à l'utilisateur s'il veut charger ou créer un modèle
+    std::cout << "Would you like to load an existing model? (1 = Yes, 0 = No): ";
+    std::cin >> load_existing;
 
-    std::cout << "Boosting process started, please wait...\n";
-    auto loss_function = std::make_unique<LeastSquaresLoss>();
-    Boosting boosting_model(n_estimators, learning_rate,
-                            std::move(loss_function), max_depth,
-                            min_samples_split, min_impurity_decrease);
+    if (load_existing) {
+      std::string model_filename;
+      std::cout << "Enter the filename of the model to load: ";
+      std::cin >> model_filename;
 
-    auto train_start = std::chrono::high_resolution_clock::now();
-    boosting_model.train(X_train, y_train);
-    auto train_end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> train_duration = train_end - train_start;
-    std::cout << "Training time: " << train_duration.count() << " seconds\n";
+      try {
+        boosting_model.load(model_filename);
+        std::cout << "Model loaded successfully from " << model_filename << "\n";
+      } catch (const std::runtime_error& e) {
+        std::cerr << "Error loading the model: " << e.what() << "\n";
+        return -1;
+      }
+    } else {
 
-    auto eval_start = std::chrono::high_resolution_clock::now();
-    double mse_value = boosting_model.evaluate(X_test, y_test);
-    auto eval_end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> eval_duration = eval_end - eval_start;
-    std::cout << "Evaluation time: " << eval_duration.count() << " seconds\n";
+      std::cout << "You can customize parameters for the boosting process and it's trees\n";
+      std::cout << "Press Enter to use the default value or type a new value and "
+                  "press Enter.\n";
 
-    std::cout << "Boosting Mean Squared Error (MSE): " << mse_value << "\n";
+      int n_estimators =  getInputWithDefault("Enter number of estimators", 75);
+      int max_depth =  getInputWithDefault("Enter max depth", 15);
+      int min_samples_split =  getInputWithDefault("Enter minimum sample split", 3);
+      double min_impurity_decrease =  getInputWithDefault("Enter minimum impuroty decrease", 1e-5);
+      double learning_rate =  getInputWithDefault("Enter learning rate", 0.07);
 
-    // Calcul et affichage de l'importance des caractéristiques pour le boosting
-    auto feature_importance = FeatureImportance::calculateBoostingImportance(
-        boosting_model, feature_names);
-    displayFeatureImportance(feature_importance);
+      std::cout << "Boosting process started, please wait...\n";
+      auto loss_function = std::make_unique<LeastSquaresLoss>();
+      Boosting boosting_model(n_estimators, learning_rate,
+                              std::move(loss_function), max_depth,
+                              min_samples_split, min_impurity_decrease);
 
-    // Ajout de la visualisation
-    std::cout << "Génération des visualisations des arbres..." << std::endl;
-    TreeVisualization::generateEnsembleDotFiles(boosting_model.getEstimators(),
-                                                "boosting", feature_names);
-    std::cout << "Visualisations générées dans le dossier 'visualizations'"
-              << std::endl;
+      // Entraînement du modèle
+      auto train_start = std::chrono::high_resolution_clock::now();
+      boosting_model.train(X_train, y_train);
+      auto train_end = std::chrono::high_resolution_clock::now();
+      std::chrono::duration<double> train_duration = train_end - train_start;
+      std::cout << "Training time: " << train_duration.count() << " seconds\n";
+
+      // Évaluation du modèle
+      auto eval_start = std::chrono::high_resolution_clock::now();
+      double mse_value = boosting_model.evaluate(X_test, y_test);
+      auto eval_end = std::chrono::high_resolution_clock::now();
+      std::chrono::duration<double> eval_duration = eval_end - eval_start;
+      std::cout << "Evaluation time: " << eval_duration.count() << " seconds\n";
+
+      std::cout << "Boosting Mean Squared Error (MSE): " << mse_value << "\n";
+
+      // Sauvegarde du modèle si l'utilisateur le souhaite
+      bool save_model = false;
+      std::cout << "Would you like to save this model? (1 = Yes, 0 = No): ";
+      std::cin >> save_model;
+
+      if (save_model) {
+          std::string filename;
+          std::cout << "Enter the filename to save the model: ";
+          std::cin >> filename;
+          std::string path = "../saved_models/boosting_models/" + filename;
+          boosting_model.save(path);
+          std::cout << "Model saved successfully as " << filename << "in this path : " << path << "\n";
+      }
+
+      // Calcul et affichage de l'importance des caractéristiques pour le boosting
+      auto feature_importance = FeatureImportance::calculateBoostingImportance(boosting_model, feature_names);
+      displayFeatureImportance(feature_importance);
+
+      // Ajout de la visualisation
+      std::cout << "Génération des visualisations des arbres..." << std::endl;
+      TreeVisualization::generateEnsembleDotFiles(boosting_model.getEstimators(), "boosting", feature_names);
+      std::cout << "Visualisations générées dans le dossier 'visualizations'" << std::endl;
+    }
   } else if (choice == 4) {
     std::cout << "You can customize parameters for the XGBoosting process and it's trees\n";
     std::cout << "Press Enter to use the default value or type a new value and "

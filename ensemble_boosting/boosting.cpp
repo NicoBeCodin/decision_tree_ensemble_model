@@ -111,6 +111,10 @@ double Boosting::evaluate(const std::vector<std::vector<double>>& X_test, const 
     return loss_function->computeLoss(y_test, y_pred);
 }
 
+/**
+ * @brief Sauvegarder le modèle de Boosting dans un fichier
+ * @param filename Nom du fichier de sauvegarde
+ */
 void Boosting::save(const std::string& filename) const {
     std::ofstream file(filename);
     if (!file.is_open()) {
@@ -134,6 +138,10 @@ void Boosting::save(const std::string& filename) const {
     file.close();
 }
 
+/**
+ * @brief Charger un modèle de Boosting à partir d'un fichier
+ * @param filename Nom du fichier contenant le modèle sauvegardé
+ */
 void Boosting::load(const std::string& filename) {
     std::ifstream file(filename);
     if (!file.is_open()) {

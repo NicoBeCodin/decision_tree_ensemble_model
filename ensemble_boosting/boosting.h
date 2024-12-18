@@ -60,8 +60,16 @@ public:
     // Nouvelle méthode pour accéder aux estimateurs
     const std::vector<std::unique_ptr<DecisionTreeSingle>>& getEstimators() const { return trees; }
 
-    // Méthodes de sérialisation
+    /**
+     * @brief Sauvegarder le modèle de Boosting dans un fichier
+     * @param filename Nom du fichier de sauvegarde
+     */
     void save(const std::string& filename) const;
+    
+    /**
+     * @brief Charger un modèle de Boosting à partir d'un fichier
+     * @param filename Nom du fichier contenant le modèle sauvegardé
+     */
     void load(const std::string& filename);
     double getInitialPrediction() const { return initial_prediction; }
 
