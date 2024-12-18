@@ -195,11 +195,11 @@ int main() {
                  "press Enter.\n";
 
 
-    int n_estimators =  getInputWithDefault("Enter number of estimators", 20);
-    int max_depth =  getInputWithDefault("Enter max depth", 60);
-    int min_samples_split =  getInputWithDefault("Enter minimum sample split", 2);
-    double min_impurity_decrease =  getInputWithDefault("Enter minimum impuroty decrease", 1e-6);
-    double learning_rate =  getInputWithDefault("Enter learning rate", 0.1);
+    int n_estimators =  getInputWithDefault("Enter number of estimators", 75);
+    int max_depth =  getInputWithDefault("Enter max depth", 15);
+    int min_samples_split =  getInputWithDefault("Enter minimum sample split", 3);
+    double min_impurity_decrease =  getInputWithDefault("Enter minimum impuroty decrease", 1e-5);
+    double learning_rate =  getInputWithDefault("Enter learning rate", 0.07);
 
     std::cout << "Boosting process started, please wait...\n";
     auto loss_function = std::make_unique<LeastSquaresLoss>();
@@ -237,13 +237,13 @@ int main() {
     std::cout << "Press Enter to use the default value or type a new value and "
                  "press Enter.\n";
 
-    int n_estimators =  getInputWithDefault("Enter number of estimators", 20);
-    int max_depth =  getInputWithDefault("Enter max depth", 60);
-    int min_samples_split = getInputWithDefault("Enter minimum sample split", 2);
-    double min_impurity_decrease =  getInputWithDefault("Enter minimum impurity decrease", 1e-6);
-    double learning_rate = getInputWithDefault("Enter learning rate", 0.1);
-    double lambda =  getInputWithDefault("Enter lambda", 1.0);
-    double alpha =  getInputWithDefault("Enter alpha", 0.0);
+    int n_estimators =  getInputWithDefault("Enter number of estimators", 75);
+    int max_depth =  getInputWithDefault("Enter max depth", 10);
+    int min_samples_split = getInputWithDefault("Enter minimum sample split", 3);
+    double min_impurity_decrease =  getInputWithDefault("Enter minimum impurity decrease", 1e-5);
+    double learning_rate = getInputWithDefault("Enter learning rate", 0.07);
+    double lambda =  getInputWithDefault("Enter lambda", 0.3);
+    double alpha =  getInputWithDefault("Enter alpha", 0.05);
 
     std::cout << "Boosting process started, please wait...\n";
     auto loss_function = std::make_unique<LeastSquaresLoss>();
