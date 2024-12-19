@@ -10,24 +10,22 @@ const int MAX_DEPTH_VISUALIZATION = 5;  // Profondeur maximale pour la visualisa
 const int MAX_NODES_VISUALIZATION = 50;  // Nombre maximal de nœuds à afficher
 
 void TreeVisualization::generateDotFile(const DecisionTreeSingle& tree,
-                                      const std::string& filename,
-                                      const std::vector<std::string>& feature_names) {
+                                        const std::string& filename,
+                                        const std::vector<std::string>& feature_names) {
     try {
         if (!tree.getRoot()) {
             std::cout << "L'arbre est vide, impossible de générer la visualisation." << std::endl;
             return;
         }
 
-        // Créer le dossier pour les fichiers DOT dans le répertoire build
+        // Créer le dossier pour les fichiers DOT
         std::filesystem::path dotPath = "visualizations/dot";
         if (!std::filesystem::exists(dotPath)) {
             std::filesystem::create_directories(dotPath);
         }
 
-        // Créer le dossier pour les images PNG dans le projet
-        std::filesystem::path currentPath = std::filesystem::current_path();
-        std::filesystem::path projectPath = currentPath.parent_path();
-        std::filesystem::path pngPath = projectPath / "tree_visualizations";
+        // Créer le dossier pour les images PNG
+        std::filesystem::path pngPath = std::filesystem::current_path().parent_path() / "tree_visualizations";
         if (!std::filesystem::exists(pngPath)) {
             std::filesystem::create_directories(pngPath);
         }
@@ -35,7 +33,7 @@ void TreeVisualization::generateDotFile(const DecisionTreeSingle& tree,
         // Chemins complets pour les fichiers
         auto dot_file = std::filesystem::absolute(dotPath / (filename + ".dot"));
         auto png_file = std::filesystem::absolute(pngPath / (filename + ".png"));
-        
+
         // Créer le fichier DOT
         std::ofstream out(dot_file);
         if (!out.is_open()) {
@@ -43,14 +41,14 @@ void TreeVisualization::generateDotFile(const DecisionTreeSingle& tree,
             return;
         }
 
-        // En-tête du fichier DOT avec optimisations graphiques
+        // En-tête du fichier DOT
         out << "digraph DecisionTree {\n";
         out << "    rankdir=TB;\n";
         out << "    node [shape=box, style=\"rounded,filled\", color=black, fontname=helvetica, fontsize=10];\n";
         out << "    edge [fontname=helvetica, fontsize=9];\n";
         out << "    graph [ranksep=0.3, nodesep=0.3];\n";
 
-        // Générer le contenu de l'arbre avec limite de profondeur
+        // Générer le contenu de l'arbre
         int node_count = 0;
         int total_nodes = 0;
         generateDotContent(tree.getRoot(), out, node_count, feature_names, 0, total_nodes);
@@ -60,11 +58,12 @@ void TreeVisualization::generateDotFile(const DecisionTreeSingle& tree,
 
         // Générer l'image PNG avec Graphviz
         std::stringstream cmd;
-        cmd << "/opt/homebrew/bin/dot -Tpng -Gdpi=150 \"" << dot_file.string() << "\" -o \"" << png_file.string() << "\"";
+        std::string dot_path = getenv("DOT_PATH") ? getenv("DOT_PATH") : "dot";
+        cmd << dot_path << " -Tpng -Gdpi=150 \"" << dot_file.string() << "\" -o \"" << png_file.string() << "\"";
 
         int result = system(cmd.str().c_str());
         if (result != 0) {
-            std::cout << "Erreur lors de la génération du PNG (code: " << result << ")" << std::endl;
+            std::cout << "Erreur lors de la génération du PNG (code: " << result << "). Assurez-vous que Graphviz est installé et que le chemin est correct." << std::endl;
         } else {
             std::cout << "Image générée: " << png_file.string() << std::endl;
         }
