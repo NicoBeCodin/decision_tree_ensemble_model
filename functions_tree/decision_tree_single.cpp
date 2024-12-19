@@ -229,6 +229,74 @@ void DecisionTreeSingle::serializeNode(const Tree* node, std::ostream& out) {
 }
 
 
+// std::tuple<int, double, double> DecisionTreeSingle::findBestSplitUsingMAE(
+//     const std::vector<std::vector<double>>& Data,
+//     const std::vector<double>& Labels,
+//     const std::vector<int>& Indices,
+//     double CurrentMAE) 
+// {
+//     int BestFeature = -1;
+//     double BestThreshold = 0.0;
+//     double BestImpurityDecrease = 0.0;
+
+//     size_t NumFeatures = Data[0].size();
+//     auto SortedFeatureIndices = preSortFeatures(Data, Indices);
+
+//     for (size_t Feature = 0; Feature < NumFeatures; ++Feature) {
+//         const auto& FeatureIndices = SortedFeatureIndices[Feature];
+
+//         // Left and right partitions
+//         std::vector<double> LeftLabels, RightLabels;
+//         double LeftSum = 0.0, RightSum = 0.0;
+
+//         // Initialize right partition
+//         for (int idx : FeatureIndices) {
+//             RightLabels.push_back(Labels[idx]);
+//             RightSum += Labels[idx];
+//         }
+
+//         // Iterate over split candidates
+//         for (size_t i = 0; i < FeatureIndices.size() - 1; ++i) {
+//             int idx = FeatureIndices[i];
+//             double Value = Data[idx][Feature];
+//             double Label = Labels[idx];
+
+//             // Move label from right partition to left partition
+//             LeftLabels.push_back(Label);
+//             LeftSum += Label;
+
+//             RightSum -= Label;
+//             RightLabels.erase(std::remove(RightLabels.begin(), RightLabels.end(), Label), RightLabels.end());
+
+//             // Skip duplicates
+//             double NextValue = Data[FeatureIndices[i + 1]][Feature];
+//             if (Value == NextValue) continue;
+
+//             //Calculate medians which minimizes the MAE
+//             double LeftMedian = Math::calculateMedianSorted(LeftLabels);
+//             double RightMedian = Math::calculateMedianSorted(RightLabels);
+
+//             // Calculate MAE for left and right partitions
+//             double LeftMAE = Math::calculateMAE(LeftLabels, LeftMedian);
+//             double RightMAE = Math::calculateMAE(RightLabels, RightMedian);
+
+//             // Weighted MAE
+//             if (LeftLabels.empty() || RightLabels.empty()) continue;
+//             double WeightedMAE = (LeftMAE * LeftLabels.size() + RightMAE * RightLabels.size()) / Indices.size();
+//             double ImpurityDecrease = CurrentMAE - WeightedMAE;
+
+//             // Update best split
+//             if (ImpurityDecrease > BestImpurityDecrease) {
+//                 BestImpurityDecrease = ImpurityDecrease;
+//                 BestFeature = Feature;
+//                 BestThreshold = (Value + NextValue) / 2.0;
+//             }
+//         }
+//     }
+
+//     return {BestFeature, BestThreshold, BestImpurityDecrease};
+// }
+
 std::tuple<int, double, double> DecisionTreeSingle::findBestSplitUsingMAE(
     const std::vector<std::vector<double>>& Data,
     const std::vector<double>& Labels,
@@ -245,44 +313,52 @@ std::tuple<int, double, double> DecisionTreeSingle::findBestSplitUsingMAE(
     for (size_t Feature = 0; Feature < NumFeatures; ++Feature) {
         const auto& FeatureIndices = SortedFeatureIndices[Feature];
 
-        // Left and right partitions
-        std::vector<double> LeftLabels, RightLabels;
-        double LeftSum = 0.0, RightSum = 0.0;
-
-        // Initialize right partition
+        // Prepare cumulative counts and sums
+        std::vector<double> SortedLabels;
         for (int idx : FeatureIndices) {
-            RightLabels.push_back(Labels[idx]);
-            RightSum += Labels[idx];
+            SortedLabels.push_back(Labels[idx]);
         }
+        std::sort(SortedLabels.begin(), SortedLabels.end());
+
+        double LeftSum = 0.0, RightSum = std::accumulate(SortedLabels.begin(), SortedLabels.end(), 0.0);
+        size_t LeftCount = 0, RightCount = SortedLabels.size();
 
         // Iterate over split candidates
         for (size_t i = 0; i < FeatureIndices.size() - 1; ++i) {
             int idx = FeatureIndices[i];
             double Value = Data[idx][Feature];
-            double Label = Labels[idx];
 
-            // Move label from right partition to left partition
-            LeftLabels.push_back(Label);
-            LeftSum += Label;
-
-            RightSum -= Label;
-            RightLabels.erase(std::remove(RightLabels.begin(), RightLabels.end(), Label), RightLabels.end());
+            // Update left and right partitions
+            LeftSum += Labels[idx];
+            RightSum -= Labels[idx];
+            LeftCount++;
+            RightCount--;
 
             // Skip duplicates
             double NextValue = Data[FeatureIndices[i + 1]][Feature];
             if (Value == NextValue) continue;
 
-            //Calculate medians which minimizes the MAE
-            double LeftMedian = Math::calculateMedianSorted(LeftLabels);
-            double RightMedian = Math::calculateMedianSorted(RightLabels);
+            // Calculate medians directly from sorted labels
+            double LeftMedian = SortedLabels[LeftCount / 2];
+            if (LeftCount % 2 == 0) {
+                LeftMedian = (SortedLabels[LeftCount / 2 - 1] + SortedLabels[LeftCount / 2]) / 2.0;
+            }
+
+            double RightMedian = SortedLabels[LeftCount + RightCount / 2];
+            if (RightCount % 2 == 0) {
+                RightMedian = (SortedLabels[LeftCount + RightCount / 2 - 1] + SortedLabels[LeftCount + RightCount / 2]) / 2.0;
+            }
 
             // Calculate MAE for left and right partitions
-            double LeftMAE = Math::calculateMAE(LeftLabels, LeftMedian);
-            double RightMAE = Math::calculateMAE(RightLabels, RightMedian);
+            double LeftMAE = 0.0, RightMAE = 0.0;
+            for (size_t j = 0; j < LeftCount; ++j) {
+                LeftMAE += std::abs(SortedLabels[j] - LeftMedian);
+            }
+            for (size_t j = LeftCount; j < SortedLabels.size(); ++j) {
+                RightMAE += std::abs(SortedLabels[j] - RightMedian);
+            }
 
-            // Weighted MAE
-            if (LeftLabels.empty() || RightLabels.empty()) continue;
-            double WeightedMAE = (LeftMAE * LeftLabels.size() + RightMAE * RightLabels.size()) / Indices.size();
+            double WeightedMAE = (LeftMAE + RightMAE) / SortedLabels.size();
             double ImpurityDecrease = CurrentMAE - WeightedMAE;
 
             // Update best split

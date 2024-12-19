@@ -90,15 +90,17 @@ int main() {
   std::cin >> choice;
 
   if (choice == 1) {
-    std::cout << "Which method do you want as a splitting criteria: MSE (0) "
-                 "(faster for the moment) or MAE (1) ?"
-              << std::endl;
-    int criteria;
-    std::cin >> criteria;
 
     std::cout << "You can customize parameters for the decision tree.\n";
     std::cout << "Press Enter to use the default value or type a new value and "
                  "press Enter.\n";
+
+
+    std::cout << "Which method do you want as a splitting criteria: MSE (0) "
+                 " or MAE (1) ?"
+              << std::endl;
+    int criteria;
+    std::cin >> criteria;
 
     // Configurable parameters
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(),
