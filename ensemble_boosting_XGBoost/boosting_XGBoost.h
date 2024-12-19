@@ -8,6 +8,7 @@
 #include <random>
 #include <algorithm>
 #include <stdexcept>
+#include <map>
 
 /**
  * @brief Classe principale implémentant XGBoost.
@@ -69,6 +70,13 @@ public:
      * @return Erreur quadratique moyenne (MSE)
      */
     double evaluate(const std::vector<std::vector<double>>& X_test, const std::vector<double>& y_test) const;
+
+    /**
+     * @brief Calculer l'importance des caractéristiques
+     * @param feature_names Noms des caractéristiques (optionnel)
+     * @return Map des caractéristiques avec leur importance relative
+     */
+    std::map<std::string, double> featureImportance(const std::vector<std::string>& feature_names = {}) const;
     
     /** 
      * @brief Destructeur de XGBoost

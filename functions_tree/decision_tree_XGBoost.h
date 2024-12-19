@@ -16,6 +16,7 @@
 #include <cmath>
 #include <limits>
 #include <queue>
+#include <map>
 
 // Classe DecisionTree pour XGBoost
 class DecisionTreeXGBoost {
@@ -25,6 +26,7 @@ public:
         double MaxValue = 0.0;
         double Prediction = 0.0;
         bool IsLeaf = false;
+        double GainImprovement = 0.0;  // Amélioration du gain pour ce nœud
         std::unique_ptr<Tree> Left = nullptr;
         std::unique_ptr<Tree> Right = nullptr;
     };
@@ -42,6 +44,9 @@ public:
     // Sauvegarder et charger l'arbre
     void saveTree(const std::string& filename);
     void loadTree(const std::string& filename);
+
+    // Calculer l'importance des caractéristiques
+    std::map<int, double> getFeatureImportance() const;
 
 private:
     int MaxDepth;       // Profondeur maximale de l'arbre
@@ -76,6 +81,9 @@ private:
 
     double sumGradients(const std::vector<double>& Gradients, const std::vector<int>& Indices);
     double sumHessians(const std::vector<double>& Hessians, const std::vector<int>& Indices);
+
+    // Méthode récursive pour calculer l'importance des caractéristiques
+    void calculateFeatureImportanceRecursive(const Tree* node, std::map<int, double>& importance) const;
 };
 
 #endif // DECISION_TREE_XGBOOST_H

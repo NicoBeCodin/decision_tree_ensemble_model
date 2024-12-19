@@ -9,6 +9,7 @@ add_subdirectory(ensemble_bagging)
 add_subdirectory(ensemble_boosting)
 add_subdirectory(ensemble_boosting_XGBoost)
 add_subdirectory(data_clean)
+add_subdirectory(model_comparison)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -68,17 +69,19 @@ target_link_libraries(cross_validation_test
     Boosting_XGBoost
 )
 
-target_link_libraries(DataClean Data_Clean)
+target_link_libraries(DataClean PRIVATE Data_Clean)
 
-target_link_libraries(MainEnsemble 
+target_link_libraries(MainEnsemble PRIVATE
     FunctionsIO
     FunctionsTree
     Bagging
     Boosting
     Boosting_XGBoost
+    model_comparison
+    Data_Clean
 )
 
-target_link_libraries(MainKFold 
+target_link_libraries(MainKFold PRIVATE
     FunctionsIO
     FunctionsTree
     Bagging
@@ -86,16 +89,33 @@ target_link_libraries(MainKFold
 )
 
 target_include_directories(MainEnsemble PRIVATE
-    functions_io
-    functions_tree
-    ensemble_bagging
-    ensemble_boosting
-    ensemble_boosting_XGBoost
+    ${CMAKE_CURRENT_SOURCE_DIR}/functions_io
+    ${CMAKE_CURRENT_SOURCE_DIR}/functions_tree
+    ${CMAKE_CURRENT_SOURCE_DIR}/ensemble_bagging
+    ${CMAKE_CURRENT_SOURCE_DIR}/ensemble_boosting
+    ${CMAKE_CURRENT_SOURCE_DIR}/ensemble_boosting_XGBoost
+    ${CMAKE_CURRENT_SOURCE_DIR}/model_comparison
+    ${CMAKE_CURRENT_SOURCE_DIR}/data_clean
 )
 
 target_include_directories(MainKFold PRIVATE
-    functions_io
-    functions_tree
-    ensemble_bagging
-    ensemble_boosting
+    ${CMAKE_CURRENT_SOURCE_DIR}/functions_io
+    ${CMAKE_CURRENT_SOURCE_DIR}/functions_tree
+    ${CMAKE_CURRENT_SOURCE_DIR}/ensemble_bagging
+    ${CMAKE_CURRENT_SOURCE_DIR}/ensemble_boosting
+)
+
+# Main comparison executable
+add_executable(decision_tree main_comparison.cpp)
+
+target_link_libraries(decision_tree PRIVATE
+    model_comparison
+    FunctionsTree
+    Bagging
+    Boosting
+    Boosting_XGBoost
+)
+
+target_include_directories(decision_tree PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
 )

@@ -99,6 +99,7 @@ void DecisionTreeXGBoost::splitNode(Tree* Node, const std::vector<std::vector<do
 
     Node->FeatureIndex = BestFeature;
     Node->MaxValue = BestThreshold;
+    Node->GainImprovement = BestGain;
 
     // Partitionner les indices
     std::vector<int> LeftIndices, RightIndices;
@@ -129,40 +130,45 @@ std::tuple<int, double, double> DecisionTreeXGBoost::findBestSplit(
     const std::vector<double>& Gradients,
     const std::vector<double>& Hessians,
     const std::vector<int>& Indices) {
+    
     int BestFeature = -1;
     double BestThreshold = 0.0;
-    double BestGain = -std::numeric_limits<double>::infinity();
+    double BestGain = 0.0;
 
-    size_t NumFeatures = Data[0].size();
+    double G = sumGradients(Gradients, Indices);
+    double H = sumHessians(Hessians, Indices);
+    double CurrentScore = G * G / (H + Lambda);
 
-    for (size_t Feature = 0; Feature < NumFeatures; ++Feature) {
-        std::vector<std::pair<double, int>> SortedIndices;
+    for (size_t feature = 0; feature < Data[0].size(); ++feature) {
+        std::vector<std::pair<double, int>> SortedValues;
         for (int idx : Indices) {
-            SortedIndices.emplace_back(Data[idx][Feature], idx);
+            SortedValues.emplace_back(Data[idx][feature], idx);
         }
-        std::sort(SortedIndices.begin(), SortedIndices.end());
+        std::sort(SortedValues.begin(), SortedValues.end());
 
-        double G_L = 0.0, H_L = 0.0, G_R = sumGradients(Gradients, Indices), H_R = sumHessians(Hessians, Indices);
+        double GL = 0.0, HL = 0.0;
+        for (size_t i = 0; i < SortedValues.size() - 1; ++i) {
+            GL += Gradients[SortedValues[i].second];
+            HL += Hessians[SortedValues[i].second];
+            double GR = G - GL;
+            double HR = H - HL;
 
-        for (size_t i = 0; i < SortedIndices.size() - 1; ++i) {
-            int idx = SortedIndices[i].second;
-            G_L += Gradients[idx];
-            H_L += Hessians[idx];
-            G_R -= Gradients[idx];
-            H_R -= Hessians[idx];
+            if (HL >= MinLeafSize && HR >= MinLeafSize) {
+                double Gain = GL * GL / (HL + Lambda) + 
+                             GR * GR / (HR + Lambda) - 
+                             CurrentScore - Gamma;
 
-            if (SortedIndices[i].first == SortedIndices[i + 1].first) continue;
-
-            double Gain = (G_L * G_L) / (H_L + Lambda) + (G_R * G_R) / (H_R + Lambda) - 
-                          (G_L + G_R) * (G_L + G_R) / (H_L + H_R + Lambda);
-
-            if (Gain > BestGain) {
-                BestGain = Gain;
-                BestFeature = Feature;
-                BestThreshold = (SortedIndices[i].first + SortedIndices[i + 1].first) / 2.0;
+                if (Gain > BestGain && 
+                    SortedValues[i].first != SortedValues[i + 1].first) {
+                    BestGain = Gain;
+                    BestFeature = feature;
+                    BestThreshold = (SortedValues[i].first + 
+                                   SortedValues[i + 1].first) / 2.0;
+                }
             }
         }
     }
+
     return {BestFeature, BestThreshold, BestGain};
 }
 
@@ -267,4 +273,24 @@ std::unique_ptr<DecisionTreeXGBoost::Tree> DecisionTreeXGBoost::deserializeNode(
     node->Right = deserializeNode(in);
 
     return node;
+}
+
+std::map<int, double> DecisionTreeXGBoost::getFeatureImportance() const {
+    std::map<int, double> importance;
+    calculateFeatureImportanceRecursive(Root.get(), importance);
+    return importance;
+}
+
+void DecisionTreeXGBoost::calculateFeatureImportanceRecursive(
+    const Tree* node, std::map<int, double>& importance) const {
+    if (!node || node->IsLeaf) {
+        return;
+    }
+
+    // Ajouter le gain d'amélioration à l'importance de la caractéristique
+    importance[node->FeatureIndex] += node->GainImprovement;
+
+    // Récursivement calculer l'importance pour les sous-arbres
+    calculateFeatureImportanceRecursive(node->Left.get(), importance);
+    calculateFeatureImportanceRecursive(node->Right.get(), importance);
 }

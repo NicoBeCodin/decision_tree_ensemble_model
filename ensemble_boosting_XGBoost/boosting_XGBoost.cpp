@@ -156,3 +156,34 @@ void XGBoost::load(const std::string& filename) {
     
     file.close();
 }
+
+std::map<std::string, double> XGBoost::featureImportance(const std::vector<std::string>& feature_names) const {
+    std::map<int, double> importance_scores;
+    
+    // Calculer l'importance pour chaque arbre
+    for (const auto& tree : trees) {
+        auto tree_importance = tree->getFeatureImportance();
+        for (const auto& [feature, score] : tree_importance) {
+            importance_scores[feature] += score;
+        }
+    }
+    
+    // Normaliser les scores
+    double total_importance = 0.0;
+    for (const auto& [feature, score] : importance_scores) {
+        total_importance += score;
+    }
+    
+    std::map<std::string, double> normalized_importance;
+    for (const auto& [feature, score] : importance_scores) {
+        std::string feature_name;
+        if (!feature_names.empty() && feature < static_cast<int>(feature_names.size())) {
+            feature_name = feature_names[feature];
+        } else {
+            feature_name = "Feature " + std::to_string(feature);
+        }
+        normalized_importance[feature_name] = score / total_importance;
+    }
+    
+    return normalized_importance;
+}

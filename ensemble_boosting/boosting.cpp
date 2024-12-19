@@ -42,30 +42,35 @@ void Boosting::initializePrediction(const std::vector<double>& y) {
  * @param X Matrice des caractéristiques
  * @param y Vecteur des étiquettes cibles
  */
-void Boosting::train(const std::vector<std::vector<double>>& X,
-                     const std::vector<double>& y) {
-    size_t n_samples = y.size();
-    initializePrediction(y);
-    std::vector<double> y_pred(n_samples, initial_prediction); //
+void Boosting::train(const std::vector<std::vector<double>>& data, const std::vector<double>& labels) {
+    if (data.empty() || labels.empty()) {
+        return;
+    }
 
+    // Initialize predictions with zeros
+    std::vector<double> predictions(data.size(), 0.0);
+
+    // Training loop
     for (int i = 0; i < n_estimators; ++i) {
+        // Calculate residuals (negative gradients)
+        std::vector<double> residuals = loss_function->negativeGradient(labels, predictions);
 
-        std::vector<double> residuals = loss_function->negativeGradient(y, y_pred);
-
-   
+        // Create and train a new weak learner
         auto tree = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease);
-        //training with MSE only for the moment
-        tree->train(X, residuals, 0);
-
-        for (size_t j = 0; j < n_samples; ++j) {
-            y_pred[j] += learning_rate * tree->predict(X[j]);
-        }
-
+        tree->train(data, residuals, 0);
         trees.push_back(std::move(tree));
 
-       
-        double loss = loss_function->computeLoss(y, y_pred);
-        std::cout << "Iteration " << i + 1 << ", Loss: " << loss << std::endl;
+        // Update predictions
+        for (size_t j = 0; j < data.size(); ++j) {
+            predictions[j] += learning_rate * trees.back()->predict(data[j]);
+        }
+
+        // Calculate and store the current loss
+        double current_loss = loss_function->computeLoss(labels, predictions);
+        
+        #ifndef TESTING
+        std::cout << "Iteration " << i + 1 << ", Loss: " << current_loss << std::endl;
+        #endif
     }
 }
 
