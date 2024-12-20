@@ -262,6 +262,21 @@ int main(int argc, char* argv[]) {
           std::cerr << "Error loading the model: " << e.what() << "\n";
           return -1;
         }
+
+        // Recover model parameters
+        std::map<std::string, std::string> training_params = bagging_model.getTrainingParameters();
+
+        // Update parameter variables
+        num_trees = std::stoi(training_params["NumTrees"]);
+        max_depth = std::stoi(training_params["MaxDepth"]);
+        min_samples_split = std::stoi(training_params["MinSamplesSplit"]);
+        min_impurity_decrease = std::stod(training_params["MinImpurityDecrease"]);
+        criteria = std::stoi(training_params["Criteria"]);
+        which_loss_func = std::stoi(training_params["WhichLossFunction"]);
+
+        // Display tree parameters
+        std::cout << "Parameters loaded from the model file:\n";
+        std::cout << bagging_model.getTrainingParametersString() << "\n";
         
         return 0; //Nothing done but model loaded
       } else {

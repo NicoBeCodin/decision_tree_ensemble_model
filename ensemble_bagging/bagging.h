@@ -65,10 +65,17 @@ public:
      */
     void load(const std::string& filename);
 
+    // Retourne les paramètres d'entraînement sous forme de dictionnaire (clé-valeur)
+    std::map<std::string, std::string> getTrainingParameters() const;
+    // Retourne les paramètres d'entraînement sous forme d'une chaîne de caractères lisible
+    std::string getTrainingParametersString() const;
+
 private:
     int numTrees;  // Number of trees in the ensemble
     int maxDepth;  // Maximum depth of each tree
     int minSamplesSplit; // Minimum number of samples to split a node
+    int Criteria;
+    int whichLossFunc;
     double minImpurityDecrease; // Minimum impurity decrease for splitting
     std::unique_ptr<LossFunction> loss_function; //Function to calculate loss
     std::vector<std::unique_ptr<DecisionTreeSingle>> trees;  // Ensemble of decision trees
