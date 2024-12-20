@@ -7,6 +7,7 @@
 #include <sstream>
 #include <tuple>
 #include <vector>
+#include <map>
 #include "math_functions.h"
 
 class DecisionTreeSingle {
@@ -28,6 +29,8 @@ public:
     double predict(const std::vector<double> &Sample) const;
     void saveTree(const std::string &filename);
     void loadTree(const std::string &filename);
+    std::map<std::string, std::string> getTrainingParameters() const;
+    std::string getTrainingParametersString() const;
 
     // Nouvelles méthodes pour l'importance des caractéristiques
     const Tree* getRoot() const { return Root.get(); }
@@ -37,8 +40,9 @@ public:
 private:
     std::unique_ptr<Tree> Root;
     int MaxDepth;              
-    int MinLeafLarge;          
-    double MinError;           
+    int MinLeafLarge;
+    int Criteria;          
+    double MinError;         
 
     void splitNode(Tree *Node, const std::vector<std::vector<double>> &Data,
                   const std::vector<double> &Labels,

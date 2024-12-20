@@ -134,6 +134,19 @@ int main(int argc, char* argv[]) {
           return -1;
         }
         
+        // Recover model parameters
+        std::map<std::string, std::string> training_params = single_tree.getTrainingParameters();
+
+        // Update parameter variables
+        maxDepth = std::stoi(training_params["MaxDepth"]);
+        minSamplesSplit = std::stoi(training_params["MinLeafLarge"]);
+        minImpurityDecrease = std::stod(training_params["MinError"]);
+        criteria = std::stoi(training_params["Criteria"]);
+
+        // Display tree parameters
+        std::cout << "Parameters loaded from the model file:\n";
+        std::cout << single_tree.getTrainingParametersString() << "\n";
+        
         return 0; // Nothing done for the moment but loadable
       } else {
         std::cout << "Generation of default values : " << std::endl
@@ -188,7 +201,7 @@ int main(int argc, char* argv[]) {
         std::cout << "Please type the name you want to give to the .txt file: \n";
         std::string filename;
         std::cin >> filename;
-        std::string path = "../saved_models/tree/" + filename;
+        std::string path = "../saved_models/tree_models/" + filename;
         std::cout << "Saving tree as: " << filename << "in this path : " << path << std::endl;
         single_tree.saveTree(path);
       }
@@ -197,6 +210,7 @@ int main(int argc, char* argv[]) {
       ModelResults results;
       results.model_name = "Arbre de décision simple";
       results.mse = mse_value;
+      results.mae = mse_value;
       results.training_time = train_duration.count();
       results.evaluation_time = eval_duration.count();
       
@@ -204,6 +218,7 @@ int main(int argc, char* argv[]) {
       results.parameters["max_depth"] = maxDepth;
       results.parameters["min_samples_split"] = minSamplesSplit;
       results.parameters["min_impurity_decrease"] = minImpurityDecrease;
+      results.parameters["criteria"] = criteria;
       
       // Save characteristic importance
       for (const auto& score : feature_importance) {
@@ -317,7 +332,7 @@ int main(int argc, char* argv[]) {
       // Save results
       ModelResults results;
       results.model_name = "Bagging";
-      results.mse = mse_or_mae_value;
+      results.mse_or_mae = mse_or_mae_value;
       results.training_time = train_duration.count();
       results.evaluation_time = eval_duration.count();
       
@@ -443,7 +458,7 @@ int main(int argc, char* argv[]) {
       // Save results for comparaison
       ModelResults results;
       results.model_name = "Boosting";
-      results.mse = mse_or_mae_value;
+      results.mse_or_mae = mse_or_mae_value;
       results.training_time = train_duration.count();
       results.evaluation_time = eval_duration.count();
       
@@ -521,9 +536,8 @@ int main(int argc, char* argv[]) {
             loss_function = std::make_unique<MeanAbsoluteLoss>();
             printMAEorMSE = "Boosting (XGBoost) Mean Absolute Error (MAE): ";
         }
-        
+
         std::cout << "Boosting process started, please wait...\n";
-        auto loss_function = std::make_unique<LeastSquaresLoss>();
         XGBoost xgboost_model(n_estimators, max_depth, learning_rate, lambda, gamma, std::move(loss_function));
 
         auto train_start = std::chrono::high_resolution_clock::now();
@@ -533,12 +547,12 @@ int main(int argc, char* argv[]) {
         std::cout << "Training time: " << train_duration.count() << " seconds\n";
 
         auto eval_start = std::chrono::high_resolution_clock::now();
-        double mse_value = xgboost_model.evaluate(X_test, y_test);
+        double mse_or_mae_value = xgboost_model.evaluate(X_test, y_test);
         auto eval_end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> eval_duration = eval_end - eval_start;
 
         std::cout << "Evaluation time: " << eval_duration.count() << " seconds\n";
-        std::cout << printMAEorMSE << mse_value << "\n";
+        std::cout << printMAEorMSE << mse_or_mae_value << "\n";
 
         // Compute and show feature importance
         auto feature_importance = xgboost_model.featureImportance(feature_names);
@@ -554,7 +568,7 @@ int main(int argc, char* argv[]) {
         // Save results 
         ModelResults results;
         results.model_name = "XGBoost";
-        results.mse = mse_value;
+        results.mse_or_mae = mse_or_mae_value;
         results.training_time = train_duration.count();
         results.evaluation_time = eval_duration.count();
         

@@ -299,7 +299,7 @@ void DecisionTreeSingle::saveTree(const std::string& filename) {
     }
     
     // Write tree parameters
-    out << MaxDepth << " " << MinLeafLarge << " " << MinError << "\n";
+    out << MaxDepth << " " << MinLeafLarge << " " << MinError << " " << Criteria << "\n";
     
     // Serialize the tree
     serializeNode(Root.get(), out);
@@ -338,10 +338,31 @@ void DecisionTreeSingle::loadTree(const std::string& filename) {
     }
     
     // Read tree parameters
-    in >> MaxDepth >> MinLeafLarge >> MinError;
+    in >> MaxDepth >> MinLeafLarge >> MinError >> Criteria;
     in.ignore(); // Ignore newline
     
     // Deserialize the tree
     Root = deserializeNode(in);
     in.close();
+}
+
+// Retourne les paramètres d'entraînement sous forme de dictionnaire (clé-valeur)
+std::map<std::string, std::string> DecisionTreeSingle::getTrainingParameters() const {
+    std::map<std::string, std::string> parameters;
+    parameters["MaxDepth"] = std::to_string(MaxDepth);
+    parameters["MinLeafLarge"] = std::to_string(MinLeafLarge);
+    parameters["MinError"] = std::to_string(MinError);
+    parameters["Criteria"] = std::to_string(Criteria);
+    return parameters;
+}
+
+// Retourne les paramètres d'entraînement sous forme d'une chaîne de caractères lisible
+std::string DecisionTreeSingle::getTrainingParametersString() const {
+    std::ostringstream oss;
+    oss << "Training Parameters:\n";
+    oss << "  - Max Depth: " << MaxDepth << "\n";
+    oss << "  - Min Leaf Large: " << MinLeafLarge << "\n";
+    oss << "  - Min Error: " << MinError << "\n";
+    oss << "  - Criteria: " << (Criteria == 0 ? "MSE" : "MAE") << "\n";
+    return oss.str();
 }

@@ -7,7 +7,9 @@
 
 struct ModelResults {
     std::string model_name;
+    double mse_or_mae;
     double mse;
+    double mae;
     double training_time;
     double evaluation_time;
     std::map<std::string, double> feature_importance;
