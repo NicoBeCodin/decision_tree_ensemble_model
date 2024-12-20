@@ -61,14 +61,14 @@ int main(int argc, char* argv[]) {
     return -1;
   }
 
-  // Créer le dossier saved_models s'il n'existe pas
+  // Create folder if non existent
   std::filesystem::path models_dir = "../saved_models";
   if (!std::filesystem::exists(models_dir)) {
       std::filesystem::create_directories(models_dir);
       std::cout << "Directory created: " << models_dir << std::endl;
   }
 
-  // Noms des caractéristiques
+  // Feature names
   std::vector<std::string> feature_names = {
       "p1",           "p2", "p3", "p4", "p5", "p6", "p7", "p8", "matrix_size_x",
       "matrix_size_y"};
@@ -81,7 +81,7 @@ int main(int argc, char* argv[]) {
 
   int choice;
   bool use_custom_params = false;
-  bool load_request = false; // Demande de load
+  bool load_request = false; 
   std::string path_model_filename = "";
   std::vector<std::string> params;
 
@@ -98,7 +98,7 @@ int main(int argc, char* argv[]) {
       path_model_filename = std::string(argv[3]);
     }
   } else {
-    // Dans le cas où, l'exécutable MainEnsemble était lancé sans argument.
+    //If MainEnsemble does't have any argument
     std::cout << "Choose the method you want to use:\n";
     std::cout << "1: Simple Decision Tree\n";
     std::cout << "2: Bagging\n";
@@ -112,7 +112,7 @@ int main(int argc, char* argv[]) {
       double minImpurityDecrease;
       int criteria;
 
-      // Créer le dossier tree_models s'il n'existe pas
+      // Create folder if non existent
       std::filesystem::path models_dir = "../saved_models/tree_models";
       if (!std::filesystem::exists(models_dir)) {
           std::filesystem::create_directories(models_dir);
@@ -124,7 +124,7 @@ int main(int argc, char* argv[]) {
         minSamplesSplit = std::stoi(params[1]);
         minImpurityDecrease = std::stod(params[2]);
       } else if (load_request) {
-        DecisionTreeSingle single_tree(0, 0, 0.0); // Initialisation temporaire
+        DecisionTreeSingle single_tree(0, 0, 0.0); // Temporary
 
         try {
           single_tree.loadTree(path_model_filename);
@@ -134,7 +134,7 @@ int main(int argc, char* argv[]) {
           return -1;
         }
         
-        return 0; // On fait rien pour l'instant, mais on peut load
+        return 0; // Nothing done for the moment but loadable
       } else {
         std::cout << "Generation of default values : " << std::endl
                       << "Default for splitting criteria (MSE)\n"
@@ -172,7 +172,7 @@ int main(int argc, char* argv[]) {
       std::cout << "Evaluation time: " << eval_duration.count() << " seconds\n";
       std::cout << "Mean Squared Error (MSE): " << mse_value << "\n";
 
-      // Calcul et affichage de l'importance des caractéristiques
+      // computing feature and showing feature importance
       auto feature_importance =
       FeatureImportance::calculateTreeImportance(single_tree, feature_names);
       displayFeatureImportance(feature_importance);
@@ -189,26 +189,26 @@ int main(int argc, char* argv[]) {
         single_tree.saveTree(path);
       }
 
-      // Sauvegarder les résultats pour la comparaison
+      // Save results for comparaison
       ModelResults results;
       results.model_name = "Arbre de décision simple";
       results.mse = mse_value;
       results.training_time = train_duration.count();
       results.evaluation_time = eval_duration.count();
       
-      // Sauvegarder les paramètres
+      // Save parameters
       results.parameters["max_depth"] = maxDepth;
       results.parameters["min_samples_split"] = minSamplesSplit;
       results.parameters["min_impurity_decrease"] = minImpurityDecrease;
       
-      // Sauvegarder l'importance des caractéristiques
+      // Save characteristic importance
       for (const auto& score : feature_importance) {
           results.feature_importance[score.feature_name] = score.importance_score;
       }
       
       ModelComparison::saveResults(results);
 
-      // Ajout de la visualisation
+      // Add image for visualization
       std::cout << "Génération de la visualisation de l'arbre..." << std::endl;
       TreeVisualization::generateDotFile(single_tree, "single_tree",
                                         feature_names);
@@ -221,7 +221,7 @@ int main(int argc, char* argv[]) {
       int which_loss_func;
       double min_impurity_decrease;
 
-      // Créer le dossier bagging_models s'il n'existe pas
+      // Create folder bagging models if non existent
       std::filesystem::path models_dir = "../saved_models/bagging_models";
       if (!std::filesystem::exists(models_dir)) {
         std::filesystem::create_directories(models_dir);
@@ -244,7 +244,7 @@ int main(int argc, char* argv[]) {
           return -1;
         }
         
-        return 0; // On fait rien pour l'instant, mais on peut load
+        return 0; //Nothing done but model loaded
       } else {
         std::cout << "Generation of default values : " << std::endl
                       << "Default for splitting criteria (MSE)\n"
@@ -289,11 +289,11 @@ int main(int argc, char* argv[]) {
 
       std::cout << "Bagging Mean Squared Error (MSE): " << mse_value << "\n";
 
-      // Calcul et affichage de l'importance des caractéristiques pour le bagging
+      // compute and show feature importance
       auto feature_importance = FeatureImportance::calculateBaggingImportance(bagging_model, feature_names);
       displayFeatureImportance(feature_importance);
 
-      // Sauvegarde du modèle si l'utilisateur le souhaite
+      // Save model if users wants it
       bool save_model = false;
       std::cout << "Would you like to save this model? (1 = Yes, 0 = No): ";
       std::cin >> save_model;
@@ -307,27 +307,27 @@ int main(int argc, char* argv[]) {
           std::cout << "Model saved successfully as " << filename << "in this path : " << path << "\n";
       }
 
-      // Sauvegarder les résultats pour la comparaison
+      // Save results
       ModelResults results;
       results.model_name = "Bagging";
       results.mse = mse_value;
       results.training_time = train_duration.count();
       results.evaluation_time = eval_duration.count();
       
-      // Sauvegarder les paramètres
+      // Save parameters
       results.parameters["n_estimators"] = num_trees;
       results.parameters["max_depth"] = max_depth;
       results.parameters["min_samples_split"] = min_samples_split;
       results.parameters["min_impurity_decrease"] = min_impurity_decrease;
       
-      // Sauvegarder l'importance des caractéristiques
+      // Save feature importance
       for (const auto& score : feature_importance) {
           results.feature_importance[score.feature_name] = score.importance_score;
       }
       
       ModelComparison::saveResults(results);
 
-      // Ajout de la visualisation
+      // Add image for visualisation
       std::cout << "Génération des visualisations des arbres..." << std::endl;
       TreeVisualization::generateEnsembleDotFiles(bagging_model.getTrees(),
                                                   "bagging", feature_names);
@@ -340,7 +340,7 @@ int main(int argc, char* argv[]) {
       int which_loss_func;
       double min_impurity_decrease, learning_rate;
 
-      // Créer le dossier boosting_models s'il n'existe pas
+      // Create boosting folder if new
       std::filesystem::path models_dir = "../saved_models/boosting_models";
       if (!std::filesystem::exists(models_dir)) {
         std::filesystem::create_directories(models_dir);
@@ -354,7 +354,7 @@ int main(int argc, char* argv[]) {
         min_impurity_decrease = std::stod(params[3]);
         learning_rate = std::stod(params[4]);
       } else if (load_request) {
-        Boosting boosting_model(0, 0.0, nullptr, 0, 0, 0.0); // Initialisation temporaire
+        Boosting boosting_model(0, 0.0, nullptr, 0, 0, 0.0); // temporary creation
 
         try {
           boosting_model.load(path_model_filename);
@@ -364,7 +364,7 @@ int main(int argc, char* argv[]) {
           return -1;
         }
         
-        return 0; // On fait rien pour l'instant, mais on peut load
+        return 0; // Nothing done but loadable
       } else {
         std::cout << "Generation of default values : " << std::endl
                       << "Default for splitting criteria (MSE)\n"
@@ -396,14 +396,14 @@ int main(int argc, char* argv[]) {
                               std::move(loss_function), max_depth,
                               min_samples_split, min_impurity_decrease);
 
-      // Entraînement du modèle
+      // model training
       auto train_start = std::chrono::high_resolution_clock::now();
       boosting_model.train(X_train, y_train, criteria);
       auto train_end = std::chrono::high_resolution_clock::now();
       std::chrono::duration<double> train_duration = train_end - train_start;
       std::cout << "Training time: " << train_duration.count() << " seconds\n";
 
-      // Évaluation du modèle
+      // Model evaluation
       auto eval_start = std::chrono::high_resolution_clock::now();
       double mse_value = boosting_model.evaluate(X_test, y_test);
       auto eval_end = std::chrono::high_resolution_clock::now();
@@ -412,11 +412,11 @@ int main(int argc, char* argv[]) {
 
       std::cout << "Boosting Mean Squared Error (MSE): " << mse_value << "\n";
 
-      // Calcul et affichage de l'importance des caractéristiques pour le boosting
+      // Compute and show feature importance
       auto feature_importance = FeatureImportance::calculateBoostingImportance(boosting_model, feature_names);
       displayFeatureImportance(feature_importance);
 
-      // Sauvegarde du modèle si l'utilisateur le souhaite
+      // Save model
       bool save_model = false;
       std::cout << "Would you like to save this model? (1 = Yes, 0 = No): ";
       std::cin >> save_model;
@@ -430,28 +430,28 @@ int main(int argc, char* argv[]) {
           std::cout << "Model saved successfully as " << filename << "in this path : " << path << "\n";
       }
 
-      // Sauvegarder les résultats pour la comparaison
+      // Save results for comparaison
       ModelResults results;
       results.model_name = "Boosting";
       results.mse = mse_value;
       results.training_time = train_duration.count();
       results.evaluation_time = eval_duration.count();
       
-      // Sauvegarder les paramètres
+      // Save features
       results.parameters["n_estimators"] = n_estimators;
       results.parameters["max_depth"] = max_depth;
       results.parameters["min_samples_split"] = min_samples_split;
       results.parameters["min_impurity_decrease"] = min_impurity_decrease;
       results.parameters["learning_rate"] = learning_rate;
       
-      // Sauvegarder l'importance des caractéristiques
+      
       for (const auto& score : feature_importance) {
           results.feature_importance[score.feature_name] = score.importance_score;
       }
       
       ModelComparison::saveResults(results);
 
-      // Ajout de la visualisation
+      // Generate images and save
       std::cout << "Génération des visualisations des arbres..." << std::endl;
       TreeVisualization::generateEnsembleDotFiles(boosting_model.getEstimators(), "boosting", feature_names);
       std::cout << "Visualisations générées dans le dossier 'visualizations'" << std::endl;
@@ -459,7 +459,7 @@ int main(int argc, char* argv[]) {
         int n_estimators, max_depth;
         double learning_rate, lambda, gamma;
 
-        // Créer le dossier xgboost_models s'il n'existe pas
+        // Create folder if non existent
         std::filesystem::path models_dir = "../saved_models/xgboost_models";
         if (!std::filesystem::exists(models_dir)) {
             std::filesystem::create_directories(models_dir);
@@ -483,7 +483,7 @@ int main(int argc, char* argv[]) {
             return -1;
           }
         
-          return 0; // On fait rien pour l'instant, mais on peut load
+          return 0; // Nothing done for the moment but loadable
         } else {
             std::cout << "Generation of default values : " << std::endl
                       << "Default number of estimators : 75\n"
@@ -516,7 +516,7 @@ int main(int argc, char* argv[]) {
         std::cout << "Evaluation time: " << eval_duration.count() << " seconds\n";
         std::cout << "Boosting Mean Squared Error (MSE): " << mse_value << "\n";
 
-        // Calcul et affichage de l'importance des caractéristiques
+        // Compute and show feature importance
         auto feature_importance = xgboost_model.featureImportance(feature_names);
         std::cout << "\nFeature importance:\n";
         std::cout << std::string(30, '-') << "\n";
@@ -527,21 +527,21 @@ int main(int argc, char* argv[]) {
         }
         std::cout << std::endl;
 
-        // Sauvegarder les résultats pour la comparaison
+        // Save results 
         ModelResults results;
         results.model_name = "XGBoost";
         results.mse = mse_value;
         results.training_time = train_duration.count();
         results.evaluation_time = eval_duration.count();
         
-        // Sauvegarder les paramètres
+        // Save parameters
         results.parameters["n_estimators"] = n_estimators;
         results.parameters["max_depth"] = max_depth;
         results.parameters["learning_rate"] = learning_rate;
         results.parameters["lambda"] = lambda;
         results.parameters["gamma"] = gamma;
         
-        // Sauvegarder l'importance des caractéristiques
+        // Save feature importance
         results.feature_importance = feature_importance;
         
         ModelComparison::saveResults(results);
