@@ -18,7 +18,7 @@
 #include <queue>
 #include <map>
 
-// Classe DecisionTree pour XGBoost
+// DecisionTree class for XGBoost
 class DecisionTreeXGBoost {
 public:
     struct Tree {
@@ -26,36 +26,36 @@ public:
         double MaxValue = 0.0;
         double Prediction = 0.0;
         bool IsLeaf = false;
-        double GainImprovement = 0.0;  // Amélioration du gain pour ce nœud
+        double GainImprovement = 0.0;  // Gain improvement for this node
         std::unique_ptr<Tree> Left = nullptr;
         std::unique_ptr<Tree> Right = nullptr;
     };
 
     DecisionTreeXGBoost(int MaxDepth, int MinLeafSize, double Lambda, double Gamma);
 
-    // Entraînement de l'arbre
+    // Train the tree
     void train(const std::vector<std::vector<double>>& Data, 
                const std::vector<double>& Labels,
                std::vector<double>& Predictions);
 
-    // Prédiction pour un échantillon unique
+    // Predict for a single sample
     double predict(const std::vector<double>& Sample) const;
 
-    // Sauvegarder et charger l'arbre
+    // Save and load the tree
     void saveTree(const std::string& filename);
     void loadTree(const std::string& filename);
 
-    // Calculer l'importance des caractéristiques
+    // Calculate feature importance
     std::map<int, double> getFeatureImportance() const;
 
 private:
-    int MaxDepth;       // Profondeur maximale de l'arbre
-    int MinLeafSize;    // Nombre minimal d'échantillons par feuille
-    double Lambda;      // Régularisation L2
-    double Gamma;       // Gain minimal pour un split
+    int MaxDepth;       // Maximum depth of the tree
+    int MinLeafSize;    // Minimum number of samples per leaf
+    double Lambda;      // L2 regularization
+    double Gamma;       // Minimum gain for a split
     std::unique_ptr<Tree> Root;
 
-    // Méthodes internes
+    // Internal methods
     void splitNode(Tree* Node, const std::vector<std::vector<double>>& Data, 
                    const std::vector<double>& Gradients,
                    const std::vector<double>& Hessians,
@@ -82,7 +82,7 @@ private:
     double sumGradients(const std::vector<double>& Gradients, const std::vector<int>& Indices);
     double sumHessians(const std::vector<double>& Hessians, const std::vector<int>& Indices);
 
-    // Méthode récursive pour calculer l'importance des caractéristiques
+    // Recursive method to calculate feature importance
     void calculateFeatureImportanceRecursive(const Tree* node, std::map<int, double>& importance) const;
 };
 
