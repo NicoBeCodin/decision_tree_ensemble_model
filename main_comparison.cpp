@@ -10,9 +10,9 @@
 void getModelParameters(int model_choice, std::string& parameters) {
     bool input = false;
     bool load_existing = false;
-    std::cout << "Would you like to load an existing tree model? (1 = Yes (for the moment, no use), 0 = No): ";
+    std::cout << "Would you like to load an existing tree model? (1 = Yes (currently unused), 0 = No): ";
     std::cin >> load_existing;
-    // Vider le buffer de l'entrée pour éviter les caractères résiduels
+    // Clear the input buffer to avoid residual characters
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     if (load_existing) {
@@ -66,7 +66,7 @@ void getModelParameters(int model_choice, std::string& parameters) {
     }
     std::cout << "\nDo you want to customize parameters? (1 = Yes, 0 = No): ";
     std::cin >> input;
-    // Vider le buffer de l'entrée pour éviter les caractères résiduels
+    // Clear the input buffer to avoid residual characters
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     
     if (!input) {
@@ -82,18 +82,18 @@ void getModelParameters(int model_choice, std::string& parameters) {
             double min_impurity;
             
             std::cout << "\nDecision Tree Parameters:\n";
-            // Boucle jusqu'à ce que l'utilisateur entre 0 ou 1 pour criteria
+            // Loop until the user enters 0 or 1 for criteria
             while (criteria != 0 && criteria != 1) {
-                std::cout << "Which method do you want as a splitting criteria: MSE (0) or MAE (1) ?" << std::endl;
+                std::cout << "Which method do you want as a splitting criterion: MSE (0) or MAE (1) ?" << std::endl;
                 std::cin >> criteria;
 
-                // Vérification de l'entrée de l'utilisateur
+                // Check user input
                 if (std::cin.fail() || (criteria != 0 && criteria != 1)) {
                     std::cout << "Invalid input. Please enter 0 (for MSE) or 1 (for MAE)." << std::endl;
 
-                    // Nettoyer le flux d'entrée
-                    std::cin.clear(); // Réinitialise l'état du flux
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore tout ce qui se trouve dans le flux d'entrée
+                    // Clean input stream
+                    std::cin.clear(); // Reset the input stream state
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore all remaining characters in the input stream
                 }
             }
             std::cout << "Maximum depth (default: 5): ";
@@ -115,32 +115,32 @@ void getModelParameters(int model_choice, std::string& parameters) {
             double min_impurity;
             
             std::cout << "\nBagging Parameters:\n";
-            // Boucle jusqu'à ce que l'utilisateur entre 0 ou 1 pour criteria
+            // Loop until the user enters 0 or 1 for criteria
             while (criteria != 0 && criteria != 1) {
-                std::cout << "Which method do you want as a splitting criteria: MSE (0) or MAE (1) ?" << std::endl;
+                std::cout << "Which method do you want as a splitting criterion: MSE (0) or MAE (1) ?" << std::endl;
                 std::cin >> criteria;
 
-                // Vérification de l'entrée de l'utilisateur
+                // Check user input
                 if (std::cin.fail() || (criteria != 0 && criteria != 1)) {
                     std::cout << "Invalid input. Please enter 0 (for MSE) or 1 (for MAE)." << std::endl;
 
-                    // Nettoyer le flux d'entrée
-                    std::cin.clear(); // Réinitialise l'état du flux
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore tout ce qui se trouve dans le flux d'entrée
+                    // Clean input stream
+                    std::cin.clear(); // Reset the input stream state
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore all remaining characters in the input stream
                 }
             }
-            // Boucle jusqu'à ce que l'utilisateur entre 0 ou 1 pour which_loss_func
+            // Loop until the user enters 0 or 1 for which_loss_func
             while (which_loss_func != 0 && which_loss_func != 1) {
                 std::cout << "Which method do you want as a comparing trees: MSE (0) or MAE (1) ?" << std::endl;
                 std::cin >> which_loss_func;
 
-                // Vérification de l'entrée de l'utilisateur
+                // Check user input
                 if (std::cin.fail() || (which_loss_func != 0 && which_loss_func != 1)) {
                     std::cout << "Invalid input. Please enter 0 (for MSE) or 1 (for MAE)." << std::endl;
 
-                    // Nettoyer le flux d'entrée
-                    std::cin.clear(); // Réinitialise l'état du flux
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore tout ce qui se trouve dans le flux d'entrée
+                    // Clean input stream
+                    std::cin.clear(); // Reset the input stream state
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore all remaining characters in the input stream
                 }
             }
             std::cout << "Number of estimators (default: 10): ";
@@ -164,32 +164,32 @@ void getModelParameters(int model_choice, std::string& parameters) {
             int which_loss_func = -1;
             double min_impurity, learning_rate;
             
-            // Boucle jusqu'à ce que l'utilisateur entre 0 ou 1 pour criteria
+            // Loop until the user enters 0 or 1 for criteria
             while (criteria != 0 && criteria != 1) {
-                std::cout << "Which method do you want as a splitting criteria: MSE (0) or MAE (1) ?" << std::endl;
+                std::cout << "Which method do you want as a splitting criterion: MSE (0) or MAE (1) ?" << std::endl;
                 std::cin >> criteria;
 
-                // Vérification de l'entrée de l'utilisateur
+                // Check user input
                 if (std::cin.fail() || (criteria != 0 && criteria != 1)) {
                     std::cout << "Invalid input. Please enter 0 (for MSE) or 1 (for MAE)." << std::endl;
 
-                    // Nettoyer le flux d'entrée
-                    std::cin.clear(); // Réinitialise l'état du flux
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore tout ce qui se trouve dans le flux d'entrée
+                    // Clean input stream
+                    std::cin.clear(); // Reset the input stream state
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore all remaining characters in the input stream
                 }
             }
-            // Boucle jusqu'à ce que l'utilisateur entre 0 ou 1 pour which_loss_func
+            // Loop until the user enters 0 or 1 for which_loss_func
             while (which_loss_func != 0 && which_loss_func != 1) {
                 std::cout << "Which method do you want as a comparing trees: MSE (0) or MAE (1) ?" << std::endl;
                 std::cin >> which_loss_func;
 
-                // Vérification de l'entrée de l'utilisateur
+                // Check user input
                 if (std::cin.fail() || (which_loss_func != 0 && which_loss_func != 1)) {
                     std::cout << "Invalid input. Please enter 0 (for MSE) or 1 (for MAE)." << std::endl;
 
-                    // Nettoyer le flux d'entrée
-                    std::cin.clear(); // Réinitialise l'état du flux
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore tout ce qui se trouve dans le flux d'entrée
+                    // Clean input stream
+                    std::cin.clear(); // Reset the input stream state
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore all remaining characters in the input stream
                 }
             }
             std::cout << "\nBoosting Parameters:\n";
@@ -310,4 +310,4 @@ int main() {
     }
 
     return 0;
-} 
+}
