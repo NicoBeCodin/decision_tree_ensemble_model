@@ -14,11 +14,11 @@ std::map<int, double> FeatureImportance::calculateNodeImportances(
         return importances;
     }
 
-    // Calcul de l'importance pour ce nœud
+    // Compute node importance
     double current_importance = (parent_mse - node->NodeMetric) * (node->NodeSamples / weighted_n_samples);
     importances[node->FeatureIndex] = current_importance;
 
-    // Récursion sur les sous-arbres
+    // Recursion on subtrees
     if (node->Left) {
         auto left_importances = calculateNodeImportances(node->Left.get(), weighted_n_samples, node->NodeMetric);
         for (const auto& [feature, importance] : left_importances) {
@@ -43,7 +43,7 @@ std::vector<FeatureImportance::FeatureScore> FeatureImportance::calculateTreeImp
     std::vector<FeatureScore> feature_scores;
     auto importances = calculateNodeImportances(tree.getRoot(), tree.getRootSamples(), tree.getRootMSE());
     
-    // Normalisation et création des scores
+    // Normalisation and score creation
     double total_importance = 0.0;
     for (const auto& [_, importance] : importances) {
         total_importance += importance;
@@ -54,7 +54,7 @@ std::vector<FeatureImportance::FeatureScore> FeatureImportance::calculateTreeImp
         feature_scores.emplace_back(i, feature_names[i], importance);
     }
 
-    // Tri par importance décroissante
+    // Ranking by descending order
     std::sort(feature_scores.begin(), feature_scores.end(),
               [](const FeatureScore& a, const FeatureScore& b) {
                   return a.importance_score > b.importance_score;
@@ -69,7 +69,7 @@ std::vector<FeatureImportance::FeatureScore> FeatureImportance::calculateBagging
     
     std::vector<double> total_importances(feature_names.size(), 0.0);
     
-    // Calcul de la moyenne des importances sur tous les arbres
+    // Computing mean of scores on all trees
     for (const auto& tree : model.getTrees()) {
         auto tree_importances = calculateTreeImportance(*tree, feature_names);
         for (const auto& score : tree_importances) {
@@ -86,7 +86,7 @@ std::vector<FeatureImportance::FeatureScore> FeatureImportance::calculateBagging
         feature_scores.emplace_back(i, feature_names[i], normalized_importance);
     }
 
-    // Tri par importance décroissante
+    // Sort by descending order
     std::sort(feature_scores.begin(), feature_scores.end(),
               [](const FeatureScore& a, const FeatureScore& b) {
                   return a.importance_score > b.importance_score;
@@ -101,10 +101,10 @@ std::vector<FeatureImportance::FeatureScore> FeatureImportance::calculateBoostin
     
     std::vector<double> total_importances(feature_names.size(), 0.0);
     
-    // Calcul de la moyenne pondérée des importances sur tous les arbres
+    // Computing weighted mean of importance for all trees
     for (size_t i = 0; i < model.getEstimators().size(); ++i) {
         auto tree_importances = calculateTreeImportance(*model.getEstimators()[i], feature_names);
-        double weight = 1.0 / (i + 1); // Poids décroissant pour les arbres plus récents
+        double weight = 1.0 / (i + 1); // Higher importance for more recent trees
         
         for (const auto& score : tree_importances) {
             total_importances[score.feature_index] += score.importance_score * weight;
@@ -120,7 +120,7 @@ std::vector<FeatureImportance::FeatureScore> FeatureImportance::calculateBoostin
         feature_scores.emplace_back(i, feature_names[i], normalized_importance);
     }
 
-    // Tri par importance décroissante
+    // Sort by descending order
     std::sort(feature_scores.begin(), feature_scores.end(),
               [](const FeatureScore& a, const FeatureScore& b) {
                   return a.importance_score > b.importance_score;
