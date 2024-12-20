@@ -44,19 +44,25 @@ void Boosting::initializePrediction(const std::vector<double>& y) {
  */
 void Boosting::train(const std::vector<std::vector<double>>& X,
                      const std::vector<double>& y, int criteria) {
+    if (X.empty() || y.empty()) {
+        return;
+    }
+
     size_t n_samples = y.size();
     initializePrediction(y);
-    std::vector<double> y_pred(n_samples, initial_prediction); //
+    std::vector<double> y_pred(n_samples, initial_prediction);
 
+    // Training loop
     for (int i = 0; i < n_estimators; ++i) {
-
+        // Calculate residuals (negative gradients)
         std::vector<double> residuals = loss_function->negativeGradient(y, y_pred);
 
-   
+        // Create and train a new weak learner
         auto tree = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease);
-        //training with MSE only for the moment
+        // Training with MSE only for the moment
         tree->train(X, residuals, criteria);
 
+        // Update predictions
         for (size_t j = 0; j < n_samples; ++j) {
             y_pred[j] += learning_rate * tree->predict(X[j]);
         }
@@ -64,8 +70,10 @@ void Boosting::train(const std::vector<std::vector<double>>& X,
         trees.push_back(std::move(tree));
 
        
-        double loss = loss_function->computeLoss(y, y_pred);
-        std::cout << "Iteration " << i + 1 << ", Loss: " << loss << std::endl;
+        double current_loss = loss_function->computeLoss(y, y_pred);
+        #ifndef TESTING
+        std::cout << "Iteration " << i + 1 << ", Loss: " << current_loss << std::endl;
+        #endif    
     }
 }
 
