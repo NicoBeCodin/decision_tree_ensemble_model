@@ -6,6 +6,7 @@
 #include "ensemble_boosting/loss_function.h"
 #include <iostream>
 #include <chrono>
+#include <memory>
 #include <numeric>
 #include <algorithm>
 #include <random>
@@ -118,7 +119,7 @@ int main()
             {
                 y_pred.push_back(single_tree.predict(X_sample));
             }
-            mse_value = Math::computeLoss(y_test, y_pred);
+            mse_value = Math::computeLossMSE(y_test, y_pred);
             auto eval_end = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> eval_duration = eval_end - eval_start;
 
@@ -135,7 +136,7 @@ int main()
             int min_samples_split = 2;
             double min_impurity_decrease = 1e-6;
 
-            Bagging bagging_model(num_trees, max_depth, min_samples_split, min_impurity_decrease);
+            Bagging bagging_model(num_trees, max_depth, min_samples_split, min_impurity_decrease, std::unique_ptr<LeastSquaresLoss>());
 
             auto train_start = std::chrono::high_resolution_clock::now();
             bagging_model.train(X_train, y_train);
@@ -167,7 +168,8 @@ int main()
                                     max_depth, min_samples_split, min_impurity_decrease);
 
             auto train_start = std::chrono::high_resolution_clock::now();
-            boosting_model.train(X_train, y_train);
+            //Criteria default is 0 for MSE (faster)
+            boosting_model.train(X_train, y_train, 0);
             auto train_end = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> train_duration = train_end - train_start;
             std::cout << "Training time: " << train_duration.count() << " seconds\n";

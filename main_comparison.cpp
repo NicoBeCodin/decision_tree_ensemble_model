@@ -4,13 +4,72 @@
 #include <cstdlib>
 #include <string>
 #include <sstream>
+#include <chrono>
+#include <limits>
 
 void getModelParameters(int model_choice, std::string& parameters) {
-    std::string input;
-    std::cout << "\nDo you want to customize parameters? (y/n): ";
+    bool input = false;
+    bool load_existing = false;
+    std::cout << "Would you like to load an existing tree model? (1 = Yes (for the moment, no use), 0 = No): ";
+    std::cin >> load_existing;
+    // Vider le buffer de l'entrée pour éviter les caractères résiduels
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    if (load_existing) {
+        parameters += " -l";
+        switch (model_choice) {
+            case 1: { // single tree
+                std::string model_filename;
+                std::cout << "Enter the filename of the tree model to load: ";
+                std::cin >> model_filename;
+
+                std::string path = "../saved_models/tree_models/" + model_filename;
+
+                parameters += " " + path;
+
+                return;
+            }
+            case 2: {  // Bagging
+                std::string model_filename;
+                std::cout << "Enter the filename of the bagging model to load: ";
+                std::cin >> model_filename;
+
+                std::string path = "../saved_models/bagging_models/" + model_filename;
+
+                parameters += " " + path;
+
+                return;
+            }
+            case 3: {  // Boosting
+                std::string model_filename;
+                std::cout << "Enter the filename of the boosting model to load: ";
+                std::cin >> model_filename;
+
+                std::string path = "../saved_models/boosting_models/" + model_filename;
+
+                parameters += " " + path;
+
+                return;
+            }
+            case 4: {  // XGBoost
+                std::string model_filename;
+                std::cout << "Enter the filename of the xgboost model to load: ";
+                std::cin >> model_filename;
+
+                std::string path = "../saved_models/xgboost_models/" + model_filename;
+
+                parameters += " " + path;
+
+                return;
+            }
+        }
+    }
+    std::cout << "\nDo you want to customize parameters? (1 = Yes, 0 = No): ";
     std::cin >> input;
+    // Vider le buffer de l'entrée pour éviter les caractères résiduels
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     
-    if (input != "y" && input != "Y") {
+    if (!input) {
         return;  // Use default parameters
     }
 
@@ -19,9 +78,24 @@ void getModelParameters(int model_choice, std::string& parameters) {
     switch(model_choice) {
         case 1: {  // Single Tree
             int max_depth, min_samples;
+            int criteria = -1;
             double min_impurity;
             
             std::cout << "\nDecision Tree Parameters:\n";
+            // Boucle jusqu'à ce que l'utilisateur entre 0 ou 1 pour criteria
+            while (criteria != 0 && criteria != 1) {
+                std::cout << "Which method do you want as a splitting criteria: MSE (0) or MAE (1) ?" << std::endl;
+                std::cin >> criteria;
+
+                // Vérification de l'entrée de l'utilisateur
+                if (std::cin.fail() || (criteria != 0 && criteria != 1)) {
+                    std::cout << "Invalid input. Please enter 0 (for MSE) or 1 (for MAE)." << std::endl;
+
+                    // Nettoyer le flux d'entrée
+                    std::cin.clear(); // Réinitialise l'état du flux
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore tout ce qui se trouve dans le flux d'entrée
+                }
+            }
             std::cout << "Maximum depth (default: 5): ";
             std::cin >> max_depth;
             std::cout << "Minimum samples to split (default: 2): ";
@@ -36,9 +110,39 @@ void getModelParameters(int model_choice, std::string& parameters) {
         }
         case 2: {  // Bagging
             int n_estimators, max_depth, min_samples;
+            int criteria = -1;
+            int which_loss_func = -1;
             double min_impurity;
             
             std::cout << "\nBagging Parameters:\n";
+            // Boucle jusqu'à ce que l'utilisateur entre 0 ou 1 pour criteria
+            while (criteria != 0 && criteria != 1) {
+                std::cout << "Which method do you want as a splitting criteria: MSE (0) or MAE (1) ?" << std::endl;
+                std::cin >> criteria;
+
+                // Vérification de l'entrée de l'utilisateur
+                if (std::cin.fail() || (criteria != 0 && criteria != 1)) {
+                    std::cout << "Invalid input. Please enter 0 (for MSE) or 1 (for MAE)." << std::endl;
+
+                    // Nettoyer le flux d'entrée
+                    std::cin.clear(); // Réinitialise l'état du flux
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore tout ce qui se trouve dans le flux d'entrée
+                }
+            }
+            // Boucle jusqu'à ce que l'utilisateur entre 0 ou 1 pour which_loss_func
+            while (which_loss_func != 0 && which_loss_func != 1) {
+                std::cout << "Which method do you want as a comparing trees: MSE (0) or MAE (1) ?" << std::endl;
+                std::cin >> which_loss_func;
+
+                // Vérification de l'entrée de l'utilisateur
+                if (std::cin.fail() || (which_loss_func != 0 && which_loss_func != 1)) {
+                    std::cout << "Invalid input. Please enter 0 (for MSE) or 1 (for MAE)." << std::endl;
+
+                    // Nettoyer le flux d'entrée
+                    std::cin.clear(); // Réinitialise l'état du flux
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore tout ce qui se trouve dans le flux d'entrée
+                }
+            }
             std::cout << "Number of estimators (default: 10): ";
             std::cin >> n_estimators;
             std::cout << "Maximum depth (default: 5): ";
@@ -56,8 +160,38 @@ void getModelParameters(int model_choice, std::string& parameters) {
         }
         case 3: {  // Boosting
             int n_estimators, max_depth, min_samples;
+            int criteria = -1;
+            int which_loss_func = -1;
             double min_impurity, learning_rate;
             
+            // Boucle jusqu'à ce que l'utilisateur entre 0 ou 1 pour criteria
+            while (criteria != 0 && criteria != 1) {
+                std::cout << "Which method do you want as a splitting criteria: MSE (0) or MAE (1) ?" << std::endl;
+                std::cin >> criteria;
+
+                // Vérification de l'entrée de l'utilisateur
+                if (std::cin.fail() || (criteria != 0 && criteria != 1)) {
+                    std::cout << "Invalid input. Please enter 0 (for MSE) or 1 (for MAE)." << std::endl;
+
+                    // Nettoyer le flux d'entrée
+                    std::cin.clear(); // Réinitialise l'état du flux
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore tout ce qui se trouve dans le flux d'entrée
+                }
+            }
+            // Boucle jusqu'à ce que l'utilisateur entre 0 ou 1 pour which_loss_func
+            while (which_loss_func != 0 && which_loss_func != 1) {
+                std::cout << "Which method do you want as a comparing trees: MSE (0) or MAE (1) ?" << std::endl;
+                std::cin >> which_loss_func;
+
+                // Vérification de l'entrée de l'utilisateur
+                if (std::cin.fail() || (which_loss_func != 0 && which_loss_func != 1)) {
+                    std::cout << "Invalid input. Please enter 0 (for MSE) or 1 (for MAE)." << std::endl;
+
+                    // Nettoyer le flux d'entrée
+                    std::cin.clear(); // Réinitialise l'état du flux
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore tout ce qui se trouve dans le flux d'entrée
+                }
+            }
             std::cout << "\nBoosting Parameters:\n";
             std::cout << "Number of estimators (default: 75): ";
             std::cin >> n_estimators;
@@ -128,8 +262,8 @@ int main() {
             getModelParameters(model_choice, parameters);
 
             // Build command with parameters
-            std::string command = "echo \"" + parameters + "\" | ./MainEnsemble";
-            system(command.c_str());
+            std::string command = "./MainEnsemble " + parameters;
+            system((command + " 2>&1").c_str());
             break;
         }
         case 2: {

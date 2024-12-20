@@ -113,7 +113,7 @@ TEST_F(CrossValidationTest, BoostingCrossValidationStability) {
                                       const std::vector<double>& y_val) {
         auto loss_function = std::make_unique<LeastSquaresLoss>();
         Boosting model(10, 0.1, std::move(loss_function), 3, 2, 0.1);
-        model.train(X_train, y_train);
+        model.train(X_train, y_train, 0);
         return model.evaluate(X_val, y_val);
     };
     
@@ -171,7 +171,7 @@ TEST_F(CrossValidationTest, ModelComparison) {
                                       const std::vector<double>& y_val) {
         auto loss_function = std::make_unique<LeastSquaresLoss>();
         Boosting model(10, 0.1, std::move(loss_function), 3, 2, 0.1);
-        model.train(X_train, y_train);
+        model.train(X_train, y_train, 0);
         return model.evaluate(X_val, y_val);
     };
     
@@ -305,7 +305,7 @@ TEST_F(CrossValidationTest, BoostingHyperparameters) {
                                             const std::vector<double>& y_val) {
             auto loss_function = std::make_unique<LeastSquaresLoss>();
             Boosting model(10, lr, std::move(loss_function), 3, 2, 0.1);
-            model.train(X_train, y_train);
+            model.train(X_train, y_train,0);
             return model.evaluate(X_val, y_val);
         };
         
@@ -328,7 +328,7 @@ TEST_F(CrossValidationTest, BoostingHyperparameters) {
                                            const std::vector<double>& y_val) {
             auto loss_function = std::make_unique<LeastSquaresLoss>();
             Boosting model(n, 0.1, std::move(loss_function), 3, 2, 0.1);
-            model.train(X_train, y_train);
+            model.train(X_train, y_train,0);
             return model.evaluate(X_val, y_val);
         };
         
@@ -434,7 +434,7 @@ TEST_F(CrossValidationTest, BoostingSerialization) {
     // Création et entraînement du modèle original
     auto loss_function_original = std::make_unique<LeastSquaresLoss>();
     Boosting original_model(10, 0.1, std::move(loss_function_original), 3, 2, 0.1);
-    original_model.train(X, y);
+    original_model.train(X, y, 0);
     
     // Sauvegarder le modèle
     std::string filename = "boosting_model_test.txt";
@@ -594,7 +594,7 @@ TEST(SerializationTest, BoostingSerializationTest) {
     // Entraînement du modèle original
     auto loss = std::make_unique<LeastSquaresLoss>();
     Boosting original_model(3, 0.1, std::move(loss), 2, 2, 0.1);
-    original_model.train(X, y);
+    original_model.train(X, y, 0);
 
     // Prédictions avant la sauvegarde
     std::vector<double> original_predictions;

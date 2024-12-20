@@ -6,7 +6,6 @@
 #include <stdexcept>
 #include <fstream>
 
-
 /**
  * @brief Constructeur pour initialiser le modèle de Boosting
  * @param n_estimators Nombre de faibles apprenants (arbres de décision)
@@ -41,36 +40,40 @@ void Boosting::initializePrediction(const std::vector<double>& y) {
  * @brief Entraîner le modèle de Boosting
  * @param X Matrice des caractéristiques
  * @param y Vecteur des étiquettes cibles
+ * @param criteria MSE or MAE as a loss function (0 or 1)
  */
-void Boosting::train(const std::vector<std::vector<double>>& data, const std::vector<double>& labels) {
-    if (data.empty() || labels.empty()) {
+void Boosting::train(const std::vector<std::vector<double>>& X,
+                     const std::vector<double>& y, int criteria) {
+    if (X.empty() || y.empty()) {
         return;
     }
 
-    // Initialize predictions with zeros
-    std::vector<double> predictions(data.size(), 0.0);
+    size_t n_samples = y.size();
+    initializePrediction(y);
+    std::vector<double> y_pred(n_samples, initial_prediction);
 
     // Training loop
     for (int i = 0; i < n_estimators; ++i) {
         // Calculate residuals (negative gradients)
-        std::vector<double> residuals = loss_function->negativeGradient(labels, predictions);
+        std::vector<double> residuals = loss_function->negativeGradient(y, y_pred);
 
         // Create and train a new weak learner
         auto tree = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease);
-        tree->train(data, residuals, 0);
-        trees.push_back(std::move(tree));
+        // Training with MSE only for the moment
+        tree->train(X, residuals, criteria);
 
         // Update predictions
-        for (size_t j = 0; j < data.size(); ++j) {
-            predictions[j] += learning_rate * trees.back()->predict(data[j]);
+        for (size_t j = 0; j < n_samples; ++j) {
+            y_pred[j] += learning_rate * tree->predict(X[j]);
         }
 
-        // Calculate and store the current loss
-        double current_loss = loss_function->computeLoss(labels, predictions);
-        
+        trees.push_back(std::move(tree));
+
+       
+        double current_loss = loss_function->computeLoss(y, y_pred);
         #ifndef TESTING
         std::cout << "Iteration " << i + 1 << ", Loss: " << current_loss << std::endl;
-        #endif
+        #endif    
     }
 }
 
@@ -116,10 +119,6 @@ double Boosting::evaluate(const std::vector<std::vector<double>>& X_test, const 
     return loss_function->computeLoss(y_test, y_pred);
 }
 
-/**
- * @brief Sauvegarder le modèle de Boosting dans un fichier
- * @param filename Nom du fichier de sauvegarde
- */
 void Boosting::save(const std::string& filename) const {
     std::ofstream file(filename);
     if (!file.is_open()) {
@@ -143,10 +142,6 @@ void Boosting::save(const std::string& filename) const {
     file.close();
 }
 
-/**
- * @brief Charger un modèle de Boosting à partir d'un fichier
- * @param filename Nom du fichier contenant le modèle sauvegardé
- */
 void Boosting::load(const std::string& filename) {
     std::ifstream file(filename);
     if (!file.is_open()) {

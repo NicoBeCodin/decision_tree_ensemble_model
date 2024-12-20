@@ -24,14 +24,14 @@ protected:
 TEST_F(BoostingTest, Construction) {
     auto loss_function = std::make_unique<LeastSquaresLoss>();
     Boosting model(5, 0.1, std::move(loss_function), 3, 2, 0.1);
-    ASSERT_NO_THROW(model.train(X, y));
+    ASSERT_NO_THROW(model.train(X, y,0));
 }
 
 // Test des prédictions
 TEST_F(BoostingTest, Prediction) {
     auto loss_function = std::make_unique<LeastSquaresLoss>();
     Boosting model(5, 0.1, std::move(loss_function), 3, 2, 0.1);
-    model.train(X, y);
+    model.train(X, y,0);
     
     // Test avec un point d'entra��nement
     std::vector<double> sample = X[0];
@@ -50,12 +50,12 @@ TEST_F(BoostingTest, EstimatorsComparison) {
     // Modèle avec peu d'estimateurs
     auto loss_function1 = std::make_unique<LeastSquaresLoss>();
     Boosting model_few(3, 0.1, std::move(loss_function1), 3, 2, 0.1);
-    model_few.train(X, y);
+    model_few.train(X, y,0);
     
     // Modèle avec plus d'estimateurs
     auto loss_function2 = std::make_unique<LeastSquaresLoss>();
     Boosting model_many(10, 0.1, std::move(loss_function2), 3, 2, 0.1);
-    model_many.train(X, y);
+    model_many.train(X, y,0);
     
     // Calculer les MSE
     double mse_few = 0.0;
@@ -81,8 +81,8 @@ TEST_F(BoostingTest, Parameters) {
     Boosting model_fast(5, 0.5, std::move(loss_function1), 3, 2, 0.1);
     Boosting model_slow(5, 0.1, std::move(loss_function2), 3, 2, 0.1);
     
-    model_fast.train(X, y);
-    model_slow.train(X, y);
+    model_fast.train(X, y,0);
+    model_slow.train(X, y,0);
     
     // Calculer les MSE
     double mse_fast = 0.0;
@@ -108,12 +108,12 @@ TEST_F(BoostingTest, EdgeCases) {
     // Test avec un dataset vide
     std::vector<std::vector<double>> empty_X;
     std::vector<double> empty_y;
-    EXPECT_NO_THROW(model.train(empty_X, empty_y));
+    EXPECT_NO_THROW(model.train(empty_X, empty_y,0));
     
     // Test avec un seul exemple
     std::vector<std::vector<double>> single_X = {{1.0, 1.0}};
     std::vector<double> single_y = {1.0};
-    EXPECT_NO_THROW(model.train(single_X, single_y));
+    EXPECT_NO_THROW(model.train(single_X, single_y,0));
 }
 
 int main(int argc, char **argv) {

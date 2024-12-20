@@ -114,7 +114,7 @@ std::string TreeVisualization::formatNode(const DecisionTreeSingle::Tree* node,
             : "f" + std::to_string(node->FeatureIndex);
         ss << feature_name << "\\n";
         ss << std::scientific << std::setprecision(4);  // Notation scientifique pour le MSE
-        ss << "MSE: " << node->NodeMSE << "\\n";
+        ss << "MSE: " << node->NodeMetric<< "\\n";
         ss << "N: " << node->NodeSamples;
     }
 

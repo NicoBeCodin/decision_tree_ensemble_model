@@ -1,4 +1,5 @@
     #include "bagging.h"
+#include <memory>
     #include <random>
     #include <algorithm>
     #include <stdexcept>
@@ -10,9 +11,10 @@
     * @param max_depth Maximum depth of each tree
     * @param min_samples_split Minimum number of samples required to split a node
     * @param min_impurity_decrease Minimum impurity decrease required for a split
+    * @param loss_function
     */
-    Bagging::Bagging(int num_trees, int max_depth, int min_samples_split, double min_impurity_decrease)
-        : numTrees(num_trees), maxDepth(max_depth), minSamplesSplit(min_samples_split), minImpurityDecrease(min_impurity_decrease) {
+    Bagging::Bagging(int num_trees, int max_depth, int min_samples_split, double min_impurity_decrease, std::unique_ptr<LossFunction> loss_func)
+        : numTrees(num_trees), maxDepth(max_depth), minSamplesSplit(min_samples_split), minImpurityDecrease(min_impurity_decrease), loss_function(std::move(loss_func)) {
         trees.reserve(numTrees); // Reserve space for the trees
     }
 
@@ -45,7 +47,7 @@
     * @param data Feature matrix
     * @param labels Target vector
     */
-    void Bagging::train(const std::vector<std::vector<double>>& data, const std::vector<double>& labels) {
+    void Bagging::train(const std::vector<std::vector<double>>& data, const std::vector<double>& labels, int criteria) {
         for (int i = 0; i < numTrees; ++i) {
             std::vector<std::vector<double>> sampled_data;
             std::vector<double> sampled_labels;
@@ -53,13 +55,13 @@
 
             // Create and train a new DecisionTreeSingle
             auto tree = std::make_unique<DecisionTreeSingle>(maxDepth, minSamplesSplit, minImpurityDecrease);
-            tree->train(sampled_data, sampled_labels, 0);
+            tree->train(sampled_data, sampled_labels, criteria);
             trees.push_back(std::move(tree));
         }
     }
 
     /**
-    * Predict the target value for a single sample
+    * @brief Predict the target value for a single sample
     * @param sample Feature vector for the sample
     * @return Averaged prediction from all trees
     */
@@ -70,21 +72,22 @@
         }
         return sum / trees.size(); // Return the average prediction
     }
+    
 
     /**
     * Evaluate the Bagging model on a test dataset
     * @param test_data Feature matrix of the test set
     * @param test_labels Target vector of the test set
-    * @return Mean Squared Error (MSE) on the test set
+    * @return computed loss depending on computeLoss function
     */
     double Bagging::evaluate(const std::vector<std::vector<double>>& test_data, const std::vector<double>& test_labels) const {
         double total_error = 0.0;
-        for (size_t i = 0; i < test_data.size(); ++i) {
-            double prediction = predict(test_data[i]);
-            double diff = prediction - test_labels[i];
-            total_error += diff * diff;
+        std::vector<double> predictions;
+        for (auto data: test_data){
+            predictions.push_back(predict(data));
         }
-        return total_error / test_data.size(); // Return the Mean Squared Error
+        double loss = loss_function->computeLoss(test_labels,predictions);
+        return loss; 
     }
 
     void Bagging::save(const std::string& filename) const {

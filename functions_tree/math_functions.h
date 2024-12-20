@@ -3,6 +3,9 @@
 #include <vector>
 #include <cmath>
 #include <algorithm>
+#include <numeric>
+#include <exception>
+#include <stdexcept>
 
 
 class Math{
@@ -15,6 +18,8 @@ public:
     static double calculateMean (const std::vector<double>& labels) ;
 
     static double calculateMeanWithIndices(const std::vector<double>& Labels, const std::vector<int>& Indices);
+
+    static double calculateMedianWithIndices(const std::vector<double>& Labels, const std::vector<int>& Indices);
 
     static double calculateMSEWithIndices(const std::vector<double>& Labels, const std::vector<int>& Indices);
 
@@ -36,7 +41,9 @@ public:
 
     static std::vector<double> negativeGradient(const std::vector<double>& y_true, const std::vector<double>& y_pred) ;
 
-    static double computeLoss(const std::vector<double>& y_true, const std::vector<double>& y_pred) ;    
+    static double computeLossMSE(const std::vector<double>& y_true, const std::vector<double>& y_pred) ;    
+
+    static double computeLossMAE(const std::vector<double>& y_true, const std::vector<double>& y_pred);
 };
 
 #endif

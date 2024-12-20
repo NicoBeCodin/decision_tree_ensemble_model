@@ -1,12 +1,13 @@
 #ifndef BAGGING_H
 #define BAGGING_H
-
-#include "../functions_tree/decision_tree_single.h"
 #include <vector>
 #include <memory>
 #include <random>
 #include <algorithm>
 #include <stdexcept>
+
+#include "../functions_tree/decision_tree_single.h"
+#include "../ensemble_boosting/loss_function.h"
 
 /**
  * Bagging Class
@@ -22,14 +23,14 @@ public:
      * @param min_samples_split Minimum number of samples required to split a node
      * @param min_impurity_decrease Minimum impurity decrease required for a split
      */
-    Bagging(int num_trees, int max_depth, int min_samples_split, double min_impurity_decrease);
+    Bagging(int num_trees, int max_depth, int min_samples_split, double min_impurity_decrease, std::unique_ptr<LossFunction> loss_function = std::unique_ptr<LeastSquaresLoss>());
 
     /**
      * @brief Train the Bagging model
      * @param data Feature matrix
      * @param labels Target vector
      */
-    void train(const std::vector<std::vector<double>>& data, const std::vector<double>& labels);
+    void train(const std::vector<std::vector<double>>& data, const std::vector<double>& labels, int criteria = 0);
 
     /**
      * @brief Predict the target value for a single sample
@@ -42,7 +43,7 @@ public:
      * @brief Evaluate the model performance on a test set
      * @param test_data Test feature matrix
      * @param test_labels Test target vector
-     * @return Mean Squared Error (MSE)
+     * @return (Loss metric MSE or MAE)
      */
     double evaluate(const std::vector<std::vector<double>>& test_data, const std::vector<double>& test_labels) const;
 
@@ -69,6 +70,7 @@ private:
     int maxDepth;  // Maximum depth of each tree
     int minSamplesSplit; // Minimum number of samples to split a node
     double minImpurityDecrease; // Minimum impurity decrease for splitting
+    std::unique_ptr<LossFunction> loss_function; //Function to calculate loss
     std::vector<std::unique_ptr<DecisionTreeSingle>> trees;  // Ensemble of decision trees
 
     /**
