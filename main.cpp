@@ -158,7 +158,9 @@ int main(int argc, char* argv[]) {
       std::cout << "Training time: " << train_duration.count() << " seconds\n";
 
       auto eval_start = std::chrono::high_resolution_clock::now();
+      // Initialisation pour stocker les résultats de MSE et MAE pour comparer
       double mse_value = 0.0;
+      double mae_value = 0.0;
       size_t test_size = X_test.size();
       std::vector<double> y_pred;
       y_pred.reserve(test_size);
@@ -166,11 +168,13 @@ int main(int argc, char* argv[]) {
         y_pred.push_back(single_tree.predict(X));
       }
       mse_value = Math::computeLossMSE(y_test, y_pred);
+      mae_value = Math::computeLossMAE(y_test, y_pred);
       auto eval_end = std::chrono::high_resolution_clock::now();
       std::chrono::duration<double> eval_duration = eval_end - eval_start;
 
       std::cout << "Evaluation time: " << eval_duration.count() << " seconds\n";
       std::cout << "Mean Squared Error (MSE): " << mse_value << "\n";
+      std::cout << "Mean Absolute Error (MAE): " << mae_value << "\n";
 
       // computing feature and showing feature importance
       auto feature_importance =
@@ -262,11 +266,14 @@ int main(int argc, char* argv[]) {
       }
 
       std::unique_ptr<LossFunction> loss_function;
+      std::string printMAEorMSE;
 
       if (which_loss_func == 0) {
         loss_function = std::make_unique<LeastSquaresLoss>();
+        printMAEorMSE = "Bagging Mean Squared Error (MSE): ";
       } else {
         loss_function = std::make_unique<MeanAbsoluteLoss>();
+        printMAEorMSE = "Bagging Mean Absolute Error (MAE): ";
       }
 
       std::cout << "Bagging process started, please wait...\n";
@@ -281,13 +288,13 @@ int main(int argc, char* argv[]) {
                 << " seconds\n";
 
       auto eval_start = std::chrono::high_resolution_clock::now();
-      double mse_value = bagging_model.evaluate(X_test, y_test);
+      double mse_or_mae_value = bagging_model.evaluate(X_test, y_test);
       auto eval_end = std::chrono::high_resolution_clock::now();
       std::chrono::duration<double> eval_duration = eval_end - eval_start;
       std::cout << "Evaluation time (Bagging): " << eval_duration.count()
                 << " seconds\n";
 
-      std::cout << "Bagging Mean Squared Error (MSE): " << mse_value << "\n";
+      std::cout << printMAEorMSE << mse_or_mae_value << "\n";
 
       // compute and show feature importance
       auto feature_importance = FeatureImportance::calculateBaggingImportance(bagging_model, feature_names);
@@ -310,7 +317,7 @@ int main(int argc, char* argv[]) {
       // Save results
       ModelResults results;
       results.model_name = "Bagging";
-      results.mse = mse_value;
+      results.mse = mse_or_mae_value;
       results.training_time = train_duration.count();
       results.evaluation_time = eval_duration.count();
       
@@ -384,11 +391,14 @@ int main(int argc, char* argv[]) {
       }
 
       std::unique_ptr<LossFunction> loss_function;
+      std::string printMAEorMSE;
 
       if (which_loss_func == 0) {
         loss_function = std::make_unique<LeastSquaresLoss>();
+        printMAEorMSE = "Boosting Mean Square Error (MSE): ";
       } else {
         loss_function = std::make_unique<MeanAbsoluteLoss>();
+        printMAEorMSE = "Bagging Mean Absolute Error (MAE): ";
       }
 
       std::cout << "Boosting process started, please wait...\n";
@@ -405,12 +415,12 @@ int main(int argc, char* argv[]) {
 
       // Model evaluation
       auto eval_start = std::chrono::high_resolution_clock::now();
-      double mse_value = boosting_model.evaluate(X_test, y_test);
+      double mse_or_mae_value = boosting_model.evaluate(X_test, y_test);
       auto eval_end = std::chrono::high_resolution_clock::now();
       std::chrono::duration<double> eval_duration = eval_end - eval_start;
       std::cout << "Evaluation time: " << eval_duration.count() << " seconds\n";
 
-      std::cout << "Boosting Mean Squared Error (MSE): " << mse_value << "\n";
+      std::cout << printMAEorMSE << mse_or_mae_value << "\n";
 
       // Compute and show feature importance
       auto feature_importance = FeatureImportance::calculateBoostingImportance(boosting_model, feature_names);
@@ -433,7 +443,7 @@ int main(int argc, char* argv[]) {
       // Save results for comparaison
       ModelResults results;
       results.model_name = "Boosting";
-      results.mse = mse_value;
+      results.mse = mse_or_mae_value;
       results.training_time = train_duration.count();
       results.evaluation_time = eval_duration.count();
       
@@ -457,6 +467,7 @@ int main(int argc, char* argv[]) {
       std::cout << "Visualisations générées dans le dossier 'visualizations'" << std::endl;
   } else if (choice == 4) {
         int n_estimators, max_depth;
+        int which_loss_func;
         double learning_rate, lambda, gamma;
 
         // Create folder if non existent
@@ -486,11 +497,13 @@ int main(int argc, char* argv[]) {
           return 0; // Nothing done for the moment but loadable
         } else {
             std::cout << "Generation of default values : " << std::endl
+                      << "Default for comparing trees (MSE)\n"
                       << "Default number of estimators : 75\n"
                       << "Default max depth = 10\n"
                       << "Default learning rate = 0.1\n"
                       << "Default lambda (L2 regularization) = 1.0\n"
                       << "Default gamma (complexity) = 0.0\n";
+            which_loss_func = 0;
             n_estimators = 75;
             max_depth = 10;
             learning_rate = 0.07;
@@ -498,6 +511,17 @@ int main(int argc, char* argv[]) {
             gamma = 0.05;
         }
 
+        std::unique_ptr<LossFunction> loss_function;
+        std::string printMAEorMSE;
+
+        if (which_loss_func == 0) {
+            loss_function = std::make_unique<LeastSquaresLoss>();
+            printMAEorMSE = "Boosting (XGBoost) Mean Square Error (MSE): ";
+        } else if (which_loss_func == 1) {
+            loss_function = std::make_unique<MeanAbsoluteLoss>();
+            printMAEorMSE = "Boosting (XGBoost) Mean Absolute Error (MAE): ";
+        }
+        
         std::cout << "Boosting process started, please wait...\n";
         auto loss_function = std::make_unique<LeastSquaresLoss>();
         XGBoost xgboost_model(n_estimators, max_depth, learning_rate, lambda, gamma, std::move(loss_function));
@@ -514,7 +538,7 @@ int main(int argc, char* argv[]) {
         std::chrono::duration<double> eval_duration = eval_end - eval_start;
 
         std::cout << "Evaluation time: " << eval_duration.count() << " seconds\n";
-        std::cout << "Boosting Mean Squared Error (MSE): " << mse_value << "\n";
+        std::cout << printMAEorMSE << mse_value << "\n";
 
         // Compute and show feature importance
         auto feature_importance = xgboost_model.featureImportance(feature_names);
