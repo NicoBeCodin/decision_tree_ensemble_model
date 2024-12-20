@@ -4,7 +4,7 @@
 #include <vector>
 
 /**
- * @brief 损失函数基类
+ * @brief Base class for loss functions
  */
 class LossFunction
 {
@@ -12,24 +12,23 @@ public:
     virtual ~LossFunction() = default;
 
     /**
-     * @brief 计算负梯度（伪残差）
-     * @param y_true 真实值向量
-     * @param y_pred 预测值向量
-     * @return 负梯度向量
+     * @brief Compute negative gradient (pseudo-residuals)
+     * @param y_true Vector of true values
+     * @param y_pred Vector of predicted values
+     * @return Vector of negative gradients
      */
     virtual std::vector<double> negativeGradient(const std::vector<double>& y_true,
                                                  const std::vector<double>& y_pred) const = 0;
 
     /**
-     * @brief 计算损失值
-     * @param y_true 真实值向量
-     * @param y_pred 预测值向量
-     * @return 损失值
+     * @brief Compute loss value
+     * @param y_true Vector of true values
+     * @param y_pred Vector of predicted values
+     * @return Loss value
      */
     virtual double computeLoss(const std::vector<double>& y_true,
                                const std::vector<double>& y_pred) const = 0;
 };
-
 
 class LeastSquaresLoss : public LossFunction
 {
