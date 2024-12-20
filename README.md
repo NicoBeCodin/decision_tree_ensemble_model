@@ -57,9 +57,9 @@ Options available:
 1: Simple Decision Tree
 2: Bagging
 3: Boosting
-4: Boosting modèle XGBoost
+4: XGBoost
 ```
-After selecting a method, the program will train the model and display performance metrics like training time, evaluation time, and mean squared error.
+After selecting a method, the program will train the model and display performance metrics like training time, evaluation time, and mean squared error (MSE) or mean absolute error (MAE).
 
 ---
 
@@ -131,5 +131,14 @@ This file defines how the executables are built and the libraries they link to.
   ```bash
   sudo apt-get install graphviz
   ```
-  !!! A COMPLETER CAR çA NE FONCTIONNE QUAND MÊME PAS !!!
+  **Note:** If errors persist, make sure `dot` is in your system's PATH. You can verify this by running:
+  ```bash
+  which dot
+  ```
+  If it is not found, you may need to add Graphviz to your PATH or specify the full path to the `dot` binary.
+
 - **Execution Errors**: If errors like `command not found` occur, ensure you are running the executables from the `build/` directory.
+- **Permissions**: If you encounter permission issues when running the executables, you may need to set the executable bit with:
+  ```bash
+  chmod +x DataClean MainEnsemble MainKFold
+  ```
