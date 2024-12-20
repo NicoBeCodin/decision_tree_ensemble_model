@@ -1,20 +1,20 @@
 #include "decision_tree_XGBoost.h"
 
 /**
- * @brief Constructeur pour initialiser l'arbre de décision avec les paramètres spécifiés
- * @param MaxDepth Profondeur maximale de l'arbre
- * @param MinLeafSize Taille minimale d'une feuille
- * @param Lambda Paramètre de régularisation L2
- * @param Gamma Seuil de gain minimal pour une scission
+ * @brief Constructor to initialize the decision tree with specified parameters
+ * @param MaxDepth Maximum depth of the tree
+ * @param MinLeafSize Minimum size of a leaf
+ * @param Lambda L2 regularization parameter
+ * @param Gamma Minimum gain threshold for a split
  */
 DecisionTreeXGBoost::DecisionTreeXGBoost(int MaxDepth, int MinLeafSize, double Lambda, double Gamma)
     : MaxDepth(MaxDepth), MinLeafSize(MinLeafSize), Lambda(Lambda), Gamma(Gamma), Root(nullptr) {}
 
 /**
- * @brief Entraîner l'arbre de décision
- * @param Data Matrice des caractéristiques d'entraînement
- * @param Labels Vecteur des étiquettes cibles
- * @param Predictions Vecteur des prédictions actuelles (sera utilisé pour calculer les gradients)
+ * @brief Train the decision tree
+ * @param Data Training feature matrix
+ * @param Labels Target labels vector
+ * @param Predictions Current predictions vector (used to compute gradients)
  */
 void DecisionTreeXGBoost::train(const std::vector<std::vector<double>>& Data, 
                                 const std::vector<double>& Labels, 
@@ -23,18 +23,18 @@ void DecisionTreeXGBoost::train(const std::vector<std::vector<double>>& Data,
     std::vector<int> Indices(Data.size());
     std::iota(Indices.begin(), Indices.end(), 0);
 
-    // Calculer gradients et hessians
+    // Compute gradients and hessians
     std::vector<double> Gradients(Data.size()), Hessians(Data.size());
     computeGradientsAndHessians(Labels, Predictions, Gradients, Hessians);
 
-    // Construire l'arbre
+    // Build the tree
     splitNode(Root.get(), Data, Gradients, Hessians, Indices, 0);
 }
 
 /**
- * @brief Prédire la valeur pour un seul échantillon
- * @param Sample Vecteur représentant un échantillon unique
- * @return La prédiction faite par l'arbre pour cet échantillon
+ * @brief Predict the value for a single sample
+ * @param Sample Vector representing a single sample
+ * @return Prediction made by the tree for this sample
  */
 double DecisionTreeXGBoost::predict(const std::vector<double>& Sample) const {
     const Tree* CurrentNode = Root.get();
@@ -49,11 +49,11 @@ double DecisionTreeXGBoost::predict(const std::vector<double>& Sample) const {
 }
 
 /**
- * @brief Calculer les gradients et hessians pour chaque échantillon
- * @param Labels Vecteur des étiquettes réelles
- * @param Predictions Vecteur des prédictions actuelles
- * @param Gradients Sortie contenant les gradients calculés
- * @param Hessians Sortie contenant les hessians calculés
+ * @brief Compute gradients and hessians for each sample
+ * @param Labels Vector of true labels
+ * @param Predictions Vector of current predictions
+ * @param Gradients Output containing the computed gradients
+ * @param Hessians Output containing the computed hessians
  */
 void DecisionTreeXGBoost::computeGradientsAndHessians(
     const std::vector<double>& Labels,
@@ -63,35 +63,35 @@ void DecisionTreeXGBoost::computeGradientsAndHessians(
     for (size_t i = 0; i < Labels.size(); ++i) {
         double pred = Predictions[i];
         double label = Labels[i];
-        Gradients[i] = 2 * (pred - label); // Gradient de MSE
-        Hessians[i] = 2.0;                // Hessian constant pour MSE
+        Gradients[i] = 2 * (pred - label); // Gradient of MSE
+        Hessians[i] = 2.0;                // Constant hessian for MSE
     }
 }
 
 /**
- * @brief Diviser un nœud dans l'arbre
- * @param Node Pointeur vers le nœud à diviser
- * @param Data Matrice des caractéristiques
- * @param Gradients Vecteur des gradients
- * @param Hessians Vecteur des hessians
- * @param Indices Indices des échantillons disponibles pour cette division
- * @param Depth Profondeur actuelle du nœud
+ * @brief Split a node in the tree
+ * @param Node Pointer to the node to split
+ * @param Data Feature matrix
+ * @param Gradients Gradient vector
+ * @param Hessians Hessian vector
+ * @param Indices Indices of samples available for this split
+ * @param Depth Current depth of the node
  */
 void DecisionTreeXGBoost::splitNode(Tree* Node, const std::vector<std::vector<double>>& Data, 
                                     const std::vector<double>& Gradients,
                                     const std::vector<double>& Hessians,
                                     const std::vector<int>& Indices, int Depth) {
-    // Critère d'arrêt
+    // Stopping criteria
     if (Depth >= MaxDepth || Indices.size() < static_cast<size_t>(MinLeafSize)) {
         Node->IsLeaf = true;
         Node->Prediction = calculateLeafWeight(Indices, Gradients, Hessians);
         return;
     }
 
-    // Trouver la meilleure scission
+    // Find the best split
     auto [BestFeature, BestThreshold, BestGain] = findBestSplit(Data, Gradients, Hessians, Indices);
 
-    if (BestFeature == -1 || BestGain < Gamma) { // Pas de gain suffisant
+    if (BestFeature == -1 || BestGain < Gamma) { // Insufficient gain
         Node->IsLeaf = true;
         Node->Prediction = calculateLeafWeight(Indices, Gradients, Hessians);
         return;
@@ -101,7 +101,7 @@ void DecisionTreeXGBoost::splitNode(Tree* Node, const std::vector<std::vector<do
     Node->MaxValue = BestThreshold;
     Node->GainImprovement = BestGain;
 
-    // Partitionner les indices
+    // Partition indices
     std::vector<int> LeftIndices, RightIndices;
     for (int idx : Indices) {
         if (Data[idx][BestFeature] <= BestThreshold) {
@@ -118,12 +118,12 @@ void DecisionTreeXGBoost::splitNode(Tree* Node, const std::vector<std::vector<do
 }
 
 /**
- * @brief Trouver la meilleure division possible pour un nœud
- * @param Data Matrice des caractéristiques
- * @param Gradients Vecteur des gradients
- * @param Hessians Vecteur des hessians
- * @param Indices Indices des échantillons disponibles pour cette division
- * @return Tuple contenant la meilleure caractéristique, le seuil et le gain
+ * @brief Find the best possible split for a node
+ * @param Data Feature matrix
+ * @param Gradients Gradient vector
+ * @param Hessians Hessian vector
+ * @param Indices Indices of samples available for this split
+ * @return Tuple containing the best feature, threshold, and gain
  */
 std::tuple<int, double, double> DecisionTreeXGBoost::findBestSplit(
     const std::vector<std::vector<double>>& Data,
@@ -173,11 +173,11 @@ std::tuple<int, double, double> DecisionTreeXGBoost::findBestSplit(
 }
 
 /**
- * @brief Calculer le poids d'une feuille
- * @param Indices Indices des échantillons dans la feuille
- * @param Gradients Vecteur des gradients
- * @param Hessians Vecteur des hessians
- * @return Le poids calculé pour cette feuille
+ * @brief Calculate the weight of a leaf
+ * @param Indices Indices of samples in the leaf
+ * @param Gradients Gradient vector
+ * @param Hessians Hessian vector
+ * @return The calculated weight for this leaf
  */
 double DecisionTreeXGBoost::calculateLeafWeight(const std::vector<int>& Indices,
                                                 const std::vector<double>& Gradients,
@@ -188,10 +188,10 @@ double DecisionTreeXGBoost::calculateLeafWeight(const std::vector<int>& Indices,
 }
 
 /**
- * @brief Calculer la somme des gradients pour les échantillons spécifiés
- * @param Gradients Vecteur des gradients
- * @param Indices Indices des échantillons
- * @return La somme des gradients
+ * @brief Calculate the sum of gradients for specified samples
+ * @param Gradients Gradient vector
+ * @param Indices Indices of samples
+ * @return The sum of gradients
  */
 double DecisionTreeXGBoost::sumGradients(const std::vector<double>& Gradients, const std::vector<int>& Indices) {
     double Sum = 0.0;
@@ -202,10 +202,10 @@ double DecisionTreeXGBoost::sumGradients(const std::vector<double>& Gradients, c
 }
 
 /**
- * @brief Calculer la somme des hessians pour les échantillons spécifiés
- * @param Hessians Vecteur des hessians
- * @param Indices Indices des échantillons
- * @return La somme des hessians
+ * @brief Calculate the sum of hessians for specified samples
+ * @param Hessians Hessian vector
+ * @param Indices Indices of samples
+ * @return The sum of hessians
  */
 double DecisionTreeXGBoost::sumHessians(const std::vector<double>& Hessians, const std::vector<int>& Indices) {
     double Sum = 0.0;
@@ -216,8 +216,8 @@ double DecisionTreeXGBoost::sumHessians(const std::vector<double>& Hessians, con
 }
 
 /**
- * @brief Sauvegarder l'arbre dans un fichier
- * @param filename Nom du fichier où l'arbre sera sauvegardé
+ * @brief Save the tree to a file
+ * @param filename Name of the file where the tree will be saved
  */
 void DecisionTreeXGBoost::saveTree(const std::string& filename) {
     std::ofstream outFile(filename);
@@ -229,8 +229,8 @@ void DecisionTreeXGBoost::saveTree(const std::string& filename) {
 }
 
 /**
- * @brief Charger un arbre depuis un fichier
- * @param filename Nom du fichier contenant l'arbre sauvegardé
+ * @brief Load a tree from a file
+ * @param filename Name of the file containing the saved tree
  */
 void DecisionTreeXGBoost::loadTree(const std::string& filename) {
     std::ifstream inFile(filename);
@@ -242,9 +242,9 @@ void DecisionTreeXGBoost::loadTree(const std::string& filename) {
 }
 
 /**
- * @brief Sérialiser un nœud pour l'écriture dans un fichier
- * @param node Pointeur vers le nœud à sérialiser
- * @param out Flux de sortie pour écrire les données du nœud
+ * @brief Serialize a node for writing to a file
+ * @param node Pointer to the node to serialize
+ * @param out Output stream to write the node data
  */
 void DecisionTreeXGBoost::serializeNode(const Tree* node, std::ostream& out) {
     if (!node) {
@@ -257,9 +257,9 @@ void DecisionTreeXGBoost::serializeNode(const Tree* node, std::ostream& out) {
 }
 
 /**
- * @brief Désérialiser un nœud à partir d'un flux d'entrée
- * @param in Flux d'entrée contenant les données sérialisées
- * @return Un pointeur unique vers le nœud désérialisé
+ * @brief Deserialize a node from an input stream
+ * @param in Input stream containing the serialized data
+ * @return A unique pointer to the deserialized node
  */
 std::unique_ptr<DecisionTreeXGBoost::Tree> DecisionTreeXGBoost::deserializeNode(std::istream& in) {
     std::string line;
@@ -287,10 +287,10 @@ void DecisionTreeXGBoost::calculateFeatureImportanceRecursive(
         return;
     }
 
-    // Ajouter le gain d'amélioration à l'importance de la caractéristique
+    // Add the gain improvement to the feature importance
     importance[node->FeatureIndex] += node->GainImprovement;
 
-    // Récursivement calculer l'importance pour les sous-arbres
+    // Recursively calculate importance for subtrees
     calculateFeatureImportanceRecursive(node->Left.get(), importance);
     calculateFeatureImportanceRecursive(node->Right.get(), importance);
 }
