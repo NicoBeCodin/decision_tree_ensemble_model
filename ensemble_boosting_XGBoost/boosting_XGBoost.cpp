@@ -8,13 +8,13 @@
 #include <fstream>
 
 /**
- * @brief Constructeur pour initialiser le modèle XGBoost pour le boosting
- * @param n_estimators Nombre de faibles apprenants (arbres de décision)
- * @param max_depth Profondeur maximale pour chaque arbre
- * @param learning_rate Taux d'apprentissage
- * @param lambda Paramètre de régularisation L2
- * @param alpha Paramètre de régularisation L1
- * @param loss_function Fonction de perte (pour calculer le gradient et la perte)
+ * @brief Constructor to initialize the XGBoost model for boosting
+ * @param n_estimators Number of weak learners (decision trees)
+ * @param max_depth Maximum depth for each tree
+ * @param learning_rate Learning rate
+ * @param lambda L2 regularization parameter
+ * @param alpha L1 regularization parameter
+ * @param loss_function Loss function (to compute the gradient and loss)
  */
 XGBoost::XGBoost(int n_estimators, int max_depth, double learning_rate, double lambda, double alpha,
                  std::unique_ptr<LossFunction> loss_function)
@@ -24,17 +24,17 @@ XGBoost::XGBoost(int n_estimators, int max_depth, double learning_rate, double l
 }
 
 /**
- * @brief Initialisation de la prédiction initiale avec la moyenne des valeurs y.
- * @param y Vecteur des étiquettes cibles)
+ * @brief Initialize the initial prediction with the mean of the y values.
+ * @param y Target labels vector
  */
 void XGBoost::initializePrediction(const std::vector<double>& y) {
     initial_prediction = std::accumulate(y.begin(), y.end(), 0.0) / y.size();
 }
 
 /**
- * @brief Entraîner le modèle de Boosting
- * @param X Matrice des caractéristiques
- * @param y Vecteur des étiquettes cibles
+ * @brief Train the Boosting model
+ * @param X Feature matrix
+ * @param y Target labels vector
  */
 void XGBoost::train(const std::vector<std::vector<double>>& X, const std::vector<double>& y) {
     size_t n_samples = y.size();
@@ -44,16 +44,16 @@ void XGBoost::train(const std::vector<std::vector<double>>& X, const std::vector
     for (int i = 0; i < n_estimators; ++i) {
         std::vector<double> residuals = loss_function->negativeGradient(y, y_pred);
 
-        // Régularisation
+        // Regularization
         for (size_t j = 0; j < residuals.size(); ++j) {
             residuals[j] -= lambda * y_pred[j] + alpha * std::abs(y_pred[j]);
         }
 
-        // Initialisation d'un nouvel arbre
+        // Initialize a new tree
         auto tree = std::make_unique<DecisionTreeXGBoost>(max_depth, 1, lambda, alpha);
         tree->train(X, residuals, y_pred);
 
-        // Mise à jour des prédictions
+        // Update predictions
         for (size_t j = 0; j < n_samples; ++j) {
             y_pred[j] += learning_rate * tree->predict(X[j]);
         }
@@ -66,9 +66,9 @@ void XGBoost::train(const std::vector<std::vector<double>>& X, const std::vector
 }
 
 /**
- * @brief Prédire pour un seul échantillon
- * @param x Vecteur des caractéristiques d'un échantillon
- * @return Prédiction pour l'échantillon
+ * @brief Predict for a single sample
+ * @param x Feature vector of a sample
+ * @return Prediction for the sample
  */
 double XGBoost::predict(const std::vector<double>& x) const {
     double y_pred = initial_prediction;
@@ -79,9 +79,9 @@ double XGBoost::predict(const std::vector<double>& x) const {
 }
 
 /**
- * @brief Prédire pour plusieurs échantillons
- * @param X Matrice des caractéristiques
- * @return Vecteur des prédictions pour chaque échantillon
+ * @brief Predict for multiple samples
+ * @param X Feature matrix
+ * @return Vector of predictions for each sample
  */
 std::vector<double> XGBoost::predict(const std::vector<std::vector<double>>& X) const {
     size_t n_samples = X.size();
@@ -96,10 +96,10 @@ std::vector<double> XGBoost::predict(const std::vector<std::vector<double>>& X) 
 }
 
 /**
- * @brief Évaluer la performance du modèle sur un ensemble de test
- * @param X_test Matrice des caractéristiques de test
- * @param y_test Vecteur des étiquettes cibles de test
- * @return Erreur quadratique moyenne (MSE)
+ * @brief Evaluate the model performance on a test set
+ * @param X_test Test feature matrix
+ * @param y_test Test target labels vector
+ * @return Mean Squared Error (MSE)
  */
 double XGBoost::evaluate(const std::vector<std::vector<double>>& X_test, const std::vector<double>& y_test) const {
     std::vector<double> y_pred = predict(X_test);
@@ -112,7 +112,7 @@ void XGBoost::save(const std::string& filename) const {
         throw std::runtime_error("Cannot open file for writing: " + filename);
     }
     
-    // Sauvegarder tous les paramètres du modèle
+    // Save all model parameters
     file << n_estimators << " " 
          << max_depth << " " 
          << learning_rate << " "
@@ -120,7 +120,7 @@ void XGBoost::save(const std::string& filename) const {
          << alpha << " " 
          << initial_prediction << "\n";
     
-    // Sauvegarder chaque arbre avec un nom unique
+    // Save each tree with a unique name
     for (size_t i = 0; i < trees.size(); ++i) {
         std::string tree_filename = filename + "_tree_" + std::to_string(i);
         trees[i]->saveTree(tree_filename);
@@ -135,7 +135,7 @@ void XGBoost::load(const std::string& filename) {
         throw std::runtime_error("Cannot open file for reading: " + filename);
     }
     
-    // Charger tous les paramètres du modèle
+    // Load all model parameters
     file >> n_estimators 
          >> max_depth 
          >> learning_rate 
@@ -143,11 +143,11 @@ void XGBoost::load(const std::string& filename) {
          >> alpha 
          >> initial_prediction;
     
-    // Réinitialiser et recharger les arbres
+    // Reset and reload trees
     trees.clear();
     trees.resize(n_estimators);
     
-    // Charger chaque arbre
+    // Load each tree
     for (int i = 0; i < n_estimators; ++i) {
         std::string tree_filename = filename + "_tree_" + std::to_string(i);
         trees[i] = std::make_unique<DecisionTreeXGBoost>(max_depth, 1, lambda, alpha);
@@ -160,7 +160,7 @@ void XGBoost::load(const std::string& filename) {
 std::map<std::string, double> XGBoost::featureImportance(const std::vector<std::string>& feature_names) const {
     std::map<int, double> importance_scores;
     
-    // Calculer l'importance pour chaque arbre
+    // Compute importance for each tree
     for (const auto& tree : trees) {
         auto tree_importance = tree->getFeatureImportance();
         for (const auto& [feature, score] : tree_importance) {
@@ -168,7 +168,7 @@ std::map<std::string, double> XGBoost::featureImportance(const std::vector<std::
         }
     }
     
-    // Normaliser les scores
+    // Normalize scores
     double total_importance = 0.0;
     for (const auto& [feature, score] : importance_scores) {
         total_importance += score;
