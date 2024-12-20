@@ -5,50 +5,50 @@
 #include <iostream>
 #include <chrono>
 
-// Constantes pour limiter la taille des visualisations
-const int MAX_DEPTH_VISUALIZATION = 5;  // Profondeur maximale pour la visualisation
-const int MAX_NODES_VISUALIZATION = 50;  // Nombre maximal de nœuds à afficher
+// Constants to limit the size of the visualizations
+const int MAX_DEPTH_VISUALIZATION = 5;  // Maximum depth for visualization
+const int MAX_NODES_VISUALIZATION = 50;  // Maximum number of nodes to display
 
 void TreeVisualization::generateDotFile(const DecisionTreeSingle& tree,
                                         const std::string& filename,
                                         const std::vector<std::string>& feature_names) {
     try {
         if (!tree.getRoot()) {
-            std::cout << "L'arbre est vide, impossible de générer la visualisation." << std::endl;
+            std::cout << "The tree is empty, unable to generate visualization." << std::endl;
             return;
         }
 
-        // Créer le dossier pour les fichiers DOT
+        // Create the folder for DOT files
         std::filesystem::path dotPath = "visualizations/dot";
         if (!std::filesystem::exists(dotPath)) {
             std::filesystem::create_directories(dotPath);
         }
 
-        // Créer le dossier pour les images PNG
+        // Create the folder for PNG images
         std::filesystem::path pngPath = std::filesystem::current_path().parent_path() / "tree_visualizations";
         if (!std::filesystem::exists(pngPath)) {
             std::filesystem::create_directories(pngPath);
         }
 
-        // Chemins complets pour les fichiers
+        // Full paths for the files
         auto dot_file = std::filesystem::absolute(dotPath / (filename + ".dot"));
         auto png_file = std::filesystem::absolute(pngPath / (filename + ".png"));
 
-        // Créer le fichier DOT
+        // Create the DOT file
         std::ofstream out(dot_file);
         if (!out.is_open()) {
-            std::cout << "Impossible d'ouvrir le fichier DOT pour écriture" << std::endl;
+            std::cout << "Unable to open the DOT file for writing" << std::endl;
             return;
         }
 
-        // En-tête du fichier DOT
+        // DOT file header
         out << "digraph DecisionTree {\n";
         out << "    rankdir=TB;\n";
         out << "    node [shape=box, style=\"rounded,filled\", color=black, fontname=helvetica, fontsize=10];\n";
         out << "    edge [fontname=helvetica, fontsize=9];\n";
         out << "    graph [ranksep=0.3, nodesep=0.3];\n";
 
-        // Générer le contenu de l'arbre
+        // Generate the tree content
         int node_count = 0;
         int total_nodes = 0;
         generateDotContent(tree.getRoot(), out, node_count, feature_names, 0, total_nodes);
@@ -56,20 +56,20 @@ void TreeVisualization::generateDotFile(const DecisionTreeSingle& tree,
         out << "}\n";
         out.close();
 
-        // Générer l'image PNG avec Graphviz
+        // Generate the PNG image with Graphviz
         std::stringstream cmd;
         std::string dot_path = getenv("DOT_PATH") ? getenv("DOT_PATH") : "dot";
         cmd << dot_path << " -Tpng -Gdpi=150 \"" << dot_file.string() << "\" -o \"" << png_file.string() << "\"";
 
         int result = system(cmd.str().c_str());
         if (result != 0) {
-            std::cout << "Erreur lors de la génération du PNG (code: " << result << "). Assurez-vous que Graphviz est installé et que le chemin est correct." << std::endl;
+            std::cout << "Error generating the PNG (code: " << result << "). Make sure Graphviz is installed and the path is correct." << std::endl;
         } else {
-            std::cout << "Image générée: " << png_file.string() << std::endl;
+            std::cout << "Image generated: " << png_file.string() << std::endl;
         }
 
     } catch (const std::exception& e) {
-        std::cout << "Erreur: " << e.what() << std::endl;
+        std::cout << "Error: " << e.what() << std::endl;
     }
 }
 
@@ -106,14 +106,14 @@ std::string TreeVisualization::formatNode(const DecisionTreeSingle::Tree* node,
     std::stringstream ss;
 
     if (node->IsLeaf) {
-        ss << std::fixed << std::setprecision(6);  // Plus de précision pour les feuilles
+        ss << std::fixed << std::setprecision(6);  // More precision for leaves
         ss << "Pred: " << node->Prediction;
     } else {
         std::string feature_name = (node->FeatureIndex < feature_names.size()) 
             ? feature_names[node->FeatureIndex] 
             : "f" + std::to_string(node->FeatureIndex);
         ss << feature_name << "\\n";
-        ss << std::scientific << std::setprecision(4);  // Notation scientifique pour le MSE
+        ss << std::scientific << std::setprecision(4);  // Scientific notation for MSE
         ss << "MSE: " << node->NodeMetric<< "\\n";
         ss << "N: " << node->NodeSamples;
     }
@@ -126,18 +126,18 @@ void TreeVisualization::generateEnsembleDotFiles(
     const std::string& base_filename,
     const std::vector<std::string>& feature_names) {
     
-    std::cout << "Génération des arbres représentatifs..." << std::endl;
+    std::cout << "Generating representative trees..." << std::endl;
     
-    // Indices des arbres à visualiser
+    // Indices of the trees to visualize
     std::vector<size_t> important_indices;
     if (trees.size() > 0) {
-        important_indices.push_back(0);  // Premier arbre
+        important_indices.push_back(0);  // First tree
     }
     if (trees.size() > 2) {
-        important_indices.push_back(trees.size() / 2);  // Arbre du milieu
+        important_indices.push_back(trees.size() / 2);  // Middle tree
     }
     if (trees.size() > 1) {
-        important_indices.push_back(trees.size() - 1);  // Dernier arbre
+        important_indices.push_back(trees.size() - 1);  // Last tree
     }
 
     for (size_t idx : important_indices) {
@@ -147,10 +147,10 @@ void TreeVisualization::generateEnsembleDotFiles(
         else suffix = "_middle";
 
         std::string filename = base_filename + suffix;
-        std::cout << "\nGénération de l'arbre " << (idx + 1) << "/" << trees.size() 
+        std::cout << "\nGenerating tree " << (idx + 1) << "/" << trees.size() 
                   << " (position: " << suffix.substr(1) << ")" << std::endl;
         generateDotFile(*trees[idx], filename, feature_names);
     }
 
-    std::cout << "Visualisations générées dans le dossier 'visualizations'" << std::endl;
-} 
+    std::cout << "Visualizations generated in the 'visualizations' folder" << std::endl;
+}
