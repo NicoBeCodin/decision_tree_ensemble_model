@@ -10,58 +10,58 @@
 #include <stdexcept>
 
 /**
- * @brief Boosting 类
- * 实现梯度提升算法，使用多个弱学习器（决策树）
+ * @brief Boosting class
+ * Implements gradient boosting algorithm using multiple weak learners (decision trees)
  */
 class Boosting {
 public:
      /**
-     * @brief Constructeur pour initialiser le modèle de boosting
-     * @param n_estimators Nombre de faibles apprenants (arbres de décision)
-     * @param max_depth Profondeur maximale pour chaque arbre
-     * @param learning_rate Taux d'apprentissage pour le modèle
-     * @param criteria Critère de division pour les arbres
-     * @param loss_function Fonction de perte à minimiser
+     * @brief Constructor to initialize the boosting model
+     * @param n_estimators Number of weak learners (decision trees)
+     * @param max_depth Maximum depth for each tree
+     * @param learning_rate Learning rate for the model
+     * @param criteria Splitting criterion for the trees
+     * @param loss_function Loss function to minimize
      */
     Boosting(int n_estimators, double learning_rate,
              std::unique_ptr<LossFunction> loss_function,
              int max_depth, int min_samples_split, double min_impurity_decrease);
 
     /**
-     * @brief Entraîner le modèle de boosting
-     * @param X Matrice des caractéristiques d'entraînement
-     * @param y Vecteur des étiquettes cibles d'entraînement
+     * @brief Train the boosting model
+     * @param X Training feature matrix
+     * @param y Training target vector
      */
     void train(const std::vector<std::vector<double>>& X,
                const std::vector<double>& y,
                const int criteria = 0);
 
     /**
-     * @brief Prédire une valeur pour un échantillon donné
-     * @param x Vecteur représentant un échantillon
-     * @return Prédiction pour l'échantillon
+     * @brief Predict a value for a given sample
+     * @param x Vector representing a sample
+     * @return Prediction for the sample
      */
     double predict(const std::vector<double>& x) const;
 
     /**
-     * @brief Prédire des valeurs pour un ensemble d'échantillons
-     * @param X Matrice représentant plusieurs échantillons
-     * @return Vecteur des prédictions pour chaque échantillon
+     * @brief Predict values for a set of samples
+     * @param X Matrix representing multiple samples
+     * @return Vector of predictions for each sample
      */
     std::vector<double> predict(const std::vector<std::vector<double>>& X) const;
 
     /**
-     * @brief Évaluer le modèle sur un ensemble de test
-     * @param X_test Matrice des caractéristiques de test
-     * @param y_test Vecteur des étiquettes cibles de test
-     * @return Erreur moyenne des prédictions sur l'ensemble de test
+     * @brief Evaluate the model on a test set
+     * @param X_test Test feature matrix
+     * @param y_test Test target vector
+     * @return Mean error of predictions on the test set
      */
     double evaluate(const std::vector<std::vector<double>>& X_test, const std::vector<double>& y_test) const;
 
-    // Nouvelle méthode pour accéder aux estimateurs
+    // New method to access the estimators
     const std::vector<std::unique_ptr<DecisionTreeSingle>>& getEstimators() const { return trees; }
 
-    // Méthodes de sérialisation
+    // Serialization methods
     void save(const std::string& filename) const;
     void load(const std::string& filename);
     double getInitialPrediction() const { return initial_prediction; }
@@ -74,12 +74,12 @@ private:
     double learning_rate; 
     std::unique_ptr<LossFunction> loss_function;
 
-    std::vector<std::unique_ptr<DecisionTreeSingle>> trees; // 弱学习器集合
+    std::vector<std::unique_ptr<DecisionTreeSingle>> trees; // Collection of weak learners
     double initial_prediction; 
 
     /**
-     * @brief Initialiser la prédiction initiale basée sur le vecteur cible
-     * @param y Vecteur des étiquettes cibles
+     * @brief Initialize the initial prediction based on the target vector
+     * @param y Target vector
      */
     void initializePrediction(const std::vector<double>& y);
 
