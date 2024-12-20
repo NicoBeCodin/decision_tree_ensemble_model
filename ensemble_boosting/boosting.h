@@ -25,7 +25,7 @@ public:
      */
     Boosting(int n_estimators, double learning_rate,
              std::unique_ptr<LossFunction> loss_function,
-             int max_depth, int min_samples_split, double min_impurity_decrease);
+             int max_depth, int min_samples_split, double min_impurity_decrease, int Criteria = 0, int whichLossFunc = 0);
 
     /**
      * @brief Train the boosting model
@@ -34,7 +34,7 @@ public:
      */
     void train(const std::vector<std::vector<double>>& X,
                const std::vector<double>& y,
-               const int criteria = 0);
+               const int Criteria);
 
     /**
      * @brief Predict a value for a given sample
@@ -66,12 +66,17 @@ public:
     void load(const std::string& filename);
     double getInitialPrediction() const { return initial_prediction; }
 
+    std::map<std::string, std::string> getTrainingParameters() const;
+    std::string getTrainingParametersString() const;
+
 private:
     int n_estimators;  
     int max_depth;      
     int min_samples_split;
     double min_impurity_decrease;
-    double learning_rate; 
+    double learning_rate;
+    int Criteria;
+    int whichLossFunc;
     std::unique_ptr<LossFunction> loss_function;
 
     std::vector<std::unique_ptr<DecisionTreeSingle>> trees; // Collection of weak learners

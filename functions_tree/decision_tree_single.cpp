@@ -6,20 +6,20 @@
 #include <iostream>
 
 // Constructor
-DecisionTreeSingle::DecisionTreeSingle(int MaxDepth, int MinLeafLarge, double MinError)
-    : MaxDepth(MaxDepth), MinLeafLarge(MinLeafLarge), MinError(MinError), Root(nullptr) {}
+DecisionTreeSingle::DecisionTreeSingle(int MaxDepth, int MinLeafLarge, double MinError, int Criteria)
+    : MaxDepth(MaxDepth), MinLeafLarge(MinLeafLarge), MinError(MinError), Criteria(Criteria), Root(nullptr) {}
 
 // Training function
-void DecisionTreeSingle::train(const std::vector<std::vector<double>>& Data, const std::vector<double>& Labels, int criteria) {
+void DecisionTreeSingle::train(const std::vector<std::vector<double>>& Data, const std::vector<double>& Labels, int Criteria) {
     Root = std::make_unique<Tree>();
     std::vector<int> Indices(Data.size());
     std::iota(Indices.begin(), Indices.end(), 0);
     // Will use MSE
-    if (criteria == 0) {
+    if (Criteria == 0) {
         splitNode(Root.get(), Data, Labels, Indices, 0);
     }
     // Will use MAE
-    else if (criteria == 1) {
+    else if (Criteria == 1) {
         splitNodeMAE(Root.get(), Data, Labels, Indices, 0);
     }
 }

@@ -23,6 +23,7 @@ private:
     std::unique_ptr<LossFunction> loss_function;
     std::vector<std::unique_ptr<DecisionTreeXGBoost>> trees;
     double initial_prediction;
+    int whichLossFunc;
 
     /**
      * @brief Initialize the initial prediction with the mean of the y values.
@@ -40,7 +41,7 @@ public:
      * @param alpha L1 regularization parameter
      * @param loss_function Loss function (to compute the gradient and loss)
      */
-    XGBoost(int n_estimators, int max_depth, double learning_rate, double lambda, double alpha, std::unique_ptr<LossFunction> loss_function);
+    XGBoost(int n_estimators, int max_depth, double learning_rate, double lambda, double alpha, std::unique_ptr<LossFunction> loss_function, int whichLossFunc);
     
     /**
      * @brief Train the Boosting model
@@ -87,6 +88,9 @@ public:
     void save(const std::string& filename) const;
     void load(const std::string& filename);
     double getInitialPrediction() const { return initial_prediction; }
+
+    std::map<std::string, std::string> getTrainingParameters() const;
+    std::string getTrainingParametersString() const;
 };
 
 #endif // BOOSTING_XGBOOST_H

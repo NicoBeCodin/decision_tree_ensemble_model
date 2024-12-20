@@ -102,14 +102,16 @@ void getModelParameters(int model_choice, std::string& parameters) {
             std::cin >> min_samples;
             std::cout << "Minimum impurity decrease (default: 0.0): ";
             std::cin >> min_impurity;
+
+            std::cout << "Le critère est : " << criteria << std::endl;
             
-            parameters += " " + std::to_string(max_depth) + " " + 
+            parameters += " " + std::to_string(criteria) + " " + std::to_string(max_depth) + " " + 
                          std::to_string(min_samples) + " " + 
                          std::to_string(min_impurity);
             break;
         }
         case 2: {  // Bagging
-            int n_estimators, max_depth, min_samples;
+            int num_trees, max_depth, min_samples;
             int criteria = -1;
             int which_loss_func = -1;
             double min_impurity;
@@ -143,8 +145,8 @@ void getModelParameters(int model_choice, std::string& parameters) {
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore all remaining characters in the input stream
                 }
             }
-            std::cout << "Number of estimators (default: 10): ";
-            std::cin >> n_estimators;
+            std::cout << "Number of trees (default: 10): ";
+            std::cin >> num_trees;
             std::cout << "Maximum depth (default: 5): ";
             std::cin >> max_depth;
             std::cout << "Minimum samples to split (default: 2): ";
@@ -152,7 +154,9 @@ void getModelParameters(int model_choice, std::string& parameters) {
             std::cout << "Minimum impurity decrease (default: 0.0): ";
             std::cin >> min_impurity;
             
-            parameters += " " + std::to_string(n_estimators) + " " +
+            parameters += " " + std::to_string(criteria) + " " + 
+                         std::to_string(which_loss_func) + " " + 
+                         std::to_string(num_trees) + " " +
                          std::to_string(max_depth) + " " + 
                          std::to_string(min_samples) + " " + 
                          std::to_string(min_impurity);
@@ -163,7 +167,8 @@ void getModelParameters(int model_choice, std::string& parameters) {
             int criteria = -1;
             int which_loss_func = -1;
             double min_impurity, learning_rate;
-            
+
+            std::cout << "\nBoosting Parameters:\n";
             // Loop until the user enters 0 or 1 for criteria
             while (criteria != 0 && criteria != 1) {
                 std::cout << "Which method do you want as a splitting criterion: MSE (0) or MAE (1) ?" << std::endl;
@@ -192,7 +197,6 @@ void getModelParameters(int model_choice, std::string& parameters) {
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore all remaining characters in the input stream
                 }
             }
-            std::cout << "\nBoosting Parameters:\n";
             std::cout << "Number of estimators (default: 75): ";
             std::cin >> n_estimators;
             std::cout << "Maximum depth (default: 15): ";
@@ -204,7 +208,9 @@ void getModelParameters(int model_choice, std::string& parameters) {
             std::cout << "Learning rate (default: 0.07): ";
             std::cin >> learning_rate;
             
-            parameters += " " + std::to_string(n_estimators) + " " +
+            parameters += " " + std::to_string(criteria) + " " + 
+                         std::to_string(which_loss_func) + " " + 
+                         std::to_string(n_estimators) + " " +
                          std::to_string(max_depth) + " " + 
                          std::to_string(min_samples) + " " + 
                          std::to_string(min_impurity) + " " +
@@ -212,22 +218,37 @@ void getModelParameters(int model_choice, std::string& parameters) {
             break;
         }
         case 4: {  // XGBoost
-            int n_estimators, max_depth;
+            int n_estimators, max_depth, which_loss_func;
             double learning_rate, lambda, gamma;
-            
+
             std::cout << "\nXGBoost Parameters:\n";
-            std::cout << "Number of estimators (default: 10): ";
+            // Loop until the user enters 0 or 1 for which_loss_func
+            while (which_loss_func != 0 && which_loss_func != 1) {
+                std::cout << "Which method do you want as a comparing trees: MSE (0) or MAE (1) ?" << std::endl;
+                std::cin >> which_loss_func;
+
+                // Check user input
+                if (std::cin.fail() || (which_loss_func != 0 && which_loss_func != 1)) {
+                    std::cout << "Invalid input. Please enter 0 (for MSE) or 1 (for MAE)." << std::endl;
+
+                    // Clean input stream
+                    std::cin.clear(); // Reset the input stream state
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore all remaining characters in the input stream
+                }
+            }
+            std::cout << "Number of estimators (default: 75): ";
             std::cin >> n_estimators;
-            std::cout << "Maximum depth (default: 5): ";
+            std::cout << "Maximum depth (default: 10): ";
             std::cin >> max_depth;
             std::cout << "Learning rate (default: 0.1): ";
             std::cin >> learning_rate;
             std::cout << "Lambda - L2 regularization (default: 1.0): ";
             std::cin >> lambda;
-            std::cout << "Gamma - complexity regularization (default: 0.0): ";
+            std::cout << "Gamma - complexity regularization (default: 0.05): ";
             std::cin >> gamma;
             
-            parameters += " " + std::to_string(n_estimators) + " " +
+            parameters += " " + std::to_string(which_loss_func) + " " + 
+                         std::to_string(n_estimators) + " " +
                          std::to_string(max_depth) + " " + 
                          std::to_string(learning_rate) + " " +
                          std::to_string(lambda) + " " +
@@ -263,6 +284,7 @@ int main() {
 
             // Build command with parameters
             std::string command = "./MainEnsemble " + parameters;
+            std::cout << command << std::endl;
             system((command + " 2>&1").c_str());
             break;
         }

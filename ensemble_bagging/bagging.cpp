@@ -13,8 +13,8 @@
 * @param min_impurity_decrease Minimum impurity decrease required for a split
 * @param loss_function
 */
-Bagging::Bagging(int num_trees, int max_depth, int min_samples_split, double min_impurity_decrease, std::unique_ptr<LossFunction> loss_func)
-    : numTrees(num_trees), maxDepth(max_depth), minSamplesSplit(min_samples_split), minImpurityDecrease(min_impurity_decrease), loss_function(std::move(loss_func)) {
+Bagging::Bagging(int num_trees, int max_depth, int min_samples_split, double min_impurity_decrease, std::unique_ptr<LossFunction> loss_func, int Criteria, int whichLossFunc)
+    : numTrees(num_trees), maxDepth(max_depth), minSamplesSplit(min_samples_split), minImpurityDecrease(min_impurity_decrease), loss_function(std::move(loss_func)), Criteria(Criteria), whichLossFunc(whichLossFunc) {
     trees.reserve(numTrees); // Reserve space for the trees
 }
 
@@ -47,7 +47,7 @@ void Bagging::bootstrapSample(const std::vector<std::vector<double>>& data, cons
 * @param data Feature matrix
 * @param labels Target vector
 */
-void Bagging::train(const std::vector<std::vector<double>>& data, const std::vector<double>& labels, int criteria) {
+void Bagging::train(const std::vector<std::vector<double>>& data, const std::vector<double>& labels, int Criteria) {
     for (int i = 0; i < numTrees; ++i) {
         std::vector<std::vector<double>> sampled_data;
         std::vector<double> sampled_labels;
@@ -55,7 +55,7 @@ void Bagging::train(const std::vector<std::vector<double>>& data, const std::vec
 
         // Create and train a new DecisionTreeSingle
         auto tree = std::make_unique<DecisionTreeSingle>(maxDepth, minSamplesSplit, minImpurityDecrease);
-        tree->train(sampled_data, sampled_labels, criteria);
+        tree->train(sampled_data, sampled_labels, Criteria);
         trees.push_back(std::move(tree));
     }
 }
@@ -95,10 +95,15 @@ void Bagging::save(const std::string& filename) const {
     if (!file.is_open()) {
         throw std::runtime_error("Cannot open file for writing: " + filename);
     }
-        
-    // Sauvegarder les paramètres du modèle
-    file << numTrees << " " << maxDepth << " " << minSamplesSplit << " " << minImpurityDecrease << " " << Criteria << " " << whichLossFunc << "\n";
-        
+    
+    // Sauvegarder tous les paramètres du modèle
+    file << numTrees << " " 
+         << maxDepth << " " 
+         << minSamplesSplit << " " 
+         << minImpurityDecrease << " " 
+         << Criteria << " " 
+         << whichLossFunc << "\n";
+    
     // Sauvegarder chaque arbre avec un nom unique
     for (size_t i = 0; i < trees.size(); ++i) {
         std::string tree_filename = filename + "_tree_" + std::to_string(i);
@@ -113,29 +118,19 @@ void Bagging::load(const std::string& filename) {
     if (!file.is_open()) {
         throw std::runtime_error("Cannot open file for reading: " + filename);
     }
-        
-    // Vérifier la validité du fichier
-    int num_trees, max_depth, min_samples_split;
-    int criteria_in, which_loss_func;
-    double min_impurity_decrease;
-    if (!(file >> num_trees >> max_depth >> min_samples_split >> min_impurity_decrease >> criteria_in >> which_loss_func)) {
-        file.close();
-        throw std::runtime_error("Invalid file format");
-    }
-        
-    // Mettre à jour les paramètres du modèle
-    numTrees = num_trees;
-    maxDepth = max_depth;
-    minSamplesSplit = min_samples_split;
-    minImpurityDecrease = min_impurity_decrease;
-    Criteria = criteria_in;
-    whichLossFunc = which_loss_func;
-         
-        
+    
+    // Charger tous les paramètres du modèle
+    file >> numTrees 
+         >> maxDepth 
+         >> minSamplesSplit 
+         >> minImpurityDecrease
+         >> Criteria
+         >> whichLossFunc;
+    
     // Réinitialiser et recharger les arbres
     trees.clear();
     trees.resize(numTrees);
-        
+    
     // Charger chaque arbre
     for (int i = 0; i < numTrees; ++i) {
         std::string tree_filename = filename + "_tree_" + std::to_string(i);

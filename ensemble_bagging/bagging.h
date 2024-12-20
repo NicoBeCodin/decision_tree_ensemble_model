@@ -23,14 +23,14 @@ public:
      * @param min_samples_split Minimum number of samples required to split a node
      * @param min_impurity_decrease Minimum impurity decrease required for a split
      */
-    Bagging(int num_trees, int max_depth, int min_samples_split, double min_impurity_decrease, std::unique_ptr<LossFunction> loss_function = std::unique_ptr<LeastSquaresLoss>());
+    Bagging(int num_trees, int max_depth, int min_samples_split, double min_impurity_decrease, std::unique_ptr<LossFunction> loss_function = std::unique_ptr<LeastSquaresLoss>(), int Criteria = 0, int whichLossFunc = 0);
 
     /**
      * @brief Train the Bagging model
      * @param data Feature matrix
      * @param labels Target vector
      */
-    void train(const std::vector<std::vector<double>>& data, const std::vector<double>& labels, int criteria = 0);
+    void train(const std::vector<std::vector<double>>& data, const std::vector<double>& labels, int Criteria);
 
     /**
      * @brief Predict the target value for a single sample

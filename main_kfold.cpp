@@ -135,11 +135,13 @@ int main()
             int max_depth = 60;
             int min_samples_split = 2;
             double min_impurity_decrease = 1e-6;
+            int criteria = 0;
+            int whichLossFunc = 0;
 
-            Bagging bagging_model(num_trees, max_depth, min_samples_split, min_impurity_decrease, std::unique_ptr<LeastSquaresLoss>());
+            Bagging bagging_model(num_trees, max_depth, min_samples_split, min_impurity_decrease, std::unique_ptr<LeastSquaresLoss>(), criteria, whichLossFunc);
 
             auto train_start = std::chrono::high_resolution_clock::now();
-            bagging_model.train(X_train, y_train);
+            bagging_model.train(X_train, y_train, criteria);
             auto train_end = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> train_duration = train_end - train_start;
             std::cout << "Training time (Bagging): " << train_duration.count() << " seconds\n";

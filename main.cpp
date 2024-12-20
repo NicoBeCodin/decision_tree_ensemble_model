@@ -119,13 +119,13 @@ int main(int argc, char* argv[]) {
           std::cout << "Directory created: " << models_dir << std::endl;
       }
 
-      if (use_custom_params && params.size() >= 3) {
-        maxDepth = std::stoi(params[0]);
-        minSamplesSplit = std::stoi(params[1]);
-        minImpurityDecrease = std::stod(params[2]);
+      if (use_custom_params && params.size() > 3) {
+        criteria = std::stoi(params[0]);
+        maxDepth = std::stoi(params[1]);
+        minSamplesSplit = std::stoi(params[2]);
+        minImpurityDecrease = std::stod(params[3]);
       } else if (load_request) {
-        DecisionTreeSingle single_tree(0, 0, 0.0); // Temporary
-
+        DecisionTreeSingle single_tree(0, 0, 0.0, 0); // Temporary
         try {
           single_tree.loadTree(path_model_filename);
           std::cout << "Model loaded successfully from " << path_model_filename << "\n";
@@ -162,7 +162,7 @@ int main(int argc, char* argv[]) {
 
       std::cout << "Training a single decision tree, please wait...\n";
       DecisionTreeSingle single_tree(maxDepth, minSamplesSplit,
-                                    minImpurityDecrease);
+                                    minImpurityDecrease, criteria);
 
       auto train_start = std::chrono::high_resolution_clock::now();
       single_tree.train(X_train, y_train, criteria);
@@ -194,10 +194,11 @@ int main(int argc, char* argv[]) {
       FeatureImportance::calculateTreeImportance(single_tree, feature_names);
       displayFeatureImportance(feature_importance);
 
-      std::cout << "Would you like to save this tree? (0 = no, 1 = yes)\n";
+      std::cout << "Would you like to save this model? (1 = Yes, 0 = No): ";
       int answer = 0;
       std::cin >> answer;
       if (answer == 1) {
+        std::cout << "le critère après tout les délires 3: " << criteria << std::endl;
         std::cout << "Please type the name you want to give to the .txt file: \n";
         std::string filename;
         std::cin >> filename;
@@ -247,13 +248,15 @@ int main(int argc, char* argv[]) {
         std::cout << "Directory created: " << models_dir << std::endl;
       }
 
-      if (use_custom_params && params.size() >= 4) {
-        num_trees = std::stoi(params[0]);
-        max_depth = std::stoi(params[1]);
-        min_samples_split = std::stoi(params[2]);
-        min_impurity_decrease = std::stod(params[3]);
+      if (use_custom_params && params.size() > 4) {
+        criteria = std::stoi(params[0]);
+        which_loss_func = std::stoi(params[1]);
+        num_trees = std::stoi(params[2]);
+        max_depth = std::stoi(params[3]);
+        min_samples_split = std::stoi(params[4]);
+        min_impurity_decrease = std::stod(params[5]);
       } else if (load_request) {
-        Bagging bagging_model(0, 0, 0, 0.0); // Initialisation temporaire
+        Bagging bagging_model(0, 0, 0, 0.0, nullptr, 0, 0); // Initialisation temporaire
 
         try {
           bagging_model.load(path_model_filename);
@@ -308,7 +311,7 @@ int main(int argc, char* argv[]) {
 
       std::cout << "Bagging process started, please wait...\n";
       Bagging bagging_model(num_trees, max_depth, min_samples_split,
-                            min_impurity_decrease, std::move(loss_function));
+                            min_impurity_decrease, std::move(loss_function), criteria, which_loss_func);
 
       auto train_start = std::chrono::high_resolution_clock::now();
       bagging_model.train(X_train, y_train, criteria);
@@ -375,7 +378,7 @@ int main(int argc, char* argv[]) {
       int n_estimators, max_depth, min_samples_split;
       int criteria;
       int which_loss_func;
-      double min_impurity_decrease, learning_rate;
+      double min_impurity_decrease, learning_rate, initial_prediction;
 
       // Create boosting folder if new
       std::filesystem::path models_dir = "../saved_models/boosting_models";
@@ -384,14 +387,16 @@ int main(int argc, char* argv[]) {
         std::cout << "Directory created: " << models_dir << std::endl;
       }
 
-      if (use_custom_params && params.size() >= 5) {
-        n_estimators = std::stoi(params[0]);
-        max_depth = std::stoi(params[1]);
-        min_samples_split = std::stoi(params[2]);
-        min_impurity_decrease = std::stod(params[3]);
-        learning_rate = std::stod(params[4]);
+      if (use_custom_params && params.size() > 5) {
+        criteria = std::stoi(params[0]);
+        which_loss_func = std::stoi(params[1]);
+        n_estimators = std::stoi(params[2]);
+        max_depth = std::stoi(params[3]);
+        min_samples_split = std::stoi(params[4]);
+        min_impurity_decrease = std::stod(params[5]);
+        learning_rate = std::stod(params[6]);
       } else if (load_request) {
-        Boosting boosting_model(0, 0.0, nullptr, 0, 0, 0.0); // temporary creation
+        Boosting boosting_model(0, 0.0, nullptr, 0, 0, 0.0, 0, 0); // temporary creation
 
         try {
           boosting_model.load(path_model_filename);
@@ -400,6 +405,23 @@ int main(int argc, char* argv[]) {
           std::cerr << "Error loading the model: " << e.what() << "\n";
           return -1;
         }
+
+        // Recover model parameters
+        std::map<std::string, std::string> training_params = boosting_model.getTrainingParameters();
+
+        // Update parameter variables
+        n_estimators = std::stoi(training_params["NumEstimators"]);
+        learning_rate = std::stod(training_params["LearningRate"]);
+        max_depth = std::stoi(training_params["MaxDepth"]);
+        min_samples_split = std::stoi(training_params["MinSamplesSplit"]);
+        min_impurity_decrease = std::stod(training_params["MinImpurityDecrease"]);
+        initial_prediction = std::stod(training_params["InitialPrediction"]);
+        criteria = std::stoi(training_params["Criteria"]);
+        which_loss_func = std::stoi(training_params["WhichLossFunction"]);
+
+        // Display tree parameters
+        std::cout << "Parameters loaded from the model file:\n";
+        std::cout << boosting_model.getTrainingParametersString() << "\n";
         
         return 0; // Nothing done but loadable
       } else {
@@ -434,7 +456,7 @@ int main(int argc, char* argv[]) {
       std::cout << "Boosting process started, please wait...\n";
       Boosting boosting_model(n_estimators, learning_rate,
                               std::move(loss_function), max_depth,
-                              min_samples_split, min_impurity_decrease);
+                              min_samples_split, min_impurity_decrease, criteria, which_loss_func);
 
       // model training
       auto train_start = std::chrono::high_resolution_clock::now();
@@ -460,6 +482,7 @@ int main(int argc, char* argv[]) {
       bool save_model = false;
       std::cout << "Would you like to save this model? (1 = Yes, 0 = No): ";
       std::cin >> save_model;
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
       if (save_model) {
           std::string filename;
@@ -484,7 +507,6 @@ int main(int argc, char* argv[]) {
       results.parameters["min_impurity_decrease"] = min_impurity_decrease;
       results.parameters["learning_rate"] = learning_rate;
       
-      
       for (const auto& score : feature_importance) {
           results.feature_importance[score.feature_name] = score.importance_score;
       }
@@ -498,7 +520,8 @@ int main(int argc, char* argv[]) {
   } else if (choice == 4) {
         int n_estimators, max_depth;
         int which_loss_func;
-        double learning_rate, lambda, gamma;
+        double learning_rate, lambda, alpha, initial_prediction;
+
 
         // Create folder if non existent
         std::filesystem::path models_dir = "../saved_models/xgboost_models";
@@ -508,14 +531,15 @@ int main(int argc, char* argv[]) {
         }
 
         if (use_custom_params && params.size() >= 5) {
-            n_estimators = std::stoi(params[0]);
-            max_depth = std::stoi(params[1]);
-            learning_rate = std::stod(params[2]);
-            lambda = std::stod(params[3]);
-            gamma = std::stod(params[4]);
+            which_loss_func = std::stoi(params[0]);
+            n_estimators = std::stoi(params[1]);
+            max_depth = std::stoi(params[2]);
+            learning_rate = std::stod(params[3]);
+            lambda = std::stod(params[4]);
+            alpha = std::stod(params[5]);
         } else if (load_request) {
-          XGBoost xgboost_model(0, 0, 0.0, 0.0, 0.0, nullptr); // Initialisation temporaire
-
+          XGBoost xgboost_model(0, 0, 0.0, 0.0, 0.0, nullptr, 0); // Initialisation temporaire
+          
           try {
             xgboost_model.load(path_model_filename);
             std::cout << "Model loaded successfully from " << path_model_filename << "\n";
@@ -523,22 +547,37 @@ int main(int argc, char* argv[]) {
             std::cerr << "Error loading the model: " << e.what() << "\n";
             return -1;
           }
+          // Recover model parameters
+          std::map<std::string, std::string> training_params = xgboost_model.getTrainingParameters();
+
+          // Update parameter variables
+          n_estimators = std::stoi(training_params["NumEstimators"]);
+          max_depth = std::stoi(training_params["MaxDepth"]);
+          learning_rate = std::stod(training_params["LearningRate"]);
+          lambda = std::stod(training_params["Lambda"]);
+          alpha = std::stod(training_params["Alpha"]);
+          initial_prediction = std::stod(training_params["InitialPrediction"]);
+          which_loss_func = std::stoi(training_params["WhichLossFunction"]);
+
+          // Display tree parameters
+          std::cout << "Parameters loaded from the model file:\n";
+          std::cout << xgboost_model.getTrainingParametersString() << "\n";
         
           return 0; // Nothing done for the moment but loadable
         } else {
             std::cout << "Generation of default values : " << std::endl
                       << "Default for comparing trees (MSE)\n"
                       << "Default number of estimators : 75\n"
-                      << "Default max depth = 10\n"
+                      << "Default maximum depth = 10\n"
                       << "Default learning rate = 0.1\n"
                       << "Default lambda (L2 regularization) = 1.0\n"
-                      << "Default gamma (complexity) = 0.0\n";
+                      << "Default gamma (complexity) = 0.05\n";
             which_loss_func = 0;
             n_estimators = 75;
             max_depth = 10;
             learning_rate = 0.07;
             lambda = 0.3;
-            gamma = 0.05;
+            alpha = 0.05;
         }
 
         std::unique_ptr<LossFunction> loss_function;
@@ -553,7 +592,7 @@ int main(int argc, char* argv[]) {
         }
 
         std::cout << "Boosting process started, please wait...\n";
-        XGBoost xgboost_model(n_estimators, max_depth, learning_rate, lambda, gamma, std::move(loss_function));
+        XGBoost xgboost_model(n_estimators, max_depth, learning_rate, lambda, alpha, std::move(loss_function), which_loss_func);
 
         auto train_start = std::chrono::high_resolution_clock::now();
         xgboost_model.train(X_train, y_train);
@@ -592,7 +631,7 @@ int main(int argc, char* argv[]) {
         results.parameters["max_depth"] = max_depth;
         results.parameters["learning_rate"] = learning_rate;
         results.parameters["lambda"] = lambda;
-        results.parameters["gamma"] = gamma;
+        results.parameters["gamma"] = alpha;
         
         // Save feature importance
         results.feature_importance = feature_importance;
@@ -609,7 +648,7 @@ int main(int argc, char* argv[]) {
             std::cin >> filename;
             std::string path = "../saved_models/xgboost_models/" + filename;
             xgboost_model.save(path);
-            std::cout << "Model saved as: " << filename << std::endl;
+            std::cout << "Model saved successfully as " << filename << "in this path : " << path << "\n";
         }
   } else {
     std::cerr << "Invalid choice! Please choose 1, 2, 3 or 4" << std::endl;

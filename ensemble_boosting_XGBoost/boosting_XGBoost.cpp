@@ -17,9 +17,9 @@
  * @param loss_function Loss function (to compute the gradient and loss)
  */
 XGBoost::XGBoost(int n_estimators, int max_depth, double learning_rate, double lambda, double alpha,
-                 std::unique_ptr<LossFunction> loss_function)
+                 std::unique_ptr<LossFunction> loss_function, int whichLossFunc)
     : n_estimators(n_estimators), max_depth(max_depth), learning_rate(learning_rate),
-      lambda(lambda), alpha(alpha), loss_function(std::move(loss_function)), initial_prediction(0.0) {
+      lambda(lambda), alpha(alpha), loss_function(std::move(loss_function)), initial_prediction(0.0), whichLossFunc(whichLossFunc) {
     trees.reserve(n_estimators);
 }
 
@@ -118,7 +118,8 @@ void XGBoost::save(const std::string& filename) const {
          << learning_rate << " "
          << lambda << " " 
          << alpha << " " 
-         << initial_prediction << "\n";
+         << initial_prediction << " "
+         << whichLossFunc << "\n";
     
     // Save each tree with a unique name
     for (size_t i = 0; i < trees.size(); ++i) {
@@ -136,12 +137,13 @@ void XGBoost::load(const std::string& filename) {
     }
     
     // Load all model parameters
-    file >> n_estimators 
+    file >> n_estimators
          >> max_depth 
          >> learning_rate 
          >> lambda 
          >> alpha 
-         >> initial_prediction;
+         >> initial_prediction
+         >> whichLossFunc;
     
     // Reset and reload trees
     trees.clear();
@@ -186,4 +188,31 @@ std::map<std::string, double> XGBoost::featureImportance(const std::vector<std::
     }
     
     return normalized_importance;
+}
+
+// Retourne les paramètres d'entraînement sous forme de dictionnaire (clé-valeur)
+std::map<std::string, std::string> XGBoost::getTrainingParameters() const {
+    std::map<std::string, std::string> parameters;
+    parameters["NumEstimators"] = std::to_string(n_estimators);
+    parameters["MaxDepth"] = std::to_string(max_depth);
+    parameters["LearningRate"] = std::to_string(learning_rate);
+    parameters["Lambda"] = std::to_string(lambda);
+    parameters["Alpha"] = std::to_string(alpha);
+    parameters["InitialPrediction"] = std::to_string(initial_prediction);
+    parameters["WhichLossFunction"] = std::to_string(whichLossFunc);
+    return parameters;
+}
+
+// Retourne les paramètres d'entraînement sous forme d'une chaîne de caractères lisible
+std::string XGBoost::getTrainingParametersString() const {
+    std::ostringstream oss;
+    oss << "Training Parameters:\n";
+    oss << "  - Number of Estimators: " << n_estimators << "\n";
+    oss << "  - Max Depth: " << max_depth << "\n";
+    oss << "  - Learning Rate: " << learning_rate << "\n";
+    oss << "  - Lambda (L2 Regularization): " << lambda << "\n";
+    oss << "  - Alpha (L1 Regularization): " << alpha << "\n";
+    oss << "  - Initial Prediction: " << initial_prediction << "\n";
+    oss << "  - Loss Function: " << whichLossFunc << "\n";
+    return oss.str();
 }
