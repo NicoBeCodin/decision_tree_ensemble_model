@@ -10,12 +10,8 @@
 
 class Math{
 public:
-    /**
-     * Calculate the mean of the samples in the node
-     * @param labels Target values of the current node
-     * @return Prediction value for this node
-     */
-    static double calculateMean (const std::vector<double>& labels) ;
+
+    static double calculateMean(const std::vector<double>& labels) ;
 
     static double calculateMeanWithIndices(const std::vector<double>& Labels, const std::vector<int>& Indices);
 
@@ -32,11 +28,7 @@ public:
     static double calculateMAEWithIndices(const std::vector<double>& Labels, const std::vector<int>& Indices);
 
     static double calculateMAE(const std::vector<double>& values, double median);
-    /**
-     * Calculate the Mean Squared Error (MSE) of the samples in the node
-     * @param labels Target values of the current node
-     * @return MSE value
-     */
+
     static double calculateMSE(const std::vector<double>& labels);
 
     static std::vector<double> negativeGradient(const std::vector<double>& y_true, const std::vector<double>& y_pred) ;
