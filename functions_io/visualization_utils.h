@@ -22,24 +22,24 @@ struct ModelComparison {
 
 class VisualizationUtils {
 public:
-    // Génère un graphique de comparaison des métriques entre différents modèles
+    // Generates a comparison plot of metrics between different models
     static void generateModelComparisonPlot(const std::vector<ModelComparison>& comparisons, 
                                           const std::string& output_file);
 
-    // Génère une courbe d'apprentissage (learning curve)
+    // Generates a learning curve plot
     static void generateLearningCurve(const std::vector<double>& training_errors,
                                     const std::vector<double>& validation_errors,
                                     const std::string& output_file);
 
-    // Génère un graphique de l'importance des caractéristiques
+    // Generates a feature importance plot
     static void generateFeatureImportancePlot(const std::vector<std::pair<std::string, double>>& importance_scores,
                                             const std::string& output_file);
 
-    // Calcule le coefficient R²
+    // Calculates the R² coefficient
     static double calculateR2Score(const std::vector<double>& y_true, 
                                  const std::vector<double>& y_pred);
 
-    // Calcule l'erreur moyenne absolue (MAE)
+    // Calculates the Mean Absolute Error (MAE)
     static double calculateMAE(const std::vector<double>& y_true, 
                              const std::vector<double>& y_pred);
 
@@ -50,4 +50,4 @@ private:
 
 } // namespace Visualization
 
-#endif // VISUALIZATION_UTILS_H 
+#endif // VISUALIZATION_UTILS_H
