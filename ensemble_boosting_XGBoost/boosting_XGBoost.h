@@ -11,7 +11,7 @@
 #include <map>
 
 /**
- * @brief Classe principale implémentant XGBoost.
+ * @brief Main class implementing XGBoost.
  */
 class XGBoost {
 private:
@@ -25,65 +25,65 @@ private:
     double initial_prediction;
 
     /**
-     * @brief Initialisation de la prédiction initiale avec la moyenne des valeurs y.
-     * @param y Vecteur des étiquettes cibles)
+     * @brief Initialize the initial prediction with the mean of the y values.
+     * @param y Target labels vector
      */
     void initializePrediction(const std::vector<double>& y);
 
 public:
     /**
-     * @brief Constructeur pour initialiser le modèle XGBoost pour le boosting
-     * @param n_estimators Nombre de faibles apprenants (arbres de décision)
-     * @param max_depth Profondeur maximale pour chaque arbre
-     * @param learning_rate Taux d'apprentissage
-     * @param lambda Paramètre de régularisation L2
-     * @param alpha Paramètre de régularisation L1
-     * @param loss_function Fonction de perte (pour calculer le gradient et la perte)
+     * @brief Constructor to initialize the XGBoost model for boosting
+     * @param n_estimators Number of weak learners (decision trees)
+     * @param max_depth Maximum depth for each tree
+     * @param learning_rate Learning rate
+     * @param lambda L2 regularization parameter
+     * @param alpha L1 regularization parameter
+     * @param loss_function Loss function (to compute the gradient and loss)
      */
     XGBoost(int n_estimators, int max_depth, double learning_rate, double lambda, double alpha, std::unique_ptr<LossFunction> loss_function);
     
     /**
-     * @brief Entraîner le modèle de Boosting
-     * @param X Matrice des caractéristiques
-     * @param y Vecteur des étiquettes cibles
+     * @brief Train the Boosting model
+     * @param X Feature matrix
+     * @param y Target labels vector
      */
     void train(const std::vector<std::vector<double>>& X, const std::vector<double>& y);
     
     /**
-     * @brief Prédire pour un seul échantillon
-     * @param x Vecteur des caractéristiques d'un échantillon
-     * @return Prédiction pour l'échantillon
+     * @brief Predict for a single sample
+     * @param x Feature vector of a sample
+     * @return Prediction for the sample
      */
     double predict(const std::vector<double>& x) const;
 
     /**
-     * @brief Prédire pour plusieurs échantillons
-     * @param X Matrice des caractéristiques
-     * @return Vecteur des prédictions pour chaque échantillon
+     * @brief Predict for multiple samples
+     * @param X Feature matrix
+     * @return Vector of predictions for each sample
      */
     std::vector<double> predict(const std::vector<std::vector<double>>& X) const;
     
     /**
-     * @brief Évaluer la performance du modèle sur un ensemble de test
-     * @param X_test Matrice des caractéristiques de test
-     * @param y_test Vecteur des étiquettes cibles de test
-     * @return Erreur quadratique moyenne (MSE)
+     * @brief Evaluate the model performance on a test set
+     * @param X_test Test feature matrix
+     * @param y_test Test target labels vector
+     * @return Mean Squared Error (MSE)
      */
     double evaluate(const std::vector<std::vector<double>>& X_test, const std::vector<double>& y_test) const;
 
     /**
-     * @brief Calculer l'importance des caractéristiques
-     * @param feature_names Noms des caractéristiques (optionnel)
-     * @return Map des caractéristiques avec leur importance relative
+     * @brief Compute feature importance
+     * @param feature_names Feature names (optional)
+     * @return Map of features with their relative importance
      */
     std::map<std::string, double> featureImportance(const std::vector<std::string>& feature_names = {}) const;
     
     /** 
-     * @brief Destructeur de XGBoost
+     * @brief Destructor of XGBoost
     */
     ~XGBoost() = default;
 
-    // Méthodes de sérialisation
+    // Serialization methods
     void save(const std::string& filename) const;
     void load(const std::string& filename);
     double getInitialPrediction() const { return initial_prediction; }
