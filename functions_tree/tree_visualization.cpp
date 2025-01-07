@@ -11,7 +11,8 @@ const int MAX_NODES_VISUALIZATION = 50;  // Maximum number of nodes to display
 
 void TreeVisualization::generateDotFile(const DecisionTreeSingle& tree,
                                         const std::string& filename,
-                                        const std::vector<std::string>& feature_names) {
+                                        const std::vector<std::string>& feature_names,
+                                        int criteria) {
     try {
         if (!tree.getRoot()) {
             std::cout << "The tree is empty, unable to generate visualization." << std::endl;
@@ -51,7 +52,7 @@ void TreeVisualization::generateDotFile(const DecisionTreeSingle& tree,
         // Generate the tree content
         int node_count = 0;
         int total_nodes = 0;
-        generateDotContent(tree.getRoot(), out, node_count, feature_names, 0, total_nodes);
+        generateDotContent(tree.getRoot(), out, node_count, feature_names, 0, total_nodes, criteria);
 
         out << "}\n";
         out.close();
@@ -78,31 +79,32 @@ void TreeVisualization::generateDotContent(const DecisionTreeSingle::Tree* node,
                                          int& node_count,
                                          const std::vector<std::string>& feature_names,
                                          int depth,
-                                         int& total_nodes) {
+                                         int& total_nodes,
+                                         int criteria) {
     if (!node || depth >= MAX_DEPTH_VISUALIZATION || total_nodes >= MAX_NODES_VISUALIZATION) return;
 
     int current_node = node_count++;
     total_nodes++;
     
-    std::string node_label = formatNode(node, feature_names);
+    std::string node_label = formatNode(node, feature_names, criteria);
     std::string node_color = node->IsLeaf ? "lightblue" : "lightgreen";
     out << "    node" << current_node << " [label=\"" << node_label << "\", fillcolor=" << node_color << "];\n";
 
     if (!node->IsLeaf && depth < MAX_DEPTH_VISUALIZATION - 1) {
         int left_child = node_count;
-        generateDotContent(node->Left.get(), out, node_count, feature_names, depth + 1, total_nodes);
+        generateDotContent(node->Left.get(), out, node_count, feature_names, depth + 1, total_nodes, criteria);
         out << "    node" << current_node << " -> node" << left_child 
             << " [label=\"≤" << std::fixed << std::setprecision(1) << node->MaxValue << "\"];\n";
 
         int right_child = node_count;
-        generateDotContent(node->Right.get(), out, node_count, feature_names, depth + 1, total_nodes);
+        generateDotContent(node->Right.get(), out, node_count, feature_names, depth + 1, total_nodes, criteria);
         out << "    node" << current_node << " -> node" << right_child 
             << " [label=\">" << std::fixed << std::setprecision(1) << node->MaxValue << "\"];\n";
     }
 }
 
 std::string TreeVisualization::formatNode(const DecisionTreeSingle::Tree* node,
-                                        const std::vector<std::string>& feature_names) {
+                                        const std::vector<std::string>& feature_names, int criteria) {
     std::stringstream ss;
 
     if (node->IsLeaf) {
@@ -114,7 +116,12 @@ std::string TreeVisualization::formatNode(const DecisionTreeSingle::Tree* node,
             : "f" + std::to_string(node->FeatureIndex);
         ss << feature_name << "\\n";
         ss << std::scientific << std::setprecision(4);  // Scientific notation for MSE
-        ss << "MSE: " << node->NodeMetric<< "\\n";
+        if(criteria == 0) {
+            ss << "MSE: " << node->NodeMetric<< "\\n";
+        }
+        if(criteria == 1) {
+            ss << "MAE: " << node->NodeMetric<< "\\n";
+        }
         ss << "N: " << node->NodeSamples;
     }
 
@@ -124,7 +131,8 @@ std::string TreeVisualization::formatNode(const DecisionTreeSingle::Tree* node,
 void TreeVisualization::generateEnsembleDotFiles(
     const std::vector<std::unique_ptr<DecisionTreeSingle>>& trees,
     const std::string& base_filename,
-    const std::vector<std::string>& feature_names) {
+    const std::vector<std::string>& feature_names,
+    int criteria) {
     
     std::cout << "Generating representative trees..." << std::endl;
     
@@ -149,7 +157,7 @@ void TreeVisualization::generateEnsembleDotFiles(
         std::string filename = base_filename + suffix;
         std::cout << "\nGenerating tree " << (idx + 1) << "/" << trees.size() 
                   << " (position: " << suffix.substr(1) << ")" << std::endl;
-        generateDotFile(*trees[idx], filename, feature_names);
+        generateDotFile(*trees[idx], filename, feature_names, criteria);
     }
 
     std::cout << "Visualizations generated in the 'visualizations' folder" << std::endl;

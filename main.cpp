@@ -194,10 +194,10 @@ int main(int argc, char* argv[]) {
       FeatureImportance::calculateTreeImportance(single_tree, feature_names);
       displayFeatureImportance(feature_importance);
 
+      bool save_model = false;
       std::cout << "Would you like to save this model? (1 = Yes, 0 = No): ";
-      int answer = 0;
-      std::cin >> answer;
-      if (answer == 1) {
+      std::cin >> save_model;
+      if (save_model) {
         std::cout << "le critère après tout les délires 3: " << criteria << std::endl;
         std::cout << "Please type the name you want to give to the .txt file: \n";
         std::string filename;
@@ -228,12 +228,19 @@ int main(int argc, char* argv[]) {
       
       ModelComparison::saveResults(results);
 
-      // Add image for visualization
-      std::cout << "Génération de la visualisation de l'arbre..." << std::endl;
-      TreeVisualization::generateDotFile(single_tree, "single_tree",
-                                        feature_names);
-      std::cout << "Visualisation générée dans le dossier 'visualizations'"
-                << std::endl;
+      // Generate visualisation if users wants it
+      bool visualisation_ask = false;
+      std::cout << "Would you like to genarate a visualisation of this model? (1 = Yes, 0 = No): ";
+      std::cin >> visualisation_ask;
+
+      if (visualisation_ask) { 
+        // Add image for visualization
+        std::cout << "Génération de la visualisation de l'arbre..." << std::endl;
+        TreeVisualization::generateDotFile(single_tree, "single_tree",
+                                          feature_names, criteria);
+        std::cout << "Visualisation générée dans le dossier 'visualizations'"
+                  << std::endl;
+      }
     
   } else if (choice == 2) {
       int num_trees, max_depth, min_samples_split;
@@ -367,12 +374,19 @@ int main(int argc, char* argv[]) {
       
       ModelComparison::saveResults(results);
 
-      // Add image for visualisation
-      std::cout << "Génération des visualisations des arbres..." << std::endl;
-      TreeVisualization::generateEnsembleDotFiles(bagging_model.getTrees(),
-                                                  "bagging", feature_names);
-      std::cout << "Visualisations générées dans le dossier 'visualizations'"
-                << std::endl;
+      // Generate visualisation if users wants it
+      bool visualisation_ask = false;
+      std::cout << "Would you like to genarate a visualisation of this model? (1 = Yes, 0 = No): ";
+      std::cin >> visualisation_ask;
+
+      if (visualisation_ask) {
+        // Add image for visualisation
+        std::cout << "Génération des visualisations des arbres..." << std::endl;
+        TreeVisualization::generateEnsembleDotFiles(bagging_model.getTrees(),
+                                                    "bagging", feature_names, criteria);
+        std::cout << "Visualisations générées dans le dossier 'visualizations'"
+                  << std::endl;
+      }
     
   } else if (choice == 3) {
       int n_estimators, max_depth, min_samples_split;
@@ -513,10 +527,17 @@ int main(int argc, char* argv[]) {
       
       ModelComparison::saveResults(results);
 
-      // Generate images and save
-      std::cout << "Génération des visualisations des arbres..." << std::endl;
-      TreeVisualization::generateEnsembleDotFiles(boosting_model.getEstimators(), "boosting", feature_names);
-      std::cout << "Visualisations générées dans le dossier 'visualizations'" << std::endl;
+      // Generate visualisation if users wants it
+      bool visualisation_ask = false;
+      std::cout << "Would you like to genarate a visualisation of this model? (1 = Yes, 0 = No): ";
+      std::cin >> visualisation_ask;
+
+      if (visualisation_ask) {
+        // Generate images and save
+        std::cout << "Génération des visualisations des arbres..." << std::endl;
+        TreeVisualization::generateEnsembleDotFiles(boosting_model.getEstimators(), "boosting", feature_names, criteria);
+        std::cout << "Visualisations générées dans le dossier 'visualizations'" << std::endl;
+      }
   } else if (choice == 4) {
         int n_estimators, max_depth;
         int which_loss_func;
