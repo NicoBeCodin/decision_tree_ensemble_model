@@ -16,10 +16,12 @@ void DecisionTreeSingle::train(const std::vector<std::vector<double>>& Data, con
     std::iota(Indices.begin(), Indices.end(), 0);
     // Will use MSE
     if (Criteria == 0) {
+        std::cout << "Training using MSE." << std::endl;
         splitNode(Root.get(), Data, Labels, Indices, 0);
     }
     // Will use MAE
     else if (Criteria == 1) {
+        std::cout << "Training using MAE." << std::endl;
         splitNodeMAE(Root.get(), Data, Labels, Indices, 0);
     }
 }

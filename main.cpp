@@ -235,13 +235,12 @@ int main(int argc, char* argv[]) {
 
       if (visualisation_ask) { 
         // Add image for visualization
-        std::cout << "Génération de la visualisation de l'arbre..." << std::endl;
+        std::cout << "Génération de la visualisation de l'arbre avec critère: " << (criteria == 0 ? "MSE" : "MAE") << "..." << std::endl;
         TreeVisualization::generateDotFile(single_tree, "single_tree",
                                           feature_names, criteria);
         std::cout << "Visualisation générée dans le dossier 'visualizations'"
                   << std::endl;
       }
-    
   } else if (choice == 2) {
       int num_trees, max_depth, min_samples_split;
       int criteria;
@@ -381,7 +380,7 @@ int main(int argc, char* argv[]) {
 
       if (visualisation_ask) {
         // Add image for visualisation
-        std::cout << "Génération des visualisations des arbres..." << std::endl;
+        std::cout << "Génération de la visualisation des arbres avec critère: " << (criteria == 0 ? "MSE" : "MAE") << "..." << std::endl;
         TreeVisualization::generateEnsembleDotFiles(bagging_model.getTrees(),
                                                     "bagging", feature_names, criteria);
         std::cout << "Visualisations générées dans le dossier 'visualizations'"
@@ -534,7 +533,7 @@ int main(int argc, char* argv[]) {
 
       if (visualisation_ask) {
         // Generate images and save
-        std::cout << "Génération des visualisations des arbres..." << std::endl;
+        std::cout << "Génération de la visualisation des arbres avec critère: " << (criteria == 0 ? "MSE" : "MAE") << "..." << std::endl;
         TreeVisualization::generateEnsembleDotFiles(boosting_model.getEstimators(), "boosting", feature_names, criteria);
         std::cout << "Visualisations générées dans le dossier 'visualizations'" << std::endl;
       }
