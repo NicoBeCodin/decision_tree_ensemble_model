@@ -16,9 +16,9 @@
  * @param alpha L1 regularization parameter
  * @param loss_function Loss function (to compute the gradient and loss)
  */
-XGBoost::XGBoost(int n_estimators, int max_depth, double learning_rate, double lambda, double alpha,
+XGBoost::XGBoost(int n_estimators, int max_depth, int min_samples_split, double learning_rate, double lambda, double alpha,
                  std::unique_ptr<LossFunction> loss_function, int whichLossFunc)
-    : n_estimators(n_estimators), max_depth(max_depth), learning_rate(learning_rate),
+    : n_estimators(n_estimators), max_depth(max_depth), min_samples_split(min_samples_split), learning_rate(learning_rate),
       lambda(lambda), alpha(alpha), loss_function(std::move(loss_function)), initial_prediction(0.0), whichLossFunc(whichLossFunc) {
     trees.reserve(n_estimators);
 }
@@ -50,7 +50,7 @@ void XGBoost::train(const std::vector<std::vector<double>>& X, const std::vector
         }
 
         // Initialize a new tree
-        auto tree = std::make_unique<DecisionTreeXGBoost>(max_depth, 1, lambda, alpha);
+        auto tree = std::make_unique<DecisionTreeXGBoost>(max_depth, min_samples_split, lambda, alpha);
         tree->train(X, residuals, y_pred);
 
         // Update predictions

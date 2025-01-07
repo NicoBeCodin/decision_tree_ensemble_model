@@ -538,7 +538,7 @@ int main(int argc, char* argv[]) {
         std::cout << "Visualisations générées dans le dossier 'visualizations'" << std::endl;
       }
   } else if (choice == 4) {
-        int n_estimators, max_depth;
+        int n_estimators, max_depth, min_samples_split;
         int which_loss_func;
         double learning_rate, lambda, alpha, initial_prediction;
 
@@ -550,15 +550,16 @@ int main(int argc, char* argv[]) {
             std::cout << "Directory created: " << models_dir << std::endl;
         }
 
-        if (use_custom_params && params.size() >= 5) {
+        if (use_custom_params && params.size() > 5) {
             which_loss_func = std::stoi(params[0]);
             n_estimators = std::stoi(params[1]);
             max_depth = std::stoi(params[2]);
-            learning_rate = std::stod(params[3]);
-            lambda = std::stod(params[4]);
-            alpha = std::stod(params[5]);
+            min_samples_split = std::stoi(params[3]);
+            learning_rate = std::stod(params[4]);
+            lambda = std::stod(params[5]);
+            alpha = std::stod(params[6]);
         } else if (load_request) {
-          XGBoost xgboost_model(0, 0, 0.0, 0.0, 0.0, nullptr, 0); // Initialisation temporaire
+          XGBoost xgboost_model(0, 0, 0, 0.0, 0.0, 0.0, nullptr, 0); // Initialisation temporaire
           
           try {
             xgboost_model.load(path_model_filename);
@@ -573,6 +574,7 @@ int main(int argc, char* argv[]) {
           // Update parameter variables
           n_estimators = std::stoi(training_params["NumEstimators"]);
           max_depth = std::stoi(training_params["MaxDepth"]);
+          min_samples_split = std::stoi(training_params["MinSamplesSplit"]);
           learning_rate = std::stod(training_params["LearningRate"]);
           lambda = std::stod(training_params["Lambda"]);
           alpha = std::stod(training_params["Alpha"]);
@@ -589,12 +591,14 @@ int main(int argc, char* argv[]) {
                       << "Default for comparing trees (MSE)\n"
                       << "Default number of estimators : 75\n"
                       << "Default maximum depth = 10\n"
+                      << "Default minimum sample split = 3\n"
                       << "Default learning rate = 0.1\n"
                       << "Default lambda (L2 regularization) = 1.0\n"
                       << "Default gamma (complexity) = 0.05\n";
             which_loss_func = 0;
             n_estimators = 75;
             max_depth = 10;
+            min_samples_split = 3;
             learning_rate = 0.07;
             lambda = 0.3;
             alpha = 0.05;
@@ -612,7 +616,7 @@ int main(int argc, char* argv[]) {
         }
 
         std::cout << "Boosting process started, please wait...\n";
-        XGBoost xgboost_model(n_estimators, max_depth, learning_rate, lambda, alpha, std::move(loss_function), which_loss_func);
+        XGBoost xgboost_model(n_estimators, max_depth, min_samples_split, learning_rate, lambda, alpha, std::move(loss_function), which_loss_func);
 
         auto train_start = std::chrono::high_resolution_clock::now();
         xgboost_model.train(X_train, y_train);

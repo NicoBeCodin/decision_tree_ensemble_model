@@ -17,6 +17,7 @@ class XGBoost {
 private:
     int n_estimators;
     int max_depth;
+    int min_samples_split;
     double learning_rate;
     double lambda;  // L2 regularization
     double alpha;   // L1 regularization
@@ -41,7 +42,7 @@ public:
      * @param alpha L1 regularization parameter
      * @param loss_function Loss function (to compute the gradient and loss)
      */
-    XGBoost(int n_estimators, int max_depth, double learning_rate, double lambda, double alpha, std::unique_ptr<LossFunction> loss_function, int whichLossFunc);
+    XGBoost(int n_estimators, int max_depth, int min_sample_split, double learning_rate, double lambda, double alpha, std::unique_ptr<LossFunction> loss_function, int whichLossFunc);
     
     /**
      * @brief Train the Boosting model

@@ -218,7 +218,7 @@ void getModelParameters(int model_choice, std::string& parameters) {
             break;
         }
         case 4: {  // XGBoost
-            int n_estimators, max_depth, which_loss_func;
+            int n_estimators, max_depth, min_samples, which_loss_func;
             double learning_rate, lambda, gamma;
 
             std::cout << "\nXGBoost Parameters:\n";
@@ -240,7 +240,9 @@ void getModelParameters(int model_choice, std::string& parameters) {
             std::cin >> n_estimators;
             std::cout << "Maximum depth (default: 10): ";
             std::cin >> max_depth;
-            std::cout << "Learning rate (default: 0.1): ";
+            std::cout << "Minimum samples to split (default: 3): ";
+            std::cin >> min_samples;
+            std::cout << "Learning rate (default: 0.07): ";
             std::cin >> learning_rate;
             std::cout << "Lambda - L2 regularization (default: 1.0): ";
             std::cin >> lambda;

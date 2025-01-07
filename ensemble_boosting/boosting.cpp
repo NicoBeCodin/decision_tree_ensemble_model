@@ -60,7 +60,7 @@ void Boosting::train(const std::vector<std::vector<double>>& X,
         std::vector<double> residuals = loss_function->negativeGradient(y, y_pred);
 
         // Create and train a new weak learner
-        auto tree = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease);
+        auto tree = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease, Criteria);
         // Training with MSE only for the moment
         tree->train(X, residuals, Criteria);
 
