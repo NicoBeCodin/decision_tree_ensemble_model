@@ -241,7 +241,6 @@ std::string TreeVisualization::formatNode(const DecisionTreeSingle::Tree* node,
     std::stringstream ss;
 
     if (node->IsLeaf) {
-        std::cout << "OEOEOEOOEOOEOEO" << std::endl;
         ss << std::fixed << std::setprecision(6);  // More precision for leaves
         ss << "Pred: " << node->Prediction;
     } else {
