@@ -107,8 +107,8 @@ void DecisionTreeSingle::splitNodeMAE(Tree* Node, const std::vector<std::vector<
 
     Node->Left = std::make_unique<Tree>();
     Node->Right = std::make_unique<Tree>();
-    splitNode(Node->Left.get(), Data, Labels, LeftIndices, Depth + 1);
-    splitNode(Node->Right.get(), Data, Labels, RightIndices, Depth + 1);
+    splitNodeMAE(Node->Left.get(), Data, Labels, LeftIndices, Depth + 1);
+    splitNodeMAE(Node->Right.get(), Data, Labels, RightIndices, Depth + 1);
 }
 
 // Find the best split (variance minimization)
