@@ -198,7 +198,6 @@ int main(int argc, char* argv[]) {
       std::cout << "Would you like to save this model? (1 = Yes, 0 = No): ";
       std::cin >> save_model;
       if (save_model) {
-        std::cout << "le critère après tout les délires 3: " << criteria << std::endl;
         std::cout << "Please type the name you want to give to the .txt file: \n";
         std::string filename;
         std::cin >> filename;
