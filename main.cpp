@@ -463,7 +463,7 @@ int main(int argc, char* argv[]) {
         printMAEorMSE = "Boosting Mean Square Error (MSE): ";
       } else {
         loss_function = std::make_unique<MeanAbsoluteLoss>();
-        printMAEorMSE = "Bagging Mean Absolute Error (MAE): ";
+        printMAEorMSE = "Boosting Mean Absolute Error (MAE): ";
       }
 
       std::cout << "Boosting process started, please wait...\n";
@@ -669,6 +669,18 @@ int main(int argc, char* argv[]) {
             std::string path = "../saved_models/xgboost_models/" + filename;
             xgboost_model.save(path);
             std::cout << "Model saved successfully as " << filename << "in this path : " << path << "\n";
+        }
+
+        // Generate visualisation if users wants it
+        bool visualisation_ask = false;
+        std::cout << "Would you like to genarate a visualisation of this model? (1 = Yes, 0 = No): ";
+        std::cin >> visualisation_ask;
+
+        if (visualisation_ask) {
+          // Generate images and save
+          std::cout << "Génération de la visualisation des arbres..." << std::endl;
+          TreeVisualization::generateEnsembleDotFilesXGBoost(xgboost_model.getEstimators(), "xgboost", feature_names);
+          std::cout << "Visualisations générées dans le dossier 'visualizations'" << std::endl;
         }
   } else {
     std::cerr << "Invalid choice! Please choose 1, 2, 3 or 4" << std::endl;

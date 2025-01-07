@@ -72,6 +72,9 @@ public:
      */
     double evaluate(const std::vector<std::vector<double>>& X_test, const std::vector<double>& y_test) const;
 
+    // New method to access the estimators
+    const std::vector<std::unique_ptr<DecisionTreeXGBoost>>& getEstimators() const { return trees; }
+    
     /**
      * @brief Compute feature importance
      * @param feature_names Feature names (optional)
