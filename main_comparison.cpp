@@ -238,7 +238,7 @@ void getModelParameters(int model_choice, std::string& parameters) {
             }
             std::cout << "Number of estimators (default: 75): ";
             std::cin >> n_estimators;
-            std::cout << "Maximum depth (default: 10): ";
+            std::cout << "Maximum depth (default: 15): ";
             std::cin >> max_depth;
             std::cout << "Minimum samples to split (default: 3): ";
             std::cin >> min_samples;
@@ -252,6 +252,7 @@ void getModelParameters(int model_choice, std::string& parameters) {
             parameters += " " + std::to_string(which_loss_func) + " " + 
                          std::to_string(n_estimators) + " " +
                          std::to_string(max_depth) + " " + 
+                         std::to_string(min_samples) + " " +
                          std::to_string(learning_rate) + " " +
                          std::to_string(lambda) + " " +
                          std::to_string(gamma);

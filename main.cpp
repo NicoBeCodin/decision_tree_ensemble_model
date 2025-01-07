@@ -590,17 +590,17 @@ int main(int argc, char* argv[]) {
             std::cout << "Generation of default values : " << std::endl
                       << "Default for comparing trees (MSE)\n"
                       << "Default number of estimators : 75\n"
-                      << "Default maximum depth = 10\n"
+                      << "Default maximum depth = 15\n"
                       << "Default minimum sample split = 3\n"
                       << "Default learning rate = 0.1\n"
                       << "Default lambda (L2 regularization) = 1.0\n"
                       << "Default gamma (complexity) = 0.05\n";
             which_loss_func = 0;
             n_estimators = 75;
-            max_depth = 10;
+            max_depth = 15;
             min_samples_split = 3;
             learning_rate = 0.07;
-            lambda = 0.3;
+            lambda = 1.0;
             alpha = 0.05;
         }
 
