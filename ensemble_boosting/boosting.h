@@ -177,6 +177,8 @@ public:
   std::map<std::string, std::string> getTrainingParameters() const;
   std::string getTrainingParametersString() const;
 
+  
+
 private:
   int n_estimators;
   int max_depth;

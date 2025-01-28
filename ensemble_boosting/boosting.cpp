@@ -247,9 +247,8 @@ void Boosting::train(const std::vector<double>& X, int rowLength,
 
         // Calculate and display loss
         double current_loss = loss_function->computeLoss(y, y_pred);
-#ifndef TESTING
+
         std::cout << "Iteration " << i + 1 << ", Loss: " << current_loss << std::endl;
-#endif
     }
 }
 

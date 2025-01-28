@@ -11,63 +11,68 @@ add_subdirectory(ensemble_boosting_XGBoost)
 add_subdirectory(data_clean)
 add_subdirectory(model_comparison)
 
-include(FetchContent)
-FetchContent_Declare(
-  googletest
-  GIT_REPOSITORY https://github.com/google/googletest.git
-  GIT_TAG release-1.12.1
-)
-FetchContent_MakeAvailable(googletest)
+# Option to enable/disable tests
+option(ENABLE_TESTS "Enable building tests" OFF)
+
+if (ENABLE_TESTS)
+    include(FetchContent)
+    FetchContent_Declare(
+      googletest
+      GIT_REPOSITORY https://github.com/google/googletest.git
+      GIT_TAG release-1.12.1
+    )
+    FetchContent_MakeAvailable(googletest)
+
+    enable_testing()
+
+    # Tests
+    add_executable(math_functions_test tests/math_functions_test.cpp)
+    target_link_libraries(math_functions_test
+        gtest_main
+        FunctionsTree
+    )
+
+    add_executable(decision_tree_test tests/decision_tree_test.cpp)
+    target_link_libraries(decision_tree_test
+        gtest_main
+        FunctionsTree
+    )
+
+    add_executable(boosting_test tests/boosting_test.cpp)
+    target_link_libraries(boosting_test
+        gtest_main
+        FunctionsTree
+        Boosting
+    )
+
+    add_executable(xgboost_test tests/xgboost_test.cpp)
+    target_link_libraries(xgboost_test
+        gtest_main
+        FunctionsTree
+        Boosting
+        Boosting_XGBoost
+    )
+
+    add_executable(bagging_test tests/bagging_test.cpp)
+    target_link_libraries(bagging_test
+        gtest_main
+        FunctionsTree
+        Bagging
+    )
+
+    add_executable(cross_validation_test tests/cross_validation_test.cpp)
+    target_link_libraries(cross_validation_test
+        gtest_main
+        FunctionsTree
+        Bagging
+        Boosting
+        Boosting_XGBoost
+    )
+endif()
 
 add_executable(DataClean main_data_clean.cpp)
 add_executable(MainEnsemble main.cpp)
 add_executable(MainKFold main_kfold.cpp)
-
-enable_testing()
-
-# Tests
-add_executable(math_functions_test tests/math_functions_test.cpp)
-target_link_libraries(math_functions_test
-    gtest_main
-    FunctionsTree
-)
-
-add_executable(decision_tree_test tests/decision_tree_test.cpp)
-target_link_libraries(decision_tree_test
-    gtest_main
-    FunctionsTree
-)
-
-add_executable(boosting_test tests/boosting_test.cpp)
-target_link_libraries(boosting_test
-    gtest_main
-    FunctionsTree
-    Boosting
-)
-
-add_executable(xgboost_test tests/xgboost_test.cpp)
-target_link_libraries(xgboost_test
-    gtest_main
-    FunctionsTree
-    Boosting
-    Boosting_XGBoost
-)
-
-add_executable(bagging_test tests/bagging_test.cpp)
-target_link_libraries(bagging_test
-    gtest_main
-    FunctionsTree
-    Bagging
-)
-
-add_executable(cross_validation_test tests/cross_validation_test.cpp)
-target_link_libraries(cross_validation_test
-    gtest_main
-    FunctionsTree
-    Bagging
-    Boosting
-    Boosting_XGBoost
-)
 
 target_link_libraries(DataClean PRIVATE Data_Clean)
 
