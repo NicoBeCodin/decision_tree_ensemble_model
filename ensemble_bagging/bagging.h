@@ -96,6 +96,7 @@
 #include <memory>
 #include <random>
 #include <algorithm>
+#include <map>
 #include <stdexcept>
 
 #include "../functions_tree/decision_tree_single.h"
@@ -115,14 +116,14 @@ public:
      * @param min_samples_split Minimum number of samples required to split a node
      * @param min_impurity_decrease Minimum impurity decrease required for a split
      */
-    Bagging(int num_trees, int max_depth, int min_samples_split, double min_impurity_decrease, std::unique_ptr<LossFunction> loss_function = std::unique_ptr<LeastSquaresLoss>());
+    Bagging(int num_trees, int max_depth, int min_samples_split, double min_impurity_decrease, std::unique_ptr<LossFunction> loss_function = std::unique_ptr<LeastSquaresLoss>(), int Criteria = 0, int whichLossFunc = 0);
 
     /**
      * @brief Train the Bagging model
      * @param data Feature matrix
      * @param labels Target vector
      */
-    void train(const std::vector<double>& data, int rowLength, const std::vector<double>& labels, int criteria = 0);
+    void train(const std::vector<double>& data, int rowLength, const std::vector<double>& labels, int criteria);
 
     /**
      * @brief Predict the target value for a single sample
@@ -157,10 +158,17 @@ public:
      */
     void load(const std::string& filename);
 
+    // Retourne les paramètres d'entraînement sous forme de dictionnaire (clé-valeur)
+    std::map<std::string, std::string> getTrainingParameters() const;
+    // Retourne les paramètres d'entraînement sous forme d'une chaîne de caractères lisible
+    std::string getTrainingParametersString() const;
+
 private:
     int numTrees;  // Number of trees in the ensemble
     int maxDepth;  // Maximum depth of each tree
     int minSamplesSplit; // Minimum number of samples to split a node
+    int Criteria;
+    int whichLossFunc;
     double minImpurityDecrease; // Minimum impurity decrease for splitting
     std::unique_ptr<LossFunction> loss_function; //Function to calculate loss
     std::vector<std::unique_ptr<DecisionTreeSingle>> trees;  // Ensemble of decision trees

@@ -153,17 +153,18 @@
 #include <stdexcept>
 #include <fstream>
 #include <iostream>
+#include <map>
 
 /**
- * Constructor for Bagging
- * @param num_trees Number of trees in the Bagging ensemble
- * @param max_depth Maximum depth of each tree
- * @param min_samples_split Minimum number of samples required to split a node
- * @param min_impurity_decrease Minimum impurity decrease required for a split
- * @param loss_function Loss function for evaluation
- */
-Bagging::Bagging(int num_trees, int max_depth, int min_samples_split, double min_impurity_decrease, std::unique_ptr<LossFunction> loss_func)
-    : numTrees(num_trees), maxDepth(max_depth), minSamplesSplit(min_samples_split), minImpurityDecrease(min_impurity_decrease), loss_function(std::move(loss_func)) {
+* Constructor for Bagging
+* @param num_trees Number of trees in the Bagging ensemble
+* @param max_depth Maximum depth of each tree
+* @param min_samples_split Minimum number of samples required to split a node
+* @param min_impurity_decrease Minimum impurity decrease required for a split
+* @param loss_function
+*/
+Bagging::Bagging(int num_trees, int max_depth, int min_samples_split, double min_impurity_decrease, std::unique_ptr<LossFunction> loss_func, int Criteria, int whichLossFunc)
+    : numTrees(num_trees), maxDepth(max_depth), minSamplesSplit(min_samples_split), minImpurityDecrease(min_impurity_decrease), loss_function(std::move(loss_func)), Criteria(Criteria), whichLossFunc(whichLossFunc) {
     trees.reserve(numTrees); // Reserve space for the trees
 }
 
@@ -260,10 +261,15 @@ void Bagging::save(const std::string& filename) const {
         throw std::runtime_error("Cannot open file for writing: " + filename);
     }
     
-    // Save model parameters
-    file << numTrees << " " << maxDepth << " " << minSamplesSplit << " " << minImpurityDecrease << "\n";
+    // Sauvegarder tous les paramètres du modèle
+    file << numTrees << " " 
+         << maxDepth << " " 
+         << minSamplesSplit << " " 
+         << minImpurityDecrease << " " 
+         << Criteria << " " 
+         << whichLossFunc << "\n";
     
-    // Save each tree with a unique name
+    // Sauvegarder chaque arbre avec un nom unique
     for (size_t i = 0; i < trees.size(); ++i) {
         std::string tree_filename = filename + "_tree_" + std::to_string(i);
         trees[i]->saveTree(tree_filename);
@@ -282,25 +288,19 @@ void Bagging::load(const std::string& filename) {
         throw std::runtime_error("Cannot open file for reading: " + filename);
     }
     
-    // Check file validity
-    int num_trees, max_depth, min_samples_split;
-    double min_impurity_decrease;
-    if (!(file >> num_trees >> max_depth >> min_samples_split >> min_impurity_decrease)) {
-        file.close();
-        throw std::runtime_error("Invalid file format");
-    }
+    // Charger tous les paramètres du modèle
+    file >> numTrees 
+         >> maxDepth 
+         >> minSamplesSplit 
+         >> minImpurityDecrease
+         >> Criteria
+         >> whichLossFunc;
     
-    // Update model parameters
-    numTrees = num_trees;
-    maxDepth = max_depth;
-    minSamplesSplit = min_samples_split;
-    minImpurityDecrease = min_impurity_decrease;
-    
-    // Clear and reload trees
+    // Réinitialiser et recharger les arbres
     trees.clear();
     trees.resize(numTrees);
     
-    // Load each tree
+    // Charger chaque arbre
     for (int i = 0; i < numTrees; ++i) {
         std::string tree_filename = filename + "_tree_" + std::to_string(i);
         trees[i] = std::make_unique<DecisionTreeSingle>(maxDepth, minSamplesSplit, minImpurityDecrease);
@@ -308,4 +308,29 @@ void Bagging::load(const std::string& filename) {
     }
     
     file.close();
+}
+
+// Retourne les paramètres d'entraînement sous forme de dictionnaire (clé-valeur)
+std::map<std::string, std::string> Bagging::getTrainingParameters() const {
+    std::map<std::string, std::string> parameters;
+    parameters["NumTrees"] = std::to_string(numTrees);
+    parameters["MaxDepth"] = std::to_string(maxDepth);
+    parameters["MinSamplesSplit"] = std::to_string(minSamplesSplit);
+    parameters["MinImpurityDecrease"] = std::to_string(minImpurityDecrease);
+    parameters["Criteria"] = std::to_string(Criteria);
+    parameters["WhichLossFunction"] = std::to_string(whichLossFunc);
+    return parameters;
+}
+
+// Retourne les paramètres d'entraînement sous forme d'une chaîne de caractères lisible
+std::string Bagging::getTrainingParametersString() const {
+    std::ostringstream oss;
+    oss << "Training Parameters:\n";
+    oss << "  - Number of Trees: " << numTrees << "\n";
+    oss << "  - Max Depth: " << maxDepth << "\n";
+    oss << "  - Min Samples Split: " << minSamplesSplit << "\n";
+    oss << "  - Min Impurity Decrease: " << minImpurityDecrease << "\n";
+    oss << "  - Criteria: " << (Criteria == 0 ? "MSE" : "MAE") << "\n";
+    oss << "  - Loss Function: " << (whichLossFunc == 0 ? "Least Squares Loss" : "Mean Absolute Loss") << "\n";
+    return oss.str();
 }

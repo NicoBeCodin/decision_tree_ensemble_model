@@ -317,11 +317,11 @@ int main()
             size_t test_size = X_test.size();
             std::vector<double> y_pred;
             y_pred.reserve(test_size);
+            for (const auto &X_sample : X_test)
             for (size_t i =0; i<y_test.size(); ++i) {
                 std::vector<double> sample(X_test.begin()+ i*rowLength, X_test.begin() + (i+1)*rowLength);
                 y_pred.push_back(single_tree.predict(sample));
             }
-
             mse_value = Math::computeLossMSE(y_test, y_pred);
             auto eval_end = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> eval_duration = eval_end - eval_start;
@@ -338,11 +338,13 @@ int main()
             int max_depth = 60;
             int min_samples_split = 2;
             double min_impurity_decrease = 1e-6;
+            int criteria = 0;
+            int whichLossFunc = 0;
 
-            Bagging bagging_model(num_trees, max_depth, min_samples_split, min_impurity_decrease, std::unique_ptr<LeastSquaresLoss>());
+            Bagging bagging_model(num_trees, max_depth, min_samples_split, min_impurity_decrease, std::unique_ptr<LeastSquaresLoss>(), criteria, whichLossFunc);
 
             auto train_start = std::chrono::high_resolution_clock::now();
-            bagging_model.train(X_train, rowLength, y_train);
+            bagging_model.train(X_train, rowLength, y_train, criteria);
             auto train_end = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> train_duration = train_end - train_start;
             std::cout << "Training time (Bagging): " << train_duration.count() << " seconds\n";

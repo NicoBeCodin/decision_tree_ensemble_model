@@ -50,6 +50,8 @@ public:
     // Calculer l'importance des caractéristiques
     std::map<int, double> getFeatureImportance() const;
 
+    const Tree* getRoot() const { return Root.get(); }
+
 private:
     int MaxDepth;       // Profondeur maximale de l'arbre
     int MinLeafSize;    // Nombre minimal d'échantillons par feuille

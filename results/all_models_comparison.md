@@ -293,3 +293,81 @@ Feature importance not available for this model.
 
 ---
 
+### Bagging
+
+#### Performance Metrics
+- MSE: 9.881e-324
+- Training Time: 0.176 seconds
+- Evaluation Time: 0.001 seconds
+
+#### Model Parameters
+- max_depth: 60.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 20.000
+
+#### Feature Importance
+- matrix_size_x: -0.70%
+- matrix_size_y: 3.00%
+- p1: 7.03%
+- p2: -0.31%
+- p3: 49.07%
+- p4: 7.07%
+- p5: -0.15%
+- p6: 33.28%
+- p7: -2.56%
+- p8: 4.27%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 9.881e-324
+- Training Time: 0.173 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- max_depth: 60.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 20.000
+
+#### Feature Importance
+- matrix_size_x: -0.01%
+- matrix_size_y: 2.68%
+- p1: 10.23%
+- p2: 1.97%
+- p3: 70.37%
+- p4: -5.65%
+- p5: -1.79%
+- p6: 22.53%
+- p7: -1.05%
+- p8: 0.72%
+
+---
+
+### XGBoost
+
+#### Performance Metrics
+- MSE: 9.881e-324
+- Training Time: 0.106 seconds
+- Evaluation Time: 0.001 seconds
+
+#### Model Parameters
+- gamma: 0.050
+- lambda: 1.000
+- learning_rate: 0.070
+- max_depth: 15.000
+- n_estimators: 75.000
+
+#### Feature Importance
+- matrix_size_y: 2.52%
+- p3: 9.38%
+- p4: 19.75%
+- p5: 1.50%
+- p6: 65.36%
+- p8: 1.49%
+
+---
+

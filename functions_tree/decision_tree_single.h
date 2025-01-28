@@ -82,6 +82,7 @@
 #include <sstream>
 #include <tuple>
 #include <vector>
+#include <map>
 
 class DecisionTreeSingle {
 public:
@@ -97,12 +98,15 @@ public:
   };
 
   // Constructor and existing methods
-  DecisionTreeSingle(int MaxDepth, int MinLeafLarge, double MinError);
+  DecisionTreeSingle(int MaxDepth, int MinLeafLarge, double MinError, int Criteria =0);
   void train(const std::vector<double> &Data, int rowLength,
              const std::vector<double> &Labels, int criteria = 0);
   double predict(const std::vector<double> &Sample) const;
   void saveTree(const std::string &filename);
   void loadTree(const std::string &filename);
+    std::map<std::string, std::string> getTrainingParameters() const;
+    std::string getTrainingParametersString() const;
+
 
   const Tree *getRoot() const { return Root.get(); }
   double getRootMSE() const { return Root ? Root->NodeMetric : 0.0; }
@@ -112,6 +116,7 @@ private:
   std::unique_ptr<Tree> Root;
   int MaxDepth;
   int MinLeafLarge;
+  int Criteria;
   double MinError;
 
   void splitNode(Tree *Node, const std::vector<double> &Data, int rowLength,
@@ -130,6 +135,14 @@ private:
   findBestSplitUsingMAE(const std::vector<double> &Data, int rowLength,
                         const std::vector<double> &Labels,
                         const std::vector<int> &Indices, double CurrentMAE);
+
+
+//Not necessary for the moment, just tryna merge
+
+                    //         preSortFeatures(const std::vector<std::vector<double>> &Data,
+                    // const std::vector<int> &Indices);
+    
+
 
   void serializeNode(const Tree *node, std::ostream &out);
   std::unique_ptr<Tree> deserializeNode(std::istream &in);

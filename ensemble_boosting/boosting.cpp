@@ -192,14 +192,16 @@
  */
 Boosting::Boosting(int n_estimators, double learning_rate,
                    std::unique_ptr<LossFunction> loss_function,
-                   int max_depth, int min_samples_split, double min_impurity_decrease)
+                   int max_depth, int min_samples_split, double min_impurity_decrease, int Criteria, int whichLossFunc)
     : n_estimators(n_estimators),
       max_depth(max_depth),
       min_samples_split(min_samples_split),
       min_impurity_decrease(min_impurity_decrease),
       learning_rate(learning_rate),
       loss_function(std::move(loss_function)),
-      initial_prediction(0.0) {
+      initial_prediction(0.0),
+      Criteria(Criteria), 
+      whichLossFunc(whichLossFunc) {
     trees.reserve(n_estimators);
 }
 
@@ -352,4 +354,33 @@ void Boosting::load(const std::string& filename) {
     }
 
     file.close();
+}
+
+// Retourne les paramètres d'entraînement sous forme de dictionnaire (clé-valeur)
+std::map<std::string, std::string> Boosting::getTrainingParameters() const {
+    std::map<std::string, std::string> parameters;
+    parameters["NumEstimators"] = std::to_string(n_estimators);
+    parameters["LearningRate"] = std::to_string(learning_rate);
+    parameters["MaxDepth"] = std::to_string(max_depth);
+    parameters["MinSamplesSplit"] = std::to_string(min_samples_split);
+    parameters["MinImpurityDecrease"] = std::to_string(min_impurity_decrease);
+    parameters["InitialPrediction"] = std::to_string(initial_prediction);
+    parameters["Criteria"] = std::to_string(Criteria);
+    parameters["WhichLossFunction"] = std::to_string(whichLossFunc);
+    return parameters;
+}
+
+// Retourne les paramètres d'entraînement sous forme d'une chaîne de caractères lisible
+std::string Boosting::getTrainingParametersString() const {
+    std::ostringstream oss;
+    oss << "Training Parameters:\n";
+    oss << "  - Number of Estimators: " << n_estimators << "\n";
+    oss << "  - Learning Rate: " << learning_rate << "\n";
+    oss << "  - Max Depth: " << max_depth << "\n";
+    oss << "  - Min Samples Split: " << min_samples_split << "\n";
+    oss << "  - Min Impurity Decrease: " << min_impurity_decrease << "\n";
+    oss << "  - Initial Prediction: " << initial_prediction << "\n";
+    oss << "  - Criteria: " << (Criteria == 0 ? "MSE" : "MAE") << "\n";
+    oss << "  - Loss Function: " << (whichLossFunc == 0 ? "Least Squares Loss" : "Mean Absolute Loss") << "\n";
+    return oss.str();
 }

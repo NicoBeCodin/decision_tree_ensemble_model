@@ -127,9 +127,9 @@ public:
    * @param criteria Splitting criterion for the trees
    * @param loss_function Loss function to minimize
    */
-  Boosting(int n_estimators, double learning_rate,
-           std::unique_ptr<LossFunction> loss_function, int max_depth,
-           int min_samples_split, double min_impurity_decrease);
+    Boosting(int n_estimators, double learning_rate,
+             std::unique_ptr<LossFunction> loss_function,
+             int max_depth, int min_samples_split, double min_impurity_decrease, int Criteria = 0, int whichLossFunc = 0);
 
   /**
    * @brief Train the boosting model

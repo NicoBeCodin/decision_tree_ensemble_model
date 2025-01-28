@@ -297,9 +297,8 @@
 #include <cmath>
 #include <iostream>
 
-// Constructor
-DecisionTreeSingle::DecisionTreeSingle(int MaxDepth, int MinLeafLarge, double MinError)
-    : MaxDepth(MaxDepth), MinLeafLarge(MinLeafLarge), MinError(MinError), Root(nullptr) {}
+DecisionTreeSingle::DecisionTreeSingle(int MaxDepth, int MinLeafLarge, double MinError, int Criteria)
+    : MaxDepth(MaxDepth), MinLeafLarge(MinLeafLarge), MinError(MinError), Criteria(Criteria), Root(nullptr) {}
 
 // Training function
 void DecisionTreeSingle::train(const std::vector<double>& Data, int rowLength, const std::vector<double>& Labels, int criteria) {
@@ -675,4 +674,24 @@ void DecisionTreeSingle::serializeNode(const Tree* node, std::ostream& out) {
     // 递归序列化左子树和右子树
     serializeNode(node->Left.get(), out);
     serializeNode(node->Right.get(), out);
+}
+// Retourne les paramètres d'entraînement sous forme de dictionnaire (clé-valeur)
+std::map<std::string, std::string> DecisionTreeSingle::getTrainingParameters() const {
+    std::map<std::string, std::string> parameters;
+    parameters["MaxDepth"] = std::to_string(MaxDepth);
+    parameters["MinLeafLarge"] = std::to_string(MinLeafLarge);
+    parameters["MinError"] = std::to_string(MinError);
+    parameters["Criteria"] = std::to_string(Criteria);
+    return parameters;
+}
+
+// Retourne les paramètres d'entraînement sous forme d'une chaîne de caractères lisible
+std::string DecisionTreeSingle::getTrainingParametersString() const {
+    std::ostringstream oss;
+    oss << "Training Parameters:\n";
+    oss << "  - Max Depth: " << MaxDepth << "\n";
+    oss << "  - Min Leaf Large: " << MinLeafLarge << "\n";
+    oss << "  - Min Error: " << MinError << "\n";
+    oss << "  - Criteria: " << (Criteria == 0 ? "MSE" : "MAE") << "\n";
+    return oss.str();
 }
