@@ -598,6 +598,7 @@
 #include <chrono>
 #include <iomanip>
 #include <iostream>
+#include <memory>
 #include <string>
 
 void displayFeatureImportance(
@@ -641,12 +642,16 @@ T getInputWithDefault(const std::string &prompt, T defaultValue) {
 int main(int argc, char* argv[]) {
   DataIO data_io;
   int rowLength = 11;
-  auto [X, y] = data_io.readCSV("../datasets/cleaned_data.csv", rowLength);
+  auto [X, y] = data_io.readCSV("../datasets/sample_400_rows.csv", rowLength);
   if (X.empty() || y.empty()) {
     std::cerr << "Unable to open the data file, please check the path."
               << std::endl;
     return -1;
   }
+
+  std::cout<<"X size : "<<X.size()<<std::endl;
+  std::cout<<"y size : "<<y.size()<<std::endl;
+  
 
   // Créer le dossier saved_models s'il n'existe pas
   std::filesystem::path models_dir = "../saved_models";
@@ -662,14 +667,21 @@ int main(int argc, char* argv[]) {
 
   //We resize rowLength because that it the size of a data row without label
   rowLength = rowLength-1;
-  size_t train_size = static_cast<size_t>(X.size() * rowLength * 0.8);
+  size_t train_size = static_cast<size_t>(y.size() * 0.8) * rowLength;
   
+  std::cout<<"Train size : "<<train_size<<std::endl;
 
-  std::vector<double> X_train(X.begin(), X.begin() + train_size*rowLength);
-  std::vector<double> y_train(y.begin(), y.begin() + train_size);
-  std::vector<double> X_test(X.begin() + train_size * rowLength, X.end());
-  std::vector<double> y_test(y.begin() + train_size, y.end());
+  std::vector<double> X_train(X.begin(), X.begin() + train_size);
+  std::vector<double> y_train(y.begin(), y.begin() + train_size/10);
+  std::vector<double> X_test(X.begin() + train_size, X.end());
+  std::vector<double> y_test(y.begin() + train_size /10, y.end());
 
+  std::cout<<"X_train size : "<<X_train.size()<<std::endl;
+  std::cout<<"y_train size : "<<y_train.size()<<std::endl;
+  std::cout<<"X_test size : "<<X_test.size()<<std::endl;
+  std::cout<<"y_test size : "<<y_test.size()<< "\n"<<std::endl;
+
+  
   int choice;
   bool use_custom_params = false;
   std::vector<std::string> params;
@@ -866,17 +878,23 @@ int main(int argc, char* argv[]) {
       }
 
       std::cout << "Bagging process started, please wait...\n";
+      auto loss_function = std::make_unique<LeastSquaresLoss>();
       Bagging bagging_model(num_trees, max_depth, min_samples_split,
-                            min_impurity_decrease);
+                            min_impurity_decrease, std::move(loss_function));
+
+      std::cout<<"Finished initializing the bagging model, starting training..."<<std::endl;
 
       auto train_start = std::chrono::high_resolution_clock::now();
       bagging_model.train(X_train, rowLength, y_train);
+      std::cout<<"Training finished"<<std::endl;
+
       auto train_end = std::chrono::high_resolution_clock::now();
       std::chrono::duration<double> train_duration = train_end - train_start;
       std::cout << "Training time (Bagging): " << train_duration.count()
                 << " seconds\n";
 
       auto eval_start = std::chrono::high_resolution_clock::now();
+      std::cout<<"Starting evaluation..."<<std::endl;
       double mse_value = bagging_model.evaluate(X_test, rowLength, y_test);
       auto eval_end = std::chrono::high_resolution_clock::now();
       std::chrono::duration<double> eval_duration = eval_end - eval_start;

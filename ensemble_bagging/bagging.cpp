@@ -152,6 +152,7 @@
 #include <algorithm>
 #include <stdexcept>
 #include <fstream>
+#include <iostream>
 
 /**
  * Constructor for Bagging
@@ -232,11 +233,17 @@ double Bagging::predict(const std::vector<double>& sample) const {
  * @return Computed loss depending on the specified loss function
  */
 double Bagging::evaluate(const std::vector<double>& test_data, int rowLength, const std::vector<double>& test_labels) const {
+    
+    
     std::vector<double> predictions;
     size_t n_samples = test_labels.size();
+    
 
-    for (size_t i = 0; i < n_samples; ++i) {
+
+    for (size_t i = 0; i < n_samples ; ++i) {
+        
         std::vector<double> sample(test_data.begin() + i * rowLength, test_data.begin() + (i + 1) * rowLength);
+        
         predictions.push_back(predict(sample));
     }
 
