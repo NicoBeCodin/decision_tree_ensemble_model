@@ -11,6 +11,7 @@
 #include <chrono>
 #include <iomanip>
 #include <iostream>
+#include <memory>
 #include <string>
 #include <filesystem>
 
@@ -54,14 +55,18 @@ T getInputWithDefault(const std::string &prompt, T defaultValue) {
 
 int main(int argc, char* argv[]) {
   DataIO data_io;
-  auto [X, y] = data_io.readCSV("../datasets/cleaned_data.csv");
+  int rowLength = 11;
+  auto [X, y] = data_io.readCSV("../datasets/sample_400_rows.csv", rowLength);
   if (X.empty() || y.empty()) {
     std::cerr << "Unable to open the data file, please check the path."
               << std::endl;
     return -1;
   }
 
-  // Create folder if non existent
+  std::cout<<"X size : "<<X.size()<<std::endl;
+  std::cout<<"y size : "<<y.size()<<std::endl;
+  
+  // Créer le dossier saved_models s'il n'existe pas
   std::filesystem::path models_dir = "../saved_models";
   if (!std::filesystem::exists(models_dir)) {
       std::filesystem::create_directories(models_dir);
@@ -73,17 +78,29 @@ int main(int argc, char* argv[]) {
       "p1",           "p2", "p3", "p4", "p5", "p6", "p7", "p8", "matrix_size_x",
       "matrix_size_y"};
 
-  size_t train_size = static_cast<size_t>(X.size() * 0.8);
-  std::vector<std::vector<double>> X_train(X.begin(), X.begin() + train_size);
-  std::vector<double> y_train(y.begin(), y.begin() + train_size);
-  std::vector<std::vector<double>> X_test(X.begin() + train_size, X.end());
-  std::vector<double> y_test(y.begin() + train_size, y.end());
+  //We resize rowLength because that it the size of a data row without label
+  rowLength = rowLength-1;
+  size_t train_size = static_cast<size_t>(y.size() * 0.8) * rowLength;
+  
+  std::cout<<"Train size : "<<train_size<<std::endl;
 
+  std::vector<double> X_train(X.begin(), X.begin() + train_size);
+  std::vector<double> y_train(y.begin(), y.begin() + train_size/10);
+  std::vector<double> X_test(X.begin() + train_size, X.end());
+  std::vector<double> y_test(y.begin() + train_size /10, y.end());
+
+  std::cout<<"X_train size : "<<X_train.size()<<std::endl;
+  std::cout<<"y_train size : "<<y_train.size()<<std::endl;
+  std::cout<<"X_test size : "<<X_test.size()<<std::endl;
+  std::cout<<"y_test size : "<<y_test.size()<< "\n"<<std::endl;
+
+  
   int choice;
   bool use_custom_params = false;
   bool load_request = false; 
   std::string path_model_filename = "";
   std::vector<std::string> params;
+  
 
   if (argc > 1) {
     choice = std::stoi(argv[1]);
@@ -93,6 +110,7 @@ int main(int argc, char* argv[]) {
         params.push_back(argv[i]);
       }
     }
+  
     if (argc > 2 && std::string(argv[2]) == "-l") {
       load_request = true;
       path_model_filename = std::string(argv[3]);
@@ -162,10 +180,10 @@ int main(int argc, char* argv[]) {
 
       std::cout << "Training a single decision tree, please wait...\n";
       DecisionTreeSingle single_tree(maxDepth, minSamplesSplit,
-                                    minImpurityDecrease, criteria);
+                                     minImpurityDecrease, criteria);
 
       auto train_start = std::chrono::high_resolution_clock::now();
-      single_tree.train(X_train, y_train, criteria);
+      single_tree.train(X_train, rowLength, y_train, criteria);
       auto train_end = std::chrono::high_resolution_clock::now();
       std::chrono::duration<double> train_duration = train_end - train_start;
       std::cout << "Training time: " << train_duration.count() << " seconds\n";
@@ -177,8 +195,9 @@ int main(int argc, char* argv[]) {
       size_t test_size = X_test.size();
       std::vector<double> y_pred;
       y_pred.reserve(test_size);
-      for (const auto &X : X_test) {
-        y_pred.push_back(single_tree.predict(X));
+      for (size_t i = 0; i<y_test.size(); ++i) {
+        std::vector<double> sample(X_test.begin()+ i*rowLength, X_test.begin() + (i+1)*rowLength);
+        y_pred.push_back(single_tree.predict(sample));
       }
       mse_value = Math::computeLossMSE(y_test, y_pred);
       mae_value = Math::computeLossMAE(y_test, y_pred);
@@ -210,7 +229,7 @@ int main(int argc, char* argv[]) {
       ModelResults results;
       results.model_name = "Arbre de décision simple";
       results.mse = mse_value;
-      results.mae = mse_value;
+      results.mae = mae_value;
       results.training_time = train_duration.count();
       results.evaluation_time = eval_duration.count();
       
@@ -319,14 +338,14 @@ int main(int argc, char* argv[]) {
                             min_impurity_decrease, std::move(loss_function), criteria, which_loss_func);
 
       auto train_start = std::chrono::high_resolution_clock::now();
-      bagging_model.train(X_train, y_train, criteria);
+      bagging_model.train(X_train, rowLength, y_train, criteria);
       auto train_end = std::chrono::high_resolution_clock::now();
       std::chrono::duration<double> train_duration = train_end - train_start;
       std::cout << "Training time (Bagging): " << train_duration.count()
                 << " seconds\n";
 
       auto eval_start = std::chrono::high_resolution_clock::now();
-      double mse_or_mae_value = bagging_model.evaluate(X_test, y_test);
+      double mse_or_mae_value = bagging_model.evaluate(X_test, rowLength, y_test);
       auto eval_end = std::chrono::high_resolution_clock::now();
       std::chrono::duration<double> eval_duration = eval_end - eval_start;
       std::cout << "Evaluation time (Bagging): " << eval_duration.count()
@@ -385,7 +404,6 @@ int main(int argc, char* argv[]) {
         std::cout << "Visualisations générées dans le dossier 'visualizations'"
                   << std::endl;
       }
-    
   } else if (choice == 3) {
       int n_estimators, max_depth, min_samples_split;
       int criteria;
@@ -472,14 +490,14 @@ int main(int argc, char* argv[]) {
 
       // model training
       auto train_start = std::chrono::high_resolution_clock::now();
-      boosting_model.train(X_train, y_train, criteria);
+      boosting_model.train(X_train, rowLength, y_train, criteria);
       auto train_end = std::chrono::high_resolution_clock::now();
       std::chrono::duration<double> train_duration = train_end - train_start;
       std::cout << "Training time: " << train_duration.count() << " seconds\n";
 
       // Model evaluation
       auto eval_start = std::chrono::high_resolution_clock::now();
-      double mse_or_mae_value = boosting_model.evaluate(X_test, y_test);
+      double mse_or_mae_value = boosting_model.evaluate(X_test, rowLength, y_test);
       auto eval_end = std::chrono::high_resolution_clock::now();
       std::chrono::duration<double> eval_duration = eval_end - eval_start;
       std::cout << "Evaluation time: " << eval_duration.count() << " seconds\n";
@@ -540,7 +558,6 @@ int main(int argc, char* argv[]) {
         int n_estimators, max_depth, min_samples_split;
         int which_loss_func;
         double learning_rate, lambda, alpha, initial_prediction;
-
 
         // Create folder if non existent
         std::filesystem::path models_dir = "../saved_models/xgboost_models";
@@ -618,13 +635,13 @@ int main(int argc, char* argv[]) {
         XGBoost xgboost_model(n_estimators, max_depth, min_samples_split, learning_rate, lambda, alpha, std::move(loss_function), which_loss_func);
 
         auto train_start = std::chrono::high_resolution_clock::now();
-        xgboost_model.train(X_train, y_train);
+        xgboost_model.train(X_train, rowLength, y_train);
         auto train_end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> train_duration = train_end - train_start;
         std::cout << "Training time: " << train_duration.count() << " seconds\n";
 
         auto eval_start = std::chrono::high_resolution_clock::now();
-        double mse_or_mae_value = xgboost_model.evaluate(X_test, y_test);
+        double mse_or_mae_value = xgboost_model.evaluate(X_test, rowLength, y_test);
         auto eval_end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> eval_duration = eval_end - eval_start;
 

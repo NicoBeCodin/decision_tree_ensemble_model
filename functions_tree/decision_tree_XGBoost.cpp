@@ -12,28 +12,29 @@ DecisionTreeXGBoost::DecisionTreeXGBoost(int MaxDepth, int MinLeafSize, double L
 
 /**
  * @brief Train the decision tree
- * @param Data Training feature matrix
+ * @param Data Flattened training feature matrix (1D vector)
+ * @param rowLength Number of features per row/sample
  * @param Labels Target labels vector
- * @param Predictions Current predictions vector (used to compute gradients)
+ * @param Predictions Current predictions vector (used to calculate gradients)
  */
-void DecisionTreeXGBoost::train(const std::vector<std::vector<double>>& Data, 
+void DecisionTreeXGBoost::train(const std::vector<double>& Data, int rowLength, 
                                 const std::vector<double>& Labels, 
                                 std::vector<double>& Predictions) {
     Root = std::make_unique<Tree>();
-    std::vector<int> Indices(Data.size());
+    std::vector<int> Indices(Labels.size());
     std::iota(Indices.begin(), Indices.end(), 0);
 
     // Compute gradients and hessians
-    std::vector<double> Gradients(Data.size()), Hessians(Data.size());
+    std::vector<double> Gradients(Labels.size()), Hessians(Labels.size());
     computeGradientsAndHessians(Labels, Predictions, Gradients, Hessians);
 
     // Build the tree
-    splitNode(Root.get(), Data, Gradients, Hessians, Indices, 0);
+    splitNode(Root.get(), Data, rowLength, Gradients, Hessians, Indices, 0);
 }
 
 /**
  * @brief Predict the value for a single sample
- * @param Sample Vector representing a single sample
+ * @param Sample Feature vector representing a single sample
  * @return Prediction made by the tree for this sample
  */
 double DecisionTreeXGBoost::predict(const std::vector<double>& Sample) const {
@@ -50,10 +51,10 @@ double DecisionTreeXGBoost::predict(const std::vector<double>& Sample) const {
 
 /**
  * @brief Compute gradients and hessians for each sample
- * @param Labels Vector of true labels
+ * @param Labels Vector of true target labels
  * @param Predictions Vector of current predictions
- * @param Gradients Output containing the computed gradients
- * @param Hessians Output containing the computed hessians
+ * @param Gradients Output vector containing calculated gradients
+ * @param Hessians Output vector containing calculated hessians
  */
 void DecisionTreeXGBoost::computeGradientsAndHessians(
     const std::vector<double>& Labels,
@@ -70,14 +71,15 @@ void DecisionTreeXGBoost::computeGradientsAndHessians(
 
 /**
  * @brief Split a node in the tree
- * @param Node Pointer to the node to split
- * @param Data Feature matrix
- * @param Gradients Gradient vector
- * @param Hessians Hessian vector
+ * @param Node Pointer to the node to be split
+ * @param Data Flattened feature matrix (1D vector)
+ * @param rowLength Number of features per row/sample
+ * @param Gradients Gradients vector
+ * @param Hessians Hessians vector
  * @param Indices Indices of samples available for this split
  * @param Depth Current depth of the node
  */
-void DecisionTreeXGBoost::splitNode(Tree* Node, const std::vector<std::vector<double>>& Data, 
+void DecisionTreeXGBoost::splitNode(Tree* Node, const std::vector<double>& Data, int rowLength, 
                                     const std::vector<double>& Gradients,
                                     const std::vector<double>& Hessians,
                                     const std::vector<int>& Indices, int Depth) {
@@ -89,9 +91,9 @@ void DecisionTreeXGBoost::splitNode(Tree* Node, const std::vector<std::vector<do
     }
 
     // Find the best split
-    auto [BestFeature, BestThreshold, BestGain] = findBestSplit(Data, Gradients, Hessians, Indices);
+    auto [BestFeature, BestThreshold, BestGain] = findBestSplit(Data, rowLength, Gradients, Hessians, Indices);
 
-    if (BestFeature == -1 || BestGain < Gamma) { // Insufficient gain
+    if (BestFeature == -1 || BestGain < Gamma) { // No significant gain
         Node->IsLeaf = true;
         Node->Prediction = calculateLeafWeight(Indices, Gradients, Hessians);
         return;
@@ -104,7 +106,7 @@ void DecisionTreeXGBoost::splitNode(Tree* Node, const std::vector<std::vector<do
     // Partition indices
     std::vector<int> LeftIndices, RightIndices;
     for (int idx : Indices) {
-        if (Data[idx][BestFeature] <= BestThreshold) {
+        if (Data[idx * rowLength + BestFeature] <= BestThreshold) {
             LeftIndices.push_back(idx);
         } else {
             RightIndices.push_back(idx);
@@ -113,20 +115,21 @@ void DecisionTreeXGBoost::splitNode(Tree* Node, const std::vector<std::vector<do
 
     Node->Left = std::make_unique<Tree>();
     Node->Right = std::make_unique<Tree>();
-    splitNode(Node->Left.get(), Data, Gradients, Hessians, LeftIndices, Depth + 1);
-    splitNode(Node->Right.get(), Data, Gradients, Hessians, RightIndices, Depth + 1);
+    splitNode(Node->Left.get(), Data, rowLength, Gradients, Hessians, LeftIndices, Depth + 1);
+    splitNode(Node->Right.get(), Data, rowLength, Gradients, Hessians, RightIndices, Depth + 1);
 }
 
 /**
  * @brief Find the best possible split for a node
- * @param Data Feature matrix
- * @param Gradients Gradient vector
- * @param Hessians Hessian vector
+ * @param Data Flattened feature matrix (1D vector)
+ * @param rowLength Number of features per row/sample
+ * @param Gradients Gradients vector
+ * @param Hessians Hessians vector
  * @param Indices Indices of samples available for this split
  * @return Tuple containing the best feature, threshold, and gain
  */
 std::tuple<int, double, double> DecisionTreeXGBoost::findBestSplit(
-    const std::vector<std::vector<double>>& Data,
+    const std::vector<double>& Data, int rowLength,
     const std::vector<double>& Gradients,
     const std::vector<double>& Hessians,
     const std::vector<int>& Indices) {
@@ -139,10 +142,10 @@ std::tuple<int, double, double> DecisionTreeXGBoost::findBestSplit(
     double H = sumHessians(Hessians, Indices);
     double CurrentScore = G * G / (H + Lambda);
 
-    for (size_t feature = 0; feature < Data[0].size(); ++feature) {
+    for (int feature = 0; feature < rowLength; ++feature) {
         std::vector<std::pair<double, int>> SortedValues;
         for (int idx : Indices) {
-            SortedValues.emplace_back(Data[idx][feature], idx);
+            SortedValues.emplace_back(Data[idx * rowLength + feature], idx);
         }
         std::sort(SortedValues.begin(), SortedValues.end());
 
@@ -175,8 +178,8 @@ std::tuple<int, double, double> DecisionTreeXGBoost::findBestSplit(
 /**
  * @brief Calculate the weight of a leaf
  * @param Indices Indices of samples in the leaf
- * @param Gradients Gradient vector
- * @param Hessians Hessian vector
+ * @param Gradients Gradients vector
+ * @param Hessians Hessians vector
  * @return The calculated weight for this leaf
  */
 double DecisionTreeXGBoost::calculateLeafWeight(const std::vector<int>& Indices,

@@ -1,6 +1,7 @@
 #ifndef DECISION_TREE_XGBOOST_H
 #define DECISION_TREE_XGBOOST_H
 
+#include <regex.h>
 #include <vector>
 #include <memory>
 #include <tuple>
@@ -33,8 +34,9 @@ public:
 
     DecisionTreeXGBoost(int MaxDepth, int MinLeafSize, double Lambda, double Gamma);
 
-    // Train the tree
-    void train(const std::vector<std::vector<double>>& Data, 
+    // Entraînement de l'arbre
+    void train(const std::vector<double>& Data,
+                int rowLength, 
                const std::vector<double>& Labels,
                std::vector<double>& Predictions);
 
@@ -48,7 +50,7 @@ public:
     // Calculate feature importance
     std::map<int, double> getFeatureImportance() const;
 
-    // Nouvelle méthode pour l'importance des caractéristiques
+    // New method for determining the importance of features
     const Tree* getRoot() const { return Root.get(); }
 
 private:
@@ -59,13 +61,15 @@ private:
     std::unique_ptr<Tree> Root;
 
     // Internal methods
-    void splitNode(Tree* Node, const std::vector<std::vector<double>>& Data, 
+    void splitNode(Tree* Node, const std::vector<double>& Data,
+                    int rowLength, 
                    const std::vector<double>& Gradients,
                    const std::vector<double>& Hessians,
                    const std::vector<int>& Indices, int Depth);
 
     std::tuple<int, double, double> findBestSplit(
-        const std::vector<std::vector<double>>& Data,
+        const std::vector<double>& Data,
+        int rowLength,
         const std::vector<double>& Gradients,
         const std::vector<double>& Hessians,
         const std::vector<int>& Indices);

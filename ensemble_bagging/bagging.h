@@ -4,6 +4,7 @@
 #include <memory>
 #include <random>
 #include <algorithm>
+#include <map>
 #include <stdexcept>
 
 #include "../functions_tree/decision_tree_single.h"
@@ -30,7 +31,7 @@ public:
      * @param data Feature matrix
      * @param labels Target vector
      */
-    void train(const std::vector<std::vector<double>>& data, const std::vector<double>& labels, int Criteria);
+    void train(const std::vector<double>& data, int rowLength, const std::vector<double>& labels, int criteria);
 
     /**
      * @brief Predict the target value for a single sample
@@ -45,7 +46,7 @@ public:
      * @param test_labels Test target vector
      * @return (Loss metric MSE or MAE)
      */
-    double evaluate(const std::vector<std::vector<double>>& test_data, const std::vector<double>& test_labels) const;
+    double evaluate(const std::vector<double>& test_data, int rowLength,  const std::vector<double>& test_labels) const;
 
     /**
      * @brief Get the trees in the ensemble
@@ -87,8 +88,8 @@ private:
      * @param sampled_data Output parameter for the sampled feature matrix
      * @param sampled_labels Output parameter for the sampled target vector
      */
-    void bootstrapSample(const std::vector<std::vector<double>>& data, const std::vector<double>& labels,
-                         std::vector<std::vector<double>>& sampled_data, std::vector<double>& sampled_labels);
+    void bootstrapSample(const std::vector<double>& data, int rowLength, const std::vector<double>& labels,
+                         std::vector<double>& sampled_data, std::vector<double>& sampled_labels);
 
     friend class FeatureImportance;
 };

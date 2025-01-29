@@ -12,35 +12,33 @@
 #include <random>
 
 
-std::vector<std::pair<std::vector<std::vector<double>>, std::vector<double>>> createKFolds(
-    const std::vector<std::vector<double>>& X, 
-    const std::vector<double>& y, 
-    int k)
-{
-    
-    std::vector<size_t> indices(X.size());
+std::vector<std::pair<std::vector<double>, std::vector<double>>> createKFolds(
+    const std::vector<double>& dataset, const std::vector<double>& labels, int rowLength, int k) {
+
+    size_t numRows = dataset.size() / rowLength;
+
+    std::vector<size_t> indices(numRows);
     std::iota(indices.begin(), indices.end(), 0);
     std::random_device rd;
     std::mt19937 g(rd());
     std::shuffle(indices.begin(), indices.end(), g);
 
-    size_t fold_size = X.size() / k;
-    std::vector<std::pair<std::vector<std::vector<double>>, std::vector<double>>> folds;
+    size_t fold_size = numRows / k;
+    std::vector<std::pair<std::vector<double>, std::vector<double>>> folds;
 
-    for (int i = 0; i < k; ++i)
-    {
-        std::vector<std::vector<double>> X_fold;
-        std::vector<double> y_fold;
+    for (int i = 0; i < k; ++i) {
+        std::vector<double> data_fold, label_fold;
 
         size_t start = i * fold_size;
-        size_t end = (i == k - 1) ? X.size() : (i + 1) * fold_size;
+        size_t end = (i == k - 1) ? numRows : (i + 1) * fold_size;
 
-        for (size_t j = start; j < end; ++j)
-        {
-            X_fold.push_back(X[indices[j]]);
-            y_fold.push_back(y[indices[j]]);
+        for (size_t j = start; j < end; ++j) {
+            for (int col = 0; col < rowLength - 1; ++col) {
+                data_fold.push_back(dataset[indices[j] * rowLength + col]);
+            }
+            label_fold.push_back(labels[indices[j]]);
         }
-        folds.emplace_back(X_fold, y_fold);
+        folds.emplace_back(data_fold, label_fold);
     }
     return folds;
 }
@@ -48,7 +46,8 @@ std::vector<std::pair<std::vector<std::vector<double>>, std::vector<double>>> cr
 int main()
 {
     DataIO data_io;
-    auto [X, y] = data_io.readCSV("../datasets/cleaned_data.csv");
+    int rowLength = 10; //11 if you take performance too
+    auto [X, y] = data_io.readCSV("../datasets/cleaned_data.csv",  rowLength);
     if (X.empty() || y.empty())
     {
         std::cerr << "Unable to open the data file, please check the path." << std::endl;
@@ -67,15 +66,14 @@ int main()
     int k;
     std::cin >> k;
 
-    
-    auto folds = createKFolds(X, y, k);
+    auto folds = createKFolds(X, y, rowLength  - 1, k); //Row length - 1 because we don't take the performance
 
     std::vector<double> mse_scores; 
 
     for (int i = 0; i < k; ++i)
     {
         
-        std::vector<std::vector<double>> X_train, X_test;
+        std::vector<double> X_train, X_test;
         std::vector<double> y_train, y_test;
 
         for (int j = 0; j < k; ++j)
@@ -105,7 +103,7 @@ int main()
             DecisionTreeSingle single_tree(maxDepth, minSamplesSplit, minImpurityDecrease);
 
             auto train_start = std::chrono::high_resolution_clock::now();
-            single_tree.train(X_train, y_train,0);
+            single_tree.train(X_train, rowLength, y_train,0);
             auto train_end = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> train_duration = train_end - train_start;
             std::cout << "Training time: " << train_duration.count() << " seconds\n";
@@ -116,8 +114,9 @@ int main()
             std::vector<double> y_pred;
             y_pred.reserve(test_size);
             for (const auto &X_sample : X_test)
-            {
-                y_pred.push_back(single_tree.predict(X_sample));
+            for (size_t i =0; i<y_test.size(); ++i) {
+                std::vector<double> sample(X_test.begin()+ i*rowLength, X_test.begin() + (i+1)*rowLength);
+                y_pred.push_back(single_tree.predict(sample));
             }
             mse_value = Math::computeLossMSE(y_test, y_pred);
             auto eval_end = std::chrono::high_resolution_clock::now();
@@ -141,13 +140,13 @@ int main()
             Bagging bagging_model(num_trees, max_depth, min_samples_split, min_impurity_decrease, std::unique_ptr<LeastSquaresLoss>(), criteria, whichLossFunc);
 
             auto train_start = std::chrono::high_resolution_clock::now();
-            bagging_model.train(X_train, y_train, criteria);
+            bagging_model.train(X_train, rowLength, y_train, criteria);
             auto train_end = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> train_duration = train_end - train_start;
             std::cout << "Training time (Bagging): " << train_duration.count() << " seconds\n";
 
             auto eval_start = std::chrono::high_resolution_clock::now();
-            double mse_value = bagging_model.evaluate(X_test, y_test);
+            double mse_value = bagging_model.evaluate(X_test, rowLength, y_test);
             auto eval_end = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> eval_duration = eval_end - eval_start;
             std::cout << "Evaluation time (Bagging): " << eval_duration.count() << " seconds\n";
@@ -171,13 +170,13 @@ int main()
 
             auto train_start = std::chrono::high_resolution_clock::now();
             //Criteria default is 0 for MSE (faster)
-            boosting_model.train(X_train, y_train, 0);
+            boosting_model.train(X_train, rowLength, y_train, 0);
             auto train_end = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> train_duration = train_end - train_start;
             std::cout << "Training time: " << train_duration.count() << " seconds\n";
 
             auto eval_start = std::chrono::high_resolution_clock::now();
-            double mse_value = boosting_model.evaluate(X_test, y_test);
+            double mse_value = boosting_model.evaluate(X_test, rowLength, y_test);
             auto eval_end = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> eval_duration = eval_end - eval_start;
             std::cout << "Evaluation time: " << eval_duration.count() << " seconds\n";
