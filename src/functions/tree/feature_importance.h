@@ -2,8 +2,8 @@
 #define FEATURE_IMPORTANCE_H
 
 #include "decision_tree_single.h"
-#include "../ensemble_bagging/bagging.h"
-#include "../ensemble_boosting/boosting.h"
+#include "../../ensemble/bagging/bagging.h"
+#include "../../ensemble/boosting/boosting.h"
 #include <vector>
 #include <string>
 #include <map>

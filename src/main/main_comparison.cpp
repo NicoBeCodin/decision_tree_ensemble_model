@@ -1,4 +1,4 @@
-#include "model_comparison/model_comparison.h"
+#include "../model_comparison/model_comparison.h"
 #include <iostream>
 #include <fstream>
 #include <cstdlib>

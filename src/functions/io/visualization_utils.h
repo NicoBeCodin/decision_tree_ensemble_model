@@ -7,7 +7,7 @@
 #include <iostream>
 #include <iomanip>
 #include <cmath>
-#include "../functions_tree/math_functions.h"
+#include "../tree/math_functions.h"
 
 namespace Visualization {
 

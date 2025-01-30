@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include "../ensemble_boosting/boosting.h"
-#include "../ensemble_boosting/loss_function.h"
+#include "../src/ensemble/boosting/boosting.h"
+#include "../src/ensemble/boosting/loss_function.h"
 #include <vector>
 #include <memory>
 #include <cmath>

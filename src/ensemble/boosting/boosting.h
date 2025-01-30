@@ -1,7 +1,7 @@
 #ifndef BOOSTING_H
 #define BOOSTING_H
 
-#include "../functions_tree/decision_tree_single.h"
+#include "../../functions/tree/decision_tree_single.h"
 #include "loss_function.h"
 #include <algorithm>
 #include <map>
@@ -43,7 +43,7 @@ public:
    * @param x Vector representing a sample
    * @return Prediction for the sample
    */
-  double predict_single(const std::vector<double> &x) const;
+  double predict(const std::vector<double> &x) const;
 
   /**
    * @brief Predict values for a set of samples

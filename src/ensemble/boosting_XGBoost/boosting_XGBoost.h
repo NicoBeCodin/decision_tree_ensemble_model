@@ -1,8 +1,8 @@
 #ifndef BOOSTING_XGBOOST_H
 #define BOOSTING_XGBOOST_H
 
-#include "../ensemble_boosting/loss_function.h"
-#include "../functions_tree/decision_tree_XGBoost.h"
+#include "../boosting/loss_function.h"
+#include "../../functions/tree/decision_tree_XGBoost.h"
 #include <algorithm>
 #include <map>
 #include <memory>
@@ -59,8 +59,7 @@ public:
      * @param x Feature vector of a sample
      * @return Prediction for the sample
      */
-    double predict_single(const std::vector<double> &X,
-                          int rowLength) const;
+    double predict(const std::vector<double> &X) const;
 
     /**
      * @brief Predict for multiple samples

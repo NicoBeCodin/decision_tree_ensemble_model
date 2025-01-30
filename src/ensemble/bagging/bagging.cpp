@@ -99,11 +99,7 @@ double Bagging::evaluate(const std::vector<double>& test_data, int rowLength, co
         
         predictions.push_back(predict(sample));
     }
-    double loss = loss_function->computeLoss(test_labels,predictions);
-    return loss; 
-}
-
-    return loss_function->computeLoss(test_labels, predictions);
+    return loss_function->computeLoss(test_labels, predictions); 
 }
 
 /**

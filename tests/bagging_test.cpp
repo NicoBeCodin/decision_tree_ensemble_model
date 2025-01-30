@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "../ensemble_bagging/bagging.h"
+#include "../src/ensemble/bagging/bagging.h"
 #include <vector>
 #include <memory>
 #include <cmath>

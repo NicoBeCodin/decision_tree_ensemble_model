@@ -1,9 +1,9 @@
-#include "functions_io/functions_io.h"
-#include "functions_tree/decision_tree_single.h"
-#include "functions_tree/math_functions.h"
-#include "ensemble_bagging/bagging.h"
-#include "ensemble_boosting/boosting.h"
-#include "ensemble_boosting/loss_function.h"
+#include "../functions/io/functions_io.h"
+#include "../functions/tree/decision_tree_single.h"
+#include "../functions/tree/math_functions.h"
+#include "../ensemble/bagging/bagging.h"
+#include "../ensemble/boosting/boosting.h"
+#include "../ensemble/boosting/loss_function.h"
 #include <iostream>
 #include <chrono>
 #include <memory>

@@ -7,8 +7,8 @@
 #include <map>
 #include <stdexcept>
 
-#include "../functions_tree/decision_tree_single.h"
-#include "../ensemble_boosting/loss_function.h"
+#include "../../functions/tree/decision_tree_single.h"
+#include "../boosting/loss_function.h"
 
 /**
  * Bagging Class

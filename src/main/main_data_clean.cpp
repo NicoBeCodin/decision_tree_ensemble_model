@@ -1,4 +1,4 @@
-#include "data_clean/data_clean.h"
+#include "../data_clean/data_clean.h"
 
 int main(int argc, char* argv[]) {
     if (argc < 3) {

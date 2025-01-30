@@ -82,7 +82,7 @@ void Boosting::train(const std::vector<double>& X, int rowLength,
  * @param x Vector of features for a single sample
  * @return Prediction for the sample
  */
-double Boosting::predict_single(const std::vector<double>& x) const {
+double Boosting::predict(const std::vector<double>& x) const {
     double y_pred = initial_prediction;
     for (const auto& tree : trees) {
         y_pred += learning_rate * tree->predict(x);
