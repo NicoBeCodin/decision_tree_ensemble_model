@@ -1,12 +1,11 @@
 #include "../ensemble/bagging/bagging.h"
 #include "../ensemble/boosting/boosting.h"
-#include "../ensemble/boosting/loss_function.h"
 #include "../ensemble/boosting_XGBoost/boosting_XGBoost.h"
 #include "../functions/io/functions_io.h"
 #include "../functions/tree/decision_tree_single.h"
-#include "../functions/tree/feature_importance.h"
-#include "../functions/tree/math_functions.h"
-#include "../functions/tree/tree_visualization.h"
+#include "../functions/feature/feature_importance.h"
+#include "../functions/math/math_functions.h"
+#include "../functions/tree/vizualization/tree_visualization.h"
 #include "../model_comparison/model_comparison.h"
 #include <chrono>
 #include <iomanip>
@@ -56,7 +55,7 @@ T getInputWithDefault(const std::string &prompt, T defaultValue) {
 int main(int argc, char* argv[]) {
   DataIO data_io;
   int rowLength = 11;
-  auto [X, y] = data_io.readCSV("../datasets/sample_400_rows.csv", rowLength);
+  auto [X, y] = data_io.readCSV("../datasets/raw/sample_400_rows.csv", rowLength);
   if (X.empty() || y.empty()) {
     std::cerr << "Unable to open the data file, please check the path."
               << std::endl;

@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "../functions/tree/math_functions.h"
+#include "../functions/math/math_functions.h"
 
 // Function declarations
 

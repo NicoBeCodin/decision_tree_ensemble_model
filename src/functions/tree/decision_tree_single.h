@@ -1,7 +1,7 @@
 #ifndef DECISION_TREE_SINGLE_H
 #define DECISION_TREE_SINGLE_H
 
-#include "math_functions.h"
+#include "../math/math_functions.h"
 #include <fstream>
 #include <memory>
 #include <sstream>

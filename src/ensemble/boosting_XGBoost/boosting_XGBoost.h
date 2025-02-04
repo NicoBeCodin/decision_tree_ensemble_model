@@ -1,7 +1,7 @@
 #ifndef BOOSTING_XGBOOST_H
 #define BOOSTING_XGBOOST_H
 
-#include "../boosting/loss_function.h"
+#include "../../functions/loss/loss_function.h"
 #include "../../functions/tree/decision_tree_XGBoost.h"
 #include <algorithm>
 #include <map>

@@ -2,7 +2,7 @@
 #define BOOSTING_H
 
 #include "../../functions/tree/decision_tree_single.h"
-#include "loss_function.h"
+#include "../../functions/loss/loss_function.h"
 #include <algorithm>
 #include <map>
 #include <memory>

@@ -1,5 +1,4 @@
 #include "feature_importance.h"
-#include "math_functions.h"
 #include <algorithm>
 #include <numeric>
 

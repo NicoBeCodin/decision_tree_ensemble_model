@@ -1,8 +1,8 @@
 #ifndef TREE_VISUALIZATION_H
 #define TREE_VISUALIZATION_H
 
-#include "decision_tree_single.h"
-#include "decision_tree_XGBoost.h"
+#include "../decision_tree_single.h"
+#include "../decision_tree_XGBoost.h"
 #include <string>
 #include <vector>
 #include <fstream>

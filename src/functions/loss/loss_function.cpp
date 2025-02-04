@@ -1,5 +1,5 @@
 #include "loss_function.h"
-#include "../../functions/tree/math_functions.h"
+#include "../../functions/math/math_functions.h"
 #include <vector>
 #include <cmath>
 

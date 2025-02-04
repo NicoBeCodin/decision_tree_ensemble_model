@@ -10,7 +10,7 @@
 #include <iostream>
 
 #include "../../functions/tree/decision_tree_single.h"
-#include "../boosting/loss_function.h"
+#include "../../functions/loss/loss_function.h"
 
 /**
  * Bagging Class
