@@ -1,11 +1,4 @@
 #include "bagging.h"
-#include <memory>
-#include <random>
-#include <algorithm>
-#include <stdexcept>
-#include <fstream>
-#include <iostream>
-#include <map>
 
 /**
 * Constructor for Bagging

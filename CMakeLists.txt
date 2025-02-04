@@ -58,6 +58,7 @@ if (ENABLE_TESTS)
         gtest_main
         FunctionsTree
         Bagging
+        Boosting
     )
 
     add_executable(cross_validation_test tests/cross_validation_test.cpp)

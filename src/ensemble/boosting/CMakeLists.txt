@@ -3,6 +3,11 @@ add_library(Boosting
     loss_function.cpp
 )
 
+add_library(LossFunction
+    loss_function.cpp
+)
+
 target_include_directories(Boosting PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 target_link_libraries(Boosting PUBLIC FunctionsTree)
+target_link_libraries(Boosting PRIVATE LossFunction)
