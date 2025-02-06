@@ -8,6 +8,8 @@
 #include <tuple>
 #include <vector>
 #include <map>
+#include <atomic>
+#include <future>
 
 class DecisionTreeSingle {
 public:
@@ -23,7 +25,7 @@ public:
   };
 
   // Constructor and existing methods
-  DecisionTreeSingle(int MaxDepth, int MinLeafLarge, double MinError, int Criteria =0);
+  DecisionTreeSingle(int MaxDepth, int MinLeafLarge, double MinError, int Criteria =0, int numThreads =1);
   void train(const std::vector<double> &Data, int rowLength,
              const std::vector<double> &Labels, int criteria = 0);
   double predict(const std::vector<double> &Sample) const;
@@ -71,6 +73,9 @@ private:
 
   void serializeNode(const Tree *node, std::ostream &out);
   std::unique_ptr<Tree> deserializeNode(std::istream &in);
+
+  int numThreads = 1;
+  std::atomic<int> activeThreads;
 };
 
 #endif // DECISION_TREE_SINGLE_H

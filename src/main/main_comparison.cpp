@@ -6,6 +6,7 @@
 #include <sstream>
 #include <chrono>
 #include <limits>
+#include <thread>
 
 void getModelParameters(int model_choice, std::string& parameters) {
     bool input = false;
@@ -80,6 +81,7 @@ void getModelParameters(int model_choice, std::string& parameters) {
             int max_depth, min_samples;
             int criteria = -1;
             double min_impurity;
+            int numThreads = 1;
             
             std::cout << "\nDecision Tree Parameters:\n";
             // Loop until the user enters 0 or 1 for criteria
@@ -102,12 +104,16 @@ void getModelParameters(int model_choice, std::string& parameters) {
             std::cin >> min_samples;
             std::cout << "Minimum impurity decrease (default: 0.0): ";
             std::cin >> min_impurity;
+            int availableThreads = std::thread::hardware_concurrency();
+            std::cout << "number of concurrent threads supported by the implementation: "<< availableThreads<< "\nHow many do you want to use ?";
+            std::cin>>numThreads;
 
-            std::cout << "Le critère est : " << criteria << std::endl;
+
+            std::cout << "The criteria is : " << criteria << std::endl;
             
             parameters += " " + std::to_string(criteria) + " " + std::to_string(max_depth) + " " + 
                          std::to_string(min_samples) + " " + 
-                         std::to_string(min_impurity);
+                         std::to_string(min_impurity) +" " + std::to_string(numThreads);
             break;
         }
         case 2: {  // Bagging
@@ -262,7 +268,7 @@ void getModelParameters(int model_choice, std::string& parameters) {
 }
 
 int main() {
-    std::cout << "Decision Tree Models Comparison Program\n\n";
+    std::cout << "Decision Tree Models Comparing Program\n\n";
 
     int choice;
     std::cout << "Choose an option:\n";
