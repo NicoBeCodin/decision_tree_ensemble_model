@@ -125,52 +125,79 @@ void DecisionTreeSingle::splitNode(Tree *Node, const std::vector<double> &Data,
   Node->Right = std::make_unique<Tree>();
 
   // Parallelism goes here
-  if (numThreads != 1) {
 
-    std::future<void> leftFuture, rightFuture;
+  if (Depth < 2) { // Restrict parallelism to first two levels
+    std::future<void> leftFuture =
+        std::async(std::launch::async, &DecisionTreeSingle::splitNode, this,
+                   Node->Left.get(), std::cref(Data), rowLength,
+                   std::cref(Labels), std::cref(LeftIndices), Depth + 1);
 
-    if (activeThreads <
-        numThreads - 1) { // Reserve one thread for the current function
-      activeThreads += 2; // Two new threads will be used
+    std::future<void> rightFuture =
+        std::async(std::launch::async, &DecisionTreeSingle::splitNode, this,
+                   Node->Right.get(), std::cref(Data), rowLength,
+                   std::cref(Labels), std::cref(RightIndices), Depth + 1);
 
-      leftFuture =
-          std::async(std::launch::async, &DecisionTreeSingle::splitNode, this,
-                     Node->Left.get(), std::cref(Data), rowLength,
-                     std::cref(Labels), std::cref(LeftIndices), Depth + 1);
-
-      rightFuture =
-          std::async(std::launch::async, &DecisionTreeSingle::splitNode, this,
-                     Node->Right.get(), std::cref(Data), rowLength,
-                     std::cref(Labels), std::cref(RightIndices), Depth + 1);
-    } else if (activeThreads < numThreads) {
-      activeThreads++; // Use a single additional thread
-
-      leftFuture =
-          std::async(std::launch::async, &DecisionTreeSingle::splitNode, this,
-                     Node->Left.get(), std::cref(Data), rowLength,
-                     std::cref(Labels), std::cref(LeftIndices), Depth + 1);
-
-      splitNode(Node->Right.get(), Data, rowLength, Labels, RightIndices,
-                Depth + 1);
-    } else {
-      // If we hit the thread limit, do both synchronously
-      splitNode(Node->Left.get(), Data, rowLength, Labels, LeftIndices,
-                Depth + 1);
-      splitNode(Node->Right.get(), Data, rowLength, Labels, RightIndices,
-                Depth + 1);
-    }
-
-    if (leftFuture.valid())
-      leftFuture.get(); // Ensure left subtree is completed
-    if (rightFuture.valid())
-      rightFuture.get(); // Ensure right subtree is completed
-
-    activeThreads -= 2; // Release two threads after completion
+    // Wait for both subtrees to complete
+    leftFuture.get();
+    rightFuture.get();
+  } else {
+    // Perform normal sequential recursion after depth 2
+    splitNode(Node->Left.get(), Data, rowLength, Labels, LeftIndices,
+              Depth + 1);
+    splitNode(Node->Right.get(), Data, rowLength, Labels, RightIndices,
+              Depth + 1);
   }
 
-  splitNode(Node->Left.get(), Data, rowLength, Labels, LeftIndices, Depth + 1);
-  splitNode(Node->Right.get(), Data, rowLength, Labels, RightIndices,
-            Depth + 1);
+  //   if (numThreads != 1) {
+
+  //     std::future<void> leftFuture, rightFuture;
+
+  //     if (activeThreads <
+  //         numThreads - 1) { // Reserve one thread for the current function
+  //       activeThreads += 2; // Two new threads will be used
+
+  //       leftFuture =
+  //           std::async(std::launch::async, &DecisionTreeSingle::splitNode,
+  //           this,
+  //                      Node->Left.get(), std::cref(Data), rowLength,
+  //                      std::cref(Labels), std::cref(LeftIndices), Depth + 1);
+
+  //       rightFuture =
+  //           std::async(std::launch::async, &DecisionTreeSingle::splitNode,
+  //           this,
+  //                      Node->Right.get(), std::cref(Data), rowLength,
+  //                      std::cref(Labels), std::cref(RightIndices), Depth +
+  //                      1);
+  //     } else if (activeThreads < numThreads) {
+  //       activeThreads++; // Use a single additional thread
+
+  //       leftFuture =
+  //           std::async(std::launch::async, &DecisionTreeSingle::splitNode,
+  //           this,
+  //                      Node->Left.get(), std::cref(Data), rowLength,
+  //                      std::cref(Labels), std::cref(LeftIndices), Depth + 1);
+
+  //       splitNode(Node->Right.get(), Data, rowLength, Labels, RightIndices,
+  //                 Depth + 1);
+  //     } else {
+  //       // If we hit the thread limit, do both synchronously
+  //       splitNode(Node->Left.get(), Data, rowLength, Labels, LeftIndices,
+  //                 Depth + 1);
+  //       splitNode(Node->Right.get(), Data, rowLength, Labels, RightIndices,
+  //                 Depth + 1);
+  //     }
+
+  //     if (leftFuture.valid())
+  //       leftFuture.get(); // Ensure left subtree is completed
+  //     if (rightFuture.valid())
+  //       rightFuture.get(); // Ensure right subtree is completed
+
+  //     activeThreads -= 2; // Release two threads after completion
+  //   }
+
+  //   splitNode(Node->Left.get(), Data, rowLength, Labels, LeftIndices, Depth +
+  //   1); splitNode(Node->Right.get(), Data, rowLength, Labels, RightIndices,
+  //             Depth + 1);
 }
 
 // Split node function (using MAE)
@@ -268,52 +295,80 @@ void DecisionTreeSingle::splitNodeMAE(Tree *Node,
   Node->Left = std::make_unique<Tree>();
   Node->Right = std::make_unique<Tree>();
 
-  if (numThreads != 1) {
-    std::future<void> leftFuture, rightFuture;
+  if (Depth < 2) { // Restrict parallelism to first two levels
+    std::future<void> leftFuture =
+        std::async(std::launch::async, &DecisionTreeSingle::splitNodeMAE, this,
+                   Node->Left.get(), std::cref(Data), rowLength,
+                   std::cref(Labels), std::cref(LeftIndices), Depth + 1);
 
-    if (activeThreads <
-        numThreads - 1) { // Reserve one thread for the current function
-      activeThreads += 2; // Two new threads will be used
+    std::future<void> rightFuture =
+        std::async(std::launch::async, &DecisionTreeSingle::splitNodeMAE, this,
+                   Node->Right.get(), std::cref(Data), rowLength,
+                   std::cref(Labels), std::cref(RightIndices), Depth + 1);
 
-      leftFuture =
-          std::async(std::launch::async, &DecisionTreeSingle::splitNodeMAE, this,
-                     Node->Left.get(), std::cref(Data), rowLength,
-                     std::cref(Labels), std::cref(LeftIndices), Depth + 1);
-
-      rightFuture =
-          std::async(std::launch::async, &DecisionTreeSingle::splitNodeMAE, this,
-                     Node->Right.get(), std::cref(Data), rowLength,
-                     std::cref(Labels), std::cref(RightIndices), Depth + 1);
-    } else if (activeThreads < numThreads) {
-      activeThreads++; // Use a single additional thread
-
-      leftFuture =
-          std::async(std::launch::async, &DecisionTreeSingle::splitNodeMAE, this,
-                     Node->Left.get(), std::cref(Data), rowLength,
-                     std::cref(Labels), std::cref(LeftIndices), Depth + 1);
-
-      splitNodeMAE(Node->Right.get(), Data, rowLength, Labels, RightIndices,
-                Depth + 1);
-    } else {
-      // If we hit the thread limit, do both synchronously
-      splitNodeMAE(Node->Left.get(), Data, rowLength, Labels, LeftIndices,
-                Depth + 1);
-      splitNodeMAE(Node->Right.get(), Data, rowLength, Labels, RightIndices,
-                Depth + 1);
-    }
-
-    if (leftFuture.valid())
-      leftFuture.get(); // Ensure left subtree is completed
-    if (rightFuture.valid())
-      rightFuture.get(); // Ensure right subtree is completed
-
-    activeThreads -= 2; // Release two threads after completion
+    // Wait for both subtrees to complete
+    leftFuture.get();
+    rightFuture.get();
+  } else {
+    // Perform normal sequential recursion after depth 2
+    splitNodeMAE(Node->Left.get(), Data, rowLength, Labels, LeftIndices,
+                 Depth + 1);
+    splitNodeMAE(Node->Right.get(), Data, rowLength, Labels, RightIndices,
+                 Depth + 1);
   }
 
-  splitNodeMAE(Node->Left.get(), Data, rowLength, Labels, LeftIndices,
-               Depth + 1);
-  splitNodeMAE(Node->Right.get(), Data, rowLength, Labels, RightIndices,
-               Depth + 1);
+  //   if (numThreads != 1) {
+  //     std::future<void> leftFuture, rightFuture;
+
+  //     if (activeThreads <
+  //         numThreads - 1) { // Reserve one thread for the current function
+  //       activeThreads += 2; // Two new threads will be used
+
+  //       leftFuture =
+  //           std::async(std::launch::async, &DecisionTreeSingle::splitNodeMAE,
+  //           this,
+  //                      Node->Left.get(), std::cref(Data), rowLength,
+  //                      std::cref(Labels), std::cref(LeftIndices), Depth + 1);
+
+  //       rightFuture =
+  //           std::async(std::launch::async, &DecisionTreeSingle::splitNodeMAE,
+  //           this,
+  //                      Node->Right.get(), std::cref(Data), rowLength,
+  //                      std::cref(Labels), std::cref(RightIndices), Depth +
+  //                      1);
+  //     } else if (activeThreads < numThreads) {
+  //       activeThreads++; // Use a single additional thread
+
+  //       leftFuture =
+  //           std::async(std::launch::async, &DecisionTreeSingle::splitNodeMAE,
+  //           this,
+  //                      Node->Left.get(), std::cref(Data), rowLength,
+  //                      std::cref(Labels), std::cref(LeftIndices), Depth + 1);
+
+  //       splitNodeMAE(Node->Right.get(), Data, rowLength, Labels,
+  //       RightIndices,
+  //                 Depth + 1);
+  //     } else {
+  //       // If we hit the thread limit, do both synchronously
+  //       splitNodeMAE(Node->Left.get(), Data, rowLength, Labels, LeftIndices,
+  //                 Depth + 1);
+  //       splitNodeMAE(Node->Right.get(), Data, rowLength, Labels,
+  //       RightIndices,
+  //                 Depth + 1);
+  //     }
+
+  //     if (leftFuture.valid())
+  //       leftFuture.get(); // Ensure left subtree is completed
+  //     if (rightFuture.valid())
+  //       rightFuture.get(); // Ensure right subtree is completed
+
+  //     activeThreads -= 2; // Release two threads after completion
+  //   }
+
+  //   splitNodeMAE(Node->Left.get(), Data, rowLength, Labels, LeftIndices,
+  //                Depth + 1);
+  //   splitNodeMAE(Node->Right.get(), Data, rowLength, Labels, RightIndices,
+  //                Depth + 1);
 }
 
 std::tuple<int, double, double> DecisionTreeSingle::findBestSplit(

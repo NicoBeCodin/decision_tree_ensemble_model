@@ -164,3 +164,57 @@
 
 ---
 
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 3.362e-04
+- Training Time: 0.207 seconds
+- Evaluation Time: 0.001 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+
+#### Feature Importance
+- matrix_size_x: -7.87%
+- matrix_size_y: 1.08%
+- p1: 7.73%
+- p2: 0.73%
+- p3: 54.98%
+- p4: 21.71%
+- p5: 3.32%
+- p6: 25.79%
+- p7: -9.74%
+- p8: 2.28%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 3.426e-04
+- Training Time: 0.326 seconds
+- Evaluation Time: 0.002 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 60.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+
+#### Feature Importance
+- matrix_size_x: -6.23%
+- matrix_size_y: 1.49%
+- p1: 9.00%
+- p2: 1.56%
+- p3: 50.32%
+- p4: 20.38%
+- p5: 4.23%
+- p6: 23.98%
+- p7: -7.66%
+- p8: 2.92%
+
+---
+
