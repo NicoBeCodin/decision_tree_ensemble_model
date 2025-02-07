@@ -39,6 +39,9 @@ public:
   double getRootMSE() const { return Root ? Root->NodeMetric : 0.0; }
   size_t getRootSamples() const { return Root ? Root->NodeSamples : 0; }
 
+  //this determines at twhich depth to stop creating new threads
+  void getMaxSplitDepth(){maxSplitDepth =  std::log2(numThreads);}
+
 private:
   std::unique_ptr<Tree> Root;
   int MaxDepth;
@@ -75,6 +78,7 @@ private:
   std::unique_ptr<Tree> deserializeNode(std::istream &in);
 
   int numThreads = 1;
+  int maxSplitDepth = 0;
   std::atomic<int> activeThreads;
 };
 

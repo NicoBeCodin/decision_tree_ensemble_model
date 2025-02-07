@@ -105,7 +105,7 @@ void getModelParameters(int model_choice, std::string& parameters) {
             std::cout << "Minimum impurity decrease (default: 0.0): ";
             std::cin >> min_impurity;
             int availableThreads = std::thread::hardware_concurrency();
-            std::cout << "number of concurrent threads supported by the implementation: "<< availableThreads<< "\nHow many do you want to use ?";
+            std::cout << "Number of concurrent threads supported by the implementation: "<< availableThreads<< "\nHow many do you want to use ?\nPlease use a power of two (1,2,4,8,16 etc...)";
             std::cin>>numThreads;
 
 

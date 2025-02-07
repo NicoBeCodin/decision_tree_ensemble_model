@@ -218,3 +218,30 @@
 
 ---
 
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 3.426e-04
+- Training Time: 0.325 seconds
+- Evaluation Time: 0.002 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 60.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+
+#### Feature Importance
+- matrix_size_x: -6.23%
+- matrix_size_y: 1.49%
+- p1: 9.00%
+- p2: 1.56%
+- p3: 50.32%
+- p4: 20.38%
+- p5: 4.23%
+- p6: 23.98%
+- p7: -7.66%
+- p8: 2.92%
+
+---
+

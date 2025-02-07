@@ -6,7 +6,7 @@
 #include <numeric>
 #include <exception>
 #include <stdexcept>
-
+#include <queue>
 
 class Math{
 public:
@@ -36,6 +36,18 @@ public:
     static double computeLossMSE(const std::vector<double>& y_true, const std::vector<double>& y_pred) ;    
 
     static double computeLossMAE(const std::vector<double>& y_true, const std::vector<double>& y_pred);
-};
 
+    static double incrementalMedian(std::vector<double>& sortedValues, size_t size);
+    private:
+    //More optimal way of calculting the median
+    class IncrementalMedian {
+        private:
+        std::priority_queue<double> leftMaxHeap;
+        std::priority_queue<double, std::vector<double>, std::greater<double>> rightMinHeap;
+        
+        public:
+        void insert(double value);
+        double getMedian() const;
+    };
+};
 #endif

@@ -44,6 +44,7 @@ double Math::calculateMedianWithIndices(const std::vector<double>& Labels, const
 }
 
 
+
 double Math::calculateMSEWithIndices(const std::vector<double>& Labels, const std::vector<int>& Indices) {
     double Mean = Math::calculateMeanWithIndices(Labels, Indices);
     double MSE = 0.0;
@@ -66,22 +67,10 @@ double Math::calculateMAEWithIndices(const std::vector<double>& Labels, const st
     }
 
     // Step 2: Calculate the median of labels (MAE uses the median)
-    std::sort(NodeLabels.begin(), NodeLabels.end());
-    double Median;
-    size_t size = NodeLabels.size();
-    if (size % 2 == 0) {
-        Median = (NodeLabels[size / 2 - 1] + NodeLabels[size / 2]) / 2.0;
-    } else {
-        Median = NodeLabels[size / 2];
-    }
+    double Median = calculateMedian(NodeLabels);
 
     // Step 3: Calculate the Mean Absolute Error
-    double MAE = 0.0;
-    for (double label : NodeLabels) {
-        MAE += std::abs(label - Median);
-    }
-    MAE /= NodeLabels.size();
-
+    double MAE = calculateMAE(NodeLabels, Median);
     return MAE;
 }
 
@@ -110,15 +99,65 @@ double Math::calculateMSE(const std::vector<double> &labels)
         mse += std::pow(value - mean, 2);
     return mse / labels.size();
 }
+//NOT EFFICIENT
+// double Math::calculateMedian(const std::vector<double>& values) {
+//     std::vector<double> sortedValues = values;
+//     std::sort(sortedValues.begin(), sortedValues.end());
+//     size_t n = sortedValues.size();
+//     if (n % 2 == 0) {
+//         return (sortedValues[n / 2 - 1] + sortedValues[n / 2]) / 2.0;
+//     } else {
+//         return sortedValues[n / 2];
+//     }
+// }
 
 double Math::calculateMedian(const std::vector<double>& values) {
-    std::vector<double> sortedValues = values;
-    std::sort(sortedValues.begin(), sortedValues.end());
-    size_t n = sortedValues.size();
-    if (n % 2 == 0) {
-        return (sortedValues[n / 2 - 1] + sortedValues[n / 2]) / 2.0;
+    if (values.empty()) {
+        throw std::invalid_argument("Cannot compute median of an empty set.");
+    }
+
+    IncrementalMedian medianTracker;
+    for (double val : values) {
+        medianTracker.insert(val);
+    }
+    return medianTracker.getMedian();
+}
+
+double Math::incrementalMedian(std::vector<double>& sortedValues, size_t size) {
+    if (size == 0) {
+        throw std::invalid_argument("Cannot compute median of an empty subset.");
+    }
+    
+    if (size % 2 == 1) { // Odd size
+        return sortedValues[size / 2];
+    } else { // Even size
+        return (sortedValues[size / 2 - 1] + sortedValues[size / 2]) / 2.0;
+    }
+}
+
+
+
+void Math::IncrementalMedian::insert(double value){
+    if (leftMaxHeap.empty() || value <= leftMaxHeap.top()){
+        leftMaxHeap.push(value);
     } else {
-        return sortedValues[n / 2];
+        rightMinHeap.push(value);
+    }
+    if (leftMaxHeap.size() > rightMinHeap.size()+ 1){
+        rightMinHeap.push(leftMaxHeap.top());
+        leftMaxHeap.pop();
+        
+    } else if(rightMinHeap.size() > leftMaxHeap.size()) {
+        leftMaxHeap.push(rightMinHeap.top());
+        rightMinHeap.pop();
+    }
+}
+
+double Math::IncrementalMedian::getMedian() const {
+    if (leftMaxHeap.size() > rightMinHeap.size()){
+        return leftMaxHeap.top();
+    } else {
+        return (leftMaxHeap.top() + rightMinHeap.top())/2.0;
     }
 }
 
@@ -171,3 +210,4 @@ double Math::computeLossMAE(const std::vector<double> &y_true, const std::vector
     return loss /y_true.size();
 
 }
+

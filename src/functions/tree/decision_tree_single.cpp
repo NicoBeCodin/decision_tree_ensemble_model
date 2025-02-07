@@ -9,7 +9,9 @@ DecisionTreeSingle::DecisionTreeSingle(int MaxDepth, int MinLeafLarge,
                                        double MinError, int Criteria,
                                        int numThreads)
     : MaxDepth(MaxDepth), MinLeafLarge(MinLeafLarge), MinError(MinError),
-      Criteria(Criteria), Root(nullptr), numThreads(numThreads) {}
+      Criteria(Criteria), Root(nullptr), numThreads(numThreads) {
+        getMaxSplitDepth();
+      }
 
 // Training function
 void DecisionTreeSingle::train(const std::vector<double> &Data, int rowLength,
@@ -19,6 +21,7 @@ void DecisionTreeSingle::train(const std::vector<double> &Data, int rowLength,
   std::vector<int> Indices(Labels.size());
   std::iota(Indices.begin(), Indices.end(), 0);
 
+  std::cout<<"Number of threads used is : "<<numThreads<<"\nTree will be split until "<<maxSplitDepth<<" depth"<<std::endl;
   // Will use MSE criterion
   if (criteria == 0) {
     std::cout << "Training using MSE." << std::endl;
@@ -30,56 +33,6 @@ void DecisionTreeSingle::train(const std::vector<double> &Data, int rowLength,
     splitNodeMAE(Root.get(), Data, rowLength, Labels, Indices, 0);
   }
 }
-
-// // Split node function (using MSE)
-// void DecisionTreeSingle::splitNode(Tree *Node, const std::vector<double>
-// &Data,
-//                                    int rowLength,
-//                                    const std::vector<double> &Labels,
-//                                    const std::vector<int> &Indices, int
-//                                    Depth) {
-//   // Compute node metrics
-//   Node->NodeMetric = Math::calculateMSEWithIndices(Labels, Indices);
-//   Node->NodeSamples = Indices.size();
-
-//   // Stopping conditions
-//   if (Depth >= MaxDepth || Indices.size() < static_cast<size_t>(MinLeafLarge)
-//   ||
-//       Node->NodeMetric < MinError) {
-//     Node->IsLeaf = true;
-//     Node->Prediction = Math::calculateMeanWithIndices(Labels, Indices);
-//     return;
-//   }
-
-//   // Find the best split
-//   auto [BestFeature, BestThreshold, BestImpurityDecrease] =
-//       findBestSplit(Data, rowLength, Labels, Indices, Node->NodeMetric);
-
-//   if (BestFeature == -1) {
-//     Node->IsLeaf = true;
-//     Node->Prediction = Math::calculateMeanWithIndices(Labels, Indices);
-//     return;
-//   }
-
-//   Node->FeatureIndex = BestFeature;
-//   Node->MaxValue = BestThreshold;
-
-//   // Split data
-//   std::vector<int> LeftIndices, RightIndices;
-//   for (int Idx : Indices) {
-//     if (Data[Idx * rowLength + BestFeature] <= BestThreshold) {
-//       LeftIndices.push_back(Idx);
-//     } else {
-//       RightIndices.push_back(Idx);
-//     }
-//   }
-
-//   Node->Left = std::make_unique<Tree>();
-//   Node->Right = std::make_unique<Tree>();
-//   splitNode(Node->Left.get(), Data, rowLength, Labels, LeftIndices, Depth +
-//   1); splitNode(Node->Right.get(), Data, rowLength, Labels, RightIndices,
-//             Depth + 1);
-// }
 
 // Split node function (using MSE)
 void DecisionTreeSingle::splitNode(Tree *Node, const std::vector<double> &Data,
@@ -126,7 +79,7 @@ void DecisionTreeSingle::splitNode(Tree *Node, const std::vector<double> &Data,
 
   // Parallelism goes here
 
-  if (Depth < 2) { // Restrict parallelism to first two levels
+  if (Depth < maxSplitDepth) { // Restrict parallelism to first two levels
     std::future<void> leftFuture =
         std::async(std::launch::async, &DecisionTreeSingle::splitNode, this,
                    Node->Left.get(), std::cref(Data), rowLength,
@@ -147,110 +100,11 @@ void DecisionTreeSingle::splitNode(Tree *Node, const std::vector<double> &Data,
     splitNode(Node->Right.get(), Data, rowLength, Labels, RightIndices,
               Depth + 1);
   }
-
-  //   if (numThreads != 1) {
-
-  //     std::future<void> leftFuture, rightFuture;
-
-  //     if (activeThreads <
-  //         numThreads - 1) { // Reserve one thread for the current function
-  //       activeThreads += 2; // Two new threads will be used
-
-  //       leftFuture =
-  //           std::async(std::launch::async, &DecisionTreeSingle::splitNode,
-  //           this,
-  //                      Node->Left.get(), std::cref(Data), rowLength,
-  //                      std::cref(Labels), std::cref(LeftIndices), Depth + 1);
-
-  //       rightFuture =
-  //           std::async(std::launch::async, &DecisionTreeSingle::splitNode,
-  //           this,
-  //                      Node->Right.get(), std::cref(Data), rowLength,
-  //                      std::cref(Labels), std::cref(RightIndices), Depth +
-  //                      1);
-  //     } else if (activeThreads < numThreads) {
-  //       activeThreads++; // Use a single additional thread
-
-  //       leftFuture =
-  //           std::async(std::launch::async, &DecisionTreeSingle::splitNode,
-  //           this,
-  //                      Node->Left.get(), std::cref(Data), rowLength,
-  //                      std::cref(Labels), std::cref(LeftIndices), Depth + 1);
-
-  //       splitNode(Node->Right.get(), Data, rowLength, Labels, RightIndices,
-  //                 Depth + 1);
-  //     } else {
-  //       // If we hit the thread limit, do both synchronously
-  //       splitNode(Node->Left.get(), Data, rowLength, Labels, LeftIndices,
-  //                 Depth + 1);
-  //       splitNode(Node->Right.get(), Data, rowLength, Labels, RightIndices,
-  //                 Depth + 1);
-  //     }
-
-  //     if (leftFuture.valid())
-  //       leftFuture.get(); // Ensure left subtree is completed
-  //     if (rightFuture.valid())
-  //       rightFuture.get(); // Ensure right subtree is completed
-
-  //     activeThreads -= 2; // Release two threads after completion
-  //   }
-
-  //   splitNode(Node->Left.get(), Data, rowLength, Labels, LeftIndices, Depth +
-  //   1); splitNode(Node->Right.get(), Data, rowLength, Labels, RightIndices,
-  //             Depth + 1);
+  
+  
+  
 }
-
-// Split node function (using MAE)
-// void DecisionTreeSingle::splitNodeMAE(Tree *Node,
-//                                       const std::vector<double> &Data,
-//                                       int rowLength,
-//                                       const std::vector<double> &Labels,
-//                                       const std::vector<int> &Indices,
-//                                       int Depth) {
-//   Node->NodeMetric = Math::calculateMAEWithIndices(Labels, Indices);
-//   Node->NodeSamples = Indices.size();
-
-//   // Stopping conditions
-//   if (Depth >= MaxDepth || Indices.size() < static_cast<size_t>(MinLeafLarge)
-//   ||
-//       Node->NodeMetric < MinError) {
-//     Node->IsLeaf = true;
-//     Node->Prediction = Math::calculateMedianWithIndices(Labels, Indices);
-//     return;
-//   }
-
-//   // Find the best split
-//   auto [BestFeature, BestThreshold, BestImpurityDecrease] =
-//       findBestSplitUsingMAE(Data, rowLength, Labels, Indices,
-//       Node->NodeMetric);
-
-//   if (BestFeature == -1) {
-//     Node->IsLeaf = true;
-//     Node->Prediction = Math::calculateMedianWithIndices(Labels, Indices);
-//     return;
-//   }
-
-//   Node->FeatureIndex = BestFeature;
-//   Node->MaxValue = BestThreshold;
-
-//   // Split data
-//   std::vector<int> LeftIndices, RightIndices;
-//   for (int Idx : Indices) {
-//     if (Data[Idx * rowLength + BestFeature] <= BestThreshold) {
-//       LeftIndices.push_back(Idx);
-//     } else {
-//       RightIndices.push_back(Idx);
-//     }
-//   }
-
-//   Node->Left = std::make_unique<Tree>();
-//   Node->Right = std::make_unique<Tree>();
-//   splitNodeMAE(Node->Left.get(), Data, rowLength, Labels, LeftIndices,
-//                Depth + 1);
-//   splitNodeMAE(Node->Right.get(), Data, rowLength, Labels, RightIndices,
-//                Depth + 1);
-// }
-
+ 
 // Split node function (using MAE)
 void DecisionTreeSingle::splitNodeMAE(Tree *Node,
                                       const std::vector<double> &Data,
@@ -260,6 +114,8 @@ void DecisionTreeSingle::splitNodeMAE(Tree *Node,
                                       int Depth) {
   Node->NodeMetric = Math::calculateMAEWithIndices(Labels, Indices);
   Node->NodeSamples = Indices.size();
+
+  
 
   // Stopping conditions
   if (Depth >= MaxDepth || Indices.size() < static_cast<size_t>(MinLeafLarge) ||
@@ -294,8 +150,9 @@ void DecisionTreeSingle::splitNodeMAE(Tree *Node,
 
   Node->Left = std::make_unique<Tree>();
   Node->Right = std::make_unique<Tree>();
+  
 
-  if (Depth < 2) { // Restrict parallelism to first two levels
+  if (Depth < maxSplitDepth) { // Restrict parallelism to first two levels
     std::future<void> leftFuture =
         std::async(std::launch::async, &DecisionTreeSingle::splitNodeMAE, this,
                    Node->Left.get(), std::cref(Data), rowLength,
@@ -317,59 +174,7 @@ void DecisionTreeSingle::splitNodeMAE(Tree *Node,
                  Depth + 1);
   }
 
-  //   if (numThreads != 1) {
-  //     std::future<void> leftFuture, rightFuture;
-
-  //     if (activeThreads <
-  //         numThreads - 1) { // Reserve one thread for the current function
-  //       activeThreads += 2; // Two new threads will be used
-
-  //       leftFuture =
-  //           std::async(std::launch::async, &DecisionTreeSingle::splitNodeMAE,
-  //           this,
-  //                      Node->Left.get(), std::cref(Data), rowLength,
-  //                      std::cref(Labels), std::cref(LeftIndices), Depth + 1);
-
-  //       rightFuture =
-  //           std::async(std::launch::async, &DecisionTreeSingle::splitNodeMAE,
-  //           this,
-  //                      Node->Right.get(), std::cref(Data), rowLength,
-  //                      std::cref(Labels), std::cref(RightIndices), Depth +
-  //                      1);
-  //     } else if (activeThreads < numThreads) {
-  //       activeThreads++; // Use a single additional thread
-
-  //       leftFuture =
-  //           std::async(std::launch::async, &DecisionTreeSingle::splitNodeMAE,
-  //           this,
-  //                      Node->Left.get(), std::cref(Data), rowLength,
-  //                      std::cref(Labels), std::cref(LeftIndices), Depth + 1);
-
-  //       splitNodeMAE(Node->Right.get(), Data, rowLength, Labels,
-  //       RightIndices,
-  //                 Depth + 1);
-  //     } else {
-  //       // If we hit the thread limit, do both synchronously
-  //       splitNodeMAE(Node->Left.get(), Data, rowLength, Labels, LeftIndices,
-  //                 Depth + 1);
-  //       splitNodeMAE(Node->Right.get(), Data, rowLength, Labels,
-  //       RightIndices,
-  //                 Depth + 1);
-  //     }
-
-  //     if (leftFuture.valid())
-  //       leftFuture.get(); // Ensure left subtree is completed
-  //     if (rightFuture.valid())
-  //       rightFuture.get(); // Ensure right subtree is completed
-
-  //     activeThreads -= 2; // Release two threads after completion
-  //   }
-
-  //   splitNodeMAE(Node->Left.get(), Data, rowLength, Labels, LeftIndices,
-  //                Depth + 1);
-  //   splitNodeMAE(Node->Right.get(), Data, rowLength, Labels, RightIndices,
-  //                Depth + 1);
-}
+} 
 
 std::tuple<int, double, double> DecisionTreeSingle::findBestSplit(
     const std::vector<double> &Data, int rowLength,
@@ -456,72 +261,81 @@ std::tuple<int, double, double> DecisionTreeSingle::findBestSplit(
 }
 
 std::tuple<int, double, double> DecisionTreeSingle::findBestSplitUsingMAE(
-    const std::vector<double> &Data, int rowLength,
-    const std::vector<double> &Labels, const std::vector<int> &Indices,
-    double CurrentMAE) {
-  int BestFeature = -1;
-  double BestThreshold = 0.0;
-  double BestImpurityDecrease = 0.0;
+  const std::vector<double> &Data, int rowLength,
+  const std::vector<double> &Labels, const std::vector<int> &Indices,
+  double CurrentMAE) {
 
-  size_t NumFeatures = rowLength;
-  for (size_t Feature = 0; Feature < NumFeatures; ++Feature) {
-    std::vector<double> SortedValues;
-    std::vector<int> SortedIndices;
-    for (int Idx : Indices) {
-      SortedValues.push_back(Data[Idx * rowLength + Feature]);
-      SortedIndices.push_back(Idx);
-    }
+int BestFeature = -1;
+double BestThreshold = 0.0;
+double BestImpurityDecrease = 0.0;
 
-    std::sort(SortedIndices.begin(), SortedIndices.end(), [&](int A, int B) {
-      return Data[A * rowLength + Feature] < Data[B * rowLength + Feature];
-    });
+size_t NumFeatures = rowLength;
 
-    std::vector<double> SortedLabels;
-    for (int idx : SortedIndices) {
-      SortedLabels.push_back(Labels[idx]);
-    }
-
-    double LeftSum = 0.0, RightSum = std::accumulate(SortedLabels.begin(),
-                                                     SortedLabels.end(), 0.0);
-    size_t LeftCount = 0, RightCount = SortedLabels.size();
-
-    for (size_t i = 0; i < SortedIndices.size() - 1; ++i) {
-      double Value = Data[SortedIndices[i] * rowLength + Feature];
-      double NextValue = Data[SortedIndices[i + 1] * rowLength + Feature];
-      double Label = SortedLabels[i];
-
-      LeftSum += Label;
-      RightSum -= Label;
-      LeftCount++;
-      RightCount--;
-
-      if (Value == NextValue)
-        continue;
-
-      double LeftMedian = Math::calculateMedian(SortedLabels);
-      double RightMedian = Math::calculateMedian(SortedLabels);
-
-      double LeftMAE = 0.0, RightMAE = 0.0;
-      for (size_t j = 0; j < LeftCount; ++j) {
-        LeftMAE += std::abs(SortedLabels[j] - LeftMedian);
-      }
-      for (size_t j = LeftCount; j < SortedLabels.size(); ++j) {
-        RightMAE += std::abs(SortedLabels[j] - RightMedian);
-      }
-
-      double WeightedMAE = (LeftMAE + RightMAE) / SortedLabels.size();
-      double ImpurityDecrease = CurrentMAE - WeightedMAE;
-
-      if (ImpurityDecrease > BestImpurityDecrease) {
-        BestImpurityDecrease = ImpurityDecrease;
-        BestFeature = Feature;
-        BestThreshold = (Value + NextValue) / 2.0;
-      }
-    }
+for (size_t Feature = 0; Feature < NumFeatures; ++Feature) {
+  // Store feature values and corresponding labels
+  std::vector<std::pair<double, double>> FeatureLabelPairs;
+  
+  for (int Idx : Indices) {
+    FeatureLabelPairs.emplace_back(Data[Idx * rowLength + Feature], Labels[Idx]);
   }
 
-  return {BestFeature, BestThreshold, BestImpurityDecrease};
+  // Sort by feature value
+  std::sort(FeatureLabelPairs.begin(), FeatureLabelPairs.end());
+
+  // Extract sorted labels
+  std::vector<double> SortedLabels;
+  for (const auto& [feat, label] : FeatureLabelPairs) {
+    SortedLabels.push_back(label);
+  }
+
+  // Running sums and count
+  double LeftSum = 0.0, RightSum = std::accumulate(SortedLabels.begin(), SortedLabels.end(), 0.0);
+  size_t LeftCount = 0, RightCount = SortedLabels.size();
+
+  double LeftMedian = 0.0, RightMedian = Math::calculateMedian(SortedLabels); // Calculate once
+
+  for (size_t i = 0; i < SortedLabels.size() - 1; ++i) {
+    double Value = FeatureLabelPairs[i].first;
+    double NextValue = FeatureLabelPairs[i + 1].first;
+    double Label = FeatureLabelPairs[i].second;
+
+    LeftSum += Label;
+    RightSum -= Label;
+    LeftCount++;
+    RightCount--;
+
+    if (Value == NextValue) continue; // Skip duplicate values
+
+    // Update medians incrementally instead of recalculating
+    LeftMedian = Math::incrementalMedian(SortedLabels, LeftCount);
+    RightMedian = Math::incrementalMedian(SortedLabels, RightCount);
+
+    // Compute MAE using sum instead of full iteration
+    double LeftMAE = 0.0, RightMAE = 0.0;
+    for (size_t j = 0; j < LeftCount; ++j) {
+      LeftMAE += std::abs(SortedLabels[j] - LeftMedian);
+    }
+    for (size_t j = LeftCount; j < SortedLabels.size(); ++j) {
+      RightMAE += std::abs(SortedLabels[j] - RightMedian);
+    }
+
+    double WeightedMAE = (LeftMAE + RightMAE) / SortedLabels.size();
+    double ImpurityDecrease = CurrentMAE - WeightedMAE;
+
+    if (ImpurityDecrease > BestImpurityDecrease) {
+      BestImpurityDecrease = ImpurityDecrease;
+      BestFeature = Feature;
+      BestThreshold = (Value + NextValue) / 2.0;
+    }
+  }
 }
+
+return {BestFeature, BestThreshold, BestImpurityDecrease};
+}
+
+
+
+
 
 // Other functions remain structurally similar with adjustments for flattened
 // data

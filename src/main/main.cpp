@@ -7,6 +7,7 @@
 #include "../functions/tree/decision_tree_single.h"
 #include "../functions/tree/vizualization/tree_visualization.h"
 #include "../model_comparison/model_comparison.h"
+#include "utility.h"
 #include <chrono>
 #include <filesystem>
 #include <iomanip>
@@ -146,6 +147,10 @@ int main(int argc, char *argv[]) {
       minSamplesSplit = std::stoi(params[2]);
       minImpurityDecrease = std::stod(params[3]);
       numThreads = std::stoi(params[4]);
+      //This is to make sure it's a power of two
+      numThreads = adjustNumThreads(numThreads);
+
+
     } else if (load_request) {
       DecisionTreeSingle single_tree(0, 0, 0.0, 0); // Temporary
       try {
@@ -300,7 +305,7 @@ int main(int argc, char *argv[]) {
       min_impurity_decrease = std::stod(params[5]);
     } else if (load_request) {
       Bagging bagging_model(0, 0, 0, 0.0, nullptr, 0,
-                            0); // Initialisation temporaire
+                            0); // Temp init
 
       try {
         bagging_model.load(path_model_filename);
