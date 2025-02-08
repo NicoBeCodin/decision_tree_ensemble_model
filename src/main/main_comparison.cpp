@@ -121,6 +121,7 @@ void getModelParameters(int model_choice, std::string& parameters) {
             int criteria = -1;
             int which_loss_func = -1;
             double min_impurity;
+            int numThreads = 1;
             
             std::cout << "\nBagging Parameters:\n";
             // Loop until the user enters 0 or 1 for criteria
@@ -159,13 +160,17 @@ void getModelParameters(int model_choice, std::string& parameters) {
             std::cin >> min_samples;
             std::cout << "Minimum impurity decrease (default: 0.0): ";
             std::cin >> min_impurity;
+            int availableThreads = std::thread::hardware_concurrency();
+            std::cout << "Number of concurrent threads supported by the implementation: "<< availableThreads<< "\nHow many do you want to use ? ";
+            std::cin>>numThreads;
             
             parameters += " " + std::to_string(criteria) + " " + 
                          std::to_string(which_loss_func) + " " + 
                          std::to_string(num_trees) + " " +
                          std::to_string(max_depth) + " " + 
                          std::to_string(min_samples) + " " + 
-                         std::to_string(min_impurity);
+                         std::to_string(min_impurity) + " " +
+                         std::to_string(numThreads);
             break;
         }
         case 3: {  // Boosting

@@ -21,7 +21,6 @@ void DecisionTreeSingle::train(const std::vector<double> &Data, int rowLength,
   std::vector<int> Indices(Labels.size());
   std::iota(Indices.begin(), Indices.end(), 0);
 
-  std::cout<<"Number of threads used is : "<<numThreads<<"\nTree will be split until "<<maxSplitDepth<<" depth"<<std::endl;
   // Will use MSE criterion
   if (criteria == 0) {
     std::cout << "Training using MSE." << std::endl;
@@ -418,7 +417,7 @@ void DecisionTreeSingle::saveTree(const std::string &filename) {
   }
 
   // Write tree parameters
-  out << MaxDepth << " " << MinLeafLarge << " " << MinError << " " << Criteria
+  out << MaxDepth << " " << MinLeafLarge << " " << MinError << " " << Criteria 
       << "\n";
 
   // Serialize the tree

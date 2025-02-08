@@ -288,6 +288,7 @@ int main(int argc, char *argv[]) {
     int criteria;
     int which_loss_func;
     double min_impurity_decrease;
+    int numThreads;
 
     // Create folder bagging models if non existent
     std::filesystem::path models_dir = "../saved_models/bagging_models";
@@ -303,9 +304,10 @@ int main(int argc, char *argv[]) {
       max_depth = std::stoi(params[3]);
       min_samples_split = std::stoi(params[4]);
       min_impurity_decrease = std::stod(params[5]);
+      numThreads = std::stoi(params[6]);
     } else if (load_request) {
       Bagging bagging_model(0, 0, 0, 0.0, nullptr, 0,
-                            0); // Temp init
+                            0, 1); // Temp init
 
       try {
         bagging_model.load(path_model_filename);
@@ -340,13 +342,15 @@ int main(int argc, char *argv[]) {
                 << "Default number of trees to generate : 20\n"
                 << "Default maximum depth = 60\n"
                 << "Default minimum sample split = 2\n"
-                << "Default minimum impurity decrease = 1e-6\n";
+                << "Default minimum impurity decrease = 1e-6\n"
+                << "Default amount of threads used is 1\n";
       criteria = 0;
       which_loss_func = 0;
       num_trees = 20;
       max_depth = 60;
       min_samples_split = 2;
       min_impurity_decrease = 1e-6;
+      numThreads =1;
     }
 
     std::unique_ptr<LossFunction> loss_function;
@@ -363,7 +367,7 @@ int main(int argc, char *argv[]) {
     std::cout << "Bagging process started, please wait...\n";
     Bagging bagging_model(num_trees, max_depth, min_samples_split,
                           min_impurity_decrease, std::move(loss_function),
-                          criteria, which_loss_func);
+                          criteria, which_loss_func, numThreads);
 
     auto train_start = std::chrono::high_resolution_clock::now();
     bagging_model.train(X_train, rowLength, y_train, criteria);
