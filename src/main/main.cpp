@@ -15,43 +15,12 @@
 #include <memory>
 #include <string>
 
-void displayFeatureImportance(
-    const std::vector<FeatureImportance::FeatureScore> &scores) {
-  std::cout << "\nFeature importance :\n";
-  std::cout << std::string(30, '-') << "\n";
 
-  for (const auto &score : scores) {
-    std::cout << std::setw(15) << score.feature_name << std::setw(15)
-              << std::fixed << std::setprecision(2)
-              << score.importance_score * 100.0 << "\n";
-  }
-  std::cout << std::endl;
-}
-
-// input function to set parameters with defaults
-template <typename T>
-T getInputWithDefault(const std::string &prompt, T defaultValue) {
-  std::cout << prompt << " (Default: " << defaultValue << "): ";
-  std::string input;
-  std::getline(std::cin, input); // Read user input as string
-
-  // If empty return default
-  if (input.empty()) {
-    return defaultValue;
-  }
-
-  std::istringstream iss(input);
-  T value;
-  iss >> value;
-
-  if (iss.fail()) {
-    std::cerr << "Invalid input. Using default value: " << defaultValue << "\n";
-    return defaultValue;
-  }
-  return value;
-}
 
 int main(int argc, char *argv[]) {
+
+  ProgramOptions programOptions = parseCommandLineArguments(argc, argv);
+
   DataIO data_io;
   int rowLength = 11;
   auto [X, y] =
@@ -65,12 +34,8 @@ int main(int argc, char *argv[]) {
   std::cout << "X size : " << X.size() << std::endl;
   std::cout << "y size : " << y.size() << std::endl;
 
-  // Créer le dossier saved_models s'il n'existe pas
-  std::filesystem::path models_dir = "../saved_models";
-  if (!std::filesystem::exists(models_dir)) {
-    std::filesystem::create_directories(models_dir);
-    std::cout << "Directory created: " << models_dir << std::endl;
-  }
+  // Creates saved models folder if non existant
+  createDirectory("../saved_models");
 
   // Feature names
   std::vector<std::string> feature_names = {
@@ -99,63 +64,30 @@ int main(int argc, char *argv[]) {
   std::string path_model_filename = "";
   std::vector<std::string> params;
 
-  if (argc > 1) {
-    choice = std::stoi(argv[1]); // Convert first argument to integer choice
-
-    use_custom_params = false; // Default value
-
-    int start_index = 2; // Start after choice argument
-
-    if (argc > 2 && std::string(argv[2]) == "-p") {
-      use_custom_params = true;
-      start_index = 3; // Skip "-p" flag
-      // Iterate through all remaining arguments
-      for (int i = start_index; i < argc; i++) {
-        params.push_back(argv[i]);
-      }
-    }
-    if (argc > 2 && std::string(argv[2]) == "-l") {
-      load_request = true;
-      path_model_filename = std::string(argv[3]);
-    }
-  } else {
-    // If MainEnsemble does't have any argument
-    std::cout << "Choose the method you want to use:\n";
-    std::cout << "1: Simple Decision Tree\n";
-    std::cout << "2: Bagging\n";
-    std::cout << "3: Boosting\n";
-    std::cout << "4: Boosting model with XGBoost\n";
-    std::cin >> choice;
-  }
-
-  if (choice == 1) {
+  if (programOptions.choice == 1) {
     int maxDepth, minSamplesSplit;
     double minImpurityDecrease;
     int criteria;
     int numThreads;
 
     // Create folder if non existent
-    std::filesystem::path models_dir = "../saved_models/tree_models";
-    if (!std::filesystem::exists(models_dir)) {
-      std::filesystem::create_directories(models_dir);
-      std::cout << "Directory created: " << models_dir << std::endl;
-    }
+    createDirectory("../saved_models/tree_models");
 
-    if (use_custom_params && params.size() > 3) {
-      criteria = std::stoi(params[0]);
-      maxDepth = std::stoi(params[1]);
-      minSamplesSplit = std::stoi(params[2]);
-      minImpurityDecrease = std::stod(params[3]);
-      numThreads = std::stoi(params[4]);
+    if (programOptions.use_custom_params && params.size() > 3) {
+      criteria = std::stoi(programOptions.params[0]);
+      maxDepth = std::stoi(programOptions.params[1]);
+      minSamplesSplit = std::stoi(programOptions.params[2]);
+      minImpurityDecrease = std::stod(programOptions.params[3]);
+      numThreads = std::stoi(programOptions.params[4]);
       //This is to make sure it's a power of two
       numThreads = adjustNumThreads(numThreads);
 
 
-    } else if (load_request) {
+    } else if (programOptions.load_request) {
       DecisionTreeSingle single_tree(0, 0, 0.0, 0); // Temporary
       try {
-        single_tree.loadTree(path_model_filename);
-        std::cout << "Model loaded successfully from " << path_model_filename
+        single_tree.loadTree(programOptions.path_model_filename);
+        std::cout << "Model loaded successfully from " << programOptions.path_model_filename
                   << "\n";
       } catch (const std::runtime_error &e) {
         std::cerr << "Error loading the model: " << e.what() << "\n";
@@ -234,18 +166,9 @@ int main(int argc, char *argv[]) {
         FeatureImportance::calculateTreeImportance(single_tree, feature_names);
     displayFeatureImportance(feature_importance);
 
-    bool save_model = false;
-    std::cout << "Would you like to save this model? (1 = Yes, 0 = No): ";
-    std::cin >> save_model;
-    if (save_model) {
-      std::cout << "Please type the name you want to give to the .txt file: \n";
-      std::string filename;
-      std::cin >> filename;
-      std::string path = "../saved_models/tree_models/" + filename;
-      std::cout << "Saving tree as: " << filename << "in this path : " << path
-                << std::endl;
-      single_tree.saveTree(path);
-    }
+
+    //Save model or not
+    saveModel(single_tree);
 
     // Save results for comparaison
     ModelResults results;
@@ -283,7 +206,7 @@ int main(int argc, char *argv[]) {
       std::cout << "Visualisation générée dans le dossier 'visualizations'"
                 << std::endl;
     }
-  } else if (choice == 2) {
+  } else if (programOptions.choice == 2) {
     int num_trees, max_depth, min_samples_split;
     int criteria;
     int which_loss_func;
@@ -297,21 +220,21 @@ int main(int argc, char *argv[]) {
       std::cout << "Directory created: " << models_dir << std::endl;
     }
 
-    if (use_custom_params && params.size() > 4) {
-      criteria = std::stoi(params[0]);
-      which_loss_func = std::stoi(params[1]);
-      num_trees = std::stoi(params[2]);
-      max_depth = std::stoi(params[3]);
-      min_samples_split = std::stoi(params[4]);
-      min_impurity_decrease = std::stod(params[5]);
-      numThreads = std::stoi(params[6]);
-    } else if (load_request) {
+    if (programOptions.use_custom_params && programOptions.params.size() > 4) {
+      criteria = std::stoi(programOptions.params[0]);
+      which_loss_func = std::stoi(programOptions.params[1]);
+      num_trees = std::stoi(programOptions.params[2]);
+      max_depth = std::stoi(programOptions.params[3]);
+      min_samples_split = std::stoi(programOptions.params[4]);
+      min_impurity_decrease = std::stod(programOptions.params[5]);
+      numThreads = std::stoi(programOptions.params[6]);
+    } else if (programOptions.load_request) {
       Bagging bagging_model(0, 0, 0, 0.0, nullptr, 0,
                             0, 1); // Temp init
 
       try {
-        bagging_model.load(path_model_filename);
-        std::cout << "Model loaded successfully from " << path_model_filename
+        bagging_model.load(programOptions.path_model_filename);
+        std::cout << "Model loaded successfully from " << programOptions.path_model_filename
                   << "\n";
       } catch (const std::runtime_error &e) {
         std::cerr << "Error loading the model: " << e.what() << "\n";
@@ -391,19 +314,7 @@ int main(int argc, char *argv[]) {
     displayFeatureImportance(feature_importance);
 
     // Save model if users wants it
-    bool save_model = false;
-    std::cout << "Would you like to save this model? (1 = Yes, 0 = No): ";
-    std::cin >> save_model;
-
-    if (save_model) {
-      std::string filename;
-      std::cout << "Enter the filename to save the model: ";
-      std::cin >> filename;
-      std::string path = "../saved_models/bagging_models/" + filename;
-      bagging_model.save(path);
-      std::cout << "Model saved successfully as " << filename
-                << "in this path : " << path << "\n";
-    }
+  saveModel(bagging_model);
 
     // Save results
     ModelResults results;
@@ -440,34 +351,30 @@ int main(int argc, char *argv[]) {
       std::cout << "Visualisations générées dans le dossier 'visualizations'"
                 << std::endl;
     }
-  } else if (choice == 3) {
+  } else if (programOptions.choice == 3) {
     int n_estimators, max_depth, min_samples_split;
     int criteria;
     int which_loss_func;
     double min_impurity_decrease, learning_rate, initial_prediction;
 
     // Create boosting folder if new
-    std::filesystem::path models_dir = "../saved_models/boosting_models";
-    if (!std::filesystem::exists(models_dir)) {
-      std::filesystem::create_directories(models_dir);
-      std::cout << "Directory created: " << models_dir << std::endl;
-    }
+    createDirectory("../saved_models/boosting_models");
 
-    if (use_custom_params && params.size() > 5) {
-      criteria = std::stoi(params[0]);
-      which_loss_func = std::stoi(params[1]);
-      n_estimators = std::stoi(params[2]);
-      max_depth = std::stoi(params[3]);
-      min_samples_split = std::stoi(params[4]);
-      min_impurity_decrease = std::stod(params[5]);
-      learning_rate = std::stod(params[6]);
-    } else if (load_request) {
+    if (programOptions.use_custom_params && programOptions.params.size() > 5) {
+      criteria = std::stoi(programOptions.params[0]);
+      which_loss_func = std::stoi(programOptions.params[1]);
+      n_estimators = std::stoi(programOptions.params[2]);
+      max_depth = std::stoi(programOptions.params[3]);
+      min_samples_split = std::stoi(programOptions.params[4]);
+      min_impurity_decrease = std::stod(programOptions.params[5]);
+      learning_rate = std::stod(programOptions.params[6]);
+    } else if (programOptions.load_request) {
       Boosting boosting_model(0, 0.0, nullptr, 0, 0, 0.0, 0,
                               0); // temporary creation
 
       try {
-        boosting_model.load(path_model_filename);
-        std::cout << "Model loaded successfully from " << path_model_filename
+        boosting_model.load(programOptions.path_model_filename);
+        std::cout << "Model loaded successfully from " << programOptions.path_model_filename
                   << "\n";
       } catch (const std::runtime_error &e) {
         std::cerr << "Error loading the model: " << e.what() << "\n";
@@ -550,20 +457,7 @@ int main(int argc, char *argv[]) {
     displayFeatureImportance(feature_importance);
 
     // Save model
-    bool save_model = false;
-    std::cout << "Would you like to save this model? (1 = Yes, 0 = No): ";
-    std::cin >> save_model;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-    if (save_model) {
-      std::string filename;
-      std::cout << "Enter the filename to save the model: ";
-      std::cin >> filename;
-      std::string path = "../saved_models/boosting_models/" + filename;
-      boosting_model.save(path);
-      std::cout << "Model saved successfully as " << filename
-                << "in this path : " << path << "\n";
-    }
+  saveModel(boosting_model);
 
     // Save results for comparaison
     ModelResults results;
@@ -600,33 +494,29 @@ int main(int argc, char *argv[]) {
       std::cout << "Visualisations générées dans le dossier 'visualizations'"
                 << std::endl;
     }
-  } else if (choice == 4) {
+  } else if (programOptions.choice == 4) {
     int n_estimators, max_depth, min_samples_split;
     int which_loss_func;
     double learning_rate, lambda, alpha, initial_prediction;
 
     // Create folder if non existent
-    std::filesystem::path models_dir = "../saved_models/xgboost_models";
-    if (!std::filesystem::exists(models_dir)) {
-      std::filesystem::create_directories(models_dir);
-      std::cout << "Directory created: " << models_dir << std::endl;
-    }
+    createDirectory("../saved_models/xgboost_models");
 
-    if (use_custom_params && params.size() > 5) {
-      which_loss_func = std::stoi(params[0]);
-      n_estimators = std::stoi(params[1]);
-      max_depth = std::stoi(params[2]);
-      min_samples_split = std::stoi(params[3]);
-      learning_rate = std::stod(params[4]);
-      lambda = std::stod(params[5]);
-      alpha = std::stod(params[6]);
-    } else if (load_request) {
+    if (programOptions.use_custom_params && programOptions.params.size() > 5) {
+      which_loss_func = std::stoi(programOptions.params[0]);
+      n_estimators = std::stoi(programOptions.params[1]);
+      max_depth = std::stoi(programOptions.params[2]);
+      min_samples_split = std::stoi(programOptions.params[3]);
+      learning_rate = std::stod(programOptions.params[4]);
+      lambda = std::stod(programOptions.params[5]);
+      alpha = std::stod(programOptions.params[6]);
+    } else if (programOptions.load_request) {
       XGBoost xgboost_model(0, 0, 0, 0.0, 0.0, 0.0, nullptr,
                             0); // Initialisation temporaire
 
       try {
-        xgboost_model.load(path_model_filename);
-        std::cout << "Model loaded successfully from " << path_model_filename
+        xgboost_model.load(programOptions.path_model_filename);
+        std::cout << "Model loaded successfully from " << programOptions.path_model_filename
                   << "\n";
       } catch (const std::runtime_error &e) {
         std::cerr << "Error loading the model: " << e.what() << "\n";
@@ -728,20 +618,7 @@ int main(int argc, char *argv[]) {
 
     ModelComparison::saveResults(results);
 
-    std::cout << "Would you like to save this model? (1 = Yes, 0 = No): ";
-    int save_model;
-    std::cin >> save_model;
-
-    if (save_model == 1) {
-      std::cout << "Enter filename to save the model: ";
-      std::string filename;
-      std::cin >> filename;
-      std::string path = "../saved_models/xgboost_models/" + filename;
-      xgboost_model.save(path);
-      std::cout << "Model saved successfully as " << filename
-                << "in this path : " << path << "\n";
-    }
-
+  saveModel(xgboost_model);
     // Generate visualisation if users wants it
     bool visualisation_ask = false;
     std::cout << "Would you like to genarate a visualisation of this model? (1 "

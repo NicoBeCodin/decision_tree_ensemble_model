@@ -272,3 +272,57 @@
 
 ---
 
+### Bagging
+
+#### Performance Metrics
+- MSE: 9.881e-324
+- Training Time: 30.238 seconds
+- Evaluation Time: 0.061 seconds
+
+#### Model Parameters
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 30.000
+
+#### Feature Importance
+- matrix_size_x: 3.39%
+- matrix_size_y: 0.27%
+- p1: 9.81%
+- p2: 0.50%
+- p3: 45.30%
+- p4: 28.75%
+- p5: 5.63%
+- p6: 5.55%
+- p7: -3.18%
+- p8: 3.99%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 9.881e-324
+- Training Time: 28.059 seconds
+- Evaluation Time: 0.033 seconds
+
+#### Model Parameters
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 30.000
+
+#### Feature Importance
+- matrix_size_x: 2.42%
+- matrix_size_y: 0.31%
+- p1: 8.41%
+- p2: 0.45%
+- p3: 45.33%
+- p4: 30.31%
+- p5: 5.79%
+- p6: 5.40%
+- p7: -2.70%
+- p8: 4.28%
+
+---
+
