@@ -28,6 +28,8 @@ public:
   DecisionTreeSingle(int MaxDepth, int MinLeafLarge, double MinError, int Criteria =0, int numThreads =1);
   void train(const std::vector<double> &Data, int rowLength,
              const std::vector<double> &Labels, int criteria = 0);
+
+  void evaluate(const std::vector<double> &X_test, const int rowLength, const std::vector<double> &y_test, double &mse_value, double &mae_value);
   double predict(const std::vector<double> &Sample) const;
   void saveTree(const std::string &filename);
   void loadTree(const std::string &filename);

@@ -1,17 +1,18 @@
 #include "utility.h"
 
-
-//For the single decision tree multithreading 
+// For the single decision tree multithreading
 int adjustNumThreads(int numThreads) {
-    if (numThreads <= 0) return 1;
-    if ((numThreads & (numThreads - 1)) == 0) return numThreads;
+  if (numThreads <= 0)
+    return 1;
+  if ((numThreads & (numThreads - 1)) == 0)
+    return numThreads;
 
-    int power = 1;
-    while (power * 2 <= numThreads) power *= 2;
+  int power = 1;
+  while (power * 2 <= numThreads)
+    power *= 2;
 
-    return power;
+  return power;
 }
-
 
 // input function to set parameters with defaults
 template <typename T>
@@ -50,55 +51,38 @@ void displayFeatureImportance(
 }
 
 ProgramOptions parseCommandLineArguments(int argc, char *argv[]) {
-    ProgramOptions options;
+  ProgramOptions options;
 
-    if (argc > 1) {
-        options.choice = std::stoi(argv[1]);
+  if (argc > 1) {
+    options.choice = std::stoi(argv[1]);
 
-        int start_index = 2;  // Start after choice argument
-        if (argc > 2) {
-            if (std::string(argv[2]) == "-p") {
-                options.use_custom_params = true;
-                start_index = 3;
-            } else if (std::string(argv[2]) == "-l") {
-                options.load_request = true;
-                options.path_model_filename = argv[3];
-            }
-        }
-        for (int i = start_index; i < argc; i++) {
-            options.params.push_back(argv[i]);
-        }
-    } else {
-        std::cout << "Choose the method you want to use:\n"
-                  << "1: Simple Decision Tree\n"
-                  << "2: Bagging\n"
-                  << "3: Boosting\n"
-                  << "4: Boosting model with XGBoost\n";
-        std::cin >> options.choice;
+    int start_index = 2; // Start after choice argument
+    if (argc > 2) {
+      if (std::string(argv[2]) == "-p") {
+        options.use_custom_params = true;
+        start_index = 3;
+      } else if (std::string(argv[2]) == "-l") {
+        options.load_request = true;
+        options.path_model_filename = argv[3];
+      }
     }
-    return options;
+    for (int i = start_index; i < argc; i++) {
+      options.params.push_back(argv[i]);
+    }
+  } else {
+    std::cout << "Choose the method you want to use:\n"
+              << "1: Simple Decision Tree\n"
+              << "2: Bagging\n"
+              << "3: Boosting\n"
+              << "4: Boosting model with XGBoost\n";
+    std::cin >> options.choice;
+  }
+  return options;
 }
 
-void createDirectory(const std::string& path) {
-    if (!std::filesystem::exists(path)) {
-        std::filesystem::create_directories(path);
-        std::cout << "Directory created: " << path << std::endl;
-    }
+void createDirectory(const std::string &path) {
+  if (!std::filesystem::exists(path)) {
+    std::filesystem::create_directories(path);
+    std::cout << "Directory created: " << path << std::endl;
+  }
 }
-
-template <typename ModelType>
-void saveModel(ModelType& model) {
-    std::cout << "Would you like to save this model? (1 = Yes, 0 = No): ";
-    int save_model;
-    std::cin >> save_model;
-
-    if (save_model) {
-        std::cout << "Enter the filename to save the model: ";
-        std::string filename;
-        std::cin >> filename;
-        std::string path = "../saved_models/" + filename;
-        model.saveTree(path);
-        std::cout << "Model saved successfully as " << filename << "\n";
-    }
-}
-

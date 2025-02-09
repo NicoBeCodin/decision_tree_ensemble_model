@@ -10,8 +10,8 @@ DecisionTreeSingle::DecisionTreeSingle(int MaxDepth, int MinLeafLarge,
                                        int numThreads)
     : MaxDepth(MaxDepth), MinLeafLarge(MinLeafLarge), MinError(MinError),
       Criteria(Criteria), Root(nullptr), numThreads(numThreads) {
-        getMaxSplitDepth();
-      }
+  getMaxSplitDepth();
+}
 
 // Training function
 void DecisionTreeSingle::train(const std::vector<double> &Data, int rowLength,
@@ -31,6 +31,23 @@ void DecisionTreeSingle::train(const std::vector<double> &Data, int rowLength,
     std::cout << "Training using MAE." << std::endl;
     splitNodeMAE(Root.get(), Data, rowLength, Labels, Indices, 0);
   }
+}
+
+void DecisionTreeSingle::evaluate(const std::vector<double> &X_test, const int rowLength,
+              const std::vector<double> &y_test, double &mse_value,
+              double &mae_value)
+{
+  size_t test_size = y_test.size();
+  std::vector<double> y_pred(test_size);
+
+  for (size_t i = 0; i < test_size; ++i) {
+    std::vector<double> sample(X_test.begin() + i * rowLength, X_test.begin()+ (i+1)* rowLength);
+    y_pred.push_back(predict(sample));
+  }
+  
+  mse_value= Math::computeLossMSE(y_test, y_pred);
+  mae_value = Math::computeLossMAE(y_test, y_pred);
+
 }
 
 // Split node function (using MSE)
@@ -99,11 +116,8 @@ void DecisionTreeSingle::splitNode(Tree *Node, const std::vector<double> &Data,
     splitNode(Node->Right.get(), Data, rowLength, Labels, RightIndices,
               Depth + 1);
   }
-  
-  
-  
 }
- 
+
 // Split node function (using MAE)
 void DecisionTreeSingle::splitNodeMAE(Tree *Node,
                                       const std::vector<double> &Data,
@@ -113,8 +127,6 @@ void DecisionTreeSingle::splitNodeMAE(Tree *Node,
                                       int Depth) {
   Node->NodeMetric = Math::calculateMAEWithIndices(Labels, Indices);
   Node->NodeSamples = Indices.size();
-
-  
 
   // Stopping conditions
   if (Depth >= MaxDepth || Indices.size() < static_cast<size_t>(MinLeafLarge) ||
@@ -149,7 +161,6 @@ void DecisionTreeSingle::splitNodeMAE(Tree *Node,
 
   Node->Left = std::make_unique<Tree>();
   Node->Right = std::make_unique<Tree>();
-  
 
   if (Depth < maxSplitDepth) { // Restrict parallelism to first two levels
     std::future<void> leftFuture =
@@ -172,8 +183,7 @@ void DecisionTreeSingle::splitNodeMAE(Tree *Node,
     splitNodeMAE(Node->Right.get(), Data, rowLength, Labels, RightIndices,
                  Depth + 1);
   }
-
-} 
+}
 
 std::tuple<int, double, double> DecisionTreeSingle::findBestSplit(
     const std::vector<double> &Data, int rowLength,
@@ -260,81 +270,81 @@ std::tuple<int, double, double> DecisionTreeSingle::findBestSplit(
 }
 
 std::tuple<int, double, double> DecisionTreeSingle::findBestSplitUsingMAE(
-  const std::vector<double> &Data, int rowLength,
-  const std::vector<double> &Labels, const std::vector<int> &Indices,
-  double CurrentMAE) {
+    const std::vector<double> &Data, int rowLength,
+    const std::vector<double> &Labels, const std::vector<int> &Indices,
+    double CurrentMAE) {
 
-int BestFeature = -1;
-double BestThreshold = 0.0;
-double BestImpurityDecrease = 0.0;
+  int BestFeature = -1;
+  double BestThreshold = 0.0;
+  double BestImpurityDecrease = 0.0;
 
-size_t NumFeatures = rowLength;
+  size_t NumFeatures = rowLength;
 
-for (size_t Feature = 0; Feature < NumFeatures; ++Feature) {
-  // Store feature values and corresponding labels
-  std::vector<std::pair<double, double>> FeatureLabelPairs;
-  
-  for (int Idx : Indices) {
-    FeatureLabelPairs.emplace_back(Data[Idx * rowLength + Feature], Labels[Idx]);
-  }
+  for (size_t Feature = 0; Feature < NumFeatures; ++Feature) {
+    // Store feature values and corresponding labels
+    std::vector<std::pair<double, double>> FeatureLabelPairs;
 
-  // Sort by feature value
-  std::sort(FeatureLabelPairs.begin(), FeatureLabelPairs.end());
-
-  // Extract sorted labels
-  std::vector<double> SortedLabels;
-  for (const auto& [feat, label] : FeatureLabelPairs) {
-    SortedLabels.push_back(label);
-  }
-
-  // Running sums and count
-  double LeftSum = 0.0, RightSum = std::accumulate(SortedLabels.begin(), SortedLabels.end(), 0.0);
-  size_t LeftCount = 0, RightCount = SortedLabels.size();
-
-  double LeftMedian = 0.0, RightMedian = Math::calculateMedian(SortedLabels); // Calculate once
-
-  for (size_t i = 0; i < SortedLabels.size() - 1; ++i) {
-    double Value = FeatureLabelPairs[i].first;
-    double NextValue = FeatureLabelPairs[i + 1].first;
-    double Label = FeatureLabelPairs[i].second;
-
-    LeftSum += Label;
-    RightSum -= Label;
-    LeftCount++;
-    RightCount--;
-
-    if (Value == NextValue) continue; // Skip duplicate values
-
-    // Update medians incrementally instead of recalculating
-    LeftMedian = Math::incrementalMedian(SortedLabels, LeftCount);
-    RightMedian = Math::incrementalMedian(SortedLabels, RightCount);
-
-    // Compute MAE using sum instead of full iteration
-    double LeftMAE = 0.0, RightMAE = 0.0;
-    for (size_t j = 0; j < LeftCount; ++j) {
-      LeftMAE += std::abs(SortedLabels[j] - LeftMedian);
-    }
-    for (size_t j = LeftCount; j < SortedLabels.size(); ++j) {
-      RightMAE += std::abs(SortedLabels[j] - RightMedian);
+    for (int Idx : Indices) {
+      FeatureLabelPairs.emplace_back(Data[Idx * rowLength + Feature],
+                                     Labels[Idx]);
     }
 
-    double WeightedMAE = (LeftMAE + RightMAE) / SortedLabels.size();
-    double ImpurityDecrease = CurrentMAE - WeightedMAE;
+    // Sort by feature value
+    std::sort(FeatureLabelPairs.begin(), FeatureLabelPairs.end());
 
-    if (ImpurityDecrease > BestImpurityDecrease) {
-      BestImpurityDecrease = ImpurityDecrease;
-      BestFeature = Feature;
-      BestThreshold = (Value + NextValue) / 2.0;
+    // Extract sorted labels
+    std::vector<double> SortedLabels;
+    for (const auto &[feat, label] : FeatureLabelPairs) {
+      SortedLabels.push_back(label);
+    }
+
+    // Running sums and count
+    double LeftSum = 0.0, RightSum = std::accumulate(SortedLabels.begin(),
+                                                     SortedLabels.end(), 0.0);
+    size_t LeftCount = 0, RightCount = SortedLabels.size();
+
+    double LeftMedian = 0.0,
+           RightMedian = Math::calculateMedian(SortedLabels); // Calculate once
+
+    for (size_t i = 0; i < SortedLabels.size() - 1; ++i) {
+      double Value = FeatureLabelPairs[i].first;
+      double NextValue = FeatureLabelPairs[i + 1].first;
+      double Label = FeatureLabelPairs[i].second;
+
+      LeftSum += Label;
+      RightSum -= Label;
+      LeftCount++;
+      RightCount--;
+
+      if (Value == NextValue)
+        continue; // Skip duplicate values
+
+      // Update medians incrementally instead of recalculating
+      LeftMedian = Math::incrementalMedian(SortedLabels, LeftCount);
+      RightMedian = Math::incrementalMedian(SortedLabels, RightCount);
+
+      // Compute MAE using sum instead of full iteration
+      double LeftMAE = 0.0, RightMAE = 0.0;
+      for (size_t j = 0; j < LeftCount; ++j) {
+        LeftMAE += std::abs(SortedLabels[j] - LeftMedian);
+      }
+      for (size_t j = LeftCount; j < SortedLabels.size(); ++j) {
+        RightMAE += std::abs(SortedLabels[j] - RightMedian);
+      }
+
+      double WeightedMAE = (LeftMAE + RightMAE) / SortedLabels.size();
+      double ImpurityDecrease = CurrentMAE - WeightedMAE;
+
+      if (ImpurityDecrease > BestImpurityDecrease) {
+        BestImpurityDecrease = ImpurityDecrease;
+        BestFeature = Feature;
+        BestThreshold = (Value + NextValue) / 2.0;
+      }
     }
   }
+
+  return {BestFeature, BestThreshold, BestImpurityDecrease};
 }
-
-return {BestFeature, BestThreshold, BestImpurityDecrease};
-}
-
-
-
-
 
 // Other functions remain structurally similar with adjustments for flattened
 // data
@@ -417,7 +427,7 @@ void DecisionTreeSingle::saveTree(const std::string &filename) {
   }
 
   // Write tree parameters
-  out << MaxDepth << " " << MinLeafLarge << " " << MinError << " " << Criteria 
+  out << MaxDepth << " " << MinLeafLarge << " " << MinError << " " << Criteria
       << "\n";
 
   // Serialize the tree

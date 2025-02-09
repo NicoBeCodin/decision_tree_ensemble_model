@@ -15,8 +15,6 @@
 #include <memory>
 #include <string>
 
-
-
 int main(int argc, char *argv[]) {
 
   ProgramOptions programOptions = parseCommandLineArguments(argc, argv);
@@ -79,16 +77,15 @@ int main(int argc, char *argv[]) {
       minSamplesSplit = std::stoi(programOptions.params[2]);
       minImpurityDecrease = std::stod(programOptions.params[3]);
       numThreads = std::stoi(programOptions.params[4]);
-      //This is to make sure it's a power of two
+      // This is to make sure it's a power of two
       numThreads = adjustNumThreads(numThreads);
-
 
     } else if (programOptions.load_request) {
       DecisionTreeSingle single_tree(0, 0, 0.0, 0); // Temporary
       try {
         single_tree.loadTree(programOptions.path_model_filename);
-        std::cout << "Model loaded successfully from " << programOptions.path_model_filename
-                  << "\n";
+        std::cout << "Model loaded successfully from "
+                  << programOptions.path_model_filename << "\n";
       } catch (const std::runtime_error &e) {
         std::cerr << "Error loading the model: " << e.what() << "\n";
         return -1;
@@ -104,7 +101,8 @@ int main(int argc, char *argv[]) {
       minImpurityDecrease = std::stod(training_params["MinError"]);
       criteria = std::stoi(training_params["Criteria"]);
 
-      // Retrieve numThreads safely with a default value of 1, for Retrocompatibility
+      // Retrieve numThreads safely with a default value of 1, for
+      // Retrocompatibility
       numThreads = (training_params.find("NumThreads") != training_params.end())
                        ? std::stoi(training_params["NumThreads"])
                        : 1;
@@ -125,10 +123,8 @@ int main(int argc, char *argv[]) {
       maxDepth = 60;
       minSamplesSplit = 2;
       minImpurityDecrease = 1e-12;
-      numThreads =1;
+      numThreads = 1;
     }
-
-    // Parallelism option needs to be implemented here
 
     std::cout << "Training a single decision tree, please wait...\n";
     DecisionTreeSingle single_tree(maxDepth, minSamplesSplit,
@@ -144,16 +140,8 @@ int main(int argc, char *argv[]) {
     // Initialisation pour stocker les résultats de MSE et MAE pour comparer
     double mse_value = 0.0;
     double mae_value = 0.0;
-    size_t test_size = X_test.size();
-    std::vector<double> y_pred;
-    y_pred.reserve(test_size);
-    for (size_t i = 0; i < y_test.size(); ++i) {
-      std::vector<double> sample(X_test.begin() + i * rowLength,
-                                 X_test.begin() + (i + 1) * rowLength);
-      y_pred.push_back(single_tree.predict(sample));
-    }
-    mse_value = Math::computeLossMSE(y_test, y_pred);
-    mae_value = Math::computeLossMAE(y_test, y_pred);
+    single_tree.evaluate(X_test, rowLength, y_test, mse_value, mae_value);
+
     auto eval_end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> eval_duration = eval_end - eval_start;
 
@@ -166,8 +154,7 @@ int main(int argc, char *argv[]) {
         FeatureImportance::calculateTreeImportance(single_tree, feature_names);
     displayFeatureImportance(feature_importance);
 
-
-    //Save model or not
+    // Save model or not
     saveModel(single_tree);
 
     // Save results for comparaison
@@ -213,12 +200,7 @@ int main(int argc, char *argv[]) {
     double min_impurity_decrease;
     int numThreads;
 
-    // Create folder bagging models if non existent
-    std::filesystem::path models_dir = "../saved_models/bagging_models";
-    if (!std::filesystem::exists(models_dir)) {
-      std::filesystem::create_directories(models_dir);
-      std::cout << "Directory created: " << models_dir << std::endl;
-    }
+    createDirectory("../saved_models/bagging_models");
 
     if (programOptions.use_custom_params && programOptions.params.size() > 4) {
       criteria = std::stoi(programOptions.params[0]);
@@ -229,13 +211,12 @@ int main(int argc, char *argv[]) {
       min_impurity_decrease = std::stod(programOptions.params[5]);
       numThreads = std::stoi(programOptions.params[6]);
     } else if (programOptions.load_request) {
-      Bagging bagging_model(0, 0, 0, 0.0, nullptr, 0,
-                            0, 1); // Temp init
+      Bagging bagging_model(0, 0, 0, 0.0, nullptr, 0, 0, 1); // Temp init
 
       try {
         bagging_model.load(programOptions.path_model_filename);
-        std::cout << "Model loaded successfully from " << programOptions.path_model_filename
-                  << "\n";
+        std::cout << "Model loaded successfully from "
+                  << programOptions.path_model_filename << "\n";
       } catch (const std::runtime_error &e) {
         std::cerr << "Error loading the model: " << e.what() << "\n";
         return -1;
@@ -273,7 +254,7 @@ int main(int argc, char *argv[]) {
       max_depth = 60;
       min_samples_split = 2;
       min_impurity_decrease = 1e-6;
-      numThreads =1;
+      numThreads = 1;
     }
 
     std::unique_ptr<LossFunction> loss_function;
@@ -288,25 +269,18 @@ int main(int argc, char *argv[]) {
     }
 
     std::cout << "Bagging process started, please wait...\n";
+
     Bagging bagging_model(num_trees, max_depth, min_samples_split,
                           min_impurity_decrease, std::move(loss_function),
                           criteria, which_loss_func, numThreads);
 
-    auto train_start = std::chrono::high_resolution_clock::now();
-    bagging_model.train(X_train, rowLength, y_train, criteria);
-    auto train_end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> train_duration = train_end - train_start;
-    std::cout << "Training time (Bagging): " << train_duration.count()
-              << " seconds\n";
+    double score = 0.0;
+    double train_duration_count = 0.0;
+    double evaluation_duration_count = 0.0;
 
-    auto eval_start = std::chrono::high_resolution_clock::now();
-    double mse_or_mae_value = bagging_model.evaluate(X_test, rowLength, y_test);
-    auto eval_end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> eval_duration = eval_end - eval_start;
-    std::cout << "Evaluation time (Bagging): " << eval_duration.count()
-              << " seconds\n";
-
-    std::cout << printMAEorMSE << mse_or_mae_value << "\n";
+    trainAndEvaluateModel(bagging_model, X_train, rowLength, y_train, X_test,
+                          y_test, criteria, score, train_duration_count,
+                          evaluation_duration_count, printMAEorMSE);
 
     // compute and show feature importance
     auto feature_importance = FeatureImportance::calculateBaggingImportance(
@@ -314,14 +288,14 @@ int main(int argc, char *argv[]) {
     displayFeatureImportance(feature_importance);
 
     // Save model if users wants it
-  saveModel(bagging_model);
+    saveModel(bagging_model);
 
     // Save results
     ModelResults results;
     results.model_name = "Bagging";
-    results.mse_or_mae = mse_or_mae_value;
-    results.training_time = train_duration.count();
-    results.evaluation_time = eval_duration.count();
+    results.mse_or_mae = score;
+    results.training_time = train_duration_count;
+    results.evaluation_time = evaluation_duration_count;
 
     // Save parameters
     results.parameters["n_estimators"] = num_trees;
@@ -374,8 +348,8 @@ int main(int argc, char *argv[]) {
 
       try {
         boosting_model.load(programOptions.path_model_filename);
-        std::cout << "Model loaded successfully from " << programOptions.path_model_filename
-                  << "\n";
+        std::cout << "Model loaded successfully from "
+                  << programOptions.path_model_filename << "\n";
       } catch (const std::runtime_error &e) {
         std::cerr << "Error loading the model: " << e.what() << "\n";
         return -1;
@@ -429,27 +403,21 @@ int main(int argc, char *argv[]) {
       printMAEorMSE = "Boosting Mean Absolute Error (MAE): ";
     }
 
+    double score = 0.0;
+    double train_duration_count = 0.0;
+    double eval_duration_count = 0.0;
+
     std::cout << "Boosting process started, please wait...\n";
+
     Boosting boosting_model(
         n_estimators, learning_rate, std::move(loss_function), max_depth,
         min_samples_split, min_impurity_decrease, criteria, which_loss_func);
 
-    // model training
-    auto train_start = std::chrono::high_resolution_clock::now();
-    boosting_model.train(X_train, rowLength, y_train, criteria);
-    auto train_end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> train_duration = train_end - train_start;
-    std::cout << "Training time: " << train_duration.count() << " seconds\n";
-
-    // Model evaluation
-    auto eval_start = std::chrono::high_resolution_clock::now();
-    double mse_or_mae_value =
-        boosting_model.evaluate(X_test, rowLength, y_test);
-    auto eval_end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> eval_duration = eval_end - eval_start;
-    std::cout << "Evaluation time: " << eval_duration.count() << " seconds\n";
-
-    std::cout << printMAEorMSE << mse_or_mae_value << "\n";
+    trainAndEvaluateModel(
+        boosting_model, X_train, rowLength,
+        y_train, X_test,
+        y_test, criteria, score,
+        train_duration_count,  eval_duration_count, printMAEorMSE);
 
     // Compute and show feature importance
     auto feature_importance = FeatureImportance::calculateBoostingImportance(
@@ -457,14 +425,14 @@ int main(int argc, char *argv[]) {
     displayFeatureImportance(feature_importance);
 
     // Save model
-  saveModel(boosting_model);
+    saveModel(boosting_model);
 
     // Save results for comparaison
     ModelResults results;
     results.model_name = "Boosting";
-    results.mse_or_mae = mse_or_mae_value;
-    results.training_time = train_duration.count();
-    results.evaluation_time = eval_duration.count();
+    results.mse_or_mae = score;
+    results.training_time = train_duration_count;
+    results.evaluation_time = eval_duration_count;
 
     // Save features
     results.parameters["n_estimators"] = n_estimators;
@@ -516,8 +484,8 @@ int main(int argc, char *argv[]) {
 
       try {
         xgboost_model.load(programOptions.path_model_filename);
-        std::cout << "Model loaded successfully from " << programOptions.path_model_filename
-                  << "\n";
+        std::cout << "Model loaded successfully from "
+                  << programOptions.path_model_filename << "\n";
       } catch (const std::runtime_error &e) {
         std::cerr << "Error loading the model: " << e.what() << "\n";
         return -1;
@@ -570,24 +538,17 @@ int main(int argc, char *argv[]) {
       printMAEorMSE = "Boosting (XGBoost) Mean Absolute Error (MAE): ";
     }
 
+    double score = 0.0;
+    double train_duration_count= 0.0;
+    double eval_duration_count = 0.0;
+
     std::cout << "Boosting process started, please wait...\n";
     XGBoost xgboost_model(n_estimators, max_depth, min_samples_split,
                           learning_rate, lambda, alpha,
                           std::move(loss_function), which_loss_func);
 
-    auto train_start = std::chrono::high_resolution_clock::now();
-    xgboost_model.train(X_train, rowLength, y_train);
-    auto train_end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> train_duration = train_end - train_start;
-    std::cout << "Training time: " << train_duration.count() << " seconds\n";
 
-    auto eval_start = std::chrono::high_resolution_clock::now();
-    double mse_or_mae_value = xgboost_model.evaluate(X_test, rowLength, y_test);
-    auto eval_end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> eval_duration = eval_end - eval_start;
-
-    std::cout << "Evaluation time: " << eval_duration.count() << " seconds\n";
-    std::cout << printMAEorMSE << mse_or_mae_value << "\n";
+    trainAndEvaluateModel(xgboost_model, X_train, rowLength, y_train, X_test, y_test, -1, score, train_duration_count, eval_duration_count, printMAEorMSE);
 
     // Compute and show feature importance
     auto feature_importance = xgboost_model.featureImportance(feature_names);
@@ -602,9 +563,9 @@ int main(int argc, char *argv[]) {
     // Save results
     ModelResults results;
     results.model_name = "XGBoost";
-    results.mse_or_mae = mse_or_mae_value;
-    results.training_time = train_duration.count();
-    results.evaluation_time = eval_duration.count();
+    results.mse_or_mae = score;
+    results.training_time = train_duration_count;
+    results.evaluation_time = eval_duration_count;
 
     // Save parameters
     results.parameters["n_estimators"] = n_estimators;
@@ -618,7 +579,7 @@ int main(int argc, char *argv[]) {
 
     ModelComparison::saveResults(results);
 
-  saveModel(xgboost_model);
+    saveModel(xgboost_model);
     // Generate visualisation if users wants it
     bool visualisation_ask = false;
     std::cout << "Would you like to genarate a visualisation of this model? (1 "
