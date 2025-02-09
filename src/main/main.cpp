@@ -56,11 +56,6 @@ int main(int argc, char *argv[]) {
   std::cout << "X_test size : " << X_test.size() << std::endl;
   std::cout << "y_test size : " << y_test.size() << "\n" << std::endl;
 
-  int choice;
-  bool use_custom_params = false;
-  bool load_request = false;
-  std::string path_model_filename = "";
-  std::vector<std::string> params;
 
   if (programOptions.choice == 1) {
     int maxDepth, minSamplesSplit;
@@ -71,7 +66,7 @@ int main(int argc, char *argv[]) {
     // Create folder if non existent
     createDirectory("../saved_models/tree_models");
 
-    if (programOptions.use_custom_params && params.size() > 3) {
+    if (programOptions.use_custom_params && programOptions.params.size() > 3) {
       criteria = std::stoi(programOptions.params[0]);
       maxDepth = std::stoi(programOptions.params[1]);
       minSamplesSplit = std::stoi(programOptions.params[2]);
