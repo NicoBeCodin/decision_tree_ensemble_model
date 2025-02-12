@@ -3,6 +3,14 @@ project(DecisionTreeEnsembleModel)
 
 set(CMAKE_CXX_STANDARD 17)
 
+# ✅ Find OpenMP first before adding subdirectories
+find_package(OpenMP REQUIRED)
+
+# ✅ Pass OpenMP flags to all subprojects
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+
+
 add_subdirectory(src/functions/io)
 add_subdirectory(src/functions/tree)
 add_subdirectory(src/functions/loss)
@@ -97,6 +105,7 @@ add_executable(MainComparison src/main/main_comparison.cpp)
 
 target_link_libraries(MainDataClean PRIVATE Data_Clean)
 
+
 target_link_libraries(MainEnsemble PRIVATE
     FunctionsIO
     FunctionsTree
@@ -108,6 +117,7 @@ target_link_libraries(MainEnsemble PRIVATE
     model_comparison
     Data_Clean
     LossFunction
+    OpenMP::OpenMP_CXX
 )
 
 target_link_libraries(MainKFold PRIVATE

@@ -56,12 +56,12 @@ int main(int argc, char *argv[]) {
   std::cout << "X_test size : " << X_test.size() << std::endl;
   std::cout << "y_test size : " << y_test.size() << "\n" << std::endl;
 
-
   if (programOptions.choice == 1) {
     int maxDepth, minSamplesSplit;
     double minImpurityDecrease;
     int criteria;
     int numThreads;
+    int useOmp;
 
     // Create folder if non existent
     createDirectory("../saved_models/tree_models");
@@ -74,6 +74,7 @@ int main(int argc, char *argv[]) {
       numThreads = std::stoi(programOptions.params[4]);
       // This is to make sure it's a power of two
       numThreads = adjustNumThreads(numThreads);
+      useOmp = std::stoi(programOptions.params[5]);
 
     } else if (programOptions.load_request) {
       DecisionTreeSingle single_tree(0, 0, 0.0, 0); // Temporary
@@ -102,6 +103,10 @@ int main(int argc, char *argv[]) {
                        ? std::stoi(training_params["NumThreads"])
                        : 1;
 
+      useOmp = (training_params.find("UseOmp") != training_params.end())
+                       ? std::stoi(training_params["UseOmp"])
+                       : 0;
+
       // Display tree parameters
       std::cout << "Parameters loaded from the model file:\n";
       std::cout << single_tree.getTrainingParametersString() << "\n";
@@ -113,17 +118,19 @@ int main(int argc, char *argv[]) {
                 << "Default maximum depth = 60\n"
                 << "Default minimum sample split = 2\n"
                 << "Default minimum impurity decrease = 1e-12\n"
-                << "Default number of threads is 1";
+                << "Default number of threads is 1"
+      << "Default OpenMP optimizations is off";
       criteria = 0;
       maxDepth = 60;
       minSamplesSplit = 2;
       minImpurityDecrease = 1e-12;
       numThreads = 1;
+      useOmp = 0;
     }
 
     std::cout << "Training a single decision tree, please wait...\n";
     DecisionTreeSingle single_tree(maxDepth, minSamplesSplit,
-                                   minImpurityDecrease, criteria, numThreads);
+                                   minImpurityDecrease, criteria, numThreads, useOmp);
 
     auto train_start = std::chrono::high_resolution_clock::now();
     single_tree.train(X_train, rowLength, y_train, criteria);
@@ -408,11 +415,9 @@ int main(int argc, char *argv[]) {
         n_estimators, learning_rate, std::move(loss_function), max_depth,
         min_samples_split, min_impurity_decrease, criteria, which_loss_func);
 
-    trainAndEvaluateModel(
-        boosting_model, X_train, rowLength,
-        y_train, X_test,
-        y_test, criteria, score,
-        train_duration_count,  eval_duration_count, printMAEorMSE);
+    trainAndEvaluateModel(boosting_model, X_train, rowLength, y_train, X_test,
+                          y_test, criteria, score, train_duration_count,
+                          eval_duration_count, printMAEorMSE);
 
     // Compute and show feature importance
     auto feature_importance = FeatureImportance::calculateBoostingImportance(
@@ -534,7 +539,7 @@ int main(int argc, char *argv[]) {
     }
 
     double score = 0.0;
-    double train_duration_count= 0.0;
+    double train_duration_count = 0.0;
     double eval_duration_count = 0.0;
 
     std::cout << "Boosting process started, please wait...\n";
@@ -542,8 +547,9 @@ int main(int argc, char *argv[]) {
                           learning_rate, lambda, alpha,
                           std::move(loss_function), which_loss_func);
 
-
-    trainAndEvaluateModel(xgboost_model, X_train, rowLength, y_train, X_test, y_test, -1, score, train_duration_count, eval_duration_count, printMAEorMSE);
+    trainAndEvaluateModel(xgboost_model, X_train, rowLength, y_train, X_test,
+                          y_test, -1, score, train_duration_count,
+                          eval_duration_count, printMAEorMSE);
 
     // Compute and show feature importance
     auto feature_importance = xgboost_model.featureImportance(feature_names);

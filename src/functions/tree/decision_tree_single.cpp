@@ -3,13 +3,15 @@
 #include <cmath>
 #include <iostream>
 #include <numeric>
+#include <omp.h>
+#include <tuple>
 
 // Constructor
 DecisionTreeSingle::DecisionTreeSingle(int MaxDepth, int MinLeafLarge,
                                        double MinError, int Criteria,
-                                       int numThreads)
+                                       int numThreads, int useOmp)
     : MaxDepth(MaxDepth), MinLeafLarge(MinLeafLarge), MinError(MinError),
-      Criteria(Criteria), Root(nullptr), numThreads(numThreads) {
+      Criteria(Criteria), Root(nullptr), numThreads(numThreads), useOmp(useOmp) {
   getMaxSplitDepth();
 }
 
@@ -67,9 +69,18 @@ void DecisionTreeSingle::splitNode(Tree *Node, const std::vector<double> &Data,
     return;
   }
 
+  int BestFeature;
+  double BestThreshold ;
+  double BestImpurityDecrease;
+
   // Find the best split
-  auto [BestFeature, BestThreshold, BestImpurityDecrease] =
-      findBestSplit(Data, rowLength, Labels, Indices, Node->NodeMetric);
+  if (useOmp != 1) {
+    std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
+    findBestSplitOMP(Data, rowLength, Labels, Indices, Node->NodeMetric);
+  } else {  
+    std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
+    findBestSplit(Data, rowLength, Labels, Indices, Node->NodeMetric);
+  }
 
   if (BestFeature == -1) {
     Node->IsLeaf = true;
@@ -94,6 +105,12 @@ void DecisionTreeSingle::splitNode(Tree *Node, const std::vector<double> &Data,
   Node->Right = std::make_unique<Tree>();
 
   // Parallelism goes here
+
+  if (LeftIndices.empty() || RightIndices.empty()) {
+    Node->IsLeaf = true;
+    Node->Prediction = Math::calculateMeanWithIndices(Labels, Indices); // Use mean instead of median
+    return;
+}
 
   if (Depth < maxSplitDepth) { // Restrict parallelism to first two levels
     std::future<void> leftFuture =
@@ -137,8 +154,20 @@ void DecisionTreeSingle::splitNodeMAE(Tree *Node,
   }
 
   // Find the best split
-  auto [BestFeature, BestThreshold, BestImpurityDecrease] =
-      findBestSplitUsingMAE(Data, rowLength, Labels, Indices, Node->NodeMetric);
+
+  
+  int BestFeature;
+  double BestThreshold;
+  double BestImpurityDecrease;
+
+  // Find the best split
+  if (useOmp != 1) {
+    std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
+    findBestSplitUsingMAEOMP(Data, rowLength, Labels, Indices, Node->NodeMetric);
+  } else {  
+    std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
+    findBestSplitUsingMAE(Data, rowLength, Labels, Indices, Node->NodeMetric);
+  }
 
   if (BestFeature == -1) {
     Node->IsLeaf = true;
@@ -161,6 +190,12 @@ void DecisionTreeSingle::splitNodeMAE(Tree *Node,
 
   Node->Left = std::make_unique<Tree>();
   Node->Right = std::make_unique<Tree>();
+
+  if (LeftIndices.empty() || RightIndices.empty()) {
+    Node->IsLeaf = true;
+    Node->Prediction = Math::calculateMeanWithIndices(Labels, Indices); // Use mean instead of median
+    return;
+}
 
   if (Depth < maxSplitDepth) { // Restrict parallelism to first two levels
     std::future<void> leftFuture =
@@ -186,93 +221,275 @@ void DecisionTreeSingle::splitNodeMAE(Tree *Node,
 }
 
 std::tuple<int, double, double> DecisionTreeSingle::findBestSplit(
-    const std::vector<double> &Data, int rowLength,
-    const std::vector<double> &Labels, const std::vector<int> &Indices,
-    double CurrentMSE) {
+  const std::vector<double> &Data, int rowLength,
+  const std::vector<double> &Labels, const std::vector<int> &Indices,
+  double CurrentMSE) {
+  
+    // std::cout<<"findBestSplit called"<<std::endl;
   int BestFeature = -1;
   double BestThreshold = 0.0;
   double BestImpurityDecrease = 0.0;
 
   size_t NumFeatures = rowLength;
+  
   for (size_t Feature = 0; Feature < NumFeatures; ++Feature) {
-    // Extract and sort feature values for the current feature
-    std::vector<double> SortedValues;
-    std::vector<int> SortedIndices;
-    for (int Idx : Indices) {
-      SortedValues.push_back(Data[Idx * rowLength + Feature]);
-      SortedIndices.push_back(Idx);
-    }
-    std::sort(SortedIndices.begin(), SortedIndices.end(), [&](int A, int B) {
-      return Data[A * rowLength + Feature] < Data[B * rowLength + Feature];
-    });
-
-    // Partition calculation for impurity
-    double LeftSum = 0.0, LeftSqSum = 0.0;
-    size_t LeftCount = 0;
-
-    double RightSum = 0.0, RightSqSum = 0.0;
-    size_t RightCount = Indices.size();
-    for (int Idx : SortedIndices) {
-      double Label = Labels[Idx];
-      RightSum += Label;
-      RightSqSum += Label * Label;
-    }
-
-    for (size_t i = 0; i < SortedIndices.size() - 1; ++i) {
-      int Idx = SortedIndices[i];
-      double Value = Data[Idx * rowLength + Feature];
-      double Label = Labels[Idx];
-
-      // Update left partition
-      LeftSum += Label;
-      LeftSqSum += Label * Label;
-      LeftCount++;
-
-      // Update right partition
-      RightSum -= Label;
-      RightSqSum -= Label * Label;
-      RightCount--;
-
-      // Skip duplicate values
-      double NextValue = Data[SortedIndices[i + 1] * rowLength + Feature];
-      if (Value == NextValue)
-        continue;
-
-      // Calculate MSE for left partition
-      double LeftMean = LeftSum / LeftCount;
-      double LeftMSE = (LeftSqSum - 2 * LeftMean * LeftSum +
-                        LeftCount * LeftMean * LeftMean) /
-                       LeftCount;
-
-      // Calculate MSE for right partition
-      double RightMean = RightSum / RightCount;
-      double RightMSE = (RightSqSum - 2 * RightMean * RightSum +
-                         RightCount * RightMean * RightMean) /
-                        RightCount;
-
-      // Calculate weighted impurity
-      double WeightedImpurity =
-          (LeftMSE * LeftCount + RightMSE * RightCount) / Indices.size();
-
-      // Calculate impurity decrease
-      double ImpurityDecrease = CurrentMSE - WeightedImpurity;
-
-      // Update best split if current split is better
-      if (ImpurityDecrease > BestImpurityDecrease) {
-        BestImpurityDecrease = ImpurityDecrease;
-        BestFeature = Feature;
-        BestThreshold = (Value + NextValue) / 2.0;
+      // Extract and sort feature values for the current feature
+      std::vector<std::pair<double, int>> FeatureLabelPairs;
+      for (int Idx : Indices) {
+          FeatureLabelPairs.emplace_back(Data[Idx * rowLength + Feature], Idx);
       }
-    }
+
+      std::sort(FeatureLabelPairs.begin(), FeatureLabelPairs.end());
+
+      // Running sums for calculating MSE efficiently
+      double LeftSum = 0.0, LeftSqSum = 0.0;
+      size_t LeftCount = 0;
+      double RightSum = 0.0, RightSqSum = 0.0;
+      size_t RightCount = Indices.size();
+
+      // Compute total right partition sum
+      for (const auto &[value, Idx] : FeatureLabelPairs) {
+          double Label = Labels[Idx];
+          RightSum += Label;
+          RightSqSum += Label * Label;
+      }
+
+      // Iterate over possible split points
+      for (size_t i = 0; i < FeatureLabelPairs.size() - 1; ++i) {
+          int Idx = FeatureLabelPairs[i].second;
+          double Value = FeatureLabelPairs[i].first;
+          double Label = Labels[Idx];
+
+          // Update left partition
+          LeftSum += Label;
+          LeftSqSum += Label * Label;
+          LeftCount++;
+
+          // Update right partition
+          RightSum -= Label;
+          RightSqSum -= Label * Label;
+          RightCount--;
+
+          // Skip duplicate values
+          double NextValue = FeatureLabelPairs[i + 1].first;
+          if (Value == NextValue) continue;
+
+          // Compute MSE for left and right partitions
+          double LeftMean = LeftSum / LeftCount;
+          double LeftMSE = (LeftSqSum - 2 * LeftMean * LeftSum + LeftCount * LeftMean * LeftMean) / LeftCount;
+
+          double RightMean = RightSum / RightCount;
+          double RightMSE = (RightSqSum - 2 * RightMean * RightSum + RightCount * RightMean * RightMean) / RightCount;
+
+          // Calculate weighted impurity
+          double WeightedImpurity = (LeftMSE * LeftCount + RightMSE * RightCount) / Indices.size();
+
+          // Calculate impurity decrease
+          double ImpurityDecrease = CurrentMSE - WeightedImpurity;
+
+          // Update best split in a thread-safe way using OpenMP reduction
+          if (ImpurityDecrease > BestImpurityDecrease) {
+              BestImpurityDecrease = ImpurityDecrease;
+              BestFeature = Feature;
+              BestThreshold = (Value + NextValue) / 2.0;
+          }
+      }
   }
 
   return {BestFeature, BestThreshold, BestImpurityDecrease};
 }
 
+
+// std::tuple<int, double, double> DecisionTreeSingle::findBestSplitOMP(
+//   const std::vector<double> &Data, int rowLength,
+//   const std::vector<double> &Labels, const std::vector<int> &Indices,
+//   double CurrentMSE) {
+
+// int BestFeature = -1;
+// double BestThreshold = 0.0;
+// double BestImpurityDecrease = 0.0;
+
+// // std::cout<<"findBestSplitOMP called"<< useOmp <<std::endl;
+
+// size_t NumFeatures = rowLength;
+// size_t NumSamples = Indices.size();  // ✅ Declare NumSamples outside OpenMP
+
+// // ✅ Adjust OpenMP threads dynamically to avoid overloading
+// if (numThreads != 1) {
+//   omp_set_num_threads(std::max(1, omp_get_max_threads() / 2));
+// }
+
+// // ✅ Add NumSamples to the shared variables
+// #pragma omp parallel for default(none) shared(Data, Labels, Indices, NumFeatures, NumSamples, rowLength, CurrentMSE, BestFeature, BestThreshold) \
+//     reduction(max : BestImpurityDecrease)
+// for (size_t Feature = 0; Feature < NumFeatures; ++Feature) {
+//   // Extract and sort feature values
+//   std::vector<std::pair<double, int>> FeatureLabelPairs;  
+//   for (int Idx : Indices) {
+//     FeatureLabelPairs.emplace_back(Data[Idx * rowLength + Feature], Idx);
+//   }
+//   std::sort(FeatureLabelPairs.begin(), FeatureLabelPairs.end());
+
+//   // Precompute sums for right partition
+//   double LeftSum = 0.0, LeftSqSum = 0.0;
+//   size_t LeftCount = 0;
+//   double RightSum = 0.0, RightSqSum = 0.0;
+//   size_t RightCount = NumSamples;  // ✅ No longer an issue
+
+//   for (const auto &[value, Idx] : FeatureLabelPairs) {
+//     double Label = Labels[Idx];
+//     RightSum += Label;
+//     RightSqSum += Label * Label;
+//   }
+
+//   // ✅ Iterate over possible split points
+//   for (size_t i = 0; i < FeatureLabelPairs.size() - 1; ++i) {
+//     int Idx = FeatureLabelPairs[i].second;
+//     double Value = FeatureLabelPairs[i].first;
+//     double Label = Labels[Idx];
+
+//     // ✅ Update left partition
+//     LeftSum += Label;
+//     LeftSqSum += Label * Label;
+//     LeftCount++;
+
+//     // ✅ Update right partition
+//     RightSum -= Label;
+//     RightSqSum -= Label * Label;
+//     RightCount--;
+
+//     // ✅ Skip duplicate values
+//     double NextValue = FeatureLabelPairs[i + 1].first;
+//     if (Value == NextValue) continue;
+
+//     // ✅ Compute MSE for left and right partitions
+//     double LeftMean = LeftSum / LeftCount;
+//     double LeftMSE = (LeftSqSum - 2 * LeftMean * LeftSum + LeftCount * LeftMean * LeftMean) / LeftCount;
+
+//     double RightMean = RightSum / RightCount;
+//     double RightMSE = (RightSqSum - 2 * RightMean * RightSum + RightCount * RightMean * RightMean) / RightCount;
+
+//     // ✅ Calculate weighted impurity
+//     double WeightedImpurity = (LeftMSE * LeftCount + RightMSE * RightCount) / NumSamples;
+
+//     // ✅ Calculate impurity decrease
+//     // #pragma omp ordered
+//     double ImpurityDecrease = CurrentMSE - WeightedImpurity;
+
+//     // ✅ Thread-safe update of best split
+//     #pragma omp critical
+//     {
+//       if (ImpurityDecrease > BestImpurityDecrease) {
+//         BestImpurityDecrease = ImpurityDecrease;
+//         BestFeature = Feature;
+//         BestThreshold = (Value + NextValue) / 2.0;
+//       }
+//     }
+//   }
+// }
+
+// return {BestFeature, BestThreshold, BestImpurityDecrease};
+// }
+
+std::tuple<int, double, double> DecisionTreeSingle::findBestSplitOMP(
+  const std::vector<double> &Data, int rowLength,
+  const std::vector<double> &Labels, const std::vector<int> &Indices,
+  double CurrentMSE) {
+
+// Shared best variables
+int BestFeature = -1;
+double BestThreshold = 0.0;
+double BestImpurityDecrease = 0.0;
+
+size_t NumFeatures = rowLength;
+size_t NumSamples = Indices.size();  
+
+if (numThreads != 1) {
+  omp_set_num_threads(std::max(1, omp_get_max_threads() / 2));
+}
+
+// Thread-private best values
+#pragma omp parallel 
+{
+  int ThreadBestFeature = -1;
+  double ThreadBestThreshold = 0.0;
+  double ThreadBestImpurityDecrease = 0.0;
+
+  #pragma omp for nowait
+  for (size_t Feature = 0; Feature < NumFeatures; ++Feature) {
+    std::vector<std::pair<double, int>> FeatureLabelPairs;
+    
+    for (int Idx : Indices) {
+      FeatureLabelPairs.emplace_back(Data[Idx * rowLength + Feature], Idx);
+    }
+    std::sort(FeatureLabelPairs.begin(), FeatureLabelPairs.end());
+
+    double LeftSum = 0.0, LeftSqSum = 0.0;
+    size_t LeftCount = 0;
+    double RightSum = 0.0, RightSqSum = 0.0;
+    size_t RightCount = NumSamples;
+
+    for (const auto &[value, Idx] : FeatureLabelPairs) {
+      double Label = Labels[Idx];
+      RightSum += Label;
+      RightSqSum += Label * Label;
+    }
+
+    for (size_t i = 0; i < FeatureLabelPairs.size() - 1; ++i) {
+      int Idx = FeatureLabelPairs[i].second;
+      double Value = FeatureLabelPairs[i].first;
+      double Label = Labels[Idx];
+
+      LeftSum += Label;
+      LeftSqSum += Label * Label;
+      LeftCount++;
+
+      RightSum -= Label;
+      RightSqSum -= Label * Label;
+      RightCount--;
+
+      double NextValue = FeatureLabelPairs[i + 1].first;
+      if (Value == NextValue) continue;
+
+      double LeftMean = LeftSum / LeftCount;
+      double LeftMSE = (LeftSqSum - 2 * LeftMean * LeftSum + LeftCount * LeftMean * LeftMean) / LeftCount;
+
+      double RightMean = RightSum / RightCount;
+      double RightMSE = (RightSqSum - 2 * RightMean * RightSum + RightCount * RightMean * RightMean) / RightCount;
+
+      double WeightedImpurity = (LeftMSE * LeftCount + RightMSE * RightCount) / NumSamples;
+      double ImpurityDecrease = CurrentMSE - WeightedImpurity;
+
+      if (ImpurityDecrease > ThreadBestImpurityDecrease) {
+        ThreadBestImpurityDecrease = ImpurityDecrease;
+        ThreadBestFeature = Feature;
+        ThreadBestThreshold = (Value + NextValue) / 2.0;
+      }
+    }
+  }
+
+  // Safely update global best using a critical section
+  #pragma omp critical
+  {
+    if (ThreadBestImpurityDecrease > BestImpurityDecrease) {
+      BestImpurityDecrease = ThreadBestImpurityDecrease;
+      BestFeature = ThreadBestFeature;
+      BestThreshold = ThreadBestThreshold;
+    }
+  }
+}
+
+return {BestFeature, BestThreshold, BestImpurityDecrease};
+}
+
+
+
 std::tuple<int, double, double> DecisionTreeSingle::findBestSplitUsingMAE(
     const std::vector<double> &Data, int rowLength,
     const std::vector<double> &Labels, const std::vector<int> &Indices,
     double CurrentMAE) {
+
+    // std::cout<<"findBestSplitUsingMAE called"<<std::endl;
 
   int BestFeature = -1;
   double BestThreshold = 0.0;
@@ -346,6 +563,92 @@ std::tuple<int, double, double> DecisionTreeSingle::findBestSplitUsingMAE(
   return {BestFeature, BestThreshold, BestImpurityDecrease};
 }
 
+std::tuple<int, double, double> DecisionTreeSingle::findBestSplitUsingMAEOMP(
+  const std::vector<double> &Data, int rowLength,
+  const std::vector<double> &Labels, const std::vector<int> &Indices,
+  double CurrentMAE) {
+
+int BestFeature = -1;  // ✅ Corrected initialization
+double BestThreshold = 0.0;
+double BestImpurityDecrease = 0.0;
+
+// std::cout<<"findBestSplitUsingMAEOMP called"<<std::endl;
+
+size_t NumFeatures = rowLength;
+
+if (numThreads !=1) {
+  omp_set_num_threads(std::max(1, omp_get_max_threads() / 2));
+}
+
+#pragma omp parallel for default(none) shared(Data, Labels, Indices, NumFeatures, rowLength, CurrentMAE, BestFeature, BestThreshold) \
+    reduction(max : BestImpurityDecrease)
+for (size_t Feature = 0; Feature < NumFeatures; ++Feature) {
+  
+  // ✅ Store feature values and corresponding labels (private per thread)
+  std::vector<std::pair<double, double>> FeatureLabelPairs;
+  for (int Idx : Indices) {
+    FeatureLabelPairs.emplace_back(Data[Idx * rowLength + Feature], Labels[Idx]);
+  }
+
+  std::sort(FeatureLabelPairs.begin(), FeatureLabelPairs.end());  // ✅ Sorting stays private
+
+  // Extract sorted labels
+  std::vector<double> SortedLabels;
+  for (const auto &[feat, label] : FeatureLabelPairs) {
+    SortedLabels.push_back(label);
+  }
+
+  double LeftSum = 0.0, RightSum = std::accumulate(SortedLabels.begin(), SortedLabels.end(), 0.0);
+  size_t LeftCount = 0, RightCount = SortedLabels.size();
+
+  double LeftMedian = 0.0, RightMedian = Math::calculateMedian(SortedLabels);
+
+  for (size_t i = 0; i < SortedLabels.size() - 1; ++i) {
+    double Value = FeatureLabelPairs[i].first;
+    double NextValue = FeatureLabelPairs[i + 1].first;
+    double Label = FeatureLabelPairs[i].second;
+
+    LeftSum += Label;
+    RightSum -= Label;
+    LeftCount++;
+    RightCount--;
+
+    if (Value == NextValue) continue;
+
+    LeftMedian = Math::incrementalMedian(SortedLabels, LeftCount);
+    RightMedian = Math::incrementalMedian(SortedLabels, RightCount);
+
+    double LeftMAE = 0.0, RightMAE = 0.0;
+    for (size_t j = 0; j < LeftCount; ++j) {
+      LeftMAE += std::abs(SortedLabels[j] - LeftMedian);
+    }
+    for (size_t j = LeftCount; j < SortedLabels.size(); ++j) {
+      RightMAE += std::abs(SortedLabels[j] - RightMedian);
+    }
+
+    double WeightedMAE = (LeftMAE + RightMAE) / SortedLabels.size();
+    // #pragma omp ordered
+    double ImpurityDecrease = CurrentMAE - WeightedMAE;
+
+    // ✅ Thread-safe update of best split
+    #pragma omp critical
+    {
+      if (ImpurityDecrease > BestImpurityDecrease) {
+        BestImpurityDecrease = ImpurityDecrease;
+        BestFeature = Feature;  // ✅ Fix incorrect OpenMP reduction
+        BestThreshold = (Value + NextValue) / 2.0;
+      }
+    }
+  }
+}
+
+// std::cout<<"New vals for findBestSplitUsingMAEOMP best impurity decrease: " << BestImpurityDecrease 
+//          << " bestFeature " << BestFeature << " BestThreshold " << BestThreshold << std::endl;
+
+return {BestFeature, BestThreshold, BestImpurityDecrease};
+}
+
+
 // Other functions remain structurally similar with adjustments for flattened
 // data
 
@@ -399,25 +702,6 @@ DecisionTreeSingle::deserializeNode(std::istream &in) {
 
   return node;
 }
-
-// Not necessary for the moment, just tryna merge
-/*
-    // Pre-sorted feature indices
-    std::vector<std::vector<int>> DecisionTreeSingle::preSortFeatures(const
-   std::vector<std::vector<double>>& Data, const std::vector<int>& Indices) {
-        size_t NumFeatures = Data[0].size();
-        std::vector<std::vector<int>> SortedIndices(NumFeatures, Indices);
-
-        for (size_t Feature = 0; Feature < NumFeatures; ++Feature) {
-            std::sort(SortedIndices[Feature].begin(),
-   SortedIndices[Feature].end(),
-                    [&Data, Feature](int A, int B) {
-                        return Data[A][Feature] < Data[B][Feature];
-                    });
-        }
-        return SortedIndices;
-    }
-*/
 
 // Tree save function
 void DecisionTreeSingle::saveTree(const std::string &filename) {
