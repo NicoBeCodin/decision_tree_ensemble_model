@@ -3,6 +3,32 @@ project(DecisionTreeEnsembleModel)
 
 set(CMAKE_CXX_STANDARD 17)
 
+# ✅ Add an option to enable/disable OpenMP (default ON)
+option(OPENMP "Enable OpenMP" ON)
+
+# ✅ Only find and use OpenMP if OPENMP=ON
+if(OPENMP)
+    find_package(OpenMP REQUIRED)
+    if(OpenMP_CXX_FOUND)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+        message(STATUS "✅ OpenMP enabled")
+    else()
+        message(WARNING "⚠ OpenMP requested but not found")
+    endif()
+else()
+    message(STATUS "🚫 OpenMP disabled")
+endif()
+
+
+
+# ✅ Only link OpenMP if enabled
+if(OPENMP)
+    set(OPENMP_LIB OpenMP::OpenMP_CXX)
+else()
+    set(OPENMP_LIB "")  # Empty if OpenMP is OFF
+endif()
+
 # ✅ Find OpenMP first before adding subdirectories
 find_package(OpenMP REQUIRED)
 
@@ -117,7 +143,7 @@ target_link_libraries(MainEnsemble PRIVATE
     model_comparison
     Data_Clean
     LossFunction
-    OpenMP::OpenMP_CXX
+    ${OPENMP_LIB}
 )
 
 target_link_libraries(MainKFold PRIVATE

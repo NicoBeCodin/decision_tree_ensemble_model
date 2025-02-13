@@ -21,6 +21,8 @@ To generate the executables (**DataClean**, **MainEnsemble**, and **MainKFold**)
 3. **Run CMake to configure the project**:
    ```bash
    cmake ..
+   #or if you want to disable OpenMP optimizations
+   cmake -DOPENMP=OFF ..
    ```
 4. **Compile the project**:
    ```bash
