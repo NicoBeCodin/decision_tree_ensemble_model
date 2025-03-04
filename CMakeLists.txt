@@ -122,6 +122,14 @@ if (ENABLE_TESTS)
         Boosting_XGBoost
         LossFunction
     )
+
+    add_executable(data_clean_test tests/data_clean_test.cpp)
+    target_link_libraries(data_clean_test
+        gtest_main
+        FunctionsMath
+        FunctionsTree
+        Data_Clean
+    )
 endif()
 
 add_executable(MainDataClean src/main/main_data_clean.cpp)
@@ -130,7 +138,6 @@ add_executable(MainKFold src/main/main_kfold.cpp)
 add_executable(MainComparison src/main/main_comparison.cpp)
 
 target_link_libraries(MainDataClean PRIVATE Data_Clean)
-
 
 target_link_libraries(MainEnsemble PRIVATE
     FunctionsIO
