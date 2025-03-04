@@ -52,23 +52,30 @@ void Boosting::train(const std::vector<double>& X, int rowLength,
     size_t n_samples = y.size();
     initializePrediction(y);
     std::vector<double> y_pred(n_samples, initial_prediction);
+    int i;
+    std::vector<std::unique_ptr<DecisionTreeSingle>> all_trees(n_estimators); // Here std::vector is necessary because of std::unique_ptr
 
+    #pragma omp parallel for
+    for (i = 0; i < n_estimators; i++) {
+        all_trees[i] = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease);
+    }
+    
     // Training loop
-    for (int i = 0; i < n_estimators; ++i) {
+    for (i = 0; i < n_estimators; ++i) {
         // Calculate residuals (negative gradients)
         std::vector<double> residuals = loss_function->negativeGradient(y, y_pred);
 
         // Create and train a new weak learner
-        auto tree = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease);
-        tree->train(X, rowLength, residuals, criteria);
+        
+        all_trees[i]->train(X, rowLength, residuals, criteria);
 
         // Update predictions
         for (size_t j = 0; j < n_samples; ++j) {
             std::vector<double> sample(X.begin() + j * rowLength, X.begin() + (j + 1) * rowLength);
-            y_pred[j] += learning_rate * tree->predict(sample);
+            y_pred[j] += learning_rate * all_trees[i]->predict(sample);
         }
 
-        trees.push_back(std::move(tree));
+        trees.push_back(std::move(all_trees[i]));
 
         // Calculate and display loss
         double current_loss = loss_function->computeLoss(y, y_pred);

@@ -9,6 +9,7 @@
 #include <random>
 #include <stdexcept>
 #include <vector>
+#include <omp.h>
 
 /**
  * @brief Boosting class
