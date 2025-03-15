@@ -9,8 +9,10 @@ add_library(FunctionsTree STATIC
 )
 target_include_directories(FunctionsTree PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
-target_link_libraries(FunctionsTree PRIVATE OpenMP::OpenMP_CXX)
-
+# Lier OpenMP seulement si activé
+if(USE_OPENMP)
+    target_link_libraries(FunctionsTree PRIVATE ${OPENMP_LIB})
+endif()
 
 set_target_properties(FunctionsTree PROPERTIES
     POSITION_INDEPENDENT_CODE ON

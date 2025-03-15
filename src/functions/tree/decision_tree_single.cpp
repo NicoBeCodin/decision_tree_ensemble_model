@@ -3,15 +3,15 @@
 #include <cmath>
 #include <iostream>
 #include <numeric>
-#include <omp.h>
 #include <tuple>
 
 // Constructor
 DecisionTreeSingle::DecisionTreeSingle(int MaxDepth, int MinLeafLarge,
                                        double MinError, int Criteria,
-                                       int numThreads, int useOmp)
+                                       int numThreads, bool useParallelAlgorithm)
     : MaxDepth(MaxDepth), MinLeafLarge(MinLeafLarge), MinError(MinError),
-      Criteria(Criteria), Root(nullptr), numThreads(numThreads), useOmp(useOmp) {
+      Criteria(Criteria), Root(nullptr), numThreads(numThreads), 
+      useParallelAlgorithm(useParallelAlgorithm) {
   getMaxSplitDepth();
 }
 
@@ -43,13 +43,12 @@ void DecisionTreeSingle::evaluate(const std::vector<double> &X_test, const int r
   std::vector<double> y_pred(test_size);
 
   for (size_t i = 0; i < test_size; ++i) {
-    std::vector<double> sample(X_test.begin() + i * rowLength, X_test.begin()+ (i+1)* rowLength);
-    y_pred.push_back(predict(sample));
+    std::vector<double> sample(X_test.begin() + i * rowLength, X_test.begin() + (i+1) * rowLength);
+    y_pred[i] = predict(sample);
   }
   
-  mse_value= Math::computeLossMSE(y_test, y_pred);
+  mse_value = Math::computeLossMSE(y_test, y_pred);
   mae_value = Math::computeLossMAE(y_test, y_pred);
-
 }
 
 // Split node function (using MSE)
@@ -70,11 +69,11 @@ void DecisionTreeSingle::splitNode(Tree *Node, const std::vector<double> &Data,
   }
 
   int BestFeature;
-  double BestThreshold ;
+  double BestThreshold;
   double BestImpurityDecrease;
 
   // Find the best split
-  if (useOmp != 1) {
+  if (useParallelAlgorithm) {
     std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
     findBestSplitOMP(Data, rowLength, Labels, Indices, Node->NodeMetric);
   } else {  
@@ -161,7 +160,7 @@ void DecisionTreeSingle::splitNodeMAE(Tree *Node,
   double BestImpurityDecrease;
 
   // Find the best split
-  if (useOmp != 1) {
+  if (useParallelAlgorithm) {
     std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
     findBestSplitUsingMAEOMP(Data, rowLength, Labels, Indices, Node->NodeMetric);
   } else {  
@@ -395,7 +394,7 @@ std::tuple<int, double, double> DecisionTreeSingle::findBestSplitOMP(
   const std::vector<double> &Labels, const std::vector<int> &Indices,
   double CurrentMSE) {
 
-// Shared best variables
+// Variables globales pour le résultat final
 int BestFeature = -1;
 double BestThreshold = 0.0;
 double BestImpurityDecrease = 0.0;
@@ -403,11 +402,15 @@ double BestImpurityDecrease = 0.0;
 size_t NumFeatures = rowLength;
 size_t NumSamples = Indices.size();  
 
-if (numThreads != 1) {
-  omp_set_num_threads(std::max(1, omp_get_max_threads() / 2));
+// Ajuster le nombre de threads si nécessaire
+if (numThreads > 1) {
+  #ifdef USE_OPENMP
+  omp_set_num_threads(std::max(1, numThreads));
+  #endif
 }
 
 // Thread-private best values
+#ifdef USE_OPENMP
 #pragma omp parallel 
 {
   int ThreadBestFeature = -1;
@@ -416,6 +419,15 @@ if (numThreads != 1) {
 
   #pragma omp for nowait
   for (size_t Feature = 0; Feature < NumFeatures; ++Feature) {
+#else
+// Version séquentielle
+{
+  int ThreadBestFeature = -1;
+  double ThreadBestThreshold = 0.0;
+  double ThreadBestImpurityDecrease = 0.0;
+
+  for (size_t Feature = 0; Feature < NumFeatures; ++Feature) {
+#endif
     std::vector<std::pair<double, int>> FeatureLabelPairs;
     
     for (int Idx : Indices) {
@@ -468,14 +480,18 @@ if (numThreads != 1) {
   }
 
   // Safely update global best using a critical section
+  #ifdef USE_OPENMP
   #pragma omp critical
   {
+  #endif
     if (ThreadBestImpurityDecrease > BestImpurityDecrease) {
       BestImpurityDecrease = ThreadBestImpurityDecrease;
       BestFeature = ThreadBestFeature;
       BestThreshold = ThreadBestThreshold;
     }
+  #ifdef USE_OPENMP
   }
+  #endif
 }
 
 return {BestFeature, BestThreshold, BestImpurityDecrease};
@@ -567,82 +583,109 @@ std::tuple<int, double, double> DecisionTreeSingle::findBestSplitUsingMAEOMP(
   const std::vector<double> &Labels, const std::vector<int> &Indices,
   double CurrentMAE) {
 
-int BestFeature = -1;  // ✅ Corrected initialization
+// Variables globales pour le résultat final
+int BestFeature = -1;
 double BestThreshold = 0.0;
 double BestImpurityDecrease = 0.0;
 
-// std::cout<<"findBestSplitUsingMAEOMP called"<<std::endl;
-
 size_t NumFeatures = rowLength;
 
-if (numThreads !=1) {
-  omp_set_num_threads(std::max(1, omp_get_max_threads() / 2));
+// Ajuster le nombre de threads si nécessaire
+if (numThreads > 1) {
+  #ifdef USE_OPENMP
+  omp_set_num_threads(std::max(1, numThreads));
+  #endif
 }
 
-#pragma omp parallel for default(none) shared(Data, Labels, Indices, NumFeatures, rowLength, CurrentMAE, BestFeature, BestThreshold) \
-    reduction(max : BestImpurityDecrease)
-for (size_t Feature = 0; Feature < NumFeatures; ++Feature) {
-  
-  // ✅ Store feature values and corresponding labels (private per thread)
-  std::vector<std::pair<double, double>> FeatureLabelPairs;
-  for (int Idx : Indices) {
-    FeatureLabelPairs.emplace_back(Data[Idx * rowLength + Feature], Labels[Idx]);
-  }
+#ifdef USE_OPENMP
+// Utiliser des variables locales pour chaque thread
+#pragma omp parallel
+{
+  // Variables locales pour chaque thread
+  int ThreadBestFeature = -1;
+  double ThreadBestThreshold = 0.0;
+  double ThreadBestImpurityDecrease = 0.0;
 
-  std::sort(FeatureLabelPairs.begin(), FeatureLabelPairs.end());  // ✅ Sorting stays private
+  #pragma omp for nowait
+  for (size_t Feature = 0; Feature < NumFeatures; ++Feature) {
+#else
+// Version séquentielle
+{
+  // Utiliser les mêmes noms de variables pour simplifier le code
+  int ThreadBestFeature = -1;
+  double ThreadBestThreshold = 0.0;
+  double ThreadBestImpurityDecrease = 0.0;
 
-  // Extract sorted labels
-  std::vector<double> SortedLabels;
-  for (const auto &[feat, label] : FeatureLabelPairs) {
-    SortedLabels.push_back(label);
-  }
-
-  double LeftSum = 0.0, RightSum = std::accumulate(SortedLabels.begin(), SortedLabels.end(), 0.0);
-  size_t LeftCount = 0, RightCount = SortedLabels.size();
-
-  double LeftMedian = 0.0, RightMedian = Math::calculateMedian(SortedLabels);
-
-  for (size_t i = 0; i < SortedLabels.size() - 1; ++i) {
-    double Value = FeatureLabelPairs[i].first;
-    double NextValue = FeatureLabelPairs[i + 1].first;
-    double Label = FeatureLabelPairs[i].second;
-
-    LeftSum += Label;
-    RightSum -= Label;
-    LeftCount++;
-    RightCount--;
-
-    if (Value == NextValue) continue;
-
-    LeftMedian = Math::incrementalMedian(SortedLabels, LeftCount);
-    RightMedian = Math::incrementalMedian(SortedLabels, RightCount);
-
-    double LeftMAE = 0.0, RightMAE = 0.0;
-    for (size_t j = 0; j < LeftCount; ++j) {
-      LeftMAE += std::abs(SortedLabels[j] - LeftMedian);
-    }
-    for (size_t j = LeftCount; j < SortedLabels.size(); ++j) {
-      RightMAE += std::abs(SortedLabels[j] - RightMedian);
+  for (size_t Feature = 0; Feature < NumFeatures; ++Feature) {
+#endif
+    // Stocker les valeurs des caractéristiques et les étiquettes correspondantes
+    std::vector<std::pair<double, double>> FeatureLabelPairs;
+    for (int Idx : Indices) {
+      FeatureLabelPairs.emplace_back(Data[Idx * rowLength + Feature], Labels[Idx]);
     }
 
-    double WeightedMAE = (LeftMAE + RightMAE) / SortedLabels.size();
-    // #pragma omp ordered
-    double ImpurityDecrease = CurrentMAE - WeightedMAE;
+    std::sort(FeatureLabelPairs.begin(), FeatureLabelPairs.end());
 
-    // ✅ Thread-safe update of best split
-    #pragma omp critical
-    {
-      if (ImpurityDecrease > BestImpurityDecrease) {
-        BestImpurityDecrease = ImpurityDecrease;
-        BestFeature = Feature;  // ✅ Fix incorrect OpenMP reduction
-        BestThreshold = (Value + NextValue) / 2.0;
+    // Extraire les étiquettes triées
+    std::vector<double> SortedLabels;
+    for (const auto &[feat, label] : FeatureLabelPairs) {
+      SortedLabels.push_back(label);
+    }
+
+    double LeftSum = 0.0, RightSum = std::accumulate(SortedLabels.begin(), SortedLabels.end(), 0.0);
+    size_t LeftCount = 0, RightCount = SortedLabels.size();
+
+    double LeftMedian = 0.0, RightMedian = Math::calculateMedian(SortedLabels);
+
+    for (size_t i = 0; i < SortedLabels.size() - 1; ++i) {
+      double Value = FeatureLabelPairs[i].first;
+      double NextValue = FeatureLabelPairs[i + 1].first;
+      double Label = FeatureLabelPairs[i].second;
+
+      LeftSum += Label;
+      RightSum -= Label;
+      LeftCount++;
+      RightCount--;
+
+      if (Value == NextValue) continue;
+
+      LeftMedian = Math::incrementalMedian(SortedLabels, LeftCount);
+      RightMedian = Math::incrementalMedian(SortedLabels, RightCount);
+
+      double LeftMAE = 0.0, RightMAE = 0.0;
+      for (size_t j = 0; j < LeftCount; ++j) {
+        LeftMAE += std::abs(SortedLabels[j] - LeftMedian);
+      }
+      for (size_t j = LeftCount; j < SortedLabels.size(); ++j) {
+        RightMAE += std::abs(SortedLabels[j] - RightMedian);
+      }
+
+      double WeightedMAE = (LeftMAE + RightMAE) / SortedLabels.size();
+      double ImpurityDecrease = CurrentMAE - WeightedMAE;
+
+      // Mettre à jour les meilleures valeurs locales
+      if (ImpurityDecrease > ThreadBestImpurityDecrease) {
+        ThreadBestImpurityDecrease = ImpurityDecrease;
+        ThreadBestFeature = Feature;
+        ThreadBestThreshold = (Value + NextValue) / 2.0;
       }
     }
   }
-}
 
-// std::cout<<"New vals for findBestSplitUsingMAEOMP best impurity decrease: " << BestImpurityDecrease 
-//          << " bestFeature " << BestFeature << " BestThreshold " << BestThreshold << std::endl;
+  // Mettre à jour les variables globales une seule fois à la fin
+  #ifdef USE_OPENMP
+  #pragma omp critical
+  {
+  #endif
+    if (ThreadBestImpurityDecrease > BestImpurityDecrease) {
+      BestImpurityDecrease = ThreadBestImpurityDecrease;
+      BestFeature = ThreadBestFeature;
+      BestThreshold = ThreadBestThreshold;
+    }
+  #ifdef USE_OPENMP
+  }
+  #endif
+}
 
 return {BestFeature, BestThreshold, BestImpurityDecrease};
 }

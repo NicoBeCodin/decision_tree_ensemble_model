@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <stdexcept>
 #include <fstream>
+#include <cstdlib>
+#include <thread>
 
 /**
  * @brief Constructor to initialize the Boosting model
@@ -52,34 +54,48 @@ void Boosting::train(const std::vector<double>& X, int rowLength,
     size_t n_samples = y.size();
     initializePrediction(y);
     std::vector<double> y_pred(n_samples, initial_prediction);
-    int i;
-    std::vector<std::unique_ptr<DecisionTreeSingle>> all_trees(n_estimators); // Here std::vector is necessary because of std::unique_ptr
-
-    #pragma omp parallel for
-    for (i = 0; i < n_estimators; i++) {
-        all_trees[i] = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease);
+    
+    // Initialiser tous les arbres au début
+    trees.clear();
+    trees.reserve(n_estimators);
+    
+    for (int i = 0; i < n_estimators; ++i) {
+        trees.push_back(std::make_unique<DecisionTreeSingle>(
+            max_depth, min_samples_split, min_impurity_decrease, criteria, 
+            // Utiliser plusieurs threads pour chaque arbre
+            #ifdef USE_OPENMP
+            std::thread::hardware_concurrency(), true
+            #else
+            1, false
+            #endif
+        ));
     }
     
     // Training loop
-    for (i = 0; i < n_estimators; ++i) {
+    for (int i = 0; i < n_estimators; ++i) {
         // Calculate residuals (negative gradients)
         std::vector<double> residuals = loss_function->negativeGradient(y, y_pred);
 
-        // Create and train a new weak learner
-        
-        all_trees[i]->train(X, rowLength, residuals, criteria);
+        // Train the current weak learner
+        trees[i]->train(X, rowLength, residuals, criteria);
 
-        // Update predictions
+        // Update predictions en parallèle si OpenMP est disponible
+        #ifdef USE_OPENMP
+        #pragma omp parallel for
         for (size_t j = 0; j < n_samples; ++j) {
             std::vector<double> sample(X.begin() + j * rowLength, X.begin() + (j + 1) * rowLength);
-            y_pred[j] += learning_rate * all_trees[i]->predict(sample);
+            y_pred[j] += learning_rate * trees[i]->predict(sample);
         }
-
-        trees.push_back(std::move(all_trees[i]));
+        #else
+        // Version séquentielle
+        for (size_t j = 0; j < n_samples; ++j) {
+            std::vector<double> sample(X.begin() + j * rowLength, X.begin() + (j + 1) * rowLength);
+            y_pred[j] += learning_rate * trees[i]->predict(sample);
+        }
+        #endif
 
         // Calculate and display loss
         double current_loss = loss_function->computeLoss(y, y_pred);
-
         std::cout << "Iteration " << i + 1 << ", Loss: " << current_loss << std::endl;
     }
 }
@@ -133,12 +149,31 @@ double Boosting::evaluate(const std::vector<double>& X_test, int rowLength, cons
  * @param filename File to save the model
  */
 void Boosting::save(const std::string& filename) const {
-    std::ofstream file(filename);
-    if (!file.is_open()) {
-        throw std::runtime_error("Cannot open file for writing: " + filename);
+    // Vérifier que le nom de fichier est valide
+    if (filename.empty()) {
+        throw std::invalid_argument("Le nom de fichier ne peut pas être vide");
     }
 
-    // Save model parameters
+    // Créer le répertoire parent si nécessaire
+    std::string directory;
+    size_t last_slash = filename.find_last_of("/\\");
+    if (last_slash != std::string::npos) {
+        directory = filename.substr(0, last_slash);
+        // Créer le répertoire si nécessaire (utiliser un système indépendant de la plateforme)
+        #ifdef _WIN32
+        std::string command = "mkdir \"" + directory + "\" 2> nul";
+        #else
+        std::string command = "mkdir -p \"" + directory + "\" 2>/dev/null";
+        #endif
+        system(command.c_str());
+    }
+
+    std::ofstream file(filename);
+    if (!file.is_open()) {
+        throw std::runtime_error("Impossible d'ouvrir le fichier pour l'écriture: " + filename);
+    }
+
+    // Sauvegarder les paramètres du modèle
     file << n_estimators << " "
          << learning_rate << " "
          << max_depth << " "
@@ -150,8 +185,21 @@ void Boosting::save(const std::string& filename) const {
     
     // Sauvegarder chaque arbre avec un nom unique
     for (size_t i = 0; i < trees.size(); ++i) {
-        std::string tree_filename = filename + "_tree_" + std::to_string(i);
-        trees[i]->saveTree(tree_filename);
+        // Utiliser un chemin relatif au fichier principal
+        std::string base_filename = filename;
+        size_t last_dot = base_filename.find_last_of(".");
+        if (last_dot != std::string::npos) {
+            base_filename = base_filename.substr(0, last_dot);
+        }
+        std::string tree_filename = base_filename + "_tree_" + std::to_string(i) + ".tree";
+        
+        try {
+            trees[i]->saveTree(tree_filename);
+        } catch (const std::exception& e) {
+            file.close();
+            throw std::runtime_error("Erreur lors de la sauvegarde de l'arbre " + 
+                                    std::to_string(i) + ": " + e.what());
+        }
     }
 
     file.close();
@@ -162,29 +210,58 @@ void Boosting::save(const std::string& filename) const {
  * @param filename File containing the saved model
  */
 void Boosting::load(const std::string& filename) {
-    std::ifstream file(filename);
-    if (!file.is_open()) {
-        throw std::runtime_error("Cannot open file for reading: " + filename);
+    // Vérifier que le nom de fichier est valide
+    if (filename.empty()) {
+        throw std::invalid_argument("Le nom de fichier ne peut pas être vide");
     }
 
-    // Load model parameters
-    file >> n_estimators
-         >> learning_rate
-         >> max_depth
-         >> min_samples_split
-         >> min_impurity_decrease
-         >> initial_prediction
-         >> Criteria
-         >> whichLossFunc;
-    
-    // Réinitialiser et recharger les arbres
-    trees.clear();
-    trees.resize(n_estimators);
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        throw std::runtime_error("Impossible d'ouvrir le fichier pour la lecture: " + filename);
+    }
 
-    for (int i = 0; i < n_estimators; ++i) {
-        std::string tree_filename = filename + "_tree_" + std::to_string(i);
-        trees[i] = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease);
-        trees[i]->loadTree(tree_filename);
+    try {
+        // Charger les paramètres du modèle
+        file >> n_estimators
+             >> learning_rate
+             >> max_depth
+             >> min_samples_split
+             >> min_impurity_decrease
+             >> initial_prediction
+             >> Criteria
+             >> whichLossFunc;
+        
+        // Vérifier que les paramètres sont valides
+        if (n_estimators <= 0 || learning_rate <= 0 || max_depth <= 0 || 
+            min_samples_split <= 0 || min_impurity_decrease < 0) {
+            throw std::runtime_error("Paramètres de modèle invalides dans le fichier");
+        }
+        
+        // Réinitialiser et recharger les arbres
+        trees.clear();
+        trees.resize(n_estimators);
+
+        for (int i = 0; i < n_estimators; ++i) {
+            // Utiliser un chemin relatif au fichier principal
+            std::string base_filename = filename;
+            size_t last_dot = base_filename.find_last_of(".");
+            if (last_dot != std::string::npos) {
+                base_filename = base_filename.substr(0, last_dot);
+            }
+            std::string tree_filename = base_filename + "_tree_" + std::to_string(i) + ".tree";
+            
+            trees[i] = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease);
+            
+            try {
+                trees[i]->loadTree(tree_filename);
+            } catch (const std::exception& e) {
+                throw std::runtime_error("Erreur lors du chargement de l'arbre " + 
+                                        std::to_string(i) + ": " + e.what());
+            }
+        }
+    } catch (const std::exception& e) {
+        file.close();
+        throw std::runtime_error("Erreur lors du chargement du modèle: " + std::string(e.what()));
     }
 
     file.close();

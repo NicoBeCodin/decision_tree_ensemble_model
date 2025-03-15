@@ -5,12 +5,21 @@
 #include <atomic>
 #include <fstream>
 #include <future>
+#include <iostream>
 #include <map>
 #include <memory>
 #include <sstream>
 #include <tuple>
 #include <vector>
+
+// Inclusion conditionnelle de omp.h
+#ifdef USE_OPENMP
 #include <omp.h>
+#else
+// Définir des substituts pour les fonctions OpenMP utilisées
+inline int omp_get_max_threads() { return 1; }
+inline void omp_set_num_threads(int) {}
+#endif
 
 class DecisionTreeSingle {
 public:
@@ -27,7 +36,7 @@ public:
 
   // Constructor and existing methods
   DecisionTreeSingle(int MaxDepth, int MinLeafLarge, double MinError,
-                     int Criteria = 0, int numThreads = 1, int useOmp = 0);
+                     int Criteria = 0, int numThreads = 1, bool useParallelAlgorithm = true);
   void train(const std::vector<double> &Data, int rowLength,
              const std::vector<double> &Labels, int criteria = 0);
 
@@ -44,8 +53,26 @@ public:
   double getRootMSE() const { return Root ? Root->NodeMetric : 0.0; }
   size_t getRootSamples() const { return Root ? Root->NodeSamples : 0; }
 
-  // this determines at twhich depth to stop creating new threads
-  void getMaxSplitDepth() { maxSplitDepth = std::log2(numThreads); }
+  // Méthode pour définir le nombre de threads et recalculer maxSplitDepth
+  void setNumThreads(int threads) {
+    // Vérifier que le nombre de threads est valide
+    if (threads < 1) {
+      std::cerr << "Avertissement: Nombre de threads invalide (" << threads 
+                << "), utilisation de 1 thread." << std::endl;
+      numThreads = 1;
+    } else {
+      numThreads = threads;
+    }
+    // Recalculer maxSplitDepth
+    getMaxSplitDepth();
+  }
+
+  // this determines at which depth to stop creating new threads
+  void getMaxSplitDepth() { 
+    // Vérifier que numThreads est valide
+    if (numThreads < 1) numThreads = 1;
+    maxSplitDepth = std::log2(numThreads); 
+  }
 
 private:
   std::unique_ptr<Tree> Root;
@@ -93,7 +120,7 @@ private:
   int numThreads = 1;
   int maxSplitDepth = 0;
   std::atomic<int> activeThreads;
-  int useOmp = 0;
+  bool useParallelAlgorithm = true; // Remplacer useOmp par useParallelAlgorithm (booléen)
 };
 
 #endif // DECISION_TREE_SINGLE_H

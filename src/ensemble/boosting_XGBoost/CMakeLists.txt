@@ -1,8 +1,10 @@
 add_library(Boosting_XGBoost
     boosting_XGBoost.cpp
 )
-# ✅ Link OpenMP in this library
-target_link_libraries(Boosting_XGBoost PRIVATE OpenMP::OpenMP_CXX)
+# Lier OpenMP seulement si activé
+if(USE_OPENMP)
+    target_link_libraries(Boosting_XGBoost PRIVATE ${OPENMP_LIB})
+endif()
 
 target_include_directories(Boosting_XGBoost PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 

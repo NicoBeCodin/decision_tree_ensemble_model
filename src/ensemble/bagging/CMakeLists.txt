@@ -1,7 +1,8 @@
 add_library(Bagging bagging.cpp)
-# ✅ Link OpenMP in this library
-target_link_libraries(Bagging PRIVATE OpenMP::OpenMP_CXX)
-
+# Lier OpenMP seulement si activé
+if(USE_OPENMP)
+    target_link_libraries(Bagging PRIVATE ${OPENMP_LIB})
+endif()
 
 # Include header file path
 target_include_directories(Bagging PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

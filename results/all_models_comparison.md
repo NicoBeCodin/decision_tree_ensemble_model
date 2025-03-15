@@ -407,3 +407,219 @@
 
 ---
 
+### Bagging
+
+#### Performance Metrics
+- MSE: 0.000e+00
+- Training Time: 5762390375.000 seconds
+- Evaluation Time: 22259334.000 seconds
+
+#### Model Parameters
+- max_depth: 60.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 20.000
+
+#### Feature Importance
+- matrix_size_x: -0.42%
+- matrix_size_y: 1.99%
+- p1: 12.51%
+- p2: 1.91%
+- p3: 42.17%
+- p4: 13.69%
+- p5: 6.05%
+- p6: 27.49%
+- p7: -9.03%
+- p8: 3.63%
+
+---
+
+### XGBoost
+
+#### Performance Metrics
+- MSE: 0.000e+00
+- Training Time: 3287503083.000 seconds
+- Evaluation Time: 77803834.000 seconds
+
+#### Model Parameters
+- gamma: 0.050
+- lambda: 1.000
+- learning_rate: 0.070
+- max_depth: 15.000
+- n_estimators: 75.000
+
+#### Feature Importance
+- matrix_size_x: 2.90%
+- p1: 2.40%
+- p3: 43.63%
+- p4: 29.64%
+- p5: 0.62%
+- p6: 14.18%
+- p7: 6.00%
+- p8: 0.63%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 0.000e+00
+- Training Time: 5714254000.000 seconds
+- Evaluation Time: 26093750.000 seconds
+
+#### Model Parameters
+- max_depth: 60.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 20.000
+
+#### Feature Importance
+- matrix_size_x: 1.11%
+- matrix_size_y: 1.60%
+- p1: 11.27%
+- p2: 1.80%
+- p3: 44.70%
+- p4: 12.80%
+- p5: 5.03%
+- p6: 26.55%
+- p7: -8.53%
+- p8: 3.66%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 0.000e+00
+- Training Time: 6141812000.000 seconds
+- Evaluation Time: 21721667.000 seconds
+
+#### Model Parameters
+- max_depth: 60.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 20.000
+
+#### Feature Importance
+- matrix_size_x: 0.02%
+- matrix_size_y: 1.69%
+- p1: 11.48%
+- p2: 1.97%
+- p3: 47.19%
+- p4: 12.60%
+- p5: 4.83%
+- p6: 24.12%
+- p7: -8.01%
+- p8: 4.11%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 3.558e-04
+- Training Time: 0.484 seconds
+- Evaluation Time: 0.002 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 60.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+
+#### Feature Importance
+- matrix_size_x: -6.22%
+- matrix_size_y: 1.34%
+- p1: 8.52%
+- p2: 1.89%
+- p3: 50.46%
+- p4: 20.41%
+- p5: 4.31%
+- p6: 24.01%
+- p7: -7.68%
+- p8: 2.94%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 0.000e+00
+- Training Time: 10037197292.000 seconds
+- Evaluation Time: 93135542.000 seconds
+
+#### Model Parameters
+- learning_rate: 0.070
+- max_depth: 15.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 75.000
+
+#### Feature Importance
+- matrix_size_x: 0.00%
+- matrix_size_y: 0.00%
+- p1: 0.00%
+- p2: 0.00%
+- p3: 0.00%
+- p4: 0.00%
+- p5: 0.00%
+- p6: 0.00%
+- p7: 0.00%
+- p8: 0.00%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 3.558e-04
+- Training Time: 0.479 seconds
+- Evaluation Time: 0.002 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 60.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+
+#### Feature Importance
+- matrix_size_x: -6.22%
+- matrix_size_y: 1.34%
+- p1: 8.52%
+- p2: 1.89%
+- p3: 50.46%
+- p4: 20.41%
+- p5: 4.31%
+- p6: 24.01%
+- p7: -7.68%
+- p8: 2.94%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 0.000e+00
+- Training Time: 7688725917.000 seconds
+- Evaluation Time: 21023917.000 seconds
+
+#### Model Parameters
+- max_depth: 60.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 20.000
+
+#### Feature Importance
+- matrix_size_x: 0.92%
+- matrix_size_y: 1.80%
+- p1: 11.56%
+- p2: 1.84%
+- p3: 43.66%
+- p4: 13.73%
+- p5: 4.50%
+- p6: 28.13%
+- p7: -10.21%
+- p8: 4.07%
+
+---
+

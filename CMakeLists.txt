@@ -3,39 +3,83 @@ project(DecisionTreeEnsembleModel)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# ✅ Add an option to enable/disable OpenMP (default ON)
-option(OPENMP "Enable OpenMP" ON)
+# Option pour activer/désactiver OpenMP (par défaut ON)
+option(USE_OPENMP "Activer le support OpenMP" ON)
 
-# ✅ Only find and use OpenMP if OPENMP=ON
-if(OPENMP)
-    find_package(OpenMP REQUIRED)
-    if(OpenMP_CXX_FOUND)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
-        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
-        message(STATUS "✅ OpenMP enabled")
+# Détection du système
+if(APPLE)
+    message(STATUS "🍎 Système macOS détecté")
+    set(IS_MACOS TRUE)
+else()
+    set(IS_MACOS FALSE)
+endif()
+
+# Configuration OpenMP
+if(USE_OPENMP)
+    if(IS_MACOS)
+        # Configuration spécifique pour macOS
+        message(STATUS "🔄 Configuration OpenMP pour macOS...")
+        
+        # Chercher libomp installé via Homebrew
+        execute_process(
+            COMMAND brew --prefix libomp
+            RESULT_VARIABLE BREW_LIBOMP
+            OUTPUT_VARIABLE BREW_LIBOMP_PREFIX
+            OUTPUT_STRIP_TRAILING_WHITESPACE
+        )
+        
+        if(BREW_LIBOMP EQUAL 0 AND EXISTS "${BREW_LIBOMP_PREFIX}")
+            message(STATUS "✅ libomp trouvé à ${BREW_LIBOMP_PREFIX}")
+            set(OpenMP_C_FLAGS "-Xpreprocessor -fopenmp -I${BREW_LIBOMP_PREFIX}/include")
+            set(OpenMP_CXX_FLAGS "-Xpreprocessor -fopenmp -I${BREW_LIBOMP_PREFIX}/include")
+            set(OpenMP_C_LIB_NAMES "omp")
+            set(OpenMP_CXX_LIB_NAMES "omp")
+            set(OpenMP_omp_LIBRARY "${BREW_LIBOMP_PREFIX}/lib/libomp.dylib")
+            set(OpenMP_C_FOUND TRUE)
+            set(OpenMP_CXX_FOUND TRUE)
+            
+            # Définir la variable pour la liaison
+            set(OPENMP_LIB "${OpenMP_omp_LIBRARY}")
+            
+            # Ajouter les flags de compilation
+            set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+            
+            # Définir la macro pour le préprocesseur
+            add_definitions(-DUSE_OPENMP)
+            
+            message(STATUS "✅ OpenMP activé pour macOS")
+        else()
+            message(WARNING "⚠️ libomp non trouvé. Installez-le avec 'brew install libomp'")
+            message(STATUS "🚫 Désactivation d'OpenMP")
+            set(USE_OPENMP OFF)
+        endif()
     else()
-        message(WARNING "⚠ OpenMP requested but not found")
+        # Configuration standard pour Linux/Windows
+        find_package(OpenMP)
+        if(OpenMP_CXX_FOUND)
+            # Définir la variable pour la liaison
+            set(OPENMP_LIB OpenMP::OpenMP_CXX)
+            
+            # Ajouter les flags de compilation
+            set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+            
+            # Définir la macro pour le préprocesseur
+            add_definitions(-DUSE_OPENMP)
+            
+            message(STATUS "✅ OpenMP activé")
+        else()
+            message(WARNING "⚠️ OpenMP demandé mais non trouvé")
+            message(STATUS "🚫 Désactivation d'OpenMP")
+            set(USE_OPENMP OFF)
+        endif()
     endif()
 else()
-    message(STATUS "🚫 OpenMP disabled")
+    message(STATUS "🚫 OpenMP désactivé par l'utilisateur")
+    # Définir une variable vide pour la liaison
+    set(OPENMP_LIB "")
 endif()
-
-
-
-# ✅ Only link OpenMP if enabled
-if(OPENMP)
-    set(OPENMP_LIB OpenMP::OpenMP_CXX)
-else()
-    set(OPENMP_LIB "")  # Empty if OpenMP is OFF
-endif()
-
-# ✅ Find OpenMP first before adding subdirectories
-find_package(OpenMP REQUIRED)
-
-# ✅ Pass OpenMP flags to all subprojects
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
-
 
 add_subdirectory(src/functions/io)
 add_subdirectory(src/functions/tree)

@@ -9,7 +9,11 @@
 #include <random>
 #include <stdexcept>
 #include <vector>
-#include <omp.h>
+
+// Inclusion conditionnelle de omp.h (déjà inclus dans decision_tree_single.h)
+// #ifdef USE_OPENMP
+// #include <omp.h>
+// #endif
 
 /**
  * @brief Boosting class
