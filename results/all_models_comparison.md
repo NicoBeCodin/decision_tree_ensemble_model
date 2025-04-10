@@ -407,3 +407,85 @@
 
 ---
 
+### Boosting
+
+#### Performance Metrics
+- MSE: 9.881e-324
+- Training Time: 4205149168.000 seconds
+- Evaluation Time: 62777107.000 seconds
+
+#### Model Parameters
+- learning_rate: 0.070
+- max_depth: 15.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 75.000
+
+#### Feature Importance
+- matrix_size_x: 0.00%
+- matrix_size_y: 0.00%
+- p1: 0.00%
+- p2: 0.00%
+- p3: 0.00%
+- p4: 0.00%
+- p5: 0.00%
+- p6: 0.00%
+- p7: 0.00%
+- p8: 0.00%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 3.027e-03
+- Training Time: 0.562 seconds
+- Evaluation Time: 0.002 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 60.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+
+#### Feature Importance
+- matrix_size_x: -4.82%
+- matrix_size_y: 2.11%
+- p1: 7.46%
+- p2: 1.12%
+- p3: 50.08%
+- p4: 20.20%
+- p5: 4.48%
+- p6: 23.98%
+- p7: -7.58%
+- p8: 2.98%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 3.027e-03
+- Training Time: 0.246 seconds
+- Evaluation Time: 0.002 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 60.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+
+#### Feature Importance
+- matrix_size_x: -4.98%
+- matrix_size_y: 2.29%
+- p1: 7.48%
+- p2: 1.11%
+- p3: 50.13%
+- p4: 20.36%
+- p5: 4.41%
+- p6: 23.91%
+- p7: -7.63%
+- p8: 2.92%
+
+---
+

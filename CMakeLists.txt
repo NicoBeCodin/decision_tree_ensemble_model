@@ -44,9 +44,9 @@ add_subdirectory(src/functions/math)
 add_subdirectory(src/functions/feature)
 add_subdirectory(src/ensemble/bagging)
 add_subdirectory(src/ensemble/boosting)
-add_subdirectory(src/ensemble/boosting_XGBoost)
 add_subdirectory(src/data_clean)
 add_subdirectory(src/model_comparison)
+add_subdirectory(src/pipeline)
 
 
 # Option to enable/disable tests
@@ -90,16 +90,6 @@ if (ENABLE_TESTS)
         LossFunction
     )
 
-    add_executable(xgboost_test tests/xgboost_test.cpp)
-    target_link_libraries(xgboost_test
-        gtest_main
-        FunctionsTree
-        FunctionsFeature
-        FunctionsMath
-        Boosting
-        Boosting_XGBoost
-    )
-
     add_executable(bagging_test tests/bagging_test.cpp)
     target_link_libraries(bagging_test
         gtest_main
@@ -119,7 +109,6 @@ if (ENABLE_TESTS)
         FunctionsMath
         Bagging
         Boosting
-        Boosting_XGBoost
         LossFunction
     )
 
@@ -146,10 +135,10 @@ target_link_libraries(MainEnsemble PRIVATE
     FunctionsMath
     Bagging
     Boosting
-    Boosting_XGBoost
     model_comparison
     Data_Clean
     LossFunction
+    Pipeline
     ${OPENMP_LIB}
 )
 
@@ -179,9 +168,9 @@ target_include_directories(MainEnsemble PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/functions/loss
     ${CMAKE_CURRENT_SOURCE_DIR}/src/ensemble/bagging
     ${CMAKE_CURRENT_SOURCE_DIR}/src/ensemble/boosting
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/ensemble/boosting_XGBoost
     ${CMAKE_CURRENT_SOURCE_DIR}/src/model_comparison
     ${CMAKE_CURRENT_SOURCE_DIR}/src/data_clean
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/pipeline
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main
     
 )
@@ -205,6 +194,5 @@ target_include_directories(MainComparison PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/functions/loss
     ${CMAKE_CURRENT_SOURCE_DIR}/src/ensemble/bagging
     ${CMAKE_CURRENT_SOURCE_DIR}/src/ensemble/boosting
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/ensemble/boosting_XGBoost
     ${CMAKE_CURRENT_SOURCE_DIR}/src/model_comparison
 )

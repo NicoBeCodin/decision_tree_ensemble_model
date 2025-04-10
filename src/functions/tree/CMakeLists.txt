@@ -1,8 +1,6 @@
 add_library(FunctionsTree STATIC
     decision_tree_single.cpp
     decision_tree_single.h
-    decision_tree_XGBoost.cpp
-    decision_tree_XGBoost.h
     vizualization/tree_visualization.cpp
     vizualization/tree_visualization.h
 

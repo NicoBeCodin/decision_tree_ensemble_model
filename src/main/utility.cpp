@@ -73,8 +73,7 @@ ProgramOptions parseCommandLineArguments(int argc, char *argv[]) {
     std::cout << "Choose the method you want to use:\n"
               << "1: Simple Decision Tree\n"
               << "2: Bagging\n"
-              << "3: Boosting\n"
-              << "4: Boosting model with XGBoost\n";
+              << "3: Boosting\n";
     std::cin >> options.choice;
   }
   return options;

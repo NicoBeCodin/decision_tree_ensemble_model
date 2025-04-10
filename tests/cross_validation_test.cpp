@@ -1,7 +1,6 @@
 #include <gtest/gtest.h>
 #include "../src/ensemble/bagging/bagging.h"
 #include "../src/ensemble/boosting/boosting.h"
-#include "../src/ensemble/boosting_XGBoost/boosting_XGBoost.h"
 #include <vector>
 #include <memory>
 #include <cmath>
@@ -63,16 +62,6 @@ TEST_F(CrossValidationTest, BoostingCrossValidationStability) {
     auto loss_function = std::make_unique<LeastSquaresLoss>();
     Boosting model(10, 0.1, std::move(loss_function), 3, 2, 0.1);
     model.train(X, rowLength, y, 0);
-    double score = model.evaluate(X, rowLength, y);
-    EXPECT_GE(score, 0.0);
-    EXPECT_LE(score, 2.0);
-}
-
-// Test de la validation croisee sur XGBoost
-TEST_F(CrossValidationTest, XGBoostCrossValidationStability) {
-    auto loss_function = std::make_unique<LeastSquaresLoss>();
-    XGBoost model(10, 3, 2, 0.1, 1.0, 0.0, std::move(loss_function), 0);
-    model.train(X, rowLength, y);
     double score = model.evaluate(X, rowLength, y);
     EXPECT_GE(score, 0.0);
     EXPECT_LE(score, 2.0);

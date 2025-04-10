@@ -50,17 +50,6 @@ void getModelParameters(int model_choice, std::string& parameters) {
 
                 return;
             }
-            case 4: {  // XGBoost
-                std::string model_filename;
-                std::cout << "Enter the filename of the xgboost model to load: ";
-                std::cin >> model_filename;
-
-                std::string path = "../saved_models/xgboost_models/" + model_filename;
-
-                parameters += " " + path;
-
-                return;
-            }
         }
     }
     std::cout << "\nDo you want to customize parameters? (1 = Yes, 0 = No): ";
@@ -229,47 +218,6 @@ void getModelParameters(int model_choice, std::string& parameters) {
                          std::to_string(learning_rate);
             break;
         }
-        case 4: {  // XGBoost
-            int n_estimators, max_depth, min_samples, which_loss_func;
-            double learning_rate, lambda, gamma;
-
-            std::cout << "\nXGBoost Parameters:\n";
-            // Loop until the user enters 0 or 1 for which_loss_func
-            while (which_loss_func != 0 && which_loss_func != 1) {
-                std::cout << "Which method do you want as a comparing trees: MSE (0) or MAE (1) ?" << std::endl;
-                std::cin >> which_loss_func;
-
-                // Check user input
-                if (std::cin.fail() || (which_loss_func != 0 && which_loss_func != 1)) {
-                    std::cout << "Invalid input. Please enter 0 (for MSE) or 1 (for MAE)." << std::endl;
-
-                    // Clean input stream
-                    std::cin.clear(); // Reset the input stream state
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore all remaining characters in the input stream
-                }
-            }
-            std::cout << "Number of estimators (default: 75): ";
-            std::cin >> n_estimators;
-            std::cout << "Maximum depth (default: 15): ";
-            std::cin >> max_depth;
-            std::cout << "Minimum samples to split (default: 3): ";
-            std::cin >> min_samples;
-            std::cout << "Learning rate (default: 0.07): ";
-            std::cin >> learning_rate;
-            std::cout << "Lambda - L2 regularization (default: 1.0): ";
-            std::cin >> lambda;
-            std::cout << "Gamma - complexity regularization (default: 0.05): ";
-            std::cin >> gamma;
-            
-            parameters += " " + std::to_string(which_loss_func) + " " + 
-                         std::to_string(n_estimators) + " " +
-                         std::to_string(max_depth) + " " + 
-                         std::to_string(min_samples) + " " +
-                         std::to_string(learning_rate) + " " +
-                         std::to_string(lambda) + " " +
-                         std::to_string(gamma);
-            break;
-        }
     }
 }
 
@@ -289,7 +237,6 @@ int main() {
             std::cout << "1. Single Decision Tree\n";
             std::cout << "2. Bagging\n";
             std::cout << "3. Boosting\n";
-            std::cout << "4. XGBoost\n";
             
             int model_choice;
             std::cin >> model_choice;
@@ -317,9 +264,6 @@ int main() {
             
             std::cout << "\n=== Boosting Tests ===\n";
             system("./boosting_test");
-            
-            std::cout << "\n=== XGBoost Tests ===\n";
-            system("./xgboost_test");
             
             std::cout << "\n=== Cross Validation Tests ===\n";
             system("./cross_validation_test");

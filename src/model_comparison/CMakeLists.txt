@@ -9,5 +9,4 @@ target_link_libraries(model_comparison
     FunctionsTree
     Bagging
     Boosting
-    Boosting_XGBoost
 ) 
