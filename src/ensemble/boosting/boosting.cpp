@@ -53,11 +53,12 @@ void Boosting::train(const std::vector<double>& X, int rowLength,
     initializePrediction(y);
     std::vector<double> y_pred(n_samples, initial_prediction);
     int i;
+
     std::vector<std::unique_ptr<DecisionTreeSingle>> all_trees(n_estimators); // Here std::vector is necessary because of std::unique_ptr
 
     #pragma omp parallel for
     for (i = 0; i < n_estimators; i++) {
-        all_trees[i] = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease);
+        all_trees[i] = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease, criteria, 1, 0);
     }
     
     // Training loop

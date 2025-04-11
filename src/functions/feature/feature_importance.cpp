@@ -14,7 +14,8 @@ std::map<int, double> FeatureImportance::calculateNodeImportances(
     }
 
     // Compute node importance
-    double current_importance = (parent_mse - node->NodeMetric) * (node->NodeSamples / weighted_n_samples);
+    double gain = parent_mse - node->NodeMetric;
+    double current_importance = (gain > 0.0 ? gain : 0.0) * (node->NodeSamples / weighted_n_samples); // avoids negative values
     importances[node->FeatureIndex] = current_importance;
 
     // Recursion on subtrees

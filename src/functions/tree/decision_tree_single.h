@@ -41,8 +41,8 @@ public:
   std::string getTrainingParametersString() const;
 
   const Tree *getRoot() const { return Root.get(); }
-  double getRootMSE() const { return Root ? Root->NodeMetric : 0.0; }
-  size_t getRootSamples() const { return Root ? Root->NodeSamples : 0; }
+  double getRootMSE() const { return RootMSE; }
+  int getRootSamples() const { return RootSamples; }
 
   // this determines at twhich depth to stop creating new threads
   void getMaxSplitDepth() { maxSplitDepth = std::log2(numThreads); }
@@ -53,6 +53,8 @@ private:
   int MinLeafLarge;
   int Criteria;
   double MinError;
+  double RootMSE;
+  int RootSamples;
 
   void splitNode(Tree *Node, const std::vector<double> &Data, int rowLength,
                  const std::vector<double> &Labels,

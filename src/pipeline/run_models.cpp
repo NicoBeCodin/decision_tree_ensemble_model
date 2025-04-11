@@ -29,8 +29,7 @@ void runSingleDecisionTreeModel(DecisionTreeParams params, DataParams data_param
     std::cout << "Mean Absolute Error (MAE): " << mae_value << "\n";
   
     // computing feature and showing feature importance
-    auto feature_importance =
-        FeatureImportance::calculateTreeImportance(single_tree, feature_names);
+    auto feature_importance = FeatureImportance::calculateTreeImportance(single_tree, feature_names);
     displayFeatureImportance(feature_importance);
   
     // Save model or not

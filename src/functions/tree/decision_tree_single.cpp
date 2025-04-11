@@ -20,17 +20,20 @@ void DecisionTreeSingle::train(const std::vector<double> &Data, int rowLength,
                                const std::vector<double> &Labels,
                                int criteria) {
   Root = std::make_unique<Tree>();
+  // The importance of the features can be properly weighted
+  RootSamples = Labels.size();
+  RootMSE = (criteria == 0)
+    ? Math::calculateMSE(Labels)
+    : Math::calculateMAE(Labels, Math::calculateMedian(Labels));
   std::vector<int> Indices(Labels.size());
   std::iota(Indices.begin(), Indices.end(), 0);
 
   // Will use MSE criterion
   if (criteria == 0) {
-    std::cout << "Training using MSE." << std::endl;
     splitNode(Root.get(), Data, rowLength, Labels, Indices, 0);
   }
   // Will use MAE criterion
   else if (criteria == 1) {
-    std::cout << "Training using MAE." << std::endl;
     splitNodeMAE(Root.get(), Data, rowLength, Labels, Indices, 0);
   }
 }
