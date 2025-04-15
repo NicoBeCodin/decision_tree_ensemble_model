@@ -75,14 +75,14 @@ void trainAndEvaluateModel(ModelType &model, const std::vector<double> &X_train,
     model.train(X_train, rowLength, y_train, criteria);
   } 
   auto train_end = std::chrono::high_resolution_clock::now();
-  train_duration_count = (train_end - train_start).count();
+  train_duration_count = std::chrono::duration_cast<std::chrono::duration<double>>(train_end - train_start).count();
 
   std::cout << "Training time: " << train_duration_count << " seconds\n";
 
   auto eval_start = std::chrono::high_resolution_clock::now();
   score = model.evaluate(X_test, rowLength, y_test);
   auto eval_end = std::chrono::high_resolution_clock::now();
-  eval_duration_count = (eval_end - eval_start).count();
+  eval_duration_count = std::chrono::duration_cast<std::chrono::duration<double>>(eval_end - eval_start).count();
 
   std::cout << "Evaluation time: " << eval_duration_count << " seconds\n";
   std::cout << "Model score with " << loss_func << " : " << score << "\n";

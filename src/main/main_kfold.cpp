@@ -104,8 +104,8 @@ int main()
             auto train_start = std::chrono::high_resolution_clock::now();
             single_tree.train(X_train, rowLength, y_train,0);
             auto train_end = std::chrono::high_resolution_clock::now();
-            std::chrono::duration<double> train_duration = train_end - train_start;
-            std::cout << "Training time: " << train_duration.count() << " seconds\n";
+            double train_duration = std::chrono::duration_cast<std::chrono::duration<double>>(train_end - train_start).count();
+            std::cout << "Training time: " << train_duration << " seconds\n";
 
             auto eval_start = std::chrono::high_resolution_clock::now();
             double mse_value = 0.0;
@@ -119,9 +119,9 @@ int main()
             }
             mse_value = Math::computeLossMSE(y_test, y_pred);
             auto eval_end = std::chrono::high_resolution_clock::now();
-            std::chrono::duration<double> eval_duration = eval_end - eval_start;
+            double eval_duration = std::chrono::duration_cast<std::chrono::duration<double>>(eval_end - eval_start).count();
 
-            std::cout << "Evaluation time: " << eval_duration.count() << " seconds\n";
+            std::cout << "Evaluation time: " << eval_duration << " seconds\n";
             std::cout << "Fold " << i + 1 << "/" << k << ", Mean Squared Error (MSE): " << mse_value << "\n";
 
             mse_scores.push_back(mse_value);
@@ -141,14 +141,14 @@ int main()
             auto train_start = std::chrono::high_resolution_clock::now();
             bagging_model.train(X_train, rowLength, y_train, criteria);
             auto train_end = std::chrono::high_resolution_clock::now();
-            std::chrono::duration<double> train_duration = train_end - train_start;
-            std::cout << "Training time (Bagging): " << train_duration.count() << " seconds\n";
+            double train_duration = std::chrono::duration_cast<std::chrono::duration<double>>(train_end - train_start).count();
+            std::cout << "Training time (Bagging): " << train_duration << " seconds\n";
 
             auto eval_start = std::chrono::high_resolution_clock::now();
             double mse_value = bagging_model.evaluate(X_test, rowLength, y_test);
             auto eval_end = std::chrono::high_resolution_clock::now();
-            std::chrono::duration<double> eval_duration = eval_end - eval_start;
-            std::cout << "Evaluation time (Bagging): " << eval_duration.count() << " seconds\n";
+            double eval_duration = std::chrono::duration_cast<std::chrono::duration<double>>(eval_end - eval_start).count();
+            std::cout << "Evaluation time (Bagging): " << eval_duration << " seconds\n";
 
             std::cout << "Fold " << i + 1 << "/" << k << ", Bagging Mean Squared Error (MSE): " << mse_value << "\n";
 
@@ -171,14 +171,14 @@ int main()
             //Criteria default is 0 for MSE (faster)
             boosting_model.train(X_train, rowLength, y_train, 0);
             auto train_end = std::chrono::high_resolution_clock::now();
-            std::chrono::duration<double> train_duration = train_end - train_start;
-            std::cout << "Training time: " << train_duration.count() << " seconds\n";
+            double train_duration = std::chrono::duration_cast<std::chrono::duration<double>>(train_end - train_start).count();
+            std::cout << "Training time: " << train_duration << " seconds\n";
 
             auto eval_start = std::chrono::high_resolution_clock::now();
             double mse_value = boosting_model.evaluate(X_test, rowLength, y_test);
             auto eval_end = std::chrono::high_resolution_clock::now();
-            std::chrono::duration<double> eval_duration = eval_end - eval_start;
-            std::cout << "Evaluation time: " << eval_duration.count() << " seconds\n";
+            double eval_duration = std::chrono::duration_cast<std::chrono::duration<double>>(eval_end - eval_start).count();
+            std::cout << "Evaluation time: " << eval_duration << " seconds\n";
 
             std::cout << "Fold " << i + 1 << "/" << k << ", Boosting Mean Squared Error (MSE): " << mse_value << "\n";
 

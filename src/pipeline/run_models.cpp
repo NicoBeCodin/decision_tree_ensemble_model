@@ -12,8 +12,8 @@ void runSingleDecisionTreeModel(DecisionTreeParams params, DataParams data_param
     auto train_start = std::chrono::high_resolution_clock::now();
     single_tree.train(data_params.X_train, data_params.rowLength, data_params.y_train, params.criteria);
     auto train_end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> train_duration = train_end - train_start;
-    std::cout << "Training time: " << train_duration.count() << " seconds\n";
+    double train_duration = std::chrono::duration_cast<std::chrono::duration<double>>(train_end - train_start).count();
+    std::cout << "Training time: " << train_duration << " seconds\n";
   
     auto eval_start = std::chrono::high_resolution_clock::now();
     // Initialisation pour stocker les résultats de MSE et MAE pour comparer
@@ -22,9 +22,9 @@ void runSingleDecisionTreeModel(DecisionTreeParams params, DataParams data_param
     single_tree.evaluate(data_params.X_test, data_params.rowLength, data_params.y_test, mse_value, mae_value);
   
     auto eval_end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> eval_duration = eval_end - eval_start;
+    double eval_duration = std::chrono::duration_cast<std::chrono::duration<double>>(eval_end - eval_start).count();
   
-    std::cout << "Evaluation time: " << eval_duration.count() << " seconds\n";
+    std::cout << "Evaluation time: " << eval_duration << " seconds\n";
     std::cout << "Mean Squared Error (MSE): " << mse_value << "\n";
     std::cout << "Mean Absolute Error (MAE): " << mae_value << "\n";
   
@@ -40,8 +40,8 @@ void runSingleDecisionTreeModel(DecisionTreeParams params, DataParams data_param
     results.model_name = "Arbre de décision simple";
     results.mse = mse_value;
     results.mae = mae_value;
-    results.training_time = train_duration.count();
-    results.evaluation_time = eval_duration.count();
+    results.training_time = train_duration;
+    results.evaluation_time = eval_duration;
   
     // Save parameters
     results.parameters["max_depth"] = params.maxDepth;
