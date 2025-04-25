@@ -15,7 +15,7 @@
  */
 Boosting::Boosting(int n_estimators, double learning_rate,
                    std::unique_ptr<LossFunction> loss_function,
-                   int max_depth, int min_samples_split, double min_impurity_decrease, int Criteria, int whichLossFunc)
+                   int max_depth, int min_samples_split, double min_impurity_decrease, int Criteria, int whichLossFunc, int numThreads)
     : n_estimators(n_estimators),
       max_depth(max_depth),
       min_samples_split(min_samples_split),
@@ -24,7 +24,8 @@ Boosting::Boosting(int n_estimators, double learning_rate,
       loss_function(std::move(loss_function)),
       initial_prediction(0.0),
       Criteria(Criteria), 
-      whichLossFunc(whichLossFunc) {
+      whichLossFunc(whichLossFunc),
+      numThreads(numThreads) {
     trees.reserve(n_estimators);
 }
 
@@ -55,10 +56,20 @@ void Boosting::train(const std::vector<double>& X, int rowLength,
     int i;
 
     std::vector<std::unique_ptr<DecisionTreeSingle>> all_trees(n_estimators); // Here std::vector is necessary because of std::unique_ptr
+    
+    // === VERSION SÉQUENTIELLE ===
+    if (numThreads == 1) {
+        for (i = 0; i < n_estimators; i++) {
+            all_trees[i] = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease, criteria, 1, 0);
+        }
+    }
 
-    #pragma omp parallel for
-    for (i = 0; i < n_estimators; i++) {
-        all_trees[i] = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease, criteria, 1, 0);
+    // === VERSION PARALLÈLE ===
+    else {
+        #pragma omp parallel for num_threads(numThreads)
+        for (i = 0; i < n_estimators; i++) {
+            all_trees[i] = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease, criteria, 1, 0);
+        }
     }
     
     // Training loop

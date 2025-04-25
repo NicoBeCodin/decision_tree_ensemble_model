@@ -25,10 +25,12 @@ public:
    * @param learning_rate Learning rate for the model
    * @param criteria Splitting criterion for the trees
    * @param loss_function Loss function to minimize
+   * @param numThreads Maximum number of threads
    */
-    Boosting(int n_estimators, double learning_rate,
-             std::unique_ptr<LossFunction> loss_function,
-             int max_depth, int min_samples_split, double min_impurity_decrease, int Criteria = 0, int whichLossFunc = 0);
+  Boosting(int n_estimators, double learning_rate,
+           std::unique_ptr<LossFunction> loss_function,
+           int max_depth, int min_samples_split, double min_impurity_decrease, 
+           int Criteria = 0, int whichLossFunc = 0, int numThreads = 1);
 
   /**
    * @brief Train the boosting model
@@ -85,6 +87,8 @@ private:
   int Criteria;
   int whichLossFunc;
   std::unique_ptr<LossFunction> loss_function;
+
+  int numThreads;
 
   std::vector<std::unique_ptr<DecisionTreeSingle>> trees; // Collection of weak learners
   double initial_prediction;

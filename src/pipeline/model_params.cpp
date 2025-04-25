@@ -128,6 +128,7 @@ bool getBoostingParams(const ProgramOptions& option, BoostingParams& out_params)
       out_params.minSamplesSplit = std::stoi(option.params[4]);
       out_params.minImpurityDecrease = std::stod(option.params[5]);
       out_params.learningRate = std::stod(option.params[6]);
+      out_params.numThreads = std::stoi(option.params[7]);
     } else if (option.load_request) {
       try {
         Boosting tmp_boosting_model(0, 0.0, nullptr, 0, 0, 0.0, 0, 0); // temporary creation
@@ -145,6 +146,7 @@ bool getBoostingParams(const ProgramOptions& option, BoostingParams& out_params)
         double initial_prediction = std::stod(training_params["InitialPrediction"]);
         out_params.criteria = std::stoi(training_params["Criteria"]);
         out_params.whichLossFunction = std::stoi(training_params["WhichLossFunction"]);
+        out_params.numThreads = std::stoi(training_params["NumThreads"]);
   
         // Display tree parameters
         std::cout << "Parameters loaded from the model file:\n";
@@ -163,6 +165,7 @@ bool getBoostingParams(const ProgramOptions& option, BoostingParams& out_params)
       out_params.minSamplesSplit = 3;
       out_params.minImpurityDecrease = 1e-5;
       out_params.learningRate = 0.07;
+      out_params.numThreads = 1;
       std::cout << "Generation of default values : " << std::endl
                 << "Default for splitting criteria (MSE)" << std::endl
                 << "Default for comparing trees (MSE)" << std::endl
@@ -170,7 +173,8 @@ bool getBoostingParams(const ProgramOptions& option, BoostingParams& out_params)
                 << "Default maximum depth = " << out_params.maxDepth << std::endl
                 << "Default minimum sample split = " << out_params.minSamplesSplit << std::endl
                 << "Default minimum impurity decrease = " << out_params.minImpurityDecrease << std::endl
-                << "Default learning rate = " << out_params.learningRate << std::endl;
+                << "Default learning rate = " << out_params.learningRate << std::endl
+                << "Default amount of threads used : " << out_params.numThreads << std::endl;
     }
     return true;
 }

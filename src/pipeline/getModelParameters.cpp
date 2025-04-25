@@ -146,7 +146,7 @@ void getModelParameters(int model_choice, std::string& parameters) {
             std::cin >> min_impurity;
             int availableThreads = std::thread::hardware_concurrency();
             std::cout << "Number of concurrent threads supported by the implementation: "<< availableThreads<< "\nHow many do you want to use ? ";
-            std::cin>>numThreads;
+            std::cin >> numThreads;
             
             parameters += " " + std::to_string(criteria) + " " + 
                          std::to_string(which_loss_func) + " " + 
@@ -158,7 +158,7 @@ void getModelParameters(int model_choice, std::string& parameters) {
             break;
         }
         case 3: {  // Boosting
-            int n_estimators, max_depth, min_samples;
+            int n_estimators, max_depth, min_samples, numThreads;
             int criteria = -1;
             int which_loss_func = -1;
             double min_impurity, learning_rate;
@@ -202,6 +202,9 @@ void getModelParameters(int model_choice, std::string& parameters) {
             std::cin >> min_impurity;
             std::cout << "Learning rate (default: 0.07): ";
             std::cin >> learning_rate;
+            int availableThreads = std::thread::hardware_concurrency();
+            std::cout << "Number of concurrent threads supported by the implementation: "<< availableThreads<< "\nHow many do you want to use ? ";
+            std::cin>> numThreads;
             
             parameters += " " + std::to_string(criteria) + " " + 
                          std::to_string(which_loss_func) + " " + 
@@ -209,7 +212,8 @@ void getModelParameters(int model_choice, std::string& parameters) {
                          std::to_string(max_depth) + " " + 
                          std::to_string(min_samples) + " " + 
                          std::to_string(min_impurity) + " " +
-                         std::to_string(learning_rate);
+                         std::to_string(learning_rate) + " " +
+                         std::to_string(numThreads);
             break;
         }
     }

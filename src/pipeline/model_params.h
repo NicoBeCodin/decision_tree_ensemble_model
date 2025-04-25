@@ -39,6 +39,7 @@ struct BoostingParams {
     double minImpurityDecrease;
     int criteria;
     int whichLossFunction;
+    int numThreads;
 };
 
 // ===============================
