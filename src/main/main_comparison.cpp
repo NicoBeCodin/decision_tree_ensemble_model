@@ -85,11 +85,11 @@ void getModelParameters(int model_choice, std::string& parameters) {
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore all remaining characters in the input stream
                 }
             }
-            std::cout << "Maximum depth (default: 5): ";
+            std::cout << "Maximum depth (default: 60): ";
             std::cin >> max_depth;
             std::cout << "Minimum samples to split (default: 2): ";
             std::cin >> min_samples;
-            std::cout << "Minimum impurity decrease (default: 0.0): ";
+            std::cout << "Minimum impurity decrease (default: 1e-12): ";
             std::cin >> min_impurity;
             int availableThreads = std::thread::hardware_concurrency();
             std::cout << "Number of concurrent threads supported by the implementation: "<< availableThreads<< "\nHow many do you want to use ?\nPlease use a power of two (1,2,4,8,16 etc...)";
@@ -142,13 +142,13 @@ void getModelParameters(int model_choice, std::string& parameters) {
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore all remaining characters in the input stream
                 }
             }
-            std::cout << "Number of trees (default: 10): ";
+            std::cout << "Number of trees (default: 20): ";
             std::cin >> num_trees;
-            std::cout << "Maximum depth (default: 5): ";
+            std::cout << "Maximum depth (default: 60): ";
             std::cin >> max_depth;
             std::cout << "Minimum samples to split (default: 2): ";
             std::cin >> min_samples;
-            std::cout << "Minimum impurity decrease (default: 0.0): ";
+            std::cout << "Minimum impurity decrease (default: 1e-6): ";
             std::cin >> min_impurity;
             int availableThreads = std::thread::hardware_concurrency();
             std::cout << "Number of concurrent threads supported by the implementation: "<< availableThreads<< "\nHow many do you want to use ? ";
