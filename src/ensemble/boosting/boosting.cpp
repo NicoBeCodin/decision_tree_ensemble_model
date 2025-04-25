@@ -65,11 +65,16 @@ void Boosting::train(const std::vector<double>& X, int rowLength,
     }
 
     // === VERSION PARALLÈLE ===
-    else {
+    else if (numThreads > 1) {
         #pragma omp parallel for num_threads(numThreads)
         for (i = 0; i < n_estimators; i++) {
             all_trees[i] = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease, criteria, 1, 0);
         }
+    }
+
+    // === ERREUR === //
+    else {
+        throw std::invalid_argument("numThreads must be >= 1");
     }
     
     // Training loop
