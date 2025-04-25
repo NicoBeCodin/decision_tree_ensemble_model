@@ -194,18 +194,6 @@ int main(int argc, char* argv[]) {
       FeatureImportance::calculateTreeImportance(single_tree, feature_names);
       displayFeatureImportance(feature_importance);
 
-      bool save_model = false;
-      std::cout << "Would you like to save this model? (1 = Yes, 0 = No): ";
-      std::cin >> save_model;
-      if (save_model) {
-        std::cout << "Please type the name you want to give to the .txt file: \n";
-        std::string filename;
-        std::cin >> filename;
-        std::string path = "../saved_models/tree_models/" + filename;
-        std::cout << "Saving tree as: " << filename << "in this path : " << path << std::endl;
-        single_tree.saveTree(path);
-      }
-
       // Save results for comparaison
       ModelResults results;
       results.model_name = "Arbre de décision simple";
@@ -226,20 +214,6 @@ int main(int argc, char* argv[]) {
       }
       
       ModelComparison::saveResults(results);
-
-      // Generate visualisation if users wants it
-      bool visualisation_ask = false;
-      std::cout << "Would you like to genarate a visualisation of this model? (1 = Yes, 0 = No): ";
-      std::cin >> visualisation_ask;
-
-      if (visualisation_ask) { 
-        // Add image for visualization
-        std::cout << "Génération de la visualisation de l'arbre avec critère: " << (criteria == 0 ? "MSE" : "MAE") << "..." << std::endl;
-        TreeVisualization::generateDotFile(single_tree, "single_tree",
-                                          feature_names, criteria);
-        std::cout << "Visualisation générée dans le dossier 'visualizations'"
-                  << std::endl;
-      }
   } else if (choice == 2) {
       int num_trees, max_depth, min_samples_split;
       int criteria;
@@ -338,20 +312,6 @@ int main(int argc, char* argv[]) {
       auto feature_importance = FeatureImportance::calculateBaggingImportance(bagging_model, feature_names);
       displayFeatureImportance(feature_importance);
 
-      // Save model if users wants it
-      bool save_model = false;
-      std::cout << "Would you like to save this model? (1 = Yes, 0 = No): ";
-      std::cin >> save_model;
-
-      if (save_model) {
-          std::string filename;
-          std::cout << "Enter the filename to save the model: ";
-          std::cin >> filename;
-          std::string path = "../saved_models/bagging_models/" + filename;
-          bagging_model.save(path);
-          std::cout << "Model saved successfully as " << filename << "in this path : " << path << "\n";
-      }
-
       // Save results
       ModelResults results;
       results.model_name = "Bagging";
@@ -371,21 +331,6 @@ int main(int argc, char* argv[]) {
       }
       
       ModelComparison::saveResults(results);
-
-      // Generate visualisation if users wants it
-      bool visualisation_ask = false;
-      std::cout << "Would you like to genarate a visualisation of this model? (1 = Yes, 0 = No): ";
-      std::cin >> visualisation_ask;
-
-      if (visualisation_ask) {
-        // Add image for visualisation
-        std::cout << "Génération de la visualisation des arbres avec critère: " << (criteria == 0 ? "MSE" : "MAE") << "..." << std::endl;
-        TreeVisualization::generateEnsembleDotFiles(bagging_model.getTrees(),
-                                                    "bagging", feature_names, criteria);
-        std::cout << "Visualisations générées dans le dossier 'visualizations'"
-                  << std::endl;
-      }
-    
   } else if (choice == 3) {
       int n_estimators, max_depth, min_samples_split;
       int criteria;
@@ -490,21 +435,6 @@ int main(int argc, char* argv[]) {
       auto feature_importance = FeatureImportance::calculateBoostingImportance(boosting_model, feature_names);
       displayFeatureImportance(feature_importance);
 
-      // Save model
-      bool save_model = false;
-      std::cout << "Would you like to save this model? (1 = Yes, 0 = No): ";
-      std::cin >> save_model;
-      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-      if (save_model) {
-          std::string filename;
-          std::cout << "Enter the filename to save the model: ";
-          std::cin >> filename;
-          std::string path = "../saved_models/boosting_models/" + filename;
-          boosting_model.save(path);
-          std::cout << "Model saved successfully as " << filename << "in this path : " << path << "\n";
-      }
-
       // Save results for comparaison
       ModelResults results;
       results.model_name = "Boosting";
@@ -524,18 +454,6 @@ int main(int argc, char* argv[]) {
       }
       
       ModelComparison::saveResults(results);
-
-      // Generate visualisation if users wants it
-      bool visualisation_ask = false;
-      std::cout << "Would you like to genarate a visualisation of this model? (1 = Yes, 0 = No): ";
-      std::cin >> visualisation_ask;
-
-      if (visualisation_ask) {
-        // Generate images and save
-        std::cout << "Génération de la visualisation des arbres avec critère: " << (criteria == 0 ? "MSE" : "MAE") << "..." << std::endl;
-        TreeVisualization::generateEnsembleDotFiles(boosting_model.getEstimators(), "boosting", feature_names, criteria);
-        std::cout << "Visualisations générées dans le dossier 'visualizations'" << std::endl;
-      }
   } else if (choice == 4) {
         int n_estimators, max_depth, min_samples_split;
         int which_loss_func;
@@ -660,31 +578,6 @@ int main(int argc, char* argv[]) {
         results.feature_importance = feature_importance;
         
         ModelComparison::saveResults(results);
-
-        std::cout << "Would you like to save this model? (1 = Yes, 0 = No): ";
-        int save_model;
-        std::cin >> save_model;
-
-        if (save_model == 1) {
-            std::cout << "Enter filename to save the model: ";
-            std::string filename;
-            std::cin >> filename;
-            std::string path = "../saved_models/xgboost_models/" + filename;
-            xgboost_model.save(path);
-            std::cout << "Model saved successfully as " << filename << "in this path : " << path << "\n";
-        }
-
-        // Generate visualisation if users wants it
-        bool visualisation_ask = false;
-        std::cout << "Would you like to genarate a visualisation of this model? (1 = Yes, 0 = No): ";
-        std::cin >> visualisation_ask;
-
-        if (visualisation_ask) {
-          // Generate images and save
-          std::cout << "Génération de la visualisation des arbres..." << std::endl;
-          TreeVisualization::generateEnsembleDotFilesXGBoost(xgboost_model.getEstimators(), "xgboost", feature_names);
-          std::cout << "Visualisations générées dans le dossier 'visualizations'" << std::endl;
-        }
   } else {
     std::cerr << "Invalid choice! Please choose 1, 2, 3 or 4" << std::endl;
     return -1;
