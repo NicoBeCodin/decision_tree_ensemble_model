@@ -152,6 +152,10 @@ target_link_libraries(MainKFold PRIVATE
     LossFunction
 )
 
+target_link_libraries(MainComparison PRIVATE
+    Pipeline
+)
+
 target_include_directories(MainDataClean PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/functions/io
     ${CMAKE_CURRENT_SOURCE_DIR}/src/functions/tree
@@ -195,4 +199,5 @@ target_include_directories(MainComparison PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/ensemble/bagging
     ${CMAKE_CURRENT_SOURCE_DIR}/src/ensemble/boosting
     ${CMAKE_CURRENT_SOURCE_DIR}/src/model_comparison
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/pipeline
 )
