@@ -47,7 +47,7 @@ add_subdirectory(src/ensemble/boosting)
 add_subdirectory(src/data_clean)
 add_subdirectory(src/model_comparison)
 add_subdirectory(src/pipeline)
-
+add_subdirectory(src/utils)
 
 # Option to enable/disable tests
 option(ENABLE_TESTS "Enable building tests" ON)
@@ -122,7 +122,7 @@ if (ENABLE_TESTS)
 endif()
 
 add_executable(MainDataClean src/main/main_data_clean.cpp)
-add_executable(MainEnsemble src/main/main.cpp src/main/utility.cpp)
+add_executable(MainEnsemble src/main/main.cpp src/utils/utility.cpp)
 add_executable(MainKFold src/main/main_kfold.cpp)
 add_executable(MainComparison src/main/main_comparison.cpp)
 
@@ -139,6 +139,7 @@ target_link_libraries(MainEnsemble PRIVATE
     Data_Clean
     LossFunction
     Pipeline
+    Utils
     ${OPENMP_LIB}
 )
 
@@ -176,7 +177,7 @@ target_include_directories(MainEnsemble PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/data_clean
     ${CMAKE_CURRENT_SOURCE_DIR}/src/pipeline
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main
-    
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/utils
 )
 
 target_include_directories(MainKFold PRIVATE
