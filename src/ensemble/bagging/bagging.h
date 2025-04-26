@@ -40,7 +40,7 @@ public:
      * @param sample A single feature vector
      * @return Prediction from the ensemble (average of all trees)
      */
-    double predict(const std::vector<double>& sample) const;
+    double predict(const double* sample, int rowLength) const;
 
     /**
      * @brief Evaluate the model performance on a test set

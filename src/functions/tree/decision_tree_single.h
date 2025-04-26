@@ -34,7 +34,7 @@ public:
   void evaluate(const std::vector<double> &X_test, const int rowLength,
                 const std::vector<double> &y_test, double &mse_value,
                 double &mae_value);
-  double predict(const std::vector<double> &Sample) const;
+  double predict(const double* Sample, int rowLength) const;
   void saveTree(const std::string &filename);
   void loadTree(const std::string &filename);
   std::map<std::string, std::string> getTrainingParameters() const;

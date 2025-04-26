@@ -112,10 +112,10 @@ void Bagging::train(const std::vector<double> &data, int rowLength,
  * @param sample Feature vector for the sample
  * @return Averaged prediction from all trees
  */
-double Bagging::predict(const std::vector<double> &sample) const {
+double Bagging::predict(const double* sample, int rowLength) const {
   double sum = 0.0;
   for (const auto &tree : trees) {
-    sum += tree->predict(sample);
+    sum += tree->predict(sample, rowLength);
   }
   return sum / trees.size(); // Return the average prediction
 }
@@ -131,16 +131,14 @@ double Bagging::evaluate(const std::vector<double> &test_data, int rowLength,
                          const std::vector<double> &test_labels) const {
 
   std::vector<double> predictions;
-  size_t n_samples = test_labels.size();
+    size_t n_samples = test_labels.size();
+    predictions.reserve(n_samples); // optimisation : éviter reallocations
 
-  for (size_t i = 0; i < n_samples; ++i) {
-
-    std::vector<double> sample(test_data.begin() + i * rowLength,
-                               test_data.begin() + (i + 1) * rowLength);
-
-    predictions.push_back(predict(sample));
-  }
-  return loss_function->computeLoss(test_labels, predictions);
+    for (size_t i = 0; i < n_samples; ++i) {
+        const double* sample_ptr = &test_data[i * rowLength];
+        predictions.push_back(predict(sample_ptr, rowLength));
+    }
+    return loss_function->computeLoss(test_labels, predictions);
 }
 
 /**

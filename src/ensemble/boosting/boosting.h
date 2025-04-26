@@ -46,7 +46,7 @@ public:
    * @param x Vector representing a sample
    * @return Prediction for the sample
    */
-  double predict(const std::vector<double> &x) const;
+  double predict(const double* x_ptr, int rowLength) const;
 
   /**
    * @brief Predict values for a set of samples

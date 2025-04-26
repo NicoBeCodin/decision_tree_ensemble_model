@@ -34,12 +34,12 @@ TEST_F(DecisionTreeTest, Prediction) {
 
     // Test avec un point d'entraînement
     std::vector<double> sample = {2.0, 3.0}; // Premier échantillon des données
-    double prediction = tree.predict(sample);
+    double prediction = tree.predict(sample.data(), sample.size());
     EXPECT_NEAR(prediction, 1.0, 1.0); // On accepte une erreur de 1.0
 
     // Test avec un nouveau point
     std::vector<double> new_sample = {2.5, 3.5};
-    double new_prediction = tree.predict(new_sample);
+    double new_prediction = tree.predict(new_sample.data(), new_sample.size());
     EXPECT_GE(new_prediction, 1.0);
     EXPECT_LE(new_prediction, 3.0);
 }
@@ -82,7 +82,8 @@ TEST_F(DecisionTreeTest, SaveAndLoad) {
     // Vérification que les prédictions sont identiques
     for (size_t i = 0; i < y.size(); ++i) {
         std::vector<double> sample(X.begin() + i * rowLength, X.begin() + (i + 1) * rowLength);
-        EXPECT_DOUBLE_EQ(tree1.predict(sample), tree2.predict(sample));
+        EXPECT_DOUBLE_EQ(tree1.predict(sample.data(), sample.size()), 
+                                       tree2.predict(sample.data(), sample.size()));
     }
 }
 
@@ -101,8 +102,8 @@ TEST_F(DecisionTreeTest, TreeParameters) {
     
     for (size_t i = 0; i < y.size(); ++i) {
         std::vector<double> sample(X.begin() + i * rowLength, X.begin() + (i + 1) * rowLength);
-        double shallow_pred = shallow_tree.predict(sample);
-        double deep_pred = deep_tree.predict(sample);
+        double shallow_pred = shallow_tree.predict(sample.data(), sample.size());
+        double deep_pred = deep_tree.predict(sample.data(), sample.size());
         shallow_mse += std::pow(shallow_pred - y[i], 2);
         deep_mse += std::pow(deep_pred - y[i], 2);
     }

@@ -52,12 +52,12 @@ TEST_F(BaggingTest, Prediction) {
     
     // Test avec un point d'entraînement
     std::vector<double> sample = {X[0], X[1]};
-    double prediction = model.predict(sample);
+    double prediction = model.predict(sample.data(), sample.size());
     EXPECT_NEAR(prediction, y[0], 1.0);
 
     // Test avec un nouveau point
     std::vector<double> new_sample = {2.5, 3.5};
-    double new_prediction = model.predict(new_sample);
+    double new_prediction = model.predict(new_sample.data(), new_sample.size());
     // Les prédictions devraient être dans la plage des valeurs d'entraînement
     EXPECT_GE(new_prediction, *std::min_element(y.begin(), y.end()));
     EXPECT_LE(new_prediction, *std::max_element(y.begin(), y.end()));
@@ -79,8 +79,8 @@ TEST_F(BaggingTest, NumberOfTrees) {
     double mse_many = 0.0;
     for (size_t i = 0; i < X.size(); ++i) {
         std::vector<double> sample = {X[2 * i], X[2 * i + 1]};  // Extract 2D point from flattened array
-        double pred_few = model_few.predict(sample);
-        double pred_many = model_many.predict(sample);
+        double pred_few = model_few.predict(sample.data(), sample.size());
+        double pred_many = model_many.predict(sample.data(), sample.size());
         mse_few += std::pow(pred_few - y[i], 2);
         mse_many += std::pow(pred_many - y[i], 2);
     }
@@ -108,8 +108,8 @@ TEST_F(BaggingTest, TreeDepth) {
     double mse_deep = 0.0;
     for (size_t i = 0; i < X.size(); ++i) {
         std::vector<double> sample = {X[2 * i], X[2 * i + 1]};  // Extract 2D point from flattened array
-        double pred_shallow = model_shallow.predict(sample);
-        double pred_deep = model_deep.predict(sample);
+        double pred_shallow = model_shallow.predict(sample.data(), sample.size());
+        double pred_deep = model_deep.predict(sample.data(), sample.size());
         mse_shallow += std::pow(pred_shallow - y[i], 2);
         mse_deep += std::pow(pred_deep - y[i], 2);
     }
@@ -130,7 +130,7 @@ TEST_F(BaggingTest, PredictionStability) {
     std::vector<double> new_sample = {2.5, 3.5};
     std::vector<double> predictions;
     for (int i = 0; i < 5; ++i) {
-        predictions.push_back(model.predict(new_sample));
+        predictions.push_back(model.predict(new_sample.data(), new_sample.size()));
     }
     
     // Les prédictions devraient être identiques (pas de randomisation lors de la prédiction)

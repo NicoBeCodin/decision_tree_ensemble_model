@@ -36,12 +36,12 @@ TEST_F(BoostingTest, Prediction) {
     
     // Test avec un point d'entraînement
     std::vector<double> sample = {X[0], X[1]};
-    double prediction = model.predict(sample);
+    double prediction = model.predict(sample.data(), sample.size());
     EXPECT_NEAR(prediction, y[0], 1.0);
 
     // Test avec un nouveau point
     std::vector<double> new_sample = {2.5, 3.5};
-    double new_prediction = model.predict(new_sample);
+    double new_prediction = model.predict(new_sample.data(), new_sample.size());
     EXPECT_GE(new_prediction, 1.0);
     EXPECT_LE(new_prediction, 3.0);
 }
@@ -63,8 +63,8 @@ TEST_F(BoostingTest, EstimatorsComparison) {
     double mse_many = 0.0;
     for (size_t i = 0; i < X.size(); ++i) {
         std::vector<double> sample = {X[2 * i], X[2 * i + 1]};  // Extract 2D point from flattened array
-        double pred_few = model_few.predict(sample);
-        double pred_many = model_many.predict(sample);
+        double pred_few = model_few.predict(sample.data(), sample.size());
+        double pred_many = model_many.predict(sample.data(), sample.size());
         mse_few += std::pow(pred_few - y[i], 2);
         mse_many += std::pow(pred_many - y[i], 2);
     }
@@ -91,8 +91,8 @@ TEST_F(BoostingTest, Parameters) {
     double mse_slow = 0.0;
     for (size_t i = 0; i < X.size(); ++i) {
         std::vector<double> sample = {X[2 * i], X[2 * i + 1]};  // Extract 2D point from flattened array
-        double pred_fast = model_fast.predict(sample);
-        double pred_slow = model_slow.predict(sample);
+        double pred_fast = model_fast.predict(sample.data(), sample.size());
+        double pred_slow = model_slow.predict(sample.data(), sample.size());
         mse_fast += std::pow(pred_fast - y[i], 2);
         mse_slow += std::pow(pred_slow - y[i], 2);
     }

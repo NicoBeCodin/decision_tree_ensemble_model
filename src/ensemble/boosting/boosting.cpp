@@ -87,10 +87,12 @@ void Boosting::train(const std::vector<double>& X, int rowLength,
         
         all_trees[i]->train(X, rowLength, residuals, criteria);
 
+        std::cout << n_samples << std::endl;
+
         // Update predictions
         for (size_t j = 0; j < n_samples; ++j) {
-            std::vector<double> sample(X.begin() + j * rowLength, X.begin() + (j + 1) * rowLength);
-            y_pred[j] += learning_rate * all_trees[i]->predict(sample);
+            const double* sample_ptr = &X[j * rowLength];
+            y_pred[j] += learning_rate * all_trees[i]->predict(sample_ptr, rowLength);
         }
 
         trees.push_back(std::move(all_trees[i]));
@@ -107,10 +109,11 @@ void Boosting::train(const std::vector<double>& X, int rowLength,
  * @param x Vector of features for a single sample
  * @return Prediction for the sample
  */
-double Boosting::predict(const std::vector<double>& x) const {
+double Boosting::predict(const double* x_ptr, int rowLength) const {
     double y_pred = initial_prediction;
+    // #pragma omp parallel for reduction(+:y_pred) // optionnel
     for (const auto& tree : trees) {
-        y_pred += learning_rate * tree->predict(x);
+        y_pred += learning_rate * tree->predict(x_ptr, rowLength);
     }
     return y_pred;
 }
@@ -126,9 +129,12 @@ std::vector<double> Boosting::predict(const std::vector<double>& X, int rowLengt
     std::vector<double> y_pred(n_samples, initial_prediction);
 
     for (const auto& tree : trees) {
+        #pragma omp parallel for
         for (size_t i = 0; i < n_samples; ++i) {
-            std::vector<double> sample(X.begin() + i * rowLength, X.begin() + (i + 1) * rowLength);
-            y_pred[i] += learning_rate * tree->predict(sample);
+            const double* sample_ptr = &X[i * rowLength];
+            double pred = tree->predict(sample_ptr, rowLength);
+            //#pragma omp atomic
+            y_pred[i] += learning_rate * pred;
         }
     }
     return y_pred;

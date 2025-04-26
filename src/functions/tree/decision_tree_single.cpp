@@ -43,11 +43,12 @@ void DecisionTreeSingle::evaluate(const std::vector<double> &X_test, const int r
               double &mae_value)
 {
   size_t test_size = y_test.size();
-  std::vector<double> y_pred(test_size);
+  std::vector<double> y_pred;
+  y_pred.reserve(test_size);
 
   for (size_t i = 0; i < test_size; ++i) {
-    std::vector<double> sample(X_test.begin() + i * rowLength, X_test.begin()+ (i+1)* rowLength);
-    y_pred.push_back(predict(sample));
+    const double* sample_ptr = &X_test[i * rowLength];
+    y_pred.push_back(predict(sample_ptr, rowLength));
   }
   
   mse_value= Math::computeLossMSE(y_test, y_pred);
@@ -570,14 +571,14 @@ return {BestFeature, BestThreshold, BestImpurityDecrease};
 // data
 
 // Prediction function
-double DecisionTreeSingle::predict(const std::vector<double> &Sample) const {
-  const Tree *CurrentNode = Root.get();
+double DecisionTreeSingle::predict(const double* Sample, int rowLength) const {
+  const Tree* CurrentNode = Root.get();
   while (!CurrentNode->IsLeaf) {
-    if (Sample[CurrentNode->FeatureIndex] <= CurrentNode->MaxValue) {
-      CurrentNode = CurrentNode->Left.get();
-    } else {
-      CurrentNode = CurrentNode->Right.get();
-    }
+      if (Sample[CurrentNode->FeatureIndex] <= CurrentNode->MaxValue) {
+          CurrentNode = CurrentNode->Left.get();
+      } else {
+          CurrentNode = CurrentNode->Right.get();
+      }
   }
   return CurrentNode->Prediction;
 }
