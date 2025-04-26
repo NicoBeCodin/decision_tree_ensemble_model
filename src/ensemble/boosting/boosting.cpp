@@ -77,6 +77,11 @@ void Boosting::train(const std::vector<double>& X, int rowLength,
     else {
         throw std::invalid_argument("numThreads must be >= 1");
     }
+
+    const double early_stopping_threshold = 1e-8;  // encore plus précis
+    const int early_stopping_rounds = 5;           // patience un peu plus grande
+    double best_loss = std::numeric_limits<double>::max();
+    int no_improvement_counter = 0;
     
     // Training loop
     for (i = 0; i < n_estimators; ++i) {
@@ -93,12 +98,22 @@ void Boosting::train(const std::vector<double>& X, int rowLength,
             y_pred[j] += learning_rate * all_trees[i]->predict(sample_ptr, rowLength);
         }
 
-        trees.push_back(std::move(all_trees[i]));
-
         // Calculate and display loss
         double current_loss = loss_function->computeLoss(y, y_pred);
-
         std::cout << "Iteration " << i + 1 << ", Loss: " << current_loss << std::endl;
+
+        if (current_loss + early_stopping_threshold < best_loss) {
+            best_loss = current_loss;
+            no_improvement_counter = 0; // reset patience
+        } else {
+            no_improvement_counter++;
+            if (no_improvement_counter >= early_stopping_rounds) {
+                std::cout << "Early stopping triggered after " << i + 1 << " iterations.\n";
+                break;
+            }
+        }
+
+        trees.push_back(std::move(all_trees[i]));
     }
 }
 
