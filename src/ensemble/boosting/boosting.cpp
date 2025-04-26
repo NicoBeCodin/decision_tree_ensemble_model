@@ -111,7 +111,6 @@ void Boosting::train(const std::vector<double>& X, int rowLength,
  */
 double Boosting::predict(const double* x_ptr, int rowLength) const {
     double y_pred = initial_prediction;
-    // #pragma omp parallel for reduction(+:y_pred) // optionnel
     for (const auto& tree : trees) {
         y_pred += learning_rate * tree->predict(x_ptr, rowLength);
     }
@@ -133,7 +132,7 @@ std::vector<double> Boosting::predict(const std::vector<double>& X, int rowLengt
         for (size_t i = 0; i < n_samples; ++i) {
             const double* sample_ptr = &X[i * rowLength];
             double pred = tree->predict(sample_ptr, rowLength);
-            //#pragma omp atomic
+            #pragma omp atomic
             y_pred[i] += learning_rate * pred;
         }
     }
