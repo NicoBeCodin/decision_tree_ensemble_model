@@ -87,8 +87,6 @@ void Boosting::train(const std::vector<double>& X, int rowLength,
         
         all_trees[i]->train(X, rowLength, residuals, criteria);
 
-        std::cout << n_samples << std::endl;
-
         // Update predictions
         for (size_t j = 0; j < n_samples; ++j) {
             const double* sample_ptr = &X[j * rowLength];
