@@ -3,7 +3,7 @@
 #include "../functions/tree/decision_tree_single.h"
 #include "../ensemble/bagging/bagging.h"
 #include "../ensemble/boosting/boosting.h"
-#include "../main/utility.h"
+#include "../utils/utility.h"
 #include <string>
 #include <iostream>
 #include <filesystem>

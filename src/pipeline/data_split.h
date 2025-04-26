@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../functions/io/functions_io.h"  // pour DataIO
-#include "../main/utility.h"              // pour createDirectory()
+#include "../utils/utility.h"              // pour createDirectory()
 
 // ==============================
 // Structure pour les datasets
