@@ -77,7 +77,7 @@ void DecisionTreeSingle::splitNode(Tree *Node, const std::vector<double> &Data,
   double BestImpurityDecrease;
 
   // Find the best split
-  if (useOmp != 1) {
+  if (useOmp == 1) {
     std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
     findBestSplitOMP(Data, rowLength, Labels, Indices, Node->NodeMetric);
   } else {  
@@ -164,7 +164,7 @@ void DecisionTreeSingle::splitNodeMAE(Tree *Node,
   double BestImpurityDecrease;
 
   // Find the best split
-  if (useOmp != 1) {
+  if (useOmp == 1) {
     std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
     findBestSplitUsingMAEOMP(Data, rowLength, Labels, Indices, Node->NodeMetric);
   } else {  
@@ -301,97 +301,6 @@ std::tuple<int, double, double> DecisionTreeSingle::findBestSplit(
 
   return {BestFeature, BestThreshold, BestImpurityDecrease};
 }
-
-
-// std::tuple<int, double, double> DecisionTreeSingle::findBestSplitOMP(
-//   const std::vector<double> &Data, int rowLength,
-//   const std::vector<double> &Labels, const std::vector<int> &Indices,
-//   double CurrentMSE) {
-
-// int BestFeature = -1;
-// double BestThreshold = 0.0;
-// double BestImpurityDecrease = 0.0;
-
-// // std::cout<<"findBestSplitOMP called"<< useOmp <<std::endl;
-
-// size_t NumFeatures = rowLength;
-// size_t NumSamples = Indices.size();  // ✅ Declare NumSamples outside OpenMP
-
-// // ✅ Adjust OpenMP threads dynamically to avoid overloading
-// if (numThreads != 1) {
-//   omp_set_num_threads(std::max(1, omp_get_max_threads() / 2));
-// }
-
-// // ✅ Add NumSamples to the shared variables
-// #pragma omp parallel for default(none) shared(Data, Labels, Indices, NumFeatures, NumSamples, rowLength, CurrentMSE, BestFeature, BestThreshold) \
-//     reduction(max : BestImpurityDecrease)
-// for (size_t Feature = 0; Feature < NumFeatures; ++Feature) {
-//   // Extract and sort feature values
-//   std::vector<std::pair<double, int>> FeatureLabelPairs;  
-//   for (int Idx : Indices) {
-//     FeatureLabelPairs.emplace_back(Data[Idx * rowLength + Feature], Idx);
-//   }
-//   std::sort(FeatureLabelPairs.begin(), FeatureLabelPairs.end());
-
-//   // Precompute sums for right partition
-//   double LeftSum = 0.0, LeftSqSum = 0.0;
-//   size_t LeftCount = 0;
-//   double RightSum = 0.0, RightSqSum = 0.0;
-//   size_t RightCount = NumSamples;  // ✅ No longer an issue
-
-//   for (const auto &[value, Idx] : FeatureLabelPairs) {
-//     double Label = Labels[Idx];
-//     RightSum += Label;
-//     RightSqSum += Label * Label;
-//   }
-
-//   // ✅ Iterate over possible split points
-//   for (size_t i = 0; i < FeatureLabelPairs.size() - 1; ++i) {
-//     int Idx = FeatureLabelPairs[i].second;
-//     double Value = FeatureLabelPairs[i].first;
-//     double Label = Labels[Idx];
-
-//     // ✅ Update left partition
-//     LeftSum += Label;
-//     LeftSqSum += Label * Label;
-//     LeftCount++;
-
-//     // ✅ Update right partition
-//     RightSum -= Label;
-//     RightSqSum -= Label * Label;
-//     RightCount--;
-
-//     // ✅ Skip duplicate values
-//     double NextValue = FeatureLabelPairs[i + 1].first;
-//     if (Value == NextValue) continue;
-
-//     // ✅ Compute MSE for left and right partitions
-//     double LeftMean = LeftSum / LeftCount;
-//     double LeftMSE = (LeftSqSum - 2 * LeftMean * LeftSum + LeftCount * LeftMean * LeftMean) / LeftCount;
-
-//     double RightMean = RightSum / RightCount;
-//     double RightMSE = (RightSqSum - 2 * RightMean * RightSum + RightCount * RightMean * RightMean) / RightCount;
-
-//     // ✅ Calculate weighted impurity
-//     double WeightedImpurity = (LeftMSE * LeftCount + RightMSE * RightCount) / NumSamples;
-
-//     // ✅ Calculate impurity decrease
-//     // #pragma omp ordered
-//     double ImpurityDecrease = CurrentMSE - WeightedImpurity;
-
-//     // ✅ Thread-safe update of best split
-//     #pragma omp critical
-//     {
-//       if (ImpurityDecrease > BestImpurityDecrease) {
-//         BestImpurityDecrease = ImpurityDecrease;
-//         BestFeature = Feature;
-//         BestThreshold = (Value + NextValue) / 2.0;
-//       }
-//     }
-//   }
-// }
-// return {BestFeature, BestThreshold, BestImpurityDecrease};
-// }
 
 std::tuple<int, double, double> DecisionTreeSingle::findBestSplitOMP(
   const std::vector<double> &Data, int rowLength,
