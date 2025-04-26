@@ -63,7 +63,6 @@ void getModelParameters(int model_choice, std::string& parameters) {
             int criteria = -1;
             double min_impurity;
             int numThreads = 1;
-            int useOmp = 0;
             std::cout << "\nDecision Tree Parameters:\n";
             // Loop until the user enters 0 or 1 for criteria
             while (criteria != 0 && criteria != 1) {
@@ -88,16 +87,14 @@ void getModelParameters(int model_choice, std::string& parameters) {
             int availableThreads = std::thread::hardware_concurrency();
             std::cout << "Number of concurrent threads supported by the implementation: "<< availableThreads<< "\nHow many do you want to use ?\nPlease use a power of two (1,2,4,8,16 etc...)";
             std::cin>>numThreads;
-            std::cout<<"Use OpenMP optimizations for multithreading ? Yes (1) or No (0): ";
-            std::cin>> useOmp;
 
 
             std::cout << "The criteria is : " << criteria << std::endl;
             
             parameters += " " + std::to_string(criteria) + " " + std::to_string(max_depth) + " " + 
                          std::to_string(min_samples) + " " + 
-                         std::to_string(min_impurity) +" " + std::to_string(numThreads) + " " +
-                         std::to_string(useOmp);
+                         std::to_string(min_impurity) +" " + 
+                         std::to_string(numThreads);
             break;
         }
         case 2: {  // Bagging

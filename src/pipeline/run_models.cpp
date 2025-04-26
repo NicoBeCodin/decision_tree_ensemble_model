@@ -7,7 +7,7 @@ void runSingleDecisionTreeModel(DecisionTreeParams params, DataParams data_param
     std::vector<std::string> feature_names = {"p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "matrix_size_x", "matrix_size_y"};
     
     DecisionTreeSingle single_tree(params.maxDepth, params.minSamplesSplit,
-                                   params.minImpurityDecrease, params.criteria, params.numThreads, params.useOmp);
+                                   params.minImpurityDecrease, params.criteria, params.numThreads);
   
     auto train_start = std::chrono::high_resolution_clock::now();
     single_tree.train(data_params.X_train, data_params.rowLength, data_params.y_train, params.criteria);

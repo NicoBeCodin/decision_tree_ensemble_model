@@ -9,9 +9,9 @@
 // Constructor
 DecisionTreeSingle::DecisionTreeSingle(int MaxDepth, int MinLeafLarge,
                                        double MinError, int Criteria,
-                                       int numThreads, int useOmp)
+                                       int numThreads)
     : MaxDepth(MaxDepth), MinLeafLarge(MinLeafLarge), MinError(MinError),
-      Criteria(Criteria), Root(nullptr), numThreads(numThreads), useOmp(useOmp) {
+      Criteria(Criteria), Root(nullptr), numThreads(numThreads) {
   getMaxSplitDepth();
 }
 
@@ -77,12 +77,16 @@ void DecisionTreeSingle::splitNode(Tree *Node, const std::vector<double> &Data,
   double BestImpurityDecrease;
 
   // Find the best split
-  if (useOmp == 1) {
-    std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
-    findBestSplitOMP(Data, rowLength, Labels, Indices, Node->NodeMetric);
-  } else {  
+  if (numThreads == 1) {
     std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
     findBestSplit(Data, rowLength, Labels, Indices, Node->NodeMetric);
+  } 
+  else if (numThreads > 1) {  
+    std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
+    findBestSplitOMP(Data, rowLength, Labels, Indices, Node->NodeMetric);
+  }
+  else {
+    throw std::invalid_argument("numThreads must be >= 1");
   }
 
   if (BestFeature == -1) {
@@ -157,19 +161,21 @@ void DecisionTreeSingle::splitNodeMAE(Tree *Node,
   }
 
   // Find the best split
-
-  
   int BestFeature;
   double BestThreshold;
   double BestImpurityDecrease;
 
   // Find the best split
-  if (useOmp == 1) {
+  if (numThreads == 1) {
     std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
-    findBestSplitUsingMAEOMP(Data, rowLength, Labels, Indices, Node->NodeMetric);
-  } else {  
+    findBestSplit(Data, rowLength, Labels, Indices, Node->NodeMetric);
+  } 
+  else if (numThreads > 1) {  
     std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
-    findBestSplitUsingMAE(Data, rowLength, Labels, Indices, Node->NodeMetric);
+    findBestSplitOMP(Data, rowLength, Labels, Indices, Node->NodeMetric);
+  }
+  else {
+    throw std::invalid_argument("numThreads must be >= 1");
   }
 
   if (BestFeature == -1) {

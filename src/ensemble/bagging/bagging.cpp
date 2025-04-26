@@ -66,7 +66,7 @@ void Bagging::train(const std::vector<double> &data, int rowLength,
 
       // Create and train a new DecisionTreeSingle
       auto tree = std::make_unique<DecisionTreeSingle>(
-          maxDepth, minSamplesSplit, minImpurityDecrease);
+          maxDepth, minSamplesSplit, minImpurityDecrease, criteria);
       tree->train(sampled_data, rowLength, sampled_labels, criteria);
       trees.push_back(std::move(tree));
     }
@@ -83,7 +83,7 @@ void Bagging::train(const std::vector<double> &data, int rowLength,
 
         // Create and train a new DecisionTreeSingle
         auto tree = std::make_unique<DecisionTreeSingle>(
-            maxDepth, minSamplesSplit, minImpurityDecrease);
+            maxDepth, minSamplesSplit, minImpurityDecrease, criteria, numThreads);
         tree->train(sampled_data, rowLength, sampled_labels, criteria);
         return tree; // Return trained tree
       }));

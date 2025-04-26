@@ -27,7 +27,7 @@ public:
 
   // Constructor and existing methods
   DecisionTreeSingle(int MaxDepth, int MinLeafLarge, double MinError,
-                     int Criteria = 0, int numThreads = 1, int useOmp = 0);
+                     int Criteria = 0, int numThreads = 1);
   void train(const std::vector<double> &Data, int rowLength,
              const std::vector<double> &Labels, int criteria = 0);
 
@@ -95,7 +95,6 @@ private:
   int numThreads = 1;
   int maxSplitDepth = 0;
   std::atomic<int> activeThreads;
-  int useOmp = 0;
 };
 
 #endif // DECISION_TREE_SINGLE_H

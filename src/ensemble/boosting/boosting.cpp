@@ -60,7 +60,7 @@ void Boosting::train(const std::vector<double>& X, int rowLength,
     // === VERSION SÉQUENTIELLE ===
     if (numThreads == 1) {
         for (i = 0; i < n_estimators; i++) {
-            all_trees[i] = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease, criteria, 1, 0);
+            all_trees[i] = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease, criteria, 1);
         }
     }
 
@@ -69,7 +69,7 @@ void Boosting::train(const std::vector<double>& X, int rowLength,
         omp_set_num_threads(numThreads);
         #pragma omp parallel for
         for (i = 0; i < n_estimators; i++) {
-            all_trees[i] = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease, criteria, 1, 0);
+            all_trees[i] = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease, criteria, numThreads);
         }
     }
 

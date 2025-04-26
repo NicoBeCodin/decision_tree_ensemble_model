@@ -4,13 +4,12 @@ bool getDecisionTreeParams(const ProgramOptions& options, DecisionTreeParams& ou
     // Create folder if non existent
     createDirectory("../saved_models/tree_models");
   
-    if (options.use_custom_params && options.params.size() > 5) {
+    if (options.use_custom_params && options.params.size() > 4) {
       out_params.criteria = std::stoi(options.params[0]);
       out_params.maxDepth = std::stoi(options.params[1]);
       out_params.minSamplesSplit = std::stoi(options.params[2]);
       out_params.minImpurityDecrease = std::stod(options.params[3]);
       out_params.numThreads = adjustNumThreads(std::stoi(options.params[4])); // This is to make sure it's a power of two
-      out_params.useOmp = std::stoi(options.params[5]);
     } else if (options.load_request) {
       try {
         DecisionTreeSingle tmp_tree(0, 0, 0.0, 0); // Temporary
@@ -27,7 +26,6 @@ bool getDecisionTreeParams(const ProgramOptions& options, DecisionTreeParams& ou
         // Retrieve numThreads safely with a default value of 1, for
         // Retrocompatibility
         out_params.numThreads = (training_params.find("NumThreads") != training_params.end()) ? std::stoi(training_params["NumThreads"]) : 1;
-        out_params.useOmp = (training_params.find("UseOmp") != training_params.end()) ? std::stoi(training_params["UseOmp"]) : 0;
   
         // Display tree parameters
         std::cout << "Parameters loaded from the model file:\n";
@@ -44,13 +42,12 @@ bool getDecisionTreeParams(const ProgramOptions& options, DecisionTreeParams& ou
       out_params.minSamplesSplit = 2;
       out_params.minImpurityDecrease = 1e-12;
       out_params.numThreads = 1;
-      out_params.useOmp = 0;
       std::cout << "Generation of default values : " << std::endl
                 << "Default for splitting criteria (MSE)" << std::endl
                 << "Default maximum depth = " << out_params.maxDepth << std::endl
-                << "Default minimum sample split = " << out_params.maxDepth << std::endl
-                << "Default minimum impurity decrease = " << out_params.maxDepth << std::endl
-                << "Default number of threads : " << out_params.maxDepth << std::endl
+                << "Default minimum sample split = " << out_params.minSamplesSplit << std::endl
+                << "Default minimum impurity decrease = " << out_params.minImpurityDecrease << std::endl
+                << "Default number of threads : " << out_params.numThreads << std::endl
                 << "Default OpenMP optimizations : off" << std::endl;
     }
     return true;
