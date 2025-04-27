@@ -1,0 +1,21 @@
+address;source_location;insn;indent
+0x205f7;:0;ENDBR64;
+0x205fb;:0;PUSH	%RBP;
+0x205fc;:0;MOV	%RSP,%RBP;
+0x205ff;:0;SUB	$0x10,%RSP;
+0x20603;:0;MOV	%RDI,-0x8(%RBP);
+0x20607;:0;MOV	%RSI,-0x10(%RBP);
+0x2060b;:0;JMP	20626 <_ZNSt12_Destroy_auxILb0EE9__destroyIPSt6vectorIiSaIiEEEEvT_S6_+0x2f>;
+0x2060d;:0;MOV	-0x8(%RBP),%RAX;(85) 
+0x20611;:0;MOV	%RAX,%RDI;(85) 
+0x20614;:0;CALL	20978 <_ZSt11__addressofISt6vectorIiSaIiEEEPT_RS3_>;(85) 
+0x20619;:0;MOV	%RAX,%RDI;(85) 
+0x2061c;:0;CALL	2098a <_ZSt8_DestroyISt6vectorIiSaIiEEEvPT_>;(85) 
+0x20621;:0;ADDQ	$0x18,-0x8(%RBP);(85) 
+0x20626;:0;MOV	-0x8(%RBP),%RAX;(85) 
+0x2062a;:0;CMP	-0x10(%RBP),%RAX;(85) 
+0x2062e;:0;JNE	2060d <_ZNSt12_Destroy_auxILb0EE9__destroyIPSt6vectorIiSaIiEEEEvT_S6_+0x16>;(85) 
+0x20630;:0;NOP;
+0x20631;:0;NOP;
+0x20632;:0;LEAVE;
+0x20633;:0;RET;

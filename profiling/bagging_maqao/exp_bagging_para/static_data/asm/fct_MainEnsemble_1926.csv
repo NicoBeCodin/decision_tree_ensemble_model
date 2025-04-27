@@ -1,0 +1,22 @@
+address;source_location;insn;indent
+0x3c6b4;:0;ENDBR64;
+0x3c6b8;:0;PUSH	%RBP;
+0x3c6b9;:0;MOV	%RSP,%RBP;
+0x3c6bc;:0;SUB	$0x10,%RSP;
+0x3c6c0;:0;MOV	%RDI,-0x8(%RBP);
+0x3c6c4;:0;MOV	%RSI,-0x10(%RBP);
+0x3c6c8;:0;MOV	-0x10(%RBP),%RDX;
+0x3c6cc;:0;MOV	-0x8(%RBP),%RAX;
+0x3c6d0;:0;MOV	%RDX,%RSI;
+0x3c6d3;:0;MOV	%RAX,%RDI;
+0x3c6d6;:0;CALL	3cdda <_ZSt4swapIdENSt9enable_ifIXsrSt6__and_IJSt6__not_ISt15__is_tuple_likeIT_EESt21is_move_constructibleIS4_ESt18is_move_assignableIS4_EEE5valueEvE4typeERS4_SE_>;
+0x3c6db;:0;MOV	-0x10(%RBP),%RAX;
+0x3c6df;:0;LEA	0x8(%RAX),%RDX;
+0x3c6e3;:0;MOV	-0x8(%RBP),%RAX;
+0x3c6e7;:0;ADD	$0x8,%RAX;
+0x3c6eb;:0;MOV	%RDX,%RSI;
+0x3c6ee;:0;MOV	%RAX,%RDI;
+0x3c6f1;:0;CALL	3ce59 <_ZSt4swapIiENSt9enable_ifIXsrSt6__and_IJSt6__not_ISt15__is_tuple_likeIT_EESt21is_move_constructibleIS4_ESt18is_move_assignableIS4_EEE5valueEvE4typeERS4_SE_>;
+0x3c6f6;:0;NOP;
+0x3c6f7;:0;LEAVE;
+0x3c6f8;:0;RET;

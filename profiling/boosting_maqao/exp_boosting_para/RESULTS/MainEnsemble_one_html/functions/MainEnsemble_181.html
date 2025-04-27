@@ -1,0 +1,2253 @@
+<!DOCTYPE html>
+<html translate="no" lang="en-US"><head><title>OV - MainEnsemble - Function std::__uniq_ptr_impl<DecisionTreeSingle::Tree, std::default_delete<DecisionTreeSingle::Tree> >::_M_ptr()</title>
+<meta charset="utf-8" />
+<meta name="google" content="notranslate" />
+<link rel="stylesheet" type="text/css" media="screen" href="../css/ui.jqgrid.css" />
+<link rel="stylesheet" type="text/css" href="../css/themes/redmond_custom/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="../css/themes/redmond_custom/jquery.jqplot.min.css" />
+<link rel="stylesheet" type="text/css" href="../css/MAQAO_theme.css" />
+<link rel="stylesheet" type="text/css" href="../css/maqao_modal.css" />
+<link rel="stylesheet" type="text/css" href="../css/global.css" />
+<link rel="stylesheet" type="text/css" href="../css/maqao_menu.css" />
+<script src="../js/jquery-1.9.0.min.js" ></script>
+<script src="../js/jquery-ui-1.10.3.custom.min.js" ></script>
+<script src="../js/grid.locale-en.js" ></script>
+<script src="../js/jquery.jqGrid.min.js" ></script>
+<script src="../js/d3.min.js" ></script>
+<script class="include" src="../js/jquery.jqplot.min.js"></script>
+<script class="include" src="../js/jqplot.pieRenderer.min.js"></script>
+<script class="include" src="../js/jqplot.barRenderer.min.js"></script>
+<script class="include" src="../js/jqplot.categoryAxisRenderer.min.js"></script>
+<script class="include" src="../js/jqplot.pointLabels.min.js"></script>
+<script class="include" src="../js/jqplot.cursor.min.js"></script>
+<script class="include" src="../js/jqplot.canvasTextRenderer.min.js"></script>
+<script class="include" src="../js/jqplot.canvasAxisTickRenderer.min.js"></script>
+<script class="include" src="../js/jqplot.canvasAxisLabelRenderer.min.js"></script>
+<script class="include" src="../js/jqplot.enhancedLegendRenderer.min.js"></script>
+<script class="include" src="../js/jqplot.highlighter.min.js"></script>
+<script class="include" src="../js/jqplot.logAxisRenderer.min.js"></script>
+<script class="include" src="../js/maqao_menu.js"></script>
+<script>
+$( function() {
+  $( document ).tooltip({
+    content: function() {
+      if (this.classList.contains ("tooltip-maqao")
+      ||  this.classList.contains ("tooltip-maqao-button")) {
+        return tooltips_texts[$(this).attr('tooltip_id')];
+      }
+    },
+    position: {
+      my: "center bottom-20",
+        at: "center top",
+        using: function( position, feedback ) {
+          $( this ).css( position );
+          $( "<div>" )
+            .addClass( "arrow-tt" )
+            .addClass( feedback.vertical )
+            .addClass( feedback.horizontal )
+            .appendTo( this );
+        }
+      }
+  });
+} );
+
+// Code from https://www.htmlgoodies.com/beyond/javascript/article.php/3724571/Using-Multiple-JavaScript-Onload-Functions.htm
+function addLoadEvent(func) {
+  var oldonload = window.onload;
+  if (typeof window.onload != 'function') {
+    window.onload = func;
+  } else {
+    window.onload = function() {
+      if (oldonload) {
+        oldonload();
+      }
+      func();
+    }
+  }
+}
+function loadCSS(filename){ 
+  var file = document.createElement("link");
+  file.setAttribute("rel", "stylesheet");
+  file.setAttribute("type", "text/css");
+  file.setAttribute("href", filename);
+  document.head.appendChild(file);
+}
+addLoadEvent(function(){
+  var theme = localStorage.getItem("__MAQAO_OV_theme__");
+  if (theme) {
+    loadCSS("../css/"+theme+".css");
+  }
+  else {
+    localStorage.setItem("__MAQAO_OV_theme__", "MAQAO_theme");
+    loadCSS("../css/MAQAO_theme.css");
+  }
+});
+</script>
+</head><body>
+<div id="page_title"><img alt="MAQAO" id="maqao_logo" src="../images/MAQAO_small_logo.png"/><ul id="maqao_menu"><li ><a  href="../index.html">Global</a><ul><li ><a  href="../config.html">Configurations</a></li><li ><a  href="../env.html">Environment Variables</a></li><li ><a  href="../outputs.html">Outputs</a></li><li ><a  href="../log.html">Logs</a></li></ul></li><li ><a  href="../summary.html">Summary</a></li><li ><a  href="../application.html">Application</a></li><li ><a  href="../fcts_and_loops.html">Functions</a></li><li ><a class="_current_page _first_menu_level" href="../functions/MainEnsemble_181.html">Function</a></li><li ><a  href="../loops_index.html">Loops</a></li><li ><a  href="../topology.html">Topology</a><ul><li ><a  href="../lstopo.html">lstopo</a></li><li ><a  href="../lstopo_PU.html">lstopo_PU</a></li><li ><a  href="../lstopo_threads.html">lstopo_threads</a></li></ul></li></ul>
+<span><img alt="options" id="menu_options_icon" src="../images/gear_20.png"  onclick="__open_options ()"/></span>
+</div>
+<script>
+function __change_theme () {
+  var new_theme = document.getElementById("select_theme").value;
+  localStorage.setItem("__MAQAO_OV_theme__", new_theme);
+    loadCSS("../css/"+new_theme+".css");
+}
+function __open_options () {
+  var elem = document.getElementById ("options_configuration");
+  if (elem.dataset.open == "false") {
+    elem.dataset.open = "true";
+    elem.style.display = "block";
+  }
+  else {
+    elem.dataset.open = "false";
+    elem.style.display = "none";
+  }
+}
+</script>
+<div id="anchor_file_start"></div>
+<div id="maqao_content">
+<div>
+  <div id="spacer_page_title" ></div>
+  <div id="options_configuration" data-open="false" style="display:none;">
+    <h3 id="options_configuration_header">Report Configuration</h3>
+    <span style="margin-left:10px;"><label for="select_theme">Theme: </label>    <select name="theme" id="select_theme" onchange="__change_theme ()">  <option value="MAQAO_theme">MAQAO_theme</option>  <option value="darkgrey">darkgrey</option>  <option value="cyan">cyan</option></select></span></div>
+</div>
+<script>
+  let theme = localStorage.getItem("__MAQAO_OV_theme__");
+  if (theme) {
+    document.getElementById("select_theme").value = theme;
+  }
+document.getElementById("spacer_page_title").style.height = (document.getElementById("page_title").clientHeight + 25)+"px";
+var obj = document.getElementById("page_title");
+if (obj) {
+  var elems = document.getElementsByClassName ("_first_menu_level")
+  if (obj.clientHeight < 90) {
+    for (var i = 0; i < elems.length; i++) {
+      elems.item(i).style.borderBottomLeftRadius = "";
+      elems.item(i).style.borderBottomRightRadius = "";
+    }
+  }
+  else {
+    for (var i = 0; i < elems.length; i++) {
+      elems.item(i).style.borderBottomLeftRadius = "10px";
+      elems.item(i).style.borderBottomRightRadius = "10px";
+    }
+  }
+}
+</script>
+<div id="main_section_div" data-run="1" data-ldbal="regular" data-path="0" data-maxpath="1" data-bucket="0" data-maxbucket="0" data-variants='' >
+<!-- ========================== Summary about the function ========================== -->
+  <table id="object_summary" style="width:100%;border: 1px solid var(--table_border);border-radius:5px;color:var(--header_font);background:var(--header_background);margin-bottom:15px;">
+    <tr>
+      <th><button class="tooltip-maqao-button" onclick="window.location.href='libc.so.6_567.html';" title="" tooltip_id="0" >Prev</button></th>
+<th>Function: <span class="tooltip-maqao" title="" tooltip_id="1" >std::__uniq_ptr_impl&lt;DecisionTreeSingle::Tree, std::default_delete&lt;DecisionTreeSingle::Tre ...</span></th>
+      <th>Module: MainEnsemble</th>
+      <th>Source: :0-0</th>
+      <th>Coverage (incl. loops): 0.05%  |  (excl. loops): 0.05%</th>
+      <th><button class="tooltip-maqao-button" onclick="window.location.href='MainEnsemble_1825.html';" title="" tooltip_id="2" >Next</button></th>
+    </tr>
+  </table>
+  <div class="drag-container" id="main_section_content">
+    <!-- =============================== Left part ================================== -->
+    <div class="panel-one _fixed_box" id="drag-left">
+      <div id="leftpanelheader" style="background:var(--header_background_selected);color:var(--header_font);text-align:center;height:30px;">
+        <div style="display:table;width:100%;height:30px;text-align:center">
+          <div style="display:table-row">
+            <div style="display:table-cell;vertical-align:middle;">
+              <select id="leftpanelselector" style="cursor:pointer;" size="1" onchange="_changepanel ('leftpanelcontent', this, 'rightpanelselector', 'leftpanelhelp', 'left');" autocomplete="off">
+                <option value="panel_src" selected>Source Code</option>
+                <option value="panel_asm">Assembly Code</option>
+                <option value="panel_callchains">Callchains</option>
+                <option value="panel_ldbal">Load Distribution</option>
+                <option value="panel_cqa" disabled>CQA</option>
+                <option value="panel_loops">Loop Hierachy</option>
+              </select>
+            </div>
+            <div style="display:table-cell;vertical-align:middle;width:20px;">
+              <span id="leftpanelextract" class="tooltip-maqao-button extract-maqao" title="" tooltip_id="3" onclick="extract_panel (leftpanelselector);"></span>
+            </div>
+            <div style="display:table-cell;vertical-align:middle;width:20px;">
+              <span id="leftpanelhelp" class="tooltip-maqao-button help-maqao" title="" tooltip_id=""></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="leftpanelcontent" style="overflow: auto;"></div>
+    </div>
+    <!-- ================================ Drag bar =================================== -->
+    <div class="dragbar" id="dragbar">
+    </div>
+    <!-- =============================== Right part ================================== -->
+    <div class="panel-two _fixed_box" id="drag-right">
+      <div id="rightpanelheader" style="background:var(--header_background_selected);color:var(--header_font);text-align:center;height:30px;">
+        <div style="display:table;width:100%;height:30px;text-align:center">
+          <div style="display:table-row">
+            <div style="display:table-cell;vertical-align:middle;">
+              <select id="rightpanelselector" style="cursor:pointer;" size="1" onchange="_changepanel ('rightpanelcontent', this, 'leftpanelselector', 'rightpanelhelp', 'right');" autocomplete="off">
+                <option value="panel_src" disabled>Source Code</option>
+                <option value="panel_asm">Assembly Code</option>
+                <option value="panel_callchains">Callchains</option>
+                <option value="panel_ldbal">Load Distribution</option>
+                <option value="panel_cqa" selected>CQA</option>
+                <option value="panel_loops">Loop Hierachy</option>
+              </select>
+            </div>
+            <div style="display:table-cell;vertical-align:middle;width:20px;">
+              <span id="rightpanelextract" class="tooltip-maqao-button extract-maqao" style="margin-top: 2px;" title="" tooltip_id="4" onclick="extract_panel (rightpanelselector);"></span>
+            </div>
+            <div style="display:table-cell;vertical-align:middle;width:20px;">
+              <span id="rightpanelhelp" class="tooltip-maqao-button help-maqao" style="margin-top: 2px;" title="" tooltip_id="" ></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="rightpanelcontent" style="overflow: auto;"></div>
+    </div>
+  </div>
+</div>
+    <!-- ========================== Start Of Storage ============================= -->
+<div id="_ONEVIEW_inner_storage" style="display:none;">
+<div class="panelcontent" id="OV_panel_src">
+  <table id="panel_src_table_src" style="width:100%;">
+    <tr><td><pre>  ***  This Panel is Intentionally Left Blank.  ***
+
+It is due to a lack of debug symbols in the given object<br>(loop or function).</pre></td></tr>
+  </table>
+  <script>
+function panel_src_onmouseover_tr (obj) {
+  if (obj.parentNode.classList.contains ("src_is_locked") == false) {
+    var src = document.getElementsByClassName("panel_asm_"+obj.dataset.src)
+    for (var i = 0; i < src.length; i++) {
+      src[i].style.borderLeftColor = "var(--table_border)";
+    }
+    if (obj.dataset.is_cqa_panel == "true") {
+      obj.style.background = "var(--table_border)";
+    }
+    else {
+      obj.style.background = "var(--table_row_background_hover)";
+    }
+  }
+  else if (obj.firstChild.classList.contains ("src_locked") == true) {
+    if (obj.dataset.is_cqa_panel == "true") {
+      obj.style.background = "var(--table_border)";
+    }
+    else {
+      obj.style.background = "var(--table_row_background_hover)";
+    }
+  }
+}
+function panel_src_onmouseout_tr (obj) {
+  if (obj.parentNode.classList.contains ("src_is_locked") == false) {
+    var src = document.getElementsByClassName("panel_asm_"+obj.dataset.src)
+    for (var i = 0; i < src.length; i++) {
+      src[i].style.borderLeftColor = "";
+    }
+  }
+  if (obj.dataset.is_cqa_panel == "true") {
+    obj.style.background = "var(--table_row_background_hover)";
+  }
+  else {
+    obj.style.background = "";
+  }
+}
+function panel_src_onclick (obj) {
+  if (obj.firstChild.classList.contains ("src_locked") == true) {
+    obj.parentNode.classList.remove ("src_is_locked");
+    obj.firstChild.classList.remove ("src_locked");
+  }
+  else if (obj.parentNode.classList.contains ("src_is_locked") == true) {
+    var old = document.getElementsByClassName ("src_locked");
+    old = old[0];
+    old.classList.remove ("src_locked");
+    obj.parentNode.classList.remove ("src_is_locked");
+    panel_src_onmouseout_tr (old.parentNode);
+    panel_src_onmouseover_tr (obj);
+    obj.firstChild.classList.add ("src_locked");
+    obj.parentNode.classList.add ("src_is_locked");
+  }
+  else {
+    obj.parentNode.classList.add ("src_is_locked");
+    obj.firstChild.classList.add ("src_locked");
+  }
+}
+function src_onresize () {
+}
+function src_loadhelp (divId) {
+  var e = document.getElementById (divId);
+  if (e != null) {
+    e.setAttribute ("tooltip_id", "5");
+  }
+}
+  </script>
+  <style>
+  pre {
+   margin: 0px;
+  }
+  .src_locked {
+    border: 1px solid var(--table_border);
+  }
+  </style>
+</div>
+<div class="panelcontent" id="OV_panel_asm"><div>
+  <table style="width:100%;" id="table_asm">
+<tr onmouseover="panel_asm_onmouseover_tr (this)" onmouseout="panel_asm_onmouseout_tr (this)" data-src="_0" onclick="asm_on_click_line('#panel_src_line__0')"><td class="panel_asm__0" style="word-break:break-all;"><pre>0xd220 ENDBR64</pre></td></tr>
+<tr onmouseover="panel_asm_onmouseover_tr (this)" onmouseout="panel_asm_onmouseout_tr (this)" data-src="_0" onclick="asm_on_click_line('#panel_src_line__0')"><td class="panel_asm__0" style="word-break:break-all;"><pre>0xd224 PUSH	%RBP</pre></td></tr>
+<tr onmouseover="panel_asm_onmouseover_tr (this)" onmouseout="panel_asm_onmouseout_tr (this)" data-src="_0" onclick="asm_on_click_line('#panel_src_line__0')"><td class="panel_asm__0" style="word-break:break-all;"><pre>0xd225 MOV	%RSP,%RBP</pre></td></tr>
+<tr onmouseover="panel_asm_onmouseover_tr (this)" onmouseout="panel_asm_onmouseout_tr (this)" data-src="_0" onclick="asm_on_click_line('#panel_src_line__0')"><td class="panel_asm__0" style="word-break:break-all;"><pre>0xd228 SUB	$0x10,%RSP</pre></td></tr>
+<tr onmouseover="panel_asm_onmouseover_tr (this)" onmouseout="panel_asm_onmouseout_tr (this)" data-src="_0" onclick="asm_on_click_line('#panel_src_line__0')"><td class="panel_asm__0" style="word-break:break-all;"><pre>0xd22c MOV	%RDI,-0x8(%RBP)</pre></td></tr>
+<tr onmouseover="panel_asm_onmouseover_tr (this)" onmouseout="panel_asm_onmouseout_tr (this)" data-src="_0" onclick="asm_on_click_line('#panel_src_line__0')"><td class="panel_asm__0" style="word-break:break-all;"><pre>0xd230 MOV	-0x8(%RBP),%RAX</pre></td></tr>
+<tr onmouseover="panel_asm_onmouseover_tr (this)" onmouseout="panel_asm_onmouseout_tr (this)" data-src="_0" onclick="asm_on_click_line('#panel_src_line__0')"><td class="panel_asm__0" style="word-break:break-all;"><pre>0xd234 MOV	%RAX,%RDI</pre></td></tr>
+<tr onmouseover="panel_asm_onmouseover_tr (this)" onmouseout="panel_asm_onmouseout_tr (this)" data-src="_0" onclick="asm_on_click_line('#panel_src_line__0')"><td class="panel_asm__0" style="word-break:break-all;"><pre>0xd237 CALL	d80a &lt;_ZSt3getILm0EJPN18DecisionTreeSingle4TreeESt14default_deleteIS1_EEERNSt13tuple_elementIXT_ESt5tupleIJDpT0_EEE4typeERS9_&gt;</pre></td></tr>
+<tr onmouseover="panel_asm_onmouseover_tr (this)" onmouseout="panel_asm_onmouseout_tr (this)" data-src="_0" onclick="asm_on_click_line('#panel_src_line__0')"><td class="panel_asm__0" style="word-break:break-all;"><pre>0xd23c LEAVE</pre></td></tr>
+<tr onmouseover="panel_asm_onmouseover_tr (this)" onmouseout="panel_asm_onmouseout_tr (this)" data-src="_0" onclick="asm_on_click_line('#panel_src_line__0')"><td class="panel_asm__0" style="word-break:break-all;"><pre>0xd23d RET</pre></td></tr>
+  </table>
+  <script>
+function panel_asm_onmouseover_tr (obj) {
+  var src = document.getElementsByClassName("panel_src_"+obj.dataset.src)
+  if (src != null && src.length > 0) {
+    src = src[0];
+    src.style.background = "var(--table_row_background_hover)";
+  }
+}
+function panel_asm_onmouseout_tr (obj) {
+  var src = document.getElementsByClassName("panel_src_"+obj.dataset.src)
+  if (src != null && src.length > 0) {
+    src = src[0];
+    src.style.background = "";
+  }
+}
+function asm_on_click_line (target) {
+  window.location = target;
+}
+function asm_onresize () {
+}
+function asm_loadhelp (divId) {
+  var e = document.getElementById (divId);
+  if (e != null) {
+    e.setAttribute ("tooltip_id", "6");
+  }
+}
+function enable_groups (div) {
+  if (div.dataset.groups == "off") {
+    div.dataset.groups = "on";
+    div.textContent = "Hide groups analysis";
+    var table_asm = document.getElementById("table_asm");
+    for (var i = 0, row; row = table_asm.rows[i]; i++) {
+      for (var j = 0, col; col = row.cells[j]; j++) {
+        col.innerHTML = col.dataset.contentON;
+        col.style["background-color"] = col.dataset.bgcolor;
+      }
+    }
+  }
+  else {
+    div.dataset.groups = "off";
+    div.textContent = "Show groups analysis";
+    var table_asm = document.getElementById("table_asm");
+    for (var i = 0, row; row = table_asm.rows[i]; i++) {
+      for (var j = 0, col; col = row.cells[j]; j++) {
+        col.innerHTML = col.dataset.contentOFF;
+        col.style["background-color"] = "";
+      }
+    }
+  }
+}
+// Initialize some data used in groups display
+var table_asm = document.getElementById("table_asm");
+for (var i = 0, row; row = table_asm.rows[i]; i++) {
+  for (var j = 0, col; col = row.cells[j]; j++) {
+      if (col.style["background-color"] != ""){
+         col.dataset.bgcolor = col.style["background-color"];
+         col.dataset.contentOFF = col.firstChild.innerHTML.replace(/\[[0-9]+\]/g, "");
+    }
+    else {
+      col.dataset.contentOFF = col.innerHTML;
+    }
+    col.dataset.contentON = col.innerHTML;
+    col.style["background-color"] = "";
+    col.innerHTML = col.dataset.contentOFF;
+  }
+}
+  </script>
+  <style>
+#enable_groups_button {
+  border: 2px solid var(--table_border);
+  padding: 5px;
+  margin: 5px;
+  width: 155px;
+  text-align:center;
+}
+#enable_groups_button:hover {
+  color: var(--header_font_hover);
+}
+#table_asm td {
+  border-left:8px solid var(--background);
+  padding-left: 5px; 
+}
+#table_asm td:hover {
+  border-left-color: var(--table_border);
+}
+#table_asm tr {
+  cursor: pointer;
+}
+  </style>
+</div></div>
+<div class="panelcontent" id="OV_panel_callchains">
+  <table style="width:100%;"><tr><td style="text-align:center;"><select id="callchains_select_run" size="1" onchange="set_callchains_input ();" autocomplete="off" style="cursor:pointer;">
+           <option value="1">Run 1
+  </select></td></tr></table>
+<div id="div_callchains_1"><div class="_div_table" ><table id="_tree_table_206" class="_tree_table"><tr><th class="_freezed_row  _left  tooltip-maqao" title="" tooltip_id="7" style="width:20%;"><span></span>Coverage (%)</th><th class="_freezed_row  tooltip-maqao" title="" tooltip_id="8" style="width:30%;"><span></span>Name</th><th class="_freezed_row  tooltip-maqao" title="" tooltip_id="9" style="width:30%;"><span></span>Source Location</th><th class="_freezed_row  tooltip-maqao" title="" tooltip_id="10" style="width:20%;"><span></span>Module</th></tr>
+<tr class=" _outer_row"  id="_tr_206_1" ><td id="_tr_206_1-1"  data-_i="1" data-_j="1"  class=" _left" ><span onclick="_click_tree(this)" style="margin-right:5px;margin-left:0px;cursor:pointer;" >&#x25BA;</span>100.00<span onclick="_click_expand(this)" class="span_expand">&#43;</span></td><td id="_tr_206_1-2"  data-_i="1" data-_j="2"  title="" tooltip_id="11" class=" tooltip-maqao" >std::__uniq_ptr_data&lt;DecisionT[...]</td><td id="_tr_206_1-3"  data-_i="1" data-_j="3"  title="" tooltip_id="12" class=" tooltip-maqao" ></td><td id="_tr_206_1-4"  data-_i="1" data-_j="4"  class=" _centered" >MainEnsemble</td></tr>
+<tr class="_tree_hidden _tr_206_1"  id="_tr_206_1_1" ><td id="_tr_206_1_1-1"  data-_i="2" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span></td><td id="_tr_206_1_1-2"  data-_i="2" data-_j="2"  title="" tooltip_id="13" class=" tooltip-maqao" >std::unique_ptr&lt;DecisionTreeSi[...]</td><td id="_tr_206_1_1-3"  data-_i="2" data-_j="3"  title="" tooltip_id="14" class=" tooltip-maqao" ></td><td id="_tr_206_1_1-4"  data-_i="2" data-_j="4"  class=" _centered" >MainEnsemble</td></tr>
+<tr class="_tree_hidden _tr_206_1"  id="_tr_206_1_2" ><td id="_tr_206_1_2-1"  data-_i="3" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span></td><td id="_tr_206_1_2-2"  data-_i="3" data-_j="2"  title="" tooltip_id="15" class=" tooltip-maqao" >std::__detail::_MakeUniq&lt;Decis[...]</td><td id="_tr_206_1_2-3"  data-_i="3" data-_j="3"  title="" tooltip_id="16" class=" tooltip-maqao" ></td><td id="_tr_206_1_2-4"  data-_i="3" data-_j="4"  class=" _centered" >MainEnsemble</td></tr>
+<tr class="_tree_hidden _tr_206_1"  id="_tr_206_1_3"  ondblclick="_action_117(this,4,-1, '../functions/MainEnsemble_1511.html');"  style="cursor:pointer;"><td id="_tr_206_1_3-1"  data-_i="4" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span></td><td id="_tr_206_1_3-2"  data-_i="4" data-_j="2"  title="" tooltip_id="17" class=" tooltip-maqao" >DecisionTreeSingle::splitNode([...]</td><td id="_tr_206_1_3-3"  data-_i="4" data-_j="3"  title="" tooltip_id="18" class=" tooltip-maqao" ></td><td id="_tr_206_1_3-4"  data-_i="4" data-_j="4"  class=" _centered" >MainEnsemble</td></tr>
+<tr class="_tree_hidden _tr_206_1"  id="_tr_206_1_4"  ondblclick="_action_117(this,5,-1, '../functions/MainEnsemble_1511.html');"  style="cursor:pointer;"><td id="_tr_206_1_4-1"  data-_i="5" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span></td><td id="_tr_206_1_4-2"  data-_i="5" data-_j="2"  title="" tooltip_id="19" class=" tooltip-maqao" >DecisionTreeSingle::splitNode([...]</td><td id="_tr_206_1_4-3"  data-_i="5" data-_j="3"  title="" tooltip_id="20" class=" tooltip-maqao" ></td><td id="_tr_206_1_4-4"  data-_i="5" data-_j="4"  class=" _centered" >MainEnsemble</td></tr>
+<tr class="_tree_hidden _tr_206_1"  id="_tr_206_1_5"  ondblclick="_action_117(this,6,-1, '../functions/MainEnsemble_1511.html');"  style="cursor:pointer;"><td id="_tr_206_1_5-1"  data-_i="6" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span></td><td id="_tr_206_1_5-2"  data-_i="6" data-_j="2"  title="" tooltip_id="21" class=" tooltip-maqao" >DecisionTreeSingle::splitNode([...]</td><td id="_tr_206_1_5-3"  data-_i="6" data-_j="3"  title="" tooltip_id="22" class=" tooltip-maqao" ></td><td id="_tr_206_1_5-4"  data-_i="6" data-_j="4"  class=" _centered" >MainEnsemble</td></tr>
+<tr class="_tree_hidden _tr_206_1"  id="_tr_206_1_6"  ondblclick="_action_117(this,7,-1, '../functions/MainEnsemble_1511.html');"  style="cursor:pointer;"><td id="_tr_206_1_6-1"  data-_i="7" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span></td><td id="_tr_206_1_6-2"  data-_i="7" data-_j="2"  title="" tooltip_id="23" class=" tooltip-maqao" >DecisionTreeSingle::splitNode([...]</td><td id="_tr_206_1_6-3"  data-_i="7" data-_j="3"  title="" tooltip_id="24" class=" tooltip-maqao" ></td><td id="_tr_206_1_6-4"  data-_i="7" data-_j="4"  class=" _centered" >MainEnsemble</td></tr>
+<tr class="_tree_hidden _tr_206_1"  id="_tr_206_1_7"  ondblclick="_action_117(this,8,-1, '../functions/MainEnsemble_1511.html');"  style="cursor:pointer;"><td id="_tr_206_1_7-1"  data-_i="8" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span></td><td id="_tr_206_1_7-2"  data-_i="8" data-_j="2"  title="" tooltip_id="25" class=" tooltip-maqao" >DecisionTreeSingle::splitNode([...]</td><td id="_tr_206_1_7-3"  data-_i="8" data-_j="3"  title="" tooltip_id="26" class=" tooltip-maqao" ></td><td id="_tr_206_1_7-4"  data-_i="8" data-_j="4"  class=" _centered" >MainEnsemble</td></tr>
+<tr class="_tree_hidden _tr_206_1"  id="_tr_206_1_8"  ondblclick="_action_117(this,9,-1, '../functions/MainEnsemble_1511.html');"  style="cursor:pointer;"><td id="_tr_206_1_8-1"  data-_i="9" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span></td><td id="_tr_206_1_8-2"  data-_i="9" data-_j="2"  title="" tooltip_id="27" class=" tooltip-maqao" >DecisionTreeSingle::splitNode([...]</td><td id="_tr_206_1_8-3"  data-_i="9" data-_j="3"  title="" tooltip_id="28" class=" tooltip-maqao" ></td><td id="_tr_206_1_8-4"  data-_i="9" data-_j="4"  class=" _centered" >MainEnsemble</td></tr>
+<tr class="_tree_hidden _tr_206_1"  id="_tr_206_1_9"  ondblclick="_action_117(this,10,-1, '../functions/MainEnsemble_1511.html');"  style="cursor:pointer;"><td id="_tr_206_1_9-1"  data-_i="10" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span></td><td id="_tr_206_1_9-2"  data-_i="10" data-_j="2"  title="" tooltip_id="29" class=" tooltip-maqao" >DecisionTreeSingle::splitNode([...]</td><td id="_tr_206_1_9-3"  data-_i="10" data-_j="3"  title="" tooltip_id="30" class=" tooltip-maqao" ></td><td id="_tr_206_1_9-4"  data-_i="10" data-_j="4"  class=" _centered" >MainEnsemble</td></tr>
+<tr class="_tree_hidden _tr_206_1"  id="_tr_206_1_10"  ondblclick="_action_117(this,11,-1, '../functions/MainEnsemble_1511.html');"  style="cursor:pointer;"><td id="_tr_206_1_10-1"  data-_i="11" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span></td><td id="_tr_206_1_10-2"  data-_i="11" data-_j="2"  title="" tooltip_id="31" class=" tooltip-maqao" >DecisionTreeSingle::splitNode([...]</td><td id="_tr_206_1_10-3"  data-_i="11" data-_j="3"  title="" tooltip_id="32" class=" tooltip-maqao" ></td><td id="_tr_206_1_10-4"  data-_i="11" data-_j="4"  class=" _centered" >MainEnsemble</td></tr>
+<tr class="_tree_hidden _tr_206_1"  id="_tr_206_1_11" ><td id="_tr_206_1_11-1"  data-_i="12" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span></td><td id="_tr_206_1_11-2"  data-_i="12" data-_j="2"  title="" tooltip_id="33" class=" tooltip-maqao" >void std::__invoke_impl&lt;void, [...]</td><td id="_tr_206_1_11-3"  data-_i="12" data-_j="3"  title="" tooltip_id="34" class=" tooltip-maqao" ></td><td id="_tr_206_1_11-4"  data-_i="12" data-_j="4"  class=" _centered" >MainEnsemble</td></tr>
+<tr class="_tree_hidden _tr_206_1"  id="_tr_206_1_12" ><td id="_tr_206_1_12-1"  data-_i="13" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span></td><td id="_tr_206_1_12-2"  data-_i="13" data-_j="2"  title="" tooltip_id="35" class=" tooltip-maqao" >std::__invoke_result&lt;void (Dec[...]</td><td id="_tr_206_1_12-3"  data-_i="13" data-_j="3"  title="" tooltip_id="36" class=" tooltip-maqao" ></td><td id="_tr_206_1_12-4"  data-_i="13" data-_j="4"  class=" _centered" >MainEnsemble</td></tr>
+<tr class="_tree_hidden _tr_206_1"  id="_tr_206_1_13" ><td id="_tr_206_1_13-1"  data-_i="14" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span></td><td id="_tr_206_1_13-2"  data-_i="14" data-_j="2"  title="" tooltip_id="37" class=" tooltip-maqao" >void std::thread::_Invoker&lt;std[...]</td><td id="_tr_206_1_13-3"  data-_i="14" data-_j="3"  title="" tooltip_id="38" class=" tooltip-maqao" ></td><td id="_tr_206_1_13-4"  data-_i="14" data-_j="4"  class=" _centered" >MainEnsemble</td></tr>
+<tr class="_tree_hidden _tr_206_1"  id="_tr_206_1_14" ><td id="_tr_206_1_14-1"  data-_i="15" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span></td><td id="_tr_206_1_14-2"  data-_i="15" data-_j="2"  title="" tooltip_id="39" class=" tooltip-maqao" >std::thread::_Invoker&lt;std::tup[...]</td><td id="_tr_206_1_14-3"  data-_i="15" data-_j="3"  title="" tooltip_id="40" class=" tooltip-maqao" ></td><td id="_tr_206_1_14-4"  data-_i="15" data-_j="4"  class=" _centered" >MainEnsemble</td></tr>
+<tr class="_tree_hidden _tr_206_1"  id="_tr_206_1_15" ><td id="_tr_206_1_15-1"  data-_i="16" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span></td><td id="_tr_206_1_15-2"  data-_i="16" data-_j="2"  title="" tooltip_id="41" class=" tooltip-maqao" >std::__future_base::_Task_sett[...]</td><td id="_tr_206_1_15-3"  data-_i="16" data-_j="3"  title="" tooltip_id="42" class=" tooltip-maqao" ></td><td id="_tr_206_1_15-4"  data-_i="16" data-_j="4"  class=" _centered" >MainEnsemble</td></tr>
+<tr class="_tree_hidden _tr_206_1"  id="_tr_206_1_16" ><td id="_tr_206_1_16-1"  data-_i="17" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span></td><td id="_tr_206_1_16-2"  data-_i="17" data-_j="2"  title="" tooltip_id="43" class=" tooltip-maqao" >std::unique_ptr&lt;std::__future_[...]</td><td id="_tr_206_1_16-3"  data-_i="17" data-_j="3"  title="" tooltip_id="44" class=" tooltip-maqao" ></td><td id="_tr_206_1_16-4"  data-_i="17" data-_j="4"  class=" _centered" >MainEnsemble</td></tr>
+<tr class="_tree_hidden _tr_206_1"  id="_tr_206_1_17" ><td id="_tr_206_1_17-1"  data-_i="18" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span></td><td id="_tr_206_1_17-2"  data-_i="18" data-_j="2"  title="" tooltip_id="45" class=" tooltip-maqao" >std::enable_if&lt;is_invocable_r_[...]</td><td id="_tr_206_1_17-3"  data-_i="18" data-_j="3"  title="" tooltip_id="46" class=" tooltip-maqao" ></td><td id="_tr_206_1_17-4"  data-_i="18" data-_j="4"  class=" _centered" >MainEnsemble</td></tr>
+<tr class="_tree_hidden _tr_206_1"  id="_tr_206_1_18" ><td id="_tr_206_1_18-1"  data-_i="19" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span></td><td id="_tr_206_1_18-2"  data-_i="19" data-_j="2"  title="" tooltip_id="47" class=" tooltip-maqao" >std::_Function_handler&lt;std::un[...]</td><td id="_tr_206_1_18-3"  data-_i="19" data-_j="3"  title="" tooltip_id="48" class=" tooltip-maqao" ></td><td id="_tr_206_1_18-4"  data-_i="19" data-_j="4"  class=" _centered" >MainEnsemble</td></tr>
+<tr class="_tree_hidden _tr_206_1"  id="_tr_206_1_19" ><td id="_tr_206_1_19-1"  data-_i="20" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span></td><td id="_tr_206_1_19-2"  data-_i="20" data-_j="2"  title="" tooltip_id="49" class=" tooltip-maqao" >std::function&lt;std::unique_ptr&lt;[...]</td><td id="_tr_206_1_19-3"  data-_i="20" data-_j="3"  title="" tooltip_id="50" class=" tooltip-maqao" ></td><td id="_tr_206_1_19-4"  data-_i="20" data-_j="4"  class=" _centered" >MainEnsemble</td></tr>
+</table></div>
+<script>
+function _action_117 (obj, i, j, p){open(""+p+"");}
+</script>
+</div>
+  <script>
+function set_callchains_input () {
+  var selector = document.getElementById ("callchains_select_run");
+  var selected_run = selector.value;
+  document.getElementById ("main_section_div").dataset.run = selected_run;
+  for (let i = 1; i <= 1; i++) {
+    var e = document.getElementById ("div_callchains_"+i);
+    if (i == selected_run) {
+      e.style.display = "";
+    }
+    else {
+      e.style.display = "none";
+    }
+  }
+}
+function callchains_onresize () {
+  document.getElementById ("callchains_select_run").value = document.getElementById ("main_section_div").dataset.run;
+  set_callchains_input ();
+}
+function callchains_loadhelp (divId) {
+  var e = document.getElementById (divId);
+  if (e != null) {
+    e.setAttribute ("tooltip_id", "51");
+  }
+}
+  </script>
+</div>
+<div class="panelcontent" id="OV_panel_ldbal">
+  <table style="width:100%;">
+    <tr>
+      <td style="width:40%;" />
+      <td style="text-align:center;">
+        <select id="ldbal_select_type" style="cursor:pointer;" size="1" onchange="set_ldbal_input ();" autocomplete="off">
+          <option value="regular">Load Distribution</option>
+          <option value="sorted">Sorted Load Distribution</option>
+          <option value="all">Load Distribution All Threads</option>
+        </select>
+      </td>
+      <td>
+        <select id="ldbal_select_run" size="1" onchange="set_ldbal_input ();" autocomplete="off" style="cursor:pointer;">
+           <option value="1">Run 1
+        </select>
+      </td>
+      <td style="width:40%;" />
+    </tr>
+  </table>
+<div style="margin: 10px; overflow-x:auto; overflow-y:hidden;"><div id="chart_cat_894" style="height:500px" ></div><div style="text-align:center;"></div></div>
+<script class="code">
+</script>
+<div style="margin: 10px; overflow-x:auto; overflow-y:hidden;"><div id="chart_cat_895" style="height:500px" ></div><div style="text-align:center;"></div></div>
+<script class="code">
+</script>
+  <script>
+function set_ldbal_input () {
+  var selector_type = document.getElementById ("ldbal_select_type");
+  var selector_run  = document.getElementById ("ldbal_select_run");
+  document.getElementById ("main_section_div").dataset.ldbal = selector_type.value;
+  document.getElementById ("main_section_div").dataset.run = selector_run.value;
+  // Clear placeholder content and update their size
+  document.getElementById("chart_cat_894").innerHTML = "";
+  var _width = Math.floor(document.getElementById("chart_cat_894").getBoundingClientRect().width);
+  document.getElementById("chart_cat_895").innerHTML = "";
+  var _width = Math.floor(document.getElementById("chart_cat_895").getBoundingClientRect().width);
+  // According to selectors, draw both charts
+  if (selector_type.value == "regular"
+  &&  selector_run.value  == "1") {
+$(document).ready(function(){
+  var ordinals = ['fixot-brendan-MS-7C02_6283_6686'];
+  var data = [{value:14.285712242126,offset:0, i:0,color:"#333399"}];
+  var widthgl  = _width;
+  var widthin  = _width;
+  var heightgl = 480;
+  var heightin = 495;
+  let margin = {top:10,right:30,bottom:30,left:50},
+  width = widthgl - margin.left - margin.right,
+  height = heightgl - margin.top - margin.bottom,
+  radius = (Math.min(width, height) / 2) - 10,
+  node;
+  const svg = d3.select('#chart_cat_894')
+      .append('svg')
+      .attr('width', widthin)
+      .attr('height', heightin)
+      .append('g')
+      .attr('transform', `translate(${margin.left}, ${margin.top})`)
+      .call(
+        d3.zoom()
+          .translateExtent([[0,0], [width, height] ])
+          .extent([[0, 0], [width, height] ])
+        .on('zoom', zoom)
+      ).on("dblclick.zoom", null);
+  let x = d3.scaleLinear().range([0, width])
+  let y = d3.scaleLinear().range([height, 0])
+  let color = d3.scaleOrdinal(d3.schemeCategory10)
+  let xScale = x.domain([-1, ordinals.length])
+  let yScale = y.domain([0, d3.max(data, function(d){return d.value + d.offset})])
+  let xBand = d3.scaleBand().domain(d3.range(-1, ordinals.length)).range([0, width])
+  svg.append('rect')
+    .attr('class', 'zoom-panel')
+    .attr('width', width)
+    .attr('height', height)
+    .style('fill', 'var(--background)')
+  let xAxis = svg.append('g')
+    .attr('class', 'xAxis')
+    .attr('transform', `translate(0, ${height})`)
+    .call(
+      d3.axisBottom(xScale).tickFormat((d, e) => {
+        return ordinals[d]
+      })
+    );
+  svg.append("text")
+    .attr("transform",
+          "translate(" + (width/2) + " ," + (height + margin.top + 30) + ")")
+    .style("text-anchor", "middle")
+    .style("fill", "var(--font)")
+    .text("MAQAO thread rank");
+  let yAxis = svg.append('g')
+    .attr('class', 'yAxis')
+    .call(d3.axisLeft(yScale));
+  yAxis.selectAll(".tick text").attr("fill","var(--font)");
+  yAxis.selectAll(".tick line").attr("stroke","var(--font)");
+  yAxis.selectAll(".domain").attr("stroke","var(--font)");
+  xAxis.selectAll(".tick text").attr("fill","var(--font)");
+  xAxis.selectAll(".tick line").attr("stroke","var(--font)");
+  xAxis.selectAll(".domain").attr("stroke","var(--font)");
+  svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left)
+    .attr("x",0 - (height / 2))
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .style("fill", "var(--font)")
+    .text("Coverage (%)");
+  let bars = svg.append('g')
+    .attr('clip-path','url(#my-clip-path)')
+    .attr('id', 'zoom_chart_894')
+    .selectAll('.bar')
+    .data(data)
+    .enter()
+    .append('rect')
+    .attr('class', 'bar')
+    .attr('id', function (d, i){ return 'zoom_chart_894_'+i;})
+    .attr('x', function(d, i){
+      return xScale(d.i) - xBand.bandwidth()*0.9/2
+    })
+    .attr('y', function(d, i){
+      return yScale(d.value + d.offset)
+    })
+    .attr('width', xBand.bandwidth()*0.9)
+    .attr('height', function(d){
+      return height - yScale(d.value)
+    })
+    .style("fill", function(d){
+      return d.color
+    })
+  let defs = svg.append('defs')
+    defs.append('clipPath')
+      .attr('id', 'my-clip-path')
+      .append('rect')
+      .attr('width', width)
+      .attr('height', height)
+    let hideTicksWithoutLabel = function() {
+      d3.selectAll('.xAxis .tick text').each(function(d){
+        if(this.innerHTML === '') {
+          this.parentNode.style.display = 'none';
+        }
+      })
+    }
+    function zoom() {
+      if (d3.event.transform.k < 1) {
+        d3.event.transform.k = 1;
+        return;
+      }
+    xAxis.call(
+      d3.axisBottom(d3.event.transform.rescaleX(xScale)).tickFormat((d, e, target) => {
+        if (Math.floor(d) === d3.format(".1f")(d)) return ordinals[Math.floor(d)]
+          return ordinals[d];
+      })
+    )
+    hideTicksWithoutLabel()
+      bars.attr("transform", "translate(" + d3.event.transform.x+",0)scale(" + d3.event.transform.k + ",1)")
+  }
+});
+$("#zoom_chart_894_0").click( function () {window.open("../topo/run_0_fixot-brendan-MS-7C02_6283_6686.html");});
+  }
+  if (selector_type.value == "regular"
+  &&  selector_run.value  == "1") {
+$(document).ready(function(){
+  var ordinals = ['fixot-brendan-MS-7C02_6283_6686'];
+  var data = [{value:0.00499999942258,offset:0, i:0,color:"#333399"}];
+  var widthgl  = _width;
+  var widthin  = _width;
+  var heightgl = 480;
+  var heightin = 495;
+  let margin = {top:10,right:30,bottom:30,left:50},
+  width = widthgl - margin.left - margin.right,
+  height = heightgl - margin.top - margin.bottom,
+  radius = (Math.min(width, height) / 2) - 10,
+  node;
+  const svg = d3.select('#chart_cat_895')
+      .append('svg')
+      .attr('width', widthin)
+      .attr('height', heightin)
+      .append('g')
+      .attr('transform', `translate(${margin.left}, ${margin.top})`)
+      .call(
+        d3.zoom()
+          .translateExtent([[0,0], [width, height] ])
+          .extent([[0, 0], [width, height] ])
+        .on('zoom', zoom)
+      ).on("dblclick.zoom", null);
+  let x = d3.scaleLinear().range([0, width])
+  let y = d3.scaleLinear().range([height, 0])
+  let color = d3.scaleOrdinal(d3.schemeCategory10)
+  let xScale = x.domain([-1, ordinals.length])
+  let yScale = y.domain([0, d3.max(data, function(d){return d.value + d.offset})])
+  let xBand = d3.scaleBand().domain(d3.range(-1, ordinals.length)).range([0, width])
+  svg.append('rect')
+    .attr('class', 'zoom-panel')
+    .attr('width', width)
+    .attr('height', height)
+    .style('fill', 'var(--background)')
+  let xAxis = svg.append('g')
+    .attr('class', 'xAxis')
+    .attr('transform', `translate(0, ${height})`)
+    .call(
+      d3.axisBottom(xScale).tickFormat((d, e) => {
+        return ordinals[d]
+      })
+    );
+  svg.append("text")
+    .attr("transform",
+          "translate(" + (width/2) + " ," + (height + margin.top + 30) + ")")
+    .style("text-anchor", "middle")
+    .style("fill", "var(--font)")
+    .text("MAQAO thread rank");
+  let yAxis = svg.append('g')
+    .attr('class', 'yAxis')
+    .call(d3.axisLeft(yScale));
+  yAxis.selectAll(".tick text").attr("fill","var(--font)");
+  yAxis.selectAll(".tick line").attr("stroke","var(--font)");
+  yAxis.selectAll(".domain").attr("stroke","var(--font)");
+  xAxis.selectAll(".tick text").attr("fill","var(--font)");
+  xAxis.selectAll(".tick line").attr("stroke","var(--font)");
+  xAxis.selectAll(".domain").attr("stroke","var(--font)");
+  svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left)
+    .attr("x",0 - (height / 2))
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .style("fill", "var(--font)")
+    .text("Time (s)");
+  let bars = svg.append('g')
+    .attr('clip-path','url(#my-clip-path)')
+    .attr('id', 'zoom_chart_895')
+    .selectAll('.bar')
+    .data(data)
+    .enter()
+    .append('rect')
+    .attr('class', 'bar')
+    .attr('id', function (d, i){ return 'zoom_chart_895_'+i;})
+    .attr('x', function(d, i){
+      return xScale(d.i) - xBand.bandwidth()*0.9/2
+    })
+    .attr('y', function(d, i){
+      return yScale(d.value + d.offset)
+    })
+    .attr('width', xBand.bandwidth()*0.9)
+    .attr('height', function(d){
+      return height - yScale(d.value)
+    })
+    .style("fill", function(d){
+      return d.color
+    })
+  let defs = svg.append('defs')
+    defs.append('clipPath')
+      .attr('id', 'my-clip-path')
+      .append('rect')
+      .attr('width', width)
+      .attr('height', height)
+    let hideTicksWithoutLabel = function() {
+      d3.selectAll('.xAxis .tick text').each(function(d){
+        if(this.innerHTML === '') {
+          this.parentNode.style.display = 'none';
+        }
+      })
+    }
+    function zoom() {
+      if (d3.event.transform.k < 1) {
+        d3.event.transform.k = 1;
+        return;
+      }
+    xAxis.call(
+      d3.axisBottom(d3.event.transform.rescaleX(xScale)).tickFormat((d, e, target) => {
+        if (Math.floor(d) === d3.format(".1f")(d)) return ordinals[Math.floor(d)]
+          return ordinals[d];
+      })
+    )
+    hideTicksWithoutLabel()
+      bars.attr("transform", "translate(" + d3.event.transform.x+",0)scale(" + d3.event.transform.k + ",1)")
+  }
+});
+$("#zoom_chart_895_0").click( function () {window.open("../topo/run_0_fixot-brendan-MS-7C02_6283_6686.html");});
+  }
+  if (selector_type.value == "sorted"
+  &&  selector_run.value  == "1") {
+$(document).ready(function(){
+  var ordinals = ['fixot-brendan-MS-7C02_6283_6686'];
+  var data = [{value:14.285712242126,offset:0, i:0,color:"#333399"}];
+  var widthgl  = _width;
+  var widthin  = _width;
+  var heightgl = 480;
+  var heightin = 495;
+  let margin = {top:10,right:30,bottom:30,left:50},
+  width = widthgl - margin.left - margin.right,
+  height = heightgl - margin.top - margin.bottom,
+  radius = (Math.min(width, height) / 2) - 10,
+  node;
+  const svg = d3.select('#chart_cat_894')
+      .append('svg')
+      .attr('width', widthin)
+      .attr('height', heightin)
+      .append('g')
+      .attr('transform', `translate(${margin.left}, ${margin.top})`)
+      .call(
+        d3.zoom()
+          .translateExtent([[0,0], [width, height] ])
+          .extent([[0, 0], [width, height] ])
+        .on('zoom', zoom)
+      ).on("dblclick.zoom", null);
+  let x = d3.scaleLinear().range([0, width])
+  let y = d3.scaleLinear().range([height, 0])
+  let color = d3.scaleOrdinal(d3.schemeCategory10)
+  let xScale = x.domain([-1, ordinals.length])
+  let yScale = y.domain([0, d3.max(data, function(d){return d.value + d.offset})])
+  let xBand = d3.scaleBand().domain(d3.range(-1, ordinals.length)).range([0, width])
+  svg.append('rect')
+    .attr('class', 'zoom-panel')
+    .attr('width', width)
+    .attr('height', height)
+    .style('fill', 'var(--background)')
+  let xAxis = svg.append('g')
+    .attr('class', 'xAxis')
+    .attr('transform', `translate(0, ${height})`)
+    .call(
+      d3.axisBottom(xScale).tickFormat((d, e) => {
+        return ordinals[d]
+      })
+    );
+  svg.append("text")
+    .attr("transform",
+          "translate(" + (width/2) + " ," + (height + margin.top + 30) + ")")
+    .style("text-anchor", "middle")
+    .style("fill", "var(--font)")
+    .text("MAQAO thread rank");
+  let yAxis = svg.append('g')
+    .attr('class', 'yAxis')
+    .call(d3.axisLeft(yScale));
+  yAxis.selectAll(".tick text").attr("fill","var(--font)");
+  yAxis.selectAll(".tick line").attr("stroke","var(--font)");
+  yAxis.selectAll(".domain").attr("stroke","var(--font)");
+  xAxis.selectAll(".tick text").attr("fill","var(--font)");
+  xAxis.selectAll(".tick line").attr("stroke","var(--font)");
+  xAxis.selectAll(".domain").attr("stroke","var(--font)");
+  svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left)
+    .attr("x",0 - (height / 2))
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .style("fill", "var(--font)")
+    .text("Coverage (%)");
+  let bars = svg.append('g')
+    .attr('clip-path','url(#my-clip-path)')
+    .attr('id', 'zoom_chart_894')
+    .selectAll('.bar')
+    .data(data)
+    .enter()
+    .append('rect')
+    .attr('class', 'bar')
+    .attr('id', function (d, i){ return 'zoom_chart_894_'+i;})
+    .attr('x', function(d, i){
+      return xScale(d.i) - xBand.bandwidth()*0.9/2
+    })
+    .attr('y', function(d, i){
+      return yScale(d.value + d.offset)
+    })
+    .attr('width', xBand.bandwidth()*0.9)
+    .attr('height', function(d){
+      return height - yScale(d.value)
+    })
+    .style("fill", function(d){
+      return d.color
+    })
+  let defs = svg.append('defs')
+    defs.append('clipPath')
+      .attr('id', 'my-clip-path')
+      .append('rect')
+      .attr('width', width)
+      .attr('height', height)
+    let hideTicksWithoutLabel = function() {
+      d3.selectAll('.xAxis .tick text').each(function(d){
+        if(this.innerHTML === '') {
+          this.parentNode.style.display = 'none';
+        }
+      })
+    }
+    function zoom() {
+      if (d3.event.transform.k < 1) {
+        d3.event.transform.k = 1;
+        return;
+      }
+    xAxis.call(
+      d3.axisBottom(d3.event.transform.rescaleX(xScale)).tickFormat((d, e, target) => {
+        if (Math.floor(d) === d3.format(".1f")(d)) return ordinals[Math.floor(d)]
+          return ordinals[d];
+      })
+    )
+    hideTicksWithoutLabel()
+      bars.attr("transform", "translate(" + d3.event.transform.x+",0)scale(" + d3.event.transform.k + ",1)")
+  }
+});
+$("#zoom_chart_894_0").click( function () {window.open("../topo/run_0_fixot-brendan-MS-7C02_6283_6686.html");});
+  }
+  if (selector_type.value == "sorted"
+  &&  selector_run.value  == "1") {
+$(document).ready(function(){
+  var ordinals = ['fixot-brendan-MS-7C02_6283_6686'];
+  var data = [{value:0.00499999942258,offset:0, i:0,color:"#333399"}];
+  var widthgl  = _width;
+  var widthin  = _width;
+  var heightgl = 480;
+  var heightin = 495;
+  let margin = {top:10,right:30,bottom:30,left:50},
+  width = widthgl - margin.left - margin.right,
+  height = heightgl - margin.top - margin.bottom,
+  radius = (Math.min(width, height) / 2) - 10,
+  node;
+  const svg = d3.select('#chart_cat_895')
+      .append('svg')
+      .attr('width', widthin)
+      .attr('height', heightin)
+      .append('g')
+      .attr('transform', `translate(${margin.left}, ${margin.top})`)
+      .call(
+        d3.zoom()
+          .translateExtent([[0,0], [width, height] ])
+          .extent([[0, 0], [width, height] ])
+        .on('zoom', zoom)
+      ).on("dblclick.zoom", null);
+  let x = d3.scaleLinear().range([0, width])
+  let y = d3.scaleLinear().range([height, 0])
+  let color = d3.scaleOrdinal(d3.schemeCategory10)
+  let xScale = x.domain([-1, ordinals.length])
+  let yScale = y.domain([0, d3.max(data, function(d){return d.value + d.offset})])
+  let xBand = d3.scaleBand().domain(d3.range(-1, ordinals.length)).range([0, width])
+  svg.append('rect')
+    .attr('class', 'zoom-panel')
+    .attr('width', width)
+    .attr('height', height)
+    .style('fill', 'var(--background)')
+  let xAxis = svg.append('g')
+    .attr('class', 'xAxis')
+    .attr('transform', `translate(0, ${height})`)
+    .call(
+      d3.axisBottom(xScale).tickFormat((d, e) => {
+        return ordinals[d]
+      })
+    );
+  svg.append("text")
+    .attr("transform",
+          "translate(" + (width/2) + " ," + (height + margin.top + 30) + ")")
+    .style("text-anchor", "middle")
+    .style("fill", "var(--font)")
+    .text("MAQAO thread rank");
+  let yAxis = svg.append('g')
+    .attr('class', 'yAxis')
+    .call(d3.axisLeft(yScale));
+  yAxis.selectAll(".tick text").attr("fill","var(--font)");
+  yAxis.selectAll(".tick line").attr("stroke","var(--font)");
+  yAxis.selectAll(".domain").attr("stroke","var(--font)");
+  xAxis.selectAll(".tick text").attr("fill","var(--font)");
+  xAxis.selectAll(".tick line").attr("stroke","var(--font)");
+  xAxis.selectAll(".domain").attr("stroke","var(--font)");
+  svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left)
+    .attr("x",0 - (height / 2))
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .style("fill", "var(--font)")
+    .text("Time (s)");
+  let bars = svg.append('g')
+    .attr('clip-path','url(#my-clip-path)')
+    .attr('id', 'zoom_chart_895')
+    .selectAll('.bar')
+    .data(data)
+    .enter()
+    .append('rect')
+    .attr('class', 'bar')
+    .attr('id', function (d, i){ return 'zoom_chart_895_'+i;})
+    .attr('x', function(d, i){
+      return xScale(d.i) - xBand.bandwidth()*0.9/2
+    })
+    .attr('y', function(d, i){
+      return yScale(d.value + d.offset)
+    })
+    .attr('width', xBand.bandwidth()*0.9)
+    .attr('height', function(d){
+      return height - yScale(d.value)
+    })
+    .style("fill", function(d){
+      return d.color
+    })
+  let defs = svg.append('defs')
+    defs.append('clipPath')
+      .attr('id', 'my-clip-path')
+      .append('rect')
+      .attr('width', width)
+      .attr('height', height)
+    let hideTicksWithoutLabel = function() {
+      d3.selectAll('.xAxis .tick text').each(function(d){
+        if(this.innerHTML === '') {
+          this.parentNode.style.display = 'none';
+        }
+      })
+    }
+    function zoom() {
+      if (d3.event.transform.k < 1) {
+        d3.event.transform.k = 1;
+        return;
+      }
+    xAxis.call(
+      d3.axisBottom(d3.event.transform.rescaleX(xScale)).tickFormat((d, e, target) => {
+        if (Math.floor(d) === d3.format(".1f")(d)) return ordinals[Math.floor(d)]
+          return ordinals[d];
+      })
+    )
+    hideTicksWithoutLabel()
+      bars.attr("transform", "translate(" + d3.event.transform.x+",0)scale(" + d3.event.transform.k + ",1)")
+  }
+});
+$("#zoom_chart_895_0").click( function () {window.open("../topo/run_0_fixot-brendan-MS-7C02_6283_6686.html");});
+  }
+  if (selector_type.value == "all"
+  &&  selector_run.value  == "1") {
+$(document).ready(function(){
+  var ordinals = ['fixot-brendan-MS-7C02_6283_6283','fixot-brendan-MS-7C02_6283_6301','fixot-brendan-MS-7C02_6283_6302','fixot-brendan-MS-7C02_6283_6305','fixot-brendan-MS-7C02_6283_6306','fixot-brendan-MS-7C02_6283_6332','fixot-brendan-MS-7C02_6283_6333','fixot-brendan-MS-7C02_6283_6338','fixot-brendan-MS-7C02_6283_6339','fixot-brendan-MS-7C02_6283_6350','fixot-brendan-MS-7C02_6283_6351','fixot-brendan-MS-7C02_6283_6356','fixot-brendan-MS-7C02_6283_6357','fixot-brendan-MS-7C02_6283_6368','fixot-brendan-MS-7C02_6283_6369','fixot-brendan-MS-7C02_6283_6374','fixot-brendan-MS-7C02_6283_6375','fixot-brendan-MS-7C02_6283_6386','fixot-brendan-MS-7C02_6283_6387','fixot-brendan-MS-7C02_6283_6392','fixot-brendan-MS-7C02_6283_6393','fixot-brendan-MS-7C02_6283_6404','fixot-brendan-MS-7C02_6283_6405','fixot-brendan-MS-7C02_6283_6410','fixot-brendan-MS-7C02_6283_6411','fixot-brendan-MS-7C02_6283_6422','fixot-brendan-MS-7C02_6283_6423','fixot-brendan-MS-7C02_6283_6428','fixot-brendan-MS-7C02_6283_6429','fixot-brendan-MS-7C02_6283_6451','fixot-brendan-MS-7C02_6283_6452','fixot-brendan-MS-7C02_6283_6457','fixot-brendan-MS-7C02_6283_6458','fixot-brendan-MS-7C02_6283_6469','fixot-brendan-MS-7C02_6283_6470','fixot-brendan-MS-7C02_6283_6475','fixot-brendan-MS-7C02_6283_6476','fixot-brendan-MS-7C02_6283_6487','fixot-brendan-MS-7C02_6283_6488','fixot-brendan-MS-7C02_6283_6493','fixot-brendan-MS-7C02_6283_6494','fixot-brendan-MS-7C02_6283_6506','fixot-brendan-MS-7C02_6283_6507','fixot-brendan-MS-7C02_6283_6508','fixot-brendan-MS-7C02_6283_6523','fixot-brendan-MS-7C02_6283_6524','fixot-brendan-MS-7C02_6283_6529','fixot-brendan-MS-7C02_6283_6530','fixot-brendan-MS-7C02_6283_6541','fixot-brendan-MS-7C02_6283_6542','fixot-brendan-MS-7C02_6283_6547','fixot-brendan-MS-7C02_6283_6548','fixot-brendan-MS-7C02_6283_6559','fixot-brendan-MS-7C02_6283_6560','fixot-brendan-MS-7C02_6283_6566','fixot-brendan-MS-7C02_6283_6577','fixot-brendan-MS-7C02_6283_6578','fixot-brendan-MS-7C02_6283_6579','fixot-brendan-MS-7C02_6283_6580','fixot-brendan-MS-7C02_6283_6595','fixot-brendan-MS-7C02_6283_6596','fixot-brendan-MS-7C02_6283_6601','fixot-brendan-MS-7C02_6283_6602','fixot-brendan-MS-7C02_6283_6613','fixot-brendan-MS-7C02_6283_6614','fixot-brendan-MS-7C02_6283_6619','fixot-brendan-MS-7C02_6283_6620','fixot-brendan-MS-7C02_6283_6631','fixot-brendan-MS-7C02_6283_6632','fixot-brendan-MS-7C02_6283_6638','fixot-brendan-MS-7C02_6283_6649','fixot-brendan-MS-7C02_6283_6650','fixot-brendan-MS-7C02_6283_6655','fixot-brendan-MS-7C02_6283_6656','fixot-brendan-MS-7C02_6283_6668','fixot-brendan-MS-7C02_6283_6673','fixot-brendan-MS-7C02_6283_6674','fixot-brendan-MS-7C02_6283_6685','fixot-brendan-MS-7C02_6283_6686','fixot-brendan-MS-7C02_6283_6691','fixot-brendan-MS-7C02_6283_6692','fixot-brendan-MS-7C02_6283_6704','fixot-brendan-MS-7C02_6283_6709','fixot-brendan-MS-7C02_6283_6710','fixot-brendan-MS-7C02_6283_6722','fixot-brendan-MS-7C02_6283_6723','fixot-brendan-MS-7C02_6283_6724','fixot-brendan-MS-7C02_6283_6739','fixot-brendan-MS-7C02_6283_6740','fixot-brendan-MS-7C02_6283_6746','fixot-brendan-MS-7C02_6283_6757','fixot-brendan-MS-7C02_6283_6758','fixot-brendan-MS-7C02_6283_6764','fixot-brendan-MS-7C02_6283_6775','fixot-brendan-MS-7C02_6283_6776','fixot-brendan-MS-7C02_6283_6781','fixot-brendan-MS-7C02_6283_6782','fixot-brendan-MS-7C02_6283_6794','fixot-brendan-MS-7C02_6283_6799','fixot-brendan-MS-7C02_6283_6800','fixot-brendan-MS-7C02_6283_6815','fixot-brendan-MS-7C02_6283_6816','fixot-brendan-MS-7C02_6283_6822','fixot-brendan-MS-7C02_6283_6834','fixot-brendan-MS-7C02_6283_6839','fixot-brendan-MS-7C02_6283_6840','fixot-brendan-MS-7C02_6283_6851','fixot-brendan-MS-7C02_6283_6852','fixot-brendan-MS-7C02_6283_6858','fixot-brendan-MS-7C02_6283_6869','fixot-brendan-MS-7C02_6283_6870','fixot-brendan-MS-7C02_6283_6876','fixot-brendan-MS-7C02_6283_6887','fixot-brendan-MS-7C02_6283_6894','fixot-brendan-MS-7C02_6283_6908','fixot-brendan-MS-7C02_6283_6925','fixot-brendan-MS-7C02_6283_6926','fixot-brendan-MS-7C02_6283_6937','fixot-brendan-MS-7C02_6283_6944','fixot-brendan-MS-7C02_6283_6952','fixot-brendan-MS-7C02_6283_6957','fixot-brendan-MS-7C02_6283_6958','fixot-brendan-MS-7C02_6283_6970','fixot-brendan-MS-7C02_6283_6974','fixot-brendan-MS-7C02_6283_6985','fixot-brendan-MS-7C02_6283_6999','fixot-brendan-MS-7C02_6283_7012','fixot-brendan-MS-7C02_6283_7015','fixot-brendan-MS-7C02_6283_7026','fixot-brendan-MS-7C02_6283_7032','fixot-brendan-MS-7C02_6283_7135'];
+  var data = [{value:0,offset:0, i:0,color:"#333399"},{value:0,offset:0, i:1,color:"#333399"},{value:0,offset:0, i:2,color:"#333399"},{value:0,offset:0, i:3,color:"#333399"},{value:0,offset:0, i:4,color:"#333399"},{value:0,offset:0, i:5,color:"#333399"},{value:0,offset:0, i:6,color:"#333399"},{value:0,offset:0, i:7,color:"#333399"},{value:0,offset:0, i:8,color:"#333399"},{value:0,offset:0, i:9,color:"#333399"},{value:0,offset:0, i:10,color:"#333399"},{value:0,offset:0, i:11,color:"#333399"},{value:0,offset:0, i:12,color:"#333399"},{value:0,offset:0, i:13,color:"#333399"},{value:0,offset:0, i:14,color:"#333399"},{value:0,offset:0, i:15,color:"#333399"},{value:0,offset:0, i:16,color:"#333399"},{value:0,offset:0, i:17,color:"#333399"},{value:0,offset:0, i:18,color:"#333399"},{value:0,offset:0, i:19,color:"#333399"},{value:0,offset:0, i:20,color:"#333399"},{value:0,offset:0, i:21,color:"#333399"},{value:0,offset:0, i:22,color:"#333399"},{value:0,offset:0, i:23,color:"#333399"},{value:0,offset:0, i:24,color:"#333399"},{value:0,offset:0, i:25,color:"#333399"},{value:0,offset:0, i:26,color:"#333399"},{value:0,offset:0, i:27,color:"#333399"},{value:0,offset:0, i:28,color:"#333399"},{value:0,offset:0, i:29,color:"#333399"},{value:0,offset:0, i:30,color:"#333399"},{value:0,offset:0, i:31,color:"#333399"},{value:0,offset:0, i:32,color:"#333399"},{value:0,offset:0, i:33,color:"#333399"},{value:0,offset:0, i:34,color:"#333399"},{value:0,offset:0, i:35,color:"#333399"},{value:0,offset:0, i:36,color:"#333399"},{value:0,offset:0, i:37,color:"#333399"},{value:0,offset:0, i:38,color:"#333399"},{value:0,offset:0, i:39,color:"#333399"},{value:0,offset:0, i:40,color:"#333399"},{value:0,offset:0, i:41,color:"#333399"},{value:0,offset:0, i:42,color:"#333399"},{value:0,offset:0, i:43,color:"#333399"},{value:0,offset:0, i:44,color:"#333399"},{value:0,offset:0, i:45,color:"#333399"},{value:0,offset:0, i:46,color:"#333399"},{value:0,offset:0, i:47,color:"#333399"},{value:0,offset:0, i:48,color:"#333399"},{value:0,offset:0, i:49,color:"#333399"},{value:0,offset:0, i:50,color:"#333399"},{value:0,offset:0, i:51,color:"#333399"},{value:0,offset:0, i:52,color:"#333399"},{value:0,offset:0, i:53,color:"#333399"},{value:0,offset:0, i:54,color:"#333399"},{value:0,offset:0, i:55,color:"#333399"},{value:0,offset:0, i:56,color:"#333399"},{value:0,offset:0, i:57,color:"#333399"},{value:0,offset:0, i:58,color:"#333399"},{value:0,offset:0, i:59,color:"#333399"},{value:0,offset:0, i:60,color:"#333399"},{value:0,offset:0, i:61,color:"#333399"},{value:0,offset:0, i:62,color:"#333399"},{value:0,offset:0, i:63,color:"#333399"},{value:0,offset:0, i:64,color:"#333399"},{value:0,offset:0, i:65,color:"#333399"},{value:0,offset:0, i:66,color:"#333399"},{value:0,offset:0, i:67,color:"#333399"},{value:0,offset:0, i:68,color:"#333399"},{value:0,offset:0, i:69,color:"#333399"},{value:0,offset:0, i:70,color:"#333399"},{value:0,offset:0, i:71,color:"#333399"},{value:0,offset:0, i:72,color:"#333399"},{value:0,offset:0, i:73,color:"#333399"},{value:0,offset:0, i:74,color:"#333399"},{value:0,offset:0, i:75,color:"#333399"},{value:0,offset:0, i:76,color:"#333399"},{value:0,offset:0, i:77,color:"#333399"},{value:14.285712242126,offset:0, i:78,color:"#333399"},{value:0,offset:0, i:79,color:"#333399"},{value:0,offset:0, i:80,color:"#333399"},{value:0,offset:0, i:81,color:"#333399"},{value:0,offset:0, i:82,color:"#333399"},{value:0,offset:0, i:83,color:"#333399"},{value:0,offset:0, i:84,color:"#333399"},{value:0,offset:0, i:85,color:"#333399"},{value:0,offset:0, i:86,color:"#333399"},{value:0,offset:0, i:87,color:"#333399"},{value:0,offset:0, i:88,color:"#333399"},{value:0,offset:0, i:89,color:"#333399"},{value:0,offset:0, i:90,color:"#333399"},{value:0,offset:0, i:91,color:"#333399"},{value:0,offset:0, i:92,color:"#333399"},{value:0,offset:0, i:93,color:"#333399"},{value:0,offset:0, i:94,color:"#333399"},{value:0,offset:0, i:95,color:"#333399"},{value:0,offset:0, i:96,color:"#333399"},{value:0,offset:0, i:97,color:"#333399"},{value:0,offset:0, i:98,color:"#333399"},{value:0,offset:0, i:99,color:"#333399"},{value:0,offset:0, i:100,color:"#333399"},{value:0,offset:0, i:101,color:"#333399"},{value:0,offset:0, i:102,color:"#333399"},{value:0,offset:0, i:103,color:"#333399"},{value:0,offset:0, i:104,color:"#333399"},{value:0,offset:0, i:105,color:"#333399"},{value:0,offset:0, i:106,color:"#333399"},{value:0,offset:0, i:107,color:"#333399"},{value:0,offset:0, i:108,color:"#333399"},{value:0,offset:0, i:109,color:"#333399"},{value:0,offset:0, i:110,color:"#333399"},{value:0,offset:0, i:111,color:"#333399"},{value:0,offset:0, i:112,color:"#333399"},{value:0,offset:0, i:113,color:"#333399"},{value:0,offset:0, i:114,color:"#333399"},{value:0,offset:0, i:115,color:"#333399"},{value:0,offset:0, i:116,color:"#333399"},{value:0,offset:0, i:117,color:"#333399"},{value:0,offset:0, i:118,color:"#333399"},{value:0,offset:0, i:119,color:"#333399"},{value:0,offset:0, i:120,color:"#333399"},{value:0,offset:0, i:121,color:"#333399"},{value:0,offset:0, i:122,color:"#333399"},{value:0,offset:0, i:123,color:"#333399"},{value:0,offset:0, i:124,color:"#333399"},{value:0,offset:0, i:125,color:"#333399"},{value:0,offset:0, i:126,color:"#333399"},{value:0,offset:0, i:127,color:"#333399"},{value:0,offset:0, i:128,color:"#333399"},{value:0,offset:0, i:129,color:"#333399"},{value:0,offset:0, i:130,color:"#333399"}];
+  var widthgl  = _width;
+  var widthin  = _width;
+  var heightgl = 480;
+  var heightin = 495;
+  let margin = {top:10,right:30,bottom:30,left:50},
+  width = widthgl - margin.left - margin.right,
+  height = heightgl - margin.top - margin.bottom,
+  radius = (Math.min(width, height) / 2) - 10,
+  node;
+  const svg = d3.select('#chart_cat_894')
+      .append('svg')
+      .attr('width', widthin)
+      .attr('height', heightin)
+      .append('g')
+      .attr('transform', `translate(${margin.left}, ${margin.top})`)
+      .call(
+        d3.zoom()
+          .translateExtent([[0,0], [width, height] ])
+          .extent([[0, 0], [width, height] ])
+        .on('zoom', zoom)
+      ).on("dblclick.zoom", null);
+  let x = d3.scaleLinear().range([0, width])
+  let y = d3.scaleLinear().range([height, 0])
+  let color = d3.scaleOrdinal(d3.schemeCategory10)
+  let xScale = x.domain([-1, ordinals.length])
+  let yScale = y.domain([0, d3.max(data, function(d){return d.value + d.offset})])
+  let xBand = d3.scaleBand().domain(d3.range(-1, ordinals.length)).range([0, width])
+  svg.append('rect')
+    .attr('class', 'zoom-panel')
+    .attr('width', width)
+    .attr('height', height)
+    .style('fill', 'var(--background)')
+  let xAxis = svg.append('g')
+    .attr('class', 'xAxis')
+    .attr('transform', `translate(0, ${height})`)
+    .call(
+      d3.axisBottom(xScale).tickFormat((d, e) => {
+        return ordinals[d]
+      })
+    );
+  svg.append("text")
+    .attr("transform",
+          "translate(" + (width/2) + " ," + (height + margin.top + 30) + ")")
+    .style("text-anchor", "middle")
+    .style("fill", "var(--font)")
+    .text("MAQAO thread rank");
+  let yAxis = svg.append('g')
+    .attr('class', 'yAxis')
+    .call(d3.axisLeft(yScale));
+  yAxis.selectAll(".tick text").attr("fill","var(--font)");
+  yAxis.selectAll(".tick line").attr("stroke","var(--font)");
+  yAxis.selectAll(".domain").attr("stroke","var(--font)");
+  xAxis.selectAll(".tick text").attr("fill","var(--font)");
+  xAxis.selectAll(".tick line").attr("stroke","var(--font)");
+  xAxis.selectAll(".domain").attr("stroke","var(--font)");
+  svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left)
+    .attr("x",0 - (height / 2))
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .style("fill", "var(--font)")
+    .text("Coverage (%)");
+  let bars = svg.append('g')
+    .attr('clip-path','url(#my-clip-path)')
+    .attr('id', 'zoom_chart_894')
+    .selectAll('.bar')
+    .data(data)
+    .enter()
+    .append('rect')
+    .attr('class', 'bar')
+    .attr('id', function (d, i){ return 'zoom_chart_894_'+i;})
+    .attr('x', function(d, i){
+      return xScale(d.i) - xBand.bandwidth()*0.9/2
+    })
+    .attr('y', function(d, i){
+      return yScale(d.value + d.offset)
+    })
+    .attr('width', xBand.bandwidth()*0.9)
+    .attr('height', function(d){
+      return height - yScale(d.value)
+    })
+    .style("fill", function(d){
+      return d.color
+    })
+  let defs = svg.append('defs')
+    defs.append('clipPath')
+      .attr('id', 'my-clip-path')
+      .append('rect')
+      .attr('width', width)
+      .attr('height', height)
+    let hideTicksWithoutLabel = function() {
+      d3.selectAll('.xAxis .tick text').each(function(d){
+        if(this.innerHTML === '') {
+          this.parentNode.style.display = 'none';
+        }
+      })
+    }
+    function zoom() {
+      if (d3.event.transform.k < 1) {
+        d3.event.transform.k = 1;
+        return;
+      }
+    xAxis.call(
+      d3.axisBottom(d3.event.transform.rescaleX(xScale)).tickFormat((d, e, target) => {
+        if (Math.floor(d) === d3.format(".1f")(d)) return ordinals[Math.floor(d)]
+          return ordinals[d];
+      })
+    )
+    hideTicksWithoutLabel()
+      bars.attr("transform", "translate(" + d3.event.transform.x+",0)scale(" + d3.event.transform.k + ",1)")
+  }
+});
+$("#zoom_chart_894_78").click( function () {window.open("../topo/run_0_fixot-brendan-MS-7C02_6283_6686.html");});
+  }
+  if (selector_type.value == "all"
+  &&  selector_run.value  == "1") {
+$(document).ready(function(){
+  var ordinals = ['fixot-brendan-MS-7C02_6283_6283','fixot-brendan-MS-7C02_6283_6301','fixot-brendan-MS-7C02_6283_6302','fixot-brendan-MS-7C02_6283_6305','fixot-brendan-MS-7C02_6283_6306','fixot-brendan-MS-7C02_6283_6332','fixot-brendan-MS-7C02_6283_6333','fixot-brendan-MS-7C02_6283_6338','fixot-brendan-MS-7C02_6283_6339','fixot-brendan-MS-7C02_6283_6350','fixot-brendan-MS-7C02_6283_6351','fixot-brendan-MS-7C02_6283_6356','fixot-brendan-MS-7C02_6283_6357','fixot-brendan-MS-7C02_6283_6368','fixot-brendan-MS-7C02_6283_6369','fixot-brendan-MS-7C02_6283_6374','fixot-brendan-MS-7C02_6283_6375','fixot-brendan-MS-7C02_6283_6386','fixot-brendan-MS-7C02_6283_6387','fixot-brendan-MS-7C02_6283_6392','fixot-brendan-MS-7C02_6283_6393','fixot-brendan-MS-7C02_6283_6404','fixot-brendan-MS-7C02_6283_6405','fixot-brendan-MS-7C02_6283_6410','fixot-brendan-MS-7C02_6283_6411','fixot-brendan-MS-7C02_6283_6422','fixot-brendan-MS-7C02_6283_6423','fixot-brendan-MS-7C02_6283_6428','fixot-brendan-MS-7C02_6283_6429','fixot-brendan-MS-7C02_6283_6451','fixot-brendan-MS-7C02_6283_6452','fixot-brendan-MS-7C02_6283_6457','fixot-brendan-MS-7C02_6283_6458','fixot-brendan-MS-7C02_6283_6469','fixot-brendan-MS-7C02_6283_6470','fixot-brendan-MS-7C02_6283_6475','fixot-brendan-MS-7C02_6283_6476','fixot-brendan-MS-7C02_6283_6487','fixot-brendan-MS-7C02_6283_6488','fixot-brendan-MS-7C02_6283_6493','fixot-brendan-MS-7C02_6283_6494','fixot-brendan-MS-7C02_6283_6506','fixot-brendan-MS-7C02_6283_6507','fixot-brendan-MS-7C02_6283_6508','fixot-brendan-MS-7C02_6283_6523','fixot-brendan-MS-7C02_6283_6524','fixot-brendan-MS-7C02_6283_6529','fixot-brendan-MS-7C02_6283_6530','fixot-brendan-MS-7C02_6283_6541','fixot-brendan-MS-7C02_6283_6542','fixot-brendan-MS-7C02_6283_6547','fixot-brendan-MS-7C02_6283_6548','fixot-brendan-MS-7C02_6283_6559','fixot-brendan-MS-7C02_6283_6560','fixot-brendan-MS-7C02_6283_6566','fixot-brendan-MS-7C02_6283_6577','fixot-brendan-MS-7C02_6283_6578','fixot-brendan-MS-7C02_6283_6579','fixot-brendan-MS-7C02_6283_6580','fixot-brendan-MS-7C02_6283_6595','fixot-brendan-MS-7C02_6283_6596','fixot-brendan-MS-7C02_6283_6601','fixot-brendan-MS-7C02_6283_6602','fixot-brendan-MS-7C02_6283_6613','fixot-brendan-MS-7C02_6283_6614','fixot-brendan-MS-7C02_6283_6619','fixot-brendan-MS-7C02_6283_6620','fixot-brendan-MS-7C02_6283_6631','fixot-brendan-MS-7C02_6283_6632','fixot-brendan-MS-7C02_6283_6638','fixot-brendan-MS-7C02_6283_6649','fixot-brendan-MS-7C02_6283_6650','fixot-brendan-MS-7C02_6283_6655','fixot-brendan-MS-7C02_6283_6656','fixot-brendan-MS-7C02_6283_6668','fixot-brendan-MS-7C02_6283_6673','fixot-brendan-MS-7C02_6283_6674','fixot-brendan-MS-7C02_6283_6685','fixot-brendan-MS-7C02_6283_6686','fixot-brendan-MS-7C02_6283_6691','fixot-brendan-MS-7C02_6283_6692','fixot-brendan-MS-7C02_6283_6704','fixot-brendan-MS-7C02_6283_6709','fixot-brendan-MS-7C02_6283_6710','fixot-brendan-MS-7C02_6283_6722','fixot-brendan-MS-7C02_6283_6723','fixot-brendan-MS-7C02_6283_6724','fixot-brendan-MS-7C02_6283_6739','fixot-brendan-MS-7C02_6283_6740','fixot-brendan-MS-7C02_6283_6746','fixot-brendan-MS-7C02_6283_6757','fixot-brendan-MS-7C02_6283_6758','fixot-brendan-MS-7C02_6283_6764','fixot-brendan-MS-7C02_6283_6775','fixot-brendan-MS-7C02_6283_6776','fixot-brendan-MS-7C02_6283_6781','fixot-brendan-MS-7C02_6283_6782','fixot-brendan-MS-7C02_6283_6794','fixot-brendan-MS-7C02_6283_6799','fixot-brendan-MS-7C02_6283_6800','fixot-brendan-MS-7C02_6283_6815','fixot-brendan-MS-7C02_6283_6816','fixot-brendan-MS-7C02_6283_6822','fixot-brendan-MS-7C02_6283_6834','fixot-brendan-MS-7C02_6283_6839','fixot-brendan-MS-7C02_6283_6840','fixot-brendan-MS-7C02_6283_6851','fixot-brendan-MS-7C02_6283_6852','fixot-brendan-MS-7C02_6283_6858','fixot-brendan-MS-7C02_6283_6869','fixot-brendan-MS-7C02_6283_6870','fixot-brendan-MS-7C02_6283_6876','fixot-brendan-MS-7C02_6283_6887','fixot-brendan-MS-7C02_6283_6894','fixot-brendan-MS-7C02_6283_6908','fixot-brendan-MS-7C02_6283_6925','fixot-brendan-MS-7C02_6283_6926','fixot-brendan-MS-7C02_6283_6937','fixot-brendan-MS-7C02_6283_6944','fixot-brendan-MS-7C02_6283_6952','fixot-brendan-MS-7C02_6283_6957','fixot-brendan-MS-7C02_6283_6958','fixot-brendan-MS-7C02_6283_6970','fixot-brendan-MS-7C02_6283_6974','fixot-brendan-MS-7C02_6283_6985','fixot-brendan-MS-7C02_6283_6999','fixot-brendan-MS-7C02_6283_7012','fixot-brendan-MS-7C02_6283_7015','fixot-brendan-MS-7C02_6283_7026','fixot-brendan-MS-7C02_6283_7032','fixot-brendan-MS-7C02_6283_7135'];
+  var data = [{value:0,offset:0, i:0,color:"#333399"},{value:0,offset:0, i:1,color:"#333399"},{value:0,offset:0, i:2,color:"#333399"},{value:0,offset:0, i:3,color:"#333399"},{value:0,offset:0, i:4,color:"#333399"},{value:0,offset:0, i:5,color:"#333399"},{value:0,offset:0, i:6,color:"#333399"},{value:0,offset:0, i:7,color:"#333399"},{value:0,offset:0, i:8,color:"#333399"},{value:0,offset:0, i:9,color:"#333399"},{value:0,offset:0, i:10,color:"#333399"},{value:0,offset:0, i:11,color:"#333399"},{value:0,offset:0, i:12,color:"#333399"},{value:0,offset:0, i:13,color:"#333399"},{value:0,offset:0, i:14,color:"#333399"},{value:0,offset:0, i:15,color:"#333399"},{value:0,offset:0, i:16,color:"#333399"},{value:0,offset:0, i:17,color:"#333399"},{value:0,offset:0, i:18,color:"#333399"},{value:0,offset:0, i:19,color:"#333399"},{value:0,offset:0, i:20,color:"#333399"},{value:0,offset:0, i:21,color:"#333399"},{value:0,offset:0, i:22,color:"#333399"},{value:0,offset:0, i:23,color:"#333399"},{value:0,offset:0, i:24,color:"#333399"},{value:0,offset:0, i:25,color:"#333399"},{value:0,offset:0, i:26,color:"#333399"},{value:0,offset:0, i:27,color:"#333399"},{value:0,offset:0, i:28,color:"#333399"},{value:0,offset:0, i:29,color:"#333399"},{value:0,offset:0, i:30,color:"#333399"},{value:0,offset:0, i:31,color:"#333399"},{value:0,offset:0, i:32,color:"#333399"},{value:0,offset:0, i:33,color:"#333399"},{value:0,offset:0, i:34,color:"#333399"},{value:0,offset:0, i:35,color:"#333399"},{value:0,offset:0, i:36,color:"#333399"},{value:0,offset:0, i:37,color:"#333399"},{value:0,offset:0, i:38,color:"#333399"},{value:0,offset:0, i:39,color:"#333399"},{value:0,offset:0, i:40,color:"#333399"},{value:0,offset:0, i:41,color:"#333399"},{value:0,offset:0, i:42,color:"#333399"},{value:0,offset:0, i:43,color:"#333399"},{value:0,offset:0, i:44,color:"#333399"},{value:0,offset:0, i:45,color:"#333399"},{value:0,offset:0, i:46,color:"#333399"},{value:0,offset:0, i:47,color:"#333399"},{value:0,offset:0, i:48,color:"#333399"},{value:0,offset:0, i:49,color:"#333399"},{value:0,offset:0, i:50,color:"#333399"},{value:0,offset:0, i:51,color:"#333399"},{value:0,offset:0, i:52,color:"#333399"},{value:0,offset:0, i:53,color:"#333399"},{value:0,offset:0, i:54,color:"#333399"},{value:0,offset:0, i:55,color:"#333399"},{value:0,offset:0, i:56,color:"#333399"},{value:0,offset:0, i:57,color:"#333399"},{value:0,offset:0, i:58,color:"#333399"},{value:0,offset:0, i:59,color:"#333399"},{value:0,offset:0, i:60,color:"#333399"},{value:0,offset:0, i:61,color:"#333399"},{value:0,offset:0, i:62,color:"#333399"},{value:0,offset:0, i:63,color:"#333399"},{value:0,offset:0, i:64,color:"#333399"},{value:0,offset:0, i:65,color:"#333399"},{value:0,offset:0, i:66,color:"#333399"},{value:0,offset:0, i:67,color:"#333399"},{value:0,offset:0, i:68,color:"#333399"},{value:0,offset:0, i:69,color:"#333399"},{value:0,offset:0, i:70,color:"#333399"},{value:0,offset:0, i:71,color:"#333399"},{value:0,offset:0, i:72,color:"#333399"},{value:0,offset:0, i:73,color:"#333399"},{value:0,offset:0, i:74,color:"#333399"},{value:0,offset:0, i:75,color:"#333399"},{value:0,offset:0, i:76,color:"#333399"},{value:0,offset:0, i:77,color:"#333399"},{value:0.00499999942258,offset:0, i:78,color:"#333399"},{value:0,offset:0, i:79,color:"#333399"},{value:0,offset:0, i:80,color:"#333399"},{value:0,offset:0, i:81,color:"#333399"},{value:0,offset:0, i:82,color:"#333399"},{value:0,offset:0, i:83,color:"#333399"},{value:0,offset:0, i:84,color:"#333399"},{value:0,offset:0, i:85,color:"#333399"},{value:0,offset:0, i:86,color:"#333399"},{value:0,offset:0, i:87,color:"#333399"},{value:0,offset:0, i:88,color:"#333399"},{value:0,offset:0, i:89,color:"#333399"},{value:0,offset:0, i:90,color:"#333399"},{value:0,offset:0, i:91,color:"#333399"},{value:0,offset:0, i:92,color:"#333399"},{value:0,offset:0, i:93,color:"#333399"},{value:0,offset:0, i:94,color:"#333399"},{value:0,offset:0, i:95,color:"#333399"},{value:0,offset:0, i:96,color:"#333399"},{value:0,offset:0, i:97,color:"#333399"},{value:0,offset:0, i:98,color:"#333399"},{value:0,offset:0, i:99,color:"#333399"},{value:0,offset:0, i:100,color:"#333399"},{value:0,offset:0, i:101,color:"#333399"},{value:0,offset:0, i:102,color:"#333399"},{value:0,offset:0, i:103,color:"#333399"},{value:0,offset:0, i:104,color:"#333399"},{value:0,offset:0, i:105,color:"#333399"},{value:0,offset:0, i:106,color:"#333399"},{value:0,offset:0, i:107,color:"#333399"},{value:0,offset:0, i:108,color:"#333399"},{value:0,offset:0, i:109,color:"#333399"},{value:0,offset:0, i:110,color:"#333399"},{value:0,offset:0, i:111,color:"#333399"},{value:0,offset:0, i:112,color:"#333399"},{value:0,offset:0, i:113,color:"#333399"},{value:0,offset:0, i:114,color:"#333399"},{value:0,offset:0, i:115,color:"#333399"},{value:0,offset:0, i:116,color:"#333399"},{value:0,offset:0, i:117,color:"#333399"},{value:0,offset:0, i:118,color:"#333399"},{value:0,offset:0, i:119,color:"#333399"},{value:0,offset:0, i:120,color:"#333399"},{value:0,offset:0, i:121,color:"#333399"},{value:0,offset:0, i:122,color:"#333399"},{value:0,offset:0, i:123,color:"#333399"},{value:0,offset:0, i:124,color:"#333399"},{value:0,offset:0, i:125,color:"#333399"},{value:0,offset:0, i:126,color:"#333399"},{value:0,offset:0, i:127,color:"#333399"},{value:0,offset:0, i:128,color:"#333399"},{value:0,offset:0, i:129,color:"#333399"},{value:0,offset:0, i:130,color:"#333399"}];
+  var widthgl  = _width;
+  var widthin  = _width;
+  var heightgl = 480;
+  var heightin = 495;
+  let margin = {top:10,right:30,bottom:30,left:50},
+  width = widthgl - margin.left - margin.right,
+  height = heightgl - margin.top - margin.bottom,
+  radius = (Math.min(width, height) / 2) - 10,
+  node;
+  const svg = d3.select('#chart_cat_895')
+      .append('svg')
+      .attr('width', widthin)
+      .attr('height', heightin)
+      .append('g')
+      .attr('transform', `translate(${margin.left}, ${margin.top})`)
+      .call(
+        d3.zoom()
+          .translateExtent([[0,0], [width, height] ])
+          .extent([[0, 0], [width, height] ])
+        .on('zoom', zoom)
+      ).on("dblclick.zoom", null);
+  let x = d3.scaleLinear().range([0, width])
+  let y = d3.scaleLinear().range([height, 0])
+  let color = d3.scaleOrdinal(d3.schemeCategory10)
+  let xScale = x.domain([-1, ordinals.length])
+  let yScale = y.domain([0, d3.max(data, function(d){return d.value + d.offset})])
+  let xBand = d3.scaleBand().domain(d3.range(-1, ordinals.length)).range([0, width])
+  svg.append('rect')
+    .attr('class', 'zoom-panel')
+    .attr('width', width)
+    .attr('height', height)
+    .style('fill', 'var(--background)')
+  let xAxis = svg.append('g')
+    .attr('class', 'xAxis')
+    .attr('transform', `translate(0, ${height})`)
+    .call(
+      d3.axisBottom(xScale).tickFormat((d, e) => {
+        return ordinals[d]
+      })
+    );
+  svg.append("text")
+    .attr("transform",
+          "translate(" + (width/2) + " ," + (height + margin.top + 30) + ")")
+    .style("text-anchor", "middle")
+    .style("fill", "var(--font)")
+    .text("MAQAO thread rank");
+  let yAxis = svg.append('g')
+    .attr('class', 'yAxis')
+    .call(d3.axisLeft(yScale));
+  yAxis.selectAll(".tick text").attr("fill","var(--font)");
+  yAxis.selectAll(".tick line").attr("stroke","var(--font)");
+  yAxis.selectAll(".domain").attr("stroke","var(--font)");
+  xAxis.selectAll(".tick text").attr("fill","var(--font)");
+  xAxis.selectAll(".tick line").attr("stroke","var(--font)");
+  xAxis.selectAll(".domain").attr("stroke","var(--font)");
+  svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left)
+    .attr("x",0 - (height / 2))
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .style("fill", "var(--font)")
+    .text("Time (s)");
+  let bars = svg.append('g')
+    .attr('clip-path','url(#my-clip-path)')
+    .attr('id', 'zoom_chart_895')
+    .selectAll('.bar')
+    .data(data)
+    .enter()
+    .append('rect')
+    .attr('class', 'bar')
+    .attr('id', function (d, i){ return 'zoom_chart_895_'+i;})
+    .attr('x', function(d, i){
+      return xScale(d.i) - xBand.bandwidth()*0.9/2
+    })
+    .attr('y', function(d, i){
+      return yScale(d.value + d.offset)
+    })
+    .attr('width', xBand.bandwidth()*0.9)
+    .attr('height', function(d){
+      return height - yScale(d.value)
+    })
+    .style("fill", function(d){
+      return d.color
+    })
+  let defs = svg.append('defs')
+    defs.append('clipPath')
+      .attr('id', 'my-clip-path')
+      .append('rect')
+      .attr('width', width)
+      .attr('height', height)
+    let hideTicksWithoutLabel = function() {
+      d3.selectAll('.xAxis .tick text').each(function(d){
+        if(this.innerHTML === '') {
+          this.parentNode.style.display = 'none';
+        }
+      })
+    }
+    function zoom() {
+      if (d3.event.transform.k < 1) {
+        d3.event.transform.k = 1;
+        return;
+      }
+    xAxis.call(
+      d3.axisBottom(d3.event.transform.rescaleX(xScale)).tickFormat((d, e, target) => {
+        if (Math.floor(d) === d3.format(".1f")(d)) return ordinals[Math.floor(d)]
+          return ordinals[d];
+      })
+    )
+    hideTicksWithoutLabel()
+      bars.attr("transform", "translate(" + d3.event.transform.x+",0)scale(" + d3.event.transform.k + ",1)")
+  }
+});
+$("#zoom_chart_895_78").click( function () {window.open("../topo/run_0_fixot-brendan-MS-7C02_6283_6686.html");});
+  }
+}
+function ldbal_onresize (panelId) {
+  document.getElementById ("ldbal_select_run").value = document.getElementById ("main_section_div").dataset.run;
+  document.getElementById ("ldbal_select_type").value = document.getElementById ("main_section_div").dataset.ldbal;
+  set_ldbal_input ();
+}
+function ldbal_loadhelp (divId) {
+  var e = document.getElementById (divId);
+  if (e != null) {
+    e.setAttribute ("tooltip_id", "52");
+  }
+}
+  </script>
+</div>
+<div class="panelcontent" id="OV_panel_cqa">
+  <div id="path_selection" style="padding-bottom:15px;" >
+    <table style="width:100%;text-align:center;">
+      <tr>
+        <td>
+          <button type="button" class="tooltip-maqao-button" title="" tooltip_id="53" onclick="set_previous_path ();">&#8592;</button>
+        </td>
+        <td style="border-bottom: 1px solid var(--fixed_box_borders);">Path <input id="path_selection_input" type="number" min="0" max="1" value="0" style="width:35px;"> / <span id="path_selection_input_max"></span><button type="button" class="tooltip-maqao-button" title="" tooltip_id="54" style="margin-left: 10px;" onclick="set_path_input ('path_selection_input')" >OK</button></td>
+        <td><button type="button" class="tooltip-maqao-button" title="" tooltip_id="55" onclick="set_next_path ();">&#8594;</button></td>
+      </tr>
+    </table>
+  </div>
+  <div id="loop_cqa">
+    <div id="loop_cqa_path_0">
+      <div style="padding-left:10px;margin-bottom: 10px;">
+<strong>Average path</strong>: Display a virtual path defined by average values of all real paths
+      </div>
+      <div style="padding-left:10px;margin-bottom: 10px;">
+<p><strong>The code analyzed by CQA in that panel excludes loops and represents 0.05% of application time for run run_0</strong></p>        <table>
+          <tr><td class="_td_shift_20">Source file and lines</td><td></td></tr>
+          <tr><td class="_td_shift_20">Module</td><td>MainEnsemble</td></tr>
+        </table>
+        <br /><br />      </div><div class="_tab_box">
+  <div class="_tab_header">
+    <ul>
+      <li class="_tab_header_li selected_tab" data-tab="tab225-1" onclick="change_tab (this, 'tab225-')">gain</li>
+      <li class="_tab_header_li " data-tab="tab225-2" onclick="change_tab (this, 'tab225-')">potential</li>
+      <li class="_tab_header_li " data-tab="tab225-3" onclick="change_tab (this, 'tab225-')">hint</li>
+      <li class="_tab_header_li " data-tab="tab225-4" onclick="change_tab (this, 'tab225-')">expert</li>
+    </ul>
+  </div>
+  <div class="_tab_content">
+  <div id="tab225-1">
+<div class="_fixed_box" ><h3 class="_header">Vectorization</h3>
+<div class="_content">Your function is not vectorized.
+4 data elements could be processed at once in vector registers.
+By vectorizing your function, you can lower the cost of an iteration from 2.50 to 0.62 cycles (4.00x speedup).
+<div class="_fixed_box" style="overflow-x: auto;" ><h3 class="_header">Details</h3>
+<div class="_content">All SSE/AVX instructions are used in scalar version (process only one data element in vector registers).
+Since your execution units are vector units, only a vectorized function can use their full power.
+
+</div></div><div class="_fixed_box" style="overflow-x: auto;" ><h3 class="_header">Workaround</h3>
+<div class="_content"><ul><li>Try another compiler or update/tune your current one</li><li>Make array accesses unit-stride:
+<ul><li>If your function streams arrays of structures (AoS), try to use structures of arrays instead (SoA)</li></ul></li></ul>
+</div></div></div></div><div class="_fixed_box" ><h3 class="_header">Execution units bottlenecks</h3>
+<div class="_content">Found no such bottlenecks but see expert reports for more complex bottlenecks.
+</div></div></div>
+  <div id="tab225-2">
+No data for this section</div>
+  <div id="tab225-3">
+<div class="_fixed_box" ><h3 class="_header">CALL instructions</h3>
+<div class="_content">Detected function call instructions.
+
+<div class="_fixed_box" style="overflow-x: auto;" ><h3 class="_header">Details</h3>
+<div class="_content">Calling (and then returning from) a function prevents many compiler optimizations (like vectorization), breaks control flow (which reduces pipeline performance) and executes extra instructions to save/restore the registers used inside it, which is very expensive (dozens of cycles). Consider to inline small functions.
+<ul><li>std::tuple_element<0ul, std::tuple<DecisionTreeSingle::Tree*, std::default_delete<DecisionTreeSingle::Tree> > >::type& std::get<0ul, DecisionTreeSingle::Tree*, std::default_delete<DecisionTreeSingle::Tree> >(std::tuple<DecisionTreeSingle::Tree*, std::default_delete<DecisionTreeSingle::Tree> >&): 1 occurrences<span><span onclick="_click_list_header (this)" style="margin-right: 10px;cursor: pointer;">&#x25BA;</span></span>
+<ul></ul></li></ul>
+</div></div></div></div><div class="_fixed_box" ><h3 class="_header">Complex instructions</h3>
+<div class="_content">Detected COMPLEX INSTRUCTIONS.
+
+<div class="_fixed_box" style="overflow-x: auto;" ><h3 class="_header">Details</h3>
+<div class="_content">These instructions generate more than one micro-operation and only one of them can be decoded during a cycle and the extra micro-operations increase pressure on execution units.
+<ul><li>LEAVE: 1 occurrences<span><span onclick="_click_list_header (this)" style="margin-right: 10px;cursor: pointer;">&#x25BA;</span></span>
+<ul></ul></li></ul>
+</div></div></div></div><div class="_fixed_box" ><h3 class="_header">Type of elements and instruction set</h3>
+<div class="_content">No instructions are processing arithmetic or math operations on FP elements. This function is probably writing/copying data or processing integer elements.
+</div></div><div class="_fixed_box" ><h3 class="_header">Matching between your function (in the source code) and the binary function</h3>
+<div class="_content">The binary function does not contain any FP arithmetical operations.
+The binary function is loading 8 bytes.
+The binary function is storing 8 bytes.
+</div></div></div>
+  <div id="tab225-4">
+<div class="_fixed_box" ><h3 class="_header">General properties</h3>
+<div class="_content"><table><tr><td>nb instructions</td><td>10</td></tr><tr><td>nb uops</td><td>15</td></tr><tr><td>loop length</td><td>30</td></tr><tr><td>used x86 registers</td><td>4</td></tr><tr><td>used mmx registers</td><td>0</td></tr><tr><td>used xmm registers</td><td>0</td></tr><tr><td>used ymm registers</td><td>0</td></tr><tr><td>used zmm registers</td><td>0</td></tr><tr><td>nb stack references</td><td>1</td></tr></table>
+</div></div><div class="_fixed_box" ><h3 class="_header">Front-end</h3>
+<div class="_content">MACRO FUSION NOT POSSIBLE
+FIT IN UOP CACHE
+<table><tr><td>micro-operation queue</td><td>2.50 cycles</td></tr><tr><td>front end</td><td>2.50 cycles</td></tr></table>
+</div></div><div class="_fixed_box" ><h3 class="_header">Back-end</h3>
+<div class="_content"><table><tr><th>      </th><th>ALU0/BRU0</th><th>ALU1</th><th>ALU2</th><th>ALU3/BRU1</th><th>AGU0</th><th>AGU1</th><th>AGU2</th><th>FP0</th><th>FP1</th><th>FP2</th><th>FP3</th></tr><tr><td>uops</td><td>2.00</td><td>2.00</td><td>2.00</td><td>2.00</td><td>1.00</td><td>1.00</td><td>1.00</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td></tr><tr><td>cycles</td><td>2.00</td><td>2.00</td><td>2.00</td><td>2.00</td><td>1.00</td><td>1.00</td><td>1.00</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td></tr></table>
+Execution ports to units layout:
+<ul><li>ALU0/BRU0: ALU, BRU</li><li>ALU1: ALU</li><li>ALU2: ALU</li><li>ALU3/BRU1: ALU, BRU</li><li>AGU0 (256 bits): store address, load</li><li>AGU1 (256 bits): store address, load</li><li>AGU2: store address</li><li>FP0 (256 bits): VPU</li><li>FP1 (256 bits): VPU</li><li>FP2 (256 bits): VPU, FP store data</li><li>FP3 (256 bits): VPU, DIV/SQRT</li></ul>
+<table><tr><td>Cycles executing div or sqrt instructions</td><td>NA</td></tr><tr><td>Cycles loading/storing data</td><td>1.00</td></tr></table>
+</div></div><div class="_fixed_box" ><h3 class="_header">Cycles summary</h3>
+<div class="_content"><table><tr><td>Front-end</td><td>2.50</td></tr><tr><td>Dispatch</td><td>2.00</td></tr><tr><td>Overall L1</td><td>2.50</td></tr></table>
+</div></div><div class="_fixed_box" ><h3 class="_header">Vectorization ratios</h3>
+<div class="_content"><table><tr><td>all</td><td>0%</td></tr><tr><td>load</td><td>0%</td></tr><tr><td>store</td><td>0%</td></tr><tr><td>mul</td><td>NA (no mul vectorizable/vectorized instructions)</td></tr><tr><td>add-sub</td><td>NA (no add-sub vectorizable/vectorized instructions)</td></tr><tr><td>fma</td><td>NA (no fma vectorizable/vectorized instructions)</td></tr><tr><td>div/sqrt</td><td>NA (no div/sqrt vectorizable/vectorized instructions)</td></tr><tr><td>other</td><td>0%</td></tr></table>
+</div></div><div class="_fixed_box" ><h3 class="_header">Vector efficiency ratios</h3>
+<div class="_content"><table><tr><td>all</td><td>25%</td></tr><tr><td>load</td><td>25%</td></tr><tr><td>store</td><td>25%</td></tr><tr><td>mul</td><td>NA (no mul vectorizable/vectorized instructions)</td></tr><tr><td>add-sub</td><td>NA (no add-sub vectorizable/vectorized instructions)</td></tr><tr><td>fma</td><td>NA (no fma vectorizable/vectorized instructions)</td></tr><tr><td>div/sqrt</td><td>NA (no div/sqrt vectorizable/vectorized instructions)</td></tr><tr><td>other</td><td>25%</td></tr></table>
+</div></div><div class="_fixed_box" ><h3 class="_header">Cycles and memory resources usage</h3>
+<div class="_content">Assuming all data fit into the L1 cache, each call to the function takes 2.50 cycles. At this rate:
+<ul><li>5% of peak load performance is reached (3.20 out of 64.00 bytes loaded per cycle (GB/s @ 1GHz))</li><li>10% of peak store performance is reached (3.20 out of 32.00 bytes stored per cycle (GB/s @ 1GHz))</li></ul>
+</div></div><div class="_fixed_box" ><h3 class="_header">Front-end bottlenecks</h3>
+<div class="_content">Performance is limited by instruction throughput (loading/decoding program instructions to execution core) (front-end is a bottleneck).
+
+By removing all these bottlenecks, you can lower the cost of an iteration from 2.50 to 2.00 cycles (1.25x speedup).
+
+</div></div><div class="_fixed_box" ><h3 class="_header">ASM code</h3>
+<div class="_content">In the binary file, the address of the function is: d220
+
+<table><tr><th>Instruction</th><th>Nb FU</th><th>ALU0/BRU0</th><th>ALU1</th><th>ALU2</th><th>ALU3/BRU1</th><th>AGU0</th><th>AGU1</th><th>AGU2</th><th>FP0</th><th>FP1</th><th>FP2</th><th>FP3</th><th>Latency</th><th>Recip. throughput</th><th>Vectorization</th></tr><tr><td style='word-break:break-all;'>ENDBR64</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>N/A</td></tr><tr><td style='word-break:break-all;'>PUSH %RBP</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>N/A</td></tr><tr><td style='word-break:break-all;'>MOV %RSP,%RBP</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0.25</td><td>N/A</td></tr><tr><td style='word-break:break-all;'>SUB $0x10,%RSP</td><td>1</td><td>0.25</td><td>0.25</td><td>0.25</td><td>0.25</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0.25</td><td>N/A</td></tr><tr><td style='word-break:break-all;'>MOV %RDI,-0x8(%RBP)</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0.33</td><td>0.33</td><td>0.33</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>1</td><td>scal (25.0%)</td></tr><tr><td style='word-break:break-all;'>MOV -0x8(%RBP),%RAX</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0.50</td><td>0.50</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>3</td><td>0.50</td><td>scal (25.0%)</td></tr><tr><td style='word-break:break-all;'>MOV %RAX,%RDI</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0.25</td><td>scal (25.0%)</td></tr><tr><td style='word-break:break-all;'>CALL d80a &lt;_ZSt3getILm0EJPN18DecisionTreeSingle4TreeESt14default_deleteIS1_EEERNSt13tuple_elementIXT_ESt5tupleIJDpT0_EEE4typeERS9_&gt;</td><td>6</td><td>1.25</td><td>1.25</td><td>1.25</td><td>1.25</td><td>0.50</td><td>0.50</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>N/A</td></tr><tr><td style='word-break:break-all;'>LEAVE</td><td>2</td><td>0.25</td><td>0.25</td><td>0.25</td><td>0.25</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0.50</td><td>N/A</td></tr><tr><td style='word-break:break-all;'>RET</td><td>1</td><td>0.50</td><td>0</td><td>0</td><td>0.50</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0.50</td><td>N/A</td></tr></table>
+</div></div></div>
+</div></div>
+    </div>
+    <div id="loop_cqa_path_1">
+      <div style="padding-left:10px;margin-bottom: 10px;">
+<p><strong>The code analyzed by CQA in that panel excludes loops and represents 0.05% of application time for run run_0</strong></p>        <table>
+          <tr><td class="_td_shift_20">Source file and lines</td><td></td></tr>
+          <tr><td class="_td_shift_20">Module</td><td>MainEnsemble</td></tr>
+        </table>
+        <br /><br />      </div><div class="_tab_box">
+  <div class="_tab_header">
+    <ul>
+      <li class="_tab_header_li selected_tab" data-tab="tab226-1" onclick="change_tab (this, 'tab226-')">gain</li>
+      <li class="_tab_header_li " data-tab="tab226-2" onclick="change_tab (this, 'tab226-')">potential</li>
+      <li class="_tab_header_li " data-tab="tab226-3" onclick="change_tab (this, 'tab226-')">hint</li>
+      <li class="_tab_header_li " data-tab="tab226-4" onclick="change_tab (this, 'tab226-')">expert</li>
+    </ul>
+  </div>
+  <div class="_tab_content">
+  <div id="tab226-1">
+<div class="_fixed_box" ><h3 class="_header">Vectorization</h3>
+<div class="_content">Your function is not vectorized.
+4 data elements could be processed at once in vector registers.
+By vectorizing your function, you can lower the cost of an iteration from 2.50 to 0.62 cycles (4.00x speedup).
+<div class="_fixed_box" style="overflow-x: auto;" ><h3 class="_header">Details</h3>
+<div class="_content">All SSE/AVX instructions are used in scalar version (process only one data element in vector registers).
+Since your execution units are vector units, only a vectorized function can use their full power.
+
+</div></div><div class="_fixed_box" style="overflow-x: auto;" ><h3 class="_header">Workaround</h3>
+<div class="_content"><ul><li>Try another compiler or update/tune your current one</li><li>Make array accesses unit-stride:
+<ul><li>If your function streams arrays of structures (AoS), try to use structures of arrays instead (SoA)</li></ul></li></ul>
+</div></div></div></div><div class="_fixed_box" ><h3 class="_header">Execution units bottlenecks</h3>
+<div class="_content">Found no such bottlenecks but see expert reports for more complex bottlenecks.
+</div></div></div>
+  <div id="tab226-2">
+No data for this section</div>
+  <div id="tab226-3">
+<div class="_fixed_box" ><h3 class="_header">CALL instructions</h3>
+<div class="_content">Detected function call instructions.
+
+<div class="_fixed_box" style="overflow-x: auto;" ><h3 class="_header">Details</h3>
+<div class="_content">Calling (and then returning from) a function prevents many compiler optimizations (like vectorization), breaks control flow (which reduces pipeline performance) and executes extra instructions to save/restore the registers used inside it, which is very expensive (dozens of cycles). Consider to inline small functions.
+<ul><li>std::tuple_element<0ul, std::tuple<DecisionTreeSingle::Tree*, std::default_delete<DecisionTreeSingle::Tree> > >::type& std::get<0ul, DecisionTreeSingle::Tree*, std::default_delete<DecisionTreeSingle::Tree> >(std::tuple<DecisionTreeSingle::Tree*, std::default_delete<DecisionTreeSingle::Tree> >&): 1 occurrences<span><span onclick="_click_list_header (this)" style="margin-right: 10px;cursor: pointer;">&#x25BA;</span></span>
+<ul></ul></li></ul>
+</div></div></div></div><div class="_fixed_box" ><h3 class="_header">Complex instructions</h3>
+<div class="_content">Detected COMPLEX INSTRUCTIONS.
+
+<div class="_fixed_box" style="overflow-x: auto;" ><h3 class="_header">Details</h3>
+<div class="_content">These instructions generate more than one micro-operation and only one of them can be decoded during a cycle and the extra micro-operations increase pressure on execution units.
+<ul><li>LEAVE: 1 occurrences<span><span onclick="_click_list_header (this)" style="margin-right: 10px;cursor: pointer;">&#x25BA;</span></span>
+<ul></ul></li></ul>
+</div></div></div></div><div class="_fixed_box" ><h3 class="_header">Type of elements and instruction set</h3>
+<div class="_content">No instructions are processing arithmetic or math operations on FP elements. This function is probably writing/copying data or processing integer elements.
+</div></div><div class="_fixed_box" ><h3 class="_header">Matching between your function (in the source code) and the binary function</h3>
+<div class="_content">The binary function does not contain any FP arithmetical operations.
+The binary function is loading 8 bytes.
+The binary function is storing 8 bytes.
+</div></div></div>
+  <div id="tab226-4">
+<div class="_fixed_box" ><h3 class="_header">General properties</h3>
+<div class="_content"><table><tr><td>nb instructions</td><td>10</td></tr><tr><td>nb uops</td><td>15</td></tr><tr><td>loop length</td><td>30</td></tr><tr><td>used x86 registers</td><td>4</td></tr><tr><td>used mmx registers</td><td>0</td></tr><tr><td>used xmm registers</td><td>0</td></tr><tr><td>used ymm registers</td><td>0</td></tr><tr><td>used zmm registers</td><td>0</td></tr><tr><td>nb stack references</td><td>1</td></tr></table>
+</div></div><div class="_fixed_box" ><h3 class="_header">Front-end</h3>
+<div class="_content">MACRO FUSION NOT POSSIBLE
+FIT IN UOP CACHE
+<table><tr><td>micro-operation queue</td><td>2.50 cycles</td></tr><tr><td>front end</td><td>2.50 cycles</td></tr></table>
+</div></div><div class="_fixed_box" ><h3 class="_header">Back-end</h3>
+<div class="_content"><table><tr><th>      </th><th>ALU0/BRU0</th><th>ALU1</th><th>ALU2</th><th>ALU3/BRU1</th><th>AGU0</th><th>AGU1</th><th>AGU2</th><th>FP0</th><th>FP1</th><th>FP2</th><th>FP3</th></tr><tr><td>uops</td><td>2.00</td><td>2.00</td><td>2.00</td><td>2.00</td><td>1.00</td><td>1.00</td><td>1.00</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td></tr><tr><td>cycles</td><td>2.00</td><td>2.00</td><td>2.00</td><td>2.00</td><td>1.00</td><td>1.00</td><td>1.00</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td></tr></table>
+Execution ports to units layout:
+<ul><li>ALU0/BRU0: ALU, BRU</li><li>ALU1: ALU</li><li>ALU2: ALU</li><li>ALU3/BRU1: ALU, BRU</li><li>AGU0 (256 bits): store address, load</li><li>AGU1 (256 bits): store address, load</li><li>AGU2: store address</li><li>FP0 (256 bits): VPU</li><li>FP1 (256 bits): VPU</li><li>FP2 (256 bits): VPU, FP store data</li><li>FP3 (256 bits): VPU, DIV/SQRT</li></ul>
+<table><tr><td>Cycles executing div or sqrt instructions</td><td>NA</td></tr><tr><td>Cycles loading/storing data</td><td>1.00</td></tr></table>
+</div></div><div class="_fixed_box" ><h3 class="_header">Cycles summary</h3>
+<div class="_content"><table><tr><td>Front-end</td><td>2.50</td></tr><tr><td>Dispatch</td><td>2.00</td></tr><tr><td>Overall L1</td><td>2.50</td></tr></table>
+</div></div><div class="_fixed_box" ><h3 class="_header">Vectorization ratios</h3>
+<div class="_content"><table><tr><td>all</td><td>0%</td></tr><tr><td>load</td><td>0%</td></tr><tr><td>store</td><td>0%</td></tr><tr><td>mul</td><td>NA (no mul vectorizable/vectorized instructions)</td></tr><tr><td>add-sub</td><td>NA (no add-sub vectorizable/vectorized instructions)</td></tr><tr><td>fma</td><td>NA (no fma vectorizable/vectorized instructions)</td></tr><tr><td>div/sqrt</td><td>NA (no div/sqrt vectorizable/vectorized instructions)</td></tr><tr><td>other</td><td>0%</td></tr></table>
+</div></div><div class="_fixed_box" ><h3 class="_header">Vector efficiency ratios</h3>
+<div class="_content"><table><tr><td>all</td><td>25%</td></tr><tr><td>load</td><td>25%</td></tr><tr><td>store</td><td>25%</td></tr><tr><td>mul</td><td>NA (no mul vectorizable/vectorized instructions)</td></tr><tr><td>add-sub</td><td>NA (no add-sub vectorizable/vectorized instructions)</td></tr><tr><td>fma</td><td>NA (no fma vectorizable/vectorized instructions)</td></tr><tr><td>div/sqrt</td><td>NA (no div/sqrt vectorizable/vectorized instructions)</td></tr><tr><td>other</td><td>25%</td></tr></table>
+</div></div><div class="_fixed_box" ><h3 class="_header">Cycles and memory resources usage</h3>
+<div class="_content">Assuming all data fit into the L1 cache, each call to the function takes 2.50 cycles. At this rate:
+<ul><li>5% of peak load performance is reached (3.20 out of 64.00 bytes loaded per cycle (GB/s @ 1GHz))</li><li>10% of peak store performance is reached (3.20 out of 32.00 bytes stored per cycle (GB/s @ 1GHz))</li></ul>
+</div></div><div class="_fixed_box" ><h3 class="_header">Front-end bottlenecks</h3>
+<div class="_content">Performance is limited by instruction throughput (loading/decoding program instructions to execution core) (front-end is a bottleneck).
+
+By removing all these bottlenecks, you can lower the cost of an iteration from 2.50 to 2.00 cycles (1.25x speedup).
+
+</div></div><div class="_fixed_box" ><h3 class="_header">ASM code</h3>
+<div class="_content">In the binary file, the address of the function is: d220
+
+<table><tr><th>Instruction</th><th>Nb FU</th><th>ALU0/BRU0</th><th>ALU1</th><th>ALU2</th><th>ALU3/BRU1</th><th>AGU0</th><th>AGU1</th><th>AGU2</th><th>FP0</th><th>FP1</th><th>FP2</th><th>FP3</th><th>Latency</th><th>Recip. throughput</th><th>Vectorization</th></tr><tr><td style='word-break:break-all;'>ENDBR64</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>N/A</td></tr><tr><td style='word-break:break-all;'>PUSH %RBP</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>N/A</td></tr><tr><td style='word-break:break-all;'>MOV %RSP,%RBP</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0.25</td><td>N/A</td></tr><tr><td style='word-break:break-all;'>SUB $0x10,%RSP</td><td>1</td><td>0.25</td><td>0.25</td><td>0.25</td><td>0.25</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0.25</td><td>N/A</td></tr><tr><td style='word-break:break-all;'>MOV %RDI,-0x8(%RBP)</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0.33</td><td>0.33</td><td>0.33</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>1</td><td>scal (25.0%)</td></tr><tr><td style='word-break:break-all;'>MOV -0x8(%RBP),%RAX</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0.50</td><td>0.50</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>3</td><td>0.50</td><td>scal (25.0%)</td></tr><tr><td style='word-break:break-all;'>MOV %RAX,%RDI</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0.25</td><td>scal (25.0%)</td></tr><tr><td style='word-break:break-all;'>CALL d80a &lt;_ZSt3getILm0EJPN18DecisionTreeSingle4TreeESt14default_deleteIS1_EEERNSt13tuple_elementIXT_ESt5tupleIJDpT0_EEE4typeERS9_&gt;</td><td>6</td><td>1.25</td><td>1.25</td><td>1.25</td><td>1.25</td><td>0.50</td><td>0.50</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>N/A</td></tr><tr><td style='word-break:break-all;'>LEAVE</td><td>2</td><td>0.25</td><td>0.25</td><td>0.25</td><td>0.25</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0.50</td><td>N/A</td></tr><tr><td style='word-break:break-all;'>RET</td><td>1</td><td>0.50</td><td>0</td><td>0</td><td>0.50</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0.50</td><td>N/A</td></tr></table>
+</div></div></div>
+</div></div>
+    </div>
+  </div>
+  <script>
+const cqa_panel_srcs = [];
+function _click_list_header (__obj__) {
+  if (__obj__.innerHTML == "\u25BC") {
+    __obj__.textContent = "\u25BA";
+  }
+  else if (__obj__.innerHTML == "\u25BA"){
+    __obj__.textContent = "\u25BC";
+  }
+  let children = __obj__.parentNode.nextSibling.nextSibling.children;
+  for (var k in children) {
+    if (children[k].tagName == "LI") {
+      children[k].classList.toggle("_list_hidden");
+    }
+  }
+}
+function cqa_onresize ()
+{
+  var cur_path = parseInt (document.getElementById ("main_section_div").dataset.path);
+  var max_path = parseInt (document.getElementById ("main_section_div").dataset.maxpath);
+  document.getElementById ("path_selection_input").max = max_path;
+  document.getElementById ("path_selection_input_max").innerHTML = max_path;
+  _set_path (cur_path, max_path)
+}
+function cqa_loadhelp (divId) {
+  var e = document.getElementById (divId);
+  if (e != null) {
+    e.setAttribute ("tooltip_id", "56");
+  }
+  for (let i = 0; i < cqa_panel_srcs.length; i++) {
+    let obj = document.getElementById ("panel_src_line_"+cqa_panel_srcs [i]);
+    if (obj) {
+      obj.style.background = "var(--table_row_background_hover)";
+      obj.dataset.is_cqa_panel = "true";
+    }
+  }
+}
+function cqa_onunload () {
+  for (let i = 0; i < cqa_panel_srcs.length; i++) {
+    let obj = document.getElementById ("panel_src_line_"+cqa_panel_srcs [i]);
+    if (obj) {
+      obj.style.background = "";
+      obj.dataset.is_cqa_panel = "false";
+    }
+  }
+}
+  </script>
+  <style>
+  ._list_hidden {display: none;}
+  </style>
+</div>
+<div class="panelcontent" id="OV_panel_loops">
+<div class="_div_table" ><table id="_tree_table_207" class="_tree_table"><tr><th class="_freezed_row  _left " style="width:70%;"><span></span>Name</th><th class="_freezed_row " style="width:15%;"><span></span>Coverage (%)</th><th class="_freezed_row " style="width:15%;"><span></span>Time (s)</th></tr>
+<tr class=" _outer_row"  id="_tr_207_1" ><td id="_tr_207_1-1"  data-_i="1" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>std::__uniq_ptr_impl<DecisionTreeSingle::Tree, std::default_delete<DecisionTreeSingle::Tree> >::_M_ptr()</td><td id="_tr_207_1-2"  data-_i="1" data-_j="2"  class=" _centered" >0.05</td><td id="_tr_207_1-3"  data-_i="1" data-_j="3"  class=" _centered" >0.00</td></tr>
+</table></div>
+  <script>
+function loops_onresize () {
+}
+function loops_loadhelp (divId) {
+  var e = document.getElementById (divId);
+  if (e != null) {
+    e.setAttribute ("tooltip_id", "57");
+  }
+}
+  </script>
+</div>
+    <!-- =========================== End Of Storage ============================== -->
+</div>
+<script>
+function _set_path (p, nb_path) {
+  for (var i = 0; i < nb_path + 1; i++) {
+    if (i == p) {
+      if (document.getElementById("loop_static_path_" + i) != null) {
+        document.getElementById("loop_static_path_" + i).style.display = "table";
+      }
+      if (document.getElementById("loop_cqa_path_" + i) != null) {
+        document.getElementById("loop_cqa_path_" + i).style.display = "initial";
+      }
+      if (document.getElementById("cmp_cqa_" + i) != null) {      
+        document.getElementById("cmp_cqa_" + i).style.removeProperty("display");
+      }
+    }
+    else {
+      if (document.getElementById("loop_static_path_" + i) != null) {
+        document.getElementById("loop_static_path_" + i).style.display = "none";
+      }
+      if (document.getElementById("loop_cqa_path_" + i) != null) {
+        document.getElementById("loop_cqa_path_" + i).style.display = "none";
+      }
+      if (document.getElementById("cmp_cqa_" + i) != null) {
+        document.getElementById("cmp_cqa_" + i).style.display = "none";
+      }
+    }
+  }
+  document.getElementById ("main_section_div").dataset.path = p;
+  if (document.getElementById("path_selection_input") != null) {
+    document.getElementById("path_selection_input").value = p;
+  }
+  if (document.getElementById("path_selection_adv_input") != null) {
+    document.getElementById("path_selection_adv_input").value = p;
+  }
+  if (document.getElementById("path_selection_cmp_input") != null) {
+    document.getElementById("path_selection_cmp_input").value = p;
+  }
+}
+function set_path_input (id_input) {
+  var p = document.getElementById(id_input).value;
+  var nb_path = parseInt(document.getElementById("main_section_div").dataset.maxpath);
+  if (0 <= p && p <= nb_path) {
+    _set_path (p, nb_path);
+  }
+}
+function set_previous_path () {
+  var p = parseInt(document.getElementById("main_section_div").dataset.path);
+  var nb_path = parseInt(document.getElementById("main_section_div").dataset.maxpath);
+  if (p >= 1) {
+    _set_path (p - 1, nb_path);
+  }
+}
+function set_next_path () {
+  var p = parseInt(document.getElementById("main_section_div").dataset.path);
+  var nb_path = parseInt(document.getElementById("main_section_div").dataset.maxpath);
+  if (p < nb_path) {
+    _set_path (p + 1, nb_path);
+  }
+}
+function _set_bucket (b, nb_bucket) {
+  var e = document.getElementById("bucket_selection_select");
+  if (e == null) {
+    e = document.getElementById("bucket_selection_summary_select");
+  }
+  for (var i = 0; i < nb_bucket; i++) {
+    var idiv = e.options[i].value;
+    if (i == b) {
+      if (document.getElementById("loop_dyn_" + idiv) != null) {
+        document.getElementById("loop_dyn_" + idiv).style.display = "block";
+      }
+      if (document.getElementById("loop_DECAN_" + idiv) != null) {
+        document.getElementById("loop_DECAN_" + idiv).style.display = "block";
+      }
+      if (document.getElementById("loop_qprof_" + idiv) != null) {
+        document.getElementById("loop_qprof_" + idiv).style.display = "block";
+      }
+      if (document.getElementById("loop_cmp_qprof_" + idiv) != null) {
+        document.getElementById("loop_cmp_qprof_" + idiv).style.display = "block";
+      }
+      if (document.getElementById("loop_cmp_decan_" + idiv) != null) {
+        document.getElementById("loop_cmp_decan_" + idiv).style.display = "block";
+      }
+    }
+    else {
+      if (document.getElementById("loop_dyn_" + idiv) != null) {
+        document.getElementById("loop_dyn_" + idiv).style.display = "none";
+      }
+      if (document.getElementById("loop_DECAN_" + idiv) != null) {
+        document.getElementById("loop_DECAN_" + idiv).style.display = "none";
+      }
+      if (document.getElementById("loop_qprof_" + idiv) != null) {
+        document.getElementById("loop_qprof_" + idiv).style.display = "none";
+      }
+      if (document.getElementById("loop_cmp_qprof_" + idiv) != null) {
+        document.getElementById("loop_cmp_qprof_" + idiv).style.display = "none";
+      }
+      if (document.getElementById("loop_cmp_decan_" + idiv) != null) {
+        document.getElementById("loop_cmp_decan_" + idiv).style.display = "none";
+      }
+    }
+  }
+  document.getElementById ("main_section_div").dataset.bucket = b;
+  if (document.getElementById("bucket_selection_select") != null) {
+    document.getElementById("bucket_selection_select").selectedIndex = b;
+  }
+  if (document.getElementById("bucket_selection_summary_select") != null) {
+    document.getElementById("bucket_selection_summary_select").selectedIndex = b;
+  }
+  if (document.getElementById("bucket_selection_select_qprof") != null) {
+    document.getElementById("bucket_selection_select_qprof").selectedIndex = b;
+  }
+  if (document.getElementById("bucket_selection_select_cmp_qprof") != null) {
+    document.getElementById("bucket_selection_select_cmp_qprof").selectedIndex = b;
+  }
+  if (document.getElementById("bucket_selection_select_cmp_decan") != null) {
+    document.getElementById("bucket_selection_select_cmp_decan").selectedIndex = b;
+  }
+}
+function set_bucket_input (id_input) {
+  var e = document.getElementById(id_input);
+  var nb_bucket = parseInt (document.getElementById("main_section_div").dataset.maxbucket);
+  if (0 <= e.selectedIndex && e.selectedIndex < nb_bucket) {
+    _set_bucket (e.selectedIndex, nb_bucket);
+  }
+}
+function set_previous_bucket () {
+  var bucket = parseInt (document.getElementById("main_section_div").dataset.bucket);
+  var nb_bucket = parseInt (document.getElementById("main_section_div").dataset.maxbucket);
+  if (bucket > 0) {
+    _set_bucket (bucket - 1, nb_bucket);
+  }
+}
+function set_next_bucket () {
+  var bucket = parseInt (document.getElementById("main_section_div").dataset.bucket);
+  var nb_bucket = parseInt (document.getElementById("main_section_div").dataset.maxbucket);
+  if (bucket < nb_bucket - 1) {
+    _set_bucket (bucket + 1, nb_bucket);
+  }
+}
+function extract_panel (selector) {
+  // Open the panel in a new window / tab
+  var url   = new URL(window.location.href);
+  window.open(url.href+"?panel="+selector.value);
+}
+// Resize panels on page size changes
+function _onresize () {
+  __maqao_legacy_onresize ();
+  var filler_height = document.getElementById ("spacer_page_title").offsetHeight
+                    + document.getElementById ("object_summary").offsetHeight;
+  var bottom_offset = filler_height + 20;
+  var w = window,
+      d = document,
+      e = d.documentElement,
+      g = d.getElementsByTagName("body")[0],
+      x = w.innerWidth || e.clientWidth || g.clientWidth,
+      y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+  var obj = document.getElementById("main_section_div");
+  if (y - bottom_offset > 0) {
+    obj.style.height = (y - bottom_offset)+"px";
+    obj.style.maxHeight = (y - bottom_offset)+"px";
+  }
+  if (y - bottom_offset > 0) {
+    obj = document.getElementById("leftpanelcontent");
+    if (obj) {
+      obj.style.height = (y - bottom_offset - 37)+"px";
+      obj.style.maxHeight = (y - bottom_offset - 37)+"px";
+    }
+  }
+  if (y - bottom_offset > 0) {
+    obj = document.getElementById("rightpanelcontent");
+    if (obj) {
+      obj.style.height = (y - bottom_offset - 37)+"px";
+      obj.style.maxHeight = (y - bottom_offset - 37)+"px";
+    }
+  }
+  if (y - bottom_offset > 0) {
+    obj = document.getElementById("dragbar");
+    if (obj) {
+      obj.style.height = (y - bottom_offset - 30)+"px";
+      obj.style.maxHeight = (y - bottom_offset - 30)+"px";
+    }
+  }
+  var list = document.getElementsByClassName("_panelcontent");
+  for (var i = 0; i < list.length; i++) {
+    if (y - bottom_offset > 0) {
+      list[i].style.height = (y - bottom_offset - 34)+"px";
+      list[i].style.maxHeight = (y - bottom_offset - 34)+"px";
+    }
+  }
+  {
+    var selector = document.getElementById ("leftpanelselector");
+    if (selector) {
+      var sec = selector.value.substring (6);
+      eval ("if (typeof "+sec+"_onresize === \"function\") {"+sec+"_onresize ()}");
+    }
+  }
+  {
+    var selector = document.getElementById ("rightpanelselector");
+    if (selector) {
+      var sec = selector.value.substring (6);
+      eval ("if (typeof "+sec+"_onresize === \"function\") {"+sec+"_onresize ()}");
+    }
+  }
+  {
+    var drag = document.getElementById("drag-right")
+    if (drag) {
+      drag.style.maxWidth = x+"px";
+    }
+  }
+}
+// Resize some objects at the page loading
+addLoadEvent(function(){
+  _onresize ();
+});
+// Resize some objects when the page size changes
+var resizeId;
+window.addEventListener("resize", function() {
+  clearTimeout(resizeId);
+  resizeId = setTimeout(_onresize, 250);
+});
+// ------------------------------------------------------------------
+// Handle resizable panels
+var left = document.getElementById("drag-left");
+var right = document.getElementById("drag-right");
+var bar = document.getElementById("dragbar");
+const drag = (ev) => {
+  var shreshold = 15;
+  document.selection ? document.selection.empty() : window.getSelection().removeAllRanges();
+  var w = window,
+      d = document,
+      e = d.documentElement,
+      g = d.getElementsByTagName("body")[0],
+      x = w.innerWidth || e.clientWidth || g.clientWidth;
+  var loc = (ev.pageX - bar.offsetWidth / 2);
+  if (loc < shreshold) {
+    left.style.display = "none";
+  }
+  else if (loc > x - shreshold) {
+    right.style.display = "none";
+  }
+  else {
+    left.style.width = (ev.pageX - bar.offsetWidth / 2) + "px";
+    left.style.display = "block";
+    right.style.maxWidth = x - ((ev.pageX - bar.offsetWidth / 2)) + "px";
+    right.style.display = "block";
+  }
+  {
+    var selector = document.getElementById ("leftpanelselector");
+    var sec = selector.value.substring (6);
+    eval ("if (typeof "+sec+"_onresize === \"function\") {"+sec+"_onresize ()}");
+  }
+  {
+    var selector = document.getElementById ("rightpanelselector");
+    var sec = selector.value.substring (6);
+    eval ("if (typeof "+sec+"_onresize === \"function\") {"+sec+"_onresize ()}");
+  }
+}
+bar.addEventListener("mousedown", () => {
+  document.addEventListener("mousemove", drag);
+});
+document.addEventListener("mouseup", () => {
+  document.removeEventListener("mousemove", drag);
+});
+// Functions called when a panel is unload
+let left_onunload = null;
+let right_onunload = null;
+function _changepanel (panelId, selector, secSelectorName, helpName, side) {
+  var panel = document.getElementById (panelId);
+  if (panel != null) {
+    var sec = selector.value.substring (6);
+    // Handle selector disabling
+    var secSelector = document.getElementById (secSelectorName);
+    for (var i = 0; i < secSelector.length; i++) {
+      if (secSelector [i].value == selector.value) {
+        secSelector [i].setAttribute ("disabled", "");
+      } else {
+        secSelector [i].removeAttribute ("disabled");
+      }
+    }
+    var curPanel = document.getElementById("main_section_div").dataset[panelId]
+    document.getElementById (curPanel).innerHTML = document.getElementById (panelId).innerHTML;
+    document.getElementById (panelId).innerHTML = document.getElementById ("OV_"+selector.value).innerHTML;
+    document.getElementById ("OV_"+selector.value).innerHTML = "";
+    eval ("if (typeof "+sec+"_onresize === \"function\") {"+sec+"_onresize (panelId)}");
+    eval ("if (typeof "+sec+"_loadhelp === \"function\") {"+sec+"_loadhelp (helpName)}");
+    if (side == "left") {
+      if (left_onunload != null) {
+        left_onunload ();
+      }
+      left_onunload = null;
+      eval ("if (typeof "+sec+"_onunload === \"function\") {left_onunload = "+sec+"_onunload;}");
+    }
+    else if (side == "right") {
+      if (right_onunload != null) {
+        right_onunload ();
+      }
+      right_onunload = null;
+      eval ("if (typeof "+sec+"_onunload === \"function\") {right_onunload = "+sec+"_onunload;}");
+    }
+    document.getElementById("main_section_div").dataset[panelId] = "OV_"+selector.value;
+  }
+}
+// At page loading, handle panel contents
+addLoadEvent(function(){
+  var url   = new URL(window.location.href);
+  var panel = url.searchParams.get("panel");
+  if (panel != null) {
+    // Update page content
+    document.getElementById ("page_title").style.display = "none"; // TODO - sumarize loop
+    document.getElementById ("spacer_page_title").style.display = "none";
+    // Load panel
+    var sec = panel.substring (6);
+    document.getElementById ("main_section_content").classList.remove ("drag-container");
+    document.getElementById ("main_section_content").style.overflow = "auto";
+    document.getElementById ("main_section_content").innerHTML = document.getElementById ("OV_"+panel).innerHTML;
+    document.getElementById ("OV_"+panel).innerHTML = "";
+    eval ("if (typeof "+sec+"_onresize === \"function\") {"+sec+"_onresize (\"rightpanelcontent\")}");
+    eval ("if (typeof "+sec+"_loadhelp === \"function\") {"+sec+"_loadhelp (\"rightpanelhelp\")}");
+    eval ("if (typeof "+sec+"_onunload === \"function\") {right_onunload = "+sec+"_onunload;}");
+  }
+  else {
+    {
+      var selector = document.getElementById ("leftpanelselector");
+      var sec = selector.value.substring (6);
+      document.getElementById ("leftpanelcontent").innerHTML = document.getElementById ("OV_"+selector.value).innerHTML;
+      document.getElementById ("OV_"+selector.value).innerHTML = "";
+      eval ("if (typeof "+sec+"_onresize === \"function\") {"+sec+"_onresize (\"leftpanelcontent\")}");
+      eval ("if (typeof "+sec+"_loadhelp === \"function\") {"+sec+"_loadhelp (\"leftpanelhelp\")}");
+      eval ("if (typeof "+sec+"_onunload === \"function\") {left_onunload = "+sec+"_onunload;}");
+      document.getElementById("main_section_div").dataset.leftpanelcontent = "OV_"+selector.value;
+    }
+    {
+      var selector = document.getElementById ("rightpanelselector");
+      var sec = selector.value.substring (6);
+      document.getElementById ("rightpanelcontent").innerHTML = document.getElementById ("OV_"+selector.value).innerHTML;
+      document.getElementById ("OV_"+selector.value).innerHTML = "";
+      eval ("if (typeof "+sec+"_onresize === \"function\") {"+sec+"_onresize (\"rightpanelcontent\")}");
+      eval ("if (typeof "+sec+"_loadhelp === \"function\") {"+sec+"_loadhelp (\"rightpanelhelp\")}");
+      eval ("if (typeof "+sec+"_onunload === \"function\") {right_onunload = "+sec+"_onunload;}");
+      document.getElementById("main_section_div").dataset.rightpanelcontent = "OV_"+selector.value;
+    }
+  }
+});
+</script>
+<style>
+.drag-container {
+  display: flex;
+  height: 100%;
+}
+.panel-one {
+  width: 40%;
+}
+.panel-two {
+  flex: 1;
+  width: 60%;
+}
+.dragbar {
+  padding: 6px;
+  margin-top: 5px;
+  cursor: col-resize;
+  background-color: var(--header_background);
+}
+.extract-maqao {
+  background:url("../images/OV_extract_20.png") no-repeat;
+  width:20px;
+  height:20px;
+  float: right;
+  margin-right: 20px;
+  cursor:pointer;
+}
+</style>
+
+  <div id="MaqaoModal" class="maqao_modal">
+    <div class="maqao_modal-content">
+      <div class="maqao_modal-header">
+        <span class="maqao_close">&times;</span>
+      </div>
+      <div id="maqao_modal-body" class="maqao_modal-body">
+      </div>
+    </div>
+  </div>
+</div><script>
+var tooltips_texts = ['Go to previous function: _IO_flush_all_linebuffered',
+'std::__uniq_ptr_impl&lt;DecisionTreeSingle::Tree, std::default_delete&lt;DecisionTreeSingle::Tree&gt; &gt;::_M_ptr()',
+'Go to next function: bool __gnu_cxx::operator==<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >(__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > > const&, __gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > > const&)',
+'Open on a new tab',
+'Open on a new tab',
+'Source code of the loop.It is extracted using MAQAO core.<br/>When the CQA panel is also displayed, source lines that are analyzed by CQA are colored.',
+'Assembly code of the object (loop / function).<br/>It is analyzed using MAQAO core',
+'Coverage of the callchain',
+'Name of the function',
+'Location of the function source code',
+'Name of the module (binary file) that contains the function',
+'std::__uniq_ptr_data<DecisionTreeSingle::Tree, std::default_delete<DecisionTreeSingle::Tree>, true, true>::__uniq_ptr_impl(DecisionTreeSingle::Tree*)',
+'',
+'std::unique_ptr<DecisionTreeSingle::Tree, std::default_delete<DecisionTreeSingle::Tree> >::unique_ptr<std::default_delete<DecisionTreeSingle::Tree>, void>(DecisionTreeSingle::Tree*)',
+'',
+'std::__detail::_MakeUniq<DecisionTreeSingle::Tree>::__single_object std::make_unique<DecisionTreeSingle::Tree>()',
+'',
+'DecisionTreeSingle::splitNode(DecisionTreeSingle::Tree*, std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, int)',
+'',
+'DecisionTreeSingle::splitNode(DecisionTreeSingle::Tree*, std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, int)',
+'',
+'DecisionTreeSingle::splitNode(DecisionTreeSingle::Tree*, std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, int)',
+'',
+'DecisionTreeSingle::splitNode(DecisionTreeSingle::Tree*, std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, int)',
+'',
+'DecisionTreeSingle::splitNode(DecisionTreeSingle::Tree*, std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, int)',
+'',
+'DecisionTreeSingle::splitNode(DecisionTreeSingle::Tree*, std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, int)',
+'',
+'DecisionTreeSingle::splitNode(DecisionTreeSingle::Tree*, std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, int)',
+'',
+'DecisionTreeSingle::splitNode(DecisionTreeSingle::Tree*, std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, int)',
+'',
+'void std::__invoke_impl<void, void (DecisionTreeSingle::*)(DecisionTreeSingle::Tree*, std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, int), DecisionTreeSingle*, DecisionTreeSingle::Tree*, std::reference_wrapper<std::vector<double, std::allocator<double> > const>, int, std::reference_wrapper<std::vector<double, std::allocator<double> > const>, std::reference_wrapper<std::vector<int, std::allocator<int> > const>, int>(std::__invoke_memfun_deref, void (DecisionTreeSingle::*&&)(DecisionTreeSingle::Tree*, std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, int), DecisionTreeSingle*&&, DecisionTreeSingle::Tree*&&, std::reference_wrapper<std::vector<double, std::allocator<double> > const>&&, int&&, std::reference_wrapper<std::vector<double, std::allocator<double> > const>&&, std::reference_wrapper<std::vector<int, std::allocator<int> > const>&&, int&&)',
+'',
+'std::__invoke_result<void (DecisionTreeSingle::*)(DecisionTreeSingle::Tree*, std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, int), DecisionTreeSingle*, DecisionTreeSingle::Tree*, std::reference_wrapper<std::vector<double, std::allocator<double> > const>, int, std::reference_wrapper<std::vector<double, std::allocator<double> > const>, std::reference_wrapper<std::vector<int, std::allocator<int> > const>, int>::type std::__invoke<void (DecisionTreeSingle::*)(DecisionTreeSingle::Tree*, std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, int), DecisionTreeSingle*, DecisionTreeSingle::Tree*, std::reference_wrapper<std::vector<double, std::allocator<double> > const>, int, std::reference_wrapper<std::vector<double, std::allocator<double> > const>, std::reference_wrapper<std::vector<int, std::allocator<int> > const>, int>(void (DecisionTreeSingle::*&&)(DecisionTreeSingle::Tree*, std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, int), DecisionTreeSingle*&&, DecisionTreeSingle::Tree*&&, std::reference_wrapper<std::vector<double, std::allocator<double> > const>&&, int&&, std::reference_wrapper<std::vector<double, std::allocator<double> > const>&&, std::reference_wrapper<std::vector<int, std::allocator<int> > const>&&, int&&)',
+'',
+'void std::thread::_Invoker<std::tuple<void (DecisionTreeSingle::*)(DecisionTreeSingle::Tree*, std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, int), DecisionTreeSingle*, DecisionTreeSingle::Tree*, std::reference_wrapper<std::vector<double, std::allocator<double> > const>, int, std::reference_wrapper<std::vector<double, std::allocator<double> > const>, std::reference_wrapper<std::vector<int, std::allocator<int> > const>, int> >::_M_invoke<0ul, 1ul, 2ul, 3ul, 4ul, 5ul, 6ul, 7ul>(std::_Index_tuple<0ul, 1ul, 2ul, 3ul, 4ul, 5ul, 6ul, 7ul>)',
+'',
+'std::thread::_Invoker<std::tuple<void (DecisionTreeSingle::*)(DecisionTreeSingle::Tree*, std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, int), DecisionTreeSingle*, DecisionTreeSingle::Tree*, std::reference_wrapper<std::vector<double, std::allocator<double> > const>, int, std::reference_wrapper<std::vector<double, std::allocator<double> > const>, std::reference_wrapper<std::vector<int, std::allocator<int> > const>, int> >::operator()()',
+'',
+'std::__future_base::_Task_setter<std::unique_ptr<std::__future_base::_Result<void>, std::__future_base::_Result_base::_Deleter>, std::thread::_Invoker<std::tuple<void (DecisionTreeSingle::*)(DecisionTreeSingle::Tree*, std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, int), DecisionTreeSingle*, DecisionTreeSingle::Tree*, std::reference_wrapper<std::vector<double, std::allocator<double> > const>, int, std::reference_wrapper<std::vector<double, std::allocator<double> > const>, std::reference_wrapper<std::vector<int, std::allocator<int> > const>, int> >, void>::operator()() const',
+'',
+'std::unique_ptr<std::__future_base::_Result<void>, std::__future_base::_Result_base::_Deleter> std::__invoke_impl<std::unique_ptr<std::__future_base::_Result<void>, std::__future_base::_Result_base::_Deleter>, std::__future_base::_Task_setter<std::unique_ptr<std::__future_base::_Result<void>, std::__future_base::_Result_base::_Deleter>, std::thread::_Invoker<std::tuple<void (DecisionTreeSingle::*)(DecisionTreeSingle::Tree*, std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, int), DecisionTreeSingle*, DecisionTreeSingle::Tree*, std::reference_wrapper<std::vector<double, std::allocator<double> > const>, int, std::reference_wrapper<std::vector<double, std::allocator<double> > const>, std::reference_wrapper<std::vector<int, std::allocator<int> > const>, int> >, void>&>(std::__invoke_other, std::__future_base::_Task_setter<std::unique_ptr<std::__future_base::_Result<void>, std::__future_base::_Result_base::_Deleter>, std::thread::_Invoker<std::tuple<void (DecisionTreeSingle::*)(DecisionTreeSingle::Tree*, std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, int), DecisionTreeSingle*, DecisionTreeSingle::Tree*, std::reference_wrapper<std::vector<double, std::allocator<double> > const>, int, std::reference_wrapper<std::vector<double, std::allocator<double> > const>, std::reference_wrapper<std::vector<int, std::allocator<int> > const>, int> >, void>&)',
+'',
+'std::enable_if<is_invocable_r_v<std::unique_ptr<std::__future_base::_Result_base, std::__future_base::_Result_base::_Deleter>, std::__future_base::_Task_setter<std::unique_ptr<std::__future_base::_Result<void>, std::__future_base::_Result_base::_Deleter>, std::thread::_Invoker<std::tuple<void (DecisionTreeSingle::*)(DecisionTreeSingle::Tree*, std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, int), DecisionTreeSingle*, DecisionTreeSingle::Tree*, std::reference_wrapper<std::vector<double, std::allocator<double> > const>, int, std::reference_wrapper<std::vector<double, std::allocator<double> > const>, std::reference_wrapper<std::vector<int, std::allocator<int> > const>, int> >, void>&>, std::unique_ptr<std::__future_base::_Result_base, std::__future_base::_Result_base::_Deleter> >::type std::__invoke_r<std::unique_ptr<std::__future_base::_Result_base, std::__future_base::_Result_base::_Deleter>, std::__future_base::_Task_setter<std::unique_ptr<std::__future_base::_Result<void>, std::__future_base::_Result_base::_Deleter>, std::thread::_Invoker<std::tuple<void (DecisionTreeSingle::*)(DecisionTreeSingle::Tree*, std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, int), DecisionTreeSingle*, DecisionTreeSingle::Tree*, std::reference_wrapper<std::vector<double, std::allocator<double> > const>, int, std::reference_wrapper<std::vector<double, std::allocator<double> > const>, std::reference_wrapper<std::vector<int, std::allocator<int> > const>, int> >, void>&>(std::__future_base::_Task_setter<std::unique_ptr<std::__future_base::_Result<void>, std::__future_base::_Result_base::_Deleter>, std::thread::_Invoker<std::tuple<void (DecisionTreeSingle::*)(DecisionTreeSingle::Tree*, std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, int), DecisionTreeSingle*, DecisionTreeSingle::Tree*, std::reference_wrapper<std::vector<double, std::allocator<double> > const>, int, std::reference_wrapper<std::vector<double, std::allocator<double> > const>, std::reference_wrapper<std::vector<int, std::allocator<int> > const>, int> >, void>&)',
+'',
+'std::_Function_handler<std::unique_ptr<std::__future_base::_Result_base, std::__future_base::_Result_base::_Deleter> (), std::__future_base::_Task_setter<std::unique_ptr<std::__future_base::_Result<void>, std::__future_base::_Result_base::_Deleter>, std::thread::_Invoker<std::tuple<void (DecisionTreeSingle::*)(DecisionTreeSingle::Tree*, std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, int), DecisionTreeSingle*, DecisionTreeSingle::Tree*, std::reference_wrapper<std::vector<double, std::allocator<double> > const>, int, std::reference_wrapper<std::vector<double, std::allocator<double> > const>, std::reference_wrapper<std::vector<int, std::allocator<int> > const>, int> >, void> >::_M_invoke(std::_Any_data const&)',
+'',
+'std::function<std::unique_ptr<std::__future_base::_Result_base, std::__future_base::_Result_base::_Deleter> ()>::operator()() const',
+'',
+'Callchains extracted using LPROF.',
+'Load distribution analysis of the function.<br/>It is generated using LPROF results.',
+'Show previous path',
+'Show selected path',
+'Show next path',
+'CQA analysis of the object (loop or function).',
+'Loop hierachy of the function.<br/>It is analyzed using MAQAO core.'];
+var modal = document.getElementById('MaqaoModal');
+var span = document.getElementsByClassName("maqao_close")[0];
+span.onclick = function() {
+    modal.style.display = "none";
+}
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+const comparer = (idx, asc) => (a, b) => ((v1, v2) => 
+    v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v2 - v1 : v1.toString().localeCompare(v2)
+    )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+addLoadEvent(function(){
+  document.querySelectorAll('._fixed_table:not(._no_auto_sorting) th').forEach(th => th.addEventListener('click', (() => {
+    const table = th.closest('table');
+    // Remove all symbols in header
+    table.querySelectorAll('th').forEach(function (e) {
+      e.firstChild.textContent = "";
+    });
+    // Change the symbol on the clicked header
+    if (this.asc != true) {
+      th.firstChild.textContent = "\u25BC";
+    }
+    else {
+      th.firstChild.textContent = "\u25B2";
+    }
+    Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
+        .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+        .forEach(tr => table.appendChild(tr) );
+  })));
+});
+addLoadEvent(function(){
+  document.querySelectorAll('._tree_table:not(._no_auto_sorting) th').forEach(th => th.addEventListener('click', (() => {
+    const table = th.closest('table');
+    // Remove all symbols in header
+    table.querySelectorAll('th').forEach(function (e) {
+      e.firstChild.textContent = "";
+    });
+    // Change the symbol on the clicked header
+    if (this.asc != true) {
+      th.firstChild.textContent = "\u25BC";
+    }
+    else {
+      th.firstChild.textContent = "\u25B2";
+    }
+    let last_id = "";
+    const t_outermost = new Array ();
+    const t_children  = new Map ();
+    for (let i = 1, row; row = table.rows[i]; i++) {
+      if (row.classList.contains ("_outer_row")) {
+        t_outermost.push (row);
+        last_id = row.id;
+        t_children [last_id] = new Array ();
+      }
+      else {
+        t_children [last_id].push (row);
+      }
+    }
+    t_outermost.sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc));
+    for (let i = 0, row; row = t_outermost[i]; i++) {
+      table.appendChild(row)
+      for (let j = 0, child; child = t_children[row.id][j]; j++) {
+        table.appendChild(child)
+      }
+    }
+  })));
+});
+function _check_all_checkbox_ (obj_id, opts_ids) {
+  var obj   = document.getElementById (obj_id);
+  var opts  = window[opts_ids];
+  var count = 0
+  for (i = 0; i < opts.length; i++) {
+    var obj_s = document.getElementById(opts[i]);
+    if (obj_s.checked) {
+      count ++;
+    }
+  }
+  if (count == 0) {
+    obj.value = "Select all";
+  }
+  else if (count == opts.length) {
+    obj.value = "Select none";
+  }
+}
+// Fonction for table selector
+function click_table_menu (c, obj_id, opt_ids) {
+  var is_checked = document.getElementById (c).checked;
+  localStorage.setItem(c, is_checked);
+  $("."+c).each(function(index, element) {
+    if (is_checked) {
+      element.classList.remove("_tcol_hidden");
+    }
+    else {
+      element.classList.add("_tcol_hidden");
+    }
+  });
+  if (obj_id != undefined) {
+    _check_all_checkbox_ (obj_id, opt_ids)
+  }
+}
+function set_all_table_menu (obj, var_opt_ids) {
+  var opt_ids = window[var_opt_ids];
+  var is_selected = true
+  if (obj.value == "Select all") {
+    is_selected = false;
+  }
+  for (i = 0; i < opt_ids.length; i++) {
+    var obj_s = document.getElementById(opt_ids[i]);
+    if (is_selected == obj_s.checked) {
+      obj_s.checked = !obj_s.checked;
+      click_table_menu (opt_ids[i]);
+    }
+  }
+  if (is_selected == false) {
+    obj.value = "Select none";
+  } else {
+    obj.value = "Select all";
+  }
+  localStorage.setItem(obj.id, obj.value);
+}
+// Script for accordion box
+function _click_accordion_header(obj) {
+  var content = obj.nextSibling;
+  content.classList.toggle('collapsed');
+  obj.classList.toggle('collapsed');
+  obj.parentNode.classList.toggle('collapsed');
+  // Check if the box must be openned ...
+  if (obj.classList.contains ('collapsed'))
+  {
+    obj.firstChild.textContent = "\u25B6";
+  }
+  // or closed.
+  else 
+  {
+    obj.firstChild.textContent = "\u25BC";
+  }
+  if (typeof _onresize === "function") {
+    _onresize ();
+  }
+}
+  // Script for paged table
+function _click_paged_prev(obj) {
+  var pages_content_id = '_paged_tables_page_' + obj.parentNode.parentNode.id.substr (obj.parentNode.parentNode.id.lastIndexOf('_') + 1);
+  var pages_content = document.getElementById(pages_content_id).innerHTML;
+  var max_pages = pages_content.substr (pages_content.lastIndexOf('/') + 1);
+  var cur_page  = pages_content.substring (pages_content.lastIndexOf(' ') + 1, pages_content.lastIndexOf('/'));
+  max_pages = Number (max_pages);
+  cur_page  = Number (cur_page);
+  if (cur_page > 1) {
+    var div_paged = obj.parentNode.parentNode.id;
+    var i;
+    var x = document.getElementsByClassName(div_paged + '_' + (cur_page - 1));
+    for (i = 0; i < x.length; i++) {
+      x[i].classList.toggle('_paged_hidden');
+    }
+    x = document.getElementsByClassName(div_paged + '_' + (cur_page - 2));
+    for (i = 0; i < x.length; i++) {
+      x[i].classList.toggle('_paged_hidden');
+    }
+  document.getElementById(pages_content_id).textContent = "Page " + (cur_page - 1) + "/" + max_pages;
+  }
+}
+function _click_paged_next(obj) {
+  var pages_content_id = '_paged_tables_page_' + obj.parentNode.parentNode.id.substr (obj.parentNode.parentNode.id.lastIndexOf('_') + 1);
+  var pages_content = document.getElementById(pages_content_id).innerHTML;
+  var max_pages = pages_content.substr (pages_content.lastIndexOf('/') + 1);
+  var cur_page  = pages_content.substring (pages_content.lastIndexOf(' ') + 1, pages_content.lastIndexOf('/'));
+  max_pages = Number (max_pages);
+  cur_page  = Number (cur_page);
+  if (cur_page < max_pages) {
+    var div_paged = obj.parentNode.parentNode.id;
+    var i;
+    var x = document.getElementsByClassName(div_paged + '_' + (cur_page - 1));
+    for (i = 0; i < x.length; i++) {
+      x[i].classList.toggle('_paged_hidden');
+    }
+    x = document.getElementsByClassName(div_paged + '_' + cur_page);
+    for (i = 0; i < x.length; i++) {
+      x[i].classList.toggle('_paged_hidden');
+    }
+    document.getElementById(pages_content_id).textContent = "Page " + (cur_page + 1) + "/" + max_pages;
+  }
+}
+// Function for tree table
+function _click_tree(obj) {
+  if (obj.innerHTML == "\u25BA") {
+    obj.textContent = "\u25BC";
+    // Open childs
+    var x = document.getElementsByClassName(obj.parentNode.parentNode.id);
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.toggle('_tree_hidden');
+    }
+  }
+  else if (obj.innerHTML == "\u25BC") {
+    obj.textContent = "\u25BA";
+    // Close all childs
+    var trs = document.getElementsByTagName('tr');
+    var r   = obj.parentNode.parentNode.id+'_';
+    var re  = new RegExp (r, "g");
+    for (var i = 0; i < trs.length; i++) {
+      var s = trs[i].id+""
+      if (s.match(re)) {
+        var o = document.getElementById(s);
+        if (! o.classList.contains('_tree_hidden')) {
+          o.classList.toggle('_tree_hidden');
+        }
+        if (o.firstChild.firstChild.textContent == "\u25BC") {
+          o.firstChild.firstChild.textContent = "\u25BA";
+        }
+        if (o.firstChild.childNodes.length == 3) {
+          o.firstChild.childNodes[2].textContent = '+';
+        }
+      }
+    }
+    if (obj.parentNode.childNodes.length == 3) {
+      obj.parentNode.childNodes[2].textContent = '+';
+    }
+  }
+}
+function _click_expand (obj) {
+  var trs = document.getElementsByTagName('tr');
+  var r   = obj.parentNode.parentNode.id+'_';
+  var re  = new RegExp (r, "g");
+  // Symbole + => expand all
+  if (obj.textContent == "+") {
+    for (var i = 0; i < trs.length; i++) {
+      var s = trs[i].id+"";
+      if (s.match(re)) {
+        var o = document.getElementById(s);
+        if (o.classList.contains('_tree_hidden')) {
+           o.classList.toggle('_tree_hidden');
+        }
+        if (o.firstChild.firstChild.textContent == "\u25BA") {
+          o.firstChild.firstChild.textContent = "\u25BC";
+        }
+        if (o.firstChild.childNodes.length == 3) {
+          o.firstChild.childNodes[2].textContent = '\u2010';
+        }
+      }
+    }
+    var o = obj.parentNode.parentNode;
+    if (o.firstChild.firstChild.textContent == "\u25BA") {
+      o.firstChild.firstChild.textContent = "\u25BC";
+    }
+    obj.textContent = "\u2010";
+  }
+  // Symbole - => collapse all
+  else {
+    for (var i = 0; i < trs.length; i++) {
+      var s = trs[i].id+"";
+      if (s.match(re)) {
+        var o = document.getElementById(s);
+        if (! o.classList.contains('_tree_hidden')) {
+           o.classList.toggle('_tree_hidden');
+        }
+        if (o.firstChild.firstChild.textContent == "\u25BC") {
+          o.firstChild.firstChild.textContent = "\u25BA";
+        }
+        if (o.firstChild.childNodes.length == 3) {
+          o.firstChild.childNodes[2].textContent = '+';
+        }
+      }
+    }
+    var o = obj.parentNode.parentNode;
+    if (o.firstChild.firstChild.textContent == "\u25BC") {
+      o.firstChild.firstChild.textContent = "\u25BA";
+    }
+    obj.textContent = "+";
+  }
+}
+// Hide unselected tabs
+addLoadEvent(function(){
+  var x = document.getElementsByClassName("_tab_header_li");
+  for (var i = 0; i < x.length; i++) {
+    if (x[i].classList.contains("selected_tab") == false) {
+      var e = document.getElementById (x[i].dataset.tab);
+      e.style.display = "none";
+    }
+  }
+});
+// Change tab
+function change_tab (e, baseId) {
+  // Handle tabs
+  var i = 1;
+  while (true) {
+    var id = baseId + i;
+    var t = document.getElementById (id);
+    if (t == null) {
+      break;
+    }
+    if (id == e.dataset.tab) {
+      t.style.removeProperty("display");
+    }
+    else {
+      t.style.display = "none";
+    }
+    i = i + 1;
+  }
+  // Handle headers
+  $(e).siblings().each( function () {
+    this.classList.remove("selected_tab");
+  });
+  e.classList.add("selected_tab");
+}
+function __maqao_legacy_onresize () {
+  var obj = document.getElementById("spacer_page_title");
+  if (obj) {
+    obj.style.height = (document.getElementById("page_title").clientHeight + 20)+"px";
+  }
+  var obj = document.getElementById("page_title");
+  if (obj) {
+    var elems = document.getElementsByClassName ("_first_menu_level")
+    if (obj.clientHeight < 90) {
+      for (var i = 0; i < elems.length; i++) {
+        elems.item(i).style.borderBottomLeftRadius = "";
+        elems.item(i).style.borderBottomRightRadius = "";
+      }
+    }
+    else {
+      for (var i = 0; i < elems.length; i++) {
+        elems.item(i).style.borderBottomLeftRadius = "10px";
+        elems.item(i).style.borderBottomRightRadius = "10px";
+      }
+    }
+  }
+}
+</script>
+</body>
+</html>

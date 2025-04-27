@@ -1,0 +1,12 @@
+address;source_location;insn;indent
+0x20f21;:0;ENDBR64;
+0x20f25;:0;PUSH	%RBP;
+0x20f26;:0;MOV	%RSP,%RBP;
+0x20f29;:0;SUB	$0x10,%RSP;
+0x20f2d;:0;MOV	%RDI,-0x8(%RBP);
+0x20f31;:0;LEA	-0x8(%RBP),%RAX;
+0x20f35;:0;MOV	%RAX,%RDI;
+0x20f38;:0;CALL	2009a <_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEE4baseEv>;
+0x20f3d;:0;MOV	(%RAX),%RAX;
+0x20f40;:0;LEAVE;
+0x20f41;:0;RET;

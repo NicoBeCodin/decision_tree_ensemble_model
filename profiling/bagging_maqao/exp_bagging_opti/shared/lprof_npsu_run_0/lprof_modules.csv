@@ -1,0 +1,6 @@
+name;time_p;time_s;cpi_ratio;
+/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_bagging_opti/binaries/MainEnsemble;58.261871337891;1.7886356115341;;
+/usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0;39.937152862549;1.2260680198669;;
+/usr/lib/x86_64-linux-gnu/libc.so.6;0.82904613018036;0.025451662018895;;
+/usr/lib/x86_64-linux-gnu/libm.so.6;0.82904613018036;0.025451662018895;;
+/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33;0.14293897151947;0.0043882168829441;;

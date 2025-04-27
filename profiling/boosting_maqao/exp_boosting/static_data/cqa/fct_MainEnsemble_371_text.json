@@ -1,0 +1,686 @@
+{
+  "_cqa_text_report":
+    {
+      "_objects":
+        {
+          "list_path_2_complex_1":
+            {
+              "dynamic": true,
+              "initial": "closed",
+              "type": "list",
+              "lines":
+                [
+
+                ],
+              "header": ""
+            },
+          "image_col_maj":
+            {
+              "type": "image",
+              "format": "url",
+              "data": "../images/cqa/col_maj.svg",
+              "size":
+                {
+                  "x": 500
+                }
+            },
+          "image_1x64_128":
+            {
+              "type": "image",
+              "format": "url",
+              "data": "../images/cqa/1x64_128.svg",
+              "size":
+                {
+                  "x": 500
+                }
+            },
+          "image_4x32_512":
+            {
+              "type": "image",
+              "format": "url",
+              "data": "../images/cqa/4x32_512.svg",
+              "size":
+                {
+                  "x": 500
+                }
+            },
+          "image_8x32_512":
+            {
+              "type": "image",
+              "format": "url",
+              "data": "../images/cqa/8x32_512.svg",
+              "size":
+                {
+                  "x": 500
+                }
+            },
+          "image_1x32_256":
+            {
+              "type": "image",
+              "format": "url",
+              "data": "../images/cqa/1x32_256.svg",
+              "size":
+                {
+                  "x": 500
+                }
+            },
+          "image_1x64_256":
+            {
+              "type": "image",
+              "format": "url",
+              "data": "../images/cqa/1x64_256.svg",
+              "size":
+                {
+                  "x": 500
+                }
+            },
+          "list_path_1_call_11":
+            {
+              "dynamic": true,
+              "initial": "closed",
+              "type": "list",
+              "lines":
+                [
+
+                ],
+              "header": ""
+            },
+          "list_path_1_call_5":
+            {
+              "dynamic": true,
+              "initial": "closed",
+              "type": "list",
+              "lines":
+                [
+
+                ],
+              "header": ""
+            },
+          "image_1x64_512":
+            {
+              "type": "image",
+              "format": "url",
+              "data": "../images/cqa/1x64_512.svg",
+              "size":
+                {
+                  "x": 500
+                }
+            },
+          "list_path_2_call_9":
+            {
+              "dynamic": true,
+              "initial": "closed",
+              "type": "list",
+              "lines":
+                [
+
+                ],
+              "header": ""
+            },
+          "list_path_2_call_2":
+            {
+              "dynamic": true,
+              "initial": "closed",
+              "type": "list",
+              "lines":
+                [
+
+                ],
+              "header": ""
+            },
+          "list_path_1_call_4":
+            {
+              "dynamic": true,
+              "initial": "closed",
+              "type": "list",
+              "lines":
+                [
+
+                ],
+              "header": ""
+            },
+          "list_path_1_call_6":
+            {
+              "dynamic": true,
+              "initial": "closed",
+              "type": "list",
+              "lines":
+                [
+
+                ],
+              "header": ""
+            },
+          "list_path_2_call_5":
+            {
+              "dynamic": true,
+              "initial": "closed",
+              "type": "list",
+              "lines":
+                [
+
+                ],
+              "header": ""
+            },
+          "list_path_2_call_3":
+            {
+              "dynamic": true,
+              "initial": "closed",
+              "type": "list",
+              "lines":
+                [
+
+                ],
+              "header": ""
+            },
+          "list_path_1_call_7":
+            {
+              "dynamic": true,
+              "initial": "closed",
+              "type": "list",
+              "lines":
+                [
+
+                ],
+              "header": ""
+            },
+          "image_4x32_256":
+            {
+              "type": "image",
+              "format": "url",
+              "data": "../images/cqa/4x32_256.svg",
+              "size":
+                {
+                  "x": 500
+                }
+            },
+          "list_path_1_call_9":
+            {
+              "dynamic": true,
+              "initial": "closed",
+              "type": "list",
+              "lines":
+                [
+
+                ],
+              "header": ""
+            },
+          "image_2x64_512":
+            {
+              "type": "image",
+              "format": "url",
+              "data": "../images/cqa/2x64_512.svg",
+              "size":
+                {
+                  "x": 500
+                }
+            },
+          "list_path_1_call_3":
+            {
+              "dynamic": true,
+              "initial": "closed",
+              "type": "list",
+              "lines":
+                [
+
+                ],
+              "header": ""
+            },
+          "list_path_1_call_8":
+            {
+              "dynamic": true,
+              "initial": "closed",
+              "type": "list",
+              "lines":
+                [
+
+                ],
+              "header": ""
+            },
+          "image_vec_align":
+            {
+              "type": "image",
+              "format": "url",
+              "data": "../images/cqa/vec_align.svg",
+              "size":
+                {
+                  "x": 500
+                }
+            },
+          "list_path_2_call_4":
+            {
+              "dynamic": true,
+              "initial": "closed",
+              "type": "list",
+              "lines":
+                [
+
+                ],
+              "header": ""
+            },
+          "image_1x32_128":
+            {
+              "type": "image",
+              "format": "url",
+              "data": "../images/cqa/1x32_128.svg",
+              "size":
+                {
+                  "x": 500
+                }
+            },
+          "list_path_1_complex_1":
+            {
+              "dynamic": true,
+              "initial": "closed",
+              "type": "list",
+              "lines":
+                [
+
+                ],
+              "header": ""
+            },
+          "list_path_2_call_10":
+            {
+              "dynamic": true,
+              "initial": "closed",
+              "type": "list",
+              "lines":
+                [
+
+                ],
+              "header": ""
+            },
+          "list_path_1_call_1":
+            {
+              "dynamic": true,
+              "initial": "closed",
+              "type": "list",
+              "lines":
+                [
+
+                ],
+              "header": ""
+            },
+          "list_path_2_call_1":
+            {
+              "dynamic": true,
+              "initial": "closed",
+              "type": "list",
+              "lines":
+                [
+
+                ],
+              "header": ""
+            },
+          "list_path_1_call_10":
+            {
+              "dynamic": true,
+              "initial": "closed",
+              "type": "list",
+              "lines":
+                [
+
+                ],
+              "header": ""
+            },
+          "image_2x64_256":
+            {
+              "type": "image",
+              "format": "url",
+              "data": "../images/cqa/2x64_256.svg",
+              "size":
+                {
+                  "x": 500
+                }
+            },
+          "list_path_1_call_2":
+            {
+              "dynamic": true,
+              "initial": "closed",
+              "type": "list",
+              "lines":
+                [
+
+                ],
+              "header": ""
+            },
+          "list_path_2_call_8":
+            {
+              "dynamic": true,
+              "initial": "closed",
+              "type": "list",
+              "lines":
+                [
+
+                ],
+              "header": ""
+            },
+          "image_1x32_512":
+            {
+              "type": "image",
+              "format": "url",
+              "data": "../images/cqa/1x32_512.svg",
+              "size":
+                {
+                  "x": 500
+                }
+            },
+          "list_path_2_call_7":
+            {
+              "dynamic": true,
+              "initial": "closed",
+              "type": "list",
+              "lines":
+                [
+
+                ],
+              "header": ""
+            },
+          "list_path_2_call_6":
+            {
+              "dynamic": true,
+              "initial": "closed",
+              "type": "list",
+              "lines":
+                [
+
+                ],
+              "header": ""
+            },
+          "image_row_maj":
+            {
+              "type": "image",
+              "format": "url",
+              "data": "../images/cqa/row_maj.svg",
+              "size":
+                {
+                  "x": 500
+                }
+            },
+          "image_4x64_512":
+            {
+              "type": "image",
+              "format": "url",
+              "data": "../images/cqa/4x64_512.svg",
+              "size":
+                {
+                  "x": 500
+                }
+            }
+        },
+      "AVG":
+        {
+          "hint":
+            [
+              {
+                "details": "Calling (and then returning from) a function prevents many compiler optimizations (like vectorization), breaks control flow (which reduces pipeline performance) and executes extra instructions to save/restore the registers used inside it, which is very expensive (dozens of cycles). Consider to inline small functions.\n - __gnu_cxx::__normal_iterator<double*, std::vector<double, std::allocator<double> > >::base() const: 0 occurrences\n - __gnu_cxx::__normal_iterator<double*, std::vector<double, std::allocator<double> > >::difference_type __gnu_cxx::operator-<double*, std::vector<double, std::allocator<double> > >(__gnu_cxx::__normal_iterator<double*, std::vector<double, std::allocator<double> > > const&, __gnu_cxx::__normal_iterator<double*, std::vector<double, std::allocator<double> > > const&): 0 occurrences\n - double&& std::forward<double>(std::remove_reference<double>::type&): 0 occurrences\n - operator new(unsigned long, void*): 0 occurrences\n - std::_Vector_base<double, std::allocator<double> >::_M_allocate(unsigned long): 0 occurrences\n - std::_Vector_base<double, std::allocator<double> >::_M_deallocate(double*, unsigned long): 0 occurrences\n - std::_Vector_base<double, std::allocator<double> >::_M_get_Tp_allocator(): 0 occurrences\n - std::vector<double, std::allocator<double> >::_M_check_len(unsigned long, char const*) const: 0 occurrences\n - std::vector<double, std::allocator<double> >::_S_relocate(double*, double*, double*, std::allocator<double>&): 0 occurrences\n - std::vector<double, std::allocator<double> >::begin(): 0 occurrences\n - unknown: 0 occurrences\n",
+                "title": "CALL instructions",
+                "txt": "Detected function call instructions.\n"
+              },
+              {
+                "details": "These instructions generate more than one micro-operation and only one of them can be decoded during a cycle and the extra micro-operations increase pressure on execution units.\n - LEAVE: 0 occurrences\n",
+                "title": "Complex instructions",
+                "txt": "Detected COMPLEX INSTRUCTIONS.\n"
+              },
+              {
+                "title": "Type of elements and instruction set",
+                "txt": "No instructions are processing arithmetic or math operations on FP elements. This function is probably writing/copying data or processing integer elements."
+              },
+              {
+                "title": "Matching between your function (in the source code) and the binary function",
+                "txt": "The binary function does not contain any FP arithmetical operations.\nThe binary function is loading 352 bytes.\nThe binary function is storing 200 bytes."
+              }
+            ],
+          "expert":
+            [
+              {
+                "title": "General properties",
+                "txt": "nb instructions    : 130.50\nnb uops            : 208\nloop length        : 573.50\nused x86 registers : 8\nused mmx registers : 0\nused xmm registers : 1\nused ymm registers : 0\nused zmm registers : 0\nnb stack references: 18\n"
+              },
+              {
+                "title": "Front-end",
+                "txt": "MACRO FUSION NOT POSSIBLE\nmicro-operation queue: 34.67 cycles\nfront end            : 34.67 cycles\n"
+              },
+              {
+                "title": "Back-end",
+                "txt": "       | ALU0/BRU0 | ALU1  | ALU2  | ALU3/BRU1 | AGU0  | AGU1  | AGU2  | FP0  | FP1  | FP2  | FP3\n--------------------------------------------------------------------------------------------------\nuops   | 24.88     | 24.88 | 24.88 | 24.88     | 29.75 | 29.75 | 24.00 | 0.00 | 0.00 | 1.00 | 0.00\ncycles | 24.88     | 24.88 | 24.88 | 24.88     | 29.75 | 29.75 | 24.00 | 0.00 | 0.00 | 1.00 | 0.00\n\nExecution ports to units layout:\n - ALU0/BRU0: ALU, BRU\n - ALU1: ALU\n - ALU2: ALU\n - ALU3/BRU1: ALU, BRU\n - AGU0 (256 bits): store address, load\n - AGU1 (256 bits): store address, load\n - AGU2: store address\n - FP0 (256 bits): VPU\n - FP1 (256 bits): VPU\n - FP2 (256 bits): VPU, FP store data\n - FP3 (256 bits): VPU, DIV/SQRT\n\nCycles executing div or sqrt instructions: NA\n"
+              },
+              {
+                "title": "Cycles summary",
+                "txt": "Front-end : 34.67\nDispatch  : 29.75\nOverall L1: 34.67\n"
+              },
+              {
+                "title": "Vectorization ratios",
+                "txt": "INT\nall    : 0%\nload   : 0%\nstore  : 0%\nmul    : NA (no mul vectorizable/vectorized instructions)\nadd-sub: 0%\nfma    : NA (no fma vectorizable/vectorized instructions)\nother  : 0%\nFP\nall     : 0%\nload    : 0%\nstore   : 0%\nmul     : NA (no mul vectorizable/vectorized instructions)\nadd-sub : NA (no add-sub vectorizable/vectorized instructions)\nfma     : NA (no fma vectorizable/vectorized instructions)\ndiv/sqrt: NA (no div/sqrt vectorizable/vectorized instructions)\nother   : NA (no other vectorizable/vectorized instructions)\nINT+FP\nall     : 0%\nload    : 0%\nstore   : 0%\nmul     : NA (no mul vectorizable/vectorized instructions)\nadd-sub : 0%\nfma     : NA (no fma vectorizable/vectorized instructions)\ndiv/sqrt: NA (no div/sqrt vectorizable/vectorized instructions)\nother   : 0%\n"
+              },
+              {
+                "title": "Vector efficiency ratios",
+                "txt": "INT\nall    : 24%\nload   : 25%\nstore  : 24%\nmul    : NA (no mul vectorizable/vectorized instructions)\nadd-sub: 25%\nfma    : NA (no fma vectorizable/vectorized instructions)\nother  : 23%\nFP\nall     : 25%\nload    : 25%\nstore   : 25%\nmul     : NA (no mul vectorizable/vectorized instructions)\nadd-sub : NA (no add-sub vectorizable/vectorized instructions)\nfma     : NA (no fma vectorizable/vectorized instructions)\ndiv/sqrt: NA (no div/sqrt vectorizable/vectorized instructions)\nother   : NA (no other vectorizable/vectorized instructions)\nINT+FP\nall     : 24%\nload    : 25%\nstore   : 24%\nmul     : NA (no mul vectorizable/vectorized instructions)\nadd-sub : 25%\nfma     : NA (no fma vectorizable/vectorized instructions)\ndiv/sqrt: NA (no div/sqrt vectorizable/vectorized instructions)\nother   : 23%\n"
+              },
+              {
+                "title": "Cycles and memory resources usage",
+                "txt": "Assuming all data fit into the L1 cache, each call to the function takes 34.67 cycles. At this rate:\n - 15% of peak load performance is reached (10.16 out of 64.00 bytes loaded per cycle (GB/s @ 1GHz))\n - 18% of peak store performance is reached (5.77 out of 32.00 bytes stored per cycle (GB/s @ 1GHz))\n"
+              }
+            ],
+          "header":
+            [
+            "0% of peak computational performance is used (0.00 out of 48.00 FLOP per cycle (GFLOPS @ 1GHz))"
+            ],
+          "brief":
+            [
+
+            ],
+          "gain":
+            [
+              {
+                "workaround": " - Try another compiler or update/tune your current one\n - Make array accesses unit-stride:\n  * If your function streams arrays of structures (AoS), try to use structures of arrays instead (SoA)\n",
+                "details": "All SSE/AVX instructions are used in scalar version (process only one data element in vector registers).\nSince your execution units are vector units, only a vectorized function can use their full power.\n",
+                "title": "Vectorization",
+                "txt": "Your function is not vectorized.\nOnly 24% of vector register length is used (average across all SSE/AVX instructions).\nBy vectorizing your function, you can lower the cost of an iteration from 34.67 to 5.33 cycles (6.50x speedup)."
+              }
+            ],
+          "potential":
+            [
+
+            ]
+        },
+      "paths":
+        [
+          {
+            "hint":
+              [
+                {
+                  "details": "Calling (and then returning from) a function prevents many compiler optimizations (like vectorization), breaks control flow (which reduces pipeline performance) and executes extra instructions to save/restore the registers used inside it, which is very expensive (dozens of cycles). Consider to inline small functions.\n - __gnu_cxx::__normal_iterator<double*, std::vector<double, std::allocator<double> > >::base() const: 2 occurrences<<list_path_1_call_1>>\n - __gnu_cxx::__normal_iterator<double*, std::vector<double, std::allocator<double> > >::difference_type __gnu_cxx::operator-<double*, std::vector<double, std::allocator<double> > >(__gnu_cxx::__normal_iterator<double*, std::vector<double, std::allocator<double> > > const&, __gnu_cxx::__normal_iterator<double*, std::vector<double, std::allocator<double> > > const&): 1 occurrences<<list_path_1_call_2>>\n - double&& std::forward<double>(std::remove_reference<double>::type&): 3 occurrences<<list_path_1_call_3>>\n - operator new(unsigned long, void*): 1 occurrences<<list_path_1_call_4>>\n - std::_Vector_base<double, std::allocator<double> >::_M_allocate(unsigned long): 1 occurrences<<list_path_1_call_5>>\n - std::_Vector_base<double, std::allocator<double> >::_M_deallocate(double*, unsigned long): 1 occurrences<<list_path_1_call_6>>\n - std::_Vector_base<double, std::allocator<double> >::_M_get_Tp_allocator(): 2 occurrences<<list_path_1_call_7>>\n - std::vector<double, std::allocator<double> >::_M_check_len(unsigned long, char const*) const: 1 occurrences<<list_path_1_call_8>>\n - std::vector<double, std::allocator<double> >::_S_relocate(double*, double*, double*, std::allocator<double>&): 2 occurrences<<list_path_1_call_9>>\n - std::vector<double, std::allocator<double> >::begin(): 1 occurrences<<list_path_1_call_10>>\n - unknown: 1 occurrences<<list_path_1_call_11>>\n",
+                  "title": "CALL instructions",
+                  "txt": "Detected function call instructions.\n"
+                },
+                {
+                  "details": "These instructions generate more than one micro-operation and only one of them can be decoded during a cycle and the extra micro-operations increase pressure on execution units.\n - LEAVE: 1 occurrences<<list_path_1_complex_1>>\n",
+                  "title": "Complex instructions",
+                  "txt": "Detected COMPLEX INSTRUCTIONS.\n"
+                },
+                {
+                  "title": "Type of elements and instruction set",
+                  "txt": "No instructions are processing arithmetic or math operations on FP elements. This function is probably writing/copying data or processing integer elements."
+                },
+                {
+                  "title": "Matching between your function (in the source code) and the binary function",
+                  "txt": "The binary function does not contain any FP arithmetical operations.\nThe binary function is loading 352 bytes.\nThe binary function is storing 200 bytes."
+                }
+              ],
+            "expert":
+              [
+                {
+                  "title": "General properties",
+                  "txt": "nb instructions    : 131\nnb uops            : 211\nloop length        : 576\nused x86 registers : 8\nused mmx registers : 0\nused xmm registers : 1\nused ymm registers : 0\nused zmm registers : 0\nnb stack references: 18\n"
+                },
+                {
+                  "title": "Front-end",
+                  "txt": "MACRO FUSION NOT POSSIBLE\nFIT IN UOP CACHE\nmicro-operation queue: 35.17 cycles\nfront end            : 35.17 cycles\n"
+                },
+                {
+                  "title": "Back-end",
+                  "txt": "       | ALU0/BRU0 | ALU1  | ALU2  | ALU3/BRU1 | AGU0  | AGU1  | AGU2  | FP0  | FP1  | FP2  | FP3\n--------------------------------------------------------------------------------------------------\nuops   | 25.50     | 25.50 | 25.50 | 25.50     | 30.00 | 30.00 | 24.00 | 0.00 | 0.00 | 1.00 | 0.00\ncycles | 25.50     | 25.50 | 25.50 | 25.50     | 30.00 | 30.00 | 24.00 | 0.00 | 0.00 | 1.00 | 0.00\n\nExecution ports to units layout:\n - ALU0/BRU0: ALU, BRU\n - ALU1: ALU\n - ALU2: ALU\n - ALU3/BRU1: ALU, BRU\n - AGU0 (256 bits): store address, load\n - AGU1 (256 bits): store address, load\n - AGU2: store address\n - FP0 (256 bits): VPU\n - FP1 (256 bits): VPU\n - FP2 (256 bits): VPU, FP store data\n - FP3 (256 bits): VPU, DIV/SQRT\n\nCycles executing div or sqrt instructions: NA\nCycles loading/storing data              : 25.00\n"
+                },
+                {
+                  "title": "Cycles summary",
+                  "txt": "Front-end : 35.17\nDispatch  : 30.00\nOverall L1: 35.17\n"
+                },
+                {
+                  "title": "Vectorization ratios",
+                  "txt": "INT\nall    : 0%\nload   : 0%\nstore  : 0%\nmul    : NA (no mul vectorizable/vectorized instructions)\nadd-sub: 0%\nfma    : NA (no fma vectorizable/vectorized instructions)\nother  : 0%\nFP\nall     : 0%\nload    : 0%\nstore   : 0%\nmul     : NA (no mul vectorizable/vectorized instructions)\nadd-sub : NA (no add-sub vectorizable/vectorized instructions)\nfma     : NA (no fma vectorizable/vectorized instructions)\ndiv/sqrt: NA (no div/sqrt vectorizable/vectorized instructions)\nother   : NA (no other vectorizable/vectorized instructions)\nINT+FP\nall     : 0%\nload    : 0%\nstore   : 0%\nmul     : NA (no mul vectorizable/vectorized instructions)\nadd-sub : 0%\nfma     : NA (no fma vectorizable/vectorized instructions)\ndiv/sqrt: NA (no div/sqrt vectorizable/vectorized instructions)\nother   : 0%\n"
+                },
+                {
+                  "title": "Vector efficiency ratios",
+                  "txt": "INT\nall    : 24%\nload   : 25%\nstore  : 24%\nmul    : NA (no mul vectorizable/vectorized instructions)\nadd-sub: 25%\nfma    : NA (no fma vectorizable/vectorized instructions)\nother  : 23%\nFP\nall     : 25%\nload    : 25%\nstore   : 25%\nmul     : NA (no mul vectorizable/vectorized instructions)\nadd-sub : NA (no add-sub vectorizable/vectorized instructions)\nfma     : NA (no fma vectorizable/vectorized instructions)\ndiv/sqrt: NA (no div/sqrt vectorizable/vectorized instructions)\nother   : NA (no other vectorizable/vectorized instructions)\nINT+FP\nall     : 24%\nload    : 25%\nstore   : 24%\nmul     : NA (no mul vectorizable/vectorized instructions)\nadd-sub : 25%\nfma     : NA (no fma vectorizable/vectorized instructions)\ndiv/sqrt: NA (no div/sqrt vectorizable/vectorized instructions)\nother   : 23%\n"
+                },
+                {
+                  "title": "Cycles and memory resources usage",
+                  "txt": "Assuming all data fit into the L1 cache, each call to the function takes 35.17 cycles. At this rate:\n - 15% of peak load performance is reached (10.01 out of 64.00 bytes loaded per cycle (GB/s @ 1GHz))\n - 17% of peak store performance is reached (5.69 out of 32.00 bytes stored per cycle (GB/s @ 1GHz))\n"
+                },
+                {
+                  "title": "Front-end bottlenecks",
+                  "txt": "Performance is limited by instruction throughput (loading/decoding program instructions to execution core) (front-end is a bottleneck).\n\nBy removing all these bottlenecks, you can lower the cost of an iteration from 35.17 to 30.00 cycles (1.17x speedup).\n"
+                },
+                {
+                  "title": "ASM code",
+                  "txt": "In the binary file, the address of the function is: 110de\n\nInstruction                                                                                                | Nb FU | ALU0/BRU0 | ALU1 | ALU2 | ALU3/BRU1 | AGU0 | AGU1 | AGU2 | FP0 | FP1 | FP2 | FP3 | Latency | Recip. throughput | Vectorization\n---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\nENDBR64                                                                                                    |       |           |      |      |           |      |      |      |     |     |     |     |         |                   | N/A\nPUSH %RBP                                                                                                  | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 1                 | N/A\nMOV %RSP,%RBP                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | N/A\nPUSH %RBX                                                                                                  | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 1                 | N/A\nSUB $0x98,%RSP                                                                                             | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | scal (25.0%)\nMOV %RDI,-0x88(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV %RSI,-0x90(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV %RDX,-0x98(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV %FS:0x28,%RAX                                                                                          | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RAX,-0x18(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nXOR %EAX,%EAX                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | N/A\nMOV -0x88(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nLEA 0x277b9(%RIP),%RDX                                                                                     | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | N/A\nMOV $0x1,%ESI                                                                                              | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | scal (12.5%)\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL 12ea2 <_ZNKSt6vectorIdSaIdEE12_M_check_lenEmPKc>                                                      | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV %RAX,-0x78(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV -0x88(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV (%RAX),%RAX                                                                                            | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RAX,-0x70(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV -0x88(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV 0x8(%RAX),%RAX                                                                                         | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RAX,-0x68(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV -0x88(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL c64c <_ZNSt6vectorIdSaIdEE5beginEv>                                                                   | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV %RAX,-0x80(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nLEA -0x80(%RBP),%RDX                                                                                       | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | N/A\nLEA -0x90(%RBP),%RAX                                                                                       | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | N/A\nMOV %RDX,%RSI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL 1237d <_ZN9__gnu_cxxmiIPdSt6vectorIdSaIdEEEENS_17__normal_iteratorIT_T0_E15difference_typeERKS8_SB_>  | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV %RAX,-0x60(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV -0x88(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV -0x78(%RBP),%RDX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RDX,%RSI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL f1ba <_ZNSt12_Vector_baseIdSaIdEE11_M_allocateEm>                                                     | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV %RAX,-0x58(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV -0x58(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RAX,-0x50(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV -0x98(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL 110cb <_ZSt7forwardIdEOT_RNSt16remove_referenceIS0_E4typeE>                                           | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV -0x60(%RBP),%RDX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nLEA (,%RDX,8),%RCX                                                                                         | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | N/A\nMOV -0x58(%RBP),%RDX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nADD %RDX,%RCX                                                                                              | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | scal (25.0%)\nMOV -0x88(%RBP),%RDX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RDX,-0x48(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV %RCX,-0x40(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV %RAX,-0x38(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV -0x38(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL 110cb <_ZSt7forwardIdEOT_RNSt16remove_referenceIS0_E4typeE>                                           | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV -0x48(%RBP),%RDX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RDX,-0x30(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV -0x40(%RBP),%RDX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RDX,-0x28(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV %RAX,-0x20(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV -0x28(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RAX,%RSI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nMOV $0x8,%EDI                                                                                              | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | scal (12.5%)\nCALL ab9c <_ZnwmPv>                                                                                        | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV %RAX,%RBX                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | N/A\nMOV -0x20(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL 110cb <_ZSt7forwardIdEOT_RNSt16remove_referenceIS0_E4typeE>                                           | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOVSD (%RAX),%XMM0                                                                                         | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 1       | 0.50              | scal (25.0%)\nMOVSD %XMM0,(%RBX)                                                                                         | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 1   | 0   | 1       | 1                 | scal (25.0%)\nNOP                                                                                                        | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | N/A\nNOP                                                                                                        | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | N/A\nMOVQ $0,-0x50(%RBP)                                                                                        | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (12.5%)\nMOV -0x88(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL e388 <_ZNSt12_Vector_baseIdSaIdEE19_M_get_Tp_allocatorEv>                                             | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV %RAX,%RBX                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | N/A\nLEA -0x90(%RBP),%RAX                                                                                       | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | N/A\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL 12fa6 <_ZNK9__gnu_cxx17__normal_iteratorIPdSt6vectorIdSaIdEEE4baseEv>                                 | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV (%RAX),%RSI                                                                                            | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | scal (25.0%)\nMOV -0x58(%RBP),%RDX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV -0x70(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RBX,%RCX                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL f207 <_ZNSt6vectorIdSaIdEE11_S_relocateEPdS2_S2_RS0_>                                                 | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV %RAX,-0x50(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nADDQ $0x8,-0x50(%RBP)                                                                                      | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 1       | 1                 | scal (25.0%)\nMOV -0x88(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL e388 <_ZNSt12_Vector_baseIdSaIdEE19_M_get_Tp_allocatorEv>                                             | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV %RAX,%RBX                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | N/A\nLEA -0x90(%RBP),%RAX                                                                                       | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | N/A\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL 12fa6 <_ZNK9__gnu_cxx17__normal_iteratorIPdSt6vectorIdSaIdEEE4baseEv>                                 | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV (%RAX),%RAX                                                                                            | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV -0x50(%RBP),%RDX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV -0x68(%RBP),%RSI                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | scal (25.0%)\nMOV %RBX,%RCX                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL f207 <_ZNSt6vectorIdSaIdEE11_S_relocateEPdS2_S2_RS0_>                                                 | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV %RAX,-0x50(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV -0x88(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV -0x88(%RBP),%RDX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV 0x10(%RDX),%RDX                                                                                        | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nSUB -0x70(%RBP),%RDX                                                                                       | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 1       | 0.50              | N/A\nSAR $0x3,%RDX                                                                                              | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | N/A\nMOV -0x70(%RBP),%RCX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | scal (25.0%)\nMOV %RCX,%RSI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL f0f2 <_ZNSt12_Vector_baseIdSaIdEE13_M_deallocateEPdm>                                                 | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV -0x88(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV -0x58(%RBP),%RDX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RDX,(%RAX)                                                                                            | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV -0x88(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV -0x50(%RBP),%RDX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RDX,0x8(%RAX)                                                                                         | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV -0x78(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nLEA (,%RAX,8),%RDX                                                                                         | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | N/A\nMOV -0x58(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nADD %RAX,%RDX                                                                                              | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | N/A\nMOV -0x88(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RDX,0x10(%RAX)                                                                                        | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nNOP                                                                                                        | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | N/A\nMOV -0x18(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nSUB %FS:0x28,%RAX                                                                                          | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 1       | 0.50              | N/A\nJE 11318 <_ZNSt6vectorIdSaIdEE17_M_realloc_insertIJdEEEvN9__gnu_cxx17__normal_iteratorIPdS1_EEDpOT_+0x23a> | 1     | 0.50      | 0    | 0    | 0.50      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.50              | N/A\nCALL 4b80 <.plt.sec@start+0x410>                                                                           | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV -0x8(%RBP),%RBX                                                                                        | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nLEAVE                                                                                                      | 2     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.50              | N/A\nRET                                                                                                        | 1     | 0.50      | 0    | 0    | 0.50      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.50              | N/A\n"
+                }
+              ],
+            "header":
+              [
+              "Warnings:\n - The number of fused uops of the instruction [ENDBR64] is unknown\n - Detected a function call instruction: ignoring called function instructions.\nRerun with --follow-calls=append to include them to analysis  or with --follow-calls=inline to simulate inlining.\n",
+              "0% of peak computational performance is used (0.00 out of 48.00 FLOP per cycle (GFLOPS @ 1GHz))"
+              ],
+            "brief":
+              [
+
+              ],
+            "gain":
+              [
+                {
+                  "workaround": " - Try to reorganize arrays of structures to structures of arrays\n - Consider to permute loops (see vectorization gain report)\n",
+                  "title": "Code clean check",
+                  "txt": "Detected a slowdown caused by scalar integer instructions (typically used for address computation).\nBy removing them, you can lower the cost of an iteration from 35.17 to 13.00 cycles (2.71x speedup)."
+                },
+                {
+                  "workaround": " - Try another compiler or update/tune your current one\n - Make array accesses unit-stride:\n  * If your function streams arrays of structures (AoS), try to use structures of arrays instead (SoA)\n",
+                  "details": "All SSE/AVX instructions are used in scalar version (process only one data element in vector registers).\nSince your execution units are vector units, only a vectorized function can use their full power.\n",
+                  "title": "Vectorization",
+                  "txt": "Your function is not vectorized.\nOnly 24% of vector register length is used (average across all SSE/AVX instructions).\nBy vectorizing your function, you can lower the cost of an iteration from 35.17 to 5.40 cycles (6.51x speedup)."
+                },
+                {
+                  "title": "Execution units bottlenecks",
+                  "txt": "Found no such bottlenecks but see expert reports for more complex bottlenecks."
+                }
+              ],
+            "potential":
+              [
+
+              ]
+          },
+          {
+            "hint":
+              [
+                {
+                  "details": "Calling (and then returning from) a function prevents many compiler optimizations (like vectorization), breaks control flow (which reduces pipeline performance) and executes extra instructions to save/restore the registers used inside it, which is very expensive (dozens of cycles). Consider to inline small functions.\n - __gnu_cxx::__normal_iterator<double*, std::vector<double, std::allocator<double> > >::base() const: 2 occurrences<<list_path_2_call_1>>\n - __gnu_cxx::__normal_iterator<double*, std::vector<double, std::allocator<double> > >::difference_type __gnu_cxx::operator-<double*, std::vector<double, std::allocator<double> > >(__gnu_cxx::__normal_iterator<double*, std::vector<double, std::allocator<double> > > const&, __gnu_cxx::__normal_iterator<double*, std::vector<double, std::allocator<double> > > const&): 1 occurrences<<list_path_2_call_2>>\n - double&& std::forward<double>(std::remove_reference<double>::type&): 3 occurrences<<list_path_2_call_3>>\n - operator new(unsigned long, void*): 1 occurrences<<list_path_2_call_4>>\n - std::_Vector_base<double, std::allocator<double> >::_M_allocate(unsigned long): 1 occurrences<<list_path_2_call_5>>\n - std::_Vector_base<double, std::allocator<double> >::_M_deallocate(double*, unsigned long): 1 occurrences<<list_path_2_call_6>>\n - std::_Vector_base<double, std::allocator<double> >::_M_get_Tp_allocator(): 2 occurrences<<list_path_2_call_7>>\n - std::vector<double, std::allocator<double> >::_M_check_len(unsigned long, char const*) const: 1 occurrences<<list_path_2_call_8>>\n - std::vector<double, std::allocator<double> >::_S_relocate(double*, double*, double*, std::allocator<double>&): 2 occurrences<<list_path_2_call_9>>\n - std::vector<double, std::allocator<double> >::begin(): 1 occurrences<<list_path_2_call_10>>\n",
+                  "title": "CALL instructions",
+                  "txt": "Detected function call instructions.\n"
+                },
+                {
+                  "details": "These instructions generate more than one micro-operation and only one of them can be decoded during a cycle and the extra micro-operations increase pressure on execution units.\n - LEAVE: 1 occurrences<<list_path_2_complex_1>>\n",
+                  "title": "Complex instructions",
+                  "txt": "Detected COMPLEX INSTRUCTIONS.\n"
+                },
+                {
+                  "title": "Type of elements and instruction set",
+                  "txt": "No instructions are processing arithmetic or math operations on FP elements. This function is probably writing/copying data or processing integer elements."
+                },
+                {
+                  "title": "Matching between your function (in the source code) and the binary function",
+                  "txt": "The binary function does not contain any FP arithmetical operations.\nThe binary function is loading 352 bytes.\nThe binary function is storing 200 bytes."
+                }
+              ],
+            "expert":
+              [
+                {
+                  "title": "General properties",
+                  "txt": "nb instructions    : 130\nnb uops            : 205\nloop length        : 571\nused x86 registers : 8\nused mmx registers : 0\nused xmm registers : 1\nused ymm registers : 0\nused zmm registers : 0\nnb stack references: 18\n"
+                },
+                {
+                  "title": "Front-end",
+                  "txt": "MACRO FUSION NOT POSSIBLE\nFIT IN UOP CACHE\nmicro-operation queue: 34.17 cycles\nfront end            : 34.17 cycles\n"
+                },
+                {
+                  "title": "Back-end",
+                  "txt": "       | ALU0/BRU0 | ALU1  | ALU2  | ALU3/BRU1 | AGU0  | AGU1  | AGU2  | FP0  | FP1  | FP2  | FP3\n--------------------------------------------------------------------------------------------------\nuops   | 24.25     | 24.25 | 24.25 | 24.25     | 29.50 | 29.50 | 24.00 | 0.00 | 0.00 | 1.00 | 0.00\ncycles | 24.25     | 24.25 | 24.25 | 24.25     | 29.50 | 29.50 | 24.00 | 0.00 | 0.00 | 1.00 | 0.00\n\nExecution ports to units layout:\n - ALU0/BRU0: ALU, BRU\n - ALU1: ALU\n - ALU2: ALU\n - ALU3/BRU1: ALU, BRU\n - AGU0 (256 bits): store address, load\n - AGU1 (256 bits): store address, load\n - AGU2: store address\n - FP0 (256 bits): VPU\n - FP1 (256 bits): VPU\n - FP2 (256 bits): VPU, FP store data\n - FP3 (256 bits): VPU, DIV/SQRT\n\nCycles executing div or sqrt instructions: NA\nCycles loading/storing data              : 25.00\n"
+                },
+                {
+                  "title": "Cycles summary",
+                  "txt": "Front-end : 34.17\nDispatch  : 29.50\nOverall L1: 34.17\n"
+                },
+                {
+                  "title": "Vectorization ratios",
+                  "txt": "INT\nall    : 0%\nload   : 0%\nstore  : 0%\nmul    : NA (no mul vectorizable/vectorized instructions)\nadd-sub: 0%\nfma    : NA (no fma vectorizable/vectorized instructions)\nother  : 0%\nFP\nall     : 0%\nload    : 0%\nstore   : 0%\nmul     : NA (no mul vectorizable/vectorized instructions)\nadd-sub : NA (no add-sub vectorizable/vectorized instructions)\nfma     : NA (no fma vectorizable/vectorized instructions)\ndiv/sqrt: NA (no div/sqrt vectorizable/vectorized instructions)\nother   : NA (no other vectorizable/vectorized instructions)\nINT+FP\nall     : 0%\nload    : 0%\nstore   : 0%\nmul     : NA (no mul vectorizable/vectorized instructions)\nadd-sub : 0%\nfma     : NA (no fma vectorizable/vectorized instructions)\ndiv/sqrt: NA (no div/sqrt vectorizable/vectorized instructions)\nother   : 0%\n"
+                },
+                {
+                  "title": "Vector efficiency ratios",
+                  "txt": "INT\nall    : 24%\nload   : 25%\nstore  : 24%\nmul    : NA (no mul vectorizable/vectorized instructions)\nadd-sub: 25%\nfma    : NA (no fma vectorizable/vectorized instructions)\nother  : 23%\nFP\nall     : 25%\nload    : 25%\nstore   : 25%\nmul     : NA (no mul vectorizable/vectorized instructions)\nadd-sub : NA (no add-sub vectorizable/vectorized instructions)\nfma     : NA (no fma vectorizable/vectorized instructions)\ndiv/sqrt: NA (no div/sqrt vectorizable/vectorized instructions)\nother   : NA (no other vectorizable/vectorized instructions)\nINT+FP\nall     : 24%\nload    : 25%\nstore   : 24%\nmul     : NA (no mul vectorizable/vectorized instructions)\nadd-sub : 25%\nfma     : NA (no fma vectorizable/vectorized instructions)\ndiv/sqrt: NA (no div/sqrt vectorizable/vectorized instructions)\nother   : 23%\n"
+                },
+                {
+                  "title": "Cycles and memory resources usage",
+                  "txt": "Assuming all data fit into the L1 cache, each call to the function takes 34.17 cycles. At this rate:\n - 16% of peak load performance is reached (10.30 out of 64.00 bytes loaded per cycle (GB/s @ 1GHz))\n - 18% of peak store performance is reached (5.85 out of 32.00 bytes stored per cycle (GB/s @ 1GHz))\n"
+                },
+                {
+                  "title": "Front-end bottlenecks",
+                  "txt": "Performance is limited by instruction throughput (loading/decoding program instructions to execution core) (front-end is a bottleneck).\n\nBy removing all these bottlenecks, you can lower the cost of an iteration from 34.17 to 29.50 cycles (1.16x speedup).\n"
+                },
+                {
+                  "title": "ASM code",
+                  "txt": "In the binary file, the address of the function is: 110de\n\nInstruction                                                                                                | Nb FU | ALU0/BRU0 | ALU1 | ALU2 | ALU3/BRU1 | AGU0 | AGU1 | AGU2 | FP0 | FP1 | FP2 | FP3 | Latency | Recip. throughput | Vectorization\n---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\nENDBR64                                                                                                    |       |           |      |      |           |      |      |      |     |     |     |     |         |                   | N/A\nPUSH %RBP                                                                                                  | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 1                 | N/A\nMOV %RSP,%RBP                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | N/A\nPUSH %RBX                                                                                                  | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 1                 | N/A\nSUB $0x98,%RSP                                                                                             | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | scal (25.0%)\nMOV %RDI,-0x88(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV %RSI,-0x90(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV %RDX,-0x98(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV %FS:0x28,%RAX                                                                                          | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RAX,-0x18(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nXOR %EAX,%EAX                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | N/A\nMOV -0x88(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nLEA 0x277b9(%RIP),%RDX                                                                                     | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | N/A\nMOV $0x1,%ESI                                                                                              | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | scal (12.5%)\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL 12ea2 <_ZNKSt6vectorIdSaIdEE12_M_check_lenEmPKc>                                                      | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV %RAX,-0x78(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV -0x88(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV (%RAX),%RAX                                                                                            | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RAX,-0x70(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV -0x88(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV 0x8(%RAX),%RAX                                                                                         | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RAX,-0x68(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV -0x88(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL c64c <_ZNSt6vectorIdSaIdEE5beginEv>                                                                   | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV %RAX,-0x80(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nLEA -0x80(%RBP),%RDX                                                                                       | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | N/A\nLEA -0x90(%RBP),%RAX                                                                                       | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | N/A\nMOV %RDX,%RSI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL 1237d <_ZN9__gnu_cxxmiIPdSt6vectorIdSaIdEEEENS_17__normal_iteratorIT_T0_E15difference_typeERKS8_SB_>  | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV %RAX,-0x60(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV -0x88(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV -0x78(%RBP),%RDX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RDX,%RSI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL f1ba <_ZNSt12_Vector_baseIdSaIdEE11_M_allocateEm>                                                     | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV %RAX,-0x58(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV -0x58(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RAX,-0x50(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV -0x98(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL 110cb <_ZSt7forwardIdEOT_RNSt16remove_referenceIS0_E4typeE>                                           | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV -0x60(%RBP),%RDX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nLEA (,%RDX,8),%RCX                                                                                         | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | N/A\nMOV -0x58(%RBP),%RDX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nADD %RDX,%RCX                                                                                              | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | scal (25.0%)\nMOV -0x88(%RBP),%RDX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RDX,-0x48(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV %RCX,-0x40(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV %RAX,-0x38(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV -0x38(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL 110cb <_ZSt7forwardIdEOT_RNSt16remove_referenceIS0_E4typeE>                                           | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV -0x48(%RBP),%RDX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RDX,-0x30(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV -0x40(%RBP),%RDX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RDX,-0x28(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV %RAX,-0x20(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV -0x28(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RAX,%RSI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nMOV $0x8,%EDI                                                                                              | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | scal (12.5%)\nCALL ab9c <_ZnwmPv>                                                                                        | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV %RAX,%RBX                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | N/A\nMOV -0x20(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL 110cb <_ZSt7forwardIdEOT_RNSt16remove_referenceIS0_E4typeE>                                           | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOVSD (%RAX),%XMM0                                                                                         | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 1       | 0.50              | scal (25.0%)\nMOVSD %XMM0,(%RBX)                                                                                         | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 1   | 0   | 1       | 1                 | scal (25.0%)\nNOP                                                                                                        | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | N/A\nNOP                                                                                                        | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | N/A\nMOVQ $0,-0x50(%RBP)                                                                                        | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (12.5%)\nMOV -0x88(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL e388 <_ZNSt12_Vector_baseIdSaIdEE19_M_get_Tp_allocatorEv>                                             | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV %RAX,%RBX                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | N/A\nLEA -0x90(%RBP),%RAX                                                                                       | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | N/A\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL 12fa6 <_ZNK9__gnu_cxx17__normal_iteratorIPdSt6vectorIdSaIdEEE4baseEv>                                 | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV (%RAX),%RSI                                                                                            | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | scal (25.0%)\nMOV -0x58(%RBP),%RDX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV -0x70(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RBX,%RCX                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL f207 <_ZNSt6vectorIdSaIdEE11_S_relocateEPdS2_S2_RS0_>                                                 | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV %RAX,-0x50(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nADDQ $0x8,-0x50(%RBP)                                                                                      | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 1       | 1                 | scal (25.0%)\nMOV -0x88(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL e388 <_ZNSt12_Vector_baseIdSaIdEE19_M_get_Tp_allocatorEv>                                             | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV %RAX,%RBX                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | N/A\nLEA -0x90(%RBP),%RAX                                                                                       | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | N/A\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL 12fa6 <_ZNK9__gnu_cxx17__normal_iteratorIPdSt6vectorIdSaIdEEE4baseEv>                                 | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV (%RAX),%RAX                                                                                            | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV -0x50(%RBP),%RDX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV -0x68(%RBP),%RSI                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | scal (25.0%)\nMOV %RBX,%RCX                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL f207 <_ZNSt6vectorIdSaIdEE11_S_relocateEPdS2_S2_RS0_>                                                 | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV %RAX,-0x50(%RBP)                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV -0x88(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV -0x88(%RBP),%RDX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV 0x10(%RDX),%RDX                                                                                        | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nSUB -0x70(%RBP),%RDX                                                                                       | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 1       | 0.50              | N/A\nSAR $0x3,%RDX                                                                                              | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | N/A\nMOV -0x70(%RBP),%RCX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | scal (25.0%)\nMOV %RCX,%RSI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nMOV %RAX,%RDI                                                                                              | 1     | 0         | 0    | 0    | 0         | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 0       | 0.25              | scal (25.0%)\nCALL f0f2 <_ZNSt12_Vector_baseIdSaIdEE13_M_deallocateEPdm>                                                 | 6     | 1.25      | 1.25 | 1.25 | 1.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 0       | 1                 | N/A\nMOV -0x88(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV -0x58(%RBP),%RDX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RDX,(%RAX)                                                                                            | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV -0x88(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV -0x50(%RBP),%RDX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RDX,0x8(%RAX)                                                                                         | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nMOV -0x78(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nLEA (,%RAX,8),%RDX                                                                                         | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | N/A\nMOV -0x58(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nADD %RAX,%RDX                                                                                              | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | N/A\nMOV -0x88(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nMOV %RDX,0x10(%RAX)                                                                                        | 1     | 0         | 0    | 0    | 0         | 0.33 | 0.33 | 0.33 | 0   | 0   | 0   | 0   | 4       | 1                 | scal (25.0%)\nNOP                                                                                                        | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.25              | N/A\nMOV -0x18(%RBP),%RAX                                                                                       | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nSUB %FS:0x28,%RAX                                                                                          | 1     | 0.25      | 0.25 | 0.25 | 0.25      | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 1       | 0.50              | N/A\nJE 11318 <_ZNSt6vectorIdSaIdEE17_M_realloc_insertIJdEEEvN9__gnu_cxx17__normal_iteratorIPdS1_EEDpOT_+0x23a> | 1     | 0.50      | 0    | 0    | 0.50      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.50              | N/A\nMOV -0x8(%RBP),%RBX                                                                                        | 1     | 0         | 0    | 0    | 0         | 0.50 | 0.50 | 0    | 0   | 0   | 0   | 0   | 3       | 0.50              | N/A\nLEAVE                                                                                                      | 2     | 0.25      | 0.25 | 0.25 | 0.25      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.50              | N/A\nRET                                                                                                        | 1     | 0.50      | 0    | 0    | 0.50      | 0    | 0    | 0    | 0   | 0   | 0   | 0   | 1       | 0.50              | N/A\n"
+                }
+              ],
+            "header":
+              [
+              "Warnings:\n - The number of fused uops of the instruction [ENDBR64] is unknown\n - Detected a function call instruction: ignoring called function instructions.\nRerun with --follow-calls=append to include them to analysis  or with --follow-calls=inline to simulate inlining.\n",
+              "0% of peak computational performance is used (0.00 out of 48.00 FLOP per cycle (GFLOPS @ 1GHz))"
+              ],
+            "brief":
+              [
+
+              ],
+            "gain":
+              [
+                {
+                  "workaround": " - Try to reorganize arrays of structures to structures of arrays\n - Consider to permute loops (see vectorization gain report)\n",
+                  "title": "Code clean check",
+                  "txt": "Detected a slowdown caused by scalar integer instructions (typically used for address computation).\nBy removing them, you can lower the cost of an iteration from 34.17 to 13.00 cycles (2.63x speedup)."
+                },
+                {
+                  "workaround": " - Try another compiler or update/tune your current one\n - Make array accesses unit-stride:\n  * If your function streams arrays of structures (AoS), try to use structures of arrays instead (SoA)\n",
+                  "details": "All SSE/AVX instructions are used in scalar version (process only one data element in vector registers).\nSince your execution units are vector units, only a vectorized function can use their full power.\n",
+                  "title": "Vectorization",
+                  "txt": "Your function is not vectorized.\nOnly 24% of vector register length is used (average across all SSE/AVX instructions).\nBy vectorizing your function, you can lower the cost of an iteration from 34.17 to 5.26 cycles (6.50x speedup)."
+                },
+                {
+                  "title": "Execution units bottlenecks",
+                  "txt": "Found no such bottlenecks but see expert reports for more complex bottlenecks."
+                }
+              ],
+            "potential":
+              [
+
+              ]
+          }
+        ],
+      "common":
+        {
+          "header":
+            [
+            "",
+            "The structure of this function is probably <if then [else] end>.\n",
+            "The presence of multiple execution paths is typically the main/first bottleneck.\nTry to simplify control inside function: ideally, try to remove all conditional expressions, for example by (if applicable):\n - hoisting them (moving them outside the function)\n - turning them into conditional moves, MIN or MAX\n\n"
+            ],
+          "nb_paths": 2
+        }
+    }
+}

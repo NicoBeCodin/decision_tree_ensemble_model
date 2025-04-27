@@ -1,0 +1,4 @@
+module;src_file;score;issue;opts;
+MainEnsemble;;0;"-g is missing for some functions (possibly ones added by the compiler), it is needed to have more accurate reports. Other recommended flags are: -O2/-O3, -march=(target)";" ";
+MainEnsemble;;;"-O2, -O3 or -Ofast is missing. ";"";
+MainEnsemble;;;"-march=(target) is missing. ";"";

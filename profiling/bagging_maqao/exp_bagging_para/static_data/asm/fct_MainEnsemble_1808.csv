@@ -1,0 +1,8 @@
+address;source_location;insn;indent
+0x39508;:0;ENDBR64;
+0x3950c;:0;PUSH	%RBP;
+0x3950d;:0;MOV	%RSP,%RBP;
+0x39510;:0;MOV	%RDI,-0x8(%RBP);
+0x39514;:0;MOV	-0x8(%RBP),%RAX;
+0x39518;:0;POP	%RBP;
+0x39519;:0;RET;

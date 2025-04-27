@@ -1,0 +1,2 @@
+time;profiled_time;max_nb_threads;nb_execution_ports;ENERGY_PKG;ENERGY_DRAM;DRAM_READS;DRAM_WRITES;filtered_threads_count;filtered_threads_CPU_time;
+0.23702700436115;0.13999998569489;8;11;0;0;0;0;0;0;

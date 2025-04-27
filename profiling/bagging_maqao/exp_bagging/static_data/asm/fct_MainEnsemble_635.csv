@@ -1,0 +1,28 @@
+address;source_location;insn;indent
+0x15a78;:0;ENDBR64;
+0x15a7c;:0;PUSH	%RBP;
+0x15a7d;:0;MOV	%RSP,%RBP;
+0x15a80;:0;SUB	$0x10,%RSP;
+0x15a84;:0;MOV	%RDI,-0x8(%RBP);
+0x15a88;:0;MOV	%RSI,-0x10(%RBP);
+0x15a8c;:0;MOV	-0x10(%RBP),%RDX;
+0x15a90;:0;MOV	-0x8(%RBP),%RAX;
+0x15a94;:0;MOV	%RDX,%RSI;
+0x15a97;:0;MOV	%RAX,%RDI;
+0x15a9a;:0;CALL	f1ba <_ZNSt12_Vector_baseIdSaIdEE11_M_allocateEm>;
+0x15a9f;:0;MOV	-0x8(%RBP),%RDX;
+0x15aa3;:0;MOV	%RAX,(%RDX);
+0x15aa6;:0;MOV	-0x8(%RBP),%RAX;
+0x15aaa;:0;MOV	(%RAX),%RDX;
+0x15aad;:0;MOV	-0x8(%RBP),%RAX;
+0x15ab1;:0;MOV	%RDX,0x8(%RAX);
+0x15ab5;:0;MOV	-0x8(%RBP),%RAX;
+0x15ab9;:0;MOV	(%RAX),%RAX;
+0x15abc;:0;MOV	-0x10(%RBP),%RDX;
+0x15ac0;:0;SAL	$0x3,%RDX;
+0x15ac4;:0;ADD	%RAX,%RDX;
+0x15ac7;:0;MOV	-0x8(%RBP),%RAX;
+0x15acb;:0;MOV	%RDX,0x10(%RAX);
+0x15acf;:0;NOP;
+0x15ad0;:0;LEAVE;
+0x15ad1;:0;RET;

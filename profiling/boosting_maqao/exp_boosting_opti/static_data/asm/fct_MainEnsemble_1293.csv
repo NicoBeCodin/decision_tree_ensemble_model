@@ -1,0 +1,15 @@
+address;source_location;insn;indent
+0x2a44e;:0;ENDBR64;
+0x2a452;:0;PUSH	%RBP;
+0x2a453;:0;MOV	%RSP,%RBP;
+0x2a456;:0;SUB	$0x10,%RSP;
+0x2a45a;:0;MOV	%RDI,-0x8(%RBP);
+0x2a45e;:0;MOV	%RSI,-0x10(%RBP);
+0x2a462;:0;MOV	-0x8(%RBP),%RAX;
+0x2a466;:0;MOV	-0x10(%RBP),%RDX;
+0x2a46a;:0;MOV	%RDX,%RSI;
+0x2a46d;:0;MOV	%RAX,%RDI;
+0x2a470;:0;CALL	7fc4 <_ZNSt12_Vector_baseIdSaIdEE12_Vector_implC1ERKS0_>;
+0x2a475;:0;NOP;
+0x2a476;:0;LEAVE;
+0x2a477;:0;RET;

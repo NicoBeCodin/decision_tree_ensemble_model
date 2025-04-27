@@ -1,0 +1,19 @@
+address;source_location;insn;indent
+0x39d34;:0;MOV	-0x28(%RBP),%RAX;
+0x39d38;:0;MOV	%RAX,%RDI;
+0x39d3b;:0;CALL	3b13e <_ZSt11__addressofISt4pairIdiEEPT_RS2_>;
+0x39d40;:0;MOV	%RAX,%RBX;
+0x39d43;:0;MOV	-0x18(%RBP),%RAX;
+0x39d47;:0;MOV	%RAX,%RDI;
+0x39d4a;:0;CALL	3b13e <_ZSt11__addressofISt4pairIdiEEPT_RS2_>;
+0x39d4f;:0;MOV	%RAX,%RCX;
+0x39d52;:0;MOV	-0x40(%RBP),%RAX;
+0x39d56;:0;MOV	%RAX,%RDX;
+0x39d59;:0;MOV	%RBX,%RSI;
+0x39d5c;:0;MOV	%RCX,%RDI;
+0x39d5f;:0;CALL	3b150 <_ZSt19__relocate_object_aISt4pairIdiES1_SaIS1_EEvPT_PT0_RT1_>;
+0x39d64;:0;ADDQ	$0x10,-0x28(%RBP);
+0x39d69;:0;ADDQ	$0x10,-0x18(%RBP);
+0x39d6e;:0;MOV	-0x28(%RBP),%RAX;
+0x39d72;:0;CMP	-0x30(%RBP),%RAX;
+0x39d76;:0;JNE	39d34 <_ZSt14__relocate_a_1IPSt4pairIdiES2_SaIS1_EET0_T_S5_S4_RT1_+0x27>;

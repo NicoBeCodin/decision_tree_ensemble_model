@@ -1,0 +1,50 @@
+
+* Info: "ref-cycles" not supported on fixot-brendan-MS-7C02: fallback to "cpu-clock"X size : 147950
+y size : 14795
+Train size : 118360
+X_train size : 118360
+y_train size : 11836
+X_test size : 29590
+y_test size : 2959
+
+Training a single decision tree, please wait...
+Training time: 0.180657 seconds
+Evaluation time: 0.00186461 seconds
+Mean Squared Error (MSE): 0.00034264
+Mean Absolute Error (MAE): 0.00868599
+
+Feature importance :
+------------------------------
+             p3          77.71
+             p4           7.53
+             p6           6.77
+             p1           2.61
+             p5           1.32
+  matrix_size_x           1.12
+             p8           1.06
+             p7           0.97
+  matrix_size_y           0.47
+             p2           0.45
+
+Would you like to generate a visualisation of this model? (1 = Yes, 0 = No): 
+* Info: Dumping samples (host fixot-brendan-MS-7C02, process 8999)
+* Info: Dumping source info for callchain nodes (host fixot-brendan-MS-7C02, process 8999)
+* Info: Building/writing metadata (host fixot-brendan-MS-7C02)
+* Info: Finished collect step (host fixot-brendan-MS-7C02, process 8999)
+
+Your experiment path is /home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_tree_para/tools/lprof_npsu_run_0
+
+To display your profiling results:
+###############################################################################################################################################################
+#    LEVEL    |     REPORT     |                                                           COMMAND                                                            #
+###############################################################################################################################################################
+#  Functions  |  Cluster-wide  |  maqao lprof -df xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_tree_para/tools/lprof_npsu_run_0      #
+#  Functions  |  Per-node      |  maqao lprof -df -dn xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_tree_para/tools/lprof_npsu_run_0  #
+#  Functions  |  Per-process   |  maqao lprof -df -dp xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_tree_para/tools/lprof_npsu_run_0  #
+#  Functions  |  Per-thread    |  maqao lprof -df -dt xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_tree_para/tools/lprof_npsu_run_0  #
+#  Loops      |  Cluster-wide  |  maqao lprof -dl xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_tree_para/tools/lprof_npsu_run_0      #
+#  Loops      |  Per-node      |  maqao lprof -dl -dn xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_tree_para/tools/lprof_npsu_run_0  #
+#  Loops      |  Per-process   |  maqao lprof -dl -dp xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_tree_para/tools/lprof_npsu_run_0  #
+#  Loops      |  Per-thread    |  maqao lprof -dl -dt xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_tree_para/tools/lprof_npsu_run_0  #
+###############################################################################################################################################################
+

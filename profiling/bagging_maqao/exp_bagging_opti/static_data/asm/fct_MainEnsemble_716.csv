@@ -1,0 +1,12 @@
+address;source_location;insn;indent
+0x1c59c;:0;ENDBR64;
+0x1c5a0;:0;PUSH	%RBP;
+0x1c5a1;:0;MOV	%RSP,%RBP;
+0x1c5a4;:0;SUB	$0x10,%RSP;
+0x1c5a8;:0;MOV	%RDI,-0x8(%RBP);
+0x1c5ac;:0;MOV	-0x8(%RBP),%RAX;
+0x1c5b0;:0;MOV	(%RAX),%RAX;
+0x1c5b3;:0;MOV	%RAX,%RDI;
+0x1c5b6;:0;CALL	1d012 <_ZNSt13_Rb_tree_nodeISt4pairIKidEE9_M_valptrEv>;
+0x1c5bb;:0;LEAVE;
+0x1c5bc;:0;RET;

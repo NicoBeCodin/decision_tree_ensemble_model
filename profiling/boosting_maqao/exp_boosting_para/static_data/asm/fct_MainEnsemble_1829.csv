@@ -1,0 +1,23 @@
+address;source_location;insn;indent
+0x3a090;:0;ENDBR64;
+0x3a094;:0;PUSH	%RBP;
+0x3a095;:0;MOV	%RSP,%RBP;
+0x3a098;:0;SUB	$0x10,%RSP;
+0x3a09c;:0;MOV	%RDI,-0x8(%RBP);
+0x3a0a0;:0;MOV	%RSI,-0x10(%RBP);
+0x3a0a4;:0;MOV	-0x10(%RBP),%RAX;
+0x3a0a8;:0;MOV	%RAX,%RDI;
+0x3a0ab;:0;CALL	17049 <_ZSt7forwardIdEOT_RNSt16remove_referenceIS0_E4typeE>;
+0x3a0b0;:0;MOVSD	(%RAX),%XMM0;
+0x3a0b4;:0;MOV	-0x8(%RBP),%RAX;
+0x3a0b8;:0;MOVSD	%XMM0,(%RAX);
+0x3a0bc;:0;MOV	-0x10(%RBP),%RAX;
+0x3a0c0;:0;ADD	$0x8,%RAX;
+0x3a0c4;:0;MOV	%RAX,%RDI;
+0x3a0c7;:0;CALL	1e016 <_ZSt7forwardIiEOT_RNSt16remove_referenceIS0_E4typeE>;
+0x3a0cc;:0;MOV	(%RAX),%EDX;
+0x3a0ce;:0;MOV	-0x8(%RBP),%RAX;
+0x3a0d2;:0;MOV	%EDX,0x8(%RAX);
+0x3a0d5;:0;MOV	-0x8(%RBP),%RAX;
+0x3a0d9;:0;LEAVE;
+0x3a0da;:0;RET;

@@ -1,0 +1,13 @@
+address;source_location;insn;indent
+0x2049c;:0;ENDBR64;
+0x204a0;:0;PUSH	%RBP;
+0x204a1;:0;MOV	%RSP,%RBP;
+0x204a4;:0;SUB	$0x10,%RSP;
+0x204a8;:0;MOV	%RDI,-0x8(%RBP);
+0x204ac;:0;MOV	-0x8(%RBP),%RAX;
+0x204b0;:0;MOV	%RAX,%RDI;
+0x204b3;:0;CALL	207f4 <_ZNSt10_Head_baseILm1ESt14default_deleteIN18DecisionTreeSingle4TreeEELb1EEC1Ev>;
+0x204b8;:0;NOP;
+0x204b9;:0;LEAVE;
+0x204ba;:0;RET;
+0x204bb;:0;NOP;

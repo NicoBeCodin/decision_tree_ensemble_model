@@ -1,0 +1,18 @@
+address;source_location;insn;indent
+0x1791b;:0;ENDBR64;
+0x1791f;:0;PUSH	%RBP;
+0x17920;:0;MOV	%RSP,%RBP;
+0x17923;:0;SUB	$0x30,%RSP;
+0x17927;:0;MOV	%RDI,-0x18(%RBP);
+0x1792b;:0;MOV	%RSI,-0x20(%RBP);
+0x1792f;:0;MOV	%RDX,-0x28(%RBP);
+0x17933;:0;MOVB	$0x1,-0x2(%RBP);
+0x17937;:0;MOVB	$0x1,-0x1(%RBP);
+0x1793b;:0;MOV	-0x28(%RBP),%RDX;
+0x1793f;:0;MOV	-0x20(%RBP),%RCX;
+0x17943;:0;MOV	-0x18(%RBP),%RAX;
+0x17947;:0;MOV	%RCX,%RSI;
+0x1794a;:0;MOV	%RAX,%RDI;
+0x1794d;:0;CALL	179c7 <_ZNSt20__uninitialized_copyILb1EE13__uninit_copyISt13move_iteratorIPdES3_EET0_T_S6_S5_>;
+0x17952;:0;LEAVE;
+0x17953;:0;RET;

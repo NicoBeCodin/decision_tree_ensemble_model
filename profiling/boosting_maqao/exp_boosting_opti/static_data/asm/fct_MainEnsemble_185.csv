@@ -1,0 +1,20 @@
+address;source_location;insn;indent
+0xd354;:0;ENDBR64;
+0xd358;:0;PUSH	%RBP;
+0xd359;:0;MOV	%RSP,%RBP;
+0xd35c;:0;PUSH	%RBX;
+0xd35d;:0;SUB	$0x18,%RSP;
+0xd361;:0;MOV	%RDI,-0x18(%RBP);
+0xd365;:0;MOV	%RSI,-0x20(%RBP);
+0xd369;:0;MOV	-0x20(%RBP),%RBX;
+0xd36d;:0;TEST	%RBX,%RBX;
+0xd370;:0;JE	d387 <_ZNKSt14default_deleteIN18DecisionTreeSingle4TreeEEclEPS1_+0x33>;
+0xd372;:0;MOV	%RBX,%RDI;
+0xd375;:0;CALL	d320 <_ZN18DecisionTreeSingle4TreeD1Ev>;
+0xd37a;:0;MOV	$0x40,%ESI;
+0xd37f;:0;MOV	%RBX,%RDI;
+0xd382;:0;CALL	6e80 <.plt.sec@start+0x4b0>;
+0xd387;:0;NOP;
+0xd388;:0;MOV	-0x8(%RBP),%RBX;
+0xd38c;:0;LEAVE;
+0xd38d;:0;RET;

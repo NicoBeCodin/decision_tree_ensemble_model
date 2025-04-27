@@ -1,0 +1,26 @@
+address;source_location;insn;indent
+0x363f0;:0;ENDBR64;
+0x363f4;:0;PUSH	%RBP;
+0x363f5;:0;MOV	%RSP,%RBP;
+0x363f8;:0;SUB	$0x40,%RSP;
+0x363fc;:0;MOV	%RDI,-0x28(%RBP);
+0x36400;:0;MOV	%RSI,-0x30(%RBP);
+0x36404;:0;MOV	%RDX,-0x38(%RBP);
+0x36408;:0;CMPQ	$0,-0x30(%RBP);
+0x3640d;:0;JE	3643f <_ZNSt12_Vector_baseIiSaIiEE13_M_deallocateEPim+0x4f>;
+0x3640f;:0;MOV	-0x28(%RBP),%RAX;
+0x36413;:0;MOV	%RAX,-0x18(%RBP);
+0x36417;:0;MOV	-0x30(%RBP),%RAX;
+0x3641b;:0;MOV	%RAX,-0x10(%RBP);
+0x3641f;:0;MOV	-0x38(%RBP),%RAX;
+0x36423;:0;MOV	%RAX,-0x8(%RBP);
+0x36427;:0;MOV	-0x8(%RBP),%RDX;
+0x3642b;:0;MOV	-0x10(%RBP),%RCX;
+0x3642f;:0;MOV	-0x18(%RBP),%RAX;
+0x36433;:0;MOV	%RCX,%RSI;
+0x36436;:0;MOV	%RAX,%RDI;
+0x36439;:0;CALL	386a0 <_ZNSt15__new_allocatorIiE10deallocateEPim>;
+0x3643e;:0;NOP;
+0x3643f;:0;NOP;
+0x36440;:0;LEAVE;
+0x36441;:0;RET;

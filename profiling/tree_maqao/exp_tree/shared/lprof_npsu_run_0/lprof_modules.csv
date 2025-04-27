@@ -1,0 +1,4 @@
+name;time_p;time_s;cpi_ratio;
+/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_tree/binaries/MainEnsemble;95.283027648926;0.5049996972084;;
+/usr/lib/x86_64-linux-gnu/libm.so.6;2.830189704895;0.014999995939434;;
+/usr/lib/x86_64-linux-gnu/libc.so.6;1.886793255806;0.0099999979138374;;

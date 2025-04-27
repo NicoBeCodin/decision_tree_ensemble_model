@@ -1,0 +1,11 @@
+address;source_location;insn;indent
+0x344ed;:0;ENDBR64;
+0x344f1;:0;PUSH	%RBP;
+0x344f2;:0;MOV	%RSP,%RBP;
+0x344f5;:0;SUB	$0x10,%RSP;
+0x344f9;:0;MOV	%RDI,-0x8(%RBP);
+0x344fd;:0;MOV	-0x8(%RBP),%RAX;
+0x34501;:0;MOV	%RAX,%RDI;
+0x34504;:0;CALL	3595b <_ZNSt10__pair_getILm0EE11__const_getIdiEERKT_RKSt4pairIS2_T0_E>;
+0x34509;:0;LEAVE;
+0x3450a;:0;RET;

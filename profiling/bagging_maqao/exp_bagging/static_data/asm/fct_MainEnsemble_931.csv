@@ -1,0 +1,28 @@
+address;source_location;insn;indent
+0x1ffe8;:0;ENDBR64;
+0x1ffec;:0;PUSH	%RBP;
+0x1ffed;:0;MOV	%RSP,%RBP;
+0x1fff0;:0;SUB	$0x10,%RSP;
+0x1fff4;:0;MOV	%RDI,-0x8(%RBP);
+0x1fff8;:0;MOV	%RSI,-0x10(%RBP);
+0x1fffc;:0;MOV	-0x10(%RBP),%RDX;
+0x20000;:0;MOV	-0x8(%RBP),%RAX;
+0x20004;:0;MOV	%RDX,%RSI;
+0x20007;:0;MOV	%RAX,%RDI;
+0x2000a;:0;CALL	20208 <_ZNSt12_Vector_baseIiSaIiEE11_M_allocateEm>;
+0x2000f;:0;MOV	-0x8(%RBP),%RDX;
+0x20013;:0;MOV	%RAX,(%RDX);
+0x20016;:0;MOV	-0x8(%RBP),%RAX;
+0x2001a;:0;MOV	(%RAX),%RDX;
+0x2001d;:0;MOV	-0x8(%RBP),%RAX;
+0x20021;:0;MOV	%RDX,0x8(%RAX);
+0x20025;:0;MOV	-0x8(%RBP),%RAX;
+0x20029;:0;MOV	(%RAX),%RAX;
+0x2002c;:0;MOV	-0x10(%RBP),%RDX;
+0x20030;:0;SAL	$0x2,%RDX;
+0x20034;:0;ADD	%RAX,%RDX;
+0x20037;:0;MOV	-0x8(%RBP),%RAX;
+0x2003b;:0;MOV	%RDX,0x10(%RAX);
+0x2003f;:0;NOP;
+0x20040;:0;LEAVE;
+0x20041;:0;RET;

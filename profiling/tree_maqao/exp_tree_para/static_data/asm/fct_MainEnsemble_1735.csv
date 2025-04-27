@@ -1,0 +1,51 @@
+address;source_location;insn;indent
+0x37ef5;:0;ENDBR64;
+0x37ef9;:0;PUSH	%RBP;
+0x37efa;:0;MOV	%RSP,%RBP;
+0x37efd;:0;SUB	$0x30,%RSP;
+0x37f01;:0;MOV	%RDI,-0x18(%RBP);
+0x37f05;:0;MOV	%RSI,-0x20(%RBP);
+0x37f09;:0;MOV	%RDX,-0x28(%RBP);
+0x37f0d;:0;MOV	%FS:0x28,%RAX;
+0x37f16;:0;MOV	%RAX,-0x8(%RBP);
+0x37f1a;:0;XOR	%EAX,%EAX;
+0x37f1c;:0;JMP	37f79 <_ZSt16__introsort_loopIN9__gnu_cxx17__normal_iteratorIPSt4pairIdiESt6vectorIS3_SaIS3_EEEElNS0_5__ops15_Iter_less_iterEEvT_SB_T0_T1_+0x84>;
+0x37f1e;:0;CMPQ	$0,-0x28(%RBP);(139) 
+0x37f23;:0;JNE	37f3e <_ZSt16__introsort_loopIN9__gnu_cxx17__normal_iteratorIPSt4pairIdiESt6vectorIS3_SaIS3_EEEElNS0_5__ops15_Iter_less_iterEEvT_SB_T0_T1_+0x49>;(139) 
+0x37f25;:0;MOV	-0x20(%RBP),%RDX;
+0x37f29;:0;MOV	-0x20(%RBP),%RCX;
+0x37f2d;:0;MOV	-0x18(%RBP),%RAX;
+0x37f31;:0;MOV	%RCX,%RSI;
+0x37f34;:0;MOV	%RAX,%RDI;
+0x37f37;:0;CALL	38ba5 <_ZSt14__partial_sortIN9__gnu_cxx17__normal_iteratorIPSt4pairIdiESt6vectorIS3_SaIS3_EEEENS0_5__ops15_Iter_less_iterEEvT_SB_SB_T0_>;
+0x37f3c;:0;JMP	37f97 <_ZSt16__introsort_loopIN9__gnu_cxx17__normal_iteratorIPSt4pairIdiESt6vectorIS3_SaIS3_EEEElNS0_5__ops15_Iter_less_iterEEvT_SB_T0_T1_+0xa2>;
+0x37f3e;:0;SUBQ	$0x1,-0x28(%RBP);(139) 
+0x37f43;:0;MOV	-0x20(%RBP),%RDX;(139) 
+0x37f47;:0;MOV	-0x18(%RBP),%RAX;(139) 
+0x37f4b;:0;MOV	%RDX,%RSI;(139) 
+0x37f4e;:0;MOV	%RAX,%RDI;(139) 
+0x37f51;:0;CALL	38bee <_ZSt27__unguarded_partition_pivotIN9__gnu_cxx17__normal_iteratorIPSt4pairIdiESt6vectorIS3_SaIS3_EEEENS0_5__ops15_Iter_less_iterEET_SB_SB_T0_>;(139) 
+0x37f56;:0;MOV	%RAX,-0x10(%RBP);(139) 
+0x37f5a;:0;MOV	-0x28(%RBP),%RDX;(139) 
+0x37f5e;:0;MOV	-0x20(%RBP),%RCX;(139) 
+0x37f62;:0;MOV	-0x10(%RBP),%RAX;(139) 
+0x37f66;:0;MOV	%RCX,%RSI;(139) 
+0x37f69;:0;MOV	%RAX,%RDI;(139) 
+0x37f6c;:0;CALL	37ef5 <_ZSt16__introsort_loopIN9__gnu_cxx17__normal_iteratorIPSt4pairIdiESt6vectorIS3_SaIS3_EEEElNS0_5__ops15_Iter_less_iterEEvT_SB_T0_T1_>;(139) 
+0x37f71;:0;MOV	-0x10(%RBP),%RAX;(139) 
+0x37f75;:0;MOV	%RAX,-0x20(%RBP);(139) 
+0x37f79;:0;LEA	-0x18(%RBP),%RDX;(139) 
+0x37f7d;:0;LEA	-0x20(%RBP),%RAX;(139) 
+0x37f81;:0;MOV	%RDX,%RSI;(139) 
+0x37f84;:0;MOV	%RAX,%RDI;(139) 
+0x37f87;:0;CALL	37dc1 <_ZN9__gnu_cxxmiIPSt4pairIdiESt6vectorIS2_SaIS2_EEEENS_17__normal_iteratorIT_T0_E15difference_typeERKSA_SD_>;(139) 
+0x37f8c;:0;CMP	$0x10,%RAX;(139) 
+0x37f90;:0;SETG	%AL;(139) 
+0x37f93;:0;TEST	%AL,%AL;(139) 
+0x37f95;:0;JNE	37f1e <_ZSt16__introsort_loopIN9__gnu_cxx17__normal_iteratorIPSt4pairIdiESt6vectorIS3_SaIS3_EEEElNS0_5__ops15_Iter_less_iterEEvT_SB_T0_T1_+0x29>;(139) 
+0x37f97;:0;MOV	-0x8(%RBP),%RAX;
+0x37f9b;:0;SUB	%FS:0x28,%RAX;
+0x37fa4;:0;JE	37fab <_ZSt16__introsort_loopIN9__gnu_cxx17__normal_iteratorIPSt4pairIdiESt6vectorIS3_SaIS3_EEEElNS0_5__ops15_Iter_less_iterEEvT_SB_T0_T1_+0xb6>;
+0x37fa6;:0;CALL	6f40 <.plt.sec@start+0x570>;
+0x37fab;:0;LEAVE;
+0x37fac;:0;RET;

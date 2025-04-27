@@ -1,0 +1,6 @@
+********************************************************************************
+MAQAO 2.21.1 - a9bb74606c7e260f7f87782e64f16b00a6f20c1b::20250121-112452 || 2025/01/21
+maqao oneview -R1 --include-kernel --sampling-rate=high -xp=exp_boosting_opti -- ./MainEnsemble 3 
+CPY:  [true] ./MainEnsemble --> /home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_boosting_opti/binaries/MainEnsemble
+CMD:   /home/fixot-brendan/softs/maqao/maqao.x86_64.2.21.1/bin/maqao lprof _caller=oneview  --xp="/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_boosting_opti/tools/lprof_npsu_run_0" --mpi-command="" --collect-CPU-time-intervals --collect-topology   -- /home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_boosting_opti/binaries/MainEnsemble  3
+CMD:  /home/fixot-brendan/softs/maqao/maqao.x86_64.2.21.1/bin/maqao otter  -input=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_boosting_opti/OTTER/input_manifest.csv -output=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_boosting_opti/OTTER/output_manifest.csv

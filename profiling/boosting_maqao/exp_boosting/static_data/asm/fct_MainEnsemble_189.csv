@@ -1,0 +1,11 @@
+address;source_location;insn;indent
+0xe0a8;:0;ENDBR64;
+0xe0ac;:0;PUSH	%RBP;
+0xe0ad;:0;MOV	%RSP,%RBP;
+0xe0b0;:0;SUB	$0x10,%RSP;
+0xe0b4;:0;MOV	%RDI,-0x8(%RBP);
+0xe0b8;:0;MOV	-0x8(%RBP),%RAX;
+0xe0bc;:0;MOV	%RAX,%RDI;
+0xe0bf;:0;CALL	feb5 <_ZSt3getILm0EJPN18DecisionTreeSingle4TreeESt14default_deleteIS1_EEERNSt13tuple_elementIXT_ESt5tupleIJDpT0_EEE4typeERS9_>;
+0xe0c4;:0;LEAVE;
+0xe0c5;:0;RET;

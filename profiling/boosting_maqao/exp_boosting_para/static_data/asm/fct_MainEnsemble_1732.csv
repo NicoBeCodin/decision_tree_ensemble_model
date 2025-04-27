@@ -1,0 +1,24 @@
+address;source_location;insn;indent
+0x37e08;:0;ENDBR64;
+0x37e0c;:0;PUSH	%RBP;
+0x37e0d;:0;MOV	%RSP,%RBP;
+0x37e10;:0;SUB	$0x20,%RSP;
+0x37e14;:0;MOV	%RDI,-0x18(%RBP);
+0x37e18;:0;MOV	%RSI,-0x20(%RBP);
+0x37e1c;:0;CMPQ	$0,-0x20(%RBP);
+0x37e21;:0;JE	37e4e <_ZNSt12_Vector_baseISt4pairIdiESaIS1_EE11_M_allocateEm+0x46>;
+0x37e23;:0;MOV	-0x18(%RBP),%RAX;
+0x37e27;:0;MOV	%RAX,-0x10(%RBP);
+0x37e2b;:0;MOV	-0x20(%RBP),%RAX;
+0x37e2f;:0;MOV	%RAX,-0x8(%RBP);
+0x37e33;:0;MOV	-0x8(%RBP),%RCX;
+0x37e37;:0;MOV	-0x10(%RBP),%RAX;
+0x37e3b;:0;MOV	$0,%EDX;
+0x37e40;:0;MOV	%RCX,%RSI;
+0x37e43;:0;MOV	%RAX,%RDI;
+0x37e46;:0;CALL	39bc0 <_ZNSt15__new_allocatorISt4pairIdiEE8allocateEmPKv>;
+0x37e4b;:0;NOP;
+0x37e4c;:0;JMP	37e53 <_ZNSt12_Vector_baseISt4pairIdiESaIS1_EE11_M_allocateEm+0x4b>;
+0x37e4e;:0;MOV	$0,%EAX;
+0x37e53;:0;LEAVE;
+0x37e54;:0;RET;

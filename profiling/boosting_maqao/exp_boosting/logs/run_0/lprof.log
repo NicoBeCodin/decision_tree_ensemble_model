@@ -1,0 +1,199 @@
+
+* Info: "ref-cycles" not supported on fixot-brendan-MS-7C02: fallback to "cpu-clock"Generation of default values : 
+Default for splitting criteria (MSE)
+Default for comparing trees (MSE)
+Default number of estimators : 75
+Default maximum depth = 15
+Default minimum sample split = 3
+Default minimum impurity decrease = 1e-5
+Default learning rate = 0.07
+Boosting process started, please wait...
+Training using MSE.
+Iteration 1, Loss: 0.000758165
+Training using MSE.
+Iteration 2, Loss: 0.000657327
+Training using MSE.
+Iteration 3, Loss: 0.000570094
+Training using MSE.
+Iteration 4, Loss: 0.000494635
+Training using MSE.
+Iteration 5, Loss: 0.000429136
+Training using MSE.
+Iteration 6, Loss: 0.000372469
+Training using MSE.
+Iteration 7, Loss: 0.000323489
+Training using MSE.
+Iteration 8, Loss: 0.000281028
+Training using MSE.
+Iteration 9, Loss: 0.000244245
+Training using MSE.
+Iteration 10, Loss: 0.000212368
+Training using MSE.
+Iteration 11, Loss: 0.00018485
+Training using MSE.
+Iteration 12, Loss: 0.000161017
+Training using MSE.
+Iteration 13, Loss: 0.000140385
+Training using MSE.
+Iteration 14, Loss: 0.000122507
+Training using MSE.
+Iteration 15, Loss: 0.000107086
+Training using MSE.
+Iteration 16, Loss: 9.37744e-05
+Training using MSE.
+Iteration 17, Loss: 8.22084e-05
+Training using MSE.
+Iteration 18, Loss: 7.22235e-05
+Training using MSE.
+Iteration 19, Loss: 6.36063e-05
+Training using MSE.
+Iteration 20, Loss: 5.61423e-05
+Training using MSE.
+Iteration 21, Loss: 4.96879e-05
+Training using MSE.
+Iteration 22, Loss: 4.4122e-05
+Training using MSE.
+Iteration 23, Loss: 3.93035e-05
+Training using MSE.
+Iteration 24, Loss: 3.516e-05
+Training using MSE.
+Iteration 25, Loss: 3.1604e-05
+Training using MSE.
+Iteration 26, Loss: 2.85335e-05
+Training using MSE.
+Iteration 27, Loss: 2.58361e-05
+Training using MSE.
+Iteration 28, Loss: 2.35114e-05
+Training using MSE.
+Iteration 29, Loss: 2.15001e-05
+Training using MSE.
+Iteration 30, Loss: 1.97908e-05
+Training using MSE.
+Iteration 31, Loss: 1.83187e-05
+Training using MSE.
+Iteration 32, Loss: 1.70275e-05
+Training using MSE.
+Iteration 33, Loss: 1.59551e-05
+Training using MSE.
+Iteration 34, Loss: 1.50238e-05
+Training using MSE.
+Iteration 35, Loss: 1.42405e-05
+Training using MSE.
+Iteration 36, Loss: 1.36012e-05
+Training using MSE.
+Iteration 37, Loss: 1.29973e-05
+Training using MSE.
+Iteration 38, Loss: 1.24884e-05
+Training using MSE.
+Iteration 39, Loss: 1.20199e-05
+Training using MSE.
+Iteration 40, Loss: 1.1644e-05
+Training using MSE.
+Iteration 41, Loss: 1.13975e-05
+Training using MSE.
+Iteration 42, Loss: 1.10646e-05
+Training using MSE.
+Iteration 43, Loss: 1.08305e-05
+Training using MSE.
+Iteration 44, Loss: 1.06999e-05
+Training using MSE.
+Iteration 45, Loss: 1.05413e-05
+Training using MSE.
+Iteration 46, Loss: 1.04473e-05
+Training using MSE.
+Iteration 47, Loss: 1.03043e-05
+Training using MSE.
+Iteration 48, Loss: 1.02296e-05
+Training using MSE.
+Iteration 49, Loss: 1.01487e-05
+Training using MSE.
+Iteration 50, Loss: 1.00617e-05
+Training using MSE.
+Iteration 51, Loss: 1.00064e-05
+Training using MSE.
+Iteration 52, Loss: 9.8931e-06
+Training using MSE.
+Iteration 53, Loss: 9.8931e-06
+Training using MSE.
+Iteration 54, Loss: 9.8931e-06
+Training using MSE.
+Iteration 55, Loss: 9.8931e-06
+Training using MSE.
+Iteration 56, Loss: 9.8931e-06
+Training using MSE.
+Iteration 57, Loss: 9.8931e-06
+Training using MSE.
+Iteration 58, Loss: 9.8931e-06
+Training using MSE.
+Iteration 59, Loss: 9.8931e-06
+Training using MSE.
+Iteration 60, Loss: 9.8931e-06
+Training using MSE.
+Iteration 61, Loss: 9.8931e-06
+Training using MSE.
+Iteration 62, Loss: 9.8931e-06
+Training using MSE.
+Iteration 63, Loss: 9.8931e-06
+Training using MSE.
+Iteration 64, Loss: 9.8931e-06
+Training using MSE.
+Iteration 65, Loss: 9.8931e-06
+Training using MSE.
+Iteration 66, Loss: 9.8931e-06
+Training using MSE.
+Iteration 67, Loss: 9.8931e-06
+Training using MSE.
+Iteration 68, Loss: 9.8931e-06
+Training using MSE.
+Iteration 69, Loss: 9.8931e-06
+Training using MSE.
+Iteration 70, Loss: 9.8931e-06
+Training using MSE.
+Iteration 71, Loss: 9.8931e-06
+Training using MSE.
+Iteration 72, Loss: 9.8931e-06
+Training using MSE.
+Iteration 73, Loss: 9.8931e-06
+Training using MSE.
+Iteration 74, Loss: 9.8931e-06
+Training using MSE.
+Iteration 75, Loss: 9.8931e-06
+Training time: 11.9402 seconds
+Evaluation time: 0.0213488 seconds
+Boosting Mean Square Error (MSE): 0.00017742
+
+Feature importance :
+------------------------------
+             p3          46.99
+             p4          18.71
+             p6          17.01
+             p1          12.80
+             p5           4.69
+             p8           3.27
+  matrix_size_y           2.26
+             p2           1.39
+  matrix_size_x           0.78
+             p7          -7.89
+
+
+* Info: Dumping samples (host fixot-brendan-MS-7C02, process 31393)
+* Info: Dumping source info for callchain nodes (host fixot-brendan-MS-7C02, process 31393)
+* Info: Building/writing metadata (host fixot-brendan-MS-7C02)
+* Info: Finished collect step (host fixot-brendan-MS-7C02, process 31393)
+
+Your experiment path is /home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_boosting/tools/lprof_npsu_run_0
+
+To display your profiling results:
+##############################################################################################################################################################
+#    LEVEL    |     REPORT     |                                                           COMMAND                                                           #
+##############################################################################################################################################################
+#  Functions  |  Cluster-wide  |  maqao lprof -df xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_boosting/tools/lprof_npsu_run_0      #
+#  Functions  |  Per-node      |  maqao lprof -df -dn xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_boosting/tools/lprof_npsu_run_0  #
+#  Functions  |  Per-process   |  maqao lprof -df -dp xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_boosting/tools/lprof_npsu_run_0  #
+#  Functions  |  Per-thread    |  maqao lprof -df -dt xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_boosting/tools/lprof_npsu_run_0  #
+#  Loops      |  Cluster-wide  |  maqao lprof -dl xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_boosting/tools/lprof_npsu_run_0      #
+#  Loops      |  Per-node      |  maqao lprof -dl -dn xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_boosting/tools/lprof_npsu_run_0  #
+#  Loops      |  Per-process   |  maqao lprof -dl -dp xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_boosting/tools/lprof_npsu_run_0  #
+#  Loops      |  Per-thread    |  maqao lprof -dl -dt xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_boosting/tools/lprof_npsu_run_0  #
+##############################################################################################################################################################
+

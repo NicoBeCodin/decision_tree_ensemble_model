@@ -1,0 +1,84 @@
+{
+  "report": [
+    {
+      "name": "lvl1_loops_coverage",
+      "status": "bad",
+      "score": 0,
+      "max_score": 4,
+      "text": "Too little time of the experiment time spent in analyzed loops (19.86%)",
+      "desc": "If the time spent in analyzed loops is less than 30%, standard loop optimizations will have a limited impact on application performances."
+    },
+    {
+      "name": "lvl1_activity_ratio",
+      "status": "good",
+      "score": 4,
+      "max_score": 4,
+      "text": "CPU activity is good",
+      "desc": "CPU cores are active 99.79% of time"
+    },
+    {
+      "name": "lvl1_active_threads",
+      "status": "good",
+      "score": 4,
+      "max_score": 4,
+      "text": "Threads activity is good",
+      "desc": "On average, more than 99.79% of observed threads are actually active "
+    },
+    {
+      "name": "lvl1_affinity_stability",
+      "status": "warning",
+      "score": 3,
+      "max_score": 4,
+      "text": "Affinity stability is lower than 90% (71.41%)",
+      "desc": "Threads are often migrating to other CPU cores/threads. For OpenMP, typically set (OMP_PLACES=cores OMP_PROC_BIND=close) or (OMP_PLACES=threads OMP_PROC_BIND=spread). With OpenMPI + OpenMP, use --bind-to core --map-by node:PE=$OMP_NUM_THREADS --report-bindings. With IntelMPI + OpenMP, set I_MPI_PIN_DOMAIN=omp:compact or I_MPI_PIN_DOMAIN=omp:scatter and use -print-rank-map."
+    },
+    {
+      "name": "lvl1_is_flat_profile",
+      "status": "good",
+      "score": 4,
+      "max_score": 4,
+      "text": "Loop profile is not flat",
+      "desc": "At least one loop coverage is greater than 4% (8.34%), representing an hotspot for the application"
+    },
+    {
+      "name": "lvl1_innermost_loops_coverage",
+      "status": "good",
+      "score": 4,
+      "max_score": 4,
+      "text": "Enough time of the experiment time spent in analyzed innermost loops (15.40%)",
+      "desc": "If the time spent in analyzed innermost loops is less than 15%, standard innermost loop optimizations such as vectorisation will have a limited impact on application performances."
+    },
+    {
+      "name": "lvl1_is_more_innermost_than_other",
+      "status": "good",
+      "score": 3,
+      "max_score": 3,
+      "text": "Cumulative Outermost/In between loops coverage (4.46%) lower than cumulative innermost loop coverage (15.40%)",
+      "desc": "Having cumulative Outermost/In between loops coverage greater than cumulative innermost loop coverage will make loop optimization more complex"
+    },
+    {
+      "name": "lvl1_blas1",
+      "status": "good",
+      "score": 3,
+      "max_score": 3,
+      "text": "Less than 10% (0.00%) is spend in BLAS1 operations",
+      "desc": "It could be more efficient to inline by hand BLAS1 operations"
+    },
+    {
+      "name": "lvl1_blas2",
+      "status": "good",
+      "score": 2,
+      "max_score": 2,
+      "text": "Less than 10% (0.00%) is spend in BLAS2 operations",
+      "desc": "BLAS2 calls usually could make a poor cache usage and could benefit from inlining."
+    },
+    {
+      "name": "lvl1_libm_usage",
+      "status": "good",
+      "score": 2,
+      "max_score": 2,
+      "text": "Less than 10% (0.98%) is spend in Libm/SVML (special functions)",
+      "desc": ""
+    }
+  ]
+}
