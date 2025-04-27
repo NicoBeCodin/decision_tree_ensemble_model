@@ -7,7 +7,8 @@ void runSingleDecisionTreeModel(DecisionTreeParams params, DataParams data_param
     std::vector<std::string> feature_names = {"p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "matrix_size_x", "matrix_size_y"};
     
     DecisionTreeSingle single_tree(params.maxDepth, params.minSamplesSplit,
-                                   params.minImpurityDecrease, params.criteria, params.numThreads);
+                                   params.minImpurityDecrease, params.criteria, 
+                                   params.useSplitHistogram, params.numThreads);
   
     auto train_start = std::chrono::high_resolution_clock::now();
     single_tree.train(data_params.X_train, data_params.rowLength, data_params.y_train, params.criteria);
@@ -48,7 +49,9 @@ void runSingleDecisionTreeModel(DecisionTreeParams params, DataParams data_param
     results.parameters["min_samples_split"] = params.minSamplesSplit;
     results.parameters["min_impurity_decrease"] = params.minImpurityDecrease;
     results.parameters["criteria"] = params.criteria;
-  
+    results.parameters["use_split_histogram"] = params.useSplitHistogram;
+    results.parameters["num_threads"] = params.numThreads;
+
     // Save characteristic importance
     for (const auto &score : feature_importance) {
       results.feature_importance[score.feature_name] = score.importance_score;
@@ -94,7 +97,7 @@ void runBaggingModel(BaggingParams params, DataParams data_params) {
   
     Bagging bagging_model(params.numTrees, params.maxDepth, params.minSamplesSplit,
                           params.minImpurityDecrease, std::move(loss_function),
-                          params.criteria, params.whichLossFunction, params.numThreads);
+                          params.criteria, params.whichLossFunction, params.useSplitHistogram, params.numThreads);
   
     double score = 0.0;
     double train_duration_count = 0.0;
@@ -123,6 +126,10 @@ void runBaggingModel(BaggingParams params, DataParams data_params) {
     results.parameters["max_depth"] = params.maxDepth;
     results.parameters["min_samples_split"] = params.minSamplesSplit;
     results.parameters["min_impurity_decrease"] = params.minImpurityDecrease;
+    results.parameters["criteria"] = params.criteria;
+    results.parameters["which_loss_function"] = params.whichLossFunction;
+    results.parameters["use_split_histogram"] = params.useSplitHistogram ? 1.0 : 0.0;
+    results.parameters["num_threads"] = params.numThreads;
   
     // Save feature importance
     for (const auto &score : feature_importance) {
@@ -173,7 +180,7 @@ void runBoostingModel(BoostingParams params, DataParams data_params) {
   
     Boosting boosting_model(params.nEstimators, params.learningRate, std::move(loss_function), 
                             params.maxDepth, params.minSamplesSplit, params.minImpurityDecrease, 
-                            params.criteria, params.whichLossFunction, params.numThreads);
+                            params.criteria, params.whichLossFunction, params.useSplitHistogram, params.numThreads);
   
     trainAndEvaluateModel(boosting_model, data_params.X_train, data_params.rowLength, data_params.y_train, 
                           data_params.X_test, data_params.y_test, params.criteria, score, train_duration_count,
@@ -199,6 +206,11 @@ void runBoostingModel(BoostingParams params, DataParams data_params) {
     results.parameters["min_samples_split"] = params.minSamplesSplit;
     results.parameters["min_impurity_decrease"] = params.minImpurityDecrease;
     results.parameters["learning_rate"] = params.learningRate;
+    results.parameters["initial_prediction"] = boosting_model.getInitialPrediction();
+    results.parameters["criteria"] = params.criteria;
+    results.parameters["which_loss_function"] = params.whichLossFunction;
+    results.parameters["use_split_histogram"] = params.useSplitHistogram ? 1.0 : 0.0;
+    results.parameters["num_threads"] = params.numThreads;
   
     for (const auto &score : feature_importance) {
       results.feature_importance[score.feature_name] = score.importance_score;

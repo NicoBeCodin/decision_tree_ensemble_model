@@ -30,7 +30,7 @@ public:
   Boosting(int n_estimators, double learning_rate,
            std::unique_ptr<LossFunction> loss_function,
            int max_depth, int min_samples_split, double min_impurity_decrease, 
-           int Criteria = 0, int whichLossFunc = 0, int numThreads = 1);
+           int Criteria = 0, int whichLossFunc = 0, bool useSplitHistogram = true, int numThreads = 1);
 
   /**
    * @brief Train the boosting model
@@ -86,9 +86,9 @@ private:
   double learning_rate;
   int Criteria;
   int whichLossFunc;
-  std::unique_ptr<LossFunction> loss_function;
-
+  bool useSplitHistogram;
   int numThreads;
+  std::unique_ptr<LossFunction> loss_function;
 
   std::vector<std::unique_ptr<DecisionTreeSingle>> trees; // Collection of weak learners
   double initial_prediction;

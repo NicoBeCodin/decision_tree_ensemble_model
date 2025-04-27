@@ -17,8 +17,8 @@ struct DecisionTreeParams {
     int minSamplesSplit;
     double minImpurityDecrease;
     int criteria;
+    bool useSplitHistogram;
     int numThreads;
-    int useOmp;
 };
 
 struct BaggingParams {
@@ -28,6 +28,7 @@ struct BaggingParams {
     double minImpurityDecrease;
     int criteria;
     int whichLossFunction;
+    bool useSplitHistogram;
     int numThreads;
 };
 
@@ -39,6 +40,7 @@ struct BoostingParams {
     double minImpurityDecrease;
     int criteria;
     int whichLossFunction;
+    bool useSplitHistogram;
     int numThreads;
 };
 

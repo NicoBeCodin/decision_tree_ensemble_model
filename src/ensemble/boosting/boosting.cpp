@@ -15,7 +15,8 @@
  */
 Boosting::Boosting(int n_estimators, double learning_rate,
                    std::unique_ptr<LossFunction> loss_function,
-                   int max_depth, int min_samples_split, double min_impurity_decrease, int Criteria, int whichLossFunc, int numThreads)
+                   int max_depth, int min_samples_split, double min_impurity_decrease,
+                   int Criteria, int whichLossFunc, bool useSplitHistogram, int numThreads)
     : n_estimators(n_estimators),
       max_depth(max_depth),
       min_samples_split(min_samples_split),
@@ -25,6 +26,7 @@ Boosting::Boosting(int n_estimators, double learning_rate,
       initial_prediction(0.0),
       Criteria(Criteria), 
       whichLossFunc(whichLossFunc),
+      useSplitHistogram(useSplitHistogram),
       numThreads(numThreads) {
     trees.reserve(n_estimators);
 }
@@ -60,7 +62,7 @@ void Boosting::train(const std::vector<double>& X, int rowLength,
     // === VERSION SÉQUENTIELLE ===
     if (numThreads == 1) {
         for (i = 0; i < n_estimators; i++) {
-            all_trees[i] = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease, criteria, 1);
+            all_trees[i] = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease, criteria, useSplitHistogram, numThreads); // true to activate useSplitHistogram
         }
     }
 
@@ -69,7 +71,7 @@ void Boosting::train(const std::vector<double>& X, int rowLength,
         omp_set_num_threads(numThreads);
         #pragma omp parallel for
         for (i = 0; i < n_estimators; i++) {
-            all_trees[i] = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease, criteria, numThreads);
+            all_trees[i] = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease, criteria, useSplitHistogram, numThreads); // true to activate useSplitHistogram
         }
     }
 
@@ -182,7 +184,9 @@ void Boosting::save(const std::string& filename) const {
          << min_impurity_decrease << " "
          << initial_prediction << " "
          << Criteria << " "
-         << whichLossFunc << "\n";
+         << whichLossFunc << " "
+         << useSplitHistogram << " "
+         << numThreads << "\n";
     
     // Sauvegarder chaque arbre avec un nom unique
     for (size_t i = 0; i < trees.size(); ++i) {
@@ -211,7 +215,9 @@ void Boosting::load(const std::string& filename) {
          >> min_impurity_decrease
          >> initial_prediction
          >> Criteria
-         >> whichLossFunc;
+         >> whichLossFunc
+         >> useSplitHistogram
+         >> numThreads;
     
     // Réinitialiser et recharger les arbres
     trees.clear();
@@ -219,7 +225,7 @@ void Boosting::load(const std::string& filename) {
 
     for (int i = 0; i < n_estimators; ++i) {
         std::string tree_filename = filename + "_tree_" + std::to_string(i);
-        trees[i] = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease);
+        trees[i] = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease, Criteria, useSplitHistogram, numThreads);
         trees[i]->loadTree(tree_filename);
     }
 
@@ -237,6 +243,8 @@ std::map<std::string, std::string> Boosting::getTrainingParameters() const {
     parameters["InitialPrediction"] = std::to_string(initial_prediction);
     parameters["Criteria"] = std::to_string(Criteria);
     parameters["WhichLossFunction"] = std::to_string(whichLossFunc);
+    parameters["UseSplitHistogram"] = useSplitHistogram ? "true" : "false";
+    parameters["NumThreads"] = std::to_string(numThreads);
     return parameters;
 }
 
@@ -252,5 +260,7 @@ std::string Boosting::getTrainingParametersString() const {
     oss << "  - Initial Prediction: " << initial_prediction << "\n";
     oss << "  - Criteria: " << (Criteria == 0 ? "MSE" : "MAE") << "\n";
     oss << "  - Loss Function: " << (whichLossFunc == 0 ? "Least Squares Loss" : "Mean Absolute Loss") << "\n";
+    oss << "  - UseSplitHistogram: " << (useSplitHistogram ? "true" : "false") << "\n";
+    oss << "  - Number of threads " << numThreads << "\n";
     return oss.str();
 }

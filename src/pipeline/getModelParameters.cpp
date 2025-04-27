@@ -61,8 +61,9 @@ void getModelParameters(int model_choice, std::string& parameters) {
         case 1: {  // Single Tree
             int max_depth, min_samples;
             int criteria = -1;
-            double min_impurity;
             int numThreads = 1;
+            bool useSplitHistogram = false;
+            double min_impurity;
             std::cout << "\nDecision Tree Parameters:\n";
             // Loop until the user enters 0 or 1 for criteria
             while (criteria != 0 && criteria != 1) {
@@ -84,8 +85,10 @@ void getModelParameters(int model_choice, std::string& parameters) {
             std::cin >> min_samples;
             std::cout << "Minimum impurity decrease (default: 1e-12): ";
             std::cin >> min_impurity;
+            std::cout << "Use SplitHistogram (1 = Yes, 0 = No (default)): ";
+            std::cin >> useSplitHistogram;
             int availableThreads = std::thread::hardware_concurrency();
-            std::cout << "Number of concurrent threads supported by the implementation: "<< availableThreads<< "\nHow many do you want to use ?\nPlease use a power of two (1,2,4,8,16 etc...)";
+            std::cout << "Number of concurrent threads supported by the implementation: "<< availableThreads << "\nHow many do you want to use ?\nPlease use a power of two (1,2,4,8,16 etc...)";
             std::cin>>numThreads;
 
 
@@ -93,7 +96,8 @@ void getModelParameters(int model_choice, std::string& parameters) {
             
             parameters += " " + std::to_string(criteria) + " " + std::to_string(max_depth) + " " + 
                          std::to_string(min_samples) + " " + 
-                         std::to_string(min_impurity) +" " + 
+                         std::to_string(min_impurity) + " " +
+                         std::to_string(useSplitHistogram) + " " +
                          std::to_string(numThreads);
             break;
         }
@@ -103,6 +107,7 @@ void getModelParameters(int model_choice, std::string& parameters) {
             int which_loss_func = -1;
             double min_impurity;
             int numThreads = 1;
+            bool useSplitHistogram = false;
             
             std::cout << "\nBagging Parameters:\n";
             // Loop until the user enters 0 or 1 for criteria
@@ -141,6 +146,8 @@ void getModelParameters(int model_choice, std::string& parameters) {
             std::cin >> min_samples;
             std::cout << "Minimum impurity decrease (default: 1e-6): ";
             std::cin >> min_impurity;
+            std::cout << "Use SplitHistogram (1 = Yes, 0 = No (default)): ";
+            std::cin >> useSplitHistogram;
             int availableThreads = std::thread::hardware_concurrency();
             std::cout << "Number of concurrent threads supported by the implementation: "<< availableThreads<< "\nHow many do you want to use ? ";
             std::cin >> numThreads;
@@ -151,6 +158,7 @@ void getModelParameters(int model_choice, std::string& parameters) {
                          std::to_string(max_depth) + " " + 
                          std::to_string(min_samples) + " " + 
                          std::to_string(min_impurity) + " " +
+                         std::to_string(useSplitHistogram) + " " +
                          std::to_string(numThreads);
             break;
         }
@@ -158,6 +166,7 @@ void getModelParameters(int model_choice, std::string& parameters) {
             int n_estimators, max_depth, min_samples, numThreads;
             int criteria = -1;
             int which_loss_func = -1;
+            bool useSplitHistogram = true;
             double min_impurity, learning_rate;
 
             std::cout << "\nBoosting Parameters:\n";
@@ -199,6 +208,8 @@ void getModelParameters(int model_choice, std::string& parameters) {
             std::cin >> min_impurity;
             std::cout << "Learning rate (default: 0.07): ";
             std::cin >> learning_rate;
+            std::cout << "Use SplitHistogram (1 = Yes (default), 0 = No): ";
+            std::cin >> useSplitHistogram;
             int availableThreads = std::thread::hardware_concurrency();
             std::cout << "Number of concurrent threads supported by the implementation: "<< availableThreads<< "\nHow many do you want to use ? ";
             std::cin>> numThreads;
@@ -210,6 +221,7 @@ void getModelParameters(int model_choice, std::string& parameters) {
                          std::to_string(min_samples) + " " + 
                          std::to_string(min_impurity) + " " +
                          std::to_string(learning_rate) + " " +
+                         std::to_string(useSplitHistogram) + " " +
                          std::to_string(numThreads);
             break;
         }

@@ -11,12 +11,13 @@
 Bagging::Bagging(int num_trees, int max_depth, int min_samples_split,
                  double min_impurity_decrease,
                  std::unique_ptr<LossFunction> loss_func, int Criteria,
-                 int whichLossFunc, int numThreads)
+                 int whichLossFunc, bool useSplitHistogram, int numThreads)
     : numTrees(num_trees), maxDepth(max_depth),
       minSamplesSplit(min_samples_split),
       minImpurityDecrease(min_impurity_decrease),
       loss_function(std::move(loss_func)), Criteria(Criteria),
-      whichLossFunc(whichLossFunc), numThreads(numThreads) {
+      whichLossFunc(whichLossFunc), useSplitHistogram(useSplitHistogram),
+      numThreads(numThreads) {
   trees.reserve(numTrees); // Reserve space for the trees
 }
 
@@ -65,8 +66,9 @@ void Bagging::train(const std::vector<double> &data, int rowLength,
       bootstrapSample(data, rowLength, labels, sampled_data, sampled_labels);
 
       // Create and train a new DecisionTreeSingle
-      auto tree = std::make_unique<DecisionTreeSingle>(
-          maxDepth, minSamplesSplit, minImpurityDecrease, criteria);
+      std::unique_ptr<DecisionTreeSingle> tree = std::make_unique<DecisionTreeSingle>(maxDepth, minSamplesSplit, 
+                                                                                      minImpurityDecrease, criteria, 
+                                                                                      useSplitHistogram, numThreads);
       tree->train(sampled_data, rowLength, sampled_labels, criteria);
       trees.push_back(std::move(tree));
     }
@@ -82,8 +84,8 @@ void Bagging::train(const std::vector<double> &data, int rowLength,
         bootstrapSample(data, rowLength, labels, sampled_data, sampled_labels);
 
         // Create and train a new DecisionTreeSingle
-        auto tree = std::make_unique<DecisionTreeSingle>(
-            maxDepth, minSamplesSplit, minImpurityDecrease, criteria, numThreads);
+        std::unique_ptr<DecisionTreeSingle> tree = std::make_unique<DecisionTreeSingle>(maxDepth, minSamplesSplit, minImpurityDecrease, 
+                                                         criteria, useSplitHistogram, numThreads);
         tree->train(sampled_data, rowLength, sampled_labels, criteria);
         return tree; // Return trained tree
       }));
@@ -152,9 +154,14 @@ void Bagging::save(const std::string &filename) const {
   }
 
   // Sauvegarder tous les paramètres du modèle
-  file << numTrees << " " << maxDepth << " " << minSamplesSplit << " "
-       << minImpurityDecrease << " " << Criteria << " " << whichLossFunc
-       << "\n";
+  file << numTrees << " " 
+       << maxDepth << " " 
+       << minSamplesSplit << " "
+       << minImpurityDecrease << " " 
+       << Criteria << " " 
+       << whichLossFunc << " "
+       << useSplitHistogram << " "
+       << numThreads << "\n";
 
   // Sauvegarder chaque arbre avec un nom unique
   for (size_t i = 0; i < trees.size(); ++i) {
@@ -176,8 +183,14 @@ void Bagging::load(const std::string &filename) {
   }
 
   // Charger tous les paramètres du modèle
-  file >> numTrees >> maxDepth >> minSamplesSplit >> minImpurityDecrease >>
-      Criteria >> whichLossFunc ; //I don't add numThreads as this is a training parameters and not a tree parameter
+  file >> numTrees 
+       >> maxDepth 
+       >> minSamplesSplit 
+       >> minImpurityDecrease 
+       >> Criteria 
+       >> whichLossFunc
+       >> useSplitHistogram
+       >> numThreads;
 
   // Réinitialiser et recharger les arbres
   trees.clear();
@@ -187,7 +200,8 @@ void Bagging::load(const std::string &filename) {
   for (int i = 0; i < numTrees; ++i) {
     std::string tree_filename = filename + "_tree_" + std::to_string(i);
     trees[i] = std::make_unique<DecisionTreeSingle>(maxDepth, minSamplesSplit,
-                                                    minImpurityDecrease);
+                                                    minImpurityDecrease, Criteria, 
+                                                    useSplitHistogram, numThreads);
     trees[i]->loadTree(tree_filename);
   }
 
@@ -204,6 +218,7 @@ std::map<std::string, std::string> Bagging::getTrainingParameters() const {
   parameters["MinImpurityDecrease"] = std::to_string(minImpurityDecrease);
   parameters["Criteria"] = std::to_string(Criteria);
   parameters["WhichLossFunction"] = std::to_string(whichLossFunc);
+  parameters["UseSplitHistogram"] = useSplitHistogram ? "true" : "false";
   parameters["NumThreads"] = std::to_string(numThreads);
   return parameters;
 }
@@ -218,9 +233,8 @@ std::string Bagging::getTrainingParametersString() const {
   oss << "  - Min Samples Split: " << minSamplesSplit << "\n";
   oss << "  - Min Impurity Decrease: " << minImpurityDecrease << "\n";
   oss << "  - Criteria: " << (Criteria == 0 ? "MSE" : "MAE") << "\n";
-  oss << "  - Loss Function: "
-      << (whichLossFunc == 0 ? "Least Squares Loss" : "Mean Absolute Loss")
-      << "\n";
+  oss << "  - Loss Function: " << (whichLossFunc == 0 ? "Least Squares Loss" : "Mean Absolute Loss") << "\n";
+  oss << "  - UseSplitHistogram: " << (useSplitHistogram ? "true" : "false") << "\n";
   oss << " - Number of threads: " << numThreads << "\n";
 
   return oss.str();
