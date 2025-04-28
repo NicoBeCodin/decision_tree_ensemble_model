@@ -6,6 +6,15 @@
 #include <omp.h>
 #include <tuple>
 
+struct BestSplit { double imp; int feat; double thr; };
+//We define a struct to optimize reduction with OMP
+#pragma omp declare reduction(                              \
+        maxBest : BestSplit                                 \
+        : omp_out = (omp_in.imp > omp_out.imp ? omp_in      \
+                                              : omp_out) )  \
+        initializer(omp_priv = {0.0, -1, 0.0})
+
+
 // Constructor
 DecisionTreeSingle::DecisionTreeSingle(int MaxDepth, int MinLeafLarge,
                                        double MinError, int Criteria, bool useSplitHistogram,
@@ -14,6 +23,7 @@ DecisionTreeSingle::DecisionTreeSingle(int MaxDepth, int MinLeafLarge,
       Criteria(Criteria), useSplitHistogram(useSplitHistogram), useOMP(useOMP), Root(nullptr), numThreads(numThreads) {
   getMaxSplitDepth();
 }
+
 
 // Training function
 void DecisionTreeSingle::train(const std::vector<double> &Data, int rowLength,
@@ -63,10 +73,8 @@ void DecisionTreeSingle::evaluate(const std::vector<double> &X_test, const int r
     const double* sample_ptr = &X_test[i * rowLength];
     y_pred.push_back(predict(sample_ptr, rowLength));
   }
-  
   mse_value= Math::computeLossMSE(y_test, y_pred);
   mae_value = Math::computeLossMAE(y_test, y_pred);
-
 }
 
 // Split node function (using MSE)
@@ -148,7 +156,7 @@ void DecisionTreeSingle::splitNode(Tree *Node, const std::vector<double> &Data,
     return;
 }
 
-  if (useOMP && Depth < MaxDepth && !omp_in_final() ) { 
+  if (useOMP && Depth < maxSplitDepth && !omp_in_final() ) { 
     // Grab the child pointers once ─ avoids capturing "Node" in each task
     auto *leftChild  = Node->Left.get();
     auto *rightChild = Node->Right.get();
@@ -253,7 +261,7 @@ void DecisionTreeSingle::splitNodeMAE(Tree *Node,
     Node->Prediction = Math::calculateMeanWithIndices(Labels, Indices); // Use mean instead of median
     return;
 }
-if (useOMP && Depth < MaxDepth && !omp_in_final() ) { 
+if (useOMP && Depth < maxSplitDepth && !omp_in_final() ) { 
     // Grab the child pointers once ─ avoids capturing "Node" in each task
     auto *leftChild  = Node->Left.get();
     auto *rightChild = Node->Right.get();
@@ -361,91 +369,69 @@ std::tuple<int, double, double> DecisionTreeSingle::findBestSplit(
   return {BestFeature, BestThreshold, BestImpurityDecrease};
 }
 
-std::tuple<int, double, double> DecisionTreeSingle::findBestSplitOMP(
-  const std::vector<double> &Data, int rowLength,
-  const std::vector<double> &Labels, const std::vector<int> &Indices,
-  double CurrentMSE) {
-
-// Shared best variables
-int BestFeature = -1;
-double BestThreshold = 0.0;
-double BestImpurityDecrease = 0.0;
-
-size_t NumFeatures = rowLength;
-size_t NumSamples = Indices.size();  
-
-// Thread-private best values
-#pragma omp parallel 
+std::tuple<int, double, double>
+DecisionTreeSingle::findBestSplitOMP(const std::vector<double>& Data,
+                                     int                       rowLen,
+                                     const std::vector<double>& Labels,
+                                     const std::vector<int>&    Indices,
+                                     double                     CurrentMSE)
 {
-  int ThreadBestFeature = -1;
-  double ThreadBestThreshold = 0.0;
-  double ThreadBestImpurityDecrease = 0.0;
+    const size_t nFeat = rowLen;
+    const size_t nSamp = Indices.size();
 
-  #pragma omp for nowait
-  for (size_t Feature = 0; Feature < NumFeatures; ++Feature) {
-    std::vector<std::pair<double, int>> FeatureLabelPairs;
-    
-    for (int Idx : Indices) {
-      FeatureLabelPairs.emplace_back(Data[Idx * rowLength + Feature], Idx);
+    BestSplit globalBest{0.0, -1, 0.0};          // reduction variable
+
+    #pragma omp parallel for reduction(maxBest:globalBest) schedule(static) \
+            default(none)                                                   \
+            shared(Data, Labels, Indices, rowLen, nFeat, nSamp, CurrentMSE)
+    for (size_t f = 0; f < nFeat; ++f)
+    {
+        std::vector<std::pair<double,int>> pairs;
+        pairs.reserve(nSamp);
+        for (int idx : Indices)
+            pairs.emplace_back(Data[idx * rowLen + f], idx);
+
+        std::sort(pairs.begin(), pairs.end());
+
+        double lSum = 0.0, lSq = 0.0;  size_t lCnt = 0;
+        double rSum = 0.0, rSq = 0.0;  size_t rCnt = nSamp;
+
+        for (const auto& pr : pairs) {
+            double y = Labels[pr.second];
+            rSum += y;
+            rSq  += y * y;
+        }
+
+        for (size_t i = 0; i + 1 < pairs.size(); ++i)
+        {
+            const double  x      = pairs[i].first;
+            const int     idx    = pairs[i].second;
+            const double  y      = Labels[idx];
+            const double  xNext  = pairs[i+1].first;
+
+ 
+            lSum += y;  lSq += y*y;  ++lCnt;
+            rSum -= y;  rSq -= y*y;  --rCnt;
+
+            if (x == xNext) continue;             // skip duplicate split
+
+            double lMean = lSum / lCnt;
+            double rMean = rSum / rCnt;
+
+            double lMSE = (lSq - 2*lMean*lSum + lCnt*lMean*lMean) / lCnt;
+            double rMSE = (rSq - 2*rMean*rSum + rCnt*rMean*rMean) / rCnt;
+
+            double weighted = (lMSE*lCnt + rMSE*rCnt) / nSamp;
+            double impDec   = CurrentMSE - weighted;
+
+            if (impDec > globalBest.imp)
+                globalBest = {impDec,
+                              static_cast<int>(f),
+                              0.5 * (x + xNext)};
+        }
     }
-    std::sort(FeatureLabelPairs.begin(), FeatureLabelPairs.end());
 
-    double LeftSum = 0.0, LeftSqSum = 0.0;
-    size_t LeftCount = 0;
-    double RightSum = 0.0, RightSqSum = 0.0;
-    size_t RightCount = NumSamples;
-
-    for (const auto &[value, Idx] : FeatureLabelPairs) {
-      double Label = Labels[Idx];
-      RightSum += Label;
-      RightSqSum += Label * Label;
-    }
-
-    for (size_t i = 0; i < FeatureLabelPairs.size() - 1; ++i) {
-      int Idx = FeatureLabelPairs[i].second;
-      double Value = FeatureLabelPairs[i].first;
-      double Label = Labels[Idx];
-
-      LeftSum += Label;
-      LeftSqSum += Label * Label;
-      LeftCount++;
-
-      RightSum -= Label;
-      RightSqSum -= Label * Label;
-      RightCount--;
-
-      double NextValue = FeatureLabelPairs[i + 1].first;
-      if (Value == NextValue) continue;
-
-      double LeftMean = LeftSum / LeftCount;
-      double LeftMSE = (LeftSqSum - 2 * LeftMean * LeftSum + LeftCount * LeftMean * LeftMean) / LeftCount;
-
-      double RightMean = RightSum / RightCount;
-      double RightMSE = (RightSqSum - 2 * RightMean * RightSum + RightCount * RightMean * RightMean) / RightCount;
-
-      double WeightedImpurity = (LeftMSE * LeftCount + RightMSE * RightCount) / NumSamples;
-      double ImpurityDecrease = CurrentMSE - WeightedImpurity;
-
-      if (ImpurityDecrease > ThreadBestImpurityDecrease) {
-        ThreadBestImpurityDecrease = ImpurityDecrease;
-        ThreadBestFeature = Feature;
-        ThreadBestThreshold = (Value + NextValue) / 2.0;
-      }
-    }
-  }
-
-  // Safely update global best using a critical section
-  #pragma omp critical
-  {
-    if (ThreadBestImpurityDecrease > BestImpurityDecrease) {
-      BestImpurityDecrease = ThreadBestImpurityDecrease;
-      BestFeature = ThreadBestFeature;
-      BestThreshold = ThreadBestThreshold;
-    }
-  }
-}
-
-return {BestFeature, BestThreshold, BestImpurityDecrease};
+    return {globalBest.feat, globalBest.thr, globalBest.imp};
 }
 
 
@@ -529,86 +515,7 @@ std::tuple<int, double, double> DecisionTreeSingle::findBestSplitUsingMAE(
   return {BestFeature, BestThreshold, BestImpurityDecrease};
 }
 
-std::tuple<int, double, double> DecisionTreeSingle::findBestSplitUsingMAEOMP(
-  const std::vector<double> &Data, int rowLength,
-  const std::vector<double> &Labels, const std::vector<int> &Indices,
-  double CurrentMAE) {
 
-int BestFeature = -1;  // Corrected initialization
-double BestThreshold = 0.0;
-double BestImpurityDecrease = 0.0;
-
-// std::cout<<"findBestSplitUsingMAEOMP called"<<std::endl;
-
-size_t NumFeatures = rowLength;
-
-#pragma omp parallel for default(none) shared(Data, Labels, Indices, NumFeatures, rowLength, CurrentMAE, BestFeature, BestThreshold) \
-    reduction(max : BestImpurityDecrease)
-for (size_t Feature = 0; Feature < NumFeatures; ++Feature) {
-  
-  // Store feature values and corresponding labels (private per thread)
-  std::vector<std::pair<double, double>> FeatureLabelPairs;
-  for (int Idx : Indices) {
-    FeatureLabelPairs.emplace_back(Data[Idx * rowLength + Feature], Labels[Idx]);
-  }
-
-  std::sort(FeatureLabelPairs.begin(), FeatureLabelPairs.end());  // Sorting stays private (Inefficace selon le prof)
-
-  // Extract sorted labels
-  std::vector<double> SortedLabels;
-  for (const auto &[feat, label] : FeatureLabelPairs) {
-    SortedLabels.push_back(label);
-  }
-
-  double LeftSum = 0.0, RightSum = std::accumulate(SortedLabels.begin(), SortedLabels.end(), 0.0);
-  size_t LeftCount = 0, RightCount = SortedLabels.size();
-
-  double LeftMedian = 0.0, RightMedian = Math::calculateMedian(SortedLabels);
-
-  for (size_t i = 0; i < SortedLabels.size() - 1; ++i) {
-    double Value = FeatureLabelPairs[i].first;
-    double NextValue = FeatureLabelPairs[i + 1].first;
-    double Label = FeatureLabelPairs[i].second;
-
-    LeftSum += Label;
-    RightSum -= Label;
-    LeftCount++;
-    RightCount--;
-
-    if (Value == NextValue) continue;
-
-    LeftMedian = Math::incrementalMedian(SortedLabels, LeftCount);
-    RightMedian = Math::incrementalMedian(SortedLabels, RightCount);
-
-    double LeftMAE = 0.0, RightMAE = 0.0;
-    for (size_t j = 0; j < LeftCount; ++j) {
-      LeftMAE += std::abs(SortedLabels[j] - LeftMedian);
-    }
-    for (size_t j = LeftCount; j < SortedLabels.size(); ++j) {
-      RightMAE += std::abs(SortedLabels[j] - RightMedian);
-    }
-
-    double WeightedMAE = (LeftMAE + RightMAE) / SortedLabels.size();
-    // #pragma omp ordered
-    double ImpurityDecrease = CurrentMAE - WeightedMAE;
-
-    // Thread-safe update of best split
-    #pragma omp critical
-    {
-      if (ImpurityDecrease > BestImpurityDecrease) {
-        BestImpurityDecrease = ImpurityDecrease;
-        BestFeature = Feature;  // Fix incorrect OpenMP reduction
-        BestThreshold = (Value + NextValue) / 2.0;
-      }
-    }
-  }
-}
-
-// std::cout<<"New vals for findBestSplitUsingMAEOMP best impurity decrease: " << BestImpurityDecrease 
-//          << " bestFeature " << BestFeature << " BestThreshold " << BestThreshold << std::endl;
-
-return {BestFeature, BestThreshold, BestImpurityDecrease};
-}
 
 std::tuple<int, double, double> DecisionTreeSingle::findBestSplitHistogram(
   const std::vector<double>& Data,
@@ -698,110 +605,172 @@ std::tuple<int, double, double> DecisionTreeSingle::findBestSplitHistogram(
   return {BestFeature, BestThreshold, BestImpurityDecrease};
 }
 
-std::tuple<int, double, double> DecisionTreeSingle::findBestSplitHistogramOMP(
-  const std::vector<double>& Data,
-  int rowLength,
-  const std::vector<double>& Labels,
-  const std::vector<int>& Indices,
-  double CurrentMSE,
-  int n_bins = 255) {
 
-  int BestFeature = -1;
-  double BestThreshold = 0.0;
-  double BestImpurityDecrease = 0.0;
 
-  size_t n_features = rowLength;
-  size_t n_samples = Indices.size();
+std::tuple<int, double, double>
+DecisionTreeSingle::findBestSplitUsingMAEOMP(const std::vector<double>& Data,
+                                             int                       rowLength,
+                                             const std::vector<double>& Labels,
+                                             const std::vector<int>&    Indices,
+                                             double                    CurrentMAE)
+{
+    const size_t NumFeatures = rowLength;
+    const size_t NumSamples  = Indices.size();
 
-  // Precompute min and max for each feature
-  std::vector<std::pair<double, double>> feature_min_max(n_features, {1e9, -1e9});
-  for (size_t idx : Indices) {
-      for (size_t f = 0; f < n_features; ++f) {
-          double val = Data[idx * rowLength + f];
-          feature_min_max[f].first = std::min(feature_min_max[f].first, val);
-          feature_min_max[f].second = std::max(feature_min_max[f].second, val);
-      }
-  }
+    BestSplit globalBest{0.0, -1, 0.0};          // reduction variable
 
-  // Parallel over features
-  #pragma omp parallel
-  {
-      int thread_best_feature = -1;
-      double thread_best_threshold = 0.0;
-      double thread_best_impurity_decrease = 0.0;
+    #pragma omp parallel for reduction(maxBest:globalBest)           \
+            default(none)                                            \
+            shared(Data, Labels, Indices, rowLength, NumFeatures,    \
+                   CurrentMAE, NumSamples)
+    for (size_t Feature = 0; Feature < NumFeatures; ++Feature)
+    {
+        
+        std::vector<std::pair<double,double>> col;   // {x_i , y_i}
+        col.reserve(NumSamples);
+        for (int idx : Indices)
+            col.emplace_back(Data[idx * rowLength + Feature], Labels[idx]);
 
-      #pragma omp for nowait
-      for (int f = 0; f < static_cast<int>(n_features); ++f) {
-          double fmin = feature_min_max[f].first;
-          double fmax = feature_min_max[f].second;
+        std::sort(col.begin(), col.end());
 
-          if (fmin == fmax) continue; // Skip constant features
+        
+        std::vector<double> ySorted;
+        ySorted.reserve(NumSamples);
+        for (const auto& p : col) ySorted.push_back(p.second);
 
-          std::vector<double> sum_in_bin(n_bins, 0.0);
-          std::vector<double> sum_sq_in_bin(n_bins, 0.0);
-          std::vector<int> count_in_bin(n_bins, 0);
+        
+        size_t  leftCnt  = 0,          rightCnt  = NumSamples;
+        double  leftSum  = 0.0,        rightSum  = std::accumulate(ySorted.begin(),
+                                                                   ySorted.end(), 0.0);
+        double  leftMed  = 0.0,        rightMed  = Math::calculateMedian(ySorted);
 
-          // Fill histogram for feature f
-          for (size_t idx : Indices) {
-              double val = Data[idx * rowLength + f];
-              int bin = static_cast<int>(((val - fmin) / (fmax - fmin)) * (n_bins - 1));
-              bin = std::max(0, std::min(bin, n_bins - 1)); // Clamp
-              double label = Labels[idx];
-              sum_in_bin[bin] += label;
-              sum_sq_in_bin[bin] += label * label;
-              count_in_bin[bin] += 1;
-          }
+        BestSplit localBest{0.0, -1, 0.0};
 
-          double left_sum = 0.0, left_sq_sum = 0.0;
-          int left_count = 0;
-          double right_sum = std::accumulate(sum_in_bin.begin(), sum_in_bin.end(), 0.0);
-          double right_sq_sum = std::accumulate(sum_sq_in_bin.begin(), sum_sq_in_bin.end(), 0.0);
-          int right_count = std::accumulate(count_in_bin.begin(), count_in_bin.end(), 0);
+        for (size_t i = 0; i + 1 < ySorted.size(); ++i)
+        {
+            const double  x        = col[i].first;
+            const double  xNext    = col[i + 1].first;
+            const double  y        = col[i].second;
 
-          for (int b = 0; b < n_bins - 1; ++b) {
-              left_sum += sum_in_bin[b];
-              left_sq_sum += sum_sq_in_bin[b];
-              left_count += count_in_bin[b];
+            ++leftCnt;   --rightCnt;
+            leftSum  += y;
+            rightSum -= y;
 
-              right_sum -= sum_in_bin[b];
-              right_sq_sum -= sum_sq_in_bin[b];
-              right_count -= count_in_bin[b];
+            if (x == xNext) continue;             // identical feature value
 
-              if (left_count == 0 || right_count == 0) continue;
+            leftMed  = Math::incrementalMedian(ySorted, leftCnt);
+            rightMed = Math::incrementalMedian(ySorted, rightCnt);
 
-              double left_mean = left_sum / left_count;
-              double left_mse = (left_sq_sum - 2 * left_mean * left_sum + left_count * left_mean * left_mean) / left_count;
+            /* compute MAE for each side ----------------------------- */
+            double leftMAE = 0.0, rightMAE = 0.0;
 
-              double right_mean = right_sum / right_count;
-              double right_mse = (right_sq_sum - 2 * right_mean * right_sum + right_count * right_mean * right_mean) / right_count;
+            for (size_t j = 0; j < leftCnt; ++j)
+                leftMAE += std::abs(ySorted[j] - leftMed);
 
-              double weighted_mse = (left_mse * left_count + right_mse * right_count) / n_samples;
-              double impurity_decrease = CurrentMSE - weighted_mse;
+            for (size_t j = leftCnt; j < ySorted.size(); ++j)
+                rightMAE += std::abs(ySorted[j] - rightMed);
 
-              if (impurity_decrease > thread_best_impurity_decrease) {
-                  thread_best_impurity_decrease = impurity_decrease;
-                  thread_best_feature = f;
-                  thread_best_threshold = fmin + ((fmax - fmin) * (b + 1)) / n_bins;
-              }
-          }
-      }
+            const double weightedMAE   = (leftMAE + rightMAE) / NumSamples;
+            const double impurityDec   = CurrentMAE - weightedMAE;
 
-      // Update global best
-      #pragma omp critical
-      {
-          if (thread_best_impurity_decrease > BestImpurityDecrease) {
-              BestImpurityDecrease = thread_best_impurity_decrease;
-              BestFeature = thread_best_feature;
-              BestThreshold = thread_best_threshold;
-          }
-      }
-  }
-
-  return {BestFeature, BestThreshold, BestImpurityDecrease};
+            if (impurityDec > globalBest.imp)
+                globalBest = {impurityDec,
+                             static_cast<int>(Feature),
+                             0.5 * (x + xNext)};
+        }
+    }
+    return {globalBest.feat, globalBest.thr, globalBest.imp};
 }
 
-// Other functions remain structurally similar with adjustments for flattened
-// data
+
+
+std::tuple<int, double, double>
+DecisionTreeSingle::findBestSplitHistogramOMP(const std::vector<double>& Data,
+                                              int                       rowLength,
+                                              const std::vector<double>& Labels,
+                                              const std::vector<int>&    Indices,
+                                              double                    CurrentMSE,
+                                              int                       n_bins /*=255*/)
+{
+    const size_t nFeatures = rowLength;
+    const size_t nSamples  = Indices.size();
+
+    
+    std::vector<std::pair<double,double>> fMinMax(nFeatures, { 1e9,-1e9 });
+
+    for (size_t idx : Indices)
+        for (size_t f = 0; f < nFeatures; ++f) {
+            double v = Data[idx * rowLength + f];
+            fMinMax[f].first  = std::min(fMinMax[f].first , v);
+            fMinMax[f].second = std::max(fMinMax[f].second, v);
+        }
+
+    
+    BestSplit globalBest{0.0, -1, 0.0};
+
+    #pragma omp parallel for reduction(maxBest:globalBest)            \
+            schedule(static) default(none)                            \
+            shared(Data, Labels, Indices, fMinMax, n_bins,            \
+                   nFeatures, nSamples, rowLength, CurrentMSE)
+    for (int f = 0; f < static_cast<int>(nFeatures); ++f)
+    {
+        const double fmin = fMinMax[f].first;
+        const double fmax = fMinMax[f].second;
+        if (fmin == fmax) continue;                 // constant column
+
+    
+        std::vector<double> sumBin    (n_bins, 0.0);
+        std::vector<double> sumSqBin  (n_bins, 0.0);
+        std::vector<int>    cntBin    (n_bins, 0);
+
+    
+        
+        for (size_t idx_i = 0; idx_i < Indices.size(); ++idx_i) {
+            size_t idx = Indices[idx_i];
+            double v   = Data[idx * rowLength + f];
+            int    b   = static_cast<int>(((v - fmin) / (fmax - fmin)) * (n_bins - 1));
+            b = std::max(0, std::min(b, n_bins - 1));
+            double y   = Labels[idx];
+            sumBin   [b] += y;
+            sumSqBin [b] += y * y;
+            cntBin   [b] += 1;
+        }
+
+        /* ---- prefix / suffix scan to evaluate splits ------------- */
+        double lSum = 0.0, lSq = 0.0; int lCnt = 0;
+        double rSum = std::accumulate(sumBin.begin(),   sumBin.end(),   0.0);
+        double rSq  = std::accumulate(sumSqBin.begin(), sumSqBin.end(), 0.0);
+        int    rCnt = std::accumulate(cntBin.begin(),   cntBin.end(),   0);
+
+        BestSplit localBest{0.0, -1, 0.0};
+
+        for (int b = 0; b < n_bins - 1; ++b)
+        {
+            lSum += sumBin[b]; lSq += sumSqBin[b]; lCnt += cntBin[b];
+            rSum -= sumBin[b]; rSq -= sumSqBin[b]; rCnt -= cntBin[b];
+
+            if (lCnt == 0 || rCnt == 0) continue;
+
+            double lMean = lSum / lCnt;
+            double rMean = rSum / rCnt;
+
+            double lMSE = (lSq - 2*lMean*lSum + lCnt*lMean*lMean) / lCnt;
+            double rMSE = (rSq - 2*rMean*rSum + rCnt*rMean*rMean) / rCnt;
+
+            double weightedMSE   = (lMSE * lCnt + rMSE * rCnt) / nSamples;
+            double impDec        = CurrentMSE - weightedMSE;
+
+            if (impDec > globalBest.imp)
+                globalBest= {impDec, f,
+                             fmin + (static_cast<double>(b + 1) / n_bins)*(fmax - fmin)};
+        }
+
+        /* localBest merges into globalBest via the maxBest reduction */
+    }
+
+    return {globalBest.feat, globalBest.thr, globalBest.imp};
+}
+
 
 // Prediction function
 double DecisionTreeSingle::predict(const double* Sample, int rowLength) const {

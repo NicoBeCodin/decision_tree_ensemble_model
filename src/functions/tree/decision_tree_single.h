@@ -107,7 +107,7 @@ private:
   std::unique_ptr<Tree> deserializeNode(std::istream &in);
 
   int numThreads = 1;
-  int maxSplitDepth = 0;
+  int maxSplitDepth = 2;
   std::atomic<int> activeThreads;
 };
 

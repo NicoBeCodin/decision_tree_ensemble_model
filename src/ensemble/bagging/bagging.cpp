@@ -82,20 +82,6 @@ void Bagging::train(const std::vector<double> &data, int rowLength,
         trees[i] = std::move(tree);
       };
 
-      // Limit concurrent threads to `numThreads`
-    //   if (futures.size() >= numThreads) {
-    //     for (auto &future : futures) {
-    //       trees.push_back(
-    //           std::move(future.get())); // Retrieve result and store in `trees`
-    //     }
-    //     futures.clear(); // Clear futures vector to free threads for next batch
-    //   }
-    // }
-
-    // Ensure all remaining trees are retrieved
-    // for (auto &future : futures) {
-    //   trees.push_back(std::move(future.get()));
-    // }
   } else {
     for (int i = 0; i < numTrees; ++i) {
       std::vector<double> sampled_data;
