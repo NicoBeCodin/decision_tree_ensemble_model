@@ -27,7 +27,7 @@ public:
 
   // Constructor and existing methods
   DecisionTreeSingle(int MaxDepth, int MinLeafLarge, double MinError,
-                     int Criteria = 0, bool useSplitHistogram = false, int numThreads = 1);
+                     int Criteria = 0, bool useSplitHistogram = false, bool useOMP = 0, int numThreads = 1);
   void train(const std::vector<double> &Data, int rowLength,
              const std::vector<double> &Labels, int criteria = 0);
 
@@ -54,6 +54,7 @@ private:
   int Criteria;
   int RootSamples;
   bool useSplitHistogram;
+  bool useOMP;
   double MinError;
   double RootMSE;
 

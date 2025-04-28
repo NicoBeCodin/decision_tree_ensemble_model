@@ -8,7 +8,7 @@ void runSingleDecisionTreeModel(DecisionTreeParams params, DataParams data_param
     
     DecisionTreeSingle single_tree(params.maxDepth, params.minSamplesSplit,
                                    params.minImpurityDecrease, params.criteria, 
-                                   params.useSplitHistogram, params.numThreads);
+                                   params.useSplitHistogram, params.useOMP, params.numThreads);
   
     auto train_start = std::chrono::high_resolution_clock::now();
     single_tree.train(data_params.X_train, data_params.rowLength, data_params.y_train, params.criteria);

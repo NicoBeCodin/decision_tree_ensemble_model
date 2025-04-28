@@ -62,7 +62,7 @@ void getModelParameters(int model_choice, std::string& parameters) {
             int max_depth, min_samples;
             int criteria = -1;
             int numThreads = 1;
-            bool useSplitHistogram = false;
+            bool useSplitHistogram = false, useOMP = false;
             double min_impurity;
             std::cout << "\nDecision Tree Parameters:\n";
             // Loop until the user enters 0 or 1 for criteria
@@ -87,6 +87,8 @@ void getModelParameters(int model_choice, std::string& parameters) {
             std::cin >> min_impurity;
             std::cout << "Use SplitHistogram (1 = Yes, 0 = No (default)): ";
             std::cin >> useSplitHistogram;
+            std::cout << "Use OMP (1 = Yes, 0 = No (default): ";
+            std::cin >> useOMP;
             int availableThreads = std::thread::hardware_concurrency();
             std::cout << "Number of concurrent threads supported by the implementation: "<< availableThreads << "\nHow many do you want to use ?\nPlease use a power of two (1,2,4,8,16 etc...)";
             std::cin>>numThreads;

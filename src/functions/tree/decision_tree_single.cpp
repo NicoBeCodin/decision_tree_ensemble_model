@@ -9,9 +9,9 @@
 // Constructor
 DecisionTreeSingle::DecisionTreeSingle(int MaxDepth, int MinLeafLarge,
                                        double MinError, int Criteria, bool useSplitHistogram,
-                                       int numThreads)
+                                       bool useOMP, int numThreads)
     : MaxDepth(MaxDepth), MinLeafLarge(MinLeafLarge), MinError(MinError),
-      Criteria(Criteria), useSplitHistogram(useSplitHistogram), Root(nullptr), numThreads(numThreads) {
+      Criteria(Criteria), useSplitHistogram(useSplitHistogram), useOMP(useOMP), Root(nullptr), numThreads(numThreads) {
   getMaxSplitDepth();
 }
 
@@ -503,7 +503,7 @@ std::tuple<int, double, double> DecisionTreeSingle::findBestSplitUsingMAEOMP(
   const std::vector<double> &Labels, const std::vector<int> &Indices,
   double CurrentMAE) {
 
-int BestFeature = -1;  // ✅ Corrected initialization
+int BestFeature = -1;  // Corrected initialization
 double BestThreshold = 0.0;
 double BestImpurityDecrease = 0.0;
 
@@ -519,13 +519,13 @@ if (numThreads !=1) {
     reduction(max : BestImpurityDecrease)
 for (size_t Feature = 0; Feature < NumFeatures; ++Feature) {
   
-  // ✅ Store feature values and corresponding labels (private per thread)
+  // Store feature values and corresponding labels (private per thread)
   std::vector<std::pair<double, double>> FeatureLabelPairs;
   for (int Idx : Indices) {
     FeatureLabelPairs.emplace_back(Data[Idx * rowLength + Feature], Labels[Idx]);
   }
 
-  std::sort(FeatureLabelPairs.begin(), FeatureLabelPairs.end());  // ✅ Sorting stays private
+  std::sort(FeatureLabelPairs.begin(), FeatureLabelPairs.end());  // Sorting stays private (Inefficace selon le prof)
 
   // Extract sorted labels
   std::vector<double> SortedLabels;
@@ -565,12 +565,12 @@ for (size_t Feature = 0; Feature < NumFeatures; ++Feature) {
     // #pragma omp ordered
     double ImpurityDecrease = CurrentMAE - WeightedMAE;
 
-    // ✅ Thread-safe update of best split
+    // Thread-safe update of best split
     #pragma omp critical
     {
       if (ImpurityDecrease > BestImpurityDecrease) {
         BestImpurityDecrease = ImpurityDecrease;
-        BestFeature = Feature;  // ✅ Fix incorrect OpenMP reduction
+        BestFeature = Feature;  // Fix incorrect OpenMP reduction
         BestThreshold = (Value + NextValue) / 2.0;
       }
     }

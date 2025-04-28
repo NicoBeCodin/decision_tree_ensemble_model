@@ -18,6 +18,7 @@ struct DecisionTreeParams {
     double minImpurityDecrease;
     int criteria;
     bool useSplitHistogram;
+    bool useOMP;
     int numThreads;
 };
 

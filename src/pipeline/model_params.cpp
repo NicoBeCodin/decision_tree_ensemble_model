@@ -10,7 +10,8 @@ bool getDecisionTreeParams(const ProgramOptions& options, DecisionTreeParams& ou
       out_params.minSamplesSplit = std::stoi(options.params[2]);
       out_params.minImpurityDecrease = std::stod(options.params[3]);
       out_params.useSplitHistogram = std::stoi(options.params[4]) != 0;
-      out_params.numThreads = adjustNumThreads(std::stoi(options.params[5])); // This is to make sure it's a power of two
+      out_params.useOMP = std::stoi(options.params[5]) != 0;
+      out_params.numThreads = adjustNumThreads(std::stoi(options.params[6])); // This is to make sure it's a power of two
     } else if (options.load_request) {
       try {
         DecisionTreeSingle tmp_tree(0, 0, 0.0, 0); // Temporary
@@ -25,6 +26,7 @@ bool getDecisionTreeParams(const ProgramOptions& options, DecisionTreeParams& ou
         out_params.minSamplesSplit = std::stoi(training_params["MinLeafLarge"]);
         out_params.minImpurityDecrease = std::stod(training_params["MinError"]);
         out_params.useSplitHistogram = std::stoi(training_params["UseSplitHistogram"]) != 0;
+        out_params.useOMP = std::stoi(training_params["UseOMP"]) != 0;
         // Retrieve numThreads safely with a default value of 1, for
         // Retrocompatibility
         out_params.numThreads = (training_params.find("NumThreads") != training_params.end()) ? std::stoi(training_params["NumThreads"]) : 1;
@@ -44,13 +46,15 @@ bool getDecisionTreeParams(const ProgramOptions& options, DecisionTreeParams& ou
       out_params.minSamplesSplit = 2;
       out_params.minImpurityDecrease = 1e-12;
       out_params.useSplitHistogram = false;
+      out_params.useOMP = false;
       out_params.numThreads = 1;
       std::cout << "Generation of default values : " << std::endl
                 << "Default for splitting criteria (MSE)" << std::endl
                 << "Default maximum depth = " << out_params.maxDepth << std::endl
                 << "Default minimum sample split = " << out_params.minSamplesSplit << std::endl
                 << "Default minimum impurity decrease = " << out_params.minImpurityDecrease << std::endl
-                << "Default no useSplitHistogram = " << out_params.minImpurityDecrease << std::endl
+                << "Default no useSplitHistogram = " << out_params.useSplitHistogram << std::endl
+                << "Default no useOMP = " << out_params.useSplitHistogram << std::endl
                 << "Default number of threads : " << out_params.numThreads << " (OpenMP optimizations : off)" << std::endl;
     }
     return true;
