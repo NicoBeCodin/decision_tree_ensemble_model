@@ -26,7 +26,9 @@ public:
      * @param min_samples_split Minimum number of samples required to split a node
      * @param min_impurity_decrease Minimum impurity decrease required for a split
      */
-    Bagging(int num_trees, int max_depth, int min_samples_split, double min_impurity_decrease, std::unique_ptr<LossFunction> loss_function = std::unique_ptr<LeastSquaresLoss>(), int Criteria = 0, int whichLossFunc = 0, bool useSplitHistogram = false, bool useOMP = false, int numThreads = 1);
+    Bagging(int num_trees, int max_depth, int min_samples_split, double min_impurity_decrease, 
+            std::unique_ptr<LossFunction> loss_function = std::unique_ptr<LeastSquaresLoss>(), 
+            int Criteria = 0, int whichLossFunc = 0, bool useSplitHistogram = false, bool useOMP = false, int numThreads = 1);
 
     /**
      * @brief Train the Bagging model

@@ -98,7 +98,7 @@ void runBaggingModel(BaggingParams params, DataParams data_params) {
   
     Bagging bagging_model(params.numTrees, params.maxDepth, params.minSamplesSplit,
                           params.minImpurityDecrease, std::move(loss_function),
-                          params.criteria, params.whichLossFunction, params.useSplitHistogram, params.numThreads);
+                          params.criteria, params.whichLossFunction, params.useSplitHistogram, params.useOMP, params.numThreads);
   
     double score = 0.0;
     double train_duration_count = 0.0;
