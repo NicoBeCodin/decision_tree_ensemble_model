@@ -13,6 +13,7 @@ target_link_libraries(Pipeline
     FunctionsMath
     Bagging
     Boosting
+    Boosting_LightGBM
     model_comparison
     LossFunction
 )

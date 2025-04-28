@@ -15,3 +15,5 @@ void runSingleDecisionTreeModel(DecisionTreeParams params, DataParams data_param
 void runBaggingModel(BaggingParams params, DataParams data_params);
 
 void runBoostingModel(BoostingParams params, DataParams data_params);
+
+void runLightGBMModel(const LightGBMParams& params, const DataParams& data_params);

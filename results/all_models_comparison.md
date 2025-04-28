@@ -489,3 +489,92 @@
 
 ---
 
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.870e-310
+- Training Time: 15.261 seconds
+- Evaluation Time: 0.033 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 60.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 20.000
+- num_threads: 1.000
+- use_split_histogram: 0.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.65%
+- matrix_size_y: 0.50%
+- p1: 3.55%
+- p2: 0.51%
+- p3: 76.72%
+- p4: 6.20%
+- p5: 1.76%
+- p6: 6.67%
+- p7: 1.01%
+- p8: 1.43%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 0.000e+00
+- Training Time: 0.151 seconds
+- Evaluation Time: 0.004 seconds
+
+#### Model Parameters
+- colsample_bytree: 1.000
+- learning_rate: 0.100
+- max_depth: -1.000
+- n_estimators: 100.000
+- num_leaves: 31.000
+- subsample: 1.000
+
+#### Feature Importance
+- F0: 220.57%
+- F1: 10.74%
+- F2: 1831.37%
+- F3: 1371.74%
+- F4: 173.82%
+- F5: 865.24%
+- F6: 487.48%
+- F7: 185.44%
+- F8: 278.41%
+- F9: 68.58%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 0.000e+00
+- Training Time: 0.179 seconds
+- Evaluation Time: 0.003 seconds
+
+#### Model Parameters
+- colsample_bytree: 1.000
+- learning_rate: 0.100
+- max_depth: -1.000
+- n_estimators: 100.000
+- num_leaves: 31.000
+- subsample: 1.000
+
+#### Feature Importance
+- F0: 220.57%
+- F1: 10.74%
+- F2: 1831.37%
+- F3: 1371.74%
+- F4: 173.82%
+- F5: 865.24%
+- F6: 487.48%
+- F7: 185.44%
+- F8: 278.41%
+- F9: 68.58%
+
+---
+

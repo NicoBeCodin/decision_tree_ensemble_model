@@ -7,36 +7,41 @@
 #include <memory>
 
 int main(int argc, char *argv[]) {
-
   ProgramOptions programOptions = parseCommandLineArguments(argc, argv);
 
   DataParams data_params;
-
-  splitDataset(data_params);
+  if (!splitDataset(data_params)) {
+    return -1;
+  }
   
   switch (programOptions.choice) {
     case 1: {
       DecisionTreeParams treeParams;
-      if (!getDecisionTreeParams(programOptions, treeParams)) {
-        return -1; // Successful or unsuccessful loading
-      }
-      runSingleDecisionTreeModel(treeParams, data_params); break;
+      if (!getDecisionTreeParams(programOptions, treeParams)) return -1;
+      runSingleDecisionTreeModel(treeParams, data_params);
+      break;
     }
     case 2: {
       BaggingParams baggingParams;
-      if (!getBaggingParams(programOptions, baggingParams)) {
-        return -1; // Successful or unsuccessful loading
-      }
-      runBaggingModel(baggingParams, data_params); break;
+      if (!getBaggingParams(programOptions, baggingParams)) return -1;
+      runBaggingModel(baggingParams, data_params);
+      break;
     }
     case 3: {
       BoostingParams boostingParams;
-      if (!getBoostingParams(programOptions, boostingParams)) {
-        return -1; // Successful or unsuccessful loading
-      }
-      runBoostingModel(boostingParams, data_params); break;
+      if (!getBoostingParams(programOptions, boostingParams)) return -1;
+      runBoostingModel(boostingParams, data_params);
+      break;
     }
-    default: std::cerr << "Invalid choice! Please choose 1, 2, 3 or 4" << std::endl; return -1;
+    case 4: {
+      LightGBMParams lgbParams;
+      if (!getLightGBMParams(programOptions, lgbParams)) return -1;
+      runLightGBMModel(lgbParams, data_params);
+      break;
+    }
+    default:
+      std::cerr << "Invalid choice! Please choose 1, 2, 3 or 4" << std::endl;
+      return -1;
   }
   return 0;
 }
