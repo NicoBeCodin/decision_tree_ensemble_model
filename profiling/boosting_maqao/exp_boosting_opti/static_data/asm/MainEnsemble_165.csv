@@ -1,0 +1,26 @@
+address;source_location;insn;indent
+0x41f14;:0;LEA	-0x28(%RBP),%RAX;
+0x41f18;:0;MOV	%RAX,%RDI;
+0x41f1b;:0;CALL	34fda <_ZNK9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEdeEv>;
+0x41f20;:0;MOV	(%RAX),%EAX;
+0x41f22;:0;MOV	%EAX,-0x2c(%RBP);
+0x41f25;:0;MOV	-0x2c(%RBP),%EAX;
+0x41f28;:0;MOVSXD	%EAX,%RDX;
+0x41f2b;:0;MOV	-0x38(%RBP),%RAX;
+0x41f2f;:0;MOV	%RDX,%RSI;
+0x41f32;:0;MOV	%RAX,%RDI;
+0x41f35;:0;CALL	2819a <_ZNKSt6vectorIdSaIdEEixEm>;
+0x41f3a;:0;MOVSD	(%RAX),%XMM0;
+0x41f3e;:0;MOVSD	-0x18(%RBP),%XMM1;
+0x41f43;:0;ADDSD	%XMM1,%XMM0;
+0x41f47;:0;MOVSD	%XMM0,-0x18(%RBP);
+0x41f4c;:0;LEA	-0x28(%RBP),%RAX;
+0x41f50;:0;MOV	%RAX,%RDI;
+0x41f53;:0;CALL	34fb6 <_ZN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEppEv>;
+0x41f58;:0;LEA	-0x20(%RBP),%RDX;
+0x41f5c;:0;LEA	-0x28(%RBP),%RAX;
+0x41f60;:0;MOV	%RDX,%RSI;
+0x41f63;:0;MOV	%RAX,%RDI;
+0x41f66;:0;CALL	34f76 <_ZN9__gnu_cxxneIPKiSt6vectorIiSaIiEEEEbRKNS_17__normal_iteratorIT_T0_EESB_>;
+0x41f6b;:0;TEST	%AL,%AL;
+0x41f6d;:0;JNE	41f14 <_ZN4Math24calculateMeanWithIndicesERKSt6vectorIdSaIdEERKS0_IiSaIiEE+0x56>;

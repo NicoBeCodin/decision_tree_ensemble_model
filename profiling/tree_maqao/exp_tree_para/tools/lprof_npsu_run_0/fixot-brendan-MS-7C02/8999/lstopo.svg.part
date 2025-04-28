@@ -1,0 +1,7 @@
+	<rect id='PU_0_rect' class='PU' x='21' y='103' width='50' height='38' fill='rgb(0,255,0)' stroke='rgb(0,0,0)' stroke-width='1'/>
+	<rect id='PU_1_rect' class='PU' x='92' y='103' width='50' height='38' fill='rgb(0,255,0)' stroke='rgb(0,0,0)' stroke-width='1'/>
+	<rect id='PU_2_rect' class='PU' x='163' y='103' width='50' height='38' fill='rgb(0,255,0)' stroke='rgb(0,0,0)' stroke-width='1'/>
+	<rect id='PU_3_rect' class='PU' x='21' y='179' width='50' height='38' fill='rgb(0,255,0)' stroke='rgb(0,0,0)' stroke-width='1'/>
+	<rect id='PU_4_rect' class='PU' x='92' y='179' width='50' height='38' fill='rgb(0,255,0)' stroke='rgb(0,0,0)' stroke-width='1'/>
+	<rect id='PU_5_rect' class='PU' x='163' y='179' width='50' height='38' fill='rgb(0,255,0)' stroke='rgb(0,0,0)' stroke-width='1'/>
+	<rect id='NUMANode_0_rect' class='NUMANode' x='14' y='48' width='206' height='24' fill='rgb(0,255,0)' stroke='rgb(0,0,0)' stroke-width='1'/>

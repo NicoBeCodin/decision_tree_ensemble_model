@@ -1,0 +1,2 @@
+node;proc_name;architecture_code;uarchitecture_code;architecture;uarchitecture;cpui_model_name;cpui_cache_size;cpui_cpu_cores;max_frequency;cur_frequency;driver_frequency;scaling_governor;huge_pages;os_version;pids;
+fixot-brendan-MS-7C02;AMD_fam17h_mod71h;2;36;x86_64;ZEN_V2;AMD Ryzen 5 3500X 6-Core Processor;512 KB;6;4120312;2050117;acpi-cpufreq;schedutil;madvise;Linux 6.11.0-24-generic #24~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Tue Mar 25 20:14:34 UTC 2;8999;

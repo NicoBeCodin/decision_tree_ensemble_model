@@ -1,0 +1,13 @@
+address;source_location;insn;indent
+0x34516;:0;ENDBR64;
+0x3451a;:0;PUSH	%RBP;
+0x3451b;:0;MOV	%RSP,%RBP;
+0x3451e;:0;SUB	$0x10,%RSP;
+0x34522;:0;MOV	%RDI,-0x8(%RBP);
+0x34526;:0;MOV	-0x8(%RBP),%RAX;
+0x3452a;:0;MOV	%RAX,%RDI;
+0x3452d;:0;CALL	344f6 <_ZNSt12_Vector_baseIiSaIiEEC1Ev>;
+0x34532;:0;NOP;
+0x34533;:0;LEAVE;
+0x34534;:0;RET;
+0x34535;:0;NOP;

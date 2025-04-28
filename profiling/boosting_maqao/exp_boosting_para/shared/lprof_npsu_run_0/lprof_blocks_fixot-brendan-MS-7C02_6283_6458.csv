@@ -1,0 +1,15 @@
+block_id;module;source_info;time_p;time_s;time_s_min;time_s_avg;time_s_max;cov_deviation;time_deviation;nb_threads;flops;
+10656;MainEnsemble;;20;0.01999999769032;;;;;;;;
+10655;MainEnsemble;;15.000000953674;0.014999998733401;;;;;;;;
+11882;MainEnsemble;;10;0.00999999884516;;;;;;;;
+11884;MainEnsemble;;5;0.00499999942258;;;;;;;;
+11877;MainEnsemble;;5;0.00499999942258;;;;;;;;
+11862;MainEnsemble;;5;0.00499999942258;;;;;;;;
+11624;MainEnsemble;;5;0.00499999942258;;;;;;;;
+11625;MainEnsemble;;5;0.00499999942258;;;;;;;;
+10915;MainEnsemble;;5;0.00499999942258;;;;;;;;
+10662;MainEnsemble;;5;0.00499999942258;;;;;;;;
+7714;MainEnsemble;;5;0.00499999942258;;;;;;;;
+10210;MainEnsemble;;5;0.00499999942258;;;;;;;;
+11630;MainEnsemble;;5;0.00499999942258;;;;;;;;
+10215;MainEnsemble;;5;0.00499999942258;;;;;;;;

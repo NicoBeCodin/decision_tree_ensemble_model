@@ -1,0 +1,109 @@
+
+* Info: "ref-cycles" not supported on fixot-brendan-MS-7C02: fallback to "cpu-clock"X size : 147950
+y size : 14795
+Train size : 118360
+X_train size : 118360
+y_train size : 11836
+X_test size : 29590
+y_test size : 2959
+
+Training a Boosting model, please wait...
+Boosting process started, please wait...
+Training process started, please wait...
+Iteration 1, Loss: 0.000794701
+Iteration 2, Loss: 0.000688973
+Iteration 3, Loss: 0.000597543
+Iteration 4, Loss: 0.000518388
+Iteration 5, Loss: 0.000449853
+Iteration 6, Loss: 0.000390525
+Iteration 7, Loss: 0.000339189
+Iteration 8, Loss: 0.000294602
+Iteration 9, Loss: 0.000255994
+Iteration 10, Loss: 0.000222627
+Iteration 11, Loss: 0.000193686
+Iteration 12, Loss: 0.000168663
+Iteration 13, Loss: 0.000147039
+Iteration 14, Loss: 0.00012832
+Iteration 15, Loss: 0.000112055
+Iteration 16, Loss: 9.80048e-05
+Iteration 17, Loss: 8.58657e-05
+Iteration 18, Loss: 7.53509e-05
+Iteration 19, Loss: 6.63167e-05
+Iteration 20, Loss: 5.84808e-05
+Iteration 21, Loss: 5.16677e-05
+Iteration 22, Loss: 4.58465e-05
+Iteration 23, Loss: 4.08003e-05
+Iteration 24, Loss: 3.64515e-05
+Iteration 25, Loss: 3.26846e-05
+Iteration 26, Loss: 2.94247e-05
+Iteration 27, Loss: 2.66589e-05
+Iteration 28, Loss: 2.42384e-05
+Iteration 29, Loss: 2.21813e-05
+Iteration 30, Loss: 2.03842e-05
+Iteration 31, Loss: 1.87738e-05
+Iteration 32, Loss: 1.74138e-05
+Iteration 33, Loss: 1.62792e-05
+Iteration 34, Loss: 1.52927e-05
+Iteration 35, Loss: 1.44801e-05
+Iteration 36, Loss: 1.37561e-05
+Iteration 37, Loss: 1.31599e-05
+Iteration 38, Loss: 1.26343e-05
+Iteration 39, Loss: 1.22002e-05
+Iteration 40, Loss: 1.17961e-05
+Iteration 41, Loss: 1.1445e-05
+Iteration 42, Loss: 1.11755e-05
+Iteration 43, Loss: 1.09627e-05
+Iteration 44, Loss: 1.07965e-05
+Iteration 45, Loss: 1.05906e-05
+Iteration 46, Loss: 1.04666e-05
+Iteration 47, Loss: 1.03641e-05
+Iteration 48, Loss: 1.02789e-05
+Iteration 49, Loss: 1.01476e-05
+Iteration 50, Loss: 1.00602e-05
+Iteration 51, Loss: 1.00285e-05
+Iteration 52, Loss: 9.90205e-06
+Iteration 53, Loss: 9.90205e-06
+Iteration 54, Loss: 9.90205e-06
+Iteration 55, Loss: 9.90205e-06
+Iteration 56, Loss: 9.90205e-06
+Iteration 57, Loss: 9.90205e-06
+Early stopping triggered after 57 iterations.
+Training time: 6.28006 seconds
+Evaluation time: 0.0188966 seconds
+Model score with Boosting Mean Square Error (MSE):  : 0.000194718
+
+Feature importance :
+------------------------------
+             p3          36.02
+             p4          20.49
+             p6          18.11
+             p1           7.98
+  matrix_size_x           4.70
+             p5           4.67
+             p8           3.10
+             p7           2.67
+  matrix_size_y           1.19
+             p2           1.06
+
+Would you like to genarate a visualisation of this model? (1 = Yes, 0 = No): 
+* Info: Dumping samples (host fixot-brendan-MS-7C02, process 6283)
+* Info: Dumping source info for callchain nodes (host fixot-brendan-MS-7C02, process 6283)
+* Info: Building/writing metadata (host fixot-brendan-MS-7C02)
+* Info: Finished collect step (host fixot-brendan-MS-7C02, process 6283)
+
+Your experiment path is /home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_boosting_para/tools/lprof_npsu_run_0
+
+To display your profiling results:
+###################################################################################################################################################################
+#    LEVEL    |     REPORT     |                                                             COMMAND                                                              #
+###################################################################################################################################################################
+#  Functions  |  Cluster-wide  |  maqao lprof -df xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_boosting_para/tools/lprof_npsu_run_0      #
+#  Functions  |  Per-node      |  maqao lprof -df -dn xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_boosting_para/tools/lprof_npsu_run_0  #
+#  Functions  |  Per-process   |  maqao lprof -df -dp xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_boosting_para/tools/lprof_npsu_run_0  #
+#  Functions  |  Per-thread    |  maqao lprof -df -dt xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_boosting_para/tools/lprof_npsu_run_0  #
+#  Loops      |  Cluster-wide  |  maqao lprof -dl xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_boosting_para/tools/lprof_npsu_run_0      #
+#  Loops      |  Per-node      |  maqao lprof -dl -dn xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_boosting_para/tools/lprof_npsu_run_0  #
+#  Loops      |  Per-process   |  maqao lprof -dl -dp xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_boosting_para/tools/lprof_npsu_run_0  #
+#  Loops      |  Per-thread    |  maqao lprof -dl -dt xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_boosting_para/tools/lprof_npsu_run_0  #
+###################################################################################################################################################################
+

@@ -1,0 +1,28 @@
+address;source_location;insn;indent
+0x356a8;:0;ENDBR64;
+0x356ac;:0;PUSH	%RBP;
+0x356ad;:0;MOV	%RSP,%RBP;
+0x356b0;:0;SUB	$0x30,%RSP;
+0x356b4;:0;MOV	%RDI,-0x28(%RBP);
+0x356b8;:0;MOV	-0x28(%RBP),%RAX;
+0x356bc;:0;MOV	%RAX,%RDI;
+0x356bf;:0;CALL	36b18 <_ZNSt12_Vector_baseISt4pairIdiESaIS1_EE19_M_get_Tp_allocatorEv>;
+0x356c4;:0;MOV	-0x28(%RBP),%RDX;
+0x356c8;:0;MOV	0x8(%RDX),%RDX;
+0x356cc;:0;MOV	-0x28(%RBP),%RCX;
+0x356d0;:0;MOV	(%RCX),%RCX;
+0x356d3;:0;MOV	%RCX,-0x18(%RBP);
+0x356d7;:0;MOV	%RDX,-0x10(%RBP);
+0x356db;:0;MOV	%RAX,-0x8(%RBP);
+0x356df;:0;MOV	-0x10(%RBP),%RDX;
+0x356e3;:0;MOV	-0x18(%RBP),%RAX;
+0x356e7;:0;MOV	%RDX,%RSI;
+0x356ea;:0;MOV	%RAX,%RDI;
+0x356ed;:0;CALL	37c94 <_ZSt8_DestroyIPSt4pairIdiEEvT_S3_>;
+0x356f2;:0;NOP;
+0x356f3;:0;MOV	-0x28(%RBP),%RAX;
+0x356f7;:0;MOV	%RAX,%RDI;
+0x356fa;:0;CALL	35656 <_ZNSt12_Vector_baseISt4pairIdiESaIS1_EED1Ev>;
+0x356ff;:0;NOP;
+0x35700;:0;LEAVE;
+0x35701;:0;RET;

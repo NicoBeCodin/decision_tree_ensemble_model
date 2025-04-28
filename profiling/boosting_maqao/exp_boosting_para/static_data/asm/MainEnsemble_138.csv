@@ -1,0 +1,17 @@
+address;source_location;insn;indent
+0x34dac;:0;MOV	-0x24(%RBP),%EBX;
+0x34daf;:0;LEA	-0x18(%RBP),%RAX;
+0x34db3;:0;MOV	%RAX,%RDI;
+0x34db6;:0;CALL	362f0 <_ZNK9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEdeEv>;
+0x34dbb;:0;MOV	%EBX,(%RAX);
+0x34dbd;:0;ADDL	$0x1,-0x24(%RBP);
+0x34dc1;:0;LEA	-0x18(%RBP),%RAX;
+0x34dc5;:0;MOV	%RAX,%RDI;
+0x34dc8;:0;CALL	362cc <_ZN9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEppEv>;
+0x34dcd;:0;LEA	-0x20(%RBP),%RDX;
+0x34dd1;:0;LEA	-0x18(%RBP),%RAX;
+0x34dd5;:0;MOV	%RDX,%RSI;
+0x34dd8;:0;MOV	%RAX,%RDI;
+0x34ddb;:0;CALL	3628d <_ZN9__gnu_cxxneIPiSt6vectorIiSaIiEEEEbRKNS_17__normal_iteratorIT_T0_EESA_>;
+0x34de0;:0;TEST	%AL,%AL;
+0x34de2;:0;JNE	34dac <_ZSt4iotaIN9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEEiEvT_S7_T0_+0x1a>;

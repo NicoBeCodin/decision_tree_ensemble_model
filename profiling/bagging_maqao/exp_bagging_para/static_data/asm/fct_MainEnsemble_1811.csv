@@ -1,0 +1,28 @@
+address;source_location;insn;indent
+0x39597;:0;ENDBR64;
+0x3959b;:0;PUSH	%RBP;
+0x3959c;:0;MOV	%RSP,%RBP;
+0x3959f;:0;SUB	$0x30,%RSP;
+0x395a3;:0;MOV	%RDI,-0x18(%RBP);
+0x395a7;:0;MOV	%RSI,-0x20(%RBP);
+0x395ab;:0;MOV	%RDX,-0x28(%RBP);
+0x395af;:0;MOV	%RCX,-0x30(%RBP);
+0x395b3;:0;MOV	-0x20(%RBP),%RAX;
+0x395b7;:0;SUB	-0x18(%RBP),%RAX;
+0x395bb;:0;SAR	$0x2,%RAX;
+0x395bf;:0;MOV	%RAX,-0x8(%RBP);
+0x395c3;:0;CMPQ	$0,-0x8(%RBP);
+0x395c8;:0;JLE	395e9 <_ZSt14__relocate_a_1IiiENSt9enable_ifIXsrSt24__is_bitwise_relocatableIT_vE5valueEPS2_E4typeES4_S4_S4_RSaIT0_E+0x52>;
+0x395ca;:0;MOV	-0x8(%RBP),%RAX;
+0x395ce;:0;LEA	(,%RAX,4),%RDX;
+0x395d6;:0;MOV	-0x18(%RBP),%RCX;
+0x395da;:0;MOV	-0x28(%RBP),%RAX;
+0x395de;:0;MOV	%RCX,%RSI;
+0x395e1;:0;MOV	%RAX,%RDI;
+0x395e4;:0;CALL	7170 <.plt.sec@start+0x7a0>;
+0x395e9;:0;MOV	-0x8(%RBP),%RAX;
+0x395ed;:0;LEA	(,%RAX,4),%RDX;
+0x395f5;:0;MOV	-0x28(%RBP),%RAX;
+0x395f9;:0;ADD	%RDX,%RAX;
+0x395fc;:0;LEAVE;
+0x395fd;:0;RET;

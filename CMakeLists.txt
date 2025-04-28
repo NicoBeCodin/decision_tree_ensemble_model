@@ -3,119 +3,238 @@ project(DecisionTreeEnsembleModel)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_subdirectory(functions_io)
-add_subdirectory(functions_tree)
-add_subdirectory(ensemble_bagging)
-add_subdirectory(ensemble_boosting)
-add_subdirectory(ensemble_boosting_XGBoost)
-add_subdirectory(data_clean)
-add_subdirectory(model_comparison)
+# Find LightGBM library
+if (NOT LGBM_LIB)
+    find_library(LGBM_LIB NAMES lightgbm lightgbm _lightgbm lib_lightgbm PATHS
+        /usr/local/lib
+        /usr/lib
+        "$ENV{HOME}/lightgbm_install/lib"
+        NO_DEFAULT_PATH
+    )
+endif()
 
-include(FetchContent)
-FetchContent_Declare(
-  googletest
-  GIT_REPOSITORY https://github.com/google/googletest.git
-  GIT_TAG release-1.12.1
-)
-FetchContent_MakeAvailable(googletest)
+if (NOT LGBM_LIB)
+    message(FATAL_ERROR "LightGBM library (lib_lightgbm.so) not found. Please run 'sudo make install' for LightGBM, or specify the path manually with -DLGBM_LIB=...")
+else()
+    message(STATUS "Found LightGBM library: ${LGBM_LIB}")
+endif()
 
-add_executable(DataClean main_data_clean.cpp)
-add_executable(MainEnsemble main.cpp)
-add_executable(MainKFold main_kfold.cpp)
+# Find LightGBM headers
+if (EXISTS "/usr/local/include/LightGBM")
+    set(LGBM_INCLUDE "/usr/local/include/LightGBM")
+else()
+    message(FATAL_ERROR "LightGBM header directory not found (/usr/local/include/LightGBM).")
+endif()
 
-enable_testing()
+# OpenMP setup
+option(OPENMP "Enable OpenMP" ON)
+if (OPENMP)
+    find_package(OpenMP REQUIRED)
+    if (OpenMP_CXX_FOUND)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+        message(STATUS "OpenMP enabled")
+        set(OPENMP_LIB OpenMP::OpenMP_CXX)
+    else()
+        message(WARNING "OpenMP requested but not found")
+        set(OPENMP_LIB "")
+    endif()
+else()
+    message(STATUS "OpenMP disabled")
+    set(OPENMP_LIB "")
+endif()
 
-# Tests
-add_executable(math_functions_test tests/math_functions_test.cpp)
-target_link_libraries(math_functions_test
-    gtest_main
-    FunctionsTree
-)
+# MPI Setup
+option(USE_MPI "Enable MPI" ON)
+if (USE_MPI)
+    find_package(MPI REQUIRED)
+    if (MPI_CXX_FOUND)
+        message(STATUS "MPI found: ${MPI_CXX_VERSION}")
+        add_compile_definitions(USE_MPI)
+        include_directories(${MPI_CXX_INCLUDE_DIRS})
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${MPI_CXX_COMPILE_FLAGS}")
+        set(CMAKE_CXX_LINK_FLAGS "${CMAKE_CXX_LINK_FLAGS} ${MPI_CXX_LINK_FLAGS}")
+        set(MPI_LIB MPI::MPI_CXX)
+    else()
+        message(WARNING "MPI requested but not found. Continuing without MPI support.")
+        set(MPI_LIB "")
+    endif()
+else()
+    message(STATUS "MPI disabled")
+    set(MPI_LIB "")
+endif()
 
-add_executable(decision_tree_test tests/decision_tree_test.cpp)
-target_link_libraries(decision_tree_test
-    gtest_main
-    FunctionsTree
-)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   ${OpenMP_C_FLAGS}")
 
-add_executable(boosting_test tests/boosting_test.cpp)
-target_link_libraries(boosting_test
-    gtest_main
-    FunctionsTree
-    Boosting
-)
+add_subdirectory(src/functions/io)
+add_subdirectory(src/functions/tree)
+add_subdirectory(src/functions/loss)
+add_subdirectory(src/functions/math)
+add_subdirectory(src/functions/feature)
+add_subdirectory(src/ensemble/bagging)
+add_subdirectory(src/ensemble/boosting)
+add_subdirectory(src/ensemble/boosting_lightgbm)
+add_subdirectory(src/ensemble/boosting_advanced) 
+add_subdirectory(src/data_clean)
+add_subdirectory(src/model_comparison)
+add_subdirectory(src/pipeline)
+add_subdirectory(src/utils)
 
-add_executable(xgboost_test tests/xgboost_test.cpp)
-target_link_libraries(xgboost_test
-    gtest_main
-    FunctionsTree
-    Boosting
-    Boosting_XGBoost
-)
+# Option to enable/disable tests
+option(ENABLE_TESTS "Enable building tests" ON)
 
-add_executable(bagging_test tests/bagging_test.cpp)
-target_link_libraries(bagging_test
-    gtest_main
-    FunctionsTree
-    Bagging
-)
+if (ENABLE_TESTS)
+    include(FetchContent)
+    FetchContent_Declare(
+      googletest
+      GIT_REPOSITORY https://github.com/google/googletest.git
+      GIT_TAG release-1.12.1
+    )
+    FetchContent_MakeAvailable(googletest)
 
-add_executable(cross_validation_test tests/cross_validation_test.cpp)
-target_link_libraries(cross_validation_test
-    gtest_main
-    FunctionsTree
-    Bagging
-    Boosting
-    Boosting_XGBoost
-)
+    enable_testing()
 
-target_link_libraries(DataClean PRIVATE Data_Clean)
+    # Tests
+    add_executable(math_functions_test tests/math_functions_test.cpp)
+    target_link_libraries(math_functions_test
+        gtest_main
+        FunctionsTree
+        FunctionsFeature
+        FunctionsMath
+    )
+
+    add_executable(decision_tree_test tests/decision_tree_test.cpp)
+    target_link_libraries(decision_tree_test
+        gtest_main
+        FunctionsTree
+        FunctionsFeature
+        FunctionsMath
+    )
+
+    add_executable(boosting_test tests/boosting_test.cpp)
+    target_link_libraries(boosting_test
+        gtest_main
+        FunctionsTree
+        FunctionsFeature
+        FunctionsMath
+        Boosting
+        LossFunction
+    )
+
+    add_executable(bagging_test tests/bagging_test.cpp)
+    target_link_libraries(bagging_test
+        gtest_main
+        FunctionsTree
+        FunctionsFeature
+        FunctionsMath
+        Bagging
+        Boosting
+        LossFunction
+    )
+
+    add_executable(cross_validation_test tests/cross_validation_test.cpp)
+    target_link_libraries(cross_validation_test
+        gtest_main
+        FunctionsTree
+        FunctionsFeature
+        FunctionsMath
+        Bagging
+        Boosting
+        LossFunction
+    )
+
+    add_executable(data_clean_test tests/data_clean_test.cpp)
+    target_link_libraries(data_clean_test
+        gtest_main
+        FunctionsMath
+        FunctionsTree
+        Data_Clean
+    )
+endif()
+
+add_executable(MainDataClean src/main/main_data_clean.cpp)
+add_executable(MainEnsemble src/main/main.cpp src/utils/utility.cpp)
+add_executable(MainKFold src/main/main_kfold.cpp)
+add_executable(MainComparison src/main/main_comparison.cpp)
+
+target_link_libraries(MainDataClean PRIVATE Data_Clean)
 
 target_link_libraries(MainEnsemble PRIVATE
     FunctionsIO
     FunctionsTree
+    FunctionsFeature
+    FunctionsMath
     Bagging
     Boosting
-    Boosting_XGBoost
+    Boosting_LightGBM 
+    Boosting_Advanced
     model_comparison
     Data_Clean
+    LossFunction
+    Pipeline
+    Utils
+    ${OPENMP_LIB}
+    ${LGBM_LIB}
+    ${MPI_LIB}  # 添加 MPI 库
 )
 
 target_link_libraries(MainKFold PRIVATE
     FunctionsIO
     FunctionsTree
+    FunctionsFeature
+    FunctionsMath
     Bagging
     Boosting
+    LossFunction
+)
+
+target_link_libraries(MainComparison PRIVATE
+    Pipeline
+)
+
+target_include_directories(MainDataClean PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/functions/io
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/functions/tree
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/functions/math
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/functions/feature
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/data_clean
 )
 
 target_include_directories(MainEnsemble PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/functions_io
-    ${CMAKE_CURRENT_SOURCE_DIR}/functions_tree
-    ${CMAKE_CURRENT_SOURCE_DIR}/ensemble_bagging
-    ${CMAKE_CURRENT_SOURCE_DIR}/ensemble_boosting
-    ${CMAKE_CURRENT_SOURCE_DIR}/ensemble_boosting_XGBoost
-    ${CMAKE_CURRENT_SOURCE_DIR}/model_comparison
-    ${CMAKE_CURRENT_SOURCE_DIR}/data_clean
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/functions/io
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/functions/tree
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/functions/math
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/functions/feature
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/functions/loss
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/ensemble/bagging
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/ensemble/boosting
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/ensemble/boosting_advanced
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/model_comparison
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/data_clean
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/pipeline
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/main
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/utils
 )
 
 target_include_directories(MainKFold PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/functions_io
-    ${CMAKE_CURRENT_SOURCE_DIR}/functions_tree
-    ${CMAKE_CURRENT_SOURCE_DIR}/ensemble_bagging
-    ${CMAKE_CURRENT_SOURCE_DIR}/ensemble_boosting
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/functions/io
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/functions/tree
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/functions/math
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/functions/feature
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/functions/loss
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/ensemble/bagging
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/ensemble/boosting
 )
 
-# Main comparison executable
-add_executable(decision_tree main_comparison.cpp)
-
-target_link_libraries(decision_tree PRIVATE
-    model_comparison
-    FunctionsTree
-    Bagging
-    Boosting
-    Boosting_XGBoost
-)
-
-target_include_directories(decision_tree PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}
+target_include_directories(MainComparison PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/functions/io
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/functions/tree
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/functions/math
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/functions/feature
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/functions/loss
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/ensemble/bagging
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/ensemble/boosting
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/model_comparison
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/pipeline
 )

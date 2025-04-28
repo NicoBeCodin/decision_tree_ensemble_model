@@ -1,0 +1,12 @@
+address;source_location;insn;indent
+0x1d012;:0;ENDBR64;
+0x1d016;:0;PUSH	%RBP;
+0x1d017;:0;MOV	%RSP,%RBP;
+0x1d01a;:0;SUB	$0x10,%RSP;
+0x1d01e;:0;MOV	%RDI,-0x8(%RBP);
+0x1d022;:0;MOV	-0x8(%RBP),%RAX;
+0x1d026;:0;ADD	$0x20,%RAX;
+0x1d02a;:0;MOV	%RAX,%RDI;
+0x1d02d;:0;CALL	1df84 <_ZN9__gnu_cxx16__aligned_membufISt4pairIKidEE6_M_ptrEv>;
+0x1d032;:0;LEAVE;
+0x1d033;:0;RET;

@@ -1,0 +1,15 @@
+address;source_location;insn;indent
+0x1f54c;:0;ENDBR64;
+0x1f550;:0;PUSH	%RBP;
+0x1f551;:0;MOV	%RSP,%RBP;
+0x1f554;:0;SUB	$0x10,%RSP;
+0x1f558;:0;MOV	%RDI,-0x8(%RBP);
+0x1f55c;:0;MOV	%RSI,-0x10(%RBP);
+0x1f560;:0;MOV	-0x8(%RBP),%RAX;
+0x1f564;:0;MOV	-0x10(%RBP),%RDX;
+0x1f568;:0;MOV	%RDX,%RSI;
+0x1f56b;:0;MOV	%RAX,%RDI;
+0x1f56e;:0;CALL	1f522 <_ZNSt15__uniq_ptr_dataIN18DecisionTreeSingle4TreeESt14default_deleteIS1_ELb1ELb1EECI1St15__uniq_ptr_implIS1_S3_EEPS1_>;
+0x1f573;:0;NOP;
+0x1f574;:0;LEAVE;
+0x1f575;:0;RET;

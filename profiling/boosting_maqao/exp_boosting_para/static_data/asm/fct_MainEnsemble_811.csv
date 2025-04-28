@@ -1,0 +1,24 @@
+address;source_location;insn;indent
+0x1e840;:0;ENDBR64;
+0x1e844;:0;PUSH	%RBP;
+0x1e845;:0;MOV	%RSP,%RBP;
+0x1e848;:0;SUB	$0x20,%RSP;
+0x1e84c;:0;MOV	%RDI,-0x18(%RBP);
+0x1e850;:0;MOV	%FS:0x28,%RAX;
+0x1e859;:0;MOV	%RAX,-0x8(%RBP);
+0x1e85d;:0;XOR	%EAX,%EAX;
+0x1e85f;:0;MOV	-0x18(%RBP),%RAX;
+0x1e863;:0;MOV	%RAX,%RDI;
+0x1e866;:0;CALL	1ef9c <_ZNKSt13_Rb_tree_nodeISt4pairIKidEE9_M_valptrEv>;
+0x1e86b;:0;MOV	%RAX,%RDX;
+0x1e86e;:0;LEA	-0x9(%RBP),%RAX;
+0x1e872;:0;MOV	%RDX,%RSI;
+0x1e875;:0;MOV	%RAX,%RDI;
+0x1e878;:0;CALL	1efbe <_ZNKSt10_Select1stISt4pairIKidEEclERKS2_>;
+0x1e87d;:0;MOV	-0x8(%RBP),%RDX;
+0x1e881;:0;SUB	%FS:0x28,%RDX;
+0x1e88a;:0;JE	1e891 <_ZNSt8_Rb_treeIiSt4pairIKidESt10_Select1stIS2_ESt4lessIiESaIS2_EE6_S_keyEPKSt13_Rb_tree_nodeIS2_E+0x51>;
+0x1e88c;:0;CALL	6f40 <.plt.sec@start+0x570>;
+0x1e891;:0;LEAVE;
+0x1e892;:0;RET;
+0x1e893;:0;NOP;

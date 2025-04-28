@@ -1,0 +1,21 @@
+address;source_location;insn;indent
+0x7e4c;:0;ENDBR64;
+0x7e50;:0;PUSH	%RBP;
+0x7e51;:0;MOV	%RSP,%RBP;
+0x7e54;:0;SUB	$0x20,%RSP;
+0x7e58;:0;MOV	%RDI,-0x18(%RBP);
+0x7e5c;:0;MOV	%FS:0x28,%RAX;
+0x7e65;:0;MOV	%RAX,-0x8(%RBP);
+0x7e69;:0;XOR	%EAX,%EAX;
+0x7e6b;:0;MOV	-0x18(%RBP),%RDX;
+0x7e6f;:0;LEA	-0x10(%RBP),%RAX;
+0x7e73;:0;MOV	%RDX,%RSI;
+0x7e76;:0;MOV	%RAX,%RDI;
+0x7e79;:0;CALL	8064 <_ZN9__gnu_cxx17__normal_iteratorIPKdSt6vectorIdSaIdEEEC1ERKS2_>;
+0x7e7e;:0;MOV	-0x10(%RBP),%RAX;
+0x7e82;:0;MOV	-0x8(%RBP),%RDX;
+0x7e86;:0;SUB	%FS:0x28,%RDX;
+0x7e8f;:0;JE	7e96 <_ZNKSt6vectorIdSaIdEE5beginEv+0x4a>;
+0x7e91;:0;CALL	6f40 <.plt.sec@start+0x570>;
+0x7e96;:0;LEAVE;
+0x7e97;:0;RET;

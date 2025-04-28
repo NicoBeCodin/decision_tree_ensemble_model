@@ -1,0 +1,20 @@
+{
+  "content": {
+    "proc_name"          : "AMD_fam17h_mod71h",
+    "hostname"           : "fixot-brendan-MS-7C02",
+    "architecture_code"  : "2",
+    "uarchitecture_code" : "36",
+    "architecture"       : "x86_64",
+    "uarchitecture"      : "ZEN_V2",
+    "cpui_model_name"    : "AMD Ryzen 5 3500X 6-Core Processor",
+    "cpui_cache_size"    : "512 KB",
+    "cpui_cpu_cores"     : "6",
+    "max_frequency"          : "4120312",
+    "cur_frequency"      : "3580329",
+    "driver_frequency"   : "acpi-cpufreq",
+    "scaling_governor"   : "schedutil",
+    "huge_pages"         : "madvise",
+    "os_version"         : "Linux 6.11.0-24-generic #24~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Tue Mar 25 20:14:34 UTC 2",
+    "is_lstopo"          : true,
+  }
+}

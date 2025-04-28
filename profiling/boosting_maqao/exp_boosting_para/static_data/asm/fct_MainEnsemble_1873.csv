@@ -1,0 +1,22 @@
+address;source_location;insn;indent
+0x3b346;:0;ENDBR64;
+0x3b34a;:0;PUSH	%RBP;
+0x3b34b;:0;MOV	%RSP,%RBP;
+0x3b34e;:0;PUSH	%RBX;
+0x3b34f;:0;SUB	$0x18,%RSP;
+0x3b353;:0;MOV	%RDI,-0x18(%RBP);
+0x3b357;:0;MOV	%RSI,-0x20(%RBP);
+0x3b35b;:0;LEA	-0x20(%RBP),%RAX;
+0x3b35f;:0;MOV	%RAX,%RDI;
+0x3b362;:0;CALL	35978 <_ZNK9__gnu_cxx17__normal_iteratorIPSt4pairIdiESt6vectorIS2_SaIS2_EEEdeEv>;
+0x3b367;:0;MOV	%RAX,%RBX;
+0x3b36a;:0;LEA	-0x18(%RBP),%RAX;
+0x3b36e;:0;MOV	%RAX,%RDI;
+0x3b371;:0;CALL	35978 <_ZNK9__gnu_cxx17__normal_iteratorIPSt4pairIdiESt6vectorIS2_SaIS2_EEEdeEv>;
+0x3b376;:0;MOV	%RBX,%RSI;
+0x3b379;:0;MOV	%RAX,%RDI;
+0x3b37c;:0;CALL	3bd1d <_ZSt4swapIdiENSt9enable_ifIXsrSt6__and_IJSt14__is_swappableIT_ES2_IT0_EEE5valueEvE4typeERSt4pairIS3_S5_ESC_>;
+0x3b381;:0;NOP;
+0x3b382;:0;MOV	-0x8(%RBP),%RBX;
+0x3b386;:0;LEAVE;
+0x3b387;:0;RET;

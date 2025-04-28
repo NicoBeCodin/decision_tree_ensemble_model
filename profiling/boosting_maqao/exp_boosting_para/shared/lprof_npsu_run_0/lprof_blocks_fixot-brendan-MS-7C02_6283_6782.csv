@@ -1,0 +1,4 @@
+block_id;module;source_info;time_p;time_s;time_s_min;time_s_avg;time_s_max;cov_deviation;time_deviation;nb_threads;flops;
+10656;MainEnsemble;;60;0.014999999664724;;;;;;;;
+11841;MainEnsemble;;19.999998092651;0.00499999942258;;;;;;;;
+10178;MainEnsemble;;19.999998092651;0.00499999942258;;;;;;;;

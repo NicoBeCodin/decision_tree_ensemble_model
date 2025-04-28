@@ -1,0 +1,16 @@
+address;source_location;insn;indent
+0x3c807;:0;ENDBR64;
+0x3c80b;:0;PUSH	%RBP;
+0x3c80c;:0;MOV	%RSP,%RBP;
+0x3c80f;:0;SUB	$0x20,%RSP;
+0x3c813;:0;MOV	%RDI,-0x8(%RBP);
+0x3c817;:0;MOV	%RSI,-0x10(%RBP);
+0x3c81b;:0;MOV	%RDX,-0x18(%RBP);
+0x3c81f;:0;MOV	-0x18(%RBP),%RDX;
+0x3c823;:0;MOV	-0x10(%RBP),%RCX;
+0x3c827;:0;MOV	-0x8(%RBP),%RAX;
+0x3c82b;:0;MOV	%RCX,%RSI;
+0x3c82e;:0;MOV	%RAX,%RDI;
+0x3c831;:0;CALL	3cfda <_ZNSt20__copy_move_backwardILb1ELb0ESt26random_access_iterator_tagE13__copy_move_bIPSt4pairIdiES5_EET0_T_S7_S6_>;
+0x3c836;:0;LEAVE;
+0x3c837;:0;RET;

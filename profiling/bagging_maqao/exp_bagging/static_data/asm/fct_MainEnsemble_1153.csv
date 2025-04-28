@@ -1,0 +1,22 @@
+address;source_location;insn;indent
+0x267ec;:0;ENDBR64;
+0x267f0;:0;PUSH	%RBP;
+0x267f1;:0;MOV	%RSP,%RBP;
+0x267f4;:0;SUB	$0x20,%RSP;
+0x267f8;:0;MOV	%RDI,-0x18(%RBP);
+0x267fc;:0;MOV	%FS:0x28,%RAX;
+0x26805;:0;MOV	%RAX,-0x8(%RBP);
+0x26809;:0;XOR	%EAX,%EAX;
+0x2680b;:0;MOV	-0x18(%RBP),%RAX;
+0x2680f;:0;LEA	0x8(%RAX),%RDX;
+0x26813;:0;LEA	-0x10(%RBP),%RAX;
+0x26817;:0;MOV	%RDX,%RSI;
+0x2681a;:0;MOV	%RAX,%RDI;
+0x2681d;:0;CALL	2772a <_ZNSt17_Rb_tree_iteratorISt4pairIKidEEC1EPSt18_Rb_tree_node_base>;
+0x26822;:0;MOV	-0x10(%RBP),%RAX;
+0x26826;:0;MOV	-0x8(%RBP),%RDX;
+0x2682a;:0;SUB	%FS:0x28,%RDX;
+0x26833;:0;JE	2683a <_ZNSt8_Rb_treeIiSt4pairIKidESt10_Select1stIS2_ESt4lessIiESaIS2_EE3endEv+0x4e>;
+0x26835;:0;CALL	4b80 <.plt.sec@start+0x410>;
+0x2683a;:0;LEAVE;
+0x2683b;:0;RET;

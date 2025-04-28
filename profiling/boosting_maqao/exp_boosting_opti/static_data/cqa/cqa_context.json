@@ -1,0 +1,208 @@
+{
+  "_cqa_uarch_const":
+    {
+      "RS_ALU2 size": 16,
+      "store latency": 3,
+      "RS_ALU3 size": 16,
+      "ports":
+        [
+          {
+            "name": "ALU0/BRU0",
+            "units":
+              {
+                "ALU":
+                  [
+
+                  ],
+                "BRU":
+                  [
+
+                  ]
+              }
+          },
+          {
+            "name": "ALU1",
+            "units":
+              {
+                "ALU":
+                  [
+
+                  ]
+              }
+          },
+          {
+            "name": "ALU2",
+            "units":
+              {
+                "ALU":
+                  [
+
+                  ]
+              }
+          },
+          {
+            "name": "ALU3/BRU1",
+            "units":
+              {
+                "ALU":
+                  [
+
+                  ],
+                "BRU":
+                  [
+
+                  ]
+              }
+          },
+          {
+            "width": 256,
+            "name": "AGU0",
+            "units":
+              {
+                "store address":
+                  [
+
+                  ],
+                "load":
+                  [
+
+                  ]
+              }
+          },
+          {
+            "width": 256,
+            "name": "AGU1",
+            "units":
+              {
+                "store address":
+                  [
+
+                  ],
+                "load":
+                  [
+
+                  ]
+              }
+          },
+          {
+            "name": "AGU2",
+            "units":
+              {
+                "store address":
+                  [
+
+                  ]
+              }
+          },
+          {
+            "width": 256,
+            "name": "FP0",
+            "units":
+              {
+                "VPU":
+                  {
+                    "FMA": true,
+                    "FMUL": true
+                  }
+              }
+          },
+          {
+            "width": 256,
+            "name": "FP1",
+            "units":
+              {
+                "VPU":
+                  {
+                    "FMA": true,
+                    "FMUL": true
+                  }
+              }
+          },
+          {
+            "width": 256,
+            "name": "FP2",
+            "units":
+              {
+                "VPU":
+                  {
+                    "FADD": true
+                  },
+                "FP store data":
+                  [
+
+                  ]
+              }
+          },
+          {
+            "width": 256,
+            "name": "FP3",
+            "units":
+              {
+                "VPU":
+                  {
+                    "FADD": true
+                  },
+                "DIV/SQRT":
+                  [
+
+                  ]
+              }
+          }
+        ],
+      "UQ throughput": 6,
+      "vector-unaligned optimal pattern": "1x256",
+      "RS_ALU1 size": 16,
+      "PRF_INT size": 180,
+      "UFS resources":
+        [
+        "ROB",
+        "RS_ALU0",
+        "RS_ALU1",
+        "RS_ALU2",
+        "RS_ALU3",
+        "RS_VPU",
+        "RS_MEM",
+        "LB",
+        "LFB",
+        "SB",
+        "PRF_INT",
+        "PRF_FLOAT"
+        ],
+      "NOP 0f 1f decode": "fast",
+      "load latency": 4,
+      "FP load latency": 7,
+      "RS_MEM size": 92,
+      "LFB size": 22,
+      "uop cache capacity": 2600,
+      "RS_VPU size": 36,
+      "PRF_FLOAT size": 160,
+      "vector size in bytes": 32,
+      "RS_ALU0 size": 16,
+      "LB size": 44,
+      "predicted taken branch ports":
+        [
+        0
+        ],
+      "SB size": 48,
+      "nb execution ports": 11,
+      "IQ throughput": 4,
+      "ROB size": 224,
+      "INT vector size in bytes": 32,
+      "bytes fetched per cycle": 32,
+      "retire throughput": 8,
+      "aliases":
+        {
+          "RS_ALU0": "ALQ0",
+          "RS_ALU2": "ALQ2",
+          "RS_VPU": "SQ",
+          "RS_ALU1": "ALQ1",
+          "LFB": "MAB",
+          "SB": "STQ",
+          "RS_ALU3": "ALQ3",
+          "ROB": "RQ",
+          "RS_MEM": "AGQ",
+          "LB": "LDQ"
+        },
+      "Is supported by UFS": true
+    }
+}

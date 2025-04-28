@@ -1,0 +1,25 @@
+address;source_location;insn;indent
+0x21336;:0;ENDBR64;
+0x2133a;:0;PUSH	%RBP;
+0x2133b;:0;MOV	%RSP,%RBP;
+0x2133e;:0;PUSH	%RBX;
+0x2133f;:0;SUB	$0x28,%RSP;
+0x21343;:0;MOV	%RDI,-0x18(%RBP);
+0x21347;:0;MOV	%RSI,-0x20(%RBP);
+0x2134b;:0;MOV	%RDX,-0x28(%RBP);
+0x2134f;:0;MOV	-0x20(%RBP),%RAX;
+0x21353;:0;MOV	%RAX,%RDI;
+0x21356;:0;CALL	21385 <_ZSt12__miter_baseIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEET_S8_>;
+0x2135b;:0;MOV	%RAX,%RBX;
+0x2135e;:0;MOV	-0x18(%RBP),%RAX;
+0x21362;:0;MOV	%RAX,%RDI;
+0x21365;:0;CALL	21385 <_ZSt12__miter_baseIN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEET_S8_>;
+0x2136a;:0;MOV	%RAX,%RCX;
+0x2136d;:0;MOV	-0x28(%RBP),%RAX;
+0x21371;:0;MOV	%RAX,%RDX;
+0x21374;:0;MOV	%RBX,%RSI;
+0x21377;:0;MOV	%RCX,%RDI;
+0x2137a;:0;CALL	21397 <_ZSt13__copy_move_aILb0EN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEEPiET1_T0_SA_S9_>;
+0x2137f;:0;MOV	-0x8(%RBP),%RBX;
+0x21383;:0;LEAVE;
+0x21384;:0;RET;

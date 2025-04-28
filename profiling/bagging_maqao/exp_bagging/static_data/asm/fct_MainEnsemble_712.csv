@@ -1,0 +1,73 @@
+address;source_location;insn;indent
+0x1796a;:0;ENDBR64;
+0x1796e;:0;PUSH	%RBP;
+0x1796f;:0;MOV	%RSP,%RBP;
+0x17972;:0;SUB	$0x40,%RSP;
+0x17976;:0;MOV	%RDI,-0x38(%RBP);
+0x1797a;:0;MOV	%RSI,-0x40(%RBP);
+0x1797e;:0;MOV	%FS:0x28,%RAX;
+0x17987;:0;MOV	%RAX,-0x8(%RBP);
+0x1798b;:0;XOR	%EAX,%EAX;
+0x1798d;:0;PXOR	%XMM0,%XMM0;
+0x17991;:0;MOVSD	%XMM0,-0x18(%RBP);
+0x17996;:0;MOV	-0x40(%RBP),%RAX;
+0x1799a;:0;MOV	%RAX,-0x10(%RBP);
+0x1799e;:0;MOV	-0x10(%RBP),%RAX;
+0x179a2;:0;MOV	%RAX,%RDI;
+0x179a5;:0;CALL	18a3e <_ZNKSt6vectorIiSaIiEE5beginEv>;
+0x179aa;:0;MOV	%RAX,-0x28(%RBP);
+0x179ae;:0;MOV	-0x10(%RBP),%RAX;
+0x179b2;:0;MOV	%RAX,%RDI;
+0x179b5;:0;CALL	18a8a <_ZNKSt6vectorIiSaIiEE3endEv>;
+0x179ba;:0;MOV	%RAX,-0x20(%RBP);
+0x179be;:0;JMP	17a04 <_ZN4Math24calculateMeanWithIndicesERKSt6vectorIdSaIdEERKS0_IiSaIiEE+0x9a>;
+0x179c0;:0;LEA	-0x28(%RBP),%RAX;(33) 
+0x179c4;:0;MOV	%RAX,%RDI;(33) 
+0x179c7;:0;CALL	18b3e <_ZNK9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEdeEv>;(33) 
+0x179cc;:0;MOV	(%RAX),%EAX;(33) 
+0x179ce;:0;MOV	%EAX,-0x2c(%RBP);(33) 
+0x179d1;:0;MOV	-0x2c(%RBP),%EAX;(33) 
+0x179d4;:0;MOVSXD	%EAX,%RDX;(33) 
+0x179d7;:0;MOV	-0x38(%RBP),%RAX;(33) 
+0x179db;:0;MOV	%RDX,%RSI;(33) 
+0x179de;:0;MOV	%RAX,%RDI;(33) 
+0x179e1;:0;CALL	18b54 <_ZNKSt6vectorIdSaIdEEixEm>;(33) 
+0x179e6;:0;MOVSD	(%RAX),%XMM0;(33) 
+0x179ea;:0;MOVSD	-0x18(%RBP),%XMM1;(33) 
+0x179ef;:0;ADDSD	%XMM1,%XMM0;(33) 
+0x179f3;:0;MOVSD	%XMM0,-0x18(%RBP);(33) 
+0x179f8;:0;LEA	-0x28(%RBP),%RAX;(33) 
+0x179fc;:0;MOV	%RAX,%RDI;(33) 
+0x179ff;:0;CALL	18b1a <_ZN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEppEv>;(33) 
+0x17a04;:0;LEA	-0x20(%RBP),%RDX;(33) 
+0x17a08;:0;LEA	-0x28(%RBP),%RAX;(33) 
+0x17a0c;:0;MOV	%RDX,%RSI;(33) 
+0x17a0f;:0;MOV	%RAX,%RDI;(33) 
+0x17a12;:0;CALL	18ada <_ZN9__gnu_cxxneIPKiSt6vectorIiSaIiEEEEbRKNS_17__normal_iteratorIT_T0_EESB_>;(33) 
+0x17a17;:0;TEST	%AL,%AL;(33) 
+0x17a19;:0;JNE	179c0 <_ZN4Math24calculateMeanWithIndicesERKSt6vectorIdSaIdEERKS0_IiSaIiEE+0x56>;(33) 
+0x17a1b;:0;MOV	-0x40(%RBP),%RAX;
+0x17a1f;:0;MOV	%RAX,%RDI;
+0x17a22;:0;CALL	18b78 <_ZNKSt6vectorIiSaIiEE4sizeEv>;
+0x17a27;:0;TEST	%RAX,%RAX;
+0x17a2a;:0;JS	17a37 <_ZN4Math24calculateMeanWithIndicesERKSt6vectorIdSaIdEERKS0_IiSaIiEE+0xcd>;
+0x17a2c;:0;PXOR	%XMM0,%XMM0;
+0x17a30;:0;CVTSI2SD	%RAX,%XMM0;
+0x17a35;:0;JMP	17a50 <_ZN4Math24calculateMeanWithIndicesERKSt6vectorIdSaIdEERKS0_IiSaIiEE+0xe6>;
+0x17a37;:0;MOV	%RAX,%RDX;
+0x17a3a;:0;SHR	$0x1,%RDX;
+0x17a3d;:0;AND	$0x1,%EAX;
+0x17a40;:0;OR	%RAX,%RDX;
+0x17a43;:0;PXOR	%XMM0,%XMM0;
+0x17a47;:0;CVTSI2SD	%RDX,%XMM0;
+0x17a4c;:0;ADDSD	%XMM0,%XMM0;
+0x17a50;:0;MOVSD	-0x18(%RBP),%XMM1;
+0x17a55;:0;DIVSD	%XMM0,%XMM1;
+0x17a59;:0;MOVAPD	%XMM1,%XMM0;
+0x17a5d;:0;MOV	-0x8(%RBP),%RAX;
+0x17a61;:0;SUB	%FS:0x28,%RAX;
+0x17a6a;:0;JE	17a71 <_ZN4Math24calculateMeanWithIndicesERKSt6vectorIdSaIdEERKS0_IiSaIiEE+0x107>;
+0x17a6c;:0;CALL	4b80 <.plt.sec@start+0x410>;
+0x17a71;:0;LEAVE;
+0x17a72;:0;RET;
+0x17a73;:0;NOP;

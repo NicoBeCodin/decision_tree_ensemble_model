@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html translate="no" lang="en-US"><head><title>OV - MainEnsemble - Topology - lstopo</title>
+<meta charset="utf-8" />
+<meta name="google" content="notranslate" />
+<link rel="stylesheet" type="text/css" media="screen" href="css/ui.jqgrid.css" />
+<link rel="stylesheet" type="text/css" href="css/themes/redmond_custom/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="css/themes/redmond_custom/jquery.jqplot.min.css" />
+<link rel="stylesheet" type="text/css" href="css/MAQAO_theme.css" />
+<link rel="stylesheet" type="text/css" href="css/maqao_modal.css" />
+<link rel="stylesheet" type="text/css" href="css/global.css" />
+<link rel="stylesheet" type="text/css" href="css/maqao_menu.css" />
+<script src="js/jquery-1.9.0.min.js" ></script>
+<script src="js/jquery-ui-1.10.3.custom.min.js" ></script>
+<script src="js/grid.locale-en.js" ></script>
+<script src="js/jquery.jqGrid.min.js" ></script>
+<script src="js/d3.min.js" ></script>
+<script class="include" src="js/jquery.jqplot.min.js"></script>
+<script class="include" src="js/jqplot.pieRenderer.min.js"></script>
+<script class="include" src="js/jqplot.barRenderer.min.js"></script>
+<script class="include" src="js/jqplot.categoryAxisRenderer.min.js"></script>
+<script class="include" src="js/jqplot.pointLabels.min.js"></script>
+<script class="include" src="js/jqplot.cursor.min.js"></script>
+<script class="include" src="js/jqplot.canvasTextRenderer.min.js"></script>
+<script class="include" src="js/jqplot.canvasAxisTickRenderer.min.js"></script>
+<script class="include" src="js/jqplot.canvasAxisLabelRenderer.min.js"></script>
+<script class="include" src="js/jqplot.enhancedLegendRenderer.min.js"></script>
+<script class="include" src="js/jqplot.highlighter.min.js"></script>
+<script class="include" src="js/jqplot.logAxisRenderer.min.js"></script>
+<script class="include" src="js/maqao_menu.js"></script>
+<script>
+$( function() {
+  $( document ).tooltip({
+    content: function() {
+      if (this.classList.contains ("tooltip-maqao")
+      ||  this.classList.contains ("tooltip-maqao-button")) {
+        return tooltips_texts[$(this).attr('tooltip_id')];
+      }
+    },
+    position: {
+      my: "center bottom-20",
+        at: "center top",
+        using: function( position, feedback ) {
+          $( this ).css( position );
+          $( "<div>" )
+            .addClass( "arrow-tt" )
+            .addClass( feedback.vertical )
+            .addClass( feedback.horizontal )
+            .appendTo( this );
+        }
+      }
+  });
+} );
+
+// Code from https://www.htmlgoodies.com/beyond/javascript/article.php/3724571/Using-Multiple-JavaScript-Onload-Functions.htm
+function addLoadEvent(func) {
+  var oldonload = window.onload;
+  if (typeof window.onload != 'function') {
+    window.onload = func;
+  } else {
+    window.onload = function() {
+      if (oldonload) {
+        oldonload();
+      }
+      func();
+    }
+  }
+}
+function loadCSS(filename){ 
+  var file = document.createElement("link");
+  file.setAttribute("rel", "stylesheet");
+  file.setAttribute("type", "text/css");
+  file.setAttribute("href", filename);
+  document.head.appendChild(file);
+}
+addLoadEvent(function(){
+  var theme = localStorage.getItem("__MAQAO_OV_theme__");
+  if (theme) {
+    loadCSS("css/"+theme+".css");
+  }
+  else {
+    localStorage.setItem("__MAQAO_OV_theme__", "MAQAO_theme");
+    loadCSS("css/MAQAO_theme.css");
+  }
+});
+</script>
+</head><body>
+<div id="page_title"><img alt="MAQAO" id="maqao_logo" src="images/MAQAO_small_logo.png"/><ul id="maqao_menu"><li ><a  href="index.html">Global</a><ul><li ><a  href="config.html">Configurations</a></li><li ><a  href="env.html">Environment Variables</a></li><li ><a  href="outputs.html">Outputs</a></li><li ><a  href="log.html">Logs</a></li></ul></li><li ><a  href="summary.html">Summary</a></li><li ><a  href="application.html">Application</a></li><li ><a  href="fcts_and_loops.html">Functions</a></li><li ><a  href="loops_index.html">Loops</a></li><li ><a  href="topology.html">Topology</a><ul><li ><a class="_current_page" href="lstopo.html">lstopo</a></li><li ><a  href="lstopo_PU.html">lstopo_PU</a></li><li ><a  href="lstopo_threads.html">lstopo_threads</a></li></ul></li></ul>
+<span><img alt="options" id="menu_options_icon" src="images/gear_20.png" onclick="__open_options ()"/></span>
+</div>
+<script>
+function __change_theme () {
+  var new_theme = document.getElementById("select_theme").value;
+  localStorage.setItem("__MAQAO_OV_theme__", new_theme);
+    loadCSS("css/"+new_theme+".css");
+}
+function __open_options () {
+  var elem = document.getElementById ("options_configuration");
+  if (elem.dataset.open == "false") {
+    elem.dataset.open = "true";
+    elem.style.display = "block";
+  }
+  else {
+    elem.dataset.open = "false";
+    elem.style.display = "none";
+  }
+}
+</script>
+<div id="anchor_file_start"></div>
+<div id="maqao_content">
+<div>
+  <div id="spacer_page_title" ></div>
+  <div id="options_configuration" data-open="false" style="display:none;">
+    <h3 id="options_configuration_header">Report Configuration</h3>
+    <span style="margin-left:10px;"><label for="select_theme">Theme: </label>    <select name="theme" id="select_theme" onchange="__change_theme ()">  <option value="MAQAO_theme">MAQAO_theme</option>  <option value="darkgrey">darkgrey</option>  <option value="cyan">cyan</option></select></span></div>
+</div>
+<script>
+  let theme = localStorage.getItem("__MAQAO_OV_theme__");
+  if (theme) {
+    document.getElementById("select_theme").value = theme;
+  }
+document.getElementById("spacer_page_title").style.height = (document.getElementById("page_title").clientHeight + 25)+"px";
+var obj = document.getElementById("page_title");
+if (obj) {
+  var elems = document.getElementsByClassName ("_first_menu_level")
+  if (obj.clientHeight < 90) {
+    for (var i = 0; i < elems.length; i++) {
+      elems.item(i).style.borderBottomLeftRadius = "";
+      elems.item(i).style.borderBottomRightRadius = "";
+    }
+  }
+  else {
+    for (var i = 0; i < elems.length; i++) {
+      elems.item(i).style.borderBottomLeftRadius = "10px";
+      elems.item(i).style.borderBottomRightRadius = "10px";
+    }
+  }
+}
+</script>
+<div class="_fixed_box" ><h3 class="_header">TOPOLOGY<span class="tooltip-maqao-button help-maqao" title="" tooltip_id="0" ></span></h3>
+<div class="_content"><div><span style="text-align:center; width:100%; display:inline-block;"><select id="select_run" style="cursor:pointer;" size="1" onchange="__load_run (this);" autocomplete="off">
+<option value="0">run_0</option>
+</select></span>
+</div><div style="width: 100%; display: table;"><div style="display: table-row" class="run_row" data-run_i="0"><div class="_fixed_box" style="display:table-cell;"><h3 class="_header">Nodes</h3><div id="box_svgs_0" class="_content" style="overflow:auto;margin: 0px 0px 0px 0px;"><?xml version='1.0' encoding='UTF-8'?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='234px' height='276px' viewBox='0 0 234px 276px' version='1.1'>
+	<rect id='0_fixot-brendan-MS-7C02_Machine_0_rect' data-fill_count='0' data-max='1'  class='svg_run_0 Machine' x='0' y='0' width='234' height='238' fill='rgb(255,255,255)' stroke='rgb(0,0,0)' stroke-width='1'/>
+	<text id='0_fixot-brendan-MS-7C02_Machine_0_text' data-fill_count='0' data-max='1'  class='svg_run_0 Machine' font-family='Monospace' x='7' y='17' fill='rgb(0,0,0)' font-size='10px'>Machine (16GB total)</text>
+	<rect id='0_fixot-brendan-MS-7C02_Package_0_rect' data-fill_count='0' data-max='1'  class='svg_run_0 Package' x='7' y='24' width='220' height='207' fill='rgb(210,231,164)' stroke='rgb(0,0,0)' stroke-width='1'/>
+	<text id='0_fixot-brendan-MS-7C02_Package_0_text' data-fill_count='0' data-max='1'  class='svg_run_0 Package' font-family='Monospace' x='14' y='41' fill='rgb(0,0,0)' font-size='10px'>Package L#0</text>
+	<rect id='0_fixot-brendan-MS-7C02_Core_0_rect' data-fill_count='0' data-max='1'  class='svg_run_0 Core' x='14' y='79' width='64' height='69' fill='rgb(190,190,190)' stroke='rgb(0,0,0)' stroke-width='1'/>
+	<text id='0_fixot-brendan-MS-7C02_Core_0_text' data-fill_count='0' data-max='1'  class='svg_run_0 Core' font-family='Monospace' x='21' y='96' fill='rgb(0,0,0)' font-size='10px'>Core L#0</text>
+	<rect id='0_fixot-brendan-MS-7C02_PU_0_rect' data-fill_count='0' data-max='1' title='' tooltip_id='1'  class='svg_run_0 tooltip-maqao PU' x='21' y='103' width='50' height='38' fill='rgb(255,255,255)' stroke='rgb(0,0,0)' stroke-width='1'/>
+	<text id='0_fixot-brendan-MS-7C02_PU_0_text' data-fill_count='0' data-max='1' title='' tooltip_id='1'  class='svg_run_0 tooltip-maqao PU' font-family='Monospace' x='28' y='120' fill='rgb(0,0,0)' font-size='10px'>PU L#0</text>
+	<text id='0_fixot-brendan-MS-7C02_PU_0_text_1' data-fill_count='0' data-max='1' title='' tooltip_id='1'  class='svg_run_0 tooltip-maqao PU' font-family='Monospace' x='37' y='134' fill='rgb(0,0,0)' font-size='10px'>P#0</text>
+	<rect id='0_fixot-brendan-MS-7C02_Core_1_rect' data-fill_count='0' data-max='1'  class='svg_run_0 Core' x='85' y='79' width='64' height='69' fill='rgb(190,190,190)' stroke='rgb(0,0,0)' stroke-width='1'/>
+	<text id='0_fixot-brendan-MS-7C02_Core_1_text' data-fill_count='0' data-max='1'  class='svg_run_0 Core' font-family='Monospace' x='92' y='96' fill='rgb(0,0,0)' font-size='10px'>Core L#1</text>
+	<rect id='0_fixot-brendan-MS-7C02_PU_1_rect' data-fill_count='0' data-max='1' title='' tooltip_id='2'  class='svg_run_0 tooltip-maqao PU' x='92' y='103' width='50' height='38' fill='rgb(255,255,255)' stroke='rgb(0,0,0)' stroke-width='1'/>
+	<text id='0_fixot-brendan-MS-7C02_PU_1_text' data-fill_count='0' data-max='1' title='' tooltip_id='2'  class='svg_run_0 tooltip-maqao PU' font-family='Monospace' x='99' y='120' fill='rgb(0,0,0)' font-size='10px'>PU L#1</text>
+	<text id='0_fixot-brendan-MS-7C02_PU_1_text_1' data-fill_count='0' data-max='1' title='' tooltip_id='2'  class='svg_run_0 tooltip-maqao PU' font-family='Monospace' x='108' y='134' fill='rgb(0,0,0)' font-size='10px'>P#1</text>
+	<rect id='0_fixot-brendan-MS-7C02_Core_2_rect' data-fill_count='0' data-max='1'  class='svg_run_0 Core' x='156' y='79' width='64' height='69' fill='rgb(190,190,190)' stroke='rgb(0,0,0)' stroke-width='1'/>
+	<text id='0_fixot-brendan-MS-7C02_Core_2_text' data-fill_count='0' data-max='1'  class='svg_run_0 Core' font-family='Monospace' x='163' y='96' fill='rgb(0,0,0)' font-size='10px'>Core L#2</text>
+	<rect id='0_fixot-brendan-MS-7C02_PU_2_rect' data-fill_count='0' data-max='1' title='' tooltip_id='3'  class='svg_run_0 tooltip-maqao PU' x='163' y='103' width='50' height='38' fill='rgb(255,255,255)' stroke='rgb(0,0,0)' stroke-width='1'/>
+	<text id='0_fixot-brendan-MS-7C02_PU_2_text' data-fill_count='0' data-max='1' title='' tooltip_id='3'  class='svg_run_0 tooltip-maqao PU' font-family='Monospace' x='170' y='120' fill='rgb(0,0,0)' font-size='10px'>PU L#2</text>
+	<text id='0_fixot-brendan-MS-7C02_PU_2_text_1' data-fill_count='0' data-max='1' title='' tooltip_id='3'  class='svg_run_0 tooltip-maqao PU' font-family='Monospace' x='179' y='134' fill='rgb(0,0,0)' font-size='10px'>P#2</text>
+	<rect id='0_fixot-brendan-MS-7C02_Core_3_rect' data-fill_count='0' data-max='1'  class='svg_run_0 Core' x='14' y='155' width='64' height='69' fill='rgb(190,190,190)' stroke='rgb(0,0,0)' stroke-width='1'/>
+	<text id='0_fixot-brendan-MS-7C02_Core_3_text' data-fill_count='0' data-max='1'  class='svg_run_0 Core' font-family='Monospace' x='21' y='172' fill='rgb(0,0,0)' font-size='10px'>Core L#3</text>
+	<rect id='0_fixot-brendan-MS-7C02_PU_3_rect' data-fill_count='0' data-max='1' title='' tooltip_id='4'  class='svg_run_0 tooltip-maqao PU' x='21' y='179' width='50' height='38' fill='rgb(255,255,255)' stroke='rgb(0,0,0)' stroke-width='1'/>
+	<text id='0_fixot-brendan-MS-7C02_PU_3_text' data-fill_count='0' data-max='1' title='' tooltip_id='4'  class='svg_run_0 tooltip-maqao PU' font-family='Monospace' x='28' y='196' fill='rgb(0,0,0)' font-size='10px'>PU L#3</text>
+	<text id='0_fixot-brendan-MS-7C02_PU_3_text_1' data-fill_count='0' data-max='1' title='' tooltip_id='4'  class='svg_run_0 tooltip-maqao PU' font-family='Monospace' x='37' y='210' fill='rgb(0,0,0)' font-size='10px'>P#3</text>
+	<rect id='0_fixot-brendan-MS-7C02_Core_4_rect' data-fill_count='0' data-max='1'  class='svg_run_0 Core' x='85' y='155' width='64' height='69' fill='rgb(190,190,190)' stroke='rgb(0,0,0)' stroke-width='1'/>
+	<text id='0_fixot-brendan-MS-7C02_Core_4_text' data-fill_count='0' data-max='1'  class='svg_run_0 Core' font-family='Monospace' x='92' y='172' fill='rgb(0,0,0)' font-size='10px'>Core L#4</text>
+	<rect id='0_fixot-brendan-MS-7C02_PU_4_rect' data-fill_count='0' data-max='1' title='' tooltip_id='5'  class='svg_run_0 tooltip-maqao PU' x='92' y='179' width='50' height='38' fill='rgb(255,255,255)' stroke='rgb(0,0,0)' stroke-width='1'/>
+	<text id='0_fixot-brendan-MS-7C02_PU_4_text' data-fill_count='0' data-max='1' title='' tooltip_id='5'  class='svg_run_0 tooltip-maqao PU' font-family='Monospace' x='99' y='196' fill='rgb(0,0,0)' font-size='10px'>PU L#4</text>
+	<text id='0_fixot-brendan-MS-7C02_PU_4_text_1' data-fill_count='0' data-max='1' title='' tooltip_id='5'  class='svg_run_0 tooltip-maqao PU' font-family='Monospace' x='108' y='210' fill='rgb(0,0,0)' font-size='10px'>P#4</text>
+	<rect id='0_fixot-brendan-MS-7C02_Core_5_rect' data-fill_count='0' data-max='1'  class='svg_run_0 Core' x='156' y='155' width='64' height='69' fill='rgb(190,190,190)' stroke='rgb(0,0,0)' stroke-width='1'/>
+	<text id='0_fixot-brendan-MS-7C02_Core_5_text' data-fill_count='0' data-max='1'  class='svg_run_0 Core' font-family='Monospace' x='163' y='172' fill='rgb(0,0,0)' font-size='10px'>Core L#5</text>
+	<rect id='0_fixot-brendan-MS-7C02_PU_5_rect' data-fill_count='0' data-max='1' title='' tooltip_id='6'  class='svg_run_0 tooltip-maqao PU' x='163' y='179' width='50' height='38' fill='rgb(255,255,255)' stroke='rgb(0,0,0)' stroke-width='1'/>
+	<text id='0_fixot-brendan-MS-7C02_PU_5_text' data-fill_count='0' data-max='1' title='' tooltip_id='6'  class='svg_run_0 tooltip-maqao PU' font-family='Monospace' x='170' y='196' fill='rgb(0,0,0)' font-size='10px'>PU L#5</text>
+	<text id='0_fixot-brendan-MS-7C02_PU_5_text_1' data-fill_count='0' data-max='1' title='' tooltip_id='6'  class='svg_run_0 tooltip-maqao PU' font-family='Monospace' x='179' y='210' fill='rgb(0,0,0)' font-size='10px'>P#5</text>
+	<rect id='0_fixot-brendan-MS-7C02_NUMANode_0_rect' data-fill_count='0' data-max='1'  class='svg_run_0 NUMANode' x='14' y='48' width='206' height='24' fill='rgb(239,223,222)' stroke='rgb(0,0,0)' stroke-width='1'/>
+	<text id='0_fixot-brendan-MS-7C02_NUMANode_0_text' data-fill_count='0' data-max='1'  class='svg_run_0 NUMANode' font-family='Monospace' x='21' y='65' fill='rgb(0,0,0)' font-size='10px'>NUMANode L#0 P#0 (16GB)</text>
+	<rect id='0_fixot-brendan-MS-7C02_anon_rect' data-fill_count='0' data-max='1'  x='0' y='238' width='234' height='38' fill='rgb(255,255,255)' stroke='rgb(0,0,0)' stroke-width='1'/>
+	<text id='0_fixot-brendan-MS-7C02_anon_text' data-fill_count='0' data-max='1'  font-family='Monospace' x='7' y='255' fill='rgb(0,0,0)' font-size='10px'>Host: fixot-brendan-MS-7C02</text>
+	<text id='0_fixot-brendan-MS-7C02_anon_text_1' data-fill_count='0' data-max='1'  font-family='Monospace' x='7' y='269' fill='rgb(0,0,0)' font-size='10px'>Date: dim. 27 avril 2025 01:11:42</text>
+</svg>
+</div></div>
+<div class="_fixed_box" style="display:table-cell;min-width:300px;"><h3 class="_header">PIDs</h3><div id="box_inputs_0" class="_content" style="overflow:auto;"><span class="_spannode"><input id="input_0_fixot-brendan-MS-7C02" class="_clickable _input" data-id="fixot-brendan-MS-7C02" data-i_run="0" type="checkbox" onclick="check_node(this)" /><span class="_clickable" onclick="check_node_label(this)"><span class="tooltip-maqao" title="" tooltip_id="7" >fixot-b[...]MS-7C02</span></span><span class="_clickable" onclick="expand_node(this, '0_fixot-brendan-MS-7C02')" style="margin-left: 10px;">&#x25BA;</span><br/></span>
+<span class="_spanpid _hidden 0_fixot-brendan-MS-7C02"><input id="input_0_fixot-brendan-MS-7C02_8999" data-id="fixot-brendan-MS-7C02_8999" data-node="fixot-brendan-MS-7C02" data-i_run="0" class="_clickable _input 0_fixot-brendan-MS-7C02_pid" type="checkbox" onclick="check_pid(this)" /><span class="_clickable" onclick="check_pid_label(this)">8999 (8 threads)</span><span class="_clickable" onclick="expand_process(this, '0_fixot-brendan-MS-7C02_8999')" style="margin-left: 10px;">&#x25BA;</span><br/></span>
+<span id="0_fixot-brendan-MS-7C02_8999_8999" class="_spantid _hidden tooltip-maqao 0_fixot-brendan-MS-7C02 0_fixot-brendan-MS-7C02_8999" onmouseover="over_thread(this)" onmouseout="leave_thread(this)" title="" tooltip_id="8" >Thread 8999<br/></span>
+<span id="0_fixot-brendan-MS-7C02_8999_9006" class="_spantid _hidden tooltip-maqao 0_fixot-brendan-MS-7C02 0_fixot-brendan-MS-7C02_8999" onmouseover="over_thread(this)" onmouseout="leave_thread(this)" title="" tooltip_id="9" >Thread 9006<br/></span>
+<span id="0_fixot-brendan-MS-7C02_8999_9007" class="_spantid _hidden tooltip-maqao 0_fixot-brendan-MS-7C02 0_fixot-brendan-MS-7C02_8999" onmouseover="over_thread(this)" onmouseout="leave_thread(this)" title="" tooltip_id="10" >Thread 9007<br/></span>
+<span id="0_fixot-brendan-MS-7C02_8999_9009" class="_spantid _hidden tooltip-maqao 0_fixot-brendan-MS-7C02 0_fixot-brendan-MS-7C02_8999" onmouseover="over_thread(this)" onmouseout="leave_thread(this)" title="" tooltip_id="11" >Thread 9009<br/></span>
+<span id="0_fixot-brendan-MS-7C02_8999_9014" class="_spantid _hidden tooltip-maqao 0_fixot-brendan-MS-7C02 0_fixot-brendan-MS-7C02_8999" onmouseover="over_thread(this)" onmouseout="leave_thread(this)" title="" tooltip_id="12" >Thread 9014<br/></span>
+<span id="0_fixot-brendan-MS-7C02_8999_9015" class="_spantid _hidden tooltip-maqao 0_fixot-brendan-MS-7C02 0_fixot-brendan-MS-7C02_8999" onmouseover="over_thread(this)" onmouseout="leave_thread(this)" title="" tooltip_id="13" >Thread 9015<br/></span>
+<span id="0_fixot-brendan-MS-7C02_8999_9020" class="_spantid _hidden tooltip-maqao 0_fixot-brendan-MS-7C02 0_fixot-brendan-MS-7C02_8999" onmouseover="over_thread(this)" onmouseout="leave_thread(this)" title="" tooltip_id="14" >Thread 9020<br/></span>
+<span id="0_fixot-brendan-MS-7C02_8999_9021" class="_spantid _hidden tooltip-maqao 0_fixot-brendan-MS-7C02 0_fixot-brendan-MS-7C02_8999" onmouseover="over_thread(this)" onmouseout="leave_thread(this)" title="" tooltip_id="15" >Thread 9021<br/></span>
+</div></div>
+</div>
+</div>
+</div></div><script>
+const tid_data = [
+  {
+    "0_fixot-brendan-MS-7C02_8999_9006": ["0_fixot-brendan-MS-7C02_PU_3_rect", ],
+    "0_fixot-brendan-MS-7C02_8999_9015": ["0_fixot-brendan-MS-7C02_PU_4_rect", ],
+    "0_fixot-brendan-MS-7C02_8999_9007": ["0_fixot-brendan-MS-7C02_PU_0_rect", ],
+    "0_fixot-brendan-MS-7C02_8999_8999": ["0_fixot-brendan-MS-7C02_PU_4_rect", ],
+    "0_fixot-brendan-MS-7C02_8999_9014": ["0_fixot-brendan-MS-7C02_PU_1_rect", ],
+    "0_fixot-brendan-MS-7C02_8999_9021": ["0_fixot-brendan-MS-7C02_PU_0_rect", ],
+    "0_fixot-brendan-MS-7C02_8999_9020": ["0_fixot-brendan-MS-7C02_PU_3_rect", ],
+    "0_fixot-brendan-MS-7C02_8999_9009": ["0_fixot-brendan-MS-7C02_PU_0_rect", ],
+  },
+]
+function over_thread (__self__) {
+  let cur_run = document.getElementById ("select_run").value;
+  if (tid_data[cur_run][__self__.id]) {
+    let elems = tid_data[cur_run][__self__.id];
+    for (let i = 0; i < elems.length; i++) {
+      let e = document.getElementById (elems[i]);
+      if (e) {
+        e.setAttribute ("stroke-width", "5");
+        e.setAttribute ("stroke", "blue");
+      }
+    }
+  }
+}
+function leave_thread (__self__) {
+  let cur_run = document.getElementById ("select_run").value;
+  if (tid_data[cur_run][__self__.id]) {
+    let elems = tid_data[cur_run][__self__.id];
+    for (let i = 0; i < elems.length; i++) {
+      let e = document.getElementById (elems[i]);
+      if (e) {
+        e.setAttribute ("stroke-width", "1");
+        e.setAttribute ("stroke", "black");
+      }
+    }
+  }
+}
+function expand_process (__self__, __class__) {
+  if (__self__.innerHTML == "\u25BA") {
+    __self__.textContent = "\u25BC";
+    let threads = document.getElementsByClassName(__class__);
+    for (let i = 0; i < threads.length; i++) {
+      threads[i].classList.remove ("_hidden");
+    }
+  }
+  else if (__self__.innerHTML == "\u25BC") {
+    __self__.textContent = "\u25BA";
+    let threads = document.getElementsByClassName(__class__);
+    for (let i = 0; i < threads.length; i++) {
+      threads[i].classList.add ("_hidden");
+    }
+  }
+}
+function expand_node (__self__, __class__) {
+  if (__self__.innerHTML == "\u25BA") {
+    __self__.textContent = "\u25BC";
+    let processes = document.getElementsByClassName(__class__);
+    for (var i = 0; i < processes.length; i++) {
+      if (processes[i].classList.contains ("_spanpid")) {
+        processes[i].childNodes[2].textContent = "\u25BA";
+        processes[i].classList.remove ("_hidden");
+      }
+    }
+  }
+  else if (__self__.innerHTML == "\u25BC") {
+    __self__.textContent = "\u25BA";
+    let processes = document.getElementsByClassName(__class__);
+    for (var i = 0; i < processes.length; i++) {
+      processes[i].classList.add ("_hidden");
+    }
+  }
+}
+const node_data = [
+  {
+    "fixot-brendan-MS-7C02": ["8999",],
+},
+];
+const pid_data = [
+  {
+  "fixot-brendan-MS-7C02_8999": ["0_fixot-brendan-MS-7C02_PU_0_rect","0_fixot-brendan-MS-7C02_PU_1_rect","0_fixot-brendan-MS-7C02_PU_2_rect","0_fixot-brendan-MS-7C02_PU_3_rect","0_fixot-brendan-MS-7C02_PU_4_rect","0_fixot-brendan-MS-7C02_PU_5_rect","0_fixot-brendan-MS-7C02_NUMANode_0_rect",],
+},
+];
+let colored = [];
+function check_pid_label (__e__) {
+   let c = __e__.previousElementSibling;
+   c.checked = !c.checked;
+   check_pid (c);
+}
+function check_node_label (__e__) {
+   let c = __e__.previousElementSibling;
+   c.checked = !c.checked;
+   check_node (c);
+}
+function _get_max_filled () {
+  let maxs = [1, ];
+  let cur_run = document.getElementById ("select_run").value;
+  return maxs[cur_run];
+}
+const color_gradient = ["#0cf300","#18e700","#24db00","#31ce00","#3dc200","#49b600","#55aa00","#619e00","#6d9200","#798600","#867900","#926d00","#9e6100","#aa5500","#b64900","#c23d00","#ce3100","#db2400","#e71800","#f30c00", "#ff0000"];
+function _handle_colors (__to_color__, __ids__) {
+  if (__to_color__ == true) {
+    for (let i = 0; i < __ids__.length; i++) {
+      let e = document.getElementById (__ids__[i]);
+      if (e.dataset.fill == undefined) {
+        e.dataset.fill = e.getAttribute ("fill");
+      }
+      e.dataset.fill_count = +e.dataset.fill_count + 1;
+      if(colored.indexOf(e) === -1) {
+        colored.push(e);
+      }
+    }
+    for (let i = 0; i < __ids__.length; i++) {
+      let e = document.getElementById (__ids__[i]);
+      if (+e.dataset.fill_count === 1) {
+        e.setAttribute ("fill", color_gradient[0]);
+      } else {
+        let color = color_gradient[Math.floor ((+e.dataset.fill_count * 100) / (+e.dataset.max * 5))];
+        e.setAttribute ("fill", color);
+      }
+    }
+  }
+  else {
+    let _to_remove = [];
+    for (let i = 0; i < colored.length; i++) {
+      if (__ids__.indexOf (colored[i].id) != -1) {
+        colored[i].dataset.fill_count = +colored[i].dataset.fill_count - 1;
+        if (colored[i].dataset.fill_count == 0) {
+          colored[i].setAttribute ("fill", colored[i].dataset.fill);
+          _to_remove.unshift (i);
+        }
+        else {
+          let color = color_gradient[Math.floor ((+colored[i].dataset.fill_count * 100) / (+colored[i].dataset.max * 5))];
+          colored[i].setAttribute ("fill", color);
+        }
+      }
+    }
+    for (let i = 0; i < _to_remove.length; i++) {
+      colored.splice (_to_remove[i], 1);
+    }
+  }
+}
+function check_pid (__e__) {
+  let cur_run = +(__e__.dataset.i_run);
+  localStorage.setItem(cur_run+"_"+__e__.dataset.id, __e__.checked);
+  _handle_colors (__e__.checked, pid_data[cur_run][__e__.dataset.id]);
+  let siblings = document.getElementsByClassName(cur_run+"_"+__e__.dataset.node+"_pid");
+  let all_equals = true;
+  for (var i = 0; i < siblings.length; i++) {
+    if (siblings[i].checked != __e__.checked) {
+      all_equals = false;
+    }
+  }
+  if (all_equals == true) {
+    let e_node = document.getElementById ("input_"+cur_run+"_"+__e__.dataset.node);
+    e_node.checked = __e__.checked;
+    e_node.indeterminate = false;
+    localStorage.setItem(cur_run+"_"+e_node.dataset.id, __e__.checked);
+    localStorage.setItem(cur_run+"_indet_"+e_node.dataset.id, false);
+  }
+  else {
+    let e_node = document.getElementById ("input_"+cur_run+"_"+__e__.dataset.node);
+    e_node.indeterminate = true;
+    localStorage.setItem(cur_run+"_indet_"+e_node.dataset.id, true);
+  }
+}
+function check_node (__e__) {
+  let cur_run = +(__e__.dataset.i_run);
+  localStorage.setItem(cur_run+"_"+__e__.dataset.id, __e__.checked);
+  for (let i = 0; i < node_data[cur_run][__e__.dataset.id].length; i++) {
+    let id = __e__.dataset.id+"_"+node_data[cur_run][__e__.dataset.id][i];
+    let c = document.getElementById ("input_"+cur_run+"_"+id)
+    if (c.checked != __e__.checked) {
+      c.checked = __e__.checked;
+      localStorage.setItem(cur_run+"_"+id, __e__.checked);
+      _handle_colors (__e__.checked, pid_data[cur_run][id]);
+    }
+  }
+}
+function getPos(el) {
+  for (var lx=0, ly=0;
+      el != null;
+      lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent);
+  return {x: lx,y: ly};
+}
+function _onresize () {
+  __maqao_legacy_onresize ();
+  let cur_run = document.getElementById ("select_run").value;
+  let d = document.getElementById ("box_svgs_"+cur_run);
+  d.style.maxHeight = (window.innerHeight - getPos (d).y - 27)+"px";
+  d.style.height = (window.innerHeight - getPos (d).y - 27)+"px";
+  d.style.maxWidth = (window.innerWidth - getPos (d).x - 319)+"px";
+  d.style.width = (window.innerWidth - getPos (d).x - 319)+"px";
+  d = document.getElementById ("box_inputs_"+cur_run);
+  d.style.maxHeight = (window.innerHeight - getPos (d).y - 40)+"px";
+  d.style.height = (window.innerHeight - getPos (d).y - 40)+"px";
+}
+var resizeId;
+window.addEventListener("resize", function() {
+  clearTimeout(resizeId);
+  resizeId = setTimeout(_onresize, 100);
+});
+function __load_run (__r__) {
+  let runs = document.getElementsByClassName("run_row");
+  let cur_run = __r__.value;
+  for (let i = 0; i < runs.length; i++) {
+    if (runs[i].dataset.run_i == cur_run) {
+      runs[i].style.display = "table-row";
+    }
+    else {
+      runs[i].style.display = "none";
+    }
+  }
+  _onresize ();
+}
+function __load_bool_from_storage (__key__, __default__) {
+  let val = localStorage.getItem(__key__);
+  if (val) {
+    val = (val === 'true');
+  }
+  else {
+    val = __default__;
+  }
+  return val;
+}
+addLoadEvent(function(){
+  let inputs = document.getElementsByClassName("_input");
+  for (let i = 0; i < inputs.length; i++) {
+    let input = inputs[i];
+    let cur_run = +(input.dataset.i_run);
+    let val = __load_bool_from_storage (cur_run+"_"+input.dataset.id, false);
+    input.checked = val;
+    let val_i = __load_bool_from_storage (cur_run+"_indet_"+input.dataset.id, false);
+    input.indeterminate = val_i;
+    if (val == true
+    &&  pid_data[cur_run][input.dataset.id] != undefined) {
+      _handle_colors (true, pid_data[cur_run][input.dataset.id]);
+    }
+  }
+  __load_run (select_run);
+  _onresize ();
+});
+</script>
+<style>
+._spanpid {margin-left: 20px;}
+._spantid {margin-left: 40px; cursor: pointer;}
+._spantid:hover {font-weight: bold;}
+._clickable {cursor: pointer;}
+._clickable:hover {font-weight: bold;}
+._hidden {display: none;}
+</style>
+
+  <div id="MaqaoModal" class="maqao_modal">
+    <div class="maqao_modal-content">
+      <div class="maqao_modal-header">
+        <span class="maqao_close">&times;</span>
+      </div>
+      <div id="maqao_modal-body" class="maqao_modal-body">
+      </div>
+    </div>
+  </div>
+</div><script>
+var tooltips_texts = ['A topology analysis based on the tool lstopo, that presents material resources that can be used by each process.\n<br/>When a process is enabled, resources that it can access to are colored from green to red depending on how many processes can use it.<br/>The more a resource is used inside a node, the redder is its color. Used colors are:<table style="width:100%;border:none;border-collapse:collapse;table-layout:fixed;"><tr><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td style="white-space:nowrap;text-align:end;">Max</td></tr><br/><tr><td style="background-color:#0cf300;height:15px;"/><td style="background-color:#18e700;height:15px;"/><td style="background-color:#24db00;height:15px;"/><td style="background-color:#31ce00;height:15px;"/><td style="background-color:#3dc200;height:15px;"/><td style="background-color:#49b600;height:15px;"/><td style="background-color:#55aa00;height:15px;"/><td style="background-color:#619e00;height:15px;"/><td style="background-color:#6d9200;height:15px;"/><td style="background-color:#798600;height:15px;"/><td style="background-color:#867900;height:15px;"/><td style="background-color:#926d00;height:15px;"/><td style="background-color:#9e6100;height:15px;"/><td style="background-color:#aa5500;height:15px;"/><td style="background-color:#b64900;height:15px;"/><td style="background-color:#c23d00;height:15px;"/><td style="background-color:#ce3100;height:15px;"/><td style="background-color:#db2400;height:15px;"/><td style="background-color:#e71800;height:15px;"/><td style="background-color:#f30c00;height:15px;"/><td style="background-color:#ff0000;height:15px;"/></tr></table>\n<br/>Max represents the cumulative number of cores on used nodes.<br/>On each processing unit (box labeled PU), there is a tooltip showing threads that run on it and their percentage of time spent',
+'9021: 82.35%<br/>9007: 11.76%<br/>9009: 5.88%<br/>',
+'9014: 100.00%<br/>',
+'',
+'9020: 86.21%<br/>9006: 13.79%<br/>',
+'9015: 67.50%<br/>8999: 32.50%<br/>',
+'',
+'fixot-brendan-MS-7C02',
+'fixot-brendan-MS-7C02 - P#4: 100.00%<br/>',
+'fixot-brendan-MS-7C02 - P#3: 100.00%<br/>',
+'fixot-brendan-MS-7C02 - P#0: 100.00%<br/>',
+'fixot-brendan-MS-7C02 - P#0: 100.00%<br/>',
+'fixot-brendan-MS-7C02 - P#1: 100.00%<br/>',
+'fixot-brendan-MS-7C02 - P#4: 100.00%<br/>',
+'fixot-brendan-MS-7C02 - P#3: 100.00%<br/>',
+'fixot-brendan-MS-7C02 - P#0: 100.00%<br/>'];
+var modal = document.getElementById('MaqaoModal');
+var span = document.getElementsByClassName("maqao_close")[0];
+span.onclick = function() {
+    modal.style.display = "none";
+}
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+const comparer = (idx, asc) => (a, b) => ((v1, v2) => 
+    v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v2 - v1 : v1.toString().localeCompare(v2)
+    )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+addLoadEvent(function(){
+  document.querySelectorAll('._fixed_table:not(._no_auto_sorting) th').forEach(th => th.addEventListener('click', (() => {
+    const table = th.closest('table');
+    // Remove all symbols in header
+    table.querySelectorAll('th').forEach(function (e) {
+      e.firstChild.textContent = "";
+    });
+    // Change the symbol on the clicked header
+    if (this.asc != true) {
+      th.firstChild.textContent = "\u25BC";
+    }
+    else {
+      th.firstChild.textContent = "\u25B2";
+    }
+    Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
+        .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+        .forEach(tr => table.appendChild(tr) );
+  })));
+});
+addLoadEvent(function(){
+  document.querySelectorAll('._tree_table:not(._no_auto_sorting) th').forEach(th => th.addEventListener('click', (() => {
+    const table = th.closest('table');
+    // Remove all symbols in header
+    table.querySelectorAll('th').forEach(function (e) {
+      e.firstChild.textContent = "";
+    });
+    // Change the symbol on the clicked header
+    if (this.asc != true) {
+      th.firstChild.textContent = "\u25BC";
+    }
+    else {
+      th.firstChild.textContent = "\u25B2";
+    }
+    let last_id = "";
+    const t_outermost = new Array ();
+    const t_children  = new Map ();
+    for (let i = 1, row; row = table.rows[i]; i++) {
+      if (row.classList.contains ("_outer_row")) {
+        t_outermost.push (row);
+        last_id = row.id;
+        t_children [last_id] = new Array ();
+      }
+      else {
+        t_children [last_id].push (row);
+      }
+    }
+    t_outermost.sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc));
+    for (let i = 0, row; row = t_outermost[i]; i++) {
+      table.appendChild(row)
+      for (let j = 0, child; child = t_children[row.id][j]; j++) {
+        table.appendChild(child)
+      }
+    }
+  })));
+});
+function _check_all_checkbox_ (obj_id, opts_ids) {
+  var obj   = document.getElementById (obj_id);
+  var opts  = window[opts_ids];
+  var count = 0
+  for (i = 0; i < opts.length; i++) {
+    var obj_s = document.getElementById(opts[i]);
+    if (obj_s.checked) {
+      count ++;
+    }
+  }
+  if (count == 0) {
+    obj.value = "Select all";
+  }
+  else if (count == opts.length) {
+    obj.value = "Select none";
+  }
+}
+// Fonction for table selector
+function click_table_menu (c, obj_id, opt_ids) {
+  var is_checked = document.getElementById (c).checked;
+  localStorage.setItem(c, is_checked);
+  $("."+c).each(function(index, element) {
+    if (is_checked) {
+      element.classList.remove("_tcol_hidden");
+    }
+    else {
+      element.classList.add("_tcol_hidden");
+    }
+  });
+  if (obj_id != undefined) {
+    _check_all_checkbox_ (obj_id, opt_ids)
+  }
+}
+function set_all_table_menu (obj, var_opt_ids) {
+  var opt_ids = window[var_opt_ids];
+  var is_selected = true
+  if (obj.value == "Select all") {
+    is_selected = false;
+  }
+  for (i = 0; i < opt_ids.length; i++) {
+    var obj_s = document.getElementById(opt_ids[i]);
+    if (is_selected == obj_s.checked) {
+      obj_s.checked = !obj_s.checked;
+      click_table_menu (opt_ids[i]);
+    }
+  }
+  if (is_selected == false) {
+    obj.value = "Select none";
+  } else {
+    obj.value = "Select all";
+  }
+  localStorage.setItem(obj.id, obj.value);
+}
+// Script for accordion box
+function _click_accordion_header(obj) {
+  var content = obj.nextSibling;
+  content.classList.toggle('collapsed');
+  obj.classList.toggle('collapsed');
+  obj.parentNode.classList.toggle('collapsed');
+  // Check if the box must be openned ...
+  if (obj.classList.contains ('collapsed'))
+  {
+    obj.firstChild.textContent = "\u25B6";
+  }
+  // or closed.
+  else 
+  {
+    obj.firstChild.textContent = "\u25BC";
+  }
+  if (typeof _onresize === "function") {
+    _onresize ();
+  }
+}
+  // Script for paged table
+function _click_paged_prev(obj) {
+  var pages_content_id = '_paged_tables_page_' + obj.parentNode.parentNode.id.substr (obj.parentNode.parentNode.id.lastIndexOf('_') + 1);
+  var pages_content = document.getElementById(pages_content_id).innerHTML;
+  var max_pages = pages_content.substr (pages_content.lastIndexOf('/') + 1);
+  var cur_page  = pages_content.substring (pages_content.lastIndexOf(' ') + 1, pages_content.lastIndexOf('/'));
+  max_pages = Number (max_pages);
+  cur_page  = Number (cur_page);
+  if (cur_page > 1) {
+    var div_paged = obj.parentNode.parentNode.id;
+    var i;
+    var x = document.getElementsByClassName(div_paged + '_' + (cur_page - 1));
+    for (i = 0; i < x.length; i++) {
+      x[i].classList.toggle('_paged_hidden');
+    }
+    x = document.getElementsByClassName(div_paged + '_' + (cur_page - 2));
+    for (i = 0; i < x.length; i++) {
+      x[i].classList.toggle('_paged_hidden');
+    }
+  document.getElementById(pages_content_id).textContent = "Page " + (cur_page - 1) + "/" + max_pages;
+  }
+}
+function _click_paged_next(obj) {
+  var pages_content_id = '_paged_tables_page_' + obj.parentNode.parentNode.id.substr (obj.parentNode.parentNode.id.lastIndexOf('_') + 1);
+  var pages_content = document.getElementById(pages_content_id).innerHTML;
+  var max_pages = pages_content.substr (pages_content.lastIndexOf('/') + 1);
+  var cur_page  = pages_content.substring (pages_content.lastIndexOf(' ') + 1, pages_content.lastIndexOf('/'));
+  max_pages = Number (max_pages);
+  cur_page  = Number (cur_page);
+  if (cur_page < max_pages) {
+    var div_paged = obj.parentNode.parentNode.id;
+    var i;
+    var x = document.getElementsByClassName(div_paged + '_' + (cur_page - 1));
+    for (i = 0; i < x.length; i++) {
+      x[i].classList.toggle('_paged_hidden');
+    }
+    x = document.getElementsByClassName(div_paged + '_' + cur_page);
+    for (i = 0; i < x.length; i++) {
+      x[i].classList.toggle('_paged_hidden');
+    }
+    document.getElementById(pages_content_id).textContent = "Page " + (cur_page + 1) + "/" + max_pages;
+  }
+}
+// Function for tree table
+function _click_tree(obj) {
+  if (obj.innerHTML == "\u25BA") {
+    obj.textContent = "\u25BC";
+    // Open childs
+    var x = document.getElementsByClassName(obj.parentNode.parentNode.id);
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.toggle('_tree_hidden');
+    }
+  }
+  else if (obj.innerHTML == "\u25BC") {
+    obj.textContent = "\u25BA";
+    // Close all childs
+    var trs = document.getElementsByTagName('tr');
+    var r   = obj.parentNode.parentNode.id+'_';
+    var re  = new RegExp (r, "g");
+    for (var i = 0; i < trs.length; i++) {
+      var s = trs[i].id+""
+      if (s.match(re)) {
+        var o = document.getElementById(s);
+        if (! o.classList.contains('_tree_hidden')) {
+          o.classList.toggle('_tree_hidden');
+        }
+        if (o.firstChild.firstChild.textContent == "\u25BC") {
+          o.firstChild.firstChild.textContent = "\u25BA";
+        }
+        if (o.firstChild.childNodes.length == 3) {
+          o.firstChild.childNodes[2].textContent = '+';
+        }
+      }
+    }
+    if (obj.parentNode.childNodes.length == 3) {
+      obj.parentNode.childNodes[2].textContent = '+';
+    }
+  }
+}
+function _click_expand (obj) {
+  var trs = document.getElementsByTagName('tr');
+  var r   = obj.parentNode.parentNode.id+'_';
+  var re  = new RegExp (r, "g");
+  // Symbole + => expand all
+  if (obj.textContent == "+") {
+    for (var i = 0; i < trs.length; i++) {
+      var s = trs[i].id+"";
+      if (s.match(re)) {
+        var o = document.getElementById(s);
+        if (o.classList.contains('_tree_hidden')) {
+           o.classList.toggle('_tree_hidden');
+        }
+        if (o.firstChild.firstChild.textContent == "\u25BA") {
+          o.firstChild.firstChild.textContent = "\u25BC";
+        }
+        if (o.firstChild.childNodes.length == 3) {
+          o.firstChild.childNodes[2].textContent = '\u2010';
+        }
+      }
+    }
+    var o = obj.parentNode.parentNode;
+    if (o.firstChild.firstChild.textContent == "\u25BA") {
+      o.firstChild.firstChild.textContent = "\u25BC";
+    }
+    obj.textContent = "\u2010";
+  }
+  // Symbole - => collapse all
+  else {
+    for (var i = 0; i < trs.length; i++) {
+      var s = trs[i].id+"";
+      if (s.match(re)) {
+        var o = document.getElementById(s);
+        if (! o.classList.contains('_tree_hidden')) {
+           o.classList.toggle('_tree_hidden');
+        }
+        if (o.firstChild.firstChild.textContent == "\u25BC") {
+          o.firstChild.firstChild.textContent = "\u25BA";
+        }
+        if (o.firstChild.childNodes.length == 3) {
+          o.firstChild.childNodes[2].textContent = '+';
+        }
+      }
+    }
+    var o = obj.parentNode.parentNode;
+    if (o.firstChild.firstChild.textContent == "\u25BC") {
+      o.firstChild.firstChild.textContent = "\u25BA";
+    }
+    obj.textContent = "+";
+  }
+}
+// Hide unselected tabs
+addLoadEvent(function(){
+  var x = document.getElementsByClassName("_tab_header_li");
+  for (var i = 0; i < x.length; i++) {
+    if (x[i].classList.contains("selected_tab") == false) {
+      var e = document.getElementById (x[i].dataset.tab);
+      e.style.display = "none";
+    }
+  }
+});
+// Change tab
+function change_tab (e, baseId) {
+  // Handle tabs
+  var i = 1;
+  while (true) {
+    var id = baseId + i;
+    var t = document.getElementById (id);
+    if (t == null) {
+      break;
+    }
+    if (id == e.dataset.tab) {
+      t.style.removeProperty("display");
+    }
+    else {
+      t.style.display = "none";
+    }
+    i = i + 1;
+  }
+  // Handle headers
+  $(e).siblings().each( function () {
+    this.classList.remove("selected_tab");
+  });
+  e.classList.add("selected_tab");
+}
+function __maqao_legacy_onresize () {
+  var obj = document.getElementById("spacer_page_title");
+  if (obj) {
+    obj.style.height = (document.getElementById("page_title").clientHeight + 20)+"px";
+  }
+  var obj = document.getElementById("page_title");
+  if (obj) {
+    var elems = document.getElementsByClassName ("_first_menu_level")
+    if (obj.clientHeight < 90) {
+      for (var i = 0; i < elems.length; i++) {
+        elems.item(i).style.borderBottomLeftRadius = "";
+        elems.item(i).style.borderBottomRightRadius = "";
+      }
+    }
+    else {
+      for (var i = 0; i < elems.length; i++) {
+        elems.item(i).style.borderBottomLeftRadius = "10px";
+        elems.item(i).style.borderBottomRightRadius = "10px";
+      }
+    }
+  }
+}
+</script>
+</body>
+</html>

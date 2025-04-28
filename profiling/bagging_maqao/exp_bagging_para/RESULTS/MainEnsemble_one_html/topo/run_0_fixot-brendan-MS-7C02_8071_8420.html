@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html translate="no" lang="en-US"><head><title>OV - MainEnsemble - Profiling node fixot-brendan-MS-7C02 - process 8071 - thread 8420</title>
+<meta charset="utf-8" />
+<meta name="google" content="notranslate" />
+<link rel="stylesheet" type="text/css" media="screen" href="../css/ui.jqgrid.css" />
+<link rel="stylesheet" type="text/css" href="../css/themes/redmond_custom/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="../css/themes/redmond_custom/jquery.jqplot.min.css" />
+<link rel="stylesheet" type="text/css" href="../css/MAQAO_theme.css" />
+<link rel="stylesheet" type="text/css" href="../css/maqao_modal.css" />
+<link rel="stylesheet" type="text/css" href="../css/global.css" />
+<link rel="stylesheet" type="text/css" href="../css/maqao_menu.css" />
+<script src="../js/jquery-1.9.0.min.js" ></script>
+<script src="../js/jquery-ui-1.10.3.custom.min.js" ></script>
+<script src="../js/grid.locale-en.js" ></script>
+<script src="../js/jquery.jqGrid.min.js" ></script>
+<script src="../js/d3.min.js" ></script>
+<script class="include" src="../js/jquery.jqplot.min.js"></script>
+<script class="include" src="../js/jqplot.pieRenderer.min.js"></script>
+<script class="include" src="../js/jqplot.barRenderer.min.js"></script>
+<script class="include" src="../js/jqplot.categoryAxisRenderer.min.js"></script>
+<script class="include" src="../js/jqplot.pointLabels.min.js"></script>
+<script class="include" src="../js/jqplot.cursor.min.js"></script>
+<script class="include" src="../js/jqplot.canvasTextRenderer.min.js"></script>
+<script class="include" src="../js/jqplot.canvasAxisTickRenderer.min.js"></script>
+<script class="include" src="../js/jqplot.canvasAxisLabelRenderer.min.js"></script>
+<script class="include" src="../js/jqplot.enhancedLegendRenderer.min.js"></script>
+<script class="include" src="../js/jqplot.highlighter.min.js"></script>
+<script class="include" src="../js/jqplot.logAxisRenderer.min.js"></script>
+<script class="include" src="../js/maqao_menu.js"></script>
+<script>
+$( function() {
+  $( document ).tooltip({
+    content: function() {
+      if (this.classList.contains ("tooltip-maqao")
+      ||  this.classList.contains ("tooltip-maqao-button")) {
+        return tooltips_texts[$(this).attr('tooltip_id')];
+      }
+    },
+    position: {
+      my: "center bottom-20",
+        at: "center top",
+        using: function( position, feedback ) {
+          $( this ).css( position );
+          $( "<div>" )
+            .addClass( "arrow-tt" )
+            .addClass( feedback.vertical )
+            .addClass( feedback.horizontal )
+            .appendTo( this );
+        }
+      }
+  });
+} );
+
+// Code from https://www.htmlgoodies.com/beyond/javascript/article.php/3724571/Using-Multiple-JavaScript-Onload-Functions.htm
+function addLoadEvent(func) {
+  var oldonload = window.onload;
+  if (typeof window.onload != 'function') {
+    window.onload = func;
+  } else {
+    window.onload = function() {
+      if (oldonload) {
+        oldonload();
+      }
+      func();
+    }
+  }
+}
+function loadCSS(filename){ 
+  var file = document.createElement("link");
+  file.setAttribute("rel", "stylesheet");
+  file.setAttribute("type", "text/css");
+  file.setAttribute("href", filename);
+  document.head.appendChild(file);
+}
+addLoadEvent(function(){
+  var theme = localStorage.getItem("__MAQAO_OV_theme__");
+  if (theme) {
+    loadCSS("../css/"+theme+".css");
+  }
+  else {
+    localStorage.setItem("__MAQAO_OV_theme__", "MAQAO_theme");
+    loadCSS("../css/MAQAO_theme.css");
+  }
+});
+</script>
+</head><body>
+<div id="page_title"><img alt="MAQAO" id="maqao_logo" src="../images/MAQAO_small_logo.png"/><ul id="maqao_menu"><li ><a  href="../index.html">Global</a><ul><li ><a  href="../config.html">Configurations</a></li><li ><a  href="../env.html">Environment Variables</a></li><li ><a  href="../outputs.html">Outputs</a></li><li ><a  href="../log.html">Logs</a></li></ul></li><li ><a  href="../summary.html">Summary</a></li><li ><a  href="../application.html">Application</a></li><li ><a  href="../fcts_and_loops.html">Functions</a></li><li ><a  href="../loops_index.html">Loops</a></li><li ><a  href="../topology.html">Topology</a><ul><li ><a  href="../lstopo.html">lstopo</a></li><li ><a  href="../lstopo_PU.html">lstopo_PU</a></li><li ><a  href="../lstopo_threads.html">lstopo_threads</a></li></ul></li></ul>
+<span><img alt="options" id="menu_options_icon" src="../images/gear_20.png"  onclick="__open_options ()"/></span>
+</div>
+<script>
+function __change_theme () {
+  var new_theme = document.getElementById("select_theme").value;
+  localStorage.setItem("__MAQAO_OV_theme__", new_theme);
+    loadCSS("../css/"+new_theme+".css");
+}
+function __open_options () {
+  var elem = document.getElementById ("options_configuration");
+  if (elem.dataset.open == "false") {
+    elem.dataset.open = "true";
+    elem.style.display = "block";
+  }
+  else {
+    elem.dataset.open = "false";
+    elem.style.display = "none";
+  }
+}
+</script>
+<div id="anchor_file_start"></div>
+<div id="maqao_content">
+<div>
+  <div id="spacer_page_title" ></div>
+  <div id="options_configuration" data-open="false" style="display:none;">
+    <h3 id="options_configuration_header">Report Configuration</h3>
+    <span style="margin-left:10px;"><label for="select_theme">Theme: </label>    <select name="theme" id="select_theme" onchange="__change_theme ()">  <option value="MAQAO_theme">MAQAO_theme</option>  <option value="darkgrey">darkgrey</option>  <option value="cyan">cyan</option></select></span></div>
+</div>
+<script>
+  let theme = localStorage.getItem("__MAQAO_OV_theme__");
+  if (theme) {
+    document.getElementById("select_theme").value = theme;
+  }
+document.getElementById("spacer_page_title").style.height = (document.getElementById("page_title").clientHeight + 25)+"px";
+var obj = document.getElementById("page_title");
+if (obj) {
+  var elems = document.getElementsByClassName ("_first_menu_level")
+  if (obj.clientHeight < 90) {
+    for (var i = 0; i < elems.length; i++) {
+      elems.item(i).style.borderBottomLeftRadius = "";
+      elems.item(i).style.borderBottomRightRadius = "";
+    }
+  }
+  else {
+    for (var i = 0; i < elems.length; i++) {
+      elems.item(i).style.borderBottomLeftRadius = "10px";
+      elems.item(i).style.borderBottomRightRadius = "10px";
+    }
+  }
+}
+</script>
+<div class="_accordion_box collapsed" ><h3 id="_accordion_header_1" class="_header collapsed" onclick="_click_accordion_header(this)" ><span class="_accordion_box_button">&#x25B6;</span>Environment Variables<span class="tooltip-maqao-button help-maqao" title="" tooltip_id="0" ></span></h3><div id="_accordion_content_1" class="_content collapsed"><div>Not available</div></div></div><div class="_accordion_box collapsed" ><h3 id="_accordion_header_2" class="_header collapsed" onclick="_click_accordion_header(this)" ><span class="_accordion_box_button">&#x25B6;</span>Path Number Loops Profile for node fixot-brendan-MS-7C02 - process 8071 - thread 8420</h3><div id="_accordion_content_2" class="_content collapsed"><div style="margin-top: 10px; margin-bottom: 10px; background-color: var(--chart_background); overflow-x:auto; overflow-y:hidden;"><div id="chart_cat_3049" style="height:500px;margin-top:20px;" ></div></div>
+<script class="code" >
+  $(document).ready(function(){
+  var plot3049_data = [[2,1,0,0,0,0,0,0,0,],[6.896550655365,3.4482753276825,0,0,0,0,0,0,0,],[6.896550655365,10.344825983047,10.344825983047,10.344825983047,10.344825983047,10.344825983047,10.344825983047,10.344825983047,10.344825983047,],];
+  var plot3049_ticks = ['1','2','3 to 4','5 to 8','9 to 16','17 to 32','33 to 64','> 64','unknown',];
+  var plot3049 = jQuery.jqplot ('chart_cat_3049', plot3049_data, {
+    seriesDefaults: {
+      renderer: jQuery.jqplot.BarRenderer,
+      rendererOptions: {},
+      pointLabels: {show: true      },
+    },
+    axes: {
+      xaxis: {
+        renderer: $.jqplot.CategoryAxisRenderer,ticks: plot3049_ticks,label: 'Coverage Range',labelRenderer: $.jqplot.CanvasAxisLabelRenderer,},
+      yaxis: {label: 'Number of Loops',labelRenderer: $.jqplot.CanvasAxisLabelRenderer,autoscale:true,min:0,},
+      y2axis: {label: 'Coverage (%)',labelRenderer: $.jqplot.CanvasAxisLabelRenderer,autoscale:true,min:0,}
+    },
+    highlighter: {tooltipContentEditor: function (str, seriesIndex, pointIndex) {return plot3049_ticks[pointIndex]+' - '+plot3049_data[seriesIndex][pointIndex];},show: true,showTooltip: true,sizeAdjust: 10,formatString: '%s',tooltipLocation: 'n',useAxesFormatters: false,},
+    legend: {renderer: $.jqplot.EnhancedLegendRenderer, show: true,location: 's',placement: 'outsideGrid',rendererOptions: {numberRows: '1',},},
+    series: [{label:'Number of Loops', yaxis:'yaxis', },{label:'Coverage over Range', yaxis:'y2axis', },{label:'Cumulated Coverage', renderer: $.jqplot.LineRenderer, yaxis:'y2axis', },],
+  });
+});
+</script></div></div><div class="_fixed_box" ><h3 class="_header">Profiling node fixot-brendan-MS-7C02 - process 8071 - thread 8420<span class="tooltip-maqao-button help-maqao" title="" tooltip_id="1" ></span></h3>
+<div class="_content"><div class="_div_table" ><div style="overflow:auto;">
+<table id="_tree_table_501" class="_tree_table"><tr><th class="_freezed_row  _left " style="width:60%;"><span></span>Name</th><th class="_freezed_row " style="width:20%;"><span></span>Module</th><th class="_freezed_row " style="width:10%;"><span></span>Coverage (%)</th><th class="_freezed_row " style="width:10%;"><span></span>Time (s)</th></tr>
+<tr class=" _outer_row"  id="_tr_501_1"  ondblclick="_action_4(this,1,-1, '../functions/MainEnsemble_1874.html');"  style="cursor:pointer;"><td id="_tr_501_1-1"  data-_i="1" data-_j="1"  class=" _left"  style="word-break:break-all;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>bool std::operator< <double, int>(std::pair<double, int> const&, std::pair<double, int> const&)</td><td id="_tr_501_1-2"  data-_i="1" data-_j="2"  class=" _centered"  style="word-break:break-all;" >MainEnsemble</td><td id="_tr_501_1-3"  data-_i="1" data-_j="3"  class=" _centered"  style="font-style: italic;" >20.69</td><td id="_tr_501_1-4"  data-_i="1" data-_j="4"  class=" _centered"  style="font-style: italic;" >0.03</td></tr>
+<tr class=" _outer_row"  id="_tr_501_2"  ondblclick="_action_4(this,2,-1, '../functions/MainEnsemble_1610.html');"  style="cursor:pointer;"><td id="_tr_501_2-1"  data-_i="2" data-_j="1"  class=" _left"  style="word-break:break-all;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >::operator*() const</td><td id="_tr_501_2-2"  data-_i="2" data-_j="2"  class=" _centered"  style="word-break:break-all;" >MainEnsemble</td><td id="_tr_501_2-3"  data-_i="2" data-_j="3"  class=" _centered"  style="font-style: italic;" >10.34</td><td id="_tr_501_2-4"  data-_i="2" data-_j="4"  class=" _centered"  style="font-style: italic;" >0.01</td></tr>
+<tr class=" _outer_row"  id="_tr_501_3"  ondblclick="_action_4(this,3,-1, '../functions/MainEnsemble_1868.html');"  style="cursor:pointer;"><td id="_tr_501_3-1"  data-_i="3" data-_j="1"  class=" _left"  style="word-break:break-all;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>void std::__relocate_object_a<std::pair<double, int>, std::pair<double, int>, std::allocator<std::pair<double, int> > >(std::pair<double, int>*, std::pair<double, int>*, std::allocator<std::pair<double, int> >&)</td><td id="_tr_501_3-2"  data-_i="3" data-_j="2"  class=" _centered"  style="word-break:break-all;" >MainEnsemble</td><td id="_tr_501_3-3"  data-_i="3" data-_j="3"  class=" _centered"  style="font-style: italic;" >6.90</td><td id="_tr_501_3-4"  data-_i="3" data-_j="4"  class=" _centered"  style="font-style: italic;" >0.01</td></tr>
+<tr class=" _outer_row"  id="_tr_501_4"  ondblclick="_action_4(this,4,-1, '../functions/MainEnsemble_1867.html');"  style="cursor:pointer;"><td id="_tr_501_4-1"  data-_i="4" data-_j="1"  class=" _left"  style="word-break:break-all;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>std::pair<double, int>* std::__addressof<std::pair<double, int> >(std::pair<double, int>&)</td><td id="_tr_501_4-2"  data-_i="4" data-_j="2"  class=" _centered"  style="word-break:break-all;" >MainEnsemble</td><td id="_tr_501_4-3"  data-_i="4" data-_j="3"  class=" _centered"  style="font-style: italic;" >6.90</td><td id="_tr_501_4-4"  data-_i="4" data-_j="4"  class=" _centered"  style="font-style: italic;" >0.01</td></tr>
+<tr class=" _outer_row"  id="_tr_501_5"  ondblclick="_action_4(this,5,-1, '../functions/MainEnsemble_1683.html');"  style="cursor:pointer;"><td id="_tr_501_5-1"  data-_i="5" data-_j="1"  class=" _left"  style="word-break:break-all;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >::base() const</td><td id="_tr_501_5-2"  data-_i="5" data-_j="2"  class=" _centered"  style="word-break:break-all;" >MainEnsemble</td><td id="_tr_501_5-3"  data-_i="5" data-_j="3"  class=" _centered"  style="font-style: italic;" >6.90</td><td id="_tr_501_5-4"  data-_i="5" data-_j="4"  class=" _centered"  style="font-style: italic;" >0.01</td></tr>
+<tr class=" _outer_row"  id="_tr_501_6"  ondblclick="_action_4(this,6,-1, '../functions/MainEnsemble_1524.html');"  style="cursor:pointer;"><td id="_tr_501_6-1"  data-_i="6" data-_j="1"  class=" _left"  style="word-break:break-all;" ><span onclick="_click_tree(this)" style="margin-right:5px;margin-left:0px;cursor:pointer;" >&#x25BA;</span>DecisionTreeSingle::findBestSplitOMP(std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, double) [clone ._omp_fn.0]<span onclick="_click_expand(this)" class="span_expand">&#43;</span></td><td id="_tr_501_6-2"  data-_i="6" data-_j="2"  class=" _centered"  style="word-break:break-all;" >MainEnsemble</td><td id="_tr_501_6-3"  data-_i="6" data-_j="3"  class=" _centered"  style="font-style: italic;" >6.90</td><td id="_tr_501_6-4"  data-_i="6" data-_j="4"  class=" _centered"  style="font-style: italic;" >0.01</td></tr>
+<tr class="_tree_hidden _tr_501_6"  id="_tr_501_6_1"  ondblclick="_action_2(this,7,-1, 'Loop 130 -  - MainEnsemble');"  style="cursor:pointer;"><td id="_tr_501_6_1-1"  data-_i="7" data-_j="1"  class=" _left"  style="word-break:break-all;" ><span onclick="_click_tree(this)" style="margin-right:5px;margin-left:15px;cursor:pointer;" >&#x25BA;</span>Loop 130 -  - MainEnsemble<span onclick="_click_expand(this)" class="span_expand">&#43;</span></td><td id="_tr_501_6_1-2"  data-_i="7" data-_j="2"  class=" _centered"  style="word-break:break-all;" ></td><td id="_tr_501_6_1-3"  data-_i="7" data-_j="3"  class=" _centered"  style="font-style: italic;" >6.90</td><td id="_tr_501_6_1-4"  data-_i="7" data-_j="4"  class=" _centered"  style="font-style: italic;" >0.01</td></tr>
+<tr class="_tree_hidden _tr_501_6_1"  id="_tr_501_6_1_1"  ondblclick="_action_4(this,8,-1, '../loops/MainEnsemble_128.html');"  style="cursor:pointer;"><td id="_tr_501_6_1_1-1"  data-_i="8" data-_j="1"  class=" _left"  style="word-break:break-all;" ><span style="margin-right:10px;margin-left:33px;" >&#x25CB;</span>Loop 128 -  - MainEnsemble</td><td id="_tr_501_6_1_1-2"  data-_i="8" data-_j="2"  class=" _centered"  style="word-break:break-all;" ></td><td id="_tr_501_6_1_1-3"  data-_i="8" data-_j="3"  class=" _centered"  style="font-style: italic;" >3.45</td><td id="_tr_501_6_1_1-4"  data-_i="8" data-_j="4"  class=" _centered"  style="font-style: italic;" >0.00</td></tr>
+<tr class="_tree_hidden _tr_501_6_1"  id="_tr_501_6_1_2"  ondblclick="_action_4(this,9,-1, '../loops/MainEnsemble_129.html');"  style="cursor:pointer;"><td id="_tr_501_6_1_2-1"  data-_i="9" data-_j="1"  class=" _left"  style="word-break:break-all;" ><span style="margin-right:10px;margin-left:33px;" >&#x25CB;</span>Loop 129 -  - MainEnsemble</td><td id="_tr_501_6_1_2-2"  data-_i="9" data-_j="2"  class=" _centered"  style="word-break:break-all;" ></td><td id="_tr_501_6_1_2-3"  data-_i="9" data-_j="3"  class=" _centered"  style="font-style: italic;" >3.45</td><td id="_tr_501_6_1_2-4"  data-_i="9" data-_j="4"  class=" _centered"  style="font-style: italic;" >0.00</td></tr>
+<tr class=" _outer_row"  id="_tr_501_7"  ondblclick="_action_4(this,10,-1, '../functions/MainEnsemble_1902.html');"  style="cursor:pointer;"><td id="_tr_501_7-1"  data-_i="10" data-_j="1"  class=" _left"  style="word-break:break-all;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>std::enable_if<std::__and_<std::__is_swappable<double>, std::__is_swappable<int> >::value, void>::type std::swap<double, int>(std::pair<double, int>&, std::pair<double, int>&)</td><td id="_tr_501_7-2"  data-_i="10" data-_j="2"  class=" _centered"  style="word-break:break-all;" >MainEnsemble</td><td id="_tr_501_7-3"  data-_i="10" data-_j="3"  class=" _centered"  style="font-style: italic;" >3.45</td><td id="_tr_501_7-4"  data-_i="10" data-_j="4"  class=" _centered"  style="font-style: italic;" >0.00</td></tr>
+<tr class=" _outer_row"  id="_tr_501_8"  ondblclick="_action_4(this,11,-1, '../functions/MainEnsemble_1872.html');"  style="cursor:pointer;"><td id="_tr_501_8-1"  data-_i="11" data-_j="1"  class=" _left"  style="word-break:break-all;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >::operator--()</td><td id="_tr_501_8-2"  data-_i="11" data-_j="2"  class=" _centered"  style="word-break:break-all;" >MainEnsemble</td><td id="_tr_501_8-3"  data-_i="11" data-_j="3"  class=" _centered"  style="font-style: italic;" >3.45</td><td id="_tr_501_8-4"  data-_i="11" data-_j="4"  class=" _centered"  style="font-style: italic;" >0.00</td></tr>
+<tr class=" _outer_row"  id="_tr_501_9"  ondblclick="_action_4(this,12,-1, '../functions/MainEnsemble_1829.html');"  style="cursor:pointer;"><td id="_tr_501_9-1"  data-_i="12" data-_j="1"  class=" _left"  style="word-break:break-all;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>std::pair<double, int>::operator=(std::pair<double, int>&&)</td><td id="_tr_501_9-2"  data-_i="12" data-_j="2"  class=" _centered"  style="word-break:break-all;" >MainEnsemble</td><td id="_tr_501_9-3"  data-_i="12" data-_j="3"  class=" _centered"  style="font-style: italic;" >3.45</td><td id="_tr_501_9-4"  data-_i="12" data-_j="4"  class=" _centered"  style="font-style: italic;" >0.00</td></tr>
+<tr class=" _outer_row"  id="_tr_501_10"  ondblclick="_action_4(this,13,-1, '../functions/MainEnsemble_1820.html');"  style="cursor:pointer;"><td id="_tr_501_10-1"  data-_i="13" data-_j="1"  class=" _left"  style="word-break:break-all;" ><span onclick="_click_tree(this)" style="margin-right:5px;margin-left:0px;cursor:pointer;" >&#x25BA;</span>std::pair<double, int>* std::__relocate_a_1<std::pair<double, int>*, std::pair<double, int>*, std::allocator<std::pair<double, int> > >(std::pair<double, int>*, std::pair<double, int>*, std::pair<double, int>*, std::allocator<std::pair<double, int> >&)<span onclick="_click_expand(this)" class="span_expand">&#43;</span></td><td id="_tr_501_10-2"  data-_i="13" data-_j="2"  class=" _centered"  style="word-break:break-all;" >MainEnsemble</td><td id="_tr_501_10-3"  data-_i="13" data-_j="3"  class=" _centered"  style="font-style: italic;" >3.45</td><td id="_tr_501_10-4"  data-_i="13" data-_j="4"  class=" _centered"  style="font-style: italic;" >0.00</td></tr>
+<tr class="_tree_hidden _tr_501_10"  id="_tr_501_10_1"  ondblclick="_action_4(this,14,-1, '../loops/MainEnsemble_145.html');"  style="cursor:pointer;"><td id="_tr_501_10_1-1"  data-_i="14" data-_j="1"  class=" _left"  style="word-break:break-all;" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span>Loop 145 -  - MainEnsemble</td><td id="_tr_501_10_1-2"  data-_i="14" data-_j="2"  class=" _centered"  style="word-break:break-all;" ></td><td id="_tr_501_10_1-3"  data-_i="14" data-_j="3"  class=" _centered"  style="font-style: italic;" >3.45</td><td id="_tr_501_10_1-4"  data-_i="14" data-_j="4"  class=" _centered"  style="font-style: italic;" >0.00</td></tr>
+<tr class=" _outer_row"  id="_tr_501_11"  ondblclick="_action_4(this,15,-1, '../functions/MainEnsemble_1782.html');"  style="cursor:pointer;"><td id="_tr_501_11-1"  data-_i="15" data-_j="1"  class=" _left"  style="word-break:break-all;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >::operator+(long) const</td><td id="_tr_501_11-2"  data-_i="15" data-_j="2"  class=" _centered"  style="word-break:break-all;" >MainEnsemble</td><td id="_tr_501_11-3"  data-_i="15" data-_j="3"  class=" _centered"  style="font-style: italic;" >3.45</td><td id="_tr_501_11-4"  data-_i="15" data-_j="4"  class=" _centered"  style="font-style: italic;" >0.00</td></tr>
+<tr class=" _outer_row"  id="_tr_501_12"  ondblclick="_action_4(this,16,-1, '../functions/MainEnsemble_1777.html');"  style="cursor:pointer;"><td id="_tr_501_12-1"  data-_i="16" data-_j="1"  class=" _left"  style="word-break:break-all;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>std::pair<double, int>::pair<double const&, int&, true>(double const&, int&)</td><td id="_tr_501_12-2"  data-_i="16" data-_j="2"  class=" _centered"  style="word-break:break-all;" >MainEnsemble</td><td id="_tr_501_12-3"  data-_i="16" data-_j="3"  class=" _centered"  style="font-style: italic;" >3.45</td><td id="_tr_501_12-4"  data-_i="16" data-_j="4"  class=" _centered"  style="font-style: italic;" >0.00</td></tr>
+<tr class=" _outer_row"  id="_tr_501_13"  ondblclick="_action_4(this,17,-1, '../functions/MainEnsemble_1731.html');"  style="cursor:pointer;"><td id="_tr_501_13-1"  data-_i="17" data-_j="1"  class=" _left"  style="word-break:break-all;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span><span class="tooltip-maqao" title="" tooltip_id="2" >__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >::difference_type __gnu_cxx::operator-<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pai...</span></td><td id="_tr_501_13-2"  data-_i="17" data-_j="2"  class=" _centered"  style="word-break:break-all;" >MainEnsemble</td><td id="_tr_501_13-3"  data-_i="17" data-_j="3"  class=" _centered"  style="font-style: italic;" >3.45</td><td id="_tr_501_13-4"  data-_i="17" data-_j="4"  class=" _centered"  style="font-style: italic;" >0.00</td></tr>
+<tr class=" _outer_row"  id="_tr_501_14"  ondblclick="_action_4(this,18,-1, '../functions/MainEnsemble_1679.html');"  style="cursor:pointer;"><td id="_tr_501_14-1"  data-_i="18" data-_j="1"  class=" _left"  style="word-break:break-all;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span><span class="tooltip-maqao" title="" tooltip_id="3" >void std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > >::_M_realloc_insert<double const&, int&>(__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >...</span></td><td id="_tr_501_14-2"  data-_i="18" data-_j="2"  class=" _centered"  style="word-break:break-all;" >MainEnsemble</td><td id="_tr_501_14-3"  data-_i="18" data-_j="3"  class=" _centered"  style="font-style: italic;" >3.45</td><td id="_tr_501_14-4"  data-_i="18" data-_j="4"  class=" _centered"  style="font-style: italic;" >0.00</td></tr>
+<tr class=" _outer_row"  id="_tr_501_15"  ondblclick="_action_4(this,19,-1, '../functions/MainEnsemble_1609.html');"  style="cursor:pointer;"><td id="_tr_501_15-1"  data-_i="19" data-_j="1"  class=" _left"  style="word-break:break-all;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >::operator++()</td><td id="_tr_501_15-2"  data-_i="19" data-_j="2"  class=" _centered"  style="word-break:break-all;" >MainEnsemble</td><td id="_tr_501_15-3"  data-_i="19" data-_j="3"  class=" _centered"  style="font-style: italic;" >3.45</td><td id="_tr_501_15-4"  data-_i="19" data-_j="4"  class=" _centered"  style="font-style: italic;" >0.00</td></tr>
+<tr class=" _outer_row"  id="_tr_501_16"  ondblclick="_action_4(this,20,-1, '../functions/MainEnsemble_1606.html');"  style="cursor:pointer;"><td id="_tr_501_16-1"  data-_i="20" data-_j="1"  class=" _left"  style="word-break:break-all;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > >::end()</td><td id="_tr_501_16-2"  data-_i="20" data-_j="2"  class=" _centered"  style="word-break:break-all;" >MainEnsemble</td><td id="_tr_501_16-3"  data-_i="20" data-_j="3"  class=" _centered"  style="font-style: italic;" >3.45</td><td id="_tr_501_16-4"  data-_i="20" data-_j="4"  class=" _centered"  style="font-style: italic;" >0.00</td></tr>
+<tr class=" _outer_row"  id="_tr_501_17"  ondblclick="_action_4(this,21,-1, '../functions/MainEnsemble_1605.html');"  style="cursor:pointer;"><td id="_tr_501_17-1"  data-_i="21" data-_j="1"  class=" _left"  style="word-break:break-all;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > >::begin()</td><td id="_tr_501_17-2"  data-_i="21" data-_j="2"  class=" _centered"  style="word-break:break-all;" >MainEnsemble</td><td id="_tr_501_17-3"  data-_i="21" data-_j="3"  class=" _centered"  style="font-style: italic;" >3.45</td><td id="_tr_501_17-4"  data-_i="21" data-_j="4"  class=" _centered"  style="font-style: italic;" >0.00</td></tr>
+<tr class=" _outer_row"  id="_tr_501_18"  ondblclick="_action_4(this,22,-1, '../functions/MainEnsemble_1511.html');"  style="cursor:pointer;"><td id="_tr_501_18-1"  data-_i="22" data-_j="1"  class=" _left"  style="word-break:break-all;" ><span onclick="_click_tree(this)" style="margin-right:5px;margin-left:0px;cursor:pointer;" >&#x25BA;</span>DecisionTreeSingle::splitNode(DecisionTreeSingle::Tree*, std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, int)<span onclick="_click_expand(this)" class="span_expand">&#43;</span></td><td id="_tr_501_18-2"  data-_i="22" data-_j="2"  class=" _centered"  style="word-break:break-all;" >MainEnsemble</td><td id="_tr_501_18-3"  data-_i="22" data-_j="3"  class=" _centered"  style="font-style: italic;" >3.45</td><td id="_tr_501_18-4"  data-_i="22" data-_j="4"  class=" _centered"  style="font-style: italic;" >0.00</td></tr>
+<tr class="_tree_hidden _tr_501_18"  id="_tr_501_18_1"  ondblclick="_action_4(this,23,-1, '../loops/MainEnsemble_114.html');"  style="cursor:pointer;"><td id="_tr_501_18_1-1"  data-_i="23" data-_j="1"  class=" _left"  style="word-break:break-all;" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span>Loop 114 -  - MainEnsemble</td><td id="_tr_501_18_1-2"  data-_i="23" data-_j="2"  class=" _centered"  style="word-break:break-all;" ></td><td id="_tr_501_18_1-3"  data-_i="23" data-_j="3"  class=" _centered"  style="font-style: italic;" >3.45</td><td id="_tr_501_18_1-4"  data-_i="23" data-_j="4"  class=" _centered"  style="font-style: italic;" >0.00</td></tr>
+</table></div>
+</div>
+<script>
+function _action_2 (obj, i, j, p){open("../loops/empty_loop.html?loop="+p+"");}
+function _action_4 (obj, i, j, p){open(""+p+"");}
+</script>
+<script>
+function getPos(el) {
+  for (var lx=0, ly=0;
+      el != null;
+      lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent);
+  return {x: lx,y: ly};
+}
+function _onresize () {
+  __maqao_legacy_onresize ();
+  var d = document.getElementById ("_tree_table_501").parentNode;
+  d.style.maxHeight = (window.innerHeight - getPos (d).y - 20)+"px";
+}
+window.onresize = _onresize;
+addLoadEvent(function(){
+  _onresize ();
+});
+</script>
+
+  <div id="MaqaoModal" class="maqao_modal">
+    <div class="maqao_modal-content">
+      <div class="maqao_modal-header">
+        <span class="maqao_close">&times;</span>
+      </div>
+      <div id="maqao_modal-body" class="maqao_modal-body">
+      </div>
+    </div>
+  </div>
+</div><script>
+var tooltips_texts = ['Environment variables defined for for the thread.<br/>A value is colored in <span style="background:#e5ccb3; width:20px;">orange</span> when it changes<br/>across threads in a single run.',
+'Coverage and Time are inclusive metrics.',
+'__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >::difference_type __gnu_cxx::operator-<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >(__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > > const&, __gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > > const&)',
+'void std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > >::_M_realloc_insert<double const&, int&>(__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, double const&, int&)'];
+var modal = document.getElementById('MaqaoModal');
+var span = document.getElementsByClassName("maqao_close")[0];
+span.onclick = function() {
+    modal.style.display = "none";
+}
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+const comparer = (idx, asc) => (a, b) => ((v1, v2) => 
+    v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v2 - v1 : v1.toString().localeCompare(v2)
+    )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+addLoadEvent(function(){
+  document.querySelectorAll('._fixed_table:not(._no_auto_sorting) th').forEach(th => th.addEventListener('click', (() => {
+    const table = th.closest('table');
+    // Remove all symbols in header
+    table.querySelectorAll('th').forEach(function (e) {
+      e.firstChild.textContent = "";
+    });
+    // Change the symbol on the clicked header
+    if (this.asc != true) {
+      th.firstChild.textContent = "\u25BC";
+    }
+    else {
+      th.firstChild.textContent = "\u25B2";
+    }
+    Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
+        .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+        .forEach(tr => table.appendChild(tr) );
+  })));
+});
+addLoadEvent(function(){
+  document.querySelectorAll('._tree_table:not(._no_auto_sorting) th').forEach(th => th.addEventListener('click', (() => {
+    const table = th.closest('table');
+    // Remove all symbols in header
+    table.querySelectorAll('th').forEach(function (e) {
+      e.firstChild.textContent = "";
+    });
+    // Change the symbol on the clicked header
+    if (this.asc != true) {
+      th.firstChild.textContent = "\u25BC";
+    }
+    else {
+      th.firstChild.textContent = "\u25B2";
+    }
+    let last_id = "";
+    const t_outermost = new Array ();
+    const t_children  = new Map ();
+    for (let i = 1, row; row = table.rows[i]; i++) {
+      if (row.classList.contains ("_outer_row")) {
+        t_outermost.push (row);
+        last_id = row.id;
+        t_children [last_id] = new Array ();
+      }
+      else {
+        t_children [last_id].push (row);
+      }
+    }
+    t_outermost.sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc));
+    for (let i = 0, row; row = t_outermost[i]; i++) {
+      table.appendChild(row)
+      for (let j = 0, child; child = t_children[row.id][j]; j++) {
+        table.appendChild(child)
+      }
+    }
+  })));
+});
+function _check_all_checkbox_ (obj_id, opts_ids) {
+  var obj   = document.getElementById (obj_id);
+  var opts  = window[opts_ids];
+  var count = 0
+  for (i = 0; i < opts.length; i++) {
+    var obj_s = document.getElementById(opts[i]);
+    if (obj_s.checked) {
+      count ++;
+    }
+  }
+  if (count == 0) {
+    obj.value = "Select all";
+  }
+  else if (count == opts.length) {
+    obj.value = "Select none";
+  }
+}
+// Fonction for table selector
+function click_table_menu (c, obj_id, opt_ids) {
+  var is_checked = document.getElementById (c).checked;
+  localStorage.setItem(c, is_checked);
+  $("."+c).each(function(index, element) {
+    if (is_checked) {
+      element.classList.remove("_tcol_hidden");
+    }
+    else {
+      element.classList.add("_tcol_hidden");
+    }
+  });
+  if (obj_id != undefined) {
+    _check_all_checkbox_ (obj_id, opt_ids)
+  }
+}
+function set_all_table_menu (obj, var_opt_ids) {
+  var opt_ids = window[var_opt_ids];
+  var is_selected = true
+  if (obj.value == "Select all") {
+    is_selected = false;
+  }
+  for (i = 0; i < opt_ids.length; i++) {
+    var obj_s = document.getElementById(opt_ids[i]);
+    if (is_selected == obj_s.checked) {
+      obj_s.checked = !obj_s.checked;
+      click_table_menu (opt_ids[i]);
+    }
+  }
+  if (is_selected == false) {
+    obj.value = "Select none";
+  } else {
+    obj.value = "Select all";
+  }
+  localStorage.setItem(obj.id, obj.value);
+}
+// Script for accordion box
+function _click_accordion_header(obj) {
+  var content = obj.nextSibling;
+  content.classList.toggle('collapsed');
+  obj.classList.toggle('collapsed');
+  obj.parentNode.classList.toggle('collapsed');
+  // Check if the box must be openned ...
+  if (obj.classList.contains ('collapsed'))
+  {
+    obj.firstChild.textContent = "\u25B6";
+  }
+  // or closed.
+  else 
+  {
+    obj.firstChild.textContent = "\u25BC";
+  }
+  if (typeof _onresize === "function") {
+    _onresize ();
+  }
+}
+  // Script for paged table
+function _click_paged_prev(obj) {
+  var pages_content_id = '_paged_tables_page_' + obj.parentNode.parentNode.id.substr (obj.parentNode.parentNode.id.lastIndexOf('_') + 1);
+  var pages_content = document.getElementById(pages_content_id).innerHTML;
+  var max_pages = pages_content.substr (pages_content.lastIndexOf('/') + 1);
+  var cur_page  = pages_content.substring (pages_content.lastIndexOf(' ') + 1, pages_content.lastIndexOf('/'));
+  max_pages = Number (max_pages);
+  cur_page  = Number (cur_page);
+  if (cur_page > 1) {
+    var div_paged = obj.parentNode.parentNode.id;
+    var i;
+    var x = document.getElementsByClassName(div_paged + '_' + (cur_page - 1));
+    for (i = 0; i < x.length; i++) {
+      x[i].classList.toggle('_paged_hidden');
+    }
+    x = document.getElementsByClassName(div_paged + '_' + (cur_page - 2));
+    for (i = 0; i < x.length; i++) {
+      x[i].classList.toggle('_paged_hidden');
+    }
+  document.getElementById(pages_content_id).textContent = "Page " + (cur_page - 1) + "/" + max_pages;
+  }
+}
+function _click_paged_next(obj) {
+  var pages_content_id = '_paged_tables_page_' + obj.parentNode.parentNode.id.substr (obj.parentNode.parentNode.id.lastIndexOf('_') + 1);
+  var pages_content = document.getElementById(pages_content_id).innerHTML;
+  var max_pages = pages_content.substr (pages_content.lastIndexOf('/') + 1);
+  var cur_page  = pages_content.substring (pages_content.lastIndexOf(' ') + 1, pages_content.lastIndexOf('/'));
+  max_pages = Number (max_pages);
+  cur_page  = Number (cur_page);
+  if (cur_page < max_pages) {
+    var div_paged = obj.parentNode.parentNode.id;
+    var i;
+    var x = document.getElementsByClassName(div_paged + '_' + (cur_page - 1));
+    for (i = 0; i < x.length; i++) {
+      x[i].classList.toggle('_paged_hidden');
+    }
+    x = document.getElementsByClassName(div_paged + '_' + cur_page);
+    for (i = 0; i < x.length; i++) {
+      x[i].classList.toggle('_paged_hidden');
+    }
+    document.getElementById(pages_content_id).textContent = "Page " + (cur_page + 1) + "/" + max_pages;
+  }
+}
+// Function for tree table
+function _click_tree(obj) {
+  if (obj.innerHTML == "\u25BA") {
+    obj.textContent = "\u25BC";
+    // Open childs
+    var x = document.getElementsByClassName(obj.parentNode.parentNode.id);
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.toggle('_tree_hidden');
+    }
+  }
+  else if (obj.innerHTML == "\u25BC") {
+    obj.textContent = "\u25BA";
+    // Close all childs
+    var trs = document.getElementsByTagName('tr');
+    var r   = obj.parentNode.parentNode.id+'_';
+    var re  = new RegExp (r, "g");
+    for (var i = 0; i < trs.length; i++) {
+      var s = trs[i].id+""
+      if (s.match(re)) {
+        var o = document.getElementById(s);
+        if (! o.classList.contains('_tree_hidden')) {
+          o.classList.toggle('_tree_hidden');
+        }
+        if (o.firstChild.firstChild.textContent == "\u25BC") {
+          o.firstChild.firstChild.textContent = "\u25BA";
+        }
+        if (o.firstChild.childNodes.length == 3) {
+          o.firstChild.childNodes[2].textContent = '+';
+        }
+      }
+    }
+    if (obj.parentNode.childNodes.length == 3) {
+      obj.parentNode.childNodes[2].textContent = '+';
+    }
+  }
+}
+function _click_expand (obj) {
+  var trs = document.getElementsByTagName('tr');
+  var r   = obj.parentNode.parentNode.id+'_';
+  var re  = new RegExp (r, "g");
+  // Symbole + => expand all
+  if (obj.textContent == "+") {
+    for (var i = 0; i < trs.length; i++) {
+      var s = trs[i].id+"";
+      if (s.match(re)) {
+        var o = document.getElementById(s);
+        if (o.classList.contains('_tree_hidden')) {
+           o.classList.toggle('_tree_hidden');
+        }
+        if (o.firstChild.firstChild.textContent == "\u25BA") {
+          o.firstChild.firstChild.textContent = "\u25BC";
+        }
+        if (o.firstChild.childNodes.length == 3) {
+          o.firstChild.childNodes[2].textContent = '\u2010';
+        }
+      }
+    }
+    var o = obj.parentNode.parentNode;
+    if (o.firstChild.firstChild.textContent == "\u25BA") {
+      o.firstChild.firstChild.textContent = "\u25BC";
+    }
+    obj.textContent = "\u2010";
+  }
+  // Symbole - => collapse all
+  else {
+    for (var i = 0; i < trs.length; i++) {
+      var s = trs[i].id+"";
+      if (s.match(re)) {
+        var o = document.getElementById(s);
+        if (! o.classList.contains('_tree_hidden')) {
+           o.classList.toggle('_tree_hidden');
+        }
+        if (o.firstChild.firstChild.textContent == "\u25BC") {
+          o.firstChild.firstChild.textContent = "\u25BA";
+        }
+        if (o.firstChild.childNodes.length == 3) {
+          o.firstChild.childNodes[2].textContent = '+';
+        }
+      }
+    }
+    var o = obj.parentNode.parentNode;
+    if (o.firstChild.firstChild.textContent == "\u25BC") {
+      o.firstChild.firstChild.textContent = "\u25BA";
+    }
+    obj.textContent = "+";
+  }
+}
+// Hide unselected tabs
+addLoadEvent(function(){
+  var x = document.getElementsByClassName("_tab_header_li");
+  for (var i = 0; i < x.length; i++) {
+    if (x[i].classList.contains("selected_tab") == false) {
+      var e = document.getElementById (x[i].dataset.tab);
+      e.style.display = "none";
+    }
+  }
+});
+// Change tab
+function change_tab (e, baseId) {
+  // Handle tabs
+  var i = 1;
+  while (true) {
+    var id = baseId + i;
+    var t = document.getElementById (id);
+    if (t == null) {
+      break;
+    }
+    if (id == e.dataset.tab) {
+      t.style.removeProperty("display");
+    }
+    else {
+      t.style.display = "none";
+    }
+    i = i + 1;
+  }
+  // Handle headers
+  $(e).siblings().each( function () {
+    this.classList.remove("selected_tab");
+  });
+  e.classList.add("selected_tab");
+}
+function __maqao_legacy_onresize () {
+  var obj = document.getElementById("spacer_page_title");
+  if (obj) {
+    obj.style.height = (document.getElementById("page_title").clientHeight + 20)+"px";
+  }
+  var obj = document.getElementById("page_title");
+  if (obj) {
+    var elems = document.getElementsByClassName ("_first_menu_level")
+    if (obj.clientHeight < 90) {
+      for (var i = 0; i < elems.length; i++) {
+        elems.item(i).style.borderBottomLeftRadius = "";
+        elems.item(i).style.borderBottomRightRadius = "";
+      }
+    }
+    else {
+      for (var i = 0; i < elems.length; i++) {
+        elems.item(i).style.borderBottomLeftRadius = "10px";
+        elems.item(i).style.borderBottomRightRadius = "10px";
+      }
+    }
+  }
+}
+</script>
+</body>
+</html>

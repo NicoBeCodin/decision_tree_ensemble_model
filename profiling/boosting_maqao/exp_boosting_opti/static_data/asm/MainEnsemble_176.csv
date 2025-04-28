@@ -1,0 +1,21 @@
+address;source_location;insn;indent
+0x4312c;:0;PXOR	%XMM1,%XMM1;
+0x43130;:0;CVTSI2SDL	-0x14(%RBP),%XMM1;
+0x43135;:0;MOVSD	%XMM1,-0x20(%RBP);
+0x4313a;:0;LEA	-0x8(%RBP),%RAX;
+0x4313e;:0;MOV	%RAX,%RDI;
+0x43141;:0;CALL	166b0 <_ZNK9__gnu_cxx17__normal_iteratorIPKdSt6vectorIdSaIdEEEdeEv>;
+0x43146;:0;MOVSD	(%RAX),%XMM0;
+0x4314a;:0;ADDSD	-0x20(%RBP),%XMM0;
+0x4314f;:0;CVTTSD2SI	%XMM0,%EAX;
+0x43153;:0;MOV	%EAX,-0x14(%RBP);
+0x43156;:0;LEA	-0x8(%RBP),%RAX;
+0x4315a;:0;MOV	%RAX,%RDI;
+0x4315d;:0;CALL	1668c <_ZN9__gnu_cxx17__normal_iteratorIPKdSt6vectorIdSaIdEEEppEv>;
+0x43162;:0;LEA	-0x10(%RBP),%RDX;
+0x43166;:0;LEA	-0x8(%RBP),%RAX;
+0x4316a;:0;MOV	%RDX,%RSI;
+0x4316d;:0;MOV	%RAX,%RDI;
+0x43170;:0;CALL	1664c <_ZN9__gnu_cxxneIPKdSt6vectorIdSaIdEEEEbRKNS_17__normal_iteratorIT_T0_EESB_>;
+0x43175;:0;TEST	%AL,%AL;
+0x43177;:0;JNE	4312c <_ZSt10accumulateIN9__gnu_cxx17__normal_iteratorIPKdSt6vectorIdSaIdEEEEiET0_T_S9_S8_+0x19>;

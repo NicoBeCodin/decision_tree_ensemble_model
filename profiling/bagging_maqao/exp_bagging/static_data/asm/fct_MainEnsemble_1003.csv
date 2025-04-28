@@ -1,0 +1,16 @@
+address;source_location;insn;indent
+0x212da;:0;ENDBR64;
+0x212de;:0;PUSH	%RBP;
+0x212df;:0;MOV	%RSP,%RBP;
+0x212e2;:0;SUB	$0x10,%RSP;
+0x212e6;:0;MOV	%RDI,-0x8(%RBP);
+0x212ea;:0;MOV	%RSI,-0x10(%RBP);
+0x212ee;:0;MOV	-0x10(%RBP),%RAX;
+0x212f2;:0;MOV	%RAX,%RDI;
+0x212f5;:0;CALL	20ab2 <_ZSt4moveIRiEONSt16remove_referenceIT_E4typeEOS2_>;
+0x212fa;:0;MOV	(%RAX),%EDX;
+0x212fc;:0;MOV	-0x8(%RBP),%RAX;
+0x21300;:0;MOV	%EDX,(%RAX);
+0x21302;:0;NOP;
+0x21303;:0;LEAVE;
+0x21304;:0;RET;

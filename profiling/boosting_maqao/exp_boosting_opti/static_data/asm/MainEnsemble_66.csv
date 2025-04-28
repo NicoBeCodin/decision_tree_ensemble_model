@@ -1,0 +1,22 @@
+address;source_location;insn;indent
+0x1cce0;:0;MOV	-0x20(%RBP),%RAX;
+0x1cce4;:0;MOV	%RAX,%RDI;
+0x1cce7;:0;CALL	1d94a <_ZNSt8_Rb_treeIiSt4pairIKidESt10_Select1stIS2_ESt4lessIiESaIS2_EE8_S_rightEPSt18_Rb_tree_node_base>;
+0x1ccec;:0;MOV	%RAX,%RDX;
+0x1ccef;:0;MOV	-0x18(%RBP),%RAX;
+0x1ccf3;:0;MOV	%RDX,%RSI;
+0x1ccf6;:0;MOV	%RAX,%RDI;
+0x1ccf9;:0;CALL	1ccca <_ZNSt8_Rb_treeIiSt4pairIKidESt10_Select1stIS2_ESt4lessIiESaIS2_EE8_M_eraseEPSt13_Rb_tree_nodeIS2_E>;
+0x1ccfe;:0;MOV	-0x20(%RBP),%RAX;
+0x1cd02;:0;MOV	%RAX,%RDI;
+0x1cd05;:0;CALL	1d960 <_ZNSt8_Rb_treeIiSt4pairIKidESt10_Select1stIS2_ESt4lessIiESaIS2_EE7_S_leftEPSt18_Rb_tree_node_base>;
+0x1cd0a;:0;MOV	%RAX,-0x8(%RBP);
+0x1cd0e;:0;MOV	-0x20(%RBP),%RDX;
+0x1cd12;:0;MOV	-0x18(%RBP),%RAX;
+0x1cd16;:0;MOV	%RDX,%RSI;
+0x1cd19;:0;MOV	%RAX,%RDI;
+0x1cd1c;:0;CALL	1d976 <_ZNSt8_Rb_treeIiSt4pairIKidESt10_Select1stIS2_ESt4lessIiESaIS2_EE12_M_drop_nodeEPSt13_Rb_tree_nodeIS2_E>;
+0x1cd21;:0;MOV	-0x8(%RBP),%RAX;
+0x1cd25;:0;MOV	%RAX,-0x20(%RBP);
+0x1cd29;:0;CMPQ	$0,-0x20(%RBP);
+0x1cd2e;:0;JNE	1cce0 <_ZNSt8_Rb_treeIiSt4pairIKidESt10_Select1stIS2_ESt4lessIiESaIS2_EE8_M_eraseEPSt13_Rb_tree_nodeIS2_E+0x16>;

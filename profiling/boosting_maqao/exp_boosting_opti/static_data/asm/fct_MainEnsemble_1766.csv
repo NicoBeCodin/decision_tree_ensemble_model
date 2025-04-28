@@ -1,0 +1,23 @@
+address;source_location;insn;indent
+0x386c4;:0;ENDBR64;
+0x386c8;:0;PUSH	%RBP;
+0x386c9;:0;MOV	%RSP,%RBP;
+0x386cc;:0;SUB	$0x20,%RSP;
+0x386d0;:0;MOV	%RDI,-0x8(%RBP);
+0x386d4;:0;MOV	%RSI,-0x10(%RBP);
+0x386d8;:0;MOV	-0x10(%RBP),%RAX;
+0x386dc;:0;MOV	%RAX,%RDI;
+0x386df;:0;CALL	395b9 <_ZNSt11_Tuple_implILm2EJdEE7_M_headERS0_>;
+0x386e4;:0;MOV	%RAX,%RDI;
+0x386e7;:0;CALL	170f9 <_ZSt7forwardIdEOT_RNSt16remove_referenceIS0_E4typeE>;
+0x386ec;:0;MOVSD	(%RAX),%XMM0;
+0x386f0;:0;MOVSD	%XMM0,-0x18(%RBP);
+0x386f5;:0;MOV	-0x8(%RBP),%RAX;
+0x386f9;:0;MOV	%RAX,%RDI;
+0x386fc;:0;CALL	3959b <_ZNSt11_Tuple_implILm2EJRdEE7_M_headERS1_>;
+0x38701;:0;MOVSD	-0x18(%RBP),%XMM0;
+0x38706;:0;MOVSD	%XMM0,(%RAX);
+0x3870a;:0;NOP;
+0x3870b;:0;LEAVE;
+0x3870c;:0;RET;
+0x3870d;:0;NOP;

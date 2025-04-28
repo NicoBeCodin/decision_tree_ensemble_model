@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html translate="no" lang="en-US"><head><title>ONEVIEW</title>
+<meta charset="utf-8" />
+<meta name="google" content="notranslate" />
+<link rel="stylesheet" type="text/css" media="screen" href="../css/ui.jqgrid.css" />
+<link rel="stylesheet" type="text/css" href="../css/themes/redmond_custom/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="../css/themes/redmond_custom/jquery.jqplot.min.css" />
+<link rel="stylesheet" type="text/css" href="../css/MAQAO_theme.css" />
+<link rel="stylesheet" type="text/css" href="../css/maqao_modal.css" />
+<link rel="stylesheet" type="text/css" href="../css/global.css" />
+<script src="../js/jquery-1.9.0.min.js" ></script>
+<script src="../js/jquery-ui-1.10.3.custom.min.js" ></script>
+<script src="../js/grid.locale-en.js" ></script>
+<script src="../js/jquery.jqGrid.min.js" ></script>
+<script src="../js/d3.min.js" ></script>
+<script class="include" src="../js/jquery.jqplot.min.js"></script>
+<script class="include" src="../js/jqplot.pieRenderer.min.js"></script>
+<script class="include" src="../js/jqplot.barRenderer.min.js"></script>
+<script class="include" src="../js/jqplot.categoryAxisRenderer.min.js"></script>
+<script class="include" src="../js/jqplot.pointLabels.min.js"></script>
+<script class="include" src="../js/jqplot.cursor.min.js"></script>
+<script class="include" src="../js/jqplot.canvasTextRenderer.min.js"></script>
+<script class="include" src="../js/jqplot.canvasAxisTickRenderer.min.js"></script>
+<script class="include" src="../js/jqplot.canvasAxisLabelRenderer.min.js"></script>
+<script class="include" src="../js/jqplot.enhancedLegendRenderer.min.js"></script>
+<script class="include" src="../js/jqplot.highlighter.min.js"></script>
+<script class="include" src="../js/jqplot.logAxisRenderer.min.js"></script>
+<script>
+$( function() {
+  $( document ).tooltip({
+    content: function() {
+      if (this.classList.contains ("tooltip-maqao")
+      ||  this.classList.contains ("tooltip-maqao-button")) {
+        return tooltips_texts[$(this).attr('tooltip_id')];
+      }
+    },
+    position: {
+      my: "center bottom-20",
+        at: "center top",
+        using: function( position, feedback ) {
+          $( this ).css( position );
+          $( "<div>" )
+            .addClass( "arrow-tt" )
+            .addClass( feedback.vertical )
+            .addClass( feedback.horizontal )
+            .appendTo( this );
+        }
+      }
+  });
+} );
+
+// Code from https://www.htmlgoodies.com/beyond/javascript/article.php/3724571/Using-Multiple-JavaScript-Onload-Functions.htm
+function addLoadEvent(func) {
+  var oldonload = window.onload;
+  if (typeof window.onload != 'function') {
+    window.onload = func;
+  } else {
+    window.onload = function() {
+      if (oldonload) {
+        oldonload();
+      }
+      func();
+    }
+  }
+}
+function loadCSS(filename){ 
+  var file = document.createElement("link");
+  file.setAttribute("rel", "stylesheet");
+  file.setAttribute("type", "text/css");
+  file.setAttribute("href", filename);
+  document.head.appendChild(file);
+}
+addLoadEvent(function(){
+  var theme = localStorage.getItem("__MAQAO_OV_theme__");
+  if (theme) {
+    loadCSS("../css/"+theme+".css");
+  }
+  else {
+    localStorage.setItem("__MAQAO_OV_theme__", "MAQAO_theme");
+    loadCSS("../css/MAQAO_theme.css");
+  }
+});
+</script>
+</head><body>
+<div id="anchor_file_start"></div>
+<div id="maqao_content">
+<div id="div_">
+<div class="_fixed_box" ><h3 class="_header">std::vector&lt;double, std::allocator&lt;double&gt; &gt;::_M_check_len(unsigned long, char const*) const - Load Distribution</h3>
+<div class="_content">  <table style="width:100%;text-align:center;">
+    <tr style="height:30px;">
+      <td><button type="button" style="cursor:pointer;" onclick="set_previous_ldbal_input_ ();">&larr;</button></td>
+      <td style="border-bottom: 1px solid var(--fixed_box_borders); width: 70%;"> 
+        <select id="ldbal_select_run_" size="1" onchange="set_ldbal_input_ ();" autocomplete="off" style="cursor:pointer;">
+           <option value="1">Run 1
+        </select>
+      </td>
+      <td><button type="button" style="cursor:pointer;" onclick="set_next_ldbal_input_ ();">&rarr;</button></td>
+    </tr>
+  </table>
+<div style="margin: 10px; overflow-x:auto; overflow-y:hidden;"><div id="chart_cat_2034" style="height:500px" ></div><div style="text-align:center;"></div></div>
+<script class="code">
+</script>
+<div style="margin: 10px; overflow-x:auto; overflow-y:hidden;"><div id="chart_cat_2035" style="height:500px" ></div><div style="text-align:center;"></div></div>
+<script class="code">
+</script>
+  <script>
+function set_ldbal_input_ () {
+  var selector_run  = document.getElementById ("ldbal_select_run_");
+  // Clear placeholder content and update their size
+  document.getElementById("chart_cat_2034").innerHTML = "";
+  var _width = Math.floor(document.getElementById("chart_cat_2034").getBoundingClientRect().width);
+  document.getElementById("chart_cat_2035").innerHTML = "";
+  var _width = Math.floor(document.getElementById("chart_cat_2035").getBoundingClientRect().width);
+  // According to selector, draw both charts
+  if (selector_run.value  == "1") {
+$(document).ready(function(){
+  var ordinals = ['fixot-brendan-MS-7C02_8071_8071'];
+  var data = [{value:3.4482753276825,offset:0, i:0,color:"#333399"}];
+  var widthgl  = _width;
+  var widthin  = _width;
+  var heightgl = 480;
+  var heightin = 495;
+  let margin = {top:10,right:30,bottom:30,left:50},
+  width = widthgl - margin.left - margin.right,
+  height = heightgl - margin.top - margin.bottom,
+  radius = (Math.min(width, height) / 2) - 10,
+  node;
+  const svg = d3.select('#chart_cat_2034')
+      .append('svg')
+      .attr('width', widthin)
+      .attr('height', heightin)
+      .append('g')
+      .attr('transform', `translate(${margin.left}, ${margin.top})`)
+      .call(
+        d3.zoom()
+          .translateExtent([[0,0], [width, height] ])
+          .extent([[0, 0], [width, height] ])
+        .on('zoom', zoom)
+      ).on("dblclick.zoom", null);
+  let x = d3.scaleLinear().range([0, width])
+  let y = d3.scaleLinear().range([height, 0])
+  let color = d3.scaleOrdinal(d3.schemeCategory10)
+  let xScale = x.domain([-1, ordinals.length])
+  let yScale = y.domain([0, d3.max(data, function(d){return d.value + d.offset})])
+  let xBand = d3.scaleBand().domain(d3.range(-1, ordinals.length)).range([0, width])
+  svg.append('rect')
+    .attr('class', 'zoom-panel')
+    .attr('width', width)
+    .attr('height', height)
+    .style('fill', 'var(--background)')
+  let xAxis = svg.append('g')
+    .attr('class', 'xAxis')
+    .attr('transform', `translate(0, ${height})`)
+    .call(
+      d3.axisBottom(xScale).tickFormat((d, e) => {
+        return ordinals[d]
+      })
+    );
+  svg.append("text")
+    .attr("transform",
+          "translate(" + (width/2) + " ," + (height + margin.top + 30) + ")")
+    .style("text-anchor", "middle")
+    .style("fill", "var(--font)")
+    .text("MAQAO thread rank");
+  let yAxis = svg.append('g')
+    .attr('class', 'yAxis')
+    .call(d3.axisLeft(yScale));
+  yAxis.selectAll(".tick text").attr("fill","var(--font)");
+  yAxis.selectAll(".tick line").attr("stroke","var(--font)");
+  yAxis.selectAll(".domain").attr("stroke","var(--font)");
+  xAxis.selectAll(".tick text").attr("fill","var(--font)");
+  xAxis.selectAll(".tick line").attr("stroke","var(--font)");
+  xAxis.selectAll(".domain").attr("stroke","var(--font)");
+  svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left)
+    .attr("x",0 - (height / 2))
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .style("fill", "var(--font)")
+    .text("Coverage (%)");
+  let bars = svg.append('g')
+    .attr('clip-path','url(#my-clip-path)')
+    .attr('id', 'zoom_chart_2034')
+    .selectAll('.bar')
+    .data(data)
+    .enter()
+    .append('rect')
+    .attr('class', 'bar')
+    .attr('id', function (d, i){ return 'zoom_chart_2034_'+i;})
+    .attr('x', function(d, i){
+      return xScale(d.i) - xBand.bandwidth()*0.9/2
+    })
+    .attr('y', function(d, i){
+      return yScale(d.value + d.offset)
+    })
+    .attr('width', xBand.bandwidth()*0.9)
+    .attr('height', function(d){
+      return height - yScale(d.value)
+    })
+    .style("fill", function(d){
+      return d.color
+    })
+  let defs = svg.append('defs')
+    defs.append('clipPath')
+      .attr('id', 'my-clip-path')
+      .append('rect')
+      .attr('width', width)
+      .attr('height', height)
+    let hideTicksWithoutLabel = function() {
+      d3.selectAll('.xAxis .tick text').each(function(d){
+        if(this.innerHTML === '') {
+          this.parentNode.style.display = 'none';
+        }
+      })
+    }
+    function zoom() {
+      if (d3.event.transform.k < 1) {
+        d3.event.transform.k = 1;
+        return;
+      }
+    xAxis.call(
+      d3.axisBottom(d3.event.transform.rescaleX(xScale)).tickFormat((d, e, target) => {
+        if (Math.floor(d) === d3.format(".1f")(d)) return ordinals[Math.floor(d)]
+          return ordinals[d];
+      })
+    )
+    hideTicksWithoutLabel()
+      bars.attr("transform", "translate(" + d3.event.transform.x+",0)scale(" + d3.event.transform.k + ",1)")
+  }
+});
+$("#zoom_chart_2034_0").click( function () {window.open("../topo/run_0_fixot-brendan-MS-7C02_8071_8071.html");});
+  }
+  if (selector_run.value  == "1") {
+$(document).ready(function(){
+  var ordinals = ['fixot-brendan-MS-7C02_8071_8071'];
+  var data = [{value:0.0049999998882413,offset:0, i:0,color:"#333399"}];
+  var widthgl  = _width;
+  var widthin  = _width;
+  var heightgl = 480;
+  var heightin = 495;
+  let margin = {top:10,right:30,bottom:30,left:50},
+  width = widthgl - margin.left - margin.right,
+  height = heightgl - margin.top - margin.bottom,
+  radius = (Math.min(width, height) / 2) - 10,
+  node;
+  const svg = d3.select('#chart_cat_2035')
+      .append('svg')
+      .attr('width', widthin)
+      .attr('height', heightin)
+      .append('g')
+      .attr('transform', `translate(${margin.left}, ${margin.top})`)
+      .call(
+        d3.zoom()
+          .translateExtent([[0,0], [width, height] ])
+          .extent([[0, 0], [width, height] ])
+        .on('zoom', zoom)
+      ).on("dblclick.zoom", null);
+  let x = d3.scaleLinear().range([0, width])
+  let y = d3.scaleLinear().range([height, 0])
+  let color = d3.scaleOrdinal(d3.schemeCategory10)
+  let xScale = x.domain([-1, ordinals.length])
+  let yScale = y.domain([0, d3.max(data, function(d){return d.value + d.offset})])
+  let xBand = d3.scaleBand().domain(d3.range(-1, ordinals.length)).range([0, width])
+  svg.append('rect')
+    .attr('class', 'zoom-panel')
+    .attr('width', width)
+    .attr('height', height)
+    .style('fill', 'var(--background)')
+  let xAxis = svg.append('g')
+    .attr('class', 'xAxis')
+    .attr('transform', `translate(0, ${height})`)
+    .call(
+      d3.axisBottom(xScale).tickFormat((d, e) => {
+        return ordinals[d]
+      })
+    );
+  svg.append("text")
+    .attr("transform",
+          "translate(" + (width/2) + " ," + (height + margin.top + 30) + ")")
+    .style("text-anchor", "middle")
+    .style("fill", "var(--font)")
+    .text("MAQAO thread rank");
+  let yAxis = svg.append('g')
+    .attr('class', 'yAxis')
+    .call(d3.axisLeft(yScale));
+  yAxis.selectAll(".tick text").attr("fill","var(--font)");
+  yAxis.selectAll(".tick line").attr("stroke","var(--font)");
+  yAxis.selectAll(".domain").attr("stroke","var(--font)");
+  xAxis.selectAll(".tick text").attr("fill","var(--font)");
+  xAxis.selectAll(".tick line").attr("stroke","var(--font)");
+  xAxis.selectAll(".domain").attr("stroke","var(--font)");
+  svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left)
+    .attr("x",0 - (height / 2))
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .style("fill", "var(--font)")
+    .text("Time (s)");
+  let bars = svg.append('g')
+    .attr('clip-path','url(#my-clip-path)')
+    .attr('id', 'zoom_chart_2035')
+    .selectAll('.bar')
+    .data(data)
+    .enter()
+    .append('rect')
+    .attr('class', 'bar')
+    .attr('id', function (d, i){ return 'zoom_chart_2035_'+i;})
+    .attr('x', function(d, i){
+      return xScale(d.i) - xBand.bandwidth()*0.9/2
+    })
+    .attr('y', function(d, i){
+      return yScale(d.value + d.offset)
+    })
+    .attr('width', xBand.bandwidth()*0.9)
+    .attr('height', function(d){
+      return height - yScale(d.value)
+    })
+    .style("fill", function(d){
+      return d.color
+    })
+  let defs = svg.append('defs')
+    defs.append('clipPath')
+      .attr('id', 'my-clip-path')
+      .append('rect')
+      .attr('width', width)
+      .attr('height', height)
+    let hideTicksWithoutLabel = function() {
+      d3.selectAll('.xAxis .tick text').each(function(d){
+        if(this.innerHTML === '') {
+          this.parentNode.style.display = 'none';
+        }
+      })
+    }
+    function zoom() {
+      if (d3.event.transform.k < 1) {
+        d3.event.transform.k = 1;
+        return;
+      }
+    xAxis.call(
+      d3.axisBottom(d3.event.transform.rescaleX(xScale)).tickFormat((d, e, target) => {
+        if (Math.floor(d) === d3.format(".1f")(d)) return ordinals[Math.floor(d)]
+          return ordinals[d];
+      })
+    )
+    hideTicksWithoutLabel()
+      bars.attr("transform", "translate(" + d3.event.transform.x+",0)scale(" + d3.event.transform.k + ",1)")
+  }
+});
+$("#zoom_chart_2035_0").click( function () {window.open("../topo/run_0_fixot-brendan-MS-7C02_8071_8071.html");});
+  }
+}
+function set_previous_ldbal_input_ () {
+  var selector_run  = document.getElementById ("ldbal_select_run_");
+  if (parseInt (selector_run.value) > 1) {
+     selector_run.value = parseInt (selector_run.value) - 1;
+     set_ldbal_input_ ();
+  }
+}
+function set_next_ldbal_input_ () {
+  var selector_run  = document.getElementById ("ldbal_select_run_");
+  if (parseInt (selector_run.value) < 1) {
+     selector_run.value = parseInt (selector_run.value) + 1;
+     set_ldbal_input_ ();
+  }
+}
+addLoadEvent(function(){
+    document.getElementById("div_").style.display = "none";
+});
+</script>
+</div></div></div>
+<div id="div_sorted">
+<div class="_fixed_box" ><h3 class="_header">std::vector&lt;double, std::allocator&lt;double&gt; &gt;::_M_check_len(unsigned long, char const*) const - Sorted Load Distribution</h3>
+<div class="_content">  <table style="width:100%;text-align:center;">
+    <tr style="height:30px;">
+      <td><button type="button" style="cursor:pointer;" onclick="set_previous_ldbal_input_sorted ();">&larr;</button></td>
+      <td style="border-bottom: 1px solid var(--fixed_box_borders); width: 70%;"> 
+        <select id="ldbal_select_run_sorted" size="1" onchange="set_ldbal_input_sorted ();" autocomplete="off" style="cursor:pointer;">
+           <option value="1">Run 1
+        </select>
+      </td>
+      <td><button type="button" style="cursor:pointer;" onclick="set_next_ldbal_input_sorted ();">&rarr;</button></td>
+    </tr>
+  </table>
+<div style="margin: 10px; overflow-x:auto; overflow-y:hidden;"><div id="chart_cat_2038" style="height:500px" ></div><div style="text-align:center;"></div></div>
+<script class="code">
+</script>
+<div style="margin: 10px; overflow-x:auto; overflow-y:hidden;"><div id="chart_cat_2039" style="height:500px" ></div><div style="text-align:center;"></div></div>
+<script class="code">
+</script>
+  <script>
+function set_ldbal_input_sorted () {
+  var selector_run  = document.getElementById ("ldbal_select_run_sorted");
+  // Clear placeholder content and update their size
+  document.getElementById("chart_cat_2038").innerHTML = "";
+  var _width = Math.floor(document.getElementById("chart_cat_2038").getBoundingClientRect().width);
+  document.getElementById("chart_cat_2039").innerHTML = "";
+  var _width = Math.floor(document.getElementById("chart_cat_2039").getBoundingClientRect().width);
+  // According to selector, draw both charts
+  if (selector_run.value  == "1") {
+$(document).ready(function(){
+  var ordinals = ['fixot-brendan-MS-7C02_8071_8071'];
+  var data = [{value:3.4482753276825,offset:0, i:0,color:"#333399"}];
+  var widthgl  = _width;
+  var widthin  = _width;
+  var heightgl = 480;
+  var heightin = 495;
+  let margin = {top:10,right:30,bottom:30,left:50},
+  width = widthgl - margin.left - margin.right,
+  height = heightgl - margin.top - margin.bottom,
+  radius = (Math.min(width, height) / 2) - 10,
+  node;
+  const svg = d3.select('#chart_cat_2038')
+      .append('svg')
+      .attr('width', widthin)
+      .attr('height', heightin)
+      .append('g')
+      .attr('transform', `translate(${margin.left}, ${margin.top})`)
+      .call(
+        d3.zoom()
+          .translateExtent([[0,0], [width, height] ])
+          .extent([[0, 0], [width, height] ])
+        .on('zoom', zoom)
+      ).on("dblclick.zoom", null);
+  let x = d3.scaleLinear().range([0, width])
+  let y = d3.scaleLinear().range([height, 0])
+  let color = d3.scaleOrdinal(d3.schemeCategory10)
+  let xScale = x.domain([-1, ordinals.length])
+  let yScale = y.domain([0, d3.max(data, function(d){return d.value + d.offset})])
+  let xBand = d3.scaleBand().domain(d3.range(-1, ordinals.length)).range([0, width])
+  svg.append('rect')
+    .attr('class', 'zoom-panel')
+    .attr('width', width)
+    .attr('height', height)
+    .style('fill', 'var(--background)')
+  let xAxis = svg.append('g')
+    .attr('class', 'xAxis')
+    .attr('transform', `translate(0, ${height})`)
+    .call(
+      d3.axisBottom(xScale).tickFormat((d, e) => {
+        return ordinals[d]
+      })
+    );
+  svg.append("text")
+    .attr("transform",
+          "translate(" + (width/2) + " ," + (height + margin.top + 30) + ")")
+    .style("text-anchor", "middle")
+    .style("fill", "var(--font)")
+    .text("MAQAO thread rank");
+  let yAxis = svg.append('g')
+    .attr('class', 'yAxis')
+    .call(d3.axisLeft(yScale));
+  yAxis.selectAll(".tick text").attr("fill","var(--font)");
+  yAxis.selectAll(".tick line").attr("stroke","var(--font)");
+  yAxis.selectAll(".domain").attr("stroke","var(--font)");
+  xAxis.selectAll(".tick text").attr("fill","var(--font)");
+  xAxis.selectAll(".tick line").attr("stroke","var(--font)");
+  xAxis.selectAll(".domain").attr("stroke","var(--font)");
+  svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left)
+    .attr("x",0 - (height / 2))
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .style("fill", "var(--font)")
+    .text("Coverage (%)");
+  let bars = svg.append('g')
+    .attr('clip-path','url(#my-clip-path)')
+    .attr('id', 'zoom_chart_2038')
+    .selectAll('.bar')
+    .data(data)
+    .enter()
+    .append('rect')
+    .attr('class', 'bar')
+    .attr('id', function (d, i){ return 'zoom_chart_2038_'+i;})
+    .attr('x', function(d, i){
+      return xScale(d.i) - xBand.bandwidth()*0.9/2
+    })
+    .attr('y', function(d, i){
+      return yScale(d.value + d.offset)
+    })
+    .attr('width', xBand.bandwidth()*0.9)
+    .attr('height', function(d){
+      return height - yScale(d.value)
+    })
+    .style("fill", function(d){
+      return d.color
+    })
+  let defs = svg.append('defs')
+    defs.append('clipPath')
+      .attr('id', 'my-clip-path')
+      .append('rect')
+      .attr('width', width)
+      .attr('height', height)
+    let hideTicksWithoutLabel = function() {
+      d3.selectAll('.xAxis .tick text').each(function(d){
+        if(this.innerHTML === '') {
+          this.parentNode.style.display = 'none';
+        }
+      })
+    }
+    function zoom() {
+      if (d3.event.transform.k < 1) {
+        d3.event.transform.k = 1;
+        return;
+      }
+    xAxis.call(
+      d3.axisBottom(d3.event.transform.rescaleX(xScale)).tickFormat((d, e, target) => {
+        if (Math.floor(d) === d3.format(".1f")(d)) return ordinals[Math.floor(d)]
+          return ordinals[d];
+      })
+    )
+    hideTicksWithoutLabel()
+      bars.attr("transform", "translate(" + d3.event.transform.x+",0)scale(" + d3.event.transform.k + ",1)")
+  }
+});
+$("#zoom_chart_2038_0").click( function () {window.open("../topo/run_0_fixot-brendan-MS-7C02_8071_8071.html");});
+  }
+  if (selector_run.value  == "1") {
+$(document).ready(function(){
+  var ordinals = ['fixot-brendan-MS-7C02_8071_8071'];
+  var data = [{value:0.0049999998882413,offset:0, i:0,color:"#333399"}];
+  var widthgl  = _width;
+  var widthin  = _width;
+  var heightgl = 480;
+  var heightin = 495;
+  let margin = {top:10,right:30,bottom:30,left:50},
+  width = widthgl - margin.left - margin.right,
+  height = heightgl - margin.top - margin.bottom,
+  radius = (Math.min(width, height) / 2) - 10,
+  node;
+  const svg = d3.select('#chart_cat_2039')
+      .append('svg')
+      .attr('width', widthin)
+      .attr('height', heightin)
+      .append('g')
+      .attr('transform', `translate(${margin.left}, ${margin.top})`)
+      .call(
+        d3.zoom()
+          .translateExtent([[0,0], [width, height] ])
+          .extent([[0, 0], [width, height] ])
+        .on('zoom', zoom)
+      ).on("dblclick.zoom", null);
+  let x = d3.scaleLinear().range([0, width])
+  let y = d3.scaleLinear().range([height, 0])
+  let color = d3.scaleOrdinal(d3.schemeCategory10)
+  let xScale = x.domain([-1, ordinals.length])
+  let yScale = y.domain([0, d3.max(data, function(d){return d.value + d.offset})])
+  let xBand = d3.scaleBand().domain(d3.range(-1, ordinals.length)).range([0, width])
+  svg.append('rect')
+    .attr('class', 'zoom-panel')
+    .attr('width', width)
+    .attr('height', height)
+    .style('fill', 'var(--background)')
+  let xAxis = svg.append('g')
+    .attr('class', 'xAxis')
+    .attr('transform', `translate(0, ${height})`)
+    .call(
+      d3.axisBottom(xScale).tickFormat((d, e) => {
+        return ordinals[d]
+      })
+    );
+  svg.append("text")
+    .attr("transform",
+          "translate(" + (width/2) + " ," + (height + margin.top + 30) + ")")
+    .style("text-anchor", "middle")
+    .style("fill", "var(--font)")
+    .text("MAQAO thread rank");
+  let yAxis = svg.append('g')
+    .attr('class', 'yAxis')
+    .call(d3.axisLeft(yScale));
+  yAxis.selectAll(".tick text").attr("fill","var(--font)");
+  yAxis.selectAll(".tick line").attr("stroke","var(--font)");
+  yAxis.selectAll(".domain").attr("stroke","var(--font)");
+  xAxis.selectAll(".tick text").attr("fill","var(--font)");
+  xAxis.selectAll(".tick line").attr("stroke","var(--font)");
+  xAxis.selectAll(".domain").attr("stroke","var(--font)");
+  svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left)
+    .attr("x",0 - (height / 2))
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .style("fill", "var(--font)")
+    .text("Time (s)");
+  let bars = svg.append('g')
+    .attr('clip-path','url(#my-clip-path)')
+    .attr('id', 'zoom_chart_2039')
+    .selectAll('.bar')
+    .data(data)
+    .enter()
+    .append('rect')
+    .attr('class', 'bar')
+    .attr('id', function (d, i){ return 'zoom_chart_2039_'+i;})
+    .attr('x', function(d, i){
+      return xScale(d.i) - xBand.bandwidth()*0.9/2
+    })
+    .attr('y', function(d, i){
+      return yScale(d.value + d.offset)
+    })
+    .attr('width', xBand.bandwidth()*0.9)
+    .attr('height', function(d){
+      return height - yScale(d.value)
+    })
+    .style("fill", function(d){
+      return d.color
+    })
+  let defs = svg.append('defs')
+    defs.append('clipPath')
+      .attr('id', 'my-clip-path')
+      .append('rect')
+      .attr('width', width)
+      .attr('height', height)
+    let hideTicksWithoutLabel = function() {
+      d3.selectAll('.xAxis .tick text').each(function(d){
+        if(this.innerHTML === '') {
+          this.parentNode.style.display = 'none';
+        }
+      })
+    }
+    function zoom() {
+      if (d3.event.transform.k < 1) {
+        d3.event.transform.k = 1;
+        return;
+      }
+    xAxis.call(
+      d3.axisBottom(d3.event.transform.rescaleX(xScale)).tickFormat((d, e, target) => {
+        if (Math.floor(d) === d3.format(".1f")(d)) return ordinals[Math.floor(d)]
+          return ordinals[d];
+      })
+    )
+    hideTicksWithoutLabel()
+      bars.attr("transform", "translate(" + d3.event.transform.x+",0)scale(" + d3.event.transform.k + ",1)")
+  }
+});
+$("#zoom_chart_2039_0").click( function () {window.open("../topo/run_0_fixot-brendan-MS-7C02_8071_8071.html");});
+  }
+}
+function set_previous_ldbal_input_sorted () {
+  var selector_run  = document.getElementById ("ldbal_select_run_sorted");
+  if (parseInt (selector_run.value) > 1) {
+     selector_run.value = parseInt (selector_run.value) - 1;
+     set_ldbal_input_sorted ();
+  }
+}
+function set_next_ldbal_input_sorted () {
+  var selector_run  = document.getElementById ("ldbal_select_run_sorted");
+  if (parseInt (selector_run.value) < 1) {
+     selector_run.value = parseInt (selector_run.value) + 1;
+     set_ldbal_input_sorted ();
+  }
+}
+addLoadEvent(function(){
+    document.getElementById("div_sorted").style.display = "none";
+});
+</script>
+</div></div></div>
+<div id="div_all">
+<div class="_fixed_box" ><h3 class="_header">std::vector&lt;double, std::allocator&lt;double&gt; &gt;::_M_check_len(unsigned long, char const*) const - Load Distribution All Threads</h3>
+<div class="_content">  <table style="width:100%;text-align:center;">
+    <tr style="height:30px;">
+      <td><button type="button" style="cursor:pointer;" onclick="set_previous_ldbal_input_all ();">&larr;</button></td>
+      <td style="border-bottom: 1px solid var(--fixed_box_borders); width: 70%;"> 
+        <select id="ldbal_select_run_all" size="1" onchange="set_ldbal_input_all ();" autocomplete="off" style="cursor:pointer;">
+           <option value="1">Run 1
+        </select>
+      </td>
+      <td><button type="button" style="cursor:pointer;" onclick="set_next_ldbal_input_all ();">&rarr;</button></td>
+    </tr>
+  </table>
+<div style="margin: 10px; overflow-x:auto; overflow-y:hidden;"><div id="chart_cat_2042" style="height:500px" ></div><div style="text-align:center;"></div></div>
+<script class="code">
+</script>
+<div style="margin: 10px; overflow-x:auto; overflow-y:hidden;"><div id="chart_cat_2043" style="height:500px" ></div><div style="text-align:center;"></div></div>
+<script class="code">
+</script>
+  <script>
+function set_ldbal_input_all () {
+  var selector_run  = document.getElementById ("ldbal_select_run_all");
+  // Clear placeholder content and update their size
+  document.getElementById("chart_cat_2042").innerHTML = "";
+  var _width = Math.floor(document.getElementById("chart_cat_2042").getBoundingClientRect().width);
+  document.getElementById("chart_cat_2043").innerHTML = "";
+  var _width = Math.floor(document.getElementById("chart_cat_2043").getBoundingClientRect().width);
+  // According to selector, draw both charts
+  if (selector_run.value  == "1") {
+$(document).ready(function(){
+  var ordinals = ['fixot-brendan-MS-7C02_8071_8071','fixot-brendan-MS-7C02_8071_8079','fixot-brendan-MS-7C02_8071_8081','fixot-brendan-MS-7C02_8071_8082','fixot-brendan-MS-7C02_8071_8083','fixot-brendan-MS-7C02_8071_8086','fixot-brendan-MS-7C02_8071_8090','fixot-brendan-MS-7C02_8071_8122','fixot-brendan-MS-7C02_8071_8127','fixot-brendan-MS-7C02_8071_8134','fixot-brendan-MS-7C02_8071_8135','fixot-brendan-MS-7C02_8071_8142','fixot-brendan-MS-7C02_8071_8143','fixot-brendan-MS-7C02_8071_8150','fixot-brendan-MS-7C02_8071_8151','fixot-brendan-MS-7C02_8071_8155','fixot-brendan-MS-7C02_8071_8161','fixot-brendan-MS-7C02_8071_8162','fixot-brendan-MS-7C02_8071_8163','fixot-brendan-MS-7C02_8071_8164','fixot-brendan-MS-7C02_8071_8172','fixot-brendan-MS-7C02_8071_8173','fixot-brendan-MS-7C02_8071_8174','fixot-brendan-MS-7C02_8071_8175','fixot-brendan-MS-7C02_8071_8176','fixot-brendan-MS-7C02_8071_8177','fixot-brendan-MS-7C02_8071_8185','fixot-brendan-MS-7C02_8071_8187','fixot-brendan-MS-7C02_8071_8215','fixot-brendan-MS-7C02_8071_8217','fixot-brendan-MS-7C02_8071_8218','fixot-brendan-MS-7C02_8071_8219','fixot-brendan-MS-7C02_8071_8220','fixot-brendan-MS-7C02_8071_8223','fixot-brendan-MS-7C02_8071_8228','fixot-brendan-MS-7C02_8071_8230','fixot-brendan-MS-7C02_8071_8231','fixot-brendan-MS-7C02_8071_8269','fixot-brendan-MS-7C02_8071_8270','fixot-brendan-MS-7C02_8071_8271','fixot-brendan-MS-7C02_8071_8272','fixot-brendan-MS-7C02_8071_8273','fixot-brendan-MS-7C02_8071_8274','fixot-brendan-MS-7C02_8071_8284','fixot-brendan-MS-7C02_8071_8285','fixot-brendan-MS-7C02_8071_8286','fixot-brendan-MS-7C02_8071_8287','fixot-brendan-MS-7C02_8071_8298','fixot-brendan-MS-7C02_8071_8305','fixot-brendan-MS-7C02_8071_8306','fixot-brendan-MS-7C02_8071_8307','fixot-brendan-MS-7C02_8071_8308','fixot-brendan-MS-7C02_8071_8309','fixot-brendan-MS-7C02_8071_8310','fixot-brendan-MS-7C02_8071_8311','fixot-brendan-MS-7C02_8071_8320','fixot-brendan-MS-7C02_8071_8321','fixot-brendan-MS-7C02_8071_8324','fixot-brendan-MS-7C02_8071_8335','fixot-brendan-MS-7C02_8071_8336','fixot-brendan-MS-7C02_8071_8341','fixot-brendan-MS-7C02_8071_8343','fixot-brendan-MS-7C02_8071_8344','fixot-brendan-MS-7C02_8071_8345','fixot-brendan-MS-7C02_8071_8353','fixot-brendan-MS-7C02_8071_8357','fixot-brendan-MS-7C02_8071_8360','fixot-brendan-MS-7C02_8071_8391','fixot-brendan-MS-7C02_8071_8392','fixot-brendan-MS-7C02_8071_8394','fixot-brendan-MS-7C02_8071_8401','fixot-brendan-MS-7C02_8071_8402','fixot-brendan-MS-7C02_8071_8405','fixot-brendan-MS-7C02_8071_8406','fixot-brendan-MS-7C02_8071_8407','fixot-brendan-MS-7C02_8071_8408','fixot-brendan-MS-7C02_8071_8417','fixot-brendan-MS-7C02_8071_8418','fixot-brendan-MS-7C02_8071_8419','fixot-brendan-MS-7C02_8071_8420','fixot-brendan-MS-7C02_8071_8437','fixot-brendan-MS-7C02_8071_8438','fixot-brendan-MS-7C02_8071_8443','fixot-brendan-MS-7C02_8071_8444','fixot-brendan-MS-7C02_8071_8452','fixot-brendan-MS-7C02_8071_8453','fixot-brendan-MS-7C02_8071_8456','fixot-brendan-MS-7C02_8071_8461','fixot-brendan-MS-7C02_8071_8462','fixot-brendan-MS-7C02_8071_8468','fixot-brendan-MS-7C02_8071_8469','fixot-brendan-MS-7C02_8071_8470','fixot-brendan-MS-7C02_8071_8471','fixot-brendan-MS-7C02_8071_8473','fixot-brendan-MS-7C02_8071_8480','fixot-brendan-MS-7C02_8071_8481','fixot-brendan-MS-7C02_8071_8490','fixot-brendan-MS-7C02_8071_8491','fixot-brendan-MS-7C02_8071_8499','fixot-brendan-MS-7C02_8071_8505','fixot-brendan-MS-7C02_8071_8506'];
+  var data = [{value:3.4482753276825,offset:0, i:0,color:"#333399"},{value:0,offset:0, i:1,color:"#333399"},{value:0,offset:0, i:2,color:"#333399"},{value:0,offset:0, i:3,color:"#333399"},{value:0,offset:0, i:4,color:"#333399"},{value:0,offset:0, i:5,color:"#333399"},{value:0,offset:0, i:6,color:"#333399"},{value:0,offset:0, i:7,color:"#333399"},{value:0,offset:0, i:8,color:"#333399"},{value:0,offset:0, i:9,color:"#333399"},{value:0,offset:0, i:10,color:"#333399"},{value:0,offset:0, i:11,color:"#333399"},{value:0,offset:0, i:12,color:"#333399"},{value:0,offset:0, i:13,color:"#333399"},{value:0,offset:0, i:14,color:"#333399"},{value:0,offset:0, i:15,color:"#333399"},{value:0,offset:0, i:16,color:"#333399"},{value:0,offset:0, i:17,color:"#333399"},{value:0,offset:0, i:18,color:"#333399"},{value:0,offset:0, i:19,color:"#333399"},{value:0,offset:0, i:20,color:"#333399"},{value:0,offset:0, i:21,color:"#333399"},{value:0,offset:0, i:22,color:"#333399"},{value:0,offset:0, i:23,color:"#333399"},{value:0,offset:0, i:24,color:"#333399"},{value:0,offset:0, i:25,color:"#333399"},{value:0,offset:0, i:26,color:"#333399"},{value:0,offset:0, i:27,color:"#333399"},{value:0,offset:0, i:28,color:"#333399"},{value:0,offset:0, i:29,color:"#333399"},{value:0,offset:0, i:30,color:"#333399"},{value:0,offset:0, i:31,color:"#333399"},{value:0,offset:0, i:32,color:"#333399"},{value:0,offset:0, i:33,color:"#333399"},{value:0,offset:0, i:34,color:"#333399"},{value:0,offset:0, i:35,color:"#333399"},{value:0,offset:0, i:36,color:"#333399"},{value:0,offset:0, i:37,color:"#333399"},{value:0,offset:0, i:38,color:"#333399"},{value:0,offset:0, i:39,color:"#333399"},{value:0,offset:0, i:40,color:"#333399"},{value:0,offset:0, i:41,color:"#333399"},{value:0,offset:0, i:42,color:"#333399"},{value:0,offset:0, i:43,color:"#333399"},{value:0,offset:0, i:44,color:"#333399"},{value:0,offset:0, i:45,color:"#333399"},{value:0,offset:0, i:46,color:"#333399"},{value:0,offset:0, i:47,color:"#333399"},{value:0,offset:0, i:48,color:"#333399"},{value:0,offset:0, i:49,color:"#333399"},{value:0,offset:0, i:50,color:"#333399"},{value:0,offset:0, i:51,color:"#333399"},{value:0,offset:0, i:52,color:"#333399"},{value:0,offset:0, i:53,color:"#333399"},{value:0,offset:0, i:54,color:"#333399"},{value:0,offset:0, i:55,color:"#333399"},{value:0,offset:0, i:56,color:"#333399"},{value:0,offset:0, i:57,color:"#333399"},{value:0,offset:0, i:58,color:"#333399"},{value:0,offset:0, i:59,color:"#333399"},{value:0,offset:0, i:60,color:"#333399"},{value:0,offset:0, i:61,color:"#333399"},{value:0,offset:0, i:62,color:"#333399"},{value:0,offset:0, i:63,color:"#333399"},{value:0,offset:0, i:64,color:"#333399"},{value:0,offset:0, i:65,color:"#333399"},{value:0,offset:0, i:66,color:"#333399"},{value:0,offset:0, i:67,color:"#333399"},{value:0,offset:0, i:68,color:"#333399"},{value:0,offset:0, i:69,color:"#333399"},{value:0,offset:0, i:70,color:"#333399"},{value:0,offset:0, i:71,color:"#333399"},{value:0,offset:0, i:72,color:"#333399"},{value:0,offset:0, i:73,color:"#333399"},{value:0,offset:0, i:74,color:"#333399"},{value:0,offset:0, i:75,color:"#333399"},{value:0,offset:0, i:76,color:"#333399"},{value:0,offset:0, i:77,color:"#333399"},{value:0,offset:0, i:78,color:"#333399"},{value:0,offset:0, i:79,color:"#333399"},{value:0,offset:0, i:80,color:"#333399"},{value:0,offset:0, i:81,color:"#333399"},{value:0,offset:0, i:82,color:"#333399"},{value:0,offset:0, i:83,color:"#333399"},{value:0,offset:0, i:84,color:"#333399"},{value:0,offset:0, i:85,color:"#333399"},{value:0,offset:0, i:86,color:"#333399"},{value:0,offset:0, i:87,color:"#333399"},{value:0,offset:0, i:88,color:"#333399"},{value:0,offset:0, i:89,color:"#333399"},{value:0,offset:0, i:90,color:"#333399"},{value:0,offset:0, i:91,color:"#333399"},{value:0,offset:0, i:92,color:"#333399"},{value:0,offset:0, i:93,color:"#333399"},{value:0,offset:0, i:94,color:"#333399"},{value:0,offset:0, i:95,color:"#333399"},{value:0,offset:0, i:96,color:"#333399"},{value:0,offset:0, i:97,color:"#333399"},{value:0,offset:0, i:98,color:"#333399"},{value:0,offset:0, i:99,color:"#333399"},{value:0,offset:0, i:100,color:"#333399"}];
+  var widthgl  = _width;
+  var widthin  = _width;
+  var heightgl = 480;
+  var heightin = 495;
+  let margin = {top:10,right:30,bottom:30,left:50},
+  width = widthgl - margin.left - margin.right,
+  height = heightgl - margin.top - margin.bottom,
+  radius = (Math.min(width, height) / 2) - 10,
+  node;
+  const svg = d3.select('#chart_cat_2042')
+      .append('svg')
+      .attr('width', widthin)
+      .attr('height', heightin)
+      .append('g')
+      .attr('transform', `translate(${margin.left}, ${margin.top})`)
+      .call(
+        d3.zoom()
+          .translateExtent([[0,0], [width, height] ])
+          .extent([[0, 0], [width, height] ])
+        .on('zoom', zoom)
+      ).on("dblclick.zoom", null);
+  let x = d3.scaleLinear().range([0, width])
+  let y = d3.scaleLinear().range([height, 0])
+  let color = d3.scaleOrdinal(d3.schemeCategory10)
+  let xScale = x.domain([-1, ordinals.length])
+  let yScale = y.domain([0, d3.max(data, function(d){return d.value + d.offset})])
+  let xBand = d3.scaleBand().domain(d3.range(-1, ordinals.length)).range([0, width])
+  svg.append('rect')
+    .attr('class', 'zoom-panel')
+    .attr('width', width)
+    .attr('height', height)
+    .style('fill', 'var(--background)')
+  let xAxis = svg.append('g')
+    .attr('class', 'xAxis')
+    .attr('transform', `translate(0, ${height})`)
+    .call(
+      d3.axisBottom(xScale).tickFormat((d, e) => {
+        return ordinals[d]
+      })
+    );
+  svg.append("text")
+    .attr("transform",
+          "translate(" + (width/2) + " ," + (height + margin.top + 30) + ")")
+    .style("text-anchor", "middle")
+    .style("fill", "var(--font)")
+    .text("MAQAO thread rank");
+  let yAxis = svg.append('g')
+    .attr('class', 'yAxis')
+    .call(d3.axisLeft(yScale));
+  yAxis.selectAll(".tick text").attr("fill","var(--font)");
+  yAxis.selectAll(".tick line").attr("stroke","var(--font)");
+  yAxis.selectAll(".domain").attr("stroke","var(--font)");
+  xAxis.selectAll(".tick text").attr("fill","var(--font)");
+  xAxis.selectAll(".tick line").attr("stroke","var(--font)");
+  xAxis.selectAll(".domain").attr("stroke","var(--font)");
+  svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left)
+    .attr("x",0 - (height / 2))
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .style("fill", "var(--font)")
+    .text("Coverage (%)");
+  let bars = svg.append('g')
+    .attr('clip-path','url(#my-clip-path)')
+    .attr('id', 'zoom_chart_2042')
+    .selectAll('.bar')
+    .data(data)
+    .enter()
+    .append('rect')
+    .attr('class', 'bar')
+    .attr('id', function (d, i){ return 'zoom_chart_2042_'+i;})
+    .attr('x', function(d, i){
+      return xScale(d.i) - xBand.bandwidth()*0.9/2
+    })
+    .attr('y', function(d, i){
+      return yScale(d.value + d.offset)
+    })
+    .attr('width', xBand.bandwidth()*0.9)
+    .attr('height', function(d){
+      return height - yScale(d.value)
+    })
+    .style("fill", function(d){
+      return d.color
+    })
+  let defs = svg.append('defs')
+    defs.append('clipPath')
+      .attr('id', 'my-clip-path')
+      .append('rect')
+      .attr('width', width)
+      .attr('height', height)
+    let hideTicksWithoutLabel = function() {
+      d3.selectAll('.xAxis .tick text').each(function(d){
+        if(this.innerHTML === '') {
+          this.parentNode.style.display = 'none';
+        }
+      })
+    }
+    function zoom() {
+      if (d3.event.transform.k < 1) {
+        d3.event.transform.k = 1;
+        return;
+      }
+    xAxis.call(
+      d3.axisBottom(d3.event.transform.rescaleX(xScale)).tickFormat((d, e, target) => {
+        if (Math.floor(d) === d3.format(".1f")(d)) return ordinals[Math.floor(d)]
+          return ordinals[d];
+      })
+    )
+    hideTicksWithoutLabel()
+      bars.attr("transform", "translate(" + d3.event.transform.x+",0)scale(" + d3.event.transform.k + ",1)")
+  }
+});
+$("#zoom_chart_2042_0").click( function () {window.open("../topo/run_0_fixot-brendan-MS-7C02_8071_8071.html");});
+  }
+  if (selector_run.value  == "1") {
+$(document).ready(function(){
+  var ordinals = ['fixot-brendan-MS-7C02_8071_8071','fixot-brendan-MS-7C02_8071_8079','fixot-brendan-MS-7C02_8071_8081','fixot-brendan-MS-7C02_8071_8082','fixot-brendan-MS-7C02_8071_8083','fixot-brendan-MS-7C02_8071_8086','fixot-brendan-MS-7C02_8071_8090','fixot-brendan-MS-7C02_8071_8122','fixot-brendan-MS-7C02_8071_8127','fixot-brendan-MS-7C02_8071_8134','fixot-brendan-MS-7C02_8071_8135','fixot-brendan-MS-7C02_8071_8142','fixot-brendan-MS-7C02_8071_8143','fixot-brendan-MS-7C02_8071_8150','fixot-brendan-MS-7C02_8071_8151','fixot-brendan-MS-7C02_8071_8155','fixot-brendan-MS-7C02_8071_8161','fixot-brendan-MS-7C02_8071_8162','fixot-brendan-MS-7C02_8071_8163','fixot-brendan-MS-7C02_8071_8164','fixot-brendan-MS-7C02_8071_8172','fixot-brendan-MS-7C02_8071_8173','fixot-brendan-MS-7C02_8071_8174','fixot-brendan-MS-7C02_8071_8175','fixot-brendan-MS-7C02_8071_8176','fixot-brendan-MS-7C02_8071_8177','fixot-brendan-MS-7C02_8071_8185','fixot-brendan-MS-7C02_8071_8187','fixot-brendan-MS-7C02_8071_8215','fixot-brendan-MS-7C02_8071_8217','fixot-brendan-MS-7C02_8071_8218','fixot-brendan-MS-7C02_8071_8219','fixot-brendan-MS-7C02_8071_8220','fixot-brendan-MS-7C02_8071_8223','fixot-brendan-MS-7C02_8071_8228','fixot-brendan-MS-7C02_8071_8230','fixot-brendan-MS-7C02_8071_8231','fixot-brendan-MS-7C02_8071_8269','fixot-brendan-MS-7C02_8071_8270','fixot-brendan-MS-7C02_8071_8271','fixot-brendan-MS-7C02_8071_8272','fixot-brendan-MS-7C02_8071_8273','fixot-brendan-MS-7C02_8071_8274','fixot-brendan-MS-7C02_8071_8284','fixot-brendan-MS-7C02_8071_8285','fixot-brendan-MS-7C02_8071_8286','fixot-brendan-MS-7C02_8071_8287','fixot-brendan-MS-7C02_8071_8298','fixot-brendan-MS-7C02_8071_8305','fixot-brendan-MS-7C02_8071_8306','fixot-brendan-MS-7C02_8071_8307','fixot-brendan-MS-7C02_8071_8308','fixot-brendan-MS-7C02_8071_8309','fixot-brendan-MS-7C02_8071_8310','fixot-brendan-MS-7C02_8071_8311','fixot-brendan-MS-7C02_8071_8320','fixot-brendan-MS-7C02_8071_8321','fixot-brendan-MS-7C02_8071_8324','fixot-brendan-MS-7C02_8071_8335','fixot-brendan-MS-7C02_8071_8336','fixot-brendan-MS-7C02_8071_8341','fixot-brendan-MS-7C02_8071_8343','fixot-brendan-MS-7C02_8071_8344','fixot-brendan-MS-7C02_8071_8345','fixot-brendan-MS-7C02_8071_8353','fixot-brendan-MS-7C02_8071_8357','fixot-brendan-MS-7C02_8071_8360','fixot-brendan-MS-7C02_8071_8391','fixot-brendan-MS-7C02_8071_8392','fixot-brendan-MS-7C02_8071_8394','fixot-brendan-MS-7C02_8071_8401','fixot-brendan-MS-7C02_8071_8402','fixot-brendan-MS-7C02_8071_8405','fixot-brendan-MS-7C02_8071_8406','fixot-brendan-MS-7C02_8071_8407','fixot-brendan-MS-7C02_8071_8408','fixot-brendan-MS-7C02_8071_8417','fixot-brendan-MS-7C02_8071_8418','fixot-brendan-MS-7C02_8071_8419','fixot-brendan-MS-7C02_8071_8420','fixot-brendan-MS-7C02_8071_8437','fixot-brendan-MS-7C02_8071_8438','fixot-brendan-MS-7C02_8071_8443','fixot-brendan-MS-7C02_8071_8444','fixot-brendan-MS-7C02_8071_8452','fixot-brendan-MS-7C02_8071_8453','fixot-brendan-MS-7C02_8071_8456','fixot-brendan-MS-7C02_8071_8461','fixot-brendan-MS-7C02_8071_8462','fixot-brendan-MS-7C02_8071_8468','fixot-brendan-MS-7C02_8071_8469','fixot-brendan-MS-7C02_8071_8470','fixot-brendan-MS-7C02_8071_8471','fixot-brendan-MS-7C02_8071_8473','fixot-brendan-MS-7C02_8071_8480','fixot-brendan-MS-7C02_8071_8481','fixot-brendan-MS-7C02_8071_8490','fixot-brendan-MS-7C02_8071_8491','fixot-brendan-MS-7C02_8071_8499','fixot-brendan-MS-7C02_8071_8505','fixot-brendan-MS-7C02_8071_8506'];
+  var data = [{value:0.0049999998882413,offset:0, i:0,color:"#333399"},{value:0,offset:0, i:1,color:"#333399"},{value:0,offset:0, i:2,color:"#333399"},{value:0,offset:0, i:3,color:"#333399"},{value:0,offset:0, i:4,color:"#333399"},{value:0,offset:0, i:5,color:"#333399"},{value:0,offset:0, i:6,color:"#333399"},{value:0,offset:0, i:7,color:"#333399"},{value:0,offset:0, i:8,color:"#333399"},{value:0,offset:0, i:9,color:"#333399"},{value:0,offset:0, i:10,color:"#333399"},{value:0,offset:0, i:11,color:"#333399"},{value:0,offset:0, i:12,color:"#333399"},{value:0,offset:0, i:13,color:"#333399"},{value:0,offset:0, i:14,color:"#333399"},{value:0,offset:0, i:15,color:"#333399"},{value:0,offset:0, i:16,color:"#333399"},{value:0,offset:0, i:17,color:"#333399"},{value:0,offset:0, i:18,color:"#333399"},{value:0,offset:0, i:19,color:"#333399"},{value:0,offset:0, i:20,color:"#333399"},{value:0,offset:0, i:21,color:"#333399"},{value:0,offset:0, i:22,color:"#333399"},{value:0,offset:0, i:23,color:"#333399"},{value:0,offset:0, i:24,color:"#333399"},{value:0,offset:0, i:25,color:"#333399"},{value:0,offset:0, i:26,color:"#333399"},{value:0,offset:0, i:27,color:"#333399"},{value:0,offset:0, i:28,color:"#333399"},{value:0,offset:0, i:29,color:"#333399"},{value:0,offset:0, i:30,color:"#333399"},{value:0,offset:0, i:31,color:"#333399"},{value:0,offset:0, i:32,color:"#333399"},{value:0,offset:0, i:33,color:"#333399"},{value:0,offset:0, i:34,color:"#333399"},{value:0,offset:0, i:35,color:"#333399"},{value:0,offset:0, i:36,color:"#333399"},{value:0,offset:0, i:37,color:"#333399"},{value:0,offset:0, i:38,color:"#333399"},{value:0,offset:0, i:39,color:"#333399"},{value:0,offset:0, i:40,color:"#333399"},{value:0,offset:0, i:41,color:"#333399"},{value:0,offset:0, i:42,color:"#333399"},{value:0,offset:0, i:43,color:"#333399"},{value:0,offset:0, i:44,color:"#333399"},{value:0,offset:0, i:45,color:"#333399"},{value:0,offset:0, i:46,color:"#333399"},{value:0,offset:0, i:47,color:"#333399"},{value:0,offset:0, i:48,color:"#333399"},{value:0,offset:0, i:49,color:"#333399"},{value:0,offset:0, i:50,color:"#333399"},{value:0,offset:0, i:51,color:"#333399"},{value:0,offset:0, i:52,color:"#333399"},{value:0,offset:0, i:53,color:"#333399"},{value:0,offset:0, i:54,color:"#333399"},{value:0,offset:0, i:55,color:"#333399"},{value:0,offset:0, i:56,color:"#333399"},{value:0,offset:0, i:57,color:"#333399"},{value:0,offset:0, i:58,color:"#333399"},{value:0,offset:0, i:59,color:"#333399"},{value:0,offset:0, i:60,color:"#333399"},{value:0,offset:0, i:61,color:"#333399"},{value:0,offset:0, i:62,color:"#333399"},{value:0,offset:0, i:63,color:"#333399"},{value:0,offset:0, i:64,color:"#333399"},{value:0,offset:0, i:65,color:"#333399"},{value:0,offset:0, i:66,color:"#333399"},{value:0,offset:0, i:67,color:"#333399"},{value:0,offset:0, i:68,color:"#333399"},{value:0,offset:0, i:69,color:"#333399"},{value:0,offset:0, i:70,color:"#333399"},{value:0,offset:0, i:71,color:"#333399"},{value:0,offset:0, i:72,color:"#333399"},{value:0,offset:0, i:73,color:"#333399"},{value:0,offset:0, i:74,color:"#333399"},{value:0,offset:0, i:75,color:"#333399"},{value:0,offset:0, i:76,color:"#333399"},{value:0,offset:0, i:77,color:"#333399"},{value:0,offset:0, i:78,color:"#333399"},{value:0,offset:0, i:79,color:"#333399"},{value:0,offset:0, i:80,color:"#333399"},{value:0,offset:0, i:81,color:"#333399"},{value:0,offset:0, i:82,color:"#333399"},{value:0,offset:0, i:83,color:"#333399"},{value:0,offset:0, i:84,color:"#333399"},{value:0,offset:0, i:85,color:"#333399"},{value:0,offset:0, i:86,color:"#333399"},{value:0,offset:0, i:87,color:"#333399"},{value:0,offset:0, i:88,color:"#333399"},{value:0,offset:0, i:89,color:"#333399"},{value:0,offset:0, i:90,color:"#333399"},{value:0,offset:0, i:91,color:"#333399"},{value:0,offset:0, i:92,color:"#333399"},{value:0,offset:0, i:93,color:"#333399"},{value:0,offset:0, i:94,color:"#333399"},{value:0,offset:0, i:95,color:"#333399"},{value:0,offset:0, i:96,color:"#333399"},{value:0,offset:0, i:97,color:"#333399"},{value:0,offset:0, i:98,color:"#333399"},{value:0,offset:0, i:99,color:"#333399"},{value:0,offset:0, i:100,color:"#333399"}];
+  var widthgl  = _width;
+  var widthin  = _width;
+  var heightgl = 480;
+  var heightin = 495;
+  let margin = {top:10,right:30,bottom:30,left:50},
+  width = widthgl - margin.left - margin.right,
+  height = heightgl - margin.top - margin.bottom,
+  radius = (Math.min(width, height) / 2) - 10,
+  node;
+  const svg = d3.select('#chart_cat_2043')
+      .append('svg')
+      .attr('width', widthin)
+      .attr('height', heightin)
+      .append('g')
+      .attr('transform', `translate(${margin.left}, ${margin.top})`)
+      .call(
+        d3.zoom()
+          .translateExtent([[0,0], [width, height] ])
+          .extent([[0, 0], [width, height] ])
+        .on('zoom', zoom)
+      ).on("dblclick.zoom", null);
+  let x = d3.scaleLinear().range([0, width])
+  let y = d3.scaleLinear().range([height, 0])
+  let color = d3.scaleOrdinal(d3.schemeCategory10)
+  let xScale = x.domain([-1, ordinals.length])
+  let yScale = y.domain([0, d3.max(data, function(d){return d.value + d.offset})])
+  let xBand = d3.scaleBand().domain(d3.range(-1, ordinals.length)).range([0, width])
+  svg.append('rect')
+    .attr('class', 'zoom-panel')
+    .attr('width', width)
+    .attr('height', height)
+    .style('fill', 'var(--background)')
+  let xAxis = svg.append('g')
+    .attr('class', 'xAxis')
+    .attr('transform', `translate(0, ${height})`)
+    .call(
+      d3.axisBottom(xScale).tickFormat((d, e) => {
+        return ordinals[d]
+      })
+    );
+  svg.append("text")
+    .attr("transform",
+          "translate(" + (width/2) + " ," + (height + margin.top + 30) + ")")
+    .style("text-anchor", "middle")
+    .style("fill", "var(--font)")
+    .text("MAQAO thread rank");
+  let yAxis = svg.append('g')
+    .attr('class', 'yAxis')
+    .call(d3.axisLeft(yScale));
+  yAxis.selectAll(".tick text").attr("fill","var(--font)");
+  yAxis.selectAll(".tick line").attr("stroke","var(--font)");
+  yAxis.selectAll(".domain").attr("stroke","var(--font)");
+  xAxis.selectAll(".tick text").attr("fill","var(--font)");
+  xAxis.selectAll(".tick line").attr("stroke","var(--font)");
+  xAxis.selectAll(".domain").attr("stroke","var(--font)");
+  svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left)
+    .attr("x",0 - (height / 2))
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .style("fill", "var(--font)")
+    .text("Time (s)");
+  let bars = svg.append('g')
+    .attr('clip-path','url(#my-clip-path)')
+    .attr('id', 'zoom_chart_2043')
+    .selectAll('.bar')
+    .data(data)
+    .enter()
+    .append('rect')
+    .attr('class', 'bar')
+    .attr('id', function (d, i){ return 'zoom_chart_2043_'+i;})
+    .attr('x', function(d, i){
+      return xScale(d.i) - xBand.bandwidth()*0.9/2
+    })
+    .attr('y', function(d, i){
+      return yScale(d.value + d.offset)
+    })
+    .attr('width', xBand.bandwidth()*0.9)
+    .attr('height', function(d){
+      return height - yScale(d.value)
+    })
+    .style("fill", function(d){
+      return d.color
+    })
+  let defs = svg.append('defs')
+    defs.append('clipPath')
+      .attr('id', 'my-clip-path')
+      .append('rect')
+      .attr('width', width)
+      .attr('height', height)
+    let hideTicksWithoutLabel = function() {
+      d3.selectAll('.xAxis .tick text').each(function(d){
+        if(this.innerHTML === '') {
+          this.parentNode.style.display = 'none';
+        }
+      })
+    }
+    function zoom() {
+      if (d3.event.transform.k < 1) {
+        d3.event.transform.k = 1;
+        return;
+      }
+    xAxis.call(
+      d3.axisBottom(d3.event.transform.rescaleX(xScale)).tickFormat((d, e, target) => {
+        if (Math.floor(d) === d3.format(".1f")(d)) return ordinals[Math.floor(d)]
+          return ordinals[d];
+      })
+    )
+    hideTicksWithoutLabel()
+      bars.attr("transform", "translate(" + d3.event.transform.x+",0)scale(" + d3.event.transform.k + ",1)")
+  }
+});
+$("#zoom_chart_2043_0").click( function () {window.open("../topo/run_0_fixot-brendan-MS-7C02_8071_8071.html");});
+  }
+}
+function set_previous_ldbal_input_all () {
+  var selector_run  = document.getElementById ("ldbal_select_run_all");
+  if (parseInt (selector_run.value) > 1) {
+     selector_run.value = parseInt (selector_run.value) - 1;
+     set_ldbal_input_all ();
+  }
+}
+function set_next_ldbal_input_all () {
+  var selector_run  = document.getElementById ("ldbal_select_run_all");
+  if (parseInt (selector_run.value) < 1) {
+     selector_run.value = parseInt (selector_run.value) + 1;
+     set_ldbal_input_all ();
+  }
+}
+addLoadEvent(function(){
+    document.getElementById("div_all").style.display = "none";
+});
+</script>
+</div></div></div>
+<div id="div_callchains">
+<table style="width:100%;"><tr><td style="text-align:center;"><select id="callchains_select_run" size="1" onchange="set_callchains_input ();" autocomplete="off" style="cursor:pointer;">
+           <option value="1">Run 1
+</select></td></tr></table>
+<div id="div_callchains_1"><div class="_div_table" ><table id="_tree_table_348" class="_tree_table"><tr><th class="_freezed_row  _left  tooltip-maqao" title="" tooltip_id="0" style="width:20%;"><span></span>Coverage (%)</th><th class="_freezed_row  tooltip-maqao" title="" tooltip_id="1" style="width:30%;"><span></span>Name</th><th class="_freezed_row  tooltip-maqao" title="" tooltip_id="2" style="width:30%;"><span></span>Source Location</th><th class="_freezed_row  tooltip-maqao" title="" tooltip_id="3" style="width:20%;"><span></span>Module</th></tr>
+<tr class=" _outer_row"  id="_tr_348_1" ><td id="_tr_348_1-1"  data-_i="1" data-_j="1"  class=" _left" ><span onclick="_click_tree(this)" style="margin-right:5px;margin-left:0px;cursor:pointer;" >&#x25BA;</span>100.00<span onclick="_click_expand(this)" class="span_expand">&#43;</span></td><td id="_tr_348_1-2"  data-_i="1" data-_j="2"  title="" tooltip_id="4" class=" tooltip-maqao" >void std::vector&lt;double, std::[...]</td><td id="_tr_348_1-3"  data-_i="1" data-_j="3"  title="" tooltip_id="5" class=" tooltip-maqao" ></td><td id="_tr_348_1-4"  data-_i="1" data-_j="4"  class=" _centered" >MainEnsemble</td></tr>
+<tr class="_tree_hidden _tr_348_1"  id="_tr_348_1_1" ><td id="_tr_348_1_1-1"  data-_i="2" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span></td><td id="_tr_348_1_1-2"  data-_i="2" data-_j="2"  title="" tooltip_id="6" class=" tooltip-maqao" >double&amp; std::vector&lt;double, st[...]</td><td id="_tr_348_1_1-3"  data-_i="2" data-_j="3"  title="" tooltip_id="7" class=" tooltip-maqao" ></td><td id="_tr_348_1_1-4"  data-_i="2" data-_j="4"  class=" _centered" >MainEnsemble</td></tr>
+<tr class="_tree_hidden _tr_348_1"  id="_tr_348_1_2" ><td id="_tr_348_1_2-1"  data-_i="3" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span></td><td id="_tr_348_1_2-2"  data-_i="3" data-_j="2"  title="" tooltip_id="8" class=" tooltip-maqao" >std::vector&lt;double, std::alloc[...]</td><td id="_tr_348_1_2-3"  data-_i="3" data-_j="3"  title="" tooltip_id="9" class=" tooltip-maqao" ></td><td id="_tr_348_1_2-4"  data-_i="3" data-_j="4"  class=" _centered" >MainEnsemble</td></tr>
+<tr class="_tree_hidden _tr_348_1"  id="_tr_348_1_3" ><td id="_tr_348_1_3-1"  data-_i="4" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span></td><td id="_tr_348_1_3-2"  data-_i="4" data-_j="2"  title="" tooltip_id="10" class=" tooltip-maqao" >DataIO::readCSV(std::__cxx11::[...]</td><td id="_tr_348_1_3-3"  data-_i="4" data-_j="3"  title="" tooltip_id="11" class=" tooltip-maqao" ></td><td id="_tr_348_1_3-4"  data-_i="4" data-_j="4"  class=" _centered" >MainEnsemble</td></tr>
+<tr class="_tree_hidden _tr_348_1"  id="_tr_348_1_4" ><td id="_tr_348_1_4-1"  data-_i="5" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span></td><td id="_tr_348_1_4-2"  data-_i="5" data-_j="2" >splitDataset(DataParams&amp;)</td><td id="_tr_348_1_4-3"  data-_i="5" data-_j="3"  title="" tooltip_id="12" class=" tooltip-maqao" ></td><td id="_tr_348_1_4-4"  data-_i="5" data-_j="4"  class=" _centered" >MainEnsemble</td></tr>
+<tr class="_tree_hidden _tr_348_1"  id="_tr_348_1_5" ><td id="_tr_348_1_5-1"  data-_i="6" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span></td><td id="_tr_348_1_5-2"  data-_i="6" data-_j="2" >main</td><td id="_tr_348_1_5-3"  data-_i="6" data-_j="3"  title="" tooltip_id="13" class=" tooltip-maqao" ></td><td id="_tr_348_1_5-4"  data-_i="6" data-_j="4"  class=" _centered" >MainEnsemble</td></tr>
+<tr class="_tree_hidden _tr_348_1"  id="_tr_348_1_6" ><td id="_tr_348_1_6-1"  data-_i="7" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span></td><td id="_tr_348_1_6-2"  data-_i="7" data-_j="2" >__libc_init_first</td><td id="_tr_348_1_6-3"  data-_i="7" data-_j="3"  title="" tooltip_id="14" class=" tooltip-maqao" ></td><td id="_tr_348_1_6-4"  data-_i="7" data-_j="4"  class=" _centered" >libc.so.6</td></tr>
+<tr class="_tree_hidden _tr_348_1"  id="_tr_348_1_7" ><td id="_tr_348_1_7-1"  data-_i="8" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span></td><td id="_tr_348_1_7-2"  data-_i="8" data-_j="2" >__libc_start_main</td><td id="_tr_348_1_7-3"  data-_i="8" data-_j="3"  title="" tooltip_id="15" class=" tooltip-maqao" ></td><td id="_tr_348_1_7-4"  data-_i="8" data-_j="4"  class=" _centered" >libc.so.6</td></tr>
+<tr class="_tree_hidden _tr_348_1"  id="_tr_348_1_8" ><td id="_tr_348_1_8-1"  data-_i="9" data-_j="1"  class=" _left" ><span style="margin-right:10px;margin-left:18px;" >&#x25CB;</span></td><td id="_tr_348_1_8-2"  data-_i="9" data-_j="2" >_start</td><td id="_tr_348_1_8-3"  data-_i="9" data-_j="3"  title="" tooltip_id="16" class=" tooltip-maqao" ></td><td id="_tr_348_1_8-4"  data-_i="9" data-_j="4"  class=" _centered" >MainEnsemble</td></tr>
+</table></div>
+</div>
+<script>
+function set_callchains_input () {
+  var selector = document.getElementById ("callchains_select_run");
+  var selected_run = selector.value;
+  for (let i = 1; i <= 1; i++) {
+    var e = document.getElementById ("div_callchains_"+i);
+    if (i == selected_run) {
+      e.style.display = "";
+    }
+    else {
+      e.style.display = "none";
+    }
+  }
+}
+addLoadEvent(function() {
+  document.getElementById("div_callchains").style.display = "none";
+});
+</script>
+</div>
+<script>
+addLoadEvent(function(){
+  const queryString = window.location.search;
+  const params = new URLSearchParams(queryString);
+  const mode = params.get("mode");
+  if (mode === "loadbal") {
+    document.getElementById("div_").style.display = "";
+    set_ldbal_input_ ();
+  }
+  else if (mode === "loadbal_sorted") {
+    document.getElementById("div_sorted").style.display = "";
+    set_ldbal_input_sorted ();
+  }
+  else if (mode === "loadbal_all") {
+    document.getElementById("div_all").style.display = "";
+    set_ldbal_input_all ();
+  }
+  else if (mode === "scalability") {
+    document.getElementById("div_scalability").style.display = "";
+  }
+  else if (mode === "callchains") {
+    document.getElementById("div_callchains").style.display = "";
+    set_callchains_input ();
+  }
+  else {
+    console.error ("Unknown mode: "+mode);
+  }
+});
+</script>
+
+  <div id="MaqaoModal" class="maqao_modal">
+    <div class="maqao_modal-content">
+      <div class="maqao_modal-header">
+        <span class="maqao_close">&times;</span>
+      </div>
+      <div id="maqao_modal-body" class="maqao_modal-body">
+      </div>
+    </div>
+  </div>
+</div><script>
+var tooltips_texts = ['Coverage of the callchain',
+'Name of the function',
+'Location of the function source code',
+'Name of the module (binary file) that contains the function',
+'void std::vector<double, std::allocator<double> >::_M_realloc_insert<double>(__gnu_cxx::__normal_iterator<double*, std::vector<double, std::allocator<double> > >, double&&)',
+'',
+'double& std::vector<double, std::allocator<double> >::emplace_back<double>(double&&)',
+'',
+'std::vector<double, std::allocator<double> >::push_back(double&&)',
+'',
+'DataIO::readCSV(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int&)',
+'',
+'',
+'',
+'',
+'',
+''];
+var modal = document.getElementById('MaqaoModal');
+var span = document.getElementsByClassName("maqao_close")[0];
+span.onclick = function() {
+    modal.style.display = "none";
+}
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+const comparer = (idx, asc) => (a, b) => ((v1, v2) => 
+    v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v2 - v1 : v1.toString().localeCompare(v2)
+    )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+addLoadEvent(function(){
+  document.querySelectorAll('._fixed_table:not(._no_auto_sorting) th').forEach(th => th.addEventListener('click', (() => {
+    const table = th.closest('table');
+    // Remove all symbols in header
+    table.querySelectorAll('th').forEach(function (e) {
+      e.firstChild.textContent = "";
+    });
+    // Change the symbol on the clicked header
+    if (this.asc != true) {
+      th.firstChild.textContent = "\u25BC";
+    }
+    else {
+      th.firstChild.textContent = "\u25B2";
+    }
+    Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
+        .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+        .forEach(tr => table.appendChild(tr) );
+  })));
+});
+addLoadEvent(function(){
+  document.querySelectorAll('._tree_table:not(._no_auto_sorting) th').forEach(th => th.addEventListener('click', (() => {
+    const table = th.closest('table');
+    // Remove all symbols in header
+    table.querySelectorAll('th').forEach(function (e) {
+      e.firstChild.textContent = "";
+    });
+    // Change the symbol on the clicked header
+    if (this.asc != true) {
+      th.firstChild.textContent = "\u25BC";
+    }
+    else {
+      th.firstChild.textContent = "\u25B2";
+    }
+    let last_id = "";
+    const t_outermost = new Array ();
+    const t_children  = new Map ();
+    for (let i = 1, row; row = table.rows[i]; i++) {
+      if (row.classList.contains ("_outer_row")) {
+        t_outermost.push (row);
+        last_id = row.id;
+        t_children [last_id] = new Array ();
+      }
+      else {
+        t_children [last_id].push (row);
+      }
+    }
+    t_outermost.sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc));
+    for (let i = 0, row; row = t_outermost[i]; i++) {
+      table.appendChild(row)
+      for (let j = 0, child; child = t_children[row.id][j]; j++) {
+        table.appendChild(child)
+      }
+    }
+  })));
+});
+function _check_all_checkbox_ (obj_id, opts_ids) {
+  var obj   = document.getElementById (obj_id);
+  var opts  = window[opts_ids];
+  var count = 0
+  for (i = 0; i < opts.length; i++) {
+    var obj_s = document.getElementById(opts[i]);
+    if (obj_s.checked) {
+      count ++;
+    }
+  }
+  if (count == 0) {
+    obj.value = "Select all";
+  }
+  else if (count == opts.length) {
+    obj.value = "Select none";
+  }
+}
+// Fonction for table selector
+function click_table_menu (c, obj_id, opt_ids) {
+  var is_checked = document.getElementById (c).checked;
+  localStorage.setItem(c, is_checked);
+  $("."+c).each(function(index, element) {
+    if (is_checked) {
+      element.classList.remove("_tcol_hidden");
+    }
+    else {
+      element.classList.add("_tcol_hidden");
+    }
+  });
+  if (obj_id != undefined) {
+    _check_all_checkbox_ (obj_id, opt_ids)
+  }
+}
+function set_all_table_menu (obj, var_opt_ids) {
+  var opt_ids = window[var_opt_ids];
+  var is_selected = true
+  if (obj.value == "Select all") {
+    is_selected = false;
+  }
+  for (i = 0; i < opt_ids.length; i++) {
+    var obj_s = document.getElementById(opt_ids[i]);
+    if (is_selected == obj_s.checked) {
+      obj_s.checked = !obj_s.checked;
+      click_table_menu (opt_ids[i]);
+    }
+  }
+  if (is_selected == false) {
+    obj.value = "Select none";
+  } else {
+    obj.value = "Select all";
+  }
+  localStorage.setItem(obj.id, obj.value);
+}
+// Script for accordion box
+function _click_accordion_header(obj) {
+  var content = obj.nextSibling;
+  content.classList.toggle('collapsed');
+  obj.classList.toggle('collapsed');
+  obj.parentNode.classList.toggle('collapsed');
+  // Check if the box must be openned ...
+  if (obj.classList.contains ('collapsed'))
+  {
+    obj.firstChild.textContent = "\u25B6";
+  }
+  // or closed.
+  else 
+  {
+    obj.firstChild.textContent = "\u25BC";
+  }
+  if (typeof _onresize === "function") {
+    _onresize ();
+  }
+}
+  // Script for paged table
+function _click_paged_prev(obj) {
+  var pages_content_id = '_paged_tables_page_' + obj.parentNode.parentNode.id.substr (obj.parentNode.parentNode.id.lastIndexOf('_') + 1);
+  var pages_content = document.getElementById(pages_content_id).innerHTML;
+  var max_pages = pages_content.substr (pages_content.lastIndexOf('/') + 1);
+  var cur_page  = pages_content.substring (pages_content.lastIndexOf(' ') + 1, pages_content.lastIndexOf('/'));
+  max_pages = Number (max_pages);
+  cur_page  = Number (cur_page);
+  if (cur_page > 1) {
+    var div_paged = obj.parentNode.parentNode.id;
+    var i;
+    var x = document.getElementsByClassName(div_paged + '_' + (cur_page - 1));
+    for (i = 0; i < x.length; i++) {
+      x[i].classList.toggle('_paged_hidden');
+    }
+    x = document.getElementsByClassName(div_paged + '_' + (cur_page - 2));
+    for (i = 0; i < x.length; i++) {
+      x[i].classList.toggle('_paged_hidden');
+    }
+  document.getElementById(pages_content_id).textContent = "Page " + (cur_page - 1) + "/" + max_pages;
+  }
+}
+function _click_paged_next(obj) {
+  var pages_content_id = '_paged_tables_page_' + obj.parentNode.parentNode.id.substr (obj.parentNode.parentNode.id.lastIndexOf('_') + 1);
+  var pages_content = document.getElementById(pages_content_id).innerHTML;
+  var max_pages = pages_content.substr (pages_content.lastIndexOf('/') + 1);
+  var cur_page  = pages_content.substring (pages_content.lastIndexOf(' ') + 1, pages_content.lastIndexOf('/'));
+  max_pages = Number (max_pages);
+  cur_page  = Number (cur_page);
+  if (cur_page < max_pages) {
+    var div_paged = obj.parentNode.parentNode.id;
+    var i;
+    var x = document.getElementsByClassName(div_paged + '_' + (cur_page - 1));
+    for (i = 0; i < x.length; i++) {
+      x[i].classList.toggle('_paged_hidden');
+    }
+    x = document.getElementsByClassName(div_paged + '_' + cur_page);
+    for (i = 0; i < x.length; i++) {
+      x[i].classList.toggle('_paged_hidden');
+    }
+    document.getElementById(pages_content_id).textContent = "Page " + (cur_page + 1) + "/" + max_pages;
+  }
+}
+// Function for tree table
+function _click_tree(obj) {
+  if (obj.innerHTML == "\u25BA") {
+    obj.textContent = "\u25BC";
+    // Open childs
+    var x = document.getElementsByClassName(obj.parentNode.parentNode.id);
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.toggle('_tree_hidden');
+    }
+  }
+  else if (obj.innerHTML == "\u25BC") {
+    obj.textContent = "\u25BA";
+    // Close all childs
+    var trs = document.getElementsByTagName('tr');
+    var r   = obj.parentNode.parentNode.id+'_';
+    var re  = new RegExp (r, "g");
+    for (var i = 0; i < trs.length; i++) {
+      var s = trs[i].id+""
+      if (s.match(re)) {
+        var o = document.getElementById(s);
+        if (! o.classList.contains('_tree_hidden')) {
+          o.classList.toggle('_tree_hidden');
+        }
+        if (o.firstChild.firstChild.textContent == "\u25BC") {
+          o.firstChild.firstChild.textContent = "\u25BA";
+        }
+        if (o.firstChild.childNodes.length == 3) {
+          o.firstChild.childNodes[2].textContent = '+';
+        }
+      }
+    }
+    if (obj.parentNode.childNodes.length == 3) {
+      obj.parentNode.childNodes[2].textContent = '+';
+    }
+  }
+}
+function _click_expand (obj) {
+  var trs = document.getElementsByTagName('tr');
+  var r   = obj.parentNode.parentNode.id+'_';
+  var re  = new RegExp (r, "g");
+  // Symbole + => expand all
+  if (obj.textContent == "+") {
+    for (var i = 0; i < trs.length; i++) {
+      var s = trs[i].id+"";
+      if (s.match(re)) {
+        var o = document.getElementById(s);
+        if (o.classList.contains('_tree_hidden')) {
+           o.classList.toggle('_tree_hidden');
+        }
+        if (o.firstChild.firstChild.textContent == "\u25BA") {
+          o.firstChild.firstChild.textContent = "\u25BC";
+        }
+        if (o.firstChild.childNodes.length == 3) {
+          o.firstChild.childNodes[2].textContent = '\u2010';
+        }
+      }
+    }
+    var o = obj.parentNode.parentNode;
+    if (o.firstChild.firstChild.textContent == "\u25BA") {
+      o.firstChild.firstChild.textContent = "\u25BC";
+    }
+    obj.textContent = "\u2010";
+  }
+  // Symbole - => collapse all
+  else {
+    for (var i = 0; i < trs.length; i++) {
+      var s = trs[i].id+"";
+      if (s.match(re)) {
+        var o = document.getElementById(s);
+        if (! o.classList.contains('_tree_hidden')) {
+           o.classList.toggle('_tree_hidden');
+        }
+        if (o.firstChild.firstChild.textContent == "\u25BC") {
+          o.firstChild.firstChild.textContent = "\u25BA";
+        }
+        if (o.firstChild.childNodes.length == 3) {
+          o.firstChild.childNodes[2].textContent = '+';
+        }
+      }
+    }
+    var o = obj.parentNode.parentNode;
+    if (o.firstChild.firstChild.textContent == "\u25BC") {
+      o.firstChild.firstChild.textContent = "\u25BA";
+    }
+    obj.textContent = "+";
+  }
+}
+// Hide unselected tabs
+addLoadEvent(function(){
+  var x = document.getElementsByClassName("_tab_header_li");
+  for (var i = 0; i < x.length; i++) {
+    if (x[i].classList.contains("selected_tab") == false) {
+      var e = document.getElementById (x[i].dataset.tab);
+      e.style.display = "none";
+    }
+  }
+});
+// Change tab
+function change_tab (e, baseId) {
+  // Handle tabs
+  var i = 1;
+  while (true) {
+    var id = baseId + i;
+    var t = document.getElementById (id);
+    if (t == null) {
+      break;
+    }
+    if (id == e.dataset.tab) {
+      t.style.removeProperty("display");
+    }
+    else {
+      t.style.display = "none";
+    }
+    i = i + 1;
+  }
+  // Handle headers
+  $(e).siblings().each( function () {
+    this.classList.remove("selected_tab");
+  });
+  e.classList.add("selected_tab");
+}
+function __maqao_legacy_onresize () {
+  var obj = document.getElementById("spacer_page_title");
+  if (obj) {
+    obj.style.height = (document.getElementById("page_title").clientHeight + 20)+"px";
+  }
+  var obj = document.getElementById("page_title");
+  if (obj) {
+    var elems = document.getElementsByClassName ("_first_menu_level")
+    if (obj.clientHeight < 90) {
+      for (var i = 0; i < elems.length; i++) {
+        elems.item(i).style.borderBottomLeftRadius = "";
+        elems.item(i).style.borderBottomRightRadius = "";
+      }
+    }
+    else {
+      for (var i = 0; i < elems.length; i++) {
+        elems.item(i).style.borderBottomLeftRadius = "10px";
+        elems.item(i).style.borderBottomRightRadius = "10px";
+      }
+    }
+  }
+}
+</script>
+</body>
+</html>

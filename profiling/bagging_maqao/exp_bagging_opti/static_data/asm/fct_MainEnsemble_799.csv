@@ -1,0 +1,28 @@
+address;source_location;insn;indent
+0x1e484;:0;ENDBR64;
+0x1e488;:0;PUSH	%RBP;
+0x1e489;:0;MOV	%RSP,%RBP;
+0x1e48c;:0;PUSH	%RBX;
+0x1e48d;:0;SUB	$0x38,%RSP;
+0x1e491;:0;MOV	%RDI,-0x38(%RBP);
+0x1e495;:0;MOV	%RSI,-0x40(%RBP);
+0x1e499;:0;MOV	-0x40(%RBP),%RAX;
+0x1e49d;:0;MOV	%RAX,%RDI;
+0x1e4a0;:0;CALL	1d012 <_ZNSt13_Rb_tree_nodeISt4pairIKidEE9_M_valptrEv>;
+0x1e4a5;:0;MOV	%RAX,%RBX;
+0x1e4a8;:0;MOV	-0x38(%RBP),%RAX;
+0x1e4ac;:0;MOV	%RAX,%RDI;
+0x1e4af;:0;CALL	1ed96 <_ZNSt8_Rb_treeIiSt4pairIKidESt10_Select1stIS2_ESt4lessIiESaIS2_EE21_M_get_Node_allocatorEv>;
+0x1e4b4;:0;MOV	%RAX,-0x30(%RBP);
+0x1e4b8;:0;MOV	%RBX,-0x28(%RBP);
+0x1e4bc;:0;MOV	-0x30(%RBP),%RAX;
+0x1e4c0;:0;MOV	%RAX,-0x20(%RBP);
+0x1e4c4;:0;MOV	-0x28(%RBP),%RAX;
+0x1e4c8;:0;MOV	%RAX,-0x18(%RBP);
+0x1e4cc;:0;NOP;
+0x1e4cd;:0;NOP;
+0x1e4ce;:0;NOP;
+0x1e4cf;:0;MOV	-0x8(%RBP),%RBX;
+0x1e4d3;:0;LEAVE;
+0x1e4d4;:0;RET;
+0x1e4d5;:0;NOP;

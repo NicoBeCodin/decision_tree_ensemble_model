@@ -1,0 +1,13 @@
+address;source_location;insn;indent
+0x1e3ec;:0;ENDBR64;
+0x1e3f0;:0;PUSH	%RBP;
+0x1e3f1;:0;MOV	%RSP,%RBP;
+0x1e3f4;:0;SUB	$0x10,%RSP;
+0x1e3f8;:0;MOV	%RDI,-0x8(%RBP);
+0x1e3fc;:0;MOV	-0x8(%RBP),%RAX;
+0x1e400;:0;MOV	%RAX,%RDI;
+0x1e403;:0;CALL	1ebe3 <_ZSt11__bit_widthImEiT_>;
+0x1e408;:0;SUB	$0x1,%EAX;
+0x1e40b;:0;CLTQ;
+0x1e40d;:0;LEAVE;
+0x1e40e;:0;RET;

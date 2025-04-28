@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "../functions_tree/math_functions.h"
+#include "../src/functions/math/math_functions.h"
 
 TEST(MathFunctionsTest, CalculateMeanTest) {
     std::vector<double> values = {1.0, 2.0, 3.0, 4.0, 5.0};

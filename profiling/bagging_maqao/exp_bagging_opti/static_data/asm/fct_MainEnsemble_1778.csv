@@ -1,0 +1,17 @@
+address;source_location;insn;indent
+0x38af6;:0;ENDBR64;
+0x38afa;:0;PUSH	%RBP;
+0x38afb;:0;MOV	%RSP,%RBP;
+0x38afe;:0;SUB	$0x20,%RSP;
+0x38b02;:0;MOV	%RDI,-0x8(%RBP);
+0x38b06;:0;MOV	%RSI,-0x10(%RBP);
+0x38b0a;:0;MOV	%RDX,-0x18(%RBP);
+0x38b0e;:0;MOV	-0x18(%RBP),%RAX;
+0x38b12;:0;SAL	$0x4,%RAX;
+0x38b16;:0;MOV	%RAX,%RDX;
+0x38b19;:0;MOV	-0x10(%RBP),%RAX;
+0x38b1d;:0;MOV	%RDX,%RSI;
+0x38b20;:0;MOV	%RAX,%RDI;
+0x38b23;:0;CALL	6e80 <.plt.sec@start+0x4b0>;
+0x38b28;:0;LEAVE;
+0x38b29;:0;RET;

@@ -1,0 +1,13 @@
+address;source_location;insn;indent
+0x2056a;:0;ENDBR64;
+0x2056e;:0;PUSH	%RBP;
+0x2056f;:0;MOV	%RSP,%RBP;
+0x20572;:0;SUB	$0x10,%RSP;
+0x20576;:0;MOV	%RDI,-0x8(%RBP);
+0x2057a;:0;MOV	-0x8(%RBP),%RAX;
+0x2057e;:0;MOV	%RAX,%RDI;
+0x20581;:0;CALL	20882 <_ZNKSt12_Vector_baseIiSaIiEE19_M_get_Tp_allocatorEv>;
+0x20586;:0;MOV	%RAX,%RDI;
+0x20589;:0;CALL	1ff21 <_ZNSt6vectorIiSaIiEE11_S_max_sizeERKS0_>;
+0x2058e;:0;LEAVE;
+0x2058f;:0;RET;

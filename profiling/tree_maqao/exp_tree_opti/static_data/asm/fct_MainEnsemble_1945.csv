@@ -1,0 +1,29 @@
+address;source_location;insn;indent
+0x3cfda;:0;ENDBR64;
+0x3cfde;:0;PUSH	%RBP;
+0x3cfdf;:0;MOV	%RSP,%RBP;
+0x3cfe2;:0;SUB	$0x30,%RSP;
+0x3cfe6;:0;MOV	%RDI,-0x18(%RBP);
+0x3cfea;:0;MOV	%RSI,-0x20(%RBP);
+0x3cfee;:0;MOV	%RDX,-0x28(%RBP);
+0x3cff2;:0;MOV	-0x20(%RBP),%RAX;
+0x3cff6;:0;SUB	-0x18(%RBP),%RAX;
+0x3cffa;:0;SAR	$0x4,%RAX;
+0x3cffe;:0;MOV	%RAX,-0x8(%RBP);
+0x3d002;:0;JMP	3d031 <_ZNSt20__copy_move_backwardILb1ELb0ESt26random_access_iterator_tagE13__copy_move_bIPSt4pairIdiES5_EET0_T_S7_S6_+0x57>;
+0x3d004;:0;SUBQ	$0x10,-0x20(%RBP);(162) 
+0x3d009;:0;MOV	-0x20(%RBP),%RAX;(162) 
+0x3d00d;:0;MOV	%RAX,%RDI;(162) 
+0x3d010;:0;CALL	3a0ff <_ZSt4moveIRSt4pairIdiEEONSt16remove_referenceIT_E4typeEOS4_>;(162) 
+0x3d015;:0;MOV	%RAX,%RDX;(162) 
+0x3d018;:0;SUBQ	$0x10,-0x28(%RBP);(162) 
+0x3d01d;:0;MOV	-0x28(%RBP),%RAX;(162) 
+0x3d021;:0;MOV	%RDX,%RSI;(162) 
+0x3d024;:0;MOV	%RAX,%RDI;(162) 
+0x3d027;:0;CALL	3a160 <_ZNSt4pairIdiEaSEOS0_>;(162) 
+0x3d02c;:0;SUBQ	$0x1,-0x8(%RBP);(162) 
+0x3d031;:0;CMPQ	$0,-0x8(%RBP);(162) 
+0x3d036;:0;JG	3d004 <_ZNSt20__copy_move_backwardILb1ELb0ESt26random_access_iterator_tagE13__copy_move_bIPSt4pairIdiES5_EET0_T_S7_S6_+0x2a>;(162) 
+0x3d038;:0;MOV	-0x28(%RBP),%RAX;
+0x3d03c;:0;LEAVE;
+0x3d03d;:0;RET;
