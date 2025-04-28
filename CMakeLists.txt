@@ -3,27 +3,30 @@ project(DecisionTreeEnsembleModel)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# Find LightGBM library
-if (NOT LGBM_LIB)
-    find_library(LGBM_LIB NAMES lightgbm lightgbm _lightgbm lib_lightgbm PATHS
-        /usr/local/lib
-        /usr/lib
-        "$ENV{HOME}/lightgbm_install/lib"
-        NO_DEFAULT_PATH
-    )
-endif()
+# Add this very early in the CMakeLists.txt
+option(ENABLE_LIGHTGBM "Enable LightGBM integration" OFF)
 
-if (NOT LGBM_LIB)
-    message(FATAL_ERROR "LightGBM library (lib_lightgbm.so) not found. Please run 'sudo make install' for LightGBM, or specify the path manually with -DLGBM_LIB=...")
-else()
-    message(STATUS "Found LightGBM library: ${LGBM_LIB}")
-endif()
+if (ENABLE_LIGHTGBM)
+    if (NOT LGBM_LIB)
+        find_library(LGBM_LIB NAMES lightgbm lightgbm _lightgbm lib_lightgbm PATHS
+            /usr/local/lib
+            /usr/lib
+            "$ENV{HOME}/lightgbm_install/lib"
+            NO_DEFAULT_PATH
+        )
+    endif()
 
-# Find LightGBM headers
-if (EXISTS "/usr/local/include/LightGBM")
-    set(LGBM_INCLUDE "/usr/local/include/LightGBM")
-else()
-    message(FATAL_ERROR "LightGBM header directory not found (/usr/local/include/LightGBM).")
+    if (NOT LGBM_LIB)
+        message(FATAL_ERROR "LightGBM library (lib_lightgbm.so) not found. Please run 'sudo make install' for LightGBM, or specify the path manually with -DLGBM_LIB=...")
+    else()
+        message(STATUS "Found LightGBM library: ${LGBM_LIB}")
+    endif()
+
+    if (EXISTS "/usr/local/include/LightGBM")
+        set(LGBM_INCLUDE "/usr/local/include/LightGBM")
+    else()
+        message(FATAL_ERROR "LightGBM header directory not found (/usr/local/include/LightGBM).")
+    endif()
 endif()
 
 # OpenMP setup
@@ -147,15 +150,17 @@ target_link_libraries(MainEnsemble PRIVATE
     FunctionsMath
     Bagging
     Boosting
-    Boosting_LightGBM 
     model_comparison
     Data_Clean
     LossFunction
     Pipeline
     Utils
     ${OPENMP_LIB}
-    ${LGBM_LIB} 
 )
+
+if (ENABLE_LIGHTGBM)
+    target_link_libraries(MainEnsemble PRIVATE Boosting_LightGBM ${LGBM_LIB})
+endif()
 
 target_link_libraries(MainKFold PRIVATE
     FunctionsIO
