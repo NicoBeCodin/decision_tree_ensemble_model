@@ -81,8 +81,6 @@ void DecisionTreeSingle::splitNode(Tree *Node, const std::vector<double> &Data,
     throw std::invalid_argument("numThreads must be >= 1");
   }
 
-  bool useOMP = numThreads > 1; // No need to set constructor argument
-
   // Find the best split (histogram or basic)
   if (useSplitHistogram) {
     if (useOMP) {
@@ -183,17 +181,29 @@ void DecisionTreeSingle::splitNodeMAE(Tree *Node,
   double BestThreshold;
   double BestImpurityDecrease;
 
-  // Find the best split
-  if (numThreads == 1) {
-    std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
-    findBestSplitHistogram(Data, rowLength, Labels, Indices, Node->NodeMetric, 255);
-  } 
-  else if (numThreads > 1) {  
-    std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
-    findBestSplitHistogramOMP(Data, rowLength, Labels, Indices, Node->NodeMetric, 255);
-  }
-  else {
+  if (numThreads < 1) {
     throw std::invalid_argument("numThreads must be >= 1");
+  }
+
+  // Find the best split (histogram or basic)
+  if (useSplitHistogram) {
+    if (useOMP) {
+      std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
+      findBestSplitHistogramOMP(Data, rowLength, Labels, Indices, Node->NodeMetric, 255); // MSE (créer un histogramme utilisant MSE)
+    } 
+    else {  
+      std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
+      findBestSplitHistogram(Data, rowLength, Labels, Indices, Node->NodeMetric, 255); // MSE (créer un histogramme utilisant MSE)
+    }
+  } else {
+    if (useOMP) {
+      std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
+      findBestSplitUsingMAEOMP(Data, rowLength, Labels, Indices, Node->NodeMetric);
+    } 
+    else {  
+      std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
+      findBestSplitUsingMAE(Data, rowLength, Labels, Indices, Node->NodeMetric);
+    }
   }
 
   if (BestFeature == -1) {
@@ -338,10 +348,6 @@ double BestImpurityDecrease = 0.0;
 
 size_t NumFeatures = rowLength;
 size_t NumSamples = Indices.size();  
-
-if (numThreads != 1) {
-  omp_set_num_threads(std::max(1, omp_get_max_threads() / 2));
-}
 
 // Thread-private best values
 #pragma omp parallel 
@@ -510,10 +516,6 @@ double BestImpurityDecrease = 0.0;
 // std::cout<<"findBestSplitUsingMAEOMP called"<<std::endl;
 
 size_t NumFeatures = rowLength;
-
-if (numThreads !=1) {
-  omp_set_num_threads(std::max(1, omp_get_max_threads() / 2));
-}
 
 #pragma omp parallel for default(none) shared(Data, Labels, Indices, NumFeatures, rowLength, CurrentMAE, BestFeature, BestThreshold) \
     reduction(max : BestImpurityDecrease)
@@ -685,10 +687,6 @@ std::tuple<int, double, double> DecisionTreeSingle::findBestSplitHistogramOMP(
 
   size_t n_features = rowLength;
   size_t n_samples = Indices.size();
-
-  if (numThreads != 1) {
-    omp_set_num_threads(std::max(1, omp_get_max_threads()));
-  }
 
   // Precompute min and max for each feature
   std::vector<std::pair<double, double>> feature_min_max(n_features, {1e9, -1e9});
