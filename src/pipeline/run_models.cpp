@@ -49,8 +49,8 @@ void runSingleDecisionTreeModel(DecisionTreeParams params, DataParams data_param
     results.parameters["min_samples_split"] = params.minSamplesSplit;
     results.parameters["min_impurity_decrease"] = params.minImpurityDecrease;
     results.parameters["criteria"] = params.criteria;
-    results.parameters["use_split_histogram"] = params.useSplitHistogram;
-    results.parameters["use_omp"] = params.useOMP;
+    results.parameters["use_split_histogram"] = params.useSplitHistogram ? 1.0 : 0.0;
+    results.parameters["use_omp"] = params.useOMP ? 1.0 : 0.0;
     results.parameters["num_threads"] = params.numThreads;
 
     // Save characteristic importance
@@ -130,6 +130,7 @@ void runBaggingModel(BaggingParams params, DataParams data_params) {
     results.parameters["criteria"] = params.criteria;
     results.parameters["which_loss_function"] = params.whichLossFunction;
     results.parameters["use_split_histogram"] = params.useSplitHistogram ? 1.0 : 0.0;
+    results.parameters["use_omp"] = params.useOMP ? 1.0 : 0.0;
     results.parameters["num_threads"] = params.numThreads;
   
     // Save feature importance
@@ -211,6 +212,7 @@ void runBoostingModel(BoostingParams params, DataParams data_params) {
     results.parameters["criteria"] = params.criteria;
     results.parameters["which_loss_function"] = params.whichLossFunction;
     results.parameters["use_split_histogram"] = params.useSplitHistogram ? 1.0 : 0.0;
+    results.parameters["use_omp"] = params.useOMP ? 1.0 : 0.0;
     results.parameters["num_threads"] = params.numThreads;
   
     for (const auto &score : feature_importance) {

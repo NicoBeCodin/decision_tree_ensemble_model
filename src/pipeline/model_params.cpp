@@ -66,7 +66,7 @@ bool getBaggingParams(const ProgramOptions& options, BaggingParams& out_params) 
     // Create folder if non existent
     createDirectory("../saved_models/bagging_models");
   
-    if (options.use_custom_params && options.params.size() > 5) {
+    if (options.use_custom_params && options.params.size() > 6) {
       out_params.criteria = std::stoi(options.params[0]);
       out_params.whichLossFunction = std::stoi(options.params[1]);
       out_params.numTrees = std::stoi(options.params[2]);
@@ -74,7 +74,8 @@ bool getBaggingParams(const ProgramOptions& options, BaggingParams& out_params) 
       out_params.minSamplesSplit = std::stoi(options.params[4]);
       out_params.minImpurityDecrease = std::stod(options.params[5]);
       out_params.useSplitHistogram = std::stoi(options.params[6]) != 0;
-      out_params.numThreads = std::stoi(options.params[7]);
+      out_params.useOMP = std::stoi(options.params[7]) != 0;
+      out_params.numThreads = std::stoi(options.params[8]);
     } else if (options.load_request) {
       try {
         Bagging tmp_bagging_model(0, 0, 0, 0.0, nullptr, 0, 0, 1); // Temp init
@@ -91,6 +92,7 @@ bool getBaggingParams(const ProgramOptions& options, BaggingParams& out_params) 
         out_params.criteria = std::stoi(training_params["Criteria"]);
         out_params.whichLossFunction = std::stoi(training_params["WhichLossFunction"]);
         out_params.useSplitHistogram = std::stoi(training_params["UseSplitHistogram"]) != 0;
+        out_params.useOMP = std::stoi(training_params["UseOMP"]) != 0;
         out_params.numThreads = std::stoi(training_params["NumThreads"]);
   
         // Display tree parameters
@@ -110,6 +112,7 @@ bool getBaggingParams(const ProgramOptions& options, BaggingParams& out_params) 
       out_params.minSamplesSplit = 2;
       out_params.minImpurityDecrease = 1e-6;
       out_params.useSplitHistogram = false;
+      out_params.useOMP = false;
       out_params.numThreads = 1;
       std::cout << "Generation of default values : " << std::endl
                 << "Default for splitting criteria (MSE)" << std::endl
@@ -118,7 +121,8 @@ bool getBaggingParams(const ProgramOptions& options, BaggingParams& out_params) 
                 << "Default maximum depth = " << out_params.maxDepth << std::endl
                 << "Default minimum sample split = " << out_params.minSamplesSplit << std::endl
                 << "Default minimum impurity decrease = " << out_params.minImpurityDecrease << std::endl
-                << "Default no useSplitHistogram = " << out_params.minImpurityDecrease << std::endl
+                << "Default no useSplitHistogram = " << out_params.useSplitHistogram << std::endl
+                << "Default no useOMP = " << out_params.useOMP << std::endl
                 << "Default amount of threads used : " << out_params.numThreads << std::endl;
     }
     return true;
@@ -137,7 +141,8 @@ bool getBoostingParams(const ProgramOptions& options, BoostingParams& out_params
       out_params.minImpurityDecrease = std::stod(options.params[5]);
       out_params.learningRate = std::stod(options.params[6]);
       out_params.useSplitHistogram = std::stoi(options.params[7]) != 0;
-      out_params.numThreads = std::stoi(options.params[8]);
+      out_params.useOMP = std::stoi(options.params[8]) != 0;
+      out_params.numThreads = std::stoi(options.params[9]);
     } else if (options.load_request) {
       try {
         Boosting tmp_boosting_model(0, 0.0, nullptr, 0, 0, 0.0, 0, 0); // temporary creation
@@ -156,6 +161,7 @@ bool getBoostingParams(const ProgramOptions& options, BoostingParams& out_params
         out_params.criteria = std::stoi(training_params["Criteria"]);
         out_params.whichLossFunction = std::stoi(training_params["WhichLossFunction"]);
         out_params.useSplitHistogram = std::stoi(training_params["UseSplitHistogram"]) != 0;
+        out_params.useOMP = std::stoi(training_params["UseOMP"]) != 0;
         out_params.numThreads = std::stoi(training_params["NumThreads"]);
   
         // Display tree parameters
@@ -176,6 +182,7 @@ bool getBoostingParams(const ProgramOptions& options, BoostingParams& out_params
       out_params.minImpurityDecrease = 1e-5;
       out_params.learningRate = 0.07;
       out_params.useSplitHistogram = true;
+      out_params.useOMP = false;
       out_params.numThreads = 1;
       std::cout << "Generation of default values : " << std::endl
                 << "Default for splitting criteria (MSE)" << std::endl
@@ -186,6 +193,7 @@ bool getBoostingParams(const ProgramOptions& options, BoostingParams& out_params
                 << "Default minimum impurity decrease = " << out_params.minImpurityDecrease << std::endl
                 << "Default learning rate = " << out_params.learningRate << std::endl
                 << "Default useSplitHistogram = " << out_params.minImpurityDecrease << std::endl
+                << "Default no useOMP = " << out_params.useOMP << std::endl
                 << "Default amount of threads used : " << out_params.numThreads << std::endl;
     }
     return true;

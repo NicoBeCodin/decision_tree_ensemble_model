@@ -31,6 +31,7 @@ struct BaggingParams {
     int criteria;
     int whichLossFunction;
     bool useSplitHistogram;
+    bool useOMP;
     int numThreads;
 };
 
@@ -43,6 +44,7 @@ struct BoostingParams {
     int criteria;
     int whichLossFunction;
     bool useSplitHistogram;
+    bool useOMP;
     int numThreads;
 };
 

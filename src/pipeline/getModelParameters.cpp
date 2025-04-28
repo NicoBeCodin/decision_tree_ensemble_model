@@ -109,7 +109,7 @@ void getModelParameters(int model_choice, std::string& parameters) {
             int which_loss_func = -1;
             double min_impurity;
             int numThreads = 1;
-            bool useSplitHistogram = false;
+            bool useSplitHistogram = false, useOMP = false;
             
             std::cout << "\nBagging Parameters:\n";
             // Loop until the user enters 0 or 1 for criteria
@@ -150,6 +150,8 @@ void getModelParameters(int model_choice, std::string& parameters) {
             std::cin >> min_impurity;
             std::cout << "Use SplitHistogram (1 = Yes, 0 = No (default)): ";
             std::cin >> useSplitHistogram;
+            std::cout << "Use OMP (1 = Yes, 0 = No (default): ";
+            std::cin >> useOMP;
             int availableThreads = std::thread::hardware_concurrency();
             std::cout << "Number of concurrent threads supported by the implementation: "<< availableThreads<< "\nHow many do you want to use ? ";
             std::cin >> numThreads;
@@ -161,6 +163,7 @@ void getModelParameters(int model_choice, std::string& parameters) {
                          std::to_string(min_samples) + " " + 
                          std::to_string(min_impurity) + " " +
                          std::to_string(useSplitHistogram) + " " +
+                         std::to_string(useOMP) + " " +
                          std::to_string(numThreads);
             break;
         }
@@ -168,7 +171,7 @@ void getModelParameters(int model_choice, std::string& parameters) {
             int n_estimators, max_depth, min_samples, numThreads;
             int criteria = -1;
             int which_loss_func = -1;
-            bool useSplitHistogram = true;
+            bool useSplitHistogram = true, useOMP = false;
             double min_impurity, learning_rate;
 
             std::cout << "\nBoosting Parameters:\n";
@@ -212,6 +215,8 @@ void getModelParameters(int model_choice, std::string& parameters) {
             std::cin >> learning_rate;
             std::cout << "Use SplitHistogram (1 = Yes (default), 0 = No): ";
             std::cin >> useSplitHistogram;
+            std::cout << "Use OMP (1 = Yes, 0 = No (default): ";
+            std::cin >> useOMP;
             int availableThreads = std::thread::hardware_concurrency();
             std::cout << "Number of concurrent threads supported by the implementation: "<< availableThreads<< "\nHow many do you want to use ? ";
             std::cin>> numThreads;
@@ -224,6 +229,7 @@ void getModelParameters(int model_choice, std::string& parameters) {
                          std::to_string(min_impurity) + " " +
                          std::to_string(learning_rate) + " " +
                          std::to_string(useSplitHistogram) + " " +
+                         std::to_string(useOMP) + " " +
                          std::to_string(numThreads);
             break;
         }
