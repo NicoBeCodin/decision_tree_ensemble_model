@@ -3,39 +3,50 @@ project(DecisionTreeEnsembleModel)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# ✅ Add an option to enable/disable OpenMP (default ON)
-option(OPENMP "Enable OpenMP" ON)
+# Find LightGBM library
+if (NOT LGBM_LIB)
+    find_library(LGBM_LIB NAMES lightgbm lightgbm _lightgbm lib_lightgbm PATHS
+        /usr/local/lib
+        /usr/lib
+        "$ENV{HOME}/lightgbm_install/lib"
+        NO_DEFAULT_PATH
+    )
+endif()
 
-# ✅ Only find and use OpenMP if OPENMP=ON
-if(OPENMP)
+if (NOT LGBM_LIB)
+    message(FATAL_ERROR "LightGBM library (lib_lightgbm.so) not found. Please run 'sudo make install' for LightGBM, or specify the path manually with -DLGBM_LIB=...")
+else()
+    message(STATUS "Found LightGBM library: ${LGBM_LIB}")
+endif()
+
+# Find LightGBM headers
+if (EXISTS "/usr/local/include/LightGBM")
+    set(LGBM_INCLUDE "/usr/local/include/LightGBM")
+else()
+    message(FATAL_ERROR "LightGBM header directory not found (/usr/local/include/LightGBM).")
+endif()
+
+# OpenMP setup
+option(OPENMP "Enable OpenMP" ON)
+if (OPENMP)
     find_package(OpenMP REQUIRED)
-    if(OpenMP_CXX_FOUND)
+    if (OpenMP_CXX_FOUND)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
         set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
-        message(STATUS "✅ OpenMP enabled")
+        message(STATUS "OpenMP enabled")
+        set(OPENMP_LIB OpenMP::OpenMP_CXX)
     else()
-        message(WARNING "⚠ OpenMP requested but not found")
+        message(WARNING "OpenMP requested but not found")
+        set(OPENMP_LIB "")
     endif()
 else()
-    message(STATUS "🚫 OpenMP disabled")
+    message(STATUS "OpenMP disabled")
+    set(OPENMP_LIB "")
 endif()
 
 
-
-# ✅ Only link OpenMP if enabled
-if(OPENMP)
-    set(OPENMP_LIB OpenMP::OpenMP_CXX)
-else()
-    set(OPENMP_LIB "")  # Empty if OpenMP is OFF
-endif()
-
-# ✅ Find OpenMP first before adding subdirectories
-find_package(OpenMP REQUIRED)
-
-# ✅ Pass OpenMP flags to all subprojects
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
-
+set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   ${OpenMP_C_FLAGS}")
 
 add_subdirectory(src/functions/io)
 add_subdirectory(src/functions/tree)
@@ -44,6 +55,7 @@ add_subdirectory(src/functions/math)
 add_subdirectory(src/functions/feature)
 add_subdirectory(src/ensemble/bagging)
 add_subdirectory(src/ensemble/boosting)
+add_subdirectory(src/ensemble/boosting_lightgbm)
 add_subdirectory(src/data_clean)
 add_subdirectory(src/model_comparison)
 add_subdirectory(src/pipeline)
@@ -135,12 +147,14 @@ target_link_libraries(MainEnsemble PRIVATE
     FunctionsMath
     Bagging
     Boosting
+    Boosting_LightGBM 
     model_comparison
     Data_Clean
     LossFunction
     Pipeline
     Utils
     ${OPENMP_LIB}
+    ${LGBM_LIB} 
 )
 
 target_link_libraries(MainKFold PRIVATE

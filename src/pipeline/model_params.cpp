@@ -186,3 +186,34 @@ bool getBoostingParams(const ProgramOptions& options, BoostingParams& out_params
     }
     return true;
 }
+
+bool getLightGBMParams(const ProgramOptions& options, LightGBMParams& out_params) {
+  
+  createDirectory("../saved_models/lightgbm_models");
+
+  if (options.use_custom_params && options.params.size() >= 6) {
+      out_params.nEstimators   = std::stoi(options.params[0]);
+      out_params.learningRate  = std::stod(options.params[1]);
+      out_params.maxDepth      = std::stoi(options.params[2]);
+      out_params.numLeaves     = std::stoi(options.params[3]);
+      out_params.subsample     = std::stod(options.params[4]);
+      out_params.colsampleBytree = std::stod(options.params[5]);
+  }
+  else if (options.load_request) {
+      
+      std::cout << "Loading existing LightGBM 模型：" 
+                << options.path_model_filename << std::endl;
+      return false;
+  }
+  else {
+      
+      out_params.nEstimators   = 100;
+      out_params.learningRate  = 0.1;
+      out_params.maxDepth      = -1;
+      out_params.numLeaves     = 31;
+      out_params.subsample     = 1.0;
+      out_params.colsampleBytree = 1.0;
+      std::cout << "Using default LightGBM parameters." << std::endl;
+  }
+  return true;
+}
