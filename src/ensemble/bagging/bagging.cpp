@@ -63,6 +63,7 @@ void Bagging::train(const std::vector<double> &data, int rowLength,
     std::vector<std::future<std::unique_ptr<DecisionTreeSingle>>> futures;
     trees.clear();
     trees.resize(numTrees);
+    omp_set_max_active_levels(2); //LIMIT the amount of nested parallelism
     #pragma omp parallel for  \
           num_threads(numThreads)       \
           schedule(dynamic, 1)          \

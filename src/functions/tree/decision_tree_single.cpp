@@ -6,6 +6,8 @@
 #include <omp.h>
 #include <tuple>
 
+
+
 struct BestSplit { double imp; int feat; double thr; };
 //We define a struct to optimize reduction with OMP
 #pragma omp declare reduction(                              \
@@ -261,6 +263,7 @@ void DecisionTreeSingle::splitNodeMAE(Tree *Node,
     Node->Prediction = Math::calculateMeanWithIndices(Labels, Indices); // Use mean instead of median
     return;
 }
+
 if (useOMP && Depth < maxSplitDepth && !omp_in_final() ) { 
     // Grab the child pointers once ─ avoids capturing "Node" in each task
     auto *leftChild  = Node->Left.get();
@@ -434,8 +437,6 @@ DecisionTreeSingle::findBestSplitOMP(const std::vector<double>& Data,
     return {globalBest.feat, globalBest.thr, globalBest.imp};
 }
 
-
-
 std::tuple<int, double, double> DecisionTreeSingle::findBestSplitUsingMAE(
     const std::vector<double> &Data, int rowLength,
     const std::vector<double> &Labels, const std::vector<int> &Indices,
@@ -514,8 +515,6 @@ std::tuple<int, double, double> DecisionTreeSingle::findBestSplitUsingMAE(
 
   return {BestFeature, BestThreshold, BestImpurityDecrease};
 }
-
-
 
 std::tuple<int, double, double> DecisionTreeSingle::findBestSplitHistogram(
   const std::vector<double>& Data,
