@@ -872,6 +872,7 @@ DecisionTreeSingle::getTrainingParameters() const {
   parameters["MinError"] = std::to_string(MinError);
   parameters["Criteria"] = std::to_string(Criteria);
   parameters["UseSplitHistogram"] = useSplitHistogram ? "1.0" : "0.0";
+  parameters["UseOMP"] = useOMP ? "1.0" : "0.0";
   parameters["NumThreads"] = std::to_string(numThreads);
   return parameters;
 }
@@ -885,6 +886,7 @@ std::string DecisionTreeSingle::getTrainingParametersString() const {
   oss << "  - Min Error: " << MinError << "\n";
   oss << "  - Criteria: " << (Criteria == 0 ? "MSE" : "MAE") << "\n";
   oss << "  - UseSplitHistogram: " << (useSplitHistogram ? "true" : "false") << "\n";
+  oss << "  - UseOMP: " << (useOMP ? "true" : "false") << "\n";
   oss << "  - Number of threads " << numThreads << "\n";
   return oss.str();
 }

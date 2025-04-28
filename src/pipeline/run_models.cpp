@@ -50,6 +50,7 @@ void runSingleDecisionTreeModel(DecisionTreeParams params, DataParams data_param
     results.parameters["min_impurity_decrease"] = params.minImpurityDecrease;
     results.parameters["criteria"] = params.criteria;
     results.parameters["use_split_histogram"] = params.useSplitHistogram;
+    results.parameters["use_omp"] = params.useOMP;
     results.parameters["num_threads"] = params.numThreads;
 
     // Save characteristic importance

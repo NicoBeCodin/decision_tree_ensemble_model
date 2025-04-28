@@ -54,7 +54,7 @@ bool getDecisionTreeParams(const ProgramOptions& options, DecisionTreeParams& ou
                 << "Default minimum sample split = " << out_params.minSamplesSplit << std::endl
                 << "Default minimum impurity decrease = " << out_params.minImpurityDecrease << std::endl
                 << "Default no useSplitHistogram = " << out_params.useSplitHistogram << std::endl
-                << "Default no useOMP = " << out_params.useSplitHistogram << std::endl
+                << "Default no useOMP = " << out_params.useOMP << std::endl
                 << "Default number of threads : " << out_params.numThreads << " (OpenMP optimizations : off)" << std::endl;
     }
     return true;
