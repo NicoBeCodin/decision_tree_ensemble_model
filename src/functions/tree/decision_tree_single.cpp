@@ -28,13 +28,26 @@ void DecisionTreeSingle::train(const std::vector<double> &Data, int rowLength,
   std::vector<int> Indices(Labels.size());
   std::iota(Indices.begin(), Indices.end(), 0);
 
-  // Will use MSE criterion
-  if (criteria == 0) {
-    splitNode(Root.get(), Data, rowLength, Labels, Indices, 0);
-  }
-  // Will use MAE criterion
-  else if (criteria == 1) {
-    splitNodeMAE(Root.get(), Data, rowLength, Labels, Indices, 0);
+  if (useOMP) {
+    #pragma omp parallel num_threads(numThreads)
+    #pragma omp single
+    {
+      if (criteria==0){
+        splitNode(Root.get(), Data, rowLength, Labels, Indices, 0);
+      }
+      else if (criteria==1){
+        splitNodeMAE(Root.get(), Data, rowLength, Labels, Indices, 0);
+      }
+    }
+  } else {
+    //MSE criterion
+    if (criteria == 0) {
+      splitNode(Root.get(), Data, rowLength, Labels, Indices, 0);
+    }
+    // Will use MAE criterion
+    else if (criteria == 1) {
+      splitNodeMAE(Root.get(), Data, rowLength, Labels, Indices, 0);
+    }
   }
 }
 
@@ -135,20 +148,27 @@ void DecisionTreeSingle::splitNode(Tree *Node, const std::vector<double> &Data,
     return;
 }
 
-  if (Depth < maxSplitDepth) { // Restrict parallelism to first two levels
-    std::future<void> leftFuture =
-        std::async(std::launch::async, &DecisionTreeSingle::splitNode, this,
-                   Node->Left.get(), std::cref(Data), rowLength,
-                   std::cref(Labels), std::cref(LeftIndices), Depth + 1);
+  if (useOMP && Depth < MaxDepth && !omp_in_final() ) { 
+    // Grab the child pointers once ─ avoids capturing "Node" in each task
+    auto *leftChild  = Node->Left.get();
+    auto *rightChild = Node->Right.get();
 
-    std::future<void> rightFuture =
-        std::async(std::launch::async, &DecisionTreeSingle::splitNode, this,
-                   Node->Right.get(), std::cref(Data), rowLength,
-                   std::cref(Labels), std::cref(RightIndices), Depth + 1);
+    #pragma omp task                                  \
+            shared(Data, Labels)                      \
+            firstprivate(leftChild, rowLength,        \
+                        LeftIndices, Depth)
+    splitNode(leftChild,  Data, rowLength,
+              Labels, LeftIndices,  Depth + 1);
 
-    // Wait for both subtrees to complete
-    leftFuture.get();
-    rightFuture.get();
+    #pragma omp task                                  \
+            shared(Data, Labels)                      \
+            firstprivate(rightChild, rowLength,       \
+                        RightIndices, Depth)
+    splitNode(rightChild, Data, rowLength,
+              Labels, RightIndices, Depth + 1);
+
+    #pragma omp taskwait
+
   } else {
     // Perform normal sequential recursion after depth 2
     splitNode(Node->Left.get(), Data, rowLength, Labels, LeftIndices,
@@ -233,22 +253,28 @@ void DecisionTreeSingle::splitNodeMAE(Tree *Node,
     Node->Prediction = Math::calculateMeanWithIndices(Labels, Indices); // Use mean instead of median
     return;
 }
+if (useOMP && Depth < MaxDepth && !omp_in_final() ) { 
+    // Grab the child pointers once ─ avoids capturing "Node" in each task
+    auto *leftChild  = Node->Left.get();
+    auto *rightChild = Node->Right.get();
 
-  if (Depth < maxSplitDepth) { // Restrict parallelism to first two levels
-    std::future<void> leftFuture =
-        std::async(std::launch::async, &DecisionTreeSingle::splitNodeMAE, this,
-                   Node->Left.get(), std::cref(Data), rowLength,
-                   std::cref(Labels), std::cref(LeftIndices), Depth + 1);
+    #pragma omp task                                  \
+            shared(Data, Labels)                      \
+            firstprivate(leftChild, rowLength,        \
+                        LeftIndices, Depth)
+    splitNodeMAE(leftChild,  Data, rowLength,
+              Labels, LeftIndices,  Depth + 1);
 
-    std::future<void> rightFuture =
-        std::async(std::launch::async, &DecisionTreeSingle::splitNodeMAE, this,
-                   Node->Right.get(), std::cref(Data), rowLength,
-                   std::cref(Labels), std::cref(RightIndices), Depth + 1);
+    #pragma omp task                                  \
+            shared(Data, Labels)                      \
+            firstprivate(rightChild, rowLength,       \
+                        RightIndices, Depth)
+    splitNodeMAE(rightChild, Data, rowLength,
+              Labels, RightIndices, Depth + 1);
 
-    // Wait for both subtrees to complete
-    leftFuture.get();
-    rightFuture.get();
-  } else {
+    #pragma omp taskwait
+
+ } else {
     // Perform normal sequential recursion after depth 2
     splitNodeMAE(Node->Left.get(), Data, rowLength, Labels, LeftIndices,
                  Depth + 1);
@@ -262,7 +288,6 @@ std::tuple<int, double, double> DecisionTreeSingle::findBestSplit(
   const std::vector<double> &Labels, const std::vector<int> &Indices,
   double CurrentMSE) {
   
-    // std::cout<<"findBestSplit called"<<std::endl;
   int BestFeature = -1;
   double BestThreshold = 0.0;
   double BestImpurityDecrease = 0.0;
