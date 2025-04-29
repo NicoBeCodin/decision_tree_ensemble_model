@@ -1,11 +1,11 @@
 #include "../pipeline/getModelParameters.h"
+#include <sstream>
 
-std::string mpi_setenv(const std::string& var, const std::string& val)
-{
-#ifdef OPEN_MPI           // <mpi.h> defines this macro when using Open MPI
-    return "-x " + var + "=" + val;
-#else                     // assume MPICH or Intel MPI (MPICH-derived)
-    return "-env " + var + " " + val;
+std::string mpi_setenv(const std::string &var, const std::string &val) {
+#ifdef OPEN_MPI // <mpi.h> defines this macro when using Open MPI
+  return "-x " + var + "=" + val;
+#else // assume MPICH or Intel MPI (MPICH-derived)
+  return "-env " + var + " " + val;
 #endif
 }
 
@@ -32,42 +32,129 @@ int main() {
     std::string parameters = std::to_string(model_choice);
     getModelParameters(model_choice, parameters);
 
-    int mpi_procs = 0; // 0 ⇒ no MPI
+    //     int mpi_procs = 0; // 0 ⇒ no MPI
+    //     if (model_choice == 2) {
+    //       std::cout << "Run with MPI? 0 = no MPI, N = number of processes: ";
+    //       std::cin >> mpi_procs;
+    //     }
+
+    //     std::string mpi_cmd;
+
+    // if (model_choice == 2 && mpi_procs > 0) {
+    //     auto env = [](std::string var, std::string val) {
+    // #ifdef OPEN_MPI          // defined by <mpi.h> when using Open MPI
+    //         return "-x " + var + "=" + val;
+    // #else                    // MPICH, Intel-MPI, MS-MPI…
+    //         return "-env " + var + " " + val;
+    // #endif
+    //     };
+
+    //     int threadsPerRank =   std::thread::hardware_concurrency() /
+    //     mpi_procs; threadsPerRank = std::max(1, threadsPerRank);
+    //     // params.numThreads   = threadsPerRank;          // keep Bagging in
+    //     sync
+
+    //     mpi_cmd  = "mpiexec -n " + std::to_string(mpi_procs) + " "
+    // #ifdef OPEN_MPI
+    //              + "--map-by socket --bind-to core "
+    // #endif
+    //              + env("OMP_NUM_THREADS", std::to_string(threadsPerRank)) + "
+    //              "
+    //              + env("OMP_PROC_BIND",  "close") + " "
+    //              + env("OMP_PLACES",     "cores") + " "
+    //              + "./MainEnsemble " + parameters;
+    // } else {
+    //     mpi_cmd = "./MainEnsemble " + parameters;
+    // }
+
+    // std::cout << "Executing: " << mpi_cmd << '\n';
+    // std::system((mpi_cmd + " 2>&1").c_str());
+    int mpi_procs = 0; // 0 ⇒ run without mpiexec
     if (model_choice == 2) {
-      std::cout << "Run with MPI? 0 = no MPI, N = number of processes: ";
-      std::cin >> mpi_procs;
+      std::cout << "Run with MPI? 0 = no MPI, N = number of processes [0]: ";
+      std::cin>>mpi_procs;
+    
     }
 
-    std::string mpi_cmd;
-
-if (model_choice == 2 && mpi_procs > 0) {
-    auto env = [](std::string var, std::string val) {
-#ifdef OPEN_MPI          // defined by <mpi.h> when using Open MPI
-        return "-x " + var + "=" + val;
-#else                    // MPICH, Intel-MPI, MS-MPI…
-        return "-env " + var + " " + val;
+    auto env = [](const std::string &var, const std::string &val) {
+#ifdef OPEN_MPI // set by <mpi.h> when compiled with Open-MPI
+      return "-x " + var + "=" + val;
+#else // MPICH / Intel-MPI / MS-MPI
+      return "-env " + var + " " + val;
 #endif
     };
 
-    int threadsPerRank =   std::thread::hardware_concurrency() / mpi_procs;
-    threadsPerRank = std::max(1, threadsPerRank);
-    // params.numThreads   = threadsPerRank;          // keep Bagging in sync
+    std::string mpi_cmd;
+    if (model_choice == 2 && mpi_procs > 0) {
+      /* ── ask for OpenMP customisation ──────────────────────────────────── */
+      const unsigned hwCores = std::thread::hardware_concurrency();
+      unsigned omp_threads = std::max(1u, hwCores / mpi_procs);
 
-    mpi_cmd  = "mpiexec -n " + std::to_string(mpi_procs) + " "
-#ifdef OPEN_MPI
-             + "--map-by socket --bind-to core "
-#endif
-             + env("OMP_NUM_THREADS", std::to_string(threadsPerRank)) + " "
-             + env("OMP_PROC_BIND",  "close") + " "
-             + env("OMP_PLACES",     "cores") + " "
-             + "./MainEnsemble " + parameters;
-} else {
-    mpi_cmd = "./MainEnsemble " + parameters;
-}
+      std::cout << "OpenMP threads per rank          [" << omp_threads << "]: ";
+      std::string tmp;
+      std::getline(std::cin, tmp);
+      if (!tmp.empty())
+        omp_threads = std::stoi(tmp);
 
-std::cout << "Executing: " << mpi_cmd << '\n';
-std::system((mpi_cmd + " 2>&1").c_str());
+      std::cout << "OMP_PROC_BIND (none/close/spread) [close]: ";
+      std::string omp_bind;
+      std::getline(std::cin, omp_bind);
+      if (omp_bind.empty())
+        omp_bind = "close";
+
+      std::cout << "OMP_PLACES   (cores/threads)      [cores]: ";
+      std::string omp_places;
+      std::getline(std::cin, omp_places);
+      if (omp_places.empty())
+        omp_places = "cores";
+
+      std::cout << "Bind MPI ranks to cores? (y/n)    [y]: ";
+      std::string bindRanks;
+      std::getline(std::cin, bindRanks);
+      bool doBind =
+          bindRanks.empty() || bindRanks[0] == 'y' || bindRanks[0] == 'Y';
+
     
+    std::cout<< "Change the num_threads inside of program to match the OMP_NUM_THREADS ? [yes]: ";
+    std::string changeNumThreads;
+      std::getline(std::cin, changeNumThreads);
+      if (omp_places.empty())
+        omp_places = "yes";
+    //Change the values
+    if (changeNumThreads=="yes"){
+        auto lastSpace = parameters.find_last_of(' ');
+        if (lastSpace == std::string::npos) {
+            /* the string contains only one field – append a space+token    */
+            parameters += ' ' + std::to_string(omp_threads);
+        } else {
+            parameters.replace(lastSpace + 1, std::string::npos,
+                std::to_string(omp_threads));
+            }
+            
+        }
+      /* ── build the mpiexec command ────────────────────────────────────── */
+      std::ostringstream ss;
+      ss << "mpiexec -n " << mpi_procs << " ";
+#ifdef OPEN_MPI
+      if (doBind)
+        ss << "--map-by socket --bind-to core ";
+#endif
+#ifdef MPICH_VERSION
+      if (!doBind)
+        ss << "--bind-to none ";
+#endif
+      ss << env("OMP_NUM_THREADS", std::to_string(omp_threads)) << " "
+         << env("OMP_PROC_BIND", omp_bind) << " "
+         << env("OMP_PLACES", omp_places) << " " << "./MainEnsemble "
+         << parameters;
+
+      mpi_cmd = ss.str();
+    } else {
+      mpi_cmd = "./MainEnsemble " + parameters;
+    }
+
+    std::cout << "\nExecuting: " << mpi_cmd << "\n\n";
+    std::system((mpi_cmd + " 2>&1").c_str());
     break;
   }
   case 2: {
