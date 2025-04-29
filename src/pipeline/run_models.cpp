@@ -1,4 +1,14 @@
 #include "run_models.h"
+static void to_matrix(const std::vector<double>& flat,
+  int n_cols,
+  std::vector<std::vector<double>>& out)
+{
+int n_rows = flat.size() / n_cols;
+out.assign(n_rows, std::vector<double>(n_cols));
+for (int i = 0; i < n_rows; ++i)
+for (int j = 0; j < n_cols; ++j)
+out[i][j] = flat[i * n_cols + j];
+}
 
 void runSingleDecisionTreeModel(DecisionTreeParams params,
                                 DataParams data_params) {
@@ -160,7 +170,6 @@ void runBaggingModel(BaggingParams params, DataParams data_params) {
     results.mse_or_mae = score;
     results.training_time = train_duration_count;
     results.evaluation_time = evaluation_duration_count;
-
     // Save parameters
     results.parameters["n_estimators"] = params.numTrees;
     results.parameters["max_depth"] = params.maxDepth;
@@ -185,7 +194,6 @@ void runBaggingModel(BaggingParams params, DataParams data_params) {
     std::cout << "Would you like to genarate a visualisation of this model? (1 "
                  "= Yes, 0 = No): ";
     std::cin >> visualisation_ask;
-
     if (visualisation_ask) {
       // Add image for visualisation
       std::cout << "Génération de la visualisation des arbres avec critère: "
@@ -379,6 +387,75 @@ void runLightGBMModel(const LightGBMParams &params,
   results.parameters["subsample"] = params.subsample;
   results.parameters["colsample_bytree"] = params.colsampleBytree;
   for (int i = 0; i < static_cast<int>(importances.size()); ++i)
-    results.feature_importance["F" + std::to_string(i)] = importances[i];
+      results.feature_importance["F" + std::to_string(i)] = importances[i];
   ModelComparison::saveResults(results);
+
+ 
+}
+void runAdvGBDTModel(const AdvGBDTParams& p, const DataParams& data) {
+  std::cout << "============= Advanced GBDT Training =============\n";
+
+  // 1. Conversion des données en format matriciel
+  std::vector<std::vector<double>> X_train, X_test;
+  to_matrix(data.X_train, data.rowLength, X_train);
+  to_matrix(data.X_test, data.rowLength, X_test);
+
+  // 2. Création du modèle avec la méthode de binning choisie
+  auto binning_method = p.binMethod == AdvBinMethod::Quantile ? 
+                         ImprovedGBDT::BinningMethod::QUANTILE : 
+                         ImprovedGBDT::BinningMethod::FREQUENCY;
+                         
+  ImprovedGBDT booster(
+      p.nEstimators,    // Nombre d'estimateurs
+      p.maxDepth,       // Profondeur maximale
+      p.learningRate,   // Taux d'apprentissage
+      p.useDart,        // Utilisation de DART
+      p.dropoutRate,    // Taux de dropout pour DART
+      p.skipDropRate,   // Taux de saut pour DART
+      binning_method,   // Méthode de binning
+      p.numBins         // Nombre de bins
+  );
+
+  // 3. Entraînement avec mesure du temps
+  auto t0 = std::chrono::high_resolution_clock::now();
+  booster.fit(X_train, data.y_train);
+  auto t1 = std::chrono::high_resolution_clock::now();
+  double train_sec = std::chrono::duration<double>(t1 - t0).count();
+  std::cout << "[AdvGBDT] Training time: " << train_sec << " s\n";
+
+  // 4. Prédiction avec mesure du temps
+  auto t2 = std::chrono::high_resolution_clock::now();
+  std::vector<double> preds = booster.predict(X_test);
+  auto t3 = std::chrono::high_resolution_clock::now();
+  double pred_sec = std::chrono::duration<double>(t3 - t2).count();
+  std::cout << "[AdvGBDT] Prediction time: " << pred_sec << " s\n";
+
+  // 5. Calcul des métriques d'évaluation
+  double mse = 0.0, mae = 0.0;
+  for (size_t i = 0; i < preds.size(); ++i) {
+      double diff = data.y_test[i] - preds[i];
+      mse += diff * diff;
+      mae += std::abs(diff);
+  }
+  mse /= preds.size();
+  mae /= preds.size();
+  std::cout << "[AdvGBDT] MSE=" << mse << ", MAE=" << mae << '\n';
+
+  // 6. Sauvegarde des résultats pour comparaison
+  ModelResults res;
+  res.model_name      = "AdvancedGBDT (" + std::string(p.binMethod == AdvBinMethod::Quantile ? "Quantile" : "Frequency") + ")";
+  res.mse_or_mae      = mse;
+  res.training_time   = train_sec;
+  res.evaluation_time = pred_sec;
+  res.parameters["n_estimators"]     = p.nEstimators;
+  res.parameters["learning_rate"]    = p.learningRate;
+  res.parameters["max_depth"]        = p.maxDepth;
+  res.parameters["min_data_in_leaf"] = static_cast<int>(p.minDataLeaf);
+  res.parameters["use_dart"]         = p.useDart ? 1 : 0;
+  res.parameters["dropout_rate"]     = p.dropoutRate;
+  res.parameters["skip_drop_rate"]   = p.skipDropRate;
+  res.parameters["num_threads"]      = p.numThreads;
+  res.parameters["binning_method"]   = static_cast<int>(p.binMethod);
+  res.parameters["num_bins"]         = p.numBins;
+  ModelComparison::saveResults(res);
 }

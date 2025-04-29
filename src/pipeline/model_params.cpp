@@ -272,3 +272,49 @@ bool getLightGBMParams(const ProgramOptions &options,
   }
   return true;
 }
+
+bool getAdvGBDTParams(const ProgramOptions& o, AdvGBDTParams& p) {
+  createDirectory("../saved_models/adv_gbdt_models");
+  
+  // Débogage
+  std::cout << "use_custom_params: " << (o.use_custom_params ? "true" : "false") << std::endl;
+  std::cout << "params.size(): " << o.params.size() << std::endl;
+  
+  if (o.use_custom_params && o.params.size() >= 10) {
+      std::cout << "Utilisation des paramètres personnalisés:" << std::endl;
+      
+      p.nEstimators    = std::stoi(o.params[0]);
+      p.learningRate   = std::stod(o.params[1]);
+      p.maxDepth       = std::stoi(o.params[2]);
+      p.minDataLeaf    = std::stoul(o.params[3]);
+      p.numBins        = std::stoi(o.params[4]);
+      p.useDart        = std::stoi(o.params[5]) != 0;
+      p.dropoutRate    = std::stod(o.params[6]);
+      p.skipDropRate   = std::stod(o.params[7]);
+      p.numThreads     = std::stoi(o.params[8]);
+      p.binMethod      = (std::stoi(o.params[9]) == 0) ? AdvBinMethod::Quantile : AdvBinMethod::Frequency;
+      
+      std::cout << "Paramètres personnalisés chargés avec succès." << std::endl;
+  } else {
+      std::cout << "Utilisation des valeurs par défaut car use_custom_params=" 
+                << (o.use_custom_params ? "true" : "false") 
+                << " et params.size()=" << o.params.size() << std::endl;
+      
+                p = {200, 0.01, 50, 1, 1024, 1, 0.5, 0.3, 8, AdvBinMethod::Frequency};
+  }
+  
+  // Affichage des paramètres qui seront utilisés
+  std::cout << "Paramètres effectifs pour AdvGBDT:" << std::endl
+            << "- Nombre d'estimateurs: " << p.nEstimators << std::endl
+            << "- Taux d'apprentissage: " << p.learningRate << std::endl
+            << "- Profondeur maximale: " << p.maxDepth << std::endl
+            << "- Minimum d'échantillons par feuille: " << p.minDataLeaf << std::endl
+            << "- Nombre de bins: " << p.numBins << std::endl
+            << "- Utilisation de DART: " << (p.useDart ? "Oui" : "Non") << std::endl
+            << "- Taux de dropout: " << p.dropoutRate << std::endl
+            << "- Taux de skip: " << p.skipDropRate << std::endl
+            << "- Nombre de threads: " << p.numThreads << std::endl
+            << "- Méthode de binning: " << (p.binMethod == AdvBinMethod::Quantile ? "Quantile" : "Frequency") << std::endl;
+  
+  return true;
+}

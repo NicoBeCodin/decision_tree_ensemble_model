@@ -3,30 +3,27 @@ project(DecisionTreeEnsembleModel)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# Add this very early in the CMakeLists.txt
-option(ENABLE_LIGHTGBM "Enable LightGBM integration" ON)
+# Find LightGBM library
+if (NOT LGBM_LIB)
+    find_library(LGBM_LIB NAMES lightgbm lightgbm _lightgbm lib_lightgbm PATHS
+        /usr/local/lib
+        /usr/lib
+        "$ENV{HOME}/lightgbm_install/lib"
+        NO_DEFAULT_PATH
+    )
+endif()
 
-if (ENABLE_LIGHTGBM)
-    if (NOT LGBM_LIB)
-        find_library(LGBM_LIB NAMES lightgbm lightgbm _lightgbm lib_lightgbm PATHS
-            /usr/local/lib
-            /usr/lib
-            "$ENV{HOME}/lightgbm_install/lib"
-            NO_DEFAULT_PATH
-        )
-    endif()
+if (NOT LGBM_LIB)
+    message(FATAL_ERROR "LightGBM library (lib_lightgbm.so) not found. Please run 'sudo make install' for LightGBM, or specify the path manually with -DLGBM_LIB=...")
+else()
+    message(STATUS "Found LightGBM library: ${LGBM_LIB}")
+endif()
 
-    if (NOT LGBM_LIB)
-        message(FATAL_ERROR "LightGBM library (lib_lightgbm.so) not found. Please run 'sudo make install' for LightGBM, or specify the path manually with -DLGBM_LIB=...")
-    else()
-        message(STATUS "Found LightGBM library: ${LGBM_LIB}")
-    endif()
-
-    if (EXISTS "/usr/local/include/LightGBM")
-        set(LGBM_INCLUDE "/usr/local/include/LightGBM")
-    else()
-        message(FATAL_ERROR "LightGBM header directory not found (/usr/local/include/LightGBM).")
-    endif()
+# Find LightGBM headers
+if (EXISTS "/usr/local/include/LightGBM")
+    set(LGBM_INCLUDE "/usr/local/include/LightGBM")
+else()
+    message(FATAL_ERROR "LightGBM header directory not found (/usr/local/include/LightGBM).")
 endif()
 
 # OpenMP setup
@@ -47,19 +44,25 @@ else()
     set(OPENMP_LIB "")
 endif()
 
-option(ENABLE_MPI "Enable MPI (bagging across ranks)" ON)
-
-if (ENABLE_MPI)
-    find_package(MPI REQUIRED COMPONENTS CXX)
-    message(STATUS "MPI enabled with compiler: ${MPI_CXX_COMPILER}")
-    # Define a macro so the code can do   #ifdef USE_MPI
-    add_compile_definitions(USE_MPI)
-    set(MPI_LIB MPI::MPI_CXX)
+# MPI Setup
+option(USE_MPI "Enable MPI" ON)
+if (USE_MPI)
+    find_package(MPI REQUIRED)
+    if (MPI_CXX_FOUND)
+        message(STATUS "MPI found: ${MPI_CXX_VERSION}")
+        add_compile_definitions(USE_MPI)
+        include_directories(${MPI_CXX_INCLUDE_DIRS})
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${MPI_CXX_COMPILE_FLAGS}")
+        set(CMAKE_CXX_LINK_FLAGS "${CMAKE_CXX_LINK_FLAGS} ${MPI_CXX_LINK_FLAGS}")
+        set(MPI_LIB MPI::MPI_CXX)
+    else()
+        message(WARNING "MPI requested but not found. Continuing without MPI support.")
+        set(MPI_LIB "")
+    endif()
 else()
     message(STATUS "MPI disabled")
     set(MPI_LIB "")
 endif()
-
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   ${OpenMP_C_FLAGS}")
@@ -71,9 +74,8 @@ add_subdirectory(src/functions/math)
 add_subdirectory(src/functions/feature)
 add_subdirectory(src/ensemble/bagging)
 add_subdirectory(src/ensemble/boosting)
-if (ENABLE_LIGHTGBM)
-  add_subdirectory(src/ensemble/boosting_lightgbm)
-endif()
+add_subdirectory(src/ensemble/boosting_lightgbm)
+add_subdirectory(src/ensemble/boosting_advanced) 
 add_subdirectory(src/data_clean)
 add_subdirectory(src/model_comparison)
 add_subdirectory(src/pipeline)
@@ -165,17 +167,17 @@ target_link_libraries(MainEnsemble PRIVATE
     FunctionsMath
     Bagging
     Boosting
+    Boosting_LightGBM 
+    Boosting_Advanced
     model_comparison
     Data_Clean
     LossFunction
     Pipeline
     Utils
     ${OPENMP_LIB}
+    ${LGBM_LIB}
+    ${MPI_LIB}  
 )
-
-if (ENABLE_LIGHTGBM)
-    target_link_libraries(MainEnsemble PRIVATE Boosting_LightGBM ${LGBM_LIB})
-endif()
 
 target_link_libraries(MainKFold PRIVATE
     FunctionsIO
@@ -207,6 +209,7 @@ target_include_directories(MainEnsemble PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/functions/loss
     ${CMAKE_CURRENT_SOURCE_DIR}/src/ensemble/bagging
     ${CMAKE_CURRENT_SOURCE_DIR}/src/ensemble/boosting
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/ensemble/boosting_advanced
     ${CMAKE_CURRENT_SOURCE_DIR}/src/model_comparison
     ${CMAKE_CURRENT_SOURCE_DIR}/src/data_clean
     ${CMAKE_CURRENT_SOURCE_DIR}/src/pipeline
@@ -222,7 +225,6 @@ target_include_directories(MainKFold PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/functions/loss
     ${CMAKE_CURRENT_SOURCE_DIR}/src/ensemble/bagging
     ${CMAKE_CURRENT_SOURCE_DIR}/src/ensemble/boosting
-
 )
 
 target_include_directories(MainComparison PRIVATE

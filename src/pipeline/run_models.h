@@ -8,6 +8,13 @@
 #ifdef USE_MPI
 #include <mpi.h>
 #endif
+#include <memory>
+#include <chrono>
+#include <iostream>
+#include <vector>
+#include <string>
+#include <fstream>
+#include <sstream>
 
 // ===========================================
 // Déclarations des fonctions d'exécution
@@ -20,3 +27,5 @@ void runBaggingModel(BaggingParams params, DataParams data_params);
 void runBoostingModel(BoostingParams params, DataParams data_params);
 
 void runLightGBMModel(const LightGBMParams& params, const DataParams& data_params);
+
+void runAdvGBDTModel(const AdvGBDTParams& p, const DataParams& data);

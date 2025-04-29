@@ -468,164 +468,48 @@
 - MSE: 3.027e-03
 - Training Time: 0.246 seconds
 - Evaluation Time: 0.002 seconds
-
-#### Model Parameters
-- criteria: 0.000
-- max_depth: 60.000
-- min_impurity_decrease: 0.000
-- min_samples_split: 2.000
-
-#### Feature Importance
-- matrix_size_x: -4.98%
-- matrix_size_y: 2.29%
-- p1: 7.48%
-- p2: 1.11%
-- p3: 50.13%
-- p4: 20.36%
-- p5: 4.41%
-- p6: 23.91%
-- p7: -7.63%
-- p8: 2.92%
-
----
-
-### Bagging
+### AdvancedGBDT (Frequency)
 
 #### Performance Metrics
-- MSE: 4.870e-310
-- Training Time: 15.261 seconds
-- Evaluation Time: 0.033 seconds
+- MSE: 5.289e-310
+- Training Time: 1.973 seconds
+- Evaluation Time: 0.002 seconds
 
 #### Model Parameters
-- criteria: 0.000
-- max_depth: 60.000
-- min_impurity_decrease: 0.000
-- min_samples_split: 2.000
-- n_estimators: 20.000
-- num_threads: 1.000
-- use_split_histogram: 0.000
-- which_loss_function: 0.000
-
-#### Feature Importance
-- matrix_size_x: 1.65%
-- matrix_size_y: 0.50%
-- p1: 3.55%
-- p2: 0.51%
-- p3: 76.72%
-- p4: 6.20%
-- p5: 1.76%
-- p6: 6.67%
-- p7: 1.01%
-- p8: 1.43%
-
----
-
-### LightGBM
-
-#### Performance Metrics
-- MSE: 0.000e+00
-- Training Time: 0.151 seconds
-- Evaluation Time: 0.004 seconds
-
-#### Model Parameters
-- colsample_bytree: 1.000
-- learning_rate: 0.100
-- max_depth: -1.000
-- n_estimators: 100.000
-- num_leaves: 31.000
-- subsample: 1.000
-
-#### Feature Importance
-- F0: 220.57%
-- F1: 10.74%
-- F2: 1831.37%
-- F3: 1371.74%
-- F4: 173.82%
-- F5: 865.24%
-- F6: 487.48%
-- F7: 185.44%
-- F8: 278.41%
-- F9: 68.58%
-
----
-
-### LightGBM
-
-#### Performance Metrics
-- MSE: 0.000e+00
-- Training Time: 0.179 seconds
-- Evaluation Time: 0.003 seconds
-
-#### Model Parameters
-- colsample_bytree: 1.000
-- learning_rate: 0.100
-- max_depth: -1.000
-- n_estimators: 100.000
-- num_leaves: 31.000
-- subsample: 1.000
-
-#### Feature Importance
-- F0: 220.57%
-- F1: 10.74%
-- F2: 1831.37%
-- F3: 1371.74%
-- F4: 173.82%
-- F5: 865.24%
-- F6: 487.48%
-- F7: 185.44%
-- F8: 278.41%
-- F9: 68.58%
-
----
-
-### Bagging
-
-#### Performance Metrics
-- MSE: 9.881e-324
-- Training Time: 13.096 seconds
-- Evaluation Time: 0.120 seconds
-
-#### Model Parameters
-- criteria: 1.000
-- max_depth: 60.000
-- min_impurity_decrease: 0.000
-- min_samples_split: 2.000
-- n_estimators: 30.000
+- binning_method: 1.000
+- dropout_rate: 0.500
+- learning_rate: 0.010
+- max_depth: 50.000
+- min_data_in_leaf: 1.000
+- n_estimators: 200.000
+- num_bins: 1024.000
 - num_threads: 8.000
-- use_omp: 1.000
-- use_split_histogram: 1.000
-- which_loss_function: 1.000
+- skip_drop_rate: 0.300
+- use_dart: 1.000
 
 #### Feature Importance
-- matrix_size_x: 4.99%
-- matrix_size_y: 1.73%
-- p1: 11.45%
-- p2: 3.04%
-- p3: 28.12%
-- p4: 14.28%
-- p5: 5.25%
-- p6: 23.91%
-- p7: 3.12%
-- p8: 4.11%
+Feature importance not available for this model.
 
 ---
 
-### Bagging
+### Boosting
 
 #### Performance Metrics
-- MSE: 9.881e-324
-- Training Time: 6.137 seconds
-- Evaluation Time: 0.059 seconds
+- MSE: 5.485e-310
+- Training Time: 13.069 seconds
+- Evaluation Time: 0.091 seconds
 
 #### Model Parameters
 - criteria: 0.000
-- max_depth: 60.000
+- initial_prediction: 0.048
+- learning_rate: 0.070
+- max_depth: 15.000
 - min_impurity_decrease: 0.000
-- min_samples_split: 2.000
-- n_estimators: 20.000
+- min_samples_split: 3.000
+- n_estimators: 75.000
 - num_threads: 1.000
 - use_omp: 0.000
-- use_split_histogram: 0.000
+- use_split_histogram: 1.000
 - which_loss_function: 0.000
 
 #### Feature Importance
@@ -645,9 +529,9 @@
 ### Bagging
 
 #### Performance Metrics
-- MSE: 9.881e-324
-- Training Time: 2.543 seconds
-- Evaluation Time: 0.057 seconds
+- MSE: 4.943e-310
+- Training Time: 20.258 seconds
+- Evaluation Time: 0.052 seconds
 
 #### Model Parameters
 - criteria: 0.000
@@ -655,22 +539,22 @@
 - min_impurity_decrease: 0.000
 - min_samples_split: 2.000
 - n_estimators: 20.000
-- num_threads: 8.000
-- use_omp: 1.000
+- num_threads: 1.000
+- use_omp: 0.000
 - use_split_histogram: 0.000
 - which_loss_function: 0.000
 
 #### Feature Importance
-- matrix_size_x: 1.46%
-- matrix_size_y: 0.65%
-- p1: 3.00%
-- p2: 0.55%
-- p3: 76.63%
-- p4: 6.15%
-- p5: 1.54%
-- p6: 7.77%
-- p7: 1.03%
-- p8: 1.22%
+- matrix_size_x: 1.56%
+- matrix_size_y: 0.61%
+- p1: 3.31%
+- p2: 0.56%
+- p3: 76.94%
+- p4: 6.62%
+- p5: 1.61%
+- p6: 6.51%
+- p7: 1.07%
+- p8: 1.20%
 
 ---
 
