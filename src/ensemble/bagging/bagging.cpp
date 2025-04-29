@@ -108,9 +108,7 @@ void Bagging::bootstrapSample(const std::vector<double> &data, int rowLength,
 
 void Bagging::train(const std::vector<double> &data, int rowLength,
                     const std::vector<double> &labels, int criteria) {
-  /* ------------------------------------------------------------------
-   * 1.  Detect whether MPI is running
-   * ------------------------------------------------------------------ */
+    // Detect whether MPI is running
   int mpiRank = 0, mpiSize = 1, mpiInit = 0;
 #ifdef USE_MPI
   MPI_Initialized(&mpiInit);
@@ -120,9 +118,6 @@ void Bagging::train(const std::vector<double> &data, int rowLength,
   }
 #endif
 
-  /* ------------------------------------------------------------------
-   * 2.  Decide which tree indices this rank will train
-   * ------------------------------------------------------------------ */
   auto isMyTree = [mpiRank, mpiSize](int t) { return t % mpiSize == mpiRank; };
 
   /* maintain a local vector even if we’ll later gather to rank-0 */
@@ -130,10 +125,7 @@ void Bagging::train(const std::vector<double> &data, int rowLength,
 
   if (useOMP)
     omp_set_max_active_levels(2); // keep two nesting layers
-
-/* ------------------------------------------------------------------
- * 3.  OpenMP loop: build the trees that belong to this rank
- * ------------------------------------------------------------------ */
+// OpenMP loop: build the trees that belong to this rank
 #pragma omp parallel for schedule(dynamic, 1) default(none)                    \
     shared(data, labels, rowLength, criteria, numTrees, isMyTree, localForest) \
     firstprivate(maxDepth, minSamplesSplit, minImpurityDecrease,               \
@@ -155,19 +147,15 @@ void Bagging::train(const std::vector<double> &data, int rowLength,
 #pragma omp critical
     localForest.push_back(std::move(tree));
   }
-
-/* ------------------------------------------------------------------
- * 4.  If >1 rank, gather every tree on rank 0
- * ------------------------------------------------------------------ */
+ //  If >1 rank, gather every tree on rank 0
+ 
 #ifdef USE_MPI
   if (mpiSize > 1) {
-    /* -------- 4a. tell rank-0 how many trees each rank built -------- */
+   
     int localCount = static_cast<int>(localForest.size());
     std::vector<int> counts(mpiSize);
     MPI_Gather(&localCount, 1, MPI_INT, counts.data(), 1, MPI_INT,
                /*root=*/0, MPI_COMM_WORLD);
-
-    /* -------- 4b. rank-0 receives byte buffers --------------------- */
     if (mpiRank == 0) {
       trees.clear();
       trees.reserve(std::accumulate(counts.begin(), counts.end(), 0));
@@ -195,7 +183,7 @@ void Bagging::train(const std::vector<double> &data, int rowLength,
           already += len;
         }
       }
-    } else { /* -------- 4c. non-root ranks send their trees --------- */
+    } else { 
       // Pack all local trees into a single contiguous buffer
       std::vector<char> bigBuf;
       std::vector<int> offsets;
@@ -277,7 +265,6 @@ void Bagging::save(const std::string &filename) const {
 
   file.close();
 }
-
 /**
  * Load the Bagging model from a file
  * @param filename The filename to load the model from
