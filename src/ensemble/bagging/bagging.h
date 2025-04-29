@@ -100,9 +100,10 @@ private:
      * @param sampled_labels Output parameter for the sampled target vector
      */
     void bootstrapSample(const std::vector<double>& data, int rowLength, const std::vector<double>& labels,
-                         std::vector<double>& sampled_data, std::vector<double>& sampled_labels);
+                         std::vector<double>& sampled_data, std::vector<double>& sampled_labels, std::mt19937& rng);
 
     friend class FeatureImportance;
+    bool gatherModelsToRoot=true;
 };
 
 #endif

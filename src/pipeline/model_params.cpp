@@ -88,7 +88,7 @@ bool getBaggingParams(const ProgramOptions &options,
     out_params.useSplitHistogram = std::stoi(options.params[6]) != 0;
     out_params.useOMP = std::stoi(options.params[7]) != 0;
     out_params.numThreads = std::stoi(options.params[8]);
-
+    
   } else if (options.load_request) {
     try {
       Bagging tmp_bagging_model(0, 0, 0, 0.0, nullptr, 0, 0, 1); // Temp init

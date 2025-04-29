@@ -1,4 +1,5 @@
 #include "bagging.h"
+#include <random>
 
 /**
  * Constructor for Bagging
@@ -34,9 +35,9 @@ Bagging::Bagging(int num_trees, int max_depth, int min_samples_split,
 void Bagging::bootstrapSample(const std::vector<double> &data, int rowLength,
                               const std::vector<double> &labels,
                               std::vector<double> &sampled_data,
-                              std::vector<double> &sampled_labels) {
-  std::random_device rd;
-  std::mt19937 gen(rd());
+                              std::vector<double> &sampled_labels,
+                              std::mt19937 &rng) {
+
   std::uniform_int_distribution<> dis(0, labels.size() - 1);
 
   size_t n_samples = labels.size();
@@ -44,7 +45,7 @@ void Bagging::bootstrapSample(const std::vector<double> &data, int rowLength,
   sampled_labels.reserve(n_samples);
 
   for (size_t i = 0; i < n_samples; ++i) {
-    int idx = dis(gen);
+    int idx = dis(rng);
     sampled_labels.push_back(labels[idx]);
     sampled_data.insert(sampled_data.end(), data.begin() + idx * rowLength,
                         data.begin() + (idx + 1) * rowLength);
@@ -108,7 +109,7 @@ void Bagging::bootstrapSample(const std::vector<double> &data, int rowLength,
 
 void Bagging::train(const std::vector<double> &data, int rowLength,
                     const std::vector<double> &labels, int criteria) {
-    // Detect whether MPI is running
+  // Detect whether MPI is running
   int mpiRank = 0, mpiSize = 1, mpiInit = 0;
 #ifdef USE_MPI
   MPI_Initialized(&mpiInit);
@@ -122,21 +123,38 @@ void Bagging::train(const std::vector<double> &data, int rowLength,
 
   /* maintain a local vector even if we’ll later gather to rank-0 */
   std::vector<std::unique_ptr<DecisionTreeSingle>> localForest;
+  const int firstTree =
+      mpiRank * (numTrees / mpiSize) + std::min(mpiRank, numTrees % mpiSize);
+  const int lastTree = firstTree + (numTrees / mpiSize) +
+                       (mpiRank < numTrees % mpiSize ? 1 : 0); // exclusive
 
   if (useOMP)
     omp_set_max_active_levels(2); // keep two nesting layers
-// OpenMP loop: build the trees that belong to this rank
+  if (mpiRank == 0) {
+#ifdef _OPENMP
+    std::cout << "OpenMP enabled.  max_active_levels="
+              << omp_get_max_active_levels() << ", num_threads=" << numThreads
+              << ", OMP_NUM_THREADS=" << omp_get_max_threads() << '\n' <<
+              "Beware, OMP_NUM_THREADS is overridden by num_threads, this can be checked with htop"<<std::endl;
+
+#else
+    std::cout << "OpenMP is OFF\n";
+#endif
+  }
+  // OpenMP loop: build the trees that belong to this rank
 #pragma omp parallel for schedule(dynamic, 1) default(none)                    \
     shared(data, labels, rowLength, criteria, numTrees, isMyTree, localForest) \
     firstprivate(maxDepth, minSamplesSplit, minImpurityDecrease,               \
-                     useSplitHistogram, useOMP, numThreads)                    \
-    num_threads(numThreads)
-  for (int t = 0; t < numTrees; ++t) {
-    if (!isMyTree(t))
-      continue; // another rank will handle this
+                     useSplitHistogram, useOMP, numThreads, firstTree,         \
+                     lastTree) num_threads(numThreads)
+  for (int t = firstTree; t < lastTree; ++t) {
+    // if (!isMyTree(t))
+    //   continue; // another rank will handle this
+    std::mt19937 rng((unsigned)time(nullptr) + 17 +
+                     +8191 * omp_get_thread_num()); // <-- different stream
 
     std::vector<double> sampData, sampLabels;
-    bootstrapSample(data, rowLength, labels, sampData, sampLabels);
+    bootstrapSample(data, rowLength, labels, sampData, sampLabels, rng);
 
     auto tree = std::make_unique<DecisionTreeSingle>(
         maxDepth, minSamplesSplit, minImpurityDecrease, criteria,
@@ -147,65 +165,142 @@ void Bagging::train(const std::vector<double> &data, int rowLength,
 #pragma omp critical
     localForest.push_back(std::move(tree));
   }
- //  If >1 rank, gather every tree on rank 0
- 
-#ifdef USE_MPI
   if (mpiSize > 1) {
-   
+    gatherModelsToRoot = false; // we’ll use prediction Allreduce
+  }
+
+  //  If >1 rank, gather every tree on rank 0
+
+  //   if (mpiSize > 1) {
+
+  //     int localCount = static_cast<int>(localForest.size());
+  //     std::vector<int> counts(mpiSize);
+  //     MPI_Gather(&localCount, 1, MPI_INT, counts.data(), 1, MPI_INT,
+  //                /*root=*/0, MPI_COMM_WORLD);
+  //     if (mpiRank == 0) {
+  //       trees.clear();
+  //       trees.reserve(std::accumulate(counts.begin(), counts.end(), 0));
+
+  //       for (auto &t : localForest)
+  //         trees.push_back(std::move(t));
+
+  //       for (int src = 1; src < mpiSize; ++src) {
+  //         int bytes;
+  //         MPI_Recv(&bytes, 1, MPI_INT, src, 0, MPI_COMM_WORLD,
+  //         MPI_STATUS_IGNORE);
+
+  //         std::vector<char> bigBuf(bytes);
+  //         MPI_Recv(bigBuf.data(), bytes, MPI_BYTE, src, 1, MPI_COMM_WORLD,
+  //                  MPI_STATUS_IGNORE);
+
+  //         /* slice the big buffer back into individual trees  */
+  //         int already = 0;
+  //         for (int k = 0; k < counts[src]; ++k) {
+  //           // Each tree is written back-to-back; we need its length.
+  //           int len = *reinterpret_cast<int *>(&bigBuf[already]);
+  //           already += sizeof(int);
+
+  //           std::vector<char> oneTree(&bigBuf[already], &bigBuf[already +
+  //           len]);
+  //           trees.push_back(DecisionTreeSingle::deserializeFromBuffer(oneTree));
+  //           already += len;
+  //         }
+  //       }
+  //     } else {
+  //       // Pack all local trees into a single contiguous buffer
+  //       std::vector<char> bigBuf;
+  //       std::vector<int> offsets;
+  //       offsets.reserve(localForest.size());
+
+  //       for (auto &t : localForest) {
+  //         std::vector<char> buf = t->serializeToBuffer();
+  //         int len = static_cast<int>(buf.size());
+  //         bigBuf.insert(bigBuf.end(), reinterpret_cast<char *>(&len),
+  //                       reinterpret_cast<char *>(&len) + sizeof(int));
+  //         bigBuf.insert(bigBuf.end(), buf.begin(), buf.end());
+  //       }
+
+  //       int bytes = static_cast<int>(bigBuf.size());
+  //       MPI_Send(&bytes, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
+  //       MPI_Send(bigBuf.data(), bytes, MPI_BYTE, 0, 1, MPI_COMM_WORLD);
+  //     }
+  //   } else /* single rank build: keep localForest as member “trees” */
+  // #endif
+
+#ifdef USE_MPI
+  /* ---------- 4-a  decide whether we must ship the trees ----------- */
+  const bool needModelsOnRoot = (mpiSize > 1) && gatherModelsToRoot;
+  /*     ^-- gatherModelsToRoot is a Boolean data-member you add once,
+   *         default-initialised to true.  Set it to false when you only
+   *         Allreduce predictions (implementation 4).
+   */
+
+  if (needModelsOnRoot) {
+    /* ---------- 4-b  serialise *all* local trees ------------------- */
     int localCount = static_cast<int>(localForest.size());
-    std::vector<int> counts(mpiSize);
+    std::vector<int> counts(mpiSize); // <-- this is what was missing
     MPI_Gather(&localCount, 1, MPI_INT, counts.data(), 1, MPI_INT,
                /*root=*/0, MPI_COMM_WORLD);
+    std::vector<char> sendBuf;
+    std::vector<int> sendSizes; // length of each tree
+
+    for (auto &t : localForest) {
+      auto buf = t->serializeToBuffer();
+      int len = static_cast<int>(buf.size());
+      sendSizes.push_back(len);
+      sendBuf.insert(sendBuf.end(), buf.begin(), buf.end());
+    }
+
+    /* total bytes that this rank will send */
+    int myBytes = static_cast<int>(sendBuf.size());
+
+    //  gather the byte counts
+    std::vector<int> allBytes(mpiSize), displs;
+    MPI_Gather(&myBytes, 1, MPI_INT, allBytes.data(), 1, MPI_INT,
+               /*root=*/0, MPI_COMM_WORLD);
+
+    // gather the payloads with a single Gatherv
+    std::vector<char> recvBuf; // only allocated on root
     if (mpiRank == 0) {
+      displs.resize(mpiSize, 0);
+      std::partial_sum(allBytes.begin(), allBytes.end() - 1,
+                       displs.begin() + 1);
+
+      recvBuf.resize(displs.back() + allBytes.back());
       trees.clear();
       trees.reserve(std::accumulate(counts.begin(), counts.end(), 0));
+    }
 
-      for (auto &t : localForest)
-        trees.push_back(std::move(t));
+    MPI_Gatherv(sendBuf.data(), myBytes, MPI_BYTE, recvBuf.data(),
+                allBytes.data(), displs.data(), MPI_BYTE, 0, MPI_COMM_WORLD);
 
-      for (int src = 1; src < mpiSize; ++src) {
-        int bytes;
-        MPI_Recv(&bytes, 1, MPI_INT, src, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    // on root: de-serialise
+    if (mpiRank == 0) {
+      size_t offset = 0;
+      for (int r = 0; r < mpiSize; ++r) {
+        size_t end = offset + allBytes[r];
+        while (offset < end) {
+          /* read one length, then its bytes */
+          int len = *reinterpret_cast<int *>(&recvBuf[offset]);
+          offset += sizeof(int);
 
-        std::vector<char> bigBuf(bytes);
-        MPI_Recv(bigBuf.data(), bytes, MPI_BYTE, src, 1, MPI_COMM_WORLD,
-                 MPI_STATUS_IGNORE);
-
-        /* slice the big buffer back into individual trees  */
-        int already = 0;
-        for (int k = 0; k < counts[src]; ++k) {
-          // Each tree is written back-to-back; we need its length.
-          int len = *reinterpret_cast<int *>(&bigBuf[already]);
-          already += sizeof(int);
-
-          std::vector<char> oneTree(&bigBuf[already], &bigBuf[already + len]);
+          std::vector<char> oneTree(&recvBuf[offset], &recvBuf[offset + len]);
           trees.push_back(DecisionTreeSingle::deserializeFromBuffer(oneTree));
-          already += len;
+          offset += len;
         }
       }
-    } else { 
-      // Pack all local trees into a single contiguous buffer
-      std::vector<char> bigBuf;
-      std::vector<int> offsets;
-      offsets.reserve(localForest.size());
-
-      for (auto &t : localForest) {
-        std::vector<char> buf = t->serializeToBuffer();
-        int len = static_cast<int>(buf.size());
-        bigBuf.insert(bigBuf.end(), reinterpret_cast<char *>(&len),
-                      reinterpret_cast<char *>(&len) + sizeof(int));
-        bigBuf.insert(bigBuf.end(), buf.begin(), buf.end());
-      }
-
-      int bytes = static_cast<int>(bigBuf.size());
-      MPI_Send(&bytes, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
-      MPI_Send(bigBuf.data(), bytes, MPI_BYTE, 0, 1, MPI_COMM_WORLD);
     }
-  } else /* single rank build: keep localForest as member “trees” */
-#endif
-  {
+
+  } else { /* -------- 4-f  no gather needed ------------- */
+    /* every rank just keeps the local trees it built */
     trees.swap(localForest);
   }
+#else
+  trees.swap(localForest); // <- classic single-process case
+#endif
+  // {
+  //   trees.swap(localForest);
+  // }
 }
 
 /**

@@ -21,6 +21,7 @@ struct DecisionTreeParams {
     bool useSplitHistogram;
     bool useOMP;
     int numThreads;
+    int mpiProcs;
 };
 
 struct BaggingParams {
