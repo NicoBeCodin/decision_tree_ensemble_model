@@ -9,6 +9,10 @@
 #include <fstream>
 #include <iostream>
 
+#ifdef USE_MPI
+#include <mpi.h>
+#endif
+
 #include "../../functions/tree/decision_tree_single.h"
 #include "../../functions/loss/loss_function.h"
 

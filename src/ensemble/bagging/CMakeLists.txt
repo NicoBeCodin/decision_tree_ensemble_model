@@ -1,6 +1,6 @@
 add_library(Bagging bagging.cpp)
 # ✅ Link OpenMP in this library
-target_link_libraries(Bagging PRIVATE OpenMP::OpenMP_CXX)
+target_link_libraries(Bagging PRIVATE OpenMP::OpenMP_CXX ${MPI_LIB})
 
 
 # Include header file path

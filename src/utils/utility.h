@@ -67,7 +67,7 @@ void trainAndEvaluateModel(ModelType &model, const std::vector<double> &X_train,
                            const std::vector<double> &X_test,
                            const std::vector<double> &y_test, int criteria,
                            double &score, double &train_duration_count,
-                           double &eval_duration_count, std::string loss_func) {
+                           double &eval_duration_count, std::string loss_func, int mpiRank) {
   std::cout << "Training process started, please wait...\n";
 
   auto train_start = std::chrono::high_resolution_clock::now();
@@ -79,10 +79,14 @@ void trainAndEvaluateModel(ModelType &model, const std::vector<double> &X_train,
 
   std::cout << "Training time: " << train_duration_count << " seconds\n";
 
-  auto eval_start = std::chrono::high_resolution_clock::now();
-  score = model.evaluate(X_test, rowLength, y_test);
-  auto eval_end = std::chrono::high_resolution_clock::now();
-  eval_duration_count = std::chrono::duration_cast<std::chrono::duration<double>>(eval_end - eval_start).count();
+  if (mpiRank==0){
+
+    
+    auto eval_start = std::chrono::high_resolution_clock::now();
+    score = model.evaluate(X_test, rowLength, y_test);
+    auto eval_end = std::chrono::high_resolution_clock::now();
+    eval_duration_count = std::chrono::duration_cast<std::chrono::duration<double>>(eval_end - eval_start).count();
+  }
 
   std::cout << "Evaluation time: " << eval_duration_count << " seconds\n";
   std::cout << "Model score with " << loss_func << " : " << score << "\n";

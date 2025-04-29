@@ -7,10 +7,10 @@
 #include <future>
 #include <map>
 #include <memory>
+#include <omp.h>
 #include <sstream>
 #include <tuple>
 #include <vector>
-#include <omp.h>
 
 class DecisionTreeSingle {
 public:
@@ -24,17 +24,19 @@ public:
     std::unique_ptr<Tree> Left = nullptr;
     std::unique_ptr<Tree> Right = nullptr;
   };
+  DecisionTreeSingle() = default;
 
   // Constructor and existing methods
   DecisionTreeSingle(int MaxDepth, int MinLeafLarge, double MinError,
-                     int Criteria = 0, bool useSplitHistogram = false, bool useOMP = 0, int numThreads = 1);
+                     int Criteria = 0, bool useSplitHistogram = false,
+                     bool useOMP = 0, int numThreads = 1);
   void train(const std::vector<double> &Data, int rowLength,
              const std::vector<double> &Labels, int criteria = 0);
 
   void evaluate(const std::vector<double> &X_test, const int rowLength,
                 const std::vector<double> &y_test, double &mse_value,
                 double &mae_value);
-  double predict(const double* Sample, int rowLength) const;
+  double predict(const double *Sample, int rowLength) const;
   void saveTree(const std::string &filename);
   void loadTree(const std::string &filename);
   std::map<std::string, std::string> getTrainingParameters() const;
@@ -46,6 +48,10 @@ public:
 
   // this determines at twhich depth to stop creating new threads
   void getMaxSplitDepth() { maxSplitDepth = std::log2(numThreads); }
+
+  std::vector<char> serializeToBuffer();
+  static std::unique_ptr<DecisionTreeSingle>
+  deserializeFromBuffer(const std::vector<char> &buf);
 
 private:
   std::unique_ptr<Tree> Root;
@@ -83,19 +89,19 @@ private:
 
   std::tuple<int, double, double>
   findBestSplitUsingMAEOMP(const std::vector<double> &Data, int rowLength,
-                        const std::vector<double> &Labels,
-                        const std::vector<int> &Indices, double CurrentMAE);
+                           const std::vector<double> &Labels,
+                           const std::vector<int> &Indices, double CurrentMAE);
 
-  std::tuple<int, double, double> 
-  findBestSplitHistogram(const std::vector<double>& Data,
-                         int rowLength, const std::vector<double>& Labels,
-                         const std::vector<int>& Indices, double CurrentMSE,
+  std::tuple<int, double, double>
+  findBestSplitHistogram(const std::vector<double> &Data, int rowLength,
+                         const std::vector<double> &Labels,
+                         const std::vector<int> &Indices, double CurrentMSE,
                          int n_bins);
 
-  std::tuple<int, double, double> 
-  findBestSplitHistogramOMP(const std::vector<double>& Data,
-                            int rowLength, const std::vector<double>& Labels,
-                            const std::vector<int>& Indices, double CurrentMSE,
+  std::tuple<int, double, double>
+  findBestSplitHistogramOMP(const std::vector<double> &Data, int rowLength,
+                            const std::vector<double> &Labels,
+                            const std::vector<int> &Indices, double CurrentMSE,
                             int n_bins);
 
   // Not necessary for the moment, just tryna merge
@@ -105,10 +111,11 @@ private:
 
   void serializeNode(const Tree *node, std::ostream &out);
   std::unique_ptr<Tree> deserializeNode(std::istream &in);
+  
 
   int numThreads = 1;
   int maxSplitDepth = 2;
-  std::atomic<int> activeThreads;
+  std::atomic<int> activeThreads; // deprecated
 };
 
 #endif // DECISION_TREE_SINGLE_H

@@ -23,10 +23,27 @@ int main() {
             std::string parameters = std::to_string(model_choice);
             getModelParameters(model_choice, parameters);
 
-            // Build command with parameters
-            std::string command = "./MainEnsemble " + parameters;
-            std::cout << command << std::endl;
-            system((command + " 2>&1").c_str());
+            int mpi_procs = 0;           // 0 ⇒ no MPI
+            if (model_choice == 2) {
+                std::cout << "Run with MPI? 0 = no MPI, N = number of processes: ";
+                std::cin  >> mpi_procs;
+            }
+        
+            /* ---------- build the shell command ------------------------ */
+            std::string command;
+            if (model_choice == 2 && mpi_procs > 0) {
+                command = "mpiexec -n " + std::to_string(mpi_procs) 
+                // +" --bind-to socket -x OMP_NUM_THREADS=" + std::to_string(mpi_procs) //SET to mpi_procs for the moment 
+                        + " ./MainEnsemble " + parameters;
+                /* add any binding / environment options you want, e.g.
+                 *   + " --bind-to socket -x OMP_NUM_THREADS=6"
+                 */
+            } else {
+                command = "./MainEnsemble " + parameters;
+            }
+        
+            std::cout << "Executing: " << command << '\n';
+            std::system((command + " 2>&1").c_str());
             break;
         }
         case 2: {

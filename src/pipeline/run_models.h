@@ -5,6 +5,9 @@
 #include "../model_comparison/model_comparison.h"
 #include "model_params.h"
 #include "data_split.h"
+#ifdef USE_MPI
+#include <mpi.h>
+#endif
 
 // ===========================================
 // Déclarations des fonctions d'exécution

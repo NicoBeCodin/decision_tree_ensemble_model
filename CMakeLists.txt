@@ -47,6 +47,19 @@ else()
     set(OPENMP_LIB "")
 endif()
 
+option(ENABLE_MPI "Enable MPI (bagging across ranks)" ON)
+
+if (ENABLE_MPI)
+    find_package(MPI REQUIRED COMPONENTS CXX)
+    message(STATUS "MPI enabled with compiler: ${MPI_CXX_COMPILER}")
+    # Define a macro so the code can do   #ifdef USE_MPI
+    add_compile_definitions(USE_MPI)
+    set(MPI_LIB MPI::MPI_CXX)
+else()
+    message(STATUS "MPI disabled")
+    set(MPI_LIB "")
+endif()
+
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   ${OpenMP_C_FLAGS}")

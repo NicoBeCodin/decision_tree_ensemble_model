@@ -11,7 +11,8 @@
 Bagging::Bagging(int num_trees, int max_depth, int min_samples_split,
                  double min_impurity_decrease,
                  std::unique_ptr<LossFunction> loss_func, int Criteria,
-                 int whichLossFunc, bool useSplitHistogram, bool useOMP, int numThreads)
+                 int whichLossFunc, bool useSplitHistogram, bool useOMP,
+                 int numThreads)
     : numTrees(num_trees), maxDepth(max_depth),
       minSamplesSplit(min_samples_split),
       minImpurityDecrease(min_impurity_decrease),
@@ -50,52 +51,172 @@ void Bagging::bootstrapSample(const std::vector<double> &data, int rowLength,
   }
 }
 
-/**
- * Train the Bagging ensemble
- * @param data Flattened feature matrix (1D vector)
- * @param rowLength Number of features per row/sample
- * @param labels Target vector
- * @param criteria Loss criteria (e.g., MSE or MAE)
- */
+// /**
+//  * Train the Bagging ensemble
+//  * @param data Flattened feature matrix (1D vector)
+//  * @param rowLength Number of features per row/sample
+//  * @param labels Target vector
+//  * @param criteria Loss criteria (e.g., MSE or MAE)
+//  */
+// void Bagging::train(const std::vector<double> &data, int rowLength,
+//                     const std::vector<double> &labels, int criteria) {
+//   if (useOMP) {
+//     std::vector<std::future<std::unique_ptr<DecisionTreeSingle>>> futures;
+//     trees.clear();
+//     trees.resize(numTrees);
+//     omp_set_max_active_levels(2); //LIMIT the amount of nested parallelism
+//     #pragma omp parallel for  \
+//           num_threads(numThreads)       \
+//           schedule(dynamic, 1)          \
+//           default(none)                 \
+//           shared(trees, data, labels)   \
+//           firstprivate(rowLength, criteria)
+//     for (int i = 0; i < numTrees; ++i) {
+
+//         std::vector<double> sampled_data;
+//         std::vector<double> sampled_labels;
+//         bootstrapSample(data, rowLength, labels, sampled_data,
+//         sampled_labels);
+
+//         // Create and train a new DecisionTreeSingle
+//         std::unique_ptr<DecisionTreeSingle> tree =
+//         std::make_unique<DecisionTreeSingle>(maxDepth, minSamplesSplit,
+//         minImpurityDecrease,
+//                                                          criteria,
+//                                                          useSplitHistogram,
+//                                                          useOMP, numThreads);
+//         tree->train(sampled_data, rowLength, sampled_labels, criteria);
+//         trees[i] = std::move(tree);
+//       };
+
+//   } else {
+//     for (int i = 0; i < numTrees; ++i) {
+//       std::vector<double> sampled_data;
+//       std::vector<double> sampled_labels;
+//       bootstrapSample(data, rowLength, labels, sampled_data, sampled_labels);
+
+//       // Create and train a new DecisionTreeSingle
+//       std::unique_ptr<DecisionTreeSingle> tree =
+//       std::make_unique<DecisionTreeSingle>(maxDepth, minSamplesSplit,
+//                                                                                       minImpurityDecrease, criteria,
+//                                                                                       useSplitHistogram, useOMP, numThreads);
+//       tree->train(sampled_data, rowLength, sampled_labels, criteria);
+//       trees.push_back(std::move(tree));
+//     }
+//   }
+// }
+
 void Bagging::train(const std::vector<double> &data, int rowLength,
                     const std::vector<double> &labels, int criteria) {
-  if (useOMP) {
-    std::vector<std::future<std::unique_ptr<DecisionTreeSingle>>> futures;
-    trees.clear();
-    trees.resize(numTrees);
-    omp_set_max_active_levels(2); //LIMIT the amount of nested parallelism
-    #pragma omp parallel for  \
-          num_threads(numThreads)       \
-          schedule(dynamic, 1)          \
-          default(none)                 \
-          shared(trees, data, labels)   \
-          firstprivate(rowLength, criteria)
-    for (int i = 0; i < numTrees; ++i) {
+  /* ------------------------------------------------------------------
+   * 1.  Detect whether MPI is running
+   * ------------------------------------------------------------------ */
+  int mpiRank = 0, mpiSize = 1, mpiInit = 0;
+#ifdef USE_MPI
+  MPI_Initialized(&mpiInit);
+  if (mpiInit) {
+    MPI_Comm_rank(MPI_COMM_WORLD, &mpiRank);
+    MPI_Comm_size(MPI_COMM_WORLD, &mpiSize);
+  }
+#endif
 
-        std::vector<double> sampled_data;
-        std::vector<double> sampled_labels;
-        bootstrapSample(data, rowLength, labels, sampled_data, sampled_labels);
+  /* ------------------------------------------------------------------
+   * 2.  Decide which tree indices this rank will train
+   * ------------------------------------------------------------------ */
+  auto isMyTree = [mpiRank, mpiSize](int t) { return t % mpiSize == mpiRank; };
 
-        // Create and train a new DecisionTreeSingle
-        std::unique_ptr<DecisionTreeSingle> tree = std::make_unique<DecisionTreeSingle>(maxDepth, minSamplesSplit, minImpurityDecrease, 
-                                                         criteria, useSplitHistogram, useOMP, numThreads);
-        tree->train(sampled_data, rowLength, sampled_labels, criteria);
-        trees[i] = std::move(tree);
-      };
+  /* maintain a local vector even if we’ll later gather to rank-0 */
+  std::vector<std::unique_ptr<DecisionTreeSingle>> localForest;
 
-  } else {
-    for (int i = 0; i < numTrees; ++i) {
-      std::vector<double> sampled_data;
-      std::vector<double> sampled_labels;
-      bootstrapSample(data, rowLength, labels, sampled_data, sampled_labels);
+  if (useOMP)
+    omp_set_max_active_levels(2); // keep two nesting layers
 
-      // Create and train a new DecisionTreeSingle
-      std::unique_ptr<DecisionTreeSingle> tree = std::make_unique<DecisionTreeSingle>(maxDepth, minSamplesSplit, 
-                                                                                      minImpurityDecrease, criteria, 
-                                                                                      useSplitHistogram, useOMP, numThreads);
-      tree->train(sampled_data, rowLength, sampled_labels, criteria);
-      trees.push_back(std::move(tree));
+/* ------------------------------------------------------------------
+ * 3.  OpenMP loop: build the trees that belong to this rank
+ * ------------------------------------------------------------------ */
+#pragma omp parallel for schedule(dynamic, 1) default(none)                    \
+    shared(data, labels, rowLength, criteria, numTrees, isMyTree, localForest) \
+    firstprivate(maxDepth, minSamplesSplit, minImpurityDecrease,               \
+                     useSplitHistogram, useOMP, numThreads)                    \
+    num_threads(numThreads)
+  for (int t = 0; t < numTrees; ++t) {
+    if (!isMyTree(t))
+      continue; // another rank will handle this
+
+    std::vector<double> sampData, sampLabels;
+    bootstrapSample(data, rowLength, labels, sampData, sampLabels);
+
+    auto tree = std::make_unique<DecisionTreeSingle>(
+        maxDepth, minSamplesSplit, minImpurityDecrease, criteria,
+        useSplitHistogram, useOMP, numThreads);
+
+    tree->train(sampData, rowLength, sampLabels, criteria);
+
+#pragma omp critical
+    localForest.push_back(std::move(tree));
+  }
+
+/* ------------------------------------------------------------------
+ * 4.  If >1 rank, gather every tree on rank 0
+ * ------------------------------------------------------------------ */
+#ifdef USE_MPI
+  if (mpiSize > 1) {
+    /* -------- 4a. tell rank-0 how many trees each rank built -------- */
+    int localCount = static_cast<int>(localForest.size());
+    std::vector<int> counts(mpiSize);
+    MPI_Gather(&localCount, 1, MPI_INT, counts.data(), 1, MPI_INT,
+               /*root=*/0, MPI_COMM_WORLD);
+
+    /* -------- 4b. rank-0 receives byte buffers --------------------- */
+    if (mpiRank == 0) {
+      trees.clear();
+      trees.reserve(std::accumulate(counts.begin(), counts.end(), 0));
+
+      for (auto &t : localForest)
+        trees.push_back(std::move(t));
+
+      for (int src = 1; src < mpiSize; ++src) {
+        int bytes;
+        MPI_Recv(&bytes, 1, MPI_INT, src, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+
+        std::vector<char> bigBuf(bytes);
+        MPI_Recv(bigBuf.data(), bytes, MPI_BYTE, src, 1, MPI_COMM_WORLD,
+                 MPI_STATUS_IGNORE);
+
+        /* slice the big buffer back into individual trees  */
+        int already = 0;
+        for (int k = 0; k < counts[src]; ++k) {
+          // Each tree is written back-to-back; we need its length.
+          int len = *reinterpret_cast<int *>(&bigBuf[already]);
+          already += sizeof(int);
+
+          std::vector<char> oneTree(&bigBuf[already], &bigBuf[already + len]);
+          trees.push_back(DecisionTreeSingle::deserializeFromBuffer(oneTree));
+          already += len;
+        }
+      }
+    } else { /* -------- 4c. non-root ranks send their trees --------- */
+      // Pack all local trees into a single contiguous buffer
+      std::vector<char> bigBuf;
+      std::vector<int> offsets;
+      offsets.reserve(localForest.size());
+
+      for (auto &t : localForest) {
+        std::vector<char> buf = t->serializeToBuffer();
+        int len = static_cast<int>(buf.size());
+        bigBuf.insert(bigBuf.end(), reinterpret_cast<char *>(&len),
+                      reinterpret_cast<char *>(&len) + sizeof(int));
+        bigBuf.insert(bigBuf.end(), buf.begin(), buf.end());
+      }
+
+      int bytes = static_cast<int>(bigBuf.size());
+      MPI_Send(&bytes, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
+      MPI_Send(bigBuf.data(), bytes, MPI_BYTE, 0, 1, MPI_COMM_WORLD);
     }
+  } else /* single rank build: keep localForest as member “trees” */
+#endif
+  {
+    trees.swap(localForest);
   }
 }
 
@@ -104,7 +225,7 @@ void Bagging::train(const std::vector<double> &data, int rowLength,
  * @param sample Feature vector for the sample
  * @return Averaged prediction from all trees
  */
-double Bagging::predict(const double* sample, int rowLength) const {
+double Bagging::predict(const double *sample, int rowLength) const {
   double sum = 0.0;
   for (const auto &tree : trees) {
     sum += tree->predict(sample, rowLength);
@@ -123,14 +244,14 @@ double Bagging::evaluate(const std::vector<double> &test_data, int rowLength,
                          const std::vector<double> &test_labels) const {
 
   std::vector<double> predictions;
-    size_t n_samples = test_labels.size();
-    predictions.reserve(n_samples); // optimisation : éviter reallocations
+  size_t n_samples = test_labels.size();
+  predictions.reserve(n_samples); // optimisation : éviter reallocations
 
-    for (size_t i = 0; i < n_samples; ++i) {
-        const double* sample_ptr = &test_data[i * rowLength];
-        predictions.push_back(predict(sample_ptr, rowLength));
-    }
-    return loss_function->computeLoss(test_labels, predictions);
+  for (size_t i = 0; i < n_samples; ++i) {
+    const double *sample_ptr = &test_data[i * rowLength];
+    predictions.push_back(predict(sample_ptr, rowLength));
+  }
+  return loss_function->computeLoss(test_labels, predictions);
 }
 
 /**
@@ -144,15 +265,9 @@ void Bagging::save(const std::string &filename) const {
   }
 
   // Sauvegarder tous les paramètres du modèle
-  file << numTrees << " " 
-       << maxDepth << " " 
-       << minSamplesSplit << " "
-       << minImpurityDecrease << " " 
-       << Criteria << " " 
-       << whichLossFunc << " "
-       << useSplitHistogram << " "
-       << useOMP << " "
-       << numThreads << "\n";
+  file << numTrees << " " << maxDepth << " " << minSamplesSplit << " "
+       << minImpurityDecrease << " " << Criteria << " " << whichLossFunc << " "
+       << useSplitHistogram << " " << useOMP << " " << numThreads << "\n";
 
   // Sauvegarder chaque arbre avec un nom unique
   for (size_t i = 0; i < trees.size(); ++i) {
@@ -174,15 +289,8 @@ void Bagging::load(const std::string &filename) {
   }
 
   // Charger tous les paramètres du modèle
-  file >> numTrees 
-       >> maxDepth 
-       >> minSamplesSplit 
-       >> minImpurityDecrease 
-       >> Criteria 
-       >> whichLossFunc
-       >> useSplitHistogram
-       >> useOMP
-       >> numThreads;
+  file >> numTrees >> maxDepth >> minSamplesSplit >> minImpurityDecrease >>
+      Criteria >> whichLossFunc >> useSplitHistogram >> useOMP >> numThreads;
 
   // Réinitialiser et recharger les arbres
   trees.clear();
@@ -191,9 +299,9 @@ void Bagging::load(const std::string &filename) {
   // Charger chaque arbre
   for (int i = 0; i < numTrees; ++i) {
     std::string tree_filename = filename + "_tree_" + std::to_string(i);
-    trees[i] = std::make_unique<DecisionTreeSingle>(maxDepth, minSamplesSplit,
-                                                    minImpurityDecrease, Criteria, 
-                                                    useSplitHistogram, numThreads);
+    trees[i] = std::make_unique<DecisionTreeSingle>(
+        maxDepth, minSamplesSplit, minImpurityDecrease, Criteria,
+        useSplitHistogram, numThreads);
     trees[i]->loadTree(tree_filename);
   }
 
@@ -226,8 +334,11 @@ std::string Bagging::getTrainingParametersString() const {
   oss << "  - Min Samples Split: " << minSamplesSplit << "\n";
   oss << "  - Min Impurity Decrease: " << minImpurityDecrease << "\n";
   oss << "  - Criteria: " << (Criteria == 0 ? "MSE" : "MAE") << "\n";
-  oss << "  - Loss Function: " << (whichLossFunc == 0 ? "Least Squares Loss" : "Mean Absolute Loss") << "\n";
-  oss << "  - UseSplitHistogram: " << (useSplitHistogram ? "true" : "false") << "\n";
+  oss << "  - Loss Function: "
+      << (whichLossFunc == 0 ? "Least Squares Loss" : "Mean Absolute Loss")
+      << "\n";
+  oss << "  - UseSplitHistogram: " << (useSplitHistogram ? "true" : "false")
+      << "\n";
   oss << "  - UseOMP: " << (useOMP ? "true" : "false") << "\n";
   oss << " - Number of threads: " << numThreads << "\n";
 

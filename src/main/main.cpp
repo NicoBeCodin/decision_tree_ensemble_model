@@ -7,7 +7,20 @@
 #include <memory>
 
 int main(int argc, char *argv[]) {
+  #ifdef USE_MPI                     // ❷ initialise exactly once
+    int already = 0;
+    MPI_Initialized(&already);
+    if (!already) {
+        int provided = 0;
+        MPI_Init_thread(&argc, &argv,
+                        MPI_THREAD_FUNNELED,  /* requested level */
+                        &provided);
+        /* provided can be FUNNELED or MULTIPLE – both are fine */
+    }
+#endif
+  
   ProgramOptions programOptions = parseCommandLineArguments(argc, argv);
+
 
   DataParams data_params;
   if (!splitDataset(data_params)) {
@@ -22,6 +35,8 @@ int main(int argc, char *argv[]) {
       break;
     }
     case 2: {
+      
+
       BaggingParams baggingParams;
       if (!getBaggingParams(programOptions, baggingParams)) return -1;
       runBaggingModel(baggingParams, data_params);
@@ -43,5 +58,9 @@ int main(int argc, char *argv[]) {
       std::cerr << "Invalid choice! Please choose 1, 2, 3 or 4" << std::endl;
       return -1;
   }
+
+  #ifdef USE_MPI                     // ❹ finalise once, at the very end
+    MPI_Finalize();
+#endif
   return 0;
 }
