@@ -610,3 +610,35 @@
 
 ---
 
+### Bagging
+
+#### Performance Metrics
+- MSE: 9.881e-324
+- Training Time: 6.137 seconds
+- Evaluation Time: 0.059 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 60.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 20.000
+- num_threads: 1.000
+- use_omp: 0.000
+- use_split_histogram: 0.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 0.00%
+- matrix_size_y: 0.00%
+- p1: 0.00%
+- p2: 0.00%
+- p3: 0.00%
+- p4: 0.00%
+- p5: 0.00%
+- p6: 0.00%
+- p7: 0.00%
+- p8: 0.00%
+
+---
+

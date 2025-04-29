@@ -59,7 +59,7 @@ int main(int argc, char *argv[]) {
       return -1;
   }
 
-  #ifdef USE_MPI                     // ❹ finalise once, at the very end
+  #ifdef USE_MPI                     // finalise once, at the very end
     MPI_Finalize();
 #endif
   return 0;

@@ -101,29 +101,31 @@ void runBaggingModel(BaggingParams params, DataParams data_params) {
       MPI_Comm_rank(MPI_COMM_WORLD, &mpiRank);
       MPI_Comm_size(MPI_COMM_WORLD, &mpiSize);
     #endif
+    // Feature names
+    std::vector<std::string> feature_names = {
+        "p1",           "p2", "p3", "p4", "p5", "p6", "p7", "p8", "matrix_size_x",
+        "matrix_size_y"};
   
-  std::cout << "Training a Bagging model, please wait...\n";
-
-  // Feature names
-  std::vector<std::string> feature_names = {
-      "p1",           "p2", "p3", "p4", "p5", "p6", "p7", "p8", "matrix_size_x",
-      "matrix_size_y"};
-
-  std::unique_ptr<LossFunction> loss_function;
-  std::string printMAEorMSE;
+    std::unique_ptr<LossFunction> loss_function;
+    std::string printMAEorMSE;
 
 
+    if (mpiRank==0){
+      std::cout << "Training a Bagging model, please wait...\n";
 
-  if (params.whichLossFunction == 0) {
-    loss_function = std::make_unique<LeastSquaresLoss>();
-    printMAEorMSE = "Bagging Mean Squared Error (MSE): ";
-  } else {
-    loss_function = std::make_unique<MeanAbsoluteLoss>();
-    printMAEorMSE = "Bagging Mean Absolute Error (MAE): ";
-  }
-  if (mpiRank == 0) {
-    std::cout << "Bagging process started, please wait...\n";
-  }
+      if (params.whichLossFunction == 0) {
+        loss_function = std::make_unique<LeastSquaresLoss>();
+        printMAEorMSE = "Bagging Mean Squared Error (MSE): ";
+      } else {
+        loss_function = std::make_unique<MeanAbsoluteLoss>();
+        printMAEorMSE = "Bagging Mean Absolute Error (MAE): ";
+      }  
+      if (mpiRank == 0) {
+        std::cout << "Bagging process started, please wait...\n";
+      }  
+    }  
+  
+
 
   Bagging bagging_model(params.numTrees, params.maxDepth,
                         params.minSamplesSplit, params.minImpurityDecrease,

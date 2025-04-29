@@ -854,27 +854,59 @@ void DecisionTreeSingle::loadTree(const std::string &filename) {
   in.close();
 }
 
-/* decision_tree_single.cpp */
-std::vector<char> DecisionTreeSingle::serializeToBuffer()
+// /* decision_tree_single.cpp */
+// std::vector<char> DecisionTreeSingle::serializeToBuffer()
+// {
+//     std::ostringstream oss(std::ios::binary);
+//     serializeNode(Root.get(), oss);              // legal: this is non-const
+//     const std::string& s = oss.str();
+//     return {s.begin(), s.end()};
+// }
+
+std::vector<char> DecisionTreeSingle::serializeToBuffer() 
 {
     std::ostringstream oss(std::ios::binary);
-    serializeNode(Root.get(), oss);              // legal: this is non-const
+
+    /* ① write the two root statistics */
+    oss.write(reinterpret_cast<const char*>(&RootSamples), sizeof(RootSamples));
+    oss.write(reinterpret_cast<const char*>(&RootMSE),     sizeof(RootMSE));
+
+    /* ② write the whole tree topology */
+    serializeNode(Root.get(), oss) ;
+
     const std::string& s = oss.str();
-    return {s.begin(), s.end()};
+    return std::vector<char>(s.begin(), s.end());
 }
 
-std::unique_ptr<DecisionTreeSingle>
-DecisionTreeSingle::deserializeFromBuffer(const std::vector<char>& buf)
-{
-    std::istringstream iss(
+// DecisionTreeSingle::deserializeFromBuffer(const std::vector<char>& buf)
+// {
+  //     std::istringstream iss(
+    //         std::string(reinterpret_cast<const char*>(buf.data()), buf.size()),
+    //         std::ios::binary);
+    
+    //     auto tree = std::make_unique<DecisionTreeSingle>();
+    //     tree->Root = tree->deserializeNode(iss);     // deserializeNode is non-const
+    //     return tree;
+    // }
+    std::unique_ptr<DecisionTreeSingle>
+    DecisionTreeSingle::deserializeFromBuffer(const std::vector<char>& buf)
+    {
+      std::istringstream iss(
         std::string(reinterpret_cast<const char*>(buf.data()), buf.size()),
         std::ios::binary);
+        
+        /* we need an instance; the default ctor must exist (can be empty) */
+        auto tree = std::make_unique<DecisionTreeSingle>();
+        
+        /* ① restore the root statistics */
+        iss.read(reinterpret_cast<char*>(&tree->RootSamples), sizeof(tree->RootSamples));
+        iss.read(reinterpret_cast<char*>(&tree->RootMSE),     sizeof(tree->RootMSE));
+        
+        /* ② rebuild the topology */
+        tree->Root = tree->deserializeNode(iss);
 
-    auto tree = std::make_unique<DecisionTreeSingle>();
-    tree->Root = tree->deserializeNode(iss);     // deserializeNode is non-const
     return tree;
 }
-
 
 // Returns training parameters as a dictionnary
 std::map<std::string, std::string>
