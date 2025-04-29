@@ -1,14 +1,272 @@
 #include "boosting_improved.h"
 #include <omp.h>
 #include <memory>
+#include <algorithm>
+#include <numeric>
 
-// Implémentation de la méthode d'entrainement
+
+void ImprovedGBDT::precomputeFeatureBins(const std::vector<std::vector<double>>& X) {
+    if (binning_method == NONE || X.empty()) return;
+    
+    int n_samples = X.size();
+    int n_features = X[0].size();
+    
+
+    bin_cache.feature_bins.resize(n_features);
+    
+    #pragma omp parallel for schedule(dynamic, 1)
+    for (int f = 0; f < n_features; ++f) {
+        bin_cache.feature_bins[f].resize(n_samples);
+        for (int i = 0; i < n_samples; ++i) {
+         
+            if (binning_method == QUANTILE && quantile_binner) {
+                bin_cache.feature_bins[f][i] = quantile_binner->getBin(X[i][f], f);
+            } else if (binning_method == FREQUENCY && frequency_binner) {
+                bin_cache.feature_bins[f][i] = frequency_binner->getBin(X[i][f], f);
+            }
+        }
+    }
+}
+
+
+void ImprovedGBDT::buildHistogram(
+    const std::vector<std::vector<double>>& X,
+    const std::vector<int>& indices,
+    const std::vector<double>& gradients,
+    const std::vector<double>& hessians,
+    std::vector<std::vector<HistogramEntry>>& hist) {
+    
+    int n_features = X[0].size();
+    
+
+    for (auto& feature_hist : hist) {
+        std::fill(feature_hist.begin(), feature_hist.end(), HistogramEntry());
+    }
+    
+    if (indices.size() < MIN_SAMPLES_FOR_PARALLEL) {
+     
+        for (int idx : indices) {
+            for (int f = 0; f < n_features; ++f) {
+                int bin = getBinIndex(X[idx][f], f, idx);
+                hist[f][bin].grad_sum += gradients[idx];
+                hist[f][bin].hess_sum += hessians[idx];
+                hist[f][bin].count++;
+            }
+        }
+    } else {
+  
+        const int max_threads = omp_get_max_threads();
+        std::vector<std::vector<std::vector<HistogramEntry>>> thread_histograms(
+            max_threads, std::vector<std::vector<HistogramEntry>>(
+                n_features, std::vector<HistogramEntry>(num_bins + 1)
+            )
+        );
+        
+        #pragma omp parallel
+        {
+            int thread_id = omp_get_thread_num();
+            auto& local_hist = thread_histograms[thread_id];
+            
+            #pragma omp for schedule(static)
+            for (size_t i = 0; i < indices.size(); ++i) {
+                int idx = indices[i];
+                for (int f = 0; f < n_features; ++f) {
+                    int bin = getBinIndex(X[idx][f], f, idx);
+                    local_hist[f][bin].grad_sum += gradients[idx];
+                    local_hist[f][bin].hess_sum += hessians[idx];
+                    local_hist[f][bin].count++;
+                }
+            }
+        }
+        
+      
+        #pragma omp parallel for collapse(2)
+        for (int f = 0; f < n_features; ++f) {
+            for (int bin = 0; bin <= num_bins; ++bin) {
+                for (int t = 0; t < max_threads; ++t) {
+                    hist[f][bin].grad_sum += thread_histograms[t][f][bin].grad_sum;
+                    hist[f][bin].hess_sum += thread_histograms[t][f][bin].hess_sum;
+                    hist[f][bin].count += thread_histograms[t][f][bin].count;
+                }
+            }
+        }
+    }
+}
+
+
+bool ImprovedGBDT::findBestSplit(
+    const std::vector<std::vector<HistogramEntry>>& hist,
+    double sum_gradients,
+    double sum_hessians,
+    int& best_feature,
+    int& best_bin,
+    double& best_gain) {
+    
+    int n_features = hist.size();
+    best_feature = -1;
+    best_bin = 0;
+    best_gain = 0.0;
+    
+    #pragma omp parallel
+    {
+        double local_best_gain = 0.0;
+        int local_best_feature = -1;
+        int local_best_bin = 0;
+        
+        #pragma omp for schedule(dynamic, 1)
+        for (int f = 0; f < n_features; ++f) {
+            double left_grad = 0.0;
+            double left_hess = 0.0;
+            int left_count = 0;
+            
+            for (int bin = 0; bin < num_bins; ++bin) {
+                if (hist[f][bin].count == 0) continue;
+                
+                left_grad += hist[f][bin].grad_sum;
+                left_hess += hist[f][bin].hess_sum;
+                left_count += hist[f][bin].count;
+                
+                double right_grad = sum_gradients - left_grad;
+                double right_hess = sum_hessians - left_hess;
+                int right_count = hist[f][num_bins].count - left_count;
+                
+                if (left_count < 1 || right_count < 1) continue;
+                
+                double gain = calculateSplitGain(
+                    left_grad, left_hess, 
+                    right_grad, right_hess, 
+                    sum_gradients, sum_hessians
+                );
+                
+                if (gain > local_best_gain) {
+                    local_best_gain = gain;
+                    local_best_feature = f;
+                    local_best_bin = bin;
+                }
+            }
+        }
+        
+        #pragma omp critical
+        {
+            if (local_best_gain > best_gain) {
+                best_gain = local_best_gain;
+                best_feature = local_best_feature;
+                best_bin = local_best_bin;
+            }
+        }
+    }
+    
+    return best_feature != -1;
+}
+
+void ImprovedGBDT::splitNodeHistogram(
+    const std::vector<std::vector<double>>& X,
+    const std::vector<int>& indices,
+    int best_feature,
+    int best_bin,
+    double best_split_value,
+    std::vector<int>& left_indices,
+    std::vector<int>& right_indices,
+    double& left_grad_sum,
+    double& left_hess_sum,
+    const std::vector<double>& gradients,
+    const std::vector<double>& hessians) {
+    
+    left_indices.clear();
+    right_indices.clear();
+    left_grad_sum = 0.0;
+    left_hess_sum = 0.0;
+    
+    const int n_samples = indices.size();
+    left_indices.reserve(n_samples / 2);
+    right_indices.reserve(n_samples / 2);
+    
+
+    if (n_samples > MIN_SAMPLES_FOR_PARALLEL) {
+     
+        std::vector<int> left_buffer(n_samples);
+        std::vector<int> right_buffer(n_samples);
+        std::vector<int> left_counts(omp_get_max_threads() + 1, 0);
+        std::vector<int> right_counts(omp_get_max_threads() + 1, 0);
+        
+    
+        #pragma omp parallel
+        {
+            int thread_id = omp_get_thread_num();
+            int left_count = 0;
+            int right_count = 0;
+            
+            #pragma omp for schedule(static)
+            for (int i = 0; i < n_samples; ++i) {
+                int idx = indices[i];
+                if (X[idx][best_feature] <= best_split_value) {
+                    left_count++;
+                } else {
+                    right_count++;
+                }
+            }
+            
+            left_counts[thread_id + 1] = left_count;
+            right_counts[thread_id + 1] = right_count;
+        }
+        
+    
+        for (int i = 1; i <= omp_get_max_threads(); ++i) {
+            left_counts[i] += left_counts[i - 1];
+            right_counts[i] += right_counts[i - 1];
+        }
+        
+   
+        #pragma omp parallel
+        {
+            int thread_id = omp_get_thread_num();
+            int left_offset = left_counts[thread_id];
+            int right_offset = right_counts[thread_id];
+            
+            #pragma omp for schedule(static) reduction(+:left_grad_sum,left_hess_sum)
+            for (int i = 0; i < n_samples; ++i) {
+                int idx = indices[i];
+                if (X[idx][best_feature] <= best_split_value) {
+                    left_buffer[left_offset++] = idx;
+                    left_grad_sum += gradients[idx];
+                    left_hess_sum += hessians[idx];
+                } else {
+                    right_buffer[right_offset++] = idx;
+                }
+            }
+        }
+        
+   
+        left_indices.assign(left_buffer.begin(), left_buffer.begin() + left_counts[omp_get_max_threads()]);
+        right_indices.assign(right_buffer.begin(), right_buffer.begin() + right_counts[omp_get_max_threads()]);
+    } else {
+      
+        for (int idx : indices) {
+            if (X[idx][best_feature] <= best_split_value) {
+                left_indices.push_back(idx);
+                left_grad_sum += gradients[idx];
+                left_hess_sum += hessians[idx];
+            } else {
+                right_indices.push_back(idx);
+            }
+        }
+    }
+}
+
+
+
 void ImprovedGBDT::fit(const std::vector<std::vector<double>>& X, const std::vector<double>& y) {
     int n_samples = X.size();
     if (n_samples == 0) return;
     int n_features = X[0].size();
+    
 
-    // Prétraitement: construction des bins selon la méthode choisie
+    num_threads = omp_get_max_threads();
+    
+ 
+    memory_pool.init(num_threads * 4, n_samples);
+
+  
     if (binning_method == QUANTILE) {
         quantile_binner = std::make_unique<Binning::QuantileSketch>(num_bins);
         quantile_binner->build(X);
@@ -16,558 +274,588 @@ void ImprovedGBDT::fit(const std::vector<std::vector<double>>& X, const std::vec
         frequency_binner = std::make_unique<Binning::FrequencyBinning>(num_bins);
         frequency_binner->build(X);
     }
-
-    // Initialisation de la prédiction avec la moyenne des valeurs cibles
-    double sumY = 0.0;
-    for (double val : y) {
-        sumY += val;
+    
+ 
+    if (binning_method != NONE) {
+        precomputeFeatureBins(X);
     }
-    initial_prediction = sumY / n_samples;
+
+ 
+    double sum_y = 0.0;
+    #pragma omp parallel for reduction(+:sum_y) if(n_samples > MIN_SAMPLES_FOR_PARALLEL)
+    for (int i = 0; i < n_samples; ++i) {
+        sum_y += y[i];
+    }
+    initial_prediction = sum_y / n_samples;
+    
+
     y_pred_train.assign(n_samples, initial_prediction);
 
-    // Allocation préalable pour optimisation
+ 
     trees.reserve(n_estimators);
     tree_weights.reserve(n_estimators);
 
+  
     std::uniform_real_distribution<double> dist(0.0, 1.0);
 
-    // Vecteurs pour les gradients et hessians
-    std::vector<double> grad(n_samples);
-    std::vector<double> hess(n_samples);
 
-    // Boucle principale d'entrainement
+    std::vector<double> gradients(n_samples);
+    std::vector<double> hessians(n_samples, 1.0); 
+
+ 
     for (int iter = 0; iter < n_estimators; ++iter) {
-        // Gestion du skip rate pour DART
+    
         if (useDart && skip_rate > 0.0) {
             double skip_sample = dist(rng);
             if (skip_sample < skip_rate) {
-                continue; // On saute cette itération
+                continue;
             }
         }
 
-        // Calcul des prédictions pour le gradient (avec gestion DART)
+      
         std::vector<int> drop_indices;
-        std::vector<double> pred_for_grad;
+        std::vector<double> pred_for_grad = y_pred_train;
         
-        if (useDart) {
-            // Mode DART: sélection aléatoire des arbres à ignorer
-            if (!trees.empty() && drop_rate > 0.0) {
-                for (int j = 0; j < (int)trees.size(); ++j) {
-                    double r = dist(rng);
-                    if (r < drop_rate) {
-                        drop_indices.push_back(j);
-                    }
-                }
-                // On garde au moins un arbre
-                if (drop_indices.size() == trees.size()) {
-                    drop_indices.pop_back();
+        if (useDart && !trees.empty() && drop_rate > 0.0) {
+           
+            for (int j = 0; j < (int)trees.size(); ++j) {
+                double r = dist(rng);
+                if (r < drop_rate) {
+                    drop_indices.push_back(j);
                 }
             }
             
-            // Si des arbres sont ignorés, recalcul des prédictions sans eux
+         
+            if (drop_indices.size() == trees.size()) {
+                drop_indices.pop_back();
+            }
+            
+         
             if (!drop_indices.empty()) {
-                pred_for_grad = y_pred_train;
-                for (int drop_idx : drop_indices) {
-                    Node* node = trees[drop_idx].root;
-                    for (int i = 0; i < n_samples; ++i) {
-                        double tree_pred = 0.0;
-                        Node* cur = node;
-                        while (cur && !cur->is_leaf) {
-                            if (X[i][cur->split_feature] <= cur->split_value) {
-                                cur = cur->left;
-                            } else {
-                                cur = cur->right;
-                            }
+                #pragma omp parallel for if(n_samples > MIN_SAMPLES_FOR_PARALLEL)
+                for (int i = 0; i < n_samples; ++i) {
+                    for (int drop_idx : drop_indices) {
+                        const Node* node = trees[drop_idx].root;
+                        while (node && !node->is_leaf) {
+                            node = (X[i][node->split_feature] <= node->split_value) ? 
+                                    node->left : node->right;
                         }
-                        if (cur) {
-                            tree_pred = cur->leaf_value;
+                        if (node) {
+                            pred_for_grad[i] -= tree_weights[drop_idx] * node->leaf_value;
                         }
-                        pred_for_grad[i] -= tree_weights[drop_idx] * tree_pred;
                     }
                 }
-            } else {
-                pred_for_grad = y_pred_train;
             }
-        } else {
-            pred_for_grad = y_pred_train;
         }
 
-        // Calcul des gradients et hessians (pour MSE)
+   
+        #pragma omp parallel for if(n_samples > MIN_SAMPLES_FOR_PARALLEL)
         for (int i = 0; i < n_samples; ++i) {
-            double error = pred_for_grad[i] - y[i];
-            grad[i] = error;
-            hess[i] = 1.0;
+            gradients[i] = pred_for_grad[i] - y[i]; 
+            hessians[i] = 1.0;                   
         }
 
-        // Calcul des résidus (négatif du gradient)
-        std::vector<double> residual(n_samples);
-        for (int i = 0; i < n_samples; ++i) {
-            residual[i] = -grad[i];
-        }
-        
-        // Indices de tous les échantillons
+     
         std::vector<int> all_indices(n_samples);
+        std::iota(all_indices.begin(), all_indices.end(), 0);
+        
+  
+        double sum_gradients = 0.0;
+        double sum_hessians = static_cast<double>(n_samples); 
+        
+        #pragma omp parallel for reduction(+:sum_gradients) if(n_samples > MIN_SAMPLES_FOR_PARALLEL)
         for (int i = 0; i < n_samples; ++i) {
-            all_indices[i] = i;
+            sum_gradients += gradients[i];
         }
         
-        // Construction de l'arbre selon la méthode choisie
+   
         Node* root = nullptr;
         if (binning_method != NONE) {
-            root = buildTreeRecursiveBinned(X, residual, all_indices, 0);
+            root = buildTreeRecursiveBinned(X, gradients, hessians, all_indices, 0, 
+                                          sum_gradients, sum_hessians);
         } else {
-            root = buildTreeRecursive(X, residual, all_indices, 0);
+            root = buildTreeRecursive(X, gradients, hessians, all_indices, 0, 
+                                    sum_gradients, sum_hessians);
+        }
+        
+  
+        if (!root) {
+            continue;
         }
         
         Tree new_tree;
         new_tree.root = root;
 
-        // Calcul des prédictions du nouvel arbre
         std::vector<double> new_tree_pred(n_samples);
+        
+        #pragma omp parallel for if(n_samples > MIN_SAMPLES_FOR_PARALLEL)
         for (int i = 0; i < n_samples; ++i) {
-            Node* cur = root;
-            while (cur && !cur->is_leaf) {
-                if (X[i][cur->split_feature] <= cur->split_value) {
-                    cur = cur->left;
-                } else {
-                    cur = cur->right;
-                }
+            const Node* node = root;
+            while (node && !node->is_leaf) {
+                node = (X[i][node->split_feature] <= node->split_value) ? 
+                        node->left : node->right;
             }
-            if (cur) {
-                new_tree_pred[i] = cur->leaf_value;
-            } else {
-                new_tree_pred[i] = 0.0;
-            }
+            new_tree_pred[i] = node ? node->leaf_value : 0.0;
         }
 
-        // Ajout du nouvel arbre au modèle
+    
         trees.push_back(new_tree);
         double new_weight = learning_rate;
         tree_weights.push_back(new_weight);
 
-        // Mise à jour des prédictions
-        if (useDart) {
-            if (!drop_indices.empty()) {
-                // Normalisation des poids (DART)
-                double sumWeight = 0.0;
-                for (double w : tree_weights) {
-                    sumWeight += w;
-                }
-                double old_sum = sumWeight - tree_weights.back();
-                double factor = (old_sum > 0.0 ? old_sum / sumWeight : 1.0);
-                
-                // Mise à l'échelle des poids
-                for (double &w : tree_weights) {
-                    w *= factor;
-                }
-                
-                // Mise à jour des prédictions
-                for (int i = 0; i < n_samples; ++i) {
-                    y_pred_train[i] = factor * y_pred_train[i] + tree_weights.back() * new_tree_pred[i];
-                }
-            } else {
-                // Sans drop, mise à jour standard
-                for (int i = 0; i < n_samples; ++i) {
-                    y_pred_train[i] += new_weight * new_tree_pred[i];
-                }
+     
+        if (useDart && !drop_indices.empty()) {
+        
+            double sum_weight = 0.0;
+            for (double w : tree_weights) {
+                sum_weight += w;
+            }
+            double old_sum = sum_weight - tree_weights.back();
+            double factor = (old_sum > 0.0 ? old_sum / sum_weight : 1.0);
+            
+       
+            for (double &w : tree_weights) {
+                w *= factor;
+            }
+            
+        
+            #pragma omp parallel for if(n_samples > MIN_SAMPLES_FOR_PARALLEL)
+            for (int i = 0; i < n_samples; ++i) {
+                y_pred_train[i] = factor * y_pred_train[i] + tree_weights.back() * new_tree_pred[i];
             }
         } else {
-            // Mode non-DART: mise à jour standard
+          
+            #pragma omp parallel for if(n_samples > MIN_SAMPLES_FOR_PARALLEL)
             for (int i = 0; i < n_samples; ++i) {
                 y_pred_train[i] += new_weight * new_tree_pred[i];
             }
         }
+        
+     
+        memory_pool.reset();
     }
 }
 
-// Obtenir l'indice de bin pour une valeur
-int ImprovedGBDT::getBinIndex(double value, int feature_idx) const {
-    if (binning_method == QUANTILE && quantile_binner) {
-        return quantile_binner->getBin(value, feature_idx);
-    } else if (binning_method == FREQUENCY && frequency_binner) {
-        return frequency_binner->getBin(value, feature_idx);
-    }
-    return 0; // Valeur par défaut
-}
-
-// Obtenir la valeur de séparation à partir d'un indice de bin
-double ImprovedGBDT::getSplitValueFromBin(int feature_idx, int bin_idx) const {
-    if (binning_method == QUANTILE && quantile_binner) {
-        return quantile_binner->getSplitValue(feature_idx, bin_idx);
-    } else if (binning_method == FREQUENCY && frequency_binner) {
-        return frequency_binner->getSplitValue(feature_idx, bin_idx);
-    }
-    return 0.0; // Valeur par défaut
-}
 
 ImprovedGBDT::Node* ImprovedGBDT::buildTreeRecursiveBinned(
     const std::vector<std::vector<double>>& X, 
-    const std::vector<double>& residual, 
+    const std::vector<double>& gradients,
+    const std::vector<double>& hessians,
     const std::vector<int>& indices, 
     int depth,
-    const std::vector<std::vector<double>>& parent_grad_sum,
-    const std::vector<std::vector<int>>& parent_count){
+    double sum_gradients,
+    double sum_hessians,
+    const std::vector<std::vector<HistogramEntry>>* parent_hist) {
+    
+    const int n_samples = indices.size();
+    const int n_features = X[0].size();
     
     if (indices.empty()) {
         return nullptr;
     }
     
-    // Critères d'arrêt
-    if (depth >= max_depth || indices.size() <= 1) {
+
+    if (depth >= max_depth || n_samples <= 1) {
         Node* leaf = new Node();
         leaf->is_leaf = true;
-        double sum = 0.0;
-        for (int idx : indices) {
-            sum += residual[idx];
-        }
-        leaf->leaf_value = sum / indices.size();
+        leaf->leaf_value = calculateLeafValue(sum_gradients, sum_hessians);
+        leaf->sum_grad = sum_gradients;
+        leaf->sum_hess = sum_hessians;
+        leaf->sample_count = n_samples;
         return leaf;
     }
     
-    // Calcul de la variance des résidus
-    double sumRes = 0.0;
-    double sumResSq = 0.0;
-    for (int idx : indices) {
-        sumRes += residual[idx];
-        sumResSq += residual[idx] * residual[idx];
-    }
-    double meanRes = sumRes / indices.size();
-    double varRes = sumResSq / indices.size() - meanRes * meanRes;
-    
-    if (varRes < 1e-9) {
+
+    if (std::abs(sum_gradients) < 1e-10 || sum_hessians < 1e-10) {
         Node* leaf = new Node();
         leaf->is_leaf = true;
-        leaf->leaf_value = meanRes;
+        leaf->leaf_value = calculateLeafValue(sum_gradients, sum_hessians);
+        leaf->sum_grad = sum_gradients;
+        leaf->sum_hess = sum_hessians;
+        leaf->sample_count = n_samples;
         return leaf;
     }
 
-    // Recherche de la meilleure division avec les bins
-    double best_gain = 0.0;
+    std::vector<std::vector<HistogramEntry>> hist(
+        n_features, std::vector<HistogramEntry>(num_bins + 1));
+ 
+    if (parent_hist && parent_hist->size() == n_features && 
+        (*parent_hist)[0].size() == num_bins + 1 && 
+        n_samples > n_samples / 3) { 
+        
+ 
+        const std::vector<int>* smaller_indices = &indices;
+        std::vector<std::vector<HistogramEntry>> smaller_hist(
+            n_features, std::vector<HistogramEntry>(num_bins + 1));
+        
+  
+        buildHistogram(X, *smaller_indices, gradients, hessians, smaller_hist);
+        
+  
+        #pragma omp parallel for collapse(2) if(n_features > 10)
+        for (int f = 0; f < n_features; ++f) {
+            for (int b = 0; b <= num_bins; ++b) {
+                hist[f][b].grad_sum = (*parent_hist)[f][b].grad_sum - smaller_hist[f][b].grad_sum;
+                hist[f][b].hess_sum = (*parent_hist)[f][b].hess_sum - smaller_hist[f][b].hess_sum;
+                hist[f][b].count = (*parent_hist)[f][b].count - smaller_hist[f][b].count;
+            }
+        }
+    } else {
+     
+        buildHistogram(X, indices, gradients, hessians, hist);
+    }
+    
+
     int best_feature = -1;
     int best_bin = 0;
-    double best_split_value = 0.0;
+    double best_gain = 0.0;
     
-    // Structure pour stocker le meilleur split
-    std::vector<int> best_left_indices;
-    std::vector<int> best_right_indices;
+    bool found_split = findBestSplit(hist, sum_gradients, sum_hessians, 
+        best_feature, best_bin, best_gain);
     
-    // Stockage des histogrammes pour le nœud courant
-    std::vector<std::vector<double>> node_grad_sum(X[0].size(), std::vector<double>(num_bins + 1, 0.0));
-    std::vector<std::vector<int>> node_count(X[0].size(), std::vector<int>(num_bins + 1, 0));
 
-    // Calcul des statistiques du nœud actuel
-    double total_grad = 0.0;
-    double total_hess = static_cast<double>(indices.size());
-    
-    // Utiliser histogramme parent si disponible, sinon construire un nouveau
-    bool use_parent_hist = !parent_grad_sum.empty() && !parent_count.empty();
-    
-    if (!use_parent_hist) {
-        // Construction complète de l'histogramme
-        for (int idx : indices) {
-            total_grad += -residual[idx];
-            
-            // Classifier dans les bins
-            for (int f = 0; f < (int)X[0].size(); ++f) {
-                int bin = getBinIndex(X[idx][f], f);
-                node_grad_sum[f][bin] += -residual[idx];
-                node_count[f][bin] += 1;
-            }
-        }
-    } else {
-        // Récupérer statistiques globales du parent
-        total_grad = 0.0;
-        for (int f = 0; f < (int)X[0].size(); ++f) {
-            for (int bin = 0; bin <= num_bins; ++bin) {
-                node_grad_sum[f][bin] = parent_grad_sum[f][bin];
-                node_count[f][bin] = parent_count[f][bin];
-                total_grad += node_grad_sum[f][bin];
-            }
-        }
-    }
-    
-    int feature_count = X[0].size();
-    
-    // Pour chaque caractéristique
-    for (int f = 0; f < feature_count; ++f) {
-        // Chercher la meilleure division
-        double left_grad_sum = 0.0;
-        int left_count = 0;
-        
-        for (int bin = 0; bin < num_bins; ++bin) {
-            if (node_count[f][bin] == 0) continue;  // Bin vide
-            
-            left_grad_sum += node_grad_sum[f][bin];
-            left_count += node_count[f][bin];
-            
-            double right_grad_sum = total_grad - left_grad_sum;
-            int right_count = indices.size() - left_count;
-            
-            if (left_count < 1 || right_count < 1) continue;
-            
-            // Calcul du gain de la division
-            double gain = (left_grad_sum * left_grad_sum) / left_count
-                        + (right_grad_sum * right_grad_sum) / right_count
-                        - (total_grad * total_grad) / total_hess;
-            
-            if (gain > best_gain) {
-                best_gain = gain;
-                best_feature = f;
-                best_bin = bin;
-                best_split_value = getSplitValueFromBin(f, bin);
-            }
-        }
-    }
-    
-    // Si aucune division améliorante n'est trouvée
-    if (best_feature == -1) {
+    if (!found_split) {
         Node* leaf = new Node();
         leaf->is_leaf = true;
-        leaf->leaf_value = meanRes;
+        leaf->leaf_value = calculateLeafValue(sum_gradients, sum_hessians);
+        leaf->sum_grad = sum_gradients;
+        leaf->sum_hess = sum_hessians;
+        leaf->sample_count = n_samples;
         return leaf;
     }
     
-    // Division des données selon la meilleure division
-    best_left_indices.clear();
-    best_right_indices.clear();
+
+    double best_split_value = getSplitValueFromBin(best_feature, best_bin);
     
-    for (int idx : indices) {
-        if (X[idx][best_feature] <= best_split_value) {
-            best_left_indices.push_back(idx);
-        } else {
-            best_right_indices.push_back(idx);
-        }
-    }
+ 
+    std::vector<int>& left_indices = memory_pool.get_vector();
+    std::vector<int>& right_indices = memory_pool.get_vector();
     
-    // Histogrammes pour les enfants (seulement si assez grand pour justifier l'optimisation)
-    std::vector<std::vector<double>> left_grad_sum(feature_count);
-    std::vector<std::vector<double>> right_grad_sum(feature_count);
-    std::vector<std::vector<int>> left_count(feature_count);
-    std::vector<std::vector<int>> right_count(feature_count);
+ 
+    double left_grad_sum = 0.0;
+    double left_hess_sum = 0.0;
+    splitNodeHistogram(X, indices, best_feature, best_bin, best_split_value,
+        left_indices, right_indices, left_grad_sum, left_hess_sum,
+        gradients, hessians);
+    double right_grad_sum = sum_gradients - left_grad_sum;
+    double right_hess_sum = sum_hessians - left_hess_sum;
     
-    const int MIN_NODE_SIZE_FOR_SUBTRACTION = 50; // Seuil arbitraire
-    
-    // Préparer les histogrammes des enfants par soustraction si le nœud est assez grand
-    if (indices.size() > MIN_NODE_SIZE_FOR_SUBTRACTION) {
-        // Construire l'histogramme de l'enfant gauche
-        std::vector<std::vector<double>> left_hist_grad(feature_count, std::vector<double>(num_bins + 1, 0.0));
-        std::vector<std::vector<int>> left_hist_count(feature_count, std::vector<int>(num_bins + 1, 0));
-        
-        // On ne scanne que les échantillons de gauche (plus petit ensemble)
-        for (int idx : best_left_indices) {
-            for (int f = 0; f < feature_count; ++f) {
-                int bin = getBinIndex(X[idx][f], f);
-                left_hist_grad[f][bin] += -residual[idx];
-                left_hist_count[f][bin] += 1;
-            }
-        }
-        
-        // Par soustraction, calculer l'histogramme de droite
-        std::vector<std::vector<double>> right_hist_grad(feature_count, std::vector<double>(num_bins + 1, 0.0));
-        std::vector<std::vector<int>> right_hist_count(feature_count, std::vector<int>(num_bins + 1, 0));
-        
-        for (int f = 0; f < feature_count; ++f) {
-            for (int bin = 0; bin <= num_bins; ++bin) {
-                right_hist_grad[f][bin] = node_grad_sum[f][bin] - left_hist_grad[f][bin];
-                right_hist_count[f][bin] = node_count[f][bin] - left_hist_count[f][bin];
-            }
-        }
-        
-        left_grad_sum = std::move(left_hist_grad);
-        right_grad_sum = std::move(right_hist_grad);
-        left_count = std::move(left_hist_count);
-        right_count = std::move(right_hist_count);
-    }
-    
-    // Création du nœud et construction récursive des sous-arbres
+ 
     Node* node = new Node();
     node->is_leaf = false;
     node->split_feature = best_feature;
     node->split_value = best_split_value;
+    node->sum_grad = sum_gradients;
+    node->sum_hess = sum_hessians;
+    node->sample_count = n_samples;
     
-    // Passer les histogrammes aux enfants si disponibles
-    if (indices.size() > MIN_NODE_SIZE_FOR_SUBTRACTION) {
-        node->left = buildTreeRecursiveBinned(X, residual, best_left_indices, depth + 1, 
-                                            left_grad_sum, left_count);
-        node->right = buildTreeRecursiveBinned(X, residual, best_right_indices, depth + 1, 
-                                             right_grad_sum, right_count);
-    } else {
-        // Sinon, construire normalement (pour les petits nœuds)
-        node->left = buildTreeRecursiveBinned(X, residual, best_left_indices, depth + 1);
-        node->right = buildTreeRecursiveBinned(X, residual, best_right_indices, depth + 1);
-    }
+
+    node->left = buildTreeRecursiveBinned(X, gradients, hessians, left_indices, 
+                                        depth + 1, left_grad_sum, left_hess_sum, 
+                                        &hist);
     
-    // Vérification et correction
-    if (node->left == nullptr && node->right == nullptr) {
+    node->right = buildTreeRecursiveBinned(X, gradients, hessians, right_indices, 
+                                         depth + 1, right_grad_sum, right_hess_sum, 
+                                         &hist);
+    
+  
+    if (!node->left && !node->right) {
         node->is_leaf = true;
-        node->leaf_value = meanRes;
-        node->left = node->right = nullptr;
+        node->leaf_value = calculateLeafValue(sum_gradients, sum_hessians);
     }
     
     return node;
 }
 
-// Construction récursive d'arbre standard
+
+std::vector<double> ImprovedGBDT::predict(const std::vector<std::vector<double>>& X) const {
+    const int n_samples = X.size();
+    std::vector<double> predictions(n_samples, initial_prediction);
+    
+
+    if (n_samples < 64) {
+        for (int i = 0; i < n_samples; ++i) {
+            predictions[i] = predict(X[i]);
+        }
+        return predictions;
+    }
+    
+ 
+    #pragma omp parallel
+    {
+     
+        #pragma omp for schedule(static)
+        for (int i = 0; i < n_samples; ++i) {
+            const auto& x = X[i];
+            
+            for (size_t j = 0; j < trees.size(); ++j) {
+                const Node* node = trees[j].root;
+                const double weight = tree_weights[j];
+                
+          
+                while (node && !node->is_leaf) {
+                    node = (x[node->split_feature] <= node->split_value) ? 
+                           node->left : node->right;
+                }
+                
+            
+                if (node) {
+                    predictions[i] += weight * node->leaf_value;
+                }
+            }
+        }
+    }
+    
+    return predictions;
+}
+
+
 ImprovedGBDT::Node* ImprovedGBDT::buildTreeRecursive(
     const std::vector<std::vector<double>>& X, 
-    const std::vector<double>& residual, 
-    const std::vector<int>& indices, int depth) {
+    const std::vector<double>& gradients,
+    const std::vector<double>& hessians,
+    const std::vector<int>& indices, 
+    int depth,
+    double sum_gradients,
+    double sum_hessians) {
     
+    const int n_samples = indices.size();
+    const int n_features = X[0].size();
+    
+
     if (indices.empty()) {
         return nullptr;
     }
-    
-    // Critères d'arrêt
-    if (depth >= max_depth || indices.size() <= 1) {
+
+    if (depth >= max_depth || n_samples <= 1) {
         Node* leaf = new Node();
         leaf->is_leaf = true;
-        double sum = 0.0;
-        for (int idx : indices) {
-            sum += residual[idx];
-        }
-        leaf->leaf_value = sum / indices.size();
+        leaf->leaf_value = calculateLeafValue(sum_gradients, sum_hessians);
+        leaf->sum_grad = sum_gradients;
+        leaf->sum_hess = sum_hessians;
+        leaf->sample_count = n_samples;
         return leaf;
     }
     
-    // Calcul de la variance des résidus
-    double sumRes = 0.0;
-    double sumResSq = 0.0;
-    for (int idx : indices) {
-        sumRes += residual[idx];
-        sumResSq += residual[idx] * residual[idx];
-    }
-    double meanRes = sumRes / indices.size();
-    double varRes = sumResSq / indices.size() - meanRes * meanRes;
-    
-    if (varRes < 1e-9) {
+    if (std::abs(sum_gradients) < 1e-10 || sum_hessians < 1e-10) {
         Node* leaf = new Node();
         leaf->is_leaf = true;
-        leaf->leaf_value = meanRes;
+        leaf->leaf_value = calculateLeafValue(sum_gradients, sum_hessians);
+        leaf->sum_grad = sum_gradients;
+        leaf->sum_hess = sum_hessians;
+        leaf->sample_count = n_samples;
         return leaf;
     }
 
-    // Recherche de la meilleure division
     double best_gain = 0.0;
     int best_feature = -1;
     double best_split_value = 0.0;
-    std::vector<int> best_left_indices;
-    std::vector<int> best_right_indices;
-
-    // Calcul des statistiques du noeud actuel
-    double total_grad = 0.0;
-    double total_hess = static_cast<double>(indices.size());
-    for (int idx : indices) {
-        total_grad += -residual[idx];
-    }
-
-    int feature_count = X[0].size();
     
-    // Pour chaque caractéristique
-    for (int f = 0; f < feature_count; ++f) {
-        // Tri des indices selon la caractéristique
-        std::vector<int> sorted_idx = indices;
-        std::sort(sorted_idx.begin(), sorted_idx.end(), [&](int a, int b){
-            return X[a][f] < X[b][f];
-        });
+
+    struct SortItem {
+        double feature_value;
+        double gradient;
+        double hessian;
+        int original_index;
         
-        double left_grad_sum = 0.0;
-        double left_count = 0.0;
+        bool operator<(const SortItem& other) const {
+            return feature_value < other.feature_value;
+        }
+    };
+    
+    std::vector<SortItem> sort_buffer(n_samples);
+    
+
+    #pragma omp parallel
+    {
+
+        double thread_best_gain = 0.0;
+        int thread_best_feature = -1;
+        double thread_best_split = 0.0;
+        std::vector<SortItem> local_sort_buffer(n_samples);
         
-        // Essai de chaque point de division possible
-        for (size_t i = 0; i < sorted_idx.size() - 1; ++i) {
-            int idx = sorted_idx[i];
-            double gradVal = -residual[idx];
-            left_grad_sum += gradVal;
-            left_count += 1.0;
-            
-            // Ne pas diviser entre valeurs identiques
-            if (X[sorted_idx[i]][f] == X[sorted_idx[i+1]][f]) {
-                continue;
+        #pragma omp for schedule(dynamic, 1)
+        for (int f = 0; f < n_features; ++f) {
+    
+            for (int i = 0; i < n_samples; ++i) {
+                int idx = indices[i];
+                local_sort_buffer[i] = {
+                    X[idx][f],
+                    gradients[idx],
+                    hessians[idx],
+                    idx
+                };
             }
             
-            // Calcul des statistiques de division
-            double right_grad_sum = total_grad - left_grad_sum;
-            double right_count = total_hess - left_count;
+    
+            std::sort(local_sort_buffer.begin(), local_sort_buffer.end());
             
-            if (left_count < 1e-6 || right_count < 1e-6) {
-                continue;
+       
+            double left_grad = 0.0;
+            double left_hess = 0.0;
+            
+            for (int i = 0; i < n_samples - 1; ++i) {
+                left_grad += local_sort_buffer[i].gradient;
+                left_hess += local_sort_buffer[i].hessian;
+                
+           
+                if (std::abs(local_sort_buffer[i].feature_value - local_sort_buffer[i+1].feature_value) < 1e-10) {
+                    continue;
+                }
+                
+           
+                double right_grad = sum_gradients - left_grad;
+                double right_hess = sum_hessians - left_hess;
+                
+           
+                if (left_hess < 1.0 || right_hess < 1.0) {
+                    continue;
+                }
+                
+                double gain = calculateSplitGain(
+                    left_grad, left_hess, 
+                    right_grad, right_hess, 
+                    sum_gradients, sum_hessians
+                );
+                
+    
+                if (gain > thread_best_gain) {
+                    thread_best_gain = gain;
+                    thread_best_feature = f;
+                    thread_best_split = (local_sort_buffer[i].feature_value + 
+                                      local_sort_buffer[i+1].feature_value) / 2.0;
+                }
             }
-            
-            // Calcul du gain de division
-            double gain = (left_grad_sum * left_grad_sum) / left_count 
-                        + (right_grad_sum * right_grad_sum) / right_count 
-                        - (total_grad * total_grad) / total_hess;
-            
-            if (gain > best_gain) {
-                best_gain = gain;
-                best_feature = f;
-                
-                // Point de division = moyenne entre la valeur actuelle et la suivante
-                double val = X[sorted_idx[i]][f];
-                double next_val = X[sorted_idx[i+1]][f];
-                best_split_value = (val + next_val) / 2.0;
-                
-                best_left_indices.assign(sorted_idx.begin(), sorted_idx.begin() + i + 1);
-                best_right_indices.assign(sorted_idx.begin() + i + 1, sorted_idx.end());
+        }
+        
+    
+        #pragma omp critical
+        {
+            if (thread_best_gain > best_gain) {
+                best_gain = thread_best_gain;
+                best_feature = thread_best_feature;
+                best_split_value = thread_best_split;
             }
         }
     }
+    
 
-    // Si aucune division améliorante n'est trouvée
     if (best_feature == -1) {
         Node* leaf = new Node();
         leaf->is_leaf = true;
-        leaf->leaf_value = meanRes;
+        leaf->leaf_value = calculateLeafValue(sum_gradients, sum_hessians);
+        leaf->sum_grad = sum_gradients;
+        leaf->sum_hess = sum_hessians;
+        leaf->sample_count = n_samples;
         return leaf;
     }
-
-    // Création du noeud et construction récursive des sous-arbres
+    
+ 
+    std::vector<int>& left_indices = memory_pool.get_vector();
+    std::vector<int>& right_indices = memory_pool.get_vector();
+    left_indices.reserve(n_samples/2);
+    right_indices.reserve(n_samples/2);
+    
+ 
+    double left_grad_sum = 0.0;
+    double left_hess_sum = 0.0;
+ 
+    if (n_samples > MIN_SAMPLES_FOR_PARALLEL) {
+        struct ThreadLocalSplit {
+            std::vector<int> left;
+            std::vector<int> right;
+            double grad_sum = 0.0;
+            double hess_sum = 0.0;
+        };
+        
+        std::vector<ThreadLocalSplit> thread_splits(omp_get_max_threads());
+        
+        #pragma omp parallel
+        {
+            int thread_id = omp_get_thread_num();
+            auto& local_split = thread_splits[thread_id];
+            local_split.left.reserve(n_samples / omp_get_max_threads() / 2);
+            local_split.right.reserve(n_samples / omp_get_max_threads() / 2);
+            
+            #pragma omp for schedule(static) nowait
+            for (int i = 0; i < n_samples; ++i) {
+                int idx = indices[i];
+                if (X[idx][best_feature] <= best_split_value) {
+                    local_split.left.push_back(idx);
+                    local_split.grad_sum += gradients[idx];
+                    local_split.hess_sum += hessians[idx];
+                } else {
+                    local_split.right.push_back(idx);
+                }
+            }
+        }
+        
+      
+        for (auto& split : thread_splits) {
+            left_indices.insert(left_indices.end(), split.left.begin(), split.left.end());
+            right_indices.insert(right_indices.end(), split.right.begin(), split.right.end());
+            left_grad_sum += split.grad_sum;
+            left_hess_sum += split.hess_sum;
+        }
+    } else {
+     
+        for (int idx : indices) {
+            if (X[idx][best_feature] <= best_split_value) {
+                left_indices.push_back(idx);
+                left_grad_sum += gradients[idx];
+                left_hess_sum += hessians[idx];
+            } else {
+                right_indices.push_back(idx);
+            }
+        }
+    }
+    
+    double right_grad_sum = sum_gradients - left_grad_sum;
+    double right_hess_sum = sum_hessians - left_hess_sum;
+    
+   
     Node* node = new Node();
     node->is_leaf = false;
     node->split_feature = best_feature;
     node->split_value = best_split_value;
-    node->left = buildTreeRecursive(X, residual, best_left_indices, depth + 1);
-    node->right = buildTreeRecursive(X, residual, best_right_indices, depth + 1);
+    node->sum_grad = sum_gradients;
+    node->sum_hess = sum_hessians;
+    node->sample_count = n_samples;
     
-    // Vérification et correction
-    if (node->left == nullptr && node->right == nullptr) {
+
+    node->left = buildTreeRecursive(X, gradients, hessians, left_indices, 
+                                  depth + 1, left_grad_sum, left_hess_sum);
+    
+    node->right = buildTreeRecursive(X, gradients, hessians, right_indices, 
+                                   depth + 1, right_grad_sum, right_hess_sum);
+    
+ 
+    if (!node->left && !node->right) {
         node->is_leaf = true;
-        node->leaf_value = meanRes;
-        node->left = node->right = nullptr;
+        node->leaf_value = calculateLeafValue(sum_gradients, sum_hessians);
     }
     
     return node;
 }
 
-// Prédiction pour un seul échantillon
 double ImprovedGBDT::predict(const std::vector<double>& x) const {
     double pred = initial_prediction;
     
-    // Addition des prédictions pondérées de chaque arbre
+    
     for (size_t j = 0; j < trees.size(); ++j) {
-        Node* node = trees[j].root;
+        const Node* node = trees[j].root;
+        const double weight = tree_weights[j];
+        
         while (node && !node->is_leaf) {
-            if (x[node->split_feature] <= node->split_value) {
-                node = node->left;
-            } else {
-                node = node->right;
-            }
+            node = (x[node->split_feature] <= node->split_value) ? 
+                   node->left : node->right;
         }
-        double leaf_val = node ? node->leaf_value : 0.0;
-        pred += tree_weights[j] * leaf_val;
+        
+      
+        if (node) {
+            pred += weight * node->leaf_value;
+        }
     }
     
     return pred;
-}
-
-// Prédiction pour plusieurs échantillons
-std::vector<double> ImprovedGBDT::predict(const std::vector<std::vector<double>>& X) const {
-    std::vector<double> preds;
-    preds.reserve(X.size());
-    
-    for (const auto& x : X) {
-        preds.push_back(predict(x));
-    }
-    
-    return preds;
 }

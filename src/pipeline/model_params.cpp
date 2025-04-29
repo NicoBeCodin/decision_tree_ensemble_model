@@ -245,7 +245,7 @@ bool getAdvGBDTParams(const ProgramOptions& o, AdvGBDTParams& p) {
                 << (o.use_custom_params ? "true" : "false") 
                 << " et params.size()=" << o.params.size() << std::endl;
       
-      p = {100, 0.1, 6, 20, 255, 1, 0.1, 0.05, 0, AdvBinMethod::Frequency};
+                p = {200, 0.01, 50, 1, 1024, 1, 0.5, 0.3, 8, AdvBinMethod::Frequency};
   }
   
   // Affichage des paramètres qui seront utilisés

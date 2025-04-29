@@ -1411,3 +1411,27 @@ Feature importance not available for this model.
 
 ---
 
+### AdvancedGBDT (Frequency)
+
+#### Performance Metrics
+- MSE: 4.796e-310
+- Training Time: 2.135 seconds
+- Evaluation Time: 0.002 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- dropout_rate: 0.500
+- learning_rate: 0.010
+- max_depth: 50.000
+- min_data_in_leaf: 1.000
+- n_estimators: 200.000
+- num_bins: 1024.000
+- num_threads: 8.000
+- skip_drop_rate: 0.300
+- use_dart: 1.000
+
+#### Feature Importance
+Feature importance not available for this model.
+
+---
+
