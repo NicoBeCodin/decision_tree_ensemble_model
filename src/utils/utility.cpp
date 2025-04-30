@@ -1,5 +1,6 @@
 #include "utility.h"
 
+
 // For the single decision tree multithreading
 int adjustNumThreads(int numThreads) {
   if (numThreads <= 0)
@@ -54,26 +55,47 @@ ProgramOptions parseCommandLineArguments(int argc, char *argv[]) {
   ProgramOptions options;
 
   if (argc > 1) {
+    // First positional argument is the model choice
     options.choice = std::stoi(argv[1]);
 
-    int start_index = 2; // Start after choice argument
-    if (argc > 2) {
-      if (std::string(argv[2]) == "-p") {
+    int i = 2;
+    while (i < argc) {
+      std::string arg = argv[i];
+      if (arg == "-p" && i + 1 < argc) {
         options.use_custom_params = true;
-        start_index = 3;
-      } else if (std::string(argv[2]) == "-l") {
+        i += 2;
+      } else if (arg == "-l" && i + 1 < argc) {
         options.load_request = true;
-        options.path_model_filename = argv[3];
+        options.path_model_filename = argv[i + 1];
+        i += 2;
+      } else if (arg.rfind("--", 0) == 0) {
+        // CLI flag in form --key=value or --key value
+        auto eq = arg.find('=');
+        if (eq != std::string::npos) {
+          std::string key = arg.substr(2, eq - 2);
+          std::string val = arg.substr(eq + 1);
+          options.flags[key] = val;
+        } else if (i + 1 < argc) {
+          std::string key = arg.substr(2);
+          std::string val = argv[i + 1];
+          options.flags[key] = val;
+          i++;
+        }
+        i++;
+      } else {
+        // Any other positional parameters
+        options.params.push_back(arg);
+        i++;
       }
     }
-    for (int i = start_index; i < argc; i++) {
-      options.params.push_back(argv[i]);
-    }
   } else {
+    // Interactive prompt if no arguments passed
     std::cout << "Choose the method you want to use:\n"
               << "1: Simple Decision Tree\n"
               << "2: Bagging\n"
-              << "3: Boosting\n";
+              << "3: Boosting\n"
+              << "4: LightGBM\n"
+              << "5: Advanced GBDT\n";
     std::cin >> options.choice;
   }
   return options;
