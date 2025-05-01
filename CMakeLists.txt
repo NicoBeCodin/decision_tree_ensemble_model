@@ -3,6 +3,9 @@ project(DecisionTreeEnsembleModel)
 
 set(CMAKE_CXX_STANDARD 17)
 
+# Flags d’optimisation pour le compilateur
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -march=native -ffast-math -funroll-loops")
+
 # Find LightGBM library
 if (NOT LGBM_LIB)
     find_library(LGBM_LIB NAMES lightgbm lightgbm _lightgbm lib_lightgbm PATHS
