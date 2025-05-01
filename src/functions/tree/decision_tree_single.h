@@ -28,8 +28,7 @@ public:
 
   // Constructor and existing methods
   DecisionTreeSingle(int MaxDepth, int MinLeafLarge, double MinError,
-                     int Criteria = 0, bool useSplitHistogram = false,
-                     bool useOMP = 0, int numThreads = 1);
+                     int Criteria = 0, bool useOMP = 0, int numThreads = 1);
   void train(const std::vector<double> &Data, int rowLength,
              const std::vector<double> &Labels, int criteria = 0);
 
@@ -59,7 +58,6 @@ private:
   int MinLeafLarge;
   int Criteria;
   int RootSamples;
-  bool useSplitHistogram;
   bool useOMP;
   double MinError;
   double RootMSE;
@@ -91,18 +89,6 @@ private:
   findBestSplitUsingMAEOMP(const std::vector<double> &Data, int rowLength,
                            const std::vector<double> &Labels,
                            const std::vector<int> &Indices, double CurrentMAE);
-
-  std::tuple<int, double, double>
-  findBestSplitHistogram(const std::vector<double> &Data, int rowLength,
-                         const std::vector<double> &Labels,
-                         const std::vector<int> &Indices, double CurrentMSE,
-                         int n_bins);
-
-  std::tuple<int, double, double>
-  findBestSplitHistogramOMP(const std::vector<double> &Data, int rowLength,
-                            const std::vector<double> &Labels,
-                            const std::vector<int> &Indices, double CurrentMSE,
-                            int n_bins);
 
   // Not necessary for the moment, just tryna merge
 

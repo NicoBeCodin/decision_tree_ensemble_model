@@ -21,8 +21,7 @@ void runSingleDecisionTreeModel(DecisionTreeParams params,
 
   DecisionTreeSingle single_tree(params.maxDepth, params.minSamplesSplit,
                                  params.minImpurityDecrease, params.criteria,
-                                 params.useSplitHistogram, params.useOMP,
-                                 params.numThreads);
+                                 params.useOMP, params.numThreads);
 
   auto train_start = std::chrono::high_resolution_clock::now();
   single_tree.train(data_params.X_train, data_params.rowLength,
@@ -72,8 +71,6 @@ void runSingleDecisionTreeModel(DecisionTreeParams params,
   results.parameters["min_samples_split"] = params.minSamplesSplit;
   results.parameters["min_impurity_decrease"] = params.minImpurityDecrease;
   results.parameters["criteria"] = params.criteria;
-  results.parameters["use_split_histogram"] =
-      params.useSplitHistogram ? 1.0 : 0.0;
   results.parameters["use_omp"] = params.useOMP ? 1.0 : 0.0;
   results.parameters["num_threads"] = params.numThreads;
 
@@ -137,8 +134,7 @@ void runBaggingModel(BaggingParams params, DataParams data_params) {
   Bagging bagging_model(params.numTrees, params.maxDepth,
                         params.minSamplesSplit, params.minImpurityDecrease,
                         std::move(loss_function), params.criteria,
-                        params.whichLossFunction, params.useSplitHistogram,
-                        params.useOMP, params.numThreads);
+                        params.whichLossFunction, params.useOMP, params.numThreads);
 
   double score = 0.0;
   double train_duration_count = 0.0;
@@ -177,8 +173,6 @@ void runBaggingModel(BaggingParams params, DataParams data_params) {
     results.parameters["min_impurity_decrease"] = params.minImpurityDecrease;
     results.parameters["criteria"] = params.criteria;
     results.parameters["which_loss_function"] = params.whichLossFunction;
-    results.parameters["use_split_histogram"] =
-        params.useSplitHistogram ? 1.0 : 0.0;
     results.parameters["use_omp"] = params.useOMP ? 1.0 : 0.0;
     results.parameters["num_threads"] = params.numThreads;
 
@@ -238,8 +232,7 @@ void runBoostingModel(BoostingParams params, DataParams data_params) {
   Boosting boosting_model(
       params.nEstimators, params.learningRate, std::move(loss_function),
       params.maxDepth, params.minSamplesSplit, params.minImpurityDecrease,
-      params.criteria, params.whichLossFunction, params.useSplitHistogram,
-      params.useOMP, params.numThreads);
+      params.criteria, params.whichLossFunction, params.useOMP, params.numThreads);
 
   trainAndEvaluateModel(boosting_model, data_params.X_train,
                         data_params.rowLength, data_params.y_train,
@@ -268,12 +261,9 @@ void runBoostingModel(BoostingParams params, DataParams data_params) {
   results.parameters["min_samples_split"] = params.minSamplesSplit;
   results.parameters["min_impurity_decrease"] = params.minImpurityDecrease;
   results.parameters["learning_rate"] = params.learningRate;
-  results.parameters["initial_prediction"] =
-      boosting_model.getInitialPrediction();
+  results.parameters["initial_prediction"] = boosting_model.getInitialPrediction();
   results.parameters["criteria"] = params.criteria;
   results.parameters["which_loss_function"] = params.whichLossFunction;
-  results.parameters["use_split_histogram"] =
-      params.useSplitHistogram ? 1.0 : 0.0;
   results.parameters["use_omp"] = params.useOMP ? 1.0 : 0.0;
   results.parameters["num_threads"] = params.numThreads;
 

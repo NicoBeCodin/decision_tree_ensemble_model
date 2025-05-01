@@ -12,13 +12,13 @@
 Bagging::Bagging(int num_trees, int max_depth, int min_samples_split,
                  double min_impurity_decrease,
                  std::unique_ptr<LossFunction> loss_func, int Criteria,
-                 int whichLossFunc, bool useSplitHistogram, bool useOMP,
+                 int whichLossFunc, bool useOMP,
                  int numThreads)
     : numTrees(num_trees), maxDepth(max_depth),
       minSamplesSplit(min_samples_split),
       minImpurityDecrease(min_impurity_decrease),
       loss_function(std::move(loss_func)), Criteria(Criteria),
-      whichLossFunc(whichLossFunc), useSplitHistogram(useSplitHistogram),
+      whichLossFunc(whichLossFunc),
       useOMP(useOMP), numThreads(numThreads) {
   trees.reserve(numTrees); // Reserve space for the trees
 }
@@ -84,7 +84,6 @@ void Bagging::bootstrapSample(const std::vector<double> &data, int rowLength,
 //         std::make_unique<DecisionTreeSingle>(maxDepth, minSamplesSplit,
 //         minImpurityDecrease,
 //                                                          criteria,
-//                                                          useSplitHistogram,
 //                                                          useOMP, numThreads);
 //         tree->train(sampled_data, rowLength, sampled_labels, criteria);
 //         trees[i] = std::move(tree);
@@ -100,7 +99,7 @@ void Bagging::bootstrapSample(const std::vector<double> &data, int rowLength,
 //       std::unique_ptr<DecisionTreeSingle> tree =
 //       std::make_unique<DecisionTreeSingle>(maxDepth, minSamplesSplit,
 //                                                                                       minImpurityDecrease, criteria,
-//                                                                                       useSplitHistogram, useOMP, numThreads);
+//                                                                                       useOMP, numThreads);
 //       tree->train(sampled_data, rowLength, sampled_labels, criteria);
 //       trees.push_back(std::move(tree));
 //     }
@@ -145,8 +144,8 @@ void Bagging::train(const std::vector<double> &data, int rowLength,
 #pragma omp parallel for schedule(dynamic, 1) default(none)                    \
     shared(data, labels, rowLength, criteria, numTrees, isMyTree, localForest) \
     firstprivate(maxDepth, minSamplesSplit, minImpurityDecrease,               \
-                     useSplitHistogram, useOMP, numThreads, firstTree,         \
-                     lastTree) num_threads(numThreads)
+                    useOMP, numThreads, firstTree,         \
+                    lastTree) num_threads(numThreads)
   for (int t = firstTree; t < lastTree; ++t) {
     // if (!isMyTree(t))
     //   continue; // another rank will handle this
@@ -158,7 +157,7 @@ void Bagging::train(const std::vector<double> &data, int rowLength,
 
     auto tree = std::make_unique<DecisionTreeSingle>(
         maxDepth, minSamplesSplit, minImpurityDecrease, criteria,
-        useSplitHistogram, useOMP, numThreads);
+        useOMP, numThreads);
 
     tree->train(sampData, rowLength, sampLabels, criteria);
 
@@ -350,7 +349,7 @@ void Bagging::save(const std::string &filename) const {
   // Sauvegarder tous les paramètres du modèle
   file << numTrees << " " << maxDepth << " " << minSamplesSplit << " "
        << minImpurityDecrease << " " << Criteria << " " << whichLossFunc << " "
-       << useSplitHistogram << " " << useOMP << " " << numThreads << "\n";
+       << useOMP << " " << numThreads << "\n";
 
   // Sauvegarder chaque arbre avec un nom unique
   for (size_t i = 0; i < trees.size(); ++i) {
@@ -372,7 +371,7 @@ void Bagging::load(const std::string &filename) {
 
   // Charger tous les paramètres du modèle
   file >> numTrees >> maxDepth >> minSamplesSplit >> minImpurityDecrease >>
-      Criteria >> whichLossFunc >> useSplitHistogram >> useOMP >> numThreads;
+      Criteria >> whichLossFunc >> useOMP >> numThreads;
 
   // Réinitialiser et recharger les arbres
   trees.clear();
@@ -382,8 +381,7 @@ void Bagging::load(const std::string &filename) {
   for (int i = 0; i < numTrees; ++i) {
     std::string tree_filename = filename + "_tree_" + std::to_string(i);
     trees[i] = std::make_unique<DecisionTreeSingle>(
-        maxDepth, minSamplesSplit, minImpurityDecrease, Criteria,
-        useSplitHistogram, numThreads);
+        maxDepth, minSamplesSplit, minImpurityDecrease, Criteria, numThreads);
     trees[i]->loadTree(tree_filename);
   }
 
@@ -400,7 +398,6 @@ std::map<std::string, std::string> Bagging::getTrainingParameters() const {
   parameters["MinImpurityDecrease"] = std::to_string(minImpurityDecrease);
   parameters["Criteria"] = std::to_string(Criteria);
   parameters["WhichLossFunction"] = std::to_string(whichLossFunc);
-  parameters["UseSplitHistogram"] = useSplitHistogram ? "true" : "false";
   parameters["UseOMP"] = useOMP ? "true" : "false";
   parameters["NumThreads"] = std::to_string(numThreads);
   return parameters;
@@ -418,8 +415,6 @@ std::string Bagging::getTrainingParametersString() const {
   oss << "  - Criteria: " << (Criteria == 0 ? "MSE" : "MAE") << "\n";
   oss << "  - Loss Function: "
       << (whichLossFunc == 0 ? "Least Squares Loss" : "Mean Absolute Loss")
-      << "\n";
-  oss << "  - UseSplitHistogram: " << (useSplitHistogram ? "true" : "false")
       << "\n";
   oss << "  - UseOMP: " << (useOMP ? "true" : "false") << "\n";
   oss << " - Number of threads: " << numThreads << "\n";

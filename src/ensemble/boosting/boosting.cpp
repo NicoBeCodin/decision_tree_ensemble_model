@@ -16,7 +16,7 @@
 Boosting::Boosting(int n_estimators, double learning_rate,
                    std::unique_ptr<LossFunction> loss_function,
                    int max_depth, int min_samples_split, double min_impurity_decrease,
-                   int Criteria, int whichLossFunc, bool useSplitHistogram, bool useOMP, int numThreads)
+                   int Criteria, int whichLossFunc, bool useOMP, int numThreads)
     : n_estimators(n_estimators),
       max_depth(max_depth),
       min_samples_split(min_samples_split),
@@ -26,7 +26,6 @@ Boosting::Boosting(int n_estimators, double learning_rate,
       initial_prediction(0.0),
       Criteria(Criteria), 
       whichLossFunc(whichLossFunc),
-      useSplitHistogram(useSplitHistogram),
       useOMP(useOMP),
       numThreads(numThreads) {
     trees.reserve(n_estimators);
@@ -63,12 +62,12 @@ void Boosting::train(const std::vector<double>& X, int rowLength,
     if (useOMP) {
         #pragma omp parallel for
         for (i = 0; i < n_estimators; i++) {
-            all_trees[i] = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease, criteria, useSplitHistogram, useOMP, numThreads); // true to activate useSplitHistogram
+            all_trees[i] = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease, criteria, useOMP, numThreads);
         }
     }
     else {
         for (i = 0; i < n_estimators; i++) {
-            all_trees[i] = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease, criteria, useSplitHistogram, useOMP, numThreads); // true to activate useSplitHistogram
+            all_trees[i] = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease, criteria, useOMP, numThreads);
         }
     }
 
@@ -177,7 +176,6 @@ void Boosting::save(const std::string& filename) const {
          << initial_prediction << " "
          << Criteria << " "
          << whichLossFunc << " "
-         << useSplitHistogram << " "
          << useOMP << " "
          << numThreads << "\n";
     
@@ -209,7 +207,6 @@ void Boosting::load(const std::string& filename) {
          >> initial_prediction
          >> Criteria
          >> whichLossFunc
-         >> useSplitHistogram
          >> useOMP
          >> numThreads;
     
@@ -219,7 +216,7 @@ void Boosting::load(const std::string& filename) {
 
     for (int i = 0; i < n_estimators; ++i) {
         std::string tree_filename = filename + "_tree_" + std::to_string(i);
-        trees[i] = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease, Criteria, useSplitHistogram, useOMP, numThreads);
+        trees[i] = std::make_unique<DecisionTreeSingle>(max_depth, min_samples_split, min_impurity_decrease, Criteria, useOMP, numThreads);
         trees[i]->loadTree(tree_filename);
     }
 
@@ -237,8 +234,7 @@ std::map<std::string, std::string> Boosting::getTrainingParameters() const {
     parameters["InitialPrediction"] = std::to_string(initial_prediction);
     parameters["Criteria"] = std::to_string(Criteria);
     parameters["WhichLossFunction"] = std::to_string(whichLossFunc);
-    parameters["UseSplitHistogram"] = useSplitHistogram ? "1.0" : "0.0";
-    parameters["UseOMP"] = useSplitHistogram ? "1.0" : "0.0";
+    parameters["UseOMP"] = useOMP ? "1.0" : "0.0";
     parameters["NumThreads"] = std::to_string(numThreads);
     return parameters;
 }
@@ -255,7 +251,6 @@ std::string Boosting::getTrainingParametersString() const {
     oss << "  - Initial Prediction: " << initial_prediction << "\n";
     oss << "  - Criteria: " << (Criteria == 0 ? "MSE" : "MAE") << "\n";
     oss << "  - Loss Function: " << (whichLossFunc == 0 ? "Least Squares Loss" : "Mean Absolute Loss") << "\n";
-    oss << "  - UseSplitHistogram: " << (useSplitHistogram ? "true" : "false") << "\n";
     oss << "  - UseOMP: " << (useOMP ? "true" : "false") << "\n";
     oss << "  - Number of threads " << numThreads << "\n";
     return oss.str();

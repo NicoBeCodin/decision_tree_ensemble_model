@@ -19,10 +19,9 @@ struct BestSplit {
 // Constructor
 DecisionTreeSingle::DecisionTreeSingle(int MaxDepth, int MinLeafLarge,
                                        double MinError, int Criteria,
-                                       bool useSplitHistogram, bool useOMP,
-                                       int numThreads)
+                                       bool useOMP, int numThreads)
     : MaxDepth(MaxDepth), MinLeafLarge(MinLeafLarge), MinError(MinError),
-      Criteria(Criteria), useSplitHistogram(useSplitHistogram), useOMP(useOMP),
+      Criteria(Criteria), useOMP(useOMP),
       Root(nullptr), numThreads(numThreads) {
   getMaxSplitDepth();
 }
@@ -103,25 +102,13 @@ void DecisionTreeSingle::splitNode(Tree *Node, const std::vector<double> &Data,
     throw std::invalid_argument("numThreads must be >= 1");
   }
 
-  // Find the best split (histogram or basic)
-  if (useSplitHistogram) {
-    if (useOMP) {
-      std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
-          findBestSplitHistogramOMP(Data, rowLength, Labels, Indices,
-                                    Node->NodeMetric, 255);
-    } else {
-      std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
-          findBestSplitHistogram(Data, rowLength, Labels, Indices,
-                                 Node->NodeMetric, 255);
-    }
+  // Find the best split
+  if (useOMP) {
+    std::tie(BestFeature, BestThreshold, BestImpurityDecrease) = 
+    findBestSplitOMP(Data, rowLength, Labels, Indices, Node->NodeMetric);
   } else {
-    if (useOMP) {
-      std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
-          findBestSplitOMP(Data, rowLength, Labels, Indices, Node->NodeMetric);
-    } else {
-      std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
-          findBestSplit(Data, rowLength, Labels, Indices, Node->NodeMetric);
-    }
+    std::tie(BestFeature, BestThreshold, BestImpurityDecrease) = 
+    findBestSplit(Data, rowLength, Labels, Indices, Node->NodeMetric);
   }
 
   if (BestFeature == -1) {
@@ -209,29 +196,14 @@ void DecisionTreeSingle::splitNodeMAE(Tree *Node,
     throw std::invalid_argument("numThreads must be >= 1");
   }
 
-  // Find the best split (histogram or basic)
-  if (useSplitHistogram) {
-    if (useOMP) {
-      std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
-          findBestSplitHistogramOMP(
-              Data, rowLength, Labels, Indices, Node->NodeMetric,
-              255); // MSE (créer un histogramme utilisant MSE)
-    } else {
-      std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
-          findBestSplitHistogram(
-              Data, rowLength, Labels, Indices, Node->NodeMetric,
-              255); // MSE (créer un histogramme utilisant MSE)
-    }
+  // Find the best split
+
+  if (useOMP) {
+    std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
+    findBestSplitUsingMAEOMP(Data, rowLength, Labels, Indices, Node->NodeMetric);
   } else {
-    if (useOMP) {
-      std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
-          findBestSplitUsingMAEOMP(Data, rowLength, Labels, Indices,
-                                   Node->NodeMetric);
-    } else {
-      std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
-          findBestSplitUsingMAE(Data, rowLength, Labels, Indices,
-                                Node->NodeMetric);
-    }
+    std::tie(BestFeature, BestThreshold, BestImpurityDecrease) =
+    findBestSplitUsingMAE(Data, rowLength, Labels, Indices, Node->NodeMetric);
   }
 
   if (BestFeature == -1) {
@@ -514,102 +486,6 @@ std::tuple<int, double, double> DecisionTreeSingle::findBestSplitUsingMAE(
   return {BestFeature, BestThreshold, BestImpurityDecrease};
 }
 
-std::tuple<int, double, double> DecisionTreeSingle::findBestSplitHistogram(
-    const std::vector<double> &Data, int rowLength,
-    const std::vector<double> &Labels, const std::vector<int> &Indices,
-    double CurrentMSE, int n_bins = 255) {
-
-  int BestFeature = -1;
-  double BestThreshold = 0.0;
-  double BestImpurityDecrease = 0.0;
-
-  size_t n_features = rowLength;
-  size_t n_samples = Indices.size();
-
-  // Step 1 : Precompute min and max per feature
-  std::vector<std::pair<double, double>> feature_min_max(n_features,
-                                                         {1e9, -1e9});
-
-  for (size_t idx : Indices) {
-    for (size_t f = 0; f < n_features; ++f) {
-      double val = Data[idx * rowLength + f];
-      feature_min_max[f].first = std::min(feature_min_max[f].first, val);
-      feature_min_max[f].second = std::max(feature_min_max[f].second, val);
-    }
-  }
-
-  // Step 2 : For each feature, build histogram
-  for (size_t f = 0; f < n_features; ++f) {
-    double fmin = feature_min_max[f].first;
-    double fmax = feature_min_max[f].second;
-
-    if (fmin == fmax)
-      continue; // Skip constant features
-
-    std::vector<double> sum_in_bin(n_bins, 0.0);
-    std::vector<double> sum_sq_in_bin(n_bins, 0.0);
-    std::vector<int> count_in_bin(n_bins, 0);
-
-    // Fill histogram
-    for (size_t idx : Indices) {
-      double val = Data[idx * rowLength + f];
-      int bin = static_cast<int>(((val - fmin) / (fmax - fmin)) * (n_bins - 1));
-      bin = std::max(0, std::min(bin, n_bins - 1)); // Safety
-      double label = Labels[idx];
-      sum_in_bin[bin] += label;
-      sum_sq_in_bin[bin] += label * label;
-      count_in_bin[bin] += 1;
-    }
-
-    // Step 3: Find best split by scanning bins
-    double left_sum = 0.0, left_sq_sum = 0.0;
-    int left_count = 0;
-
-    double right_sum =
-        std::accumulate(sum_in_bin.begin(), sum_in_bin.end(), 0.0);
-    double right_sq_sum =
-        std::accumulate(sum_sq_in_bin.begin(), sum_sq_in_bin.end(), 0.0);
-    int right_count =
-        std::accumulate(count_in_bin.begin(), count_in_bin.end(), 0);
-
-    for (int b = 0; b < n_bins - 1; ++b) { // Split between bin b and b+1
-      left_sum += sum_in_bin[b];
-      left_sq_sum += sum_sq_in_bin[b];
-      left_count += count_in_bin[b];
-
-      right_sum -= sum_in_bin[b];
-      right_sq_sum -= sum_sq_in_bin[b];
-      right_count -= count_in_bin[b];
-
-      if (left_count == 0 || right_count == 0)
-        continue;
-
-      double left_mean = left_sum / left_count;
-      double left_mse = (left_sq_sum - 2 * left_mean * left_sum +
-                         left_count * left_mean * left_mean) /
-                        left_count;
-
-      double right_mean = right_sum / right_count;
-      double right_mse = (right_sq_sum - 2 * right_mean * right_sum +
-                          right_count * right_mean * right_mean) /
-                         right_count;
-
-      double weighted_mse =
-          (left_mse * left_count + right_mse * right_count) / n_samples;
-      double impurity_decrease = CurrentMSE - weighted_mse;
-
-      if (impurity_decrease > BestImpurityDecrease) {
-        BestImpurityDecrease = impurity_decrease;
-        BestFeature = f;
-        // Find threshold value corresponding to bin boundary
-        BestThreshold = fmin + ((fmax - fmin) * (b + 1)) / n_bins;
-      }
-    }
-  }
-
-  return {BestFeature, BestThreshold, BestImpurityDecrease};
-}
-
 std::tuple<int, double, double> DecisionTreeSingle::findBestSplitUsingMAEOMP(
     const std::vector<double> &Data, int rowLength,
     const std::vector<double> &Labels, const std::vector<int> &Indices,
@@ -678,90 +554,6 @@ std::tuple<int, double, double> DecisionTreeSingle::findBestSplitUsingMAEOMP(
   return {globalBest.feat, globalBest.thr, globalBest.imp};
 }
 
-std::tuple<int, double, double> DecisionTreeSingle::findBestSplitHistogramOMP(
-    const std::vector<double> &Data, int rowLength,
-    const std::vector<double> &Labels, const std::vector<int> &Indices,
-    double CurrentMSE, int n_bins /*=255*/) {
-  const size_t nFeatures = rowLength;
-  const size_t nSamples = Indices.size();
-
-  std::vector<std::pair<double, double>> fMinMax(nFeatures, {1e9, -1e9});
-
-  for (size_t idx : Indices)
-    for (size_t f = 0; f < nFeatures; ++f) {
-      double v = Data[idx * rowLength + f];
-      fMinMax[f].first = std::min(fMinMax[f].first, v);
-      fMinMax[f].second = std::max(fMinMax[f].second, v);
-    }
-
-  BestSplit globalBest{0.0, -1, 0.0};
-
-#pragma omp parallel for reduction(maxBest : globalBest)                       \
-    schedule(static) default(none)                                             \
-    shared(Data, Labels, Indices, fMinMax, n_bins, nFeatures, nSamples,        \
-               rowLength, CurrentMSE)
-  for (int f = 0; f < static_cast<int>(nFeatures); ++f) {
-    const double fmin = fMinMax[f].first;
-    const double fmax = fMinMax[f].second;
-    if (fmin == fmax)
-      continue; // constant column
-
-    std::vector<double> sumBin(n_bins, 0.0);
-    std::vector<double> sumSqBin(n_bins, 0.0);
-    std::vector<int> cntBin(n_bins, 0);
-
-    for (size_t idx_i = 0; idx_i < Indices.size(); ++idx_i) {
-      size_t idx = Indices[idx_i];
-      double v = Data[idx * rowLength + f];
-      int b = static_cast<int>(((v - fmin) / (fmax - fmin)) * (n_bins - 1));
-      b = std::max(0, std::min(b, n_bins - 1));
-      double y = Labels[idx];
-      sumBin[b] += y;
-      sumSqBin[b] += y * y;
-      cntBin[b] += 1;
-    }
-
-    /* ---- prefix / suffix scan to evaluate splits ------------- */
-    double lSum = 0.0, lSq = 0.0;
-    int lCnt = 0;
-    double rSum = std::accumulate(sumBin.begin(), sumBin.end(), 0.0);
-    double rSq = std::accumulate(sumSqBin.begin(), sumSqBin.end(), 0.0);
-    int rCnt = std::accumulate(cntBin.begin(), cntBin.end(), 0);
-
-    BestSplit localBest{0.0, -1, 0.0};
-
-    for (int b = 0; b < n_bins - 1; ++b) {
-      lSum += sumBin[b];
-      lSq += sumSqBin[b];
-      lCnt += cntBin[b];
-      rSum -= sumBin[b];
-      rSq -= sumSqBin[b];
-      rCnt -= cntBin[b];
-
-      if (lCnt == 0 || rCnt == 0)
-        continue;
-
-      double lMean = lSum / lCnt;
-      double rMean = rSum / rCnt;
-
-      double lMSE = (lSq - 2 * lMean * lSum + lCnt * lMean * lMean) / lCnt;
-      double rMSE = (rSq - 2 * rMean * rSum + rCnt * rMean * rMean) / rCnt;
-
-      double weightedMSE = (lMSE * lCnt + rMSE * rCnt) / nSamples;
-      double impDec = CurrentMSE - weightedMSE;
-
-      if (impDec > globalBest.imp)
-        globalBest = {impDec, f,
-                      fmin + (static_cast<double>(b + 1) / n_bins) *
-                                 (fmax - fmin)};
-    }
-
-    /* localBest merges into globalBest via the maxBest reduction */
-  }
-
-  return {globalBest.feat, globalBest.thr, globalBest.imp};
-}
-
 // Prediction function
 double DecisionTreeSingle::predict(const double *Sample, int rowLength) const {
   const Tree *CurrentNode = Root.get();
@@ -822,7 +614,7 @@ void DecisionTreeSingle::saveTree(const std::string &filename) {
 
   // Write tree parameters
   out << MaxDepth << " " << MinLeafLarge << " " << MinError << " " << Criteria
-      << useSplitHistogram << " " << numThreads << " " << "\n";
+      << " " << numThreads << " " << "\n";
 
   // Serialize the tree
   serializeNode(Root.get(), out);
@@ -837,8 +629,7 @@ void DecisionTreeSingle::loadTree(const std::string &filename) {
   }
 
   // Read tree parameters
-  in >> MaxDepth >> MinLeafLarge >> MinError >> Criteria >> useSplitHistogram >>
-      numThreads;
+  in >> MaxDepth >> MinLeafLarge >> MinError >> Criteria >> numThreads;
   in.ignore(); // Ignore newline
 
   // Deserialize the tree
@@ -888,7 +679,6 @@ DecisionTreeSingle::getTrainingParameters() const {
   parameters["MinLeafLarge"] = std::to_string(MinLeafLarge);
   parameters["MinError"] = std::to_string(MinError);
   parameters["Criteria"] = std::to_string(Criteria);
-  parameters["UseSplitHistogram"] = useSplitHistogram ? "1.0" : "0.0";
   parameters["UseOMP"] = useOMP ? "1.0" : "0.0";
   parameters["NumThreads"] = std::to_string(numThreads);
   return parameters;
@@ -902,8 +692,6 @@ std::string DecisionTreeSingle::getTrainingParametersString() const {
   oss << "  - Min Leaf Large: " << MinLeafLarge << "\n";
   oss << "  - Min Error: " << MinError << "\n";
   oss << "  - Criteria: " << (Criteria == 0 ? "MSE" : "MAE") << "\n";
-  oss << "  - UseSplitHistogram: " << (useSplitHistogram ? "true" : "false")
-      << "\n";
   oss << "  - UseOMP: " << (useOMP ? "true" : "false") << "\n";
   oss << "  - Number of threads " << numThreads << "\n";
   return oss.str();

@@ -30,7 +30,7 @@ public:
   Boosting(int n_estimators, double learning_rate,
            std::unique_ptr<LossFunction> loss_function,
            int max_depth, int min_samples_split, double min_impurity_decrease, 
-           int Criteria = 0, int whichLossFunc = 0, bool useSplitHistogram = true, 
+           int Criteria = 0, int whichLossFunc = 0,
            bool useOMP = false, int numThreads = 1);
 
   /**
@@ -87,7 +87,6 @@ private:
   double learning_rate;
   int Criteria;
   int whichLossFunc;
-  bool useSplitHistogram;
   bool useOMP;
   int numThreads;
   std::unique_ptr<LossFunction> loss_function;
