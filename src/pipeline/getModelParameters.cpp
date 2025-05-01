@@ -3,7 +3,7 @@
 void getModelParameters(int model_choice, std::string& parameters) {
     bool input = false;
     bool load_existing = false;
-    std::cout << "Would you like to load an existing tree model? (1 = Yes (currently unused), 0 = No): ";
+    std::cout << "Would you like to load an existing model? (1 = Yes, 0 = No): ";
     std::cin >> load_existing;
     // Clear the input buffer to avoid residual characters
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -15,33 +15,40 @@ void getModelParameters(int model_choice, std::string& parameters) {
                 std::string model_filename;
                 std::cout << "Enter the filename of the tree model to load: ";
                 std::cin >> model_filename;
-
                 std::string path = "../saved_models/tree_models/" + model_filename;
-
                 parameters += " " + path;
-
                 return;
             }
             case 2: {  // Bagging
                 std::string model_filename;
                 std::cout << "Enter the filename of the bagging model to load: ";
                 std::cin >> model_filename;
-
                 std::string path = "../saved_models/bagging_models/" + model_filename;
-
                 parameters += " " + path;
-
                 return;
             }
             case 3: {  // Boosting
                 std::string model_filename;
                 std::cout << "Enter the filename of the boosting model to load: ";
                 std::cin >> model_filename;
-
                 std::string path = "../saved_models/boosting_models/" + model_filename;
-
                 parameters += " " + path;
-
+                return;
+            }
+            case 4: {  // LightGBM
+                std::string model_filename;
+                std::cout << "Enter the filename of the LightGBM model to load: ";
+                std::cin >> model_filename;
+                std::string path = "../saved_models/lightgbm_models/" + model_filename;
+                parameters += " " + path;
+                return;
+            }
+            case 5: {  // Advanced GBDT
+                std::string model_filename;
+                std::cout << "Enter the filename of the Advanced GBDT model to load: ";
+                std::cin >> model_filename;
+                std::string path = "../saved_models/adv_gbdt_models/" + model_filename;
+                parameters += " " + path;
                 return;
             }
         }
@@ -222,6 +229,90 @@ void getModelParameters(int model_choice, std::string& parameters) {
                          std::to_string(learning_rate) + " " +
                          std::to_string(useOMP) + " " +
                          std::to_string(numThreads);
+            break;
+        }
+        case 4: {  // LightGBM
+            int n_estimators, max_depth, num_leaves;
+            double learning_rate, subsample, colsample_bytree;
+            
+            std::cout << "\nLightGBM Parameters:\n";
+            std::cout << "Number of estimators (default: 100): ";
+            std::cin >> n_estimators;
+            std::cout << "Learning rate (default: 0.1): ";
+            std::cin >> learning_rate;
+            std::cout << "Maximum depth (-1 for no limit, default: -1): ";
+            std::cin >> max_depth;
+            std::cout << "Number of leaves (default: 31): ";
+            std::cin >> num_leaves;
+            std::cout << "Subsample ratio (default: 1.0): ";
+            std::cin >> subsample;
+            std::cout << "Column sample by tree ratio (default: 1.0): ";
+            std::cin >> colsample_bytree;
+            
+            parameters += " " + std::to_string(n_estimators) + " " + 
+                         std::to_string(learning_rate) + " " + 
+                         std::to_string(max_depth) + " " +
+                         std::to_string(num_leaves) + " " + 
+                         std::to_string(subsample) + " " + 
+                         std::to_string(colsample_bytree);
+            break;
+        }
+        case 5: {  // Advanced GBDT
+            int n_estimators, max_depth, min_data_leaf, num_bins, num_threads;
+            int binning_method, use_dart;
+            double learning_rate, dropout_rate, skip_drop_rate, l2_reg, feature_sample_ratio;
+            int early_stopping_rounds;
+            
+            std::cout << "\nAdvanced GBDT Parameters:\n";
+            std::cout << "Number of estimators (default: 200): ";
+            std::cin >> n_estimators;
+            std::cout << "Learning rate (default: 0.01): ";
+            std::cin >> learning_rate;
+            std::cout << "Maximum depth (default: 50): ";
+            std::cin >> max_depth;
+            std::cout << "Minimum data in leaf (default: 1): ";
+            std::cin >> min_data_leaf;
+            std::cout << "Number of bins (default: 1024): ";
+            std::cin >> num_bins;
+            std::cout << "Use DART (1 = Yes, 0 = No, default: 1): ";
+            std::cin >> use_dart;
+            
+            if (use_dart) {
+                std::cout << "Dropout rate (default: 0.5): ";
+                std::cin >> dropout_rate;
+                std::cout << "Skip dropout rate (default: 0.3): ";
+                std::cin >> skip_drop_rate;
+            } else {
+                dropout_rate = 0.0;
+                skip_drop_rate = 0.0;
+            }
+            
+            std::cout << "Binning method (0 = Quantile, 1 = Frequency, default: 1): ";
+            std::cin >> binning_method;
+            std::cout << "L2 regularization (default: 1.0): ";
+            std::cin >> l2_reg;
+            std::cout << "Feature sampling ratio (0.0-1.0, default: 1.0): ";
+            std::cin >> feature_sample_ratio;
+            std::cout << "Early stopping rounds (0 to disable, default: 0): ";
+            std::cin >> early_stopping_rounds;
+            
+            int availableThreads = std::thread::hardware_concurrency();
+            std::cout << "Number of threads (detected: " << availableThreads << ", default: 8): ";
+            std::cin >> num_threads;
+            
+            parameters += " " + std::to_string(n_estimators) + " " + 
+                         std::to_string(learning_rate) + " " + 
+                         std::to_string(max_depth) + " " +
+                         std::to_string(min_data_leaf) + " " + 
+                         std::to_string(num_bins) + " " + 
+                         std::to_string(use_dart) + " " +
+                         std::to_string(dropout_rate) + " " +
+                         std::to_string(skip_drop_rate) + " " +
+                         std::to_string(num_threads) + " " +
+                         std::to_string(binning_method) + " " +
+                         std::to_string(l2_reg) + " " +
+                         std::to_string(feature_sample_ratio) + " " +
+                         std::to_string(early_stopping_rounds);
             break;
         }
     }

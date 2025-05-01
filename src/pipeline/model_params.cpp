@@ -239,45 +239,76 @@ bool getLightGBMParams(const ProgramOptions &options,
 bool getAdvGBDTParams(const ProgramOptions& options, AdvGBDTParams& out_params) {
   createDirectory("../saved_models/adv_gbdt_models");
   
-  // Débogage
+  // Debug output
   std::cout << "use_custom_params: " << (options.use_custom_params ? "true" : "false") << std::endl;
   std::cout << "params.size(): " << options.params.size() << std::endl;
   
   if (options.use_custom_params && options.params.size() >= 10) {
-      std::cout << "Utilisation des paramètres personnalisés:" << std::endl;
+      std::cout << "Using custom parameters:" << std::endl;
       
-      out_params.nEstimators    = std::stoi(options.params[0]);
-      out_params.learningRate   = std::stod(options.params[1]);
-      out_params.maxDepth       = std::stoi(options.params[2]);
-      out_params.minDataLeaf    = std::stoul(options.params[3]);
-      out_params.numBins        = std::stoi(options.params[4]);
-      out_params.useDart        = std::stoi(options.params[5]) != 0;
-      out_params.dropoutRate    = std::stod(options.params[6]);
-      out_params.skipDropRate   = std::stod(options.params[7]);
-      out_params.numThreads     = std::stoi(options.params[8]);
-      out_params.binMethod      = (std::stoi(options.params[9]) == 0) ? AdvBinMethod::Quantile : AdvBinMethod::Frequency;
-      
-      std::cout << "Paramètres personnalisés chargés avec succès." << std::endl;
+      try {
+          out_params.nEstimators    = std::stoi(options.params[0]);
+          out_params.learningRate   = std::stod(options.params[1]);
+          out_params.maxDepth       = std::stoi(options.params[2]);
+          out_params.minDataLeaf    = std::stoul(options.params[3]);
+          out_params.numBins        = std::stoi(options.params[4]);
+          out_params.useDart        = std::stoi(options.params[5]) != 0;
+          out_params.dropoutRate    = std::stod(options.params[6]);
+          out_params.skipDropRate   = std::stod(options.params[7]);
+          out_params.numThreads     = std::stoi(options.params[8]);
+          out_params.binMethod      = (std::stoi(options.params[9]) == 0) ? AdvBinMethod::Quantile : AdvBinMethod::Frequency;
+      } catch (const std::exception& e) {
+          std::cerr << "Error parsing parameters: " << e.what() << std::endl;
+          std::cerr << "Using LightGBM-like defaults instead." << std::endl;
+          
+          // Parameters similar to LightGBM's defaults which perform well
+          out_params = {
+              100,    // nEstimators - like LightGBM default
+              0.1,    // learningRate - standard value that works well
+              6,      // maxDepth - shallow trees often work better
+              20,     // minDataLeaf - increased for stability
+              255,    // numBins - standard LightGBM value
+              false,  // useDart - disabled for stability
+              0.0,    // dropoutRate - not used
+              0.0,    // skipDropRate - not used
+              8,      // numThreads
+              AdvBinMethod::Frequency  // binMethod - often better for regression
+          };
+      }
   } else {
-      std::cout << "Utilisation des valeurs par défaut car use_custom_params=" 
-                << (options.use_custom_params ? "true" : "false") 
-                << " et params.size()=" << options.params.size() << std::endl;
+      std::cout << "Using LightGBM-like default parameters" << std::endl;
       
-                out_params = {200, 0.01, 50, 1, 1024, 1, 0.5, 0.3, 8, AdvBinMethod::Frequency};
+      // Parameters similar to LightGBM's defaults which perform well
+      out_params = {
+          200,    // nEstimators - like LightGBM default
+          0.1,    // learningRate - standard value that works well
+          6,      // maxDepth - shallow trees often work better
+          20,     // minDataLeaf - increased for stability
+          255,    // numBins - standard LightGBM value
+          true,  // useDart - disabled for stability
+          0.5,    // dropoutRate - not used
+          0.3,    // skipDropRate - not used
+          8,      // numThreads
+          AdvBinMethod::Frequency  // binMethod - often better for regression
+      };
   }
   
-  // Affichage des paramètres qui seront utilisés
-  std::cout << "Paramètres effectifs pour AdvGBDT:" << std::endl
-            << "- Nombre d'estimateurs: " << out_params.nEstimators << std::endl
-            << "- Taux d'apprentissage: " << out_params.learningRate << std::endl
-            << "- Profondeur maximale: " << out_params.maxDepth << std::endl
-            << "- Minimum d'échantillons par feuille: " << out_params.minDataLeaf << std::endl
-            << "- Nombre de bins: " << out_params.numBins << std::endl
-            << "- Utilisation de DART: " << (out_params.useDart ? "Oui" : "Non") << std::endl
-            << "- Taux de dropout: " << out_params.dropoutRate << std::endl
-            << "- Taux de skip: " << out_params.skipDropRate << std::endl
-            << "- Nombre de threads: " << out_params.numThreads << std::endl
-            << "- Méthode de binning: " << (out_params.binMethod == AdvBinMethod::Quantile ? "Quantile" : "Frequency") << std::endl;
+  // Display parameters
+  std::cout << "Parameters for AdvGBDT:" << std::endl
+            << "- Number of estimators: " << out_params.nEstimators << std::endl
+            << "- Learning rate: " << out_params.learningRate << std::endl
+            << "- Max depth: " << out_params.maxDepth << std::endl
+            << "- Min samples per leaf: " << out_params.minDataLeaf << std::endl
+            << "- Number of bins: " << out_params.numBins << std::endl
+            << "- Using DART: " << (out_params.useDart ? "Yes" : "No") << std::endl;
+  
+  if (out_params.useDart) {
+      std::cout << "- Dropout rate: " << out_params.dropoutRate << std::endl
+                << "- Skip dropout rate: " << out_params.skipDropRate << std::endl;
+  }
+  
+  std::cout << "- Number of threads: " << out_params.numThreads << std::endl
+            << "- Binning method: " << (out_params.binMethod == AdvBinMethod::Quantile ? "Quantile" : "Frequency") << std::endl;
   
   return true;
 }

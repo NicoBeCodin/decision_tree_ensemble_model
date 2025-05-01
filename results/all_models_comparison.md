@@ -558,3 +558,833 @@ Feature importance not available for this model.
 
 ---
 
+### AdvancedGBDT (Frequency)
+
+#### Performance Metrics
+- MSE: 5.005e-310
+- Training Time: 1.420 seconds
+- Evaluation Time: 0.001 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- dropout_rate: 0.500
+- learning_rate: 0.010
+- max_depth: 50.000
+- min_data_in_leaf: 1.000
+- n_estimators: 200.000
+- num_bins: 1024.000
+- num_threads: 8.000
+- skip_drop_rate: 0.300
+- use_dart: 1.000
+
+#### Feature Importance
+Feature importance not available for this model.
+
+---
+
+### AdvancedGBDT (Frequency)
+
+#### Performance Metrics
+- MSE: 8.413e-04
+- Training Time: 1.341 seconds
+- Evaluation Time: 0.001 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- dropout_rate: 0.500
+- learning_rate: 0.010
+- max_depth: 50.000
+- min_data_in_leaf: 1.000
+- n_estimators: 200.000
+- num_bins: 1024.000
+- num_threads: 8.000
+- skip_drop_rate: 0.300
+- use_dart: 1.000
+
+#### Feature Importance
+- matrix_size_x: 0.00%
+- matrix_size_y: 0.00%
+- p1: 0.00%
+- p2: 0.00%
+- p3: 0.00%
+- p4: 0.00%
+- p5: 0.00%
+- p6: 0.00%
+- p7: 0.00%
+- p8: 0.00%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 4.717e-310
+- Training Time: 17.176 seconds
+- Evaluation Time: 0.041 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.048
+- learning_rate: 0.070
+- max_depth: 15.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 75.000
+- num_threads: 1.000
+- use_omp: 0.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.70%
+- matrix_size_y: 1.19%
+- p1: 7.98%
+- p2: 1.06%
+- p3: 36.02%
+- p4: 20.49%
+- p5: 4.67%
+- p6: 18.11%
+- p7: 2.67%
+- p8: 3.10%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 0.000e+00
+- Training Time: 0.158 seconds
+- Evaluation Time: 0.003 seconds
+
+#### Model Parameters
+- colsample_bytree: 1.000
+- learning_rate: 0.100
+- max_depth: -1.000
+- n_estimators: 100.000
+- num_leaves: 31.000
+- subsample: 1.000
+
+#### Feature Importance
+- F0: 220.57%
+- F1: 10.74%
+- F2: 1831.37%
+- F3: 1371.74%
+- F4: 173.82%
+- F5: 865.24%
+- F6: 487.48%
+- F7: 185.44%
+- F8: 278.41%
+- F9: 68.58%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.094e-310
+- Training Time: 0.057 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- dropout_rate: 0.150
+- learning_rate: 0.050
+- max_depth: 15.000
+- min_data_leaf: 5.000
+- n_estimators: 100.000
+- num_bins: 256.000
+- num_threads: 8.000
+- skip_drop_rate: 0.100
+- use_dart: 1.000
+
+#### Feature Importance
+- matrix_size_x: 0.00%
+- matrix_size_y: 0.00%
+- p1: 0.00%
+- p2: 0.00%
+- p3: 0.00%
+- p4: 0.00%
+- p5: 0.00%
+- p6: 0.00%
+- p7: 0.00%
+- p8: 0.00%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.255e-310
+- Training Time: 0.065 seconds
+- Evaluation Time: 0.001 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 100.000
+- num_bins: 255.000
+- num_threads: 8.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 0.00%
+- matrix_size_y: 0.00%
+- p1: 0.00%
+- p2: 0.00%
+- p3: 0.00%
+- p4: 0.00%
+- p5: 0.00%
+- p6: 0.00%
+- p7: 0.00%
+- p8: 0.00%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 4.693e-310
+- Training Time: 0.068 seconds
+- Evaluation Time: 0.001 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 100.000
+- num_bins: 255.000
+- num_threads: 8.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 0.00%
+- matrix_size_y: 0.00%
+- p1: 0.00%
+- p2: 0.00%
+- p3: 0.00%
+- p4: 0.00%
+- p5: 0.00%
+- p6: 0.00%
+- p7: 0.00%
+- p8: 0.00%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.217e-310
+- Training Time: 0.065 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 100.000
+- num_bins: 255.000
+- num_threads: 8.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 0.00%
+- matrix_size_y: 0.00%
+- p1: 0.00%
+- p2: 0.00%
+- p3: 0.00%
+- p4: 0.00%
+- p5: 0.00%
+- p6: 0.00%
+- p7: 0.00%
+- p8: 0.00%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 0.000e+00
+- Training Time: 0.165 seconds
+- Evaluation Time: 0.003 seconds
+
+#### Model Parameters
+- colsample_bytree: 1.000
+- learning_rate: 0.100
+- max_depth: -1.000
+- n_estimators: 100.000
+- num_leaves: 31.000
+- subsample: 1.000
+
+#### Feature Importance
+- F0: 220.57%
+- F1: 10.74%
+- F2: 1831.37%
+- F3: 1371.74%
+- F4: 173.82%
+- F5: 865.24%
+- F6: 487.48%
+- F7: 185.44%
+- F8: 278.41%
+- F9: 68.58%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.215e-310
+- Training Time: 4.905 seconds
+- Evaluation Time: 0.011 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 100.000
+- num_bins: 255.000
+- num_threads: 8.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 2.95%
+- matrix_size_y: 0.61%
+- p1: 3.08%
+- p2: 0.09%
+- p3: 39.25%
+- p4: 27.55%
+- p5: 2.30%
+- p6: 16.01%
+- p7: 5.62%
+- p8: 2.52%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 0.000e+00
+- Training Time: 0.448 seconds
+- Evaluation Time: 0.014 seconds
+
+#### Model Parameters
+- colsample_bytree: 1.000
+- learning_rate: 0.100
+- max_depth: -1.000
+- n_estimators: 100.000
+- num_leaves: 31.000
+- subsample: 1.000
+
+#### Feature Importance
+- F0: 220.57%
+- F1: 10.74%
+- F2: 1831.37%
+- F3: 1371.74%
+- F4: 173.82%
+- F5: 865.24%
+- F6: 487.48%
+- F7: 185.44%
+- F8: 278.41%
+- F9: 68.58%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 4.959e-310
+- Training Time: 7.999 seconds
+- Evaluation Time: 0.011 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.010
+- max_depth: 3.000
+- min_data_leaf: 30.000
+- n_estimators: 200.000
+- num_bins: 500.000
+- num_threads: 8.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 0.81%
+- matrix_size_y: 0.02%
+- p1: 1.29%
+- p2: 0.00%
+- p3: 50.83%
+- p4: 31.58%
+- p5: 0.16%
+- p6: 13.82%
+- p7: 1.24%
+- p8: 0.24%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.371e-310
+- Training Time: 4.972 seconds
+- Evaluation Time: 0.011 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 100.000
+- num_bins: 255.000
+- num_threads: 8.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 2.95%
+- matrix_size_y: 0.61%
+- p1: 3.08%
+- p2: 0.09%
+- p3: 39.25%
+- p4: 27.55%
+- p5: 2.30%
+- p6: 16.01%
+- p7: 5.62%
+- p8: 2.52%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.415e-310
+- Training Time: 2.390 seconds
+- Evaluation Time: 0.005 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 50.000
+- num_bins: 255.000
+- num_threads: 8.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 2.85%
+- matrix_size_y: 0.55%
+- p1: 3.12%
+- p2: 0.07%
+- p3: 41.15%
+- p4: 28.16%
+- p5: 1.82%
+- p6: 15.33%
+- p7: 4.74%
+- p8: 2.20%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.009e-310
+- Training Time: 2.377 seconds
+- Evaluation Time: 0.004 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 50.000
+- num_bins: 255.000
+- num_threads: 8.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 2.85%
+- matrix_size_y: 0.55%
+- p1: 3.12%
+- p2: 0.07%
+- p3: 41.15%
+- p4: 28.16%
+- p5: 1.82%
+- p6: 15.33%
+- p7: 4.74%
+- p8: 2.20%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.175e-310
+- Training Time: 7.846 seconds
+- Evaluation Time: 0.017 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 8.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.21%
+- matrix_size_y: 0.73%
+- p1: 2.92%
+- p2: 0.14%
+- p3: 38.02%
+- p4: 26.98%
+- p5: 2.64%
+- p6: 16.18%
+- p7: 6.44%
+- p8: 2.76%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 4.731e-310
+- Training Time: 8.179 seconds
+- Evaluation Time: 0.017 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 8.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.21%
+- matrix_size_y: 0.73%
+- p1: 2.92%
+- p2: 0.14%
+- p3: 38.02%
+- p4: 26.98%
+- p5: 2.64%
+- p6: 16.18%
+- p7: 6.44%
+- p8: 2.76%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.503e-310
+- Training Time: 8.149 seconds
+- Evaluation Time: 0.017 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 8.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.21%
+- matrix_size_y: 0.73%
+- p1: 2.92%
+- p2: 0.14%
+- p3: 38.02%
+- p4: 26.98%
+- p5: 2.64%
+- p6: 16.18%
+- p7: 6.44%
+- p8: 2.76%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 4.639e-310
+- Training Time: 0.120 seconds
+- Evaluation Time: 0.001 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 8.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 0.00%
+- matrix_size_y: 0.00%
+- p1: 0.00%
+- p2: 0.00%
+- p3: 0.00%
+- p4: 0.00%
+- p5: 0.00%
+- p6: 0.00%
+- p7: 0.00%
+- p8: 0.00%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 4.964e-310
+- Training Time: 6.038 seconds
+- Evaluation Time: 0.032 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 8.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.21%
+- matrix_size_y: 0.73%
+- p1: 2.92%
+- p2: 0.14%
+- p3: 38.02%
+- p4: 26.98%
+- p5: 2.64%
+- p6: 16.18%
+- p7: 6.44%
+- p8: 2.76%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.136e-310
+- Training Time: 1.508 seconds
+- Evaluation Time: 0.008 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 8.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.52%
+- matrix_size_y: 3.51%
+- p1: 6.37%
+- p2: 0.68%
+- p3: 26.19%
+- p4: 11.36%
+- p5: 12.57%
+- p6: 20.37%
+- p7: 13.64%
+- p8: 3.78%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.216e-310
+- Training Time: 10.212 seconds
+- Evaluation Time: 0.016 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 8.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 0.03%
+- matrix_size_y: 0.06%
+- p1: 99.40%
+- p2: 0.02%
+- p3: 0.08%
+- p4: 0.11%
+- p5: 0.11%
+- p6: 0.08%
+- p7: 0.03%
+- p8: 0.08%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.485e-310
+- Training Time: 8.541 seconds
+- Evaluation Time: 0.017 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 8.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.21%
+- matrix_size_y: 0.73%
+- p1: 2.92%
+- p2: 0.14%
+- p3: 38.02%
+- p4: 26.98%
+- p5: 2.64%
+- p6: 16.18%
+- p7: 6.44%
+- p8: 2.76%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.488e-310
+- Training Time: 3.300 seconds
+- Evaluation Time: 0.012 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 8.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 0.03%
+- matrix_size_y: 0.06%
+- p1: 99.40%
+- p2: 0.02%
+- p3: 0.08%
+- p4: 0.11%
+- p5: 0.11%
+- p6: 0.08%
+- p7: 0.03%
+- p8: 0.08%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.251e-310
+- Training Time: 7.945 seconds
+- Evaluation Time: 0.021 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 8.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.21%
+- matrix_size_y: 0.73%
+- p1: 2.92%
+- p2: 0.14%
+- p3: 38.02%
+- p4: 26.98%
+- p5: 2.64%
+- p6: 16.18%
+- p7: 6.44%
+- p8: 2.76%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.139e-310
+- Training Time: 6.006 seconds
+- Evaluation Time: 0.014 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 8.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.21%
+- matrix_size_y: 0.73%
+- p1: 2.92%
+- p2: 0.14%
+- p3: 38.02%
+- p4: 26.98%
+- p5: 2.64%
+- p6: 16.18%
+- p7: 6.44%
+- p8: 2.76%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 4.827e-310
+- Training Time: 5.743 seconds
+- Evaluation Time: 0.013 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 8.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.21%
+- matrix_size_y: 0.73%
+- p1: 2.92%
+- p2: 0.14%
+- p3: 38.02%
+- p4: 26.98%
+- p5: 2.64%
+- p6: 16.18%
+- p7: 6.44%
+- p8: 2.76%
+
+---
+

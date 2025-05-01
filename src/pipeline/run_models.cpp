@@ -382,70 +382,104 @@ void runLightGBMModel(const LightGBMParams &params,
 
  
 }
-void runAdvGBDTModel(const AdvGBDTParams& p, const DataParams& data) {
-  std::cout << "============= Advanced GBDT Training =============\n";
-
-  // 1. Conversion des données en format matriciel
+void runAdvGBDTModel(const AdvGBDTParams& params, const DataParams& data_params) {
+  std::cout << "============= Advanced GBDT Training =============" << std::endl;
+  
+  // Convert flat data to matrix format for advanced GBDT
   std::vector<std::vector<double>> X_train, X_test;
-  to_matrix(data.X_train, data.rowLength, X_train);
-  to_matrix(data.X_test, data.rowLength, X_test);
-
-  // 2. Création du modèle avec la méthode de binning choisie
-  auto binning_method = p.binMethod == AdvBinMethod::Quantile ? 
-                         ImprovedGBDT::BinningMethod::QUANTILE : 
-                         ImprovedGBDT::BinningMethod::FREQUENCY;
-                         
-  ImprovedGBDT booster(
-      p.nEstimators,    // Nombre d'estimateurs
-      p.maxDepth,       // Profondeur maximale
-      p.learningRate,   // Taux d'apprentissage
-      p.useDart,        // Utilisation de DART
-      p.dropoutRate,    // Taux de dropout pour DART
-      p.skipDropRate,   // Taux de saut pour DART
-      binning_method,   // Méthode de binning
-      p.numBins         // Nombre de bins
+  to_matrix(data_params.X_train, data_params.rowLength, X_train);
+  to_matrix(data_params.X_test, data_params.rowLength, X_test);
+  
+  // Feature names for importance calculation
+  std::vector<std::string> feature_names = {
+      "p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "matrix_size_x", "matrix_size_y"
+  };
+  
+  // Convert binning method enum
+  ImprovedGBDT::BinningMethod bin_method = params.binMethod == AdvBinMethod::Quantile ? 
+      ImprovedGBDT::BinningMethod::QUANTILE : ImprovedGBDT::BinningMethod::FREQUENCY;
+  
+  // Initialize model with optimized parameters
+  ImprovedGBDT model(
+      params.nEstimators,
+      params.maxDepth,
+      params.learningRate,
+      false,            // Disable DART for stability
+      0.0,              // No dropout
+      0.0,              // No skip
+      bin_method,
+      params.numBins,
+      params.minDataLeaf,
+      0.0,              // L2 regularization - match LightGBM default
+      0.8,              // Feature sampling ratio for randomization
+      0                 // Early stopping rounds
   );
-
-  // 3. Entraînement avec mesure du temps
-  auto t0 = std::chrono::high_resolution_clock::now();
-  booster.fit(X_train, data.y_train);
-  auto t1 = std::chrono::high_resolution_clock::now();
-  double train_sec = std::chrono::duration<double>(t1 - t0).count();
-  std::cout << "[AdvGBDT] Training time: " << train_sec << " s\n";
-
-  // 4. Prédiction avec mesure du temps
-  auto t2 = std::chrono::high_resolution_clock::now();
-  std::vector<double> preds = booster.predict(X_test);
-  auto t3 = std::chrono::high_resolution_clock::now();
-  double pred_sec = std::chrono::duration<double>(t3 - t2).count();
-  std::cout << "[AdvGBDT] Prediction time: " << pred_sec << " s\n";
-
-  // 5. Calcul des métriques d'évaluation
+  
+  // Set OpenMP threads
+  omp_set_num_threads(params.numThreads);
+  
+  // Train model
+  auto train_start = std::chrono::high_resolution_clock::now();
+  
+  // Train without validation set for simplicity
+  model.fit(X_train, data_params.y_train);
+  
+  auto train_end = std::chrono::high_resolution_clock::now();
+  double train_time = std::chrono::duration<double>(train_end - train_start).count();
+  std::cout << "[AdvGBDT] Training time: " << train_time << " s" << std::endl;
+  
+  // Make predictions
+  auto pred_start = std::chrono::high_resolution_clock::now();
+  std::vector<double> predictions = model.predict(X_test);
+  auto pred_end = std::chrono::high_resolution_clock::now();
+  double pred_time = std::chrono::duration<double>(pred_end - pred_start).count();
+  std::cout << "[AdvGBDT] Prediction time: " << pred_time << " s" << std::endl;
+  
+  // Calculate metrics
   double mse = 0.0, mae = 0.0;
-  for (size_t i = 0; i < preds.size(); ++i) {
-      double diff = data.y_test[i] - preds[i];
+  for (size_t i = 0; i < predictions.size(); ++i) {
+      double diff = predictions[i] - data_params.y_test[i];
       mse += diff * diff;
       mae += std::abs(diff);
   }
-  mse /= preds.size();
-  mae /= preds.size();
-  std::cout << "[AdvGBDT] MSE=" << mse << ", MAE=" << mae << '\n';
-
-  // 6. Sauvegarde des résultats pour comparaison
-  ModelResults res;
-  res.model_name      = "AdvancedGBDT (" + std::string(p.binMethod == AdvBinMethod::Quantile ? "Quantile" : "Frequency") + ")";
-  res.mse_or_mae      = mse;
-  res.training_time   = train_sec;
-  res.evaluation_time = pred_sec;
-  res.parameters["n_estimators"]     = p.nEstimators;
-  res.parameters["learning_rate"]    = p.learningRate;
-  res.parameters["max_depth"]        = p.maxDepth;
-  res.parameters["min_data_in_leaf"] = static_cast<int>(p.minDataLeaf);
-  res.parameters["use_dart"]         = p.useDart ? 1 : 0;
-  res.parameters["dropout_rate"]     = p.dropoutRate;
-  res.parameters["skip_drop_rate"]   = p.skipDropRate;
-  res.parameters["num_threads"]      = p.numThreads;
-  res.parameters["binning_method"]   = static_cast<int>(p.binMethod);
-  res.parameters["num_bins"]         = p.numBins;
-  ModelComparison::saveResults(res);
+  mse /= predictions.size();
+  mae /= predictions.size();
+  std::cout << "[AdvGBDT] MSE=" << mse << ", MAE=" << mae << std::endl;
+  
+  // Get feature importance
+  auto importances = model.featureImportance();
+  
+  std::cout << "[AdvGBDT] Feature importance:" << std::endl;
+  for (size_t i = 0; i < importances.size() && i < feature_names.size(); ++i) {
+      std::cout << feature_names[i] << ": " << importances[i] * 100 << std::endl;
+  }
+  
+  // Save model
+  std::string model_file = "../saved_models/adv_gbdt_models/adv_gbdt_model.bin";
+  model.saveModel(model_file);
+  std::cout << "[AdvGBDT] Model saved to: " << model_file << std::endl;
+  
+  // Save results for comparison
+  ModelResults results;
+  results.model_name = "Advanced GBDT";
+  results.mse_or_mae = mse;
+  results.training_time = train_time;
+  results.evaluation_time = pred_time;
+  
+  // Save parameters
+  results.parameters["n_estimators"] = params.nEstimators;
+  results.parameters["learning_rate"] = params.learningRate;
+  results.parameters["max_depth"] = params.maxDepth;
+  results.parameters["min_data_leaf"] = params.minDataLeaf;
+  results.parameters["num_bins"] = params.numBins;
+  results.parameters["use_dart"] = false;  // Disabled for now
+  results.parameters["num_threads"] = params.numThreads;
+  results.parameters["binning_method"] = static_cast<int>(params.binMethod);
+  
+  // Save feature importance
+  for (size_t i = 0; i < importances.size() && i < feature_names.size(); ++i) {
+      results.feature_importance[feature_names[i]] = importances[i];
+  }
+  
+  ModelComparison::saveResults(results);
 }
