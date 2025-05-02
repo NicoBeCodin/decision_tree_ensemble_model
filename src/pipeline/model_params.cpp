@@ -35,9 +35,9 @@ bool getDecisionTreeParams(const ProgramOptions &options,
     out_params.maxDepth = std::stoi(options.params[1]);
     out_params.minSamplesSplit = std::stoi(options.params[2]);
     out_params.minImpurityDecrease = std::stod(options.params[3]);
-    out_params.useOMP = std::stoi(options.params[5]) != 0;
+    out_params.useOMP = std::stoi(options.params[4]) != 0;
     out_params.numThreads = adjustNumThreads(std::stoi(
-        options.params[6])); // This is to make sure it's a power of two
+        options.params[5])); // This is to make sure it's a power of two
   } else if (options.load_request) {
     try {
       DecisionTreeSingle tmp_tree(0, 0, 0.0, 0); // Temporary
@@ -138,8 +138,8 @@ bool getBaggingParams(const ProgramOptions &options,
     out_params.maxDepth = std::stoi(options.params[3]);
     out_params.minSamplesSplit = std::stoi(options.params[4]);
     out_params.minImpurityDecrease = std::stod(options.params[5]);
-    out_params.useOMP = std::stoi(options.params[7]) != 0;
-    out_params.numThreads = std::stoi(options.params[8]);
+    out_params.useOMP = std::stoi(options.params[6]) != 0;
+    out_params.numThreads = std::stoi(options.params[7]);
     
   } else if (options.load_request) {
     try {
@@ -252,8 +252,8 @@ bool getBoostingParams(const ProgramOptions &options,
     out_params.minSamplesSplit = std::stoi(options.params[4]);
     out_params.minImpurityDecrease = std::stod(options.params[5]);
     out_params.learningRate = std::stod(options.params[6]);
-    out_params.useOMP = std::stoi(options.params[8]) != 0;
-    out_params.numThreads = std::stoi(options.params[9]);
+    out_params.useOMP = std::stoi(options.params[7]) != 0;
+    out_params.numThreads = std::stoi(options.params[8]);
   } else if (options.load_request) {
     try {
       Boosting tmp_boosting_model(0, 0.0, nullptr, 0, 0, 0.0, 0,
