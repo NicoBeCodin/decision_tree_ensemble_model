@@ -50,7 +50,7 @@ NICE = {  # étiquettes courtes
 # ──────────────────────────────────────────────────────────────────────────────
 # 2.  Lecture du CSV
 # ──────────────────────────────────────────────────────────────────────────────
-CSV = Path("scaling_results_with_mpi.csv")
+CSV = Path("scaling_results_without_mpi.csv")
 if not CSV.exists():
     raise SystemExit(f"❌ {CSV} introuvable")
 
