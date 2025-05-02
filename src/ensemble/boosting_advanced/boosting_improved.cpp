@@ -62,80 +62,96 @@ void ImprovedGBDT::buildHistogram(
     const std::vector<double>& hessians,
     std::vector<std::vector<HistogramEntry>>& hist,
     const std::vector<int>& feature_indices) {
-    
-    // Initialize histograms
-    for (int f_idx : feature_indices) {
-        std::fill(hist[f_idx].begin(), hist[f_idx].end(), HistogramEntry());
-    }
-    
-    if (indices.size() < MIN_SAMPLES_FOR_PARALLEL) {
-        // Serial processing for small datasets
-        for (int idx : indices) {
-            for (int f_idx : feature_indices) {
-                int bin = getBinIndex(X[idx][f_idx], f_idx, idx);
-                hist[f_idx][bin].grad_sum += gradients[idx];
-                hist[f_idx][bin].hess_sum += hessians[idx];
-                hist[f_idx][bin].count++;
-            }
-        }
-    } else {
-        // Parallel processing for larger datasets
-        const int max_threads = omp_get_max_threads();
-        std::vector<std::vector<std::vector<HistogramEntry>>> thread_histograms(
-            max_threads, std::vector<std::vector<HistogramEntry>>(
-                n_features, std::vector<HistogramEntry>(num_bins + 1)
-            )
+
+    const int max_threads = omp_get_max_threads();
+    const int n_feats     = n_features;
+    const int n_bins      = num_bins;
+
+    // 1. 函数级 static，所有线程共享这块缓冲区
+    static std::vector<std::vector<HistogramEntry>> thread_hist;
+    if ((int)thread_hist.size() != max_threads) {
+        thread_hist.assign(
+            max_threads,
+            std::vector<HistogramEntry>(n_feats * (n_bins + 1))
         );
+    }
+
+    // 2. 清空主直方图
+    for (int f : feature_indices) {
+        std::fill(
+            hist[f].begin(),
+            hist[f].end(),
+            HistogramEntry()
+        );
+    }
+
+   
+    const size_t N = indices.size();
+    const size_t L = feature_indices.size();
+
+    #pragma omp parallel
+    {
+        int tid = omp_get_thread_num();
+        auto &local = thread_hist[tid];
+
         
-        #pragma omp parallel
-        {
-            int thread_id = omp_get_thread_num();
-            auto& local_hist = thread_histograms[thread_id];
-            
-            #pragma omp for schedule(static)
-            for (size_t i = 0; i < indices.size(); ++i) {
-                int idx = indices[i];
-                for (int f_idx : feature_indices) {
-                    int bin = getBinIndex(X[idx][f_idx], f_idx, idx);
-                    local_hist[f_idx][bin].grad_sum += gradients[idx];
-                    local_hist[f_idx][bin].hess_sum += hessians[idx];
-                    local_hist[f_idx][bin].count++;
-                }
+        for (size_t i_f = 0; i_f < L; ++i_f) {
+            int f = feature_indices[i_f];
+            HistogramEntry *ptr = &local[f * (n_bins + 1)];
+            for (int b = 0; b <= n_bins; ++b) {
+                ptr[b] = HistogramEntry();
             }
         }
+
+     
+        #pragma omp for schedule(static)
+        for (size_t i = 0; i < N; ++i) {
+            int sample = indices[i];
+            for (size_t i_f = 0; i_f < L; ++i_f) {
+                int f = feature_indices[i_f];
+                int bin = getBinIndex(X[sample][f], f, sample);
+                auto &cell = local[f * (n_bins + 1) + bin];
+                cell.grad_sum += gradients[sample];
+                cell.hess_sum += hessians[sample];
+                cell.count    += 1;
+            }
+        }
+
         
-        // Merge thread histograms
-        #pragma omp parallel for schedule(dynamic)
-        for (int f_idx : feature_indices) {
-            for (int bin = 0; bin <= num_bins; ++bin) {
+        #pragma omp barrier
+
+        
+        #pragma omp for schedule(dynamic)
+        for (size_t i_f = 0; i_f < L; ++i_f) {
+            int f = feature_indices[i_f];
+            HistogramEntry *main_ptr = hist[f].data();
+            for (int b = 0; b <= n_bins; ++b) {
+                double g = 0.0, h = 0.0;
+                int    c = 0;
                 for (int t = 0; t < max_threads; ++t) {
-                    hist[f_idx][bin].grad_sum += thread_histograms[t][f_idx][bin].grad_sum;
-                    hist[f_idx][bin].hess_sum += thread_histograms[t][f_idx][bin].hess_sum;
-                    hist[f_idx][bin].count += thread_histograms[t][f_idx][bin].count;
+                    auto &e = thread_hist[t][f * (n_bins + 1) + b];
+                    g += e.grad_sum; h += e.hess_sum; c += e.count;
                 }
+                main_ptr[b].grad_sum = g;
+                main_ptr[b].hess_sum = h;
+                main_ptr[b].count    = c;
             }
         }
+    } 
+
+    
+    double sum_g = 0.0, sum_h = 0.0;
+    for (size_t i = 0; i < N; ++i) {
+        sum_g += gradients[indices[i]];
+        sum_h += hessians[indices[i]];
     }
-    
-    // Calculate sum gradients and hessians for the node
-    double sum_gradients = 0.0;
-    double sum_hessians = 0.0;
-    
-    #pragma omp parallel for reduction(+:sum_gradients,sum_hessians) schedule(static)
-    for (size_t i = 0; i < indices.size(); ++i) {
-        int idx = indices[i];
-        sum_gradients += gradients[idx];
-        sum_hessians += hessians[idx];
-    }
-    
-    // Store total sums in the last bin for each feature
-    for (int f_idx : feature_indices) {
-        // Store total sums in the last bin for easy reference
-        hist[f_idx][num_bins].grad_sum = sum_gradients;
-        hist[f_idx][num_bins].hess_sum = sum_hessians;
-        hist[f_idx][num_bins].count = indices.size();
+    for (int f : feature_indices) {
+        hist[f][n_bins].grad_sum = sum_g;
+        hist[f][n_bins].hess_sum = sum_h;
+        hist[f][n_bins].count    = (int)N;
     }
 }
+
 
 bool ImprovedGBDT::findBestSplit(
     const std::vector<std::vector<HistogramEntry>>& hist,
