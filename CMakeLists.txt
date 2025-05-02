@@ -169,13 +169,13 @@ target_link_libraries(MainEnsemble PRIVATE
     FunctionsFeature
     FunctionsMath
     Bagging
-    Boosting
-    Boosting_LightGBM 
+    Boosting 
     Boosting_Advanced
     model_comparison
     Data_Clean
     LossFunction
     Pipeline
+    Boosting_LightGBM
     Utils
     ${OPENMP_LIB}
     ${LGBM_LIB}

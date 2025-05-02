@@ -63,22 +63,23 @@ for scaling in ["strong", "weak"]:
 
                     try:
                         if code == 1:  # DecisionTree
-                            t_tr.append(float(re.search(r"Training time:\s*([0-9.eE+-]+)", out).group(1)))
-                            t_ev.append(float(re.search(r"Evaluation time:\s*([0-9.eE+-]+)", out).group(1)))
-                            mse.append(float(re.search(r"MSE\):\s*([0-9.eE+-]+)",  out).group(1)))
-                            mae.append(float(re.search(r"MAE\):\s*([0-9.eE+-]+)",  out).group(1)))
+                            t_t = float(re.search(r"Training time: *([0-9\.]+)", out).group(1))
+                            t_e = float(re.search(r"Evaluation time: *([0-9\.]+)", out).group(1))
+                            m = float(re.search(r"Mean Squared Error \(MSE\): *([0-9\.eE+-]+)", out).group(1))
+                            a = float(re.search(r"Mean Absolute Error \(MAE\): *([0-9\.eE+-]+)", out).group(1))
 
                         elif code in (2, 3):  # Bagging / Boosting
-                            t_tr.append(float(re.search(r"Training time:\s*([0-9.eE+-]+)", out).group(1)))
-                            t_ev.append(float(re.search(r"Evaluation time:\s*([0-9.eE+-]+)", out).group(1)))
-                            mse.append(float(re.search(r"MSE\):?\s*([0-9.eE+-]+)", out).group(1)))
+                            t_t = float(re.search(r"Training time: *([0-9\.]+)", out).group(1))
+                            t_e = float(re.search(r"Evaluation time: *([0-9\.]+)", out).group(1))
+                            m = float(re.search(r"Mean Square[d]? Error.*: *([0-9\.eE+-]+)", out).group(1))
+                            a = None
 
                         elif code == 4:       # LightGBM
-                            t_tr.append(float(re.search(r"\[LightGBM\] Training time:\s*([0-9.eE+-]+)", out).group(1)))
-                            t_ev.append(float(re.search(r"\[LightGBM\] Prediction time:\s*([0-9.eE+-]+)", out).group(1)))
-                            mse.append(float(re.search(r"\[LightGBM\] MSE\s*=\s*([0-9.eE+-]+)", out).group(1)))
-                            m2 = re.search(r"MAE\s*=\s*([0-9.eE+-]+)", out)
-                            if m2: mae.append(float(m2.group(1)))
+                            t_t = float(re.search(r"\[LightGBM\] Training time: *([0-9\.]+) s", out).group(1))
+                            t_e = float(re.search(r"\[LightGBM\] Prediction time: *([0-9\.]+) s", out).group(1))
+                            m = float(re.search(r"\[LightGBM\] MSE = *([0-9\.eE+-]+)", out).group(1))
+                            a_match = re.search(r"MAE\s*=\s*([0-9\.eE+-]+)", out)
+                            a = float(a_match.group(1)) if a_match else None
 
                     except AttributeError:
                         print("⚠️  parse fail – run ignoré"); continue
