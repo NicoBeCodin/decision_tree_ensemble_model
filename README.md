@@ -1,205 +1,181 @@
-# **Decision Tree Ensemble Model**
+# Decision Tree Ensemble Model
 
-This project implements several machine learning methods, including **Decision Trees**, **Bagging**, **Boosting**, and **XGBoost**. Additionally, it provides a **data cleaning utility** to preprocess datasets for use in these models.
+## Overview
+A C++ library implementing and benchmarking five supervised learning methods:
+1. **DecisionTree**: a single CART decision tree implemented from scratch, supporting mean squared and absolute error criteria with optional OpenMP parallelism.
+2. **Bagging**: bootstrap aggregation of multiple decision trees to reduce variance, with configurable number of trees and tree hyperparameters.
+3. **Boosting**: a custom gradient boosting implementation that sequentially trains weak learners to minimize a specified loss, featuring early stopping and learning rate control.
+4. **LightGBM**: integration of Microsoft’s LightGBM library for fast, histogram-based gradient boosting with support for large datasets.
+5. **AdvancedGBDT**: a custom GBDT variant with DART-style dropout and flexible binning methods (quantile or frequency), for improved regularization and performance.
 
----
-
-## **How to Build the Project**
-
-To generate the executables (**DataClean**, **MainEnsemble**, and **MainKFold**), follow these steps:
-
-1. **Install CMake** (if not already installed):
-   ```bash
-   sudo apt-get update
-   sudo apt-get install cmake
-   ```
-2. **Create and navigate to the build directory**:
-   ```bash
-   mkdir build
-   cd build
-   ```
-3. **Run CMake to configure the project**:
-   ```bash
-   cmake ..
-   #or if you want to disable OpenMP optimizations
-   cmake -DOPENMP=OFF ..
-   ```
-4. **Compile the project**:
-   ```bash
-   make
-   ```
-5. The following executables will be available in the `build/` directory:
-   - **DataClean**
-   - **MainEnsemble**
-   - **MainKFold**
+A Python benchmarking script and plotting utilities automate experiments and generate performance graphs.
 
 ---
 
-## **How to Run the Executables**
+## Prerequisites
 
-### **DataClean**
-Run the **DataClean** executable with two arguments:
+### Common
+- A C++17‑capable compiler (Clang or GCC).
+- [CMake](https://cmake.org/) 3.10 or higher.
+- [Graphviz](https://graphviz.org/) (for tree visualizations).
+- Python 3.8+ and `pip`.
+
+### Linux (Debian/Ubuntu)
 ```bash
-./DataClean <inputpathfile> <outputpathfile>
+apt-get update
+apt-get install cmake build-essential libomp-dev graphviz python3 python3-pip lightgbm
 ```
-Example:
+
+### macOS (Homebrew)
 ```bash
-./DataClean /path/to/file/input.csv /path/to/file/output.csv
+brew update
+brew install cmake libomp graphviz python3 lightgbm
 ```
+
+### Python
+```bash
+python3 -m pip install --user -r requirements.txt
+# Plotting dependencies:
+python3 -m pip install matplotlib pandas
+# LightGBM bindings:
+python3 -m pip install lightgbm
+```
+
+### Environment Variables
+- `OMP_NUM_THREADS`: controls the number of threads for OpenMP-enabled models.
+- `USE_MPI` (CMake flag): enable MPI-based parallelism for Bagging.
 
 ---
 
-### **MainEnsemble**
-Run the **MainEnsemble** executable and choose one of the four available methods:
+## Building the C++ Project
+
 ```bash
-./MainEnsemble
+mkdir build && cd build
+# enable or disable OpenMP
+cmake -DOPENMP=ON ..
+# To build with MPI support (for Bagging):
+cmake -DUSE_MPI=ON -DOPENMP=ON ..
+make
 ```
-Options available:
-```
-1: Simple Decision Tree
-2: Bagging
-3: Boosting
-4: XGBoost
-```
-After selecting a method, the program will train the model and display performance metrics like training time, evaluation time, and mean squared error (MSE) or mean absolute error (MAE).
+
+This produces three executables in `build/`:
+- `DataClean` (CSV preprocessing)
+- `MainEnsemble` (single-run benchmarking)
+- `MainKFold` (k‑fold cross‑validation)
 
 ---
 
-### **MainKFold**
-Run the **MainKFold** executable and choose one of the three available methods:
+## Usage Examples
+
+### Data Cleaning
+```bash
+./DataClean ../data/raw.csv ../data/clean.csv
+```
+
+### Single Experiment Suite
+```bash
+./MainEnsemble [OPTIONS]
+```
+Launches an interactive menu to choose one of five methods and optionally override hyperparameters via command‑line flags, e.g.:  
+```bash
+./MainEnsemble 2 --n_estimators=100 --max_depth=10 --use_omp=1
+```
+
+#### Common Command-Line Flags
+- `--n_estimators=<int>`: number of trees/estimators.
+- `--max_depth=<int>`: maximum tree depth.
+- `--learning_rate=<float>`: shrinkage rate for boosting.
+- `--use_omp=<0|1>`: disable (0) or enable (1) OpenMP parallelism.
+- `--min_data_leaf=<int>`: minimum samples per leaf for AdvancedGBDT.
+- `--num_leaves=<int>`: max leaf count for LightGBM.
+
+### Hyperparameter Details
+
+#### DecisionTree
+- `--max_depth=<int>` (default: 60): Maximum depth of the tree.
+- `--min_samples_split=<int>` (default: 2): Minimum number of samples required to split an internal node.
+- `--min_impurity_decrease=<float>` (default: 1e-12): Minimum impurity decrease required to split a node.
+- `--use_split_histogram=<0|1>` (default: 0): Enable (1) or disable (0) histogram-based splitting.
+- `--use_omp=<0|1>` (default: 0): Enable (1) or disable (0) OpenMP parallelism.
+- `--num_threads=<int>` (default: 1): Number of threads to use when OpenMP is enabled.
+
+#### Bagging
+- `--n_estimators=<int>` (default: 20): Number of trees to aggregate.
+- `--max_depth=<int>` (default: 60): Maximum depth for each base tree.
+- `--min_samples_split=<int>` (default: 2): Minimum samples to split a node in base trees.
+- `--min_impurity_decrease=<float>` (default: 1e-6): Impurity threshold for splitting in base trees.
+- `--which_loss_function=<0|1>` (default: 0): Loss function for aggregation: 0=MSE, 1=MAE.
+- `--use_split_histogram=<0|1>` (default: 0): Enable histogram splitting in base trees.
+- `--use_omp=<0|1>` (default: 0): Enable OpenMP parallelism.
+- `--num_threads=<int>` (default: 1): Number of threads per tree when using OpenMP.
+
+#### Boosting (Custom)
+- `--n_estimators=<int>` (default: 75): Number of boosting iterations.
+- `--learning_rate=<float>` (default: 0.07): Shrinkage rate of each new tree.
+- `--max_depth=<int>` (default: 15): Maximum depth of each weak learner.
+- `--min_samples_split=<int>` (default: 3): Minimum samples to split nodes in weak learners.
+- `--min_impurity_decrease=<float>` (default: 1e-5): Impurity threshold for splitting in weak learners.
+- `--which_loss_function=<0|1>` (default: 0): Loss function: 0=MSE, 1=MAE.
+- `--use_split_histogram=<0|1>` (default: 1): Enable histogram-based splitting.
+- `--use_omp=<0|1>` (default: 0): Enable OpenMP parallelism.
+- `--num_threads=<int>` (default: 1): Threads per iteration when using OpenMP.
+
+#### LightGBM
+- `--n_estimators=<int>` (default: 100): Number of boosting rounds.
+- `--learning_rate=<float>` (default: 0.1): Learning rate (shrinkage).
+- `--max_depth=<int>` (default: -1): Maximum tree depth (-1 for no limit).
+- `--num_leaves=<int>` (default: 31): Maximum leaves per tree.
+- `--subsample=<float>` (default: 1.0): Fraction of data to use per iteration.
+- `--colsample_bytree=<float>` (default: 1.0): Fraction of features to use.
+
+#### AdvancedGBDT
+- `--n_estimators=<int>` (default: 200): Number of trees.
+- `--learning_rate=<float>` (default: 0.01): Learning rate.
+- `--max_depth=<int>` (default: 50): Maximum depth per tree.
+- `--min_data_leaf=<int>` (default: 1): Minimum data per leaf.
+- `--num_bins=<int>` (default: 1024): Number of bins for feature histograms.
+- `--use_dart=<0|1>` (default: 1): Enable DART dropout technique.
+- `--dropout_rate=<float>` (default: 0.5): Dropout rate for DART.
+- `--skip_drop_rate=<float>` (default: 0.3): Skip-drop probability for DART.
+- `--binning_method=<0|1>` (default: 1): Binning method: 0=Quantile, 1=Frequency.
+
+### K‑Fold Cross‑Validation
 ```bash
 ./MainKFold
 ```
-Options available:
-```
-1: Simple Decision Tree
-2: Bagging
-3: Boosting
-```
-The program performs K-Fold cross-validation for each method and displays the performance metrics.
+Select a method and number of folds to run cross‑validation.
 
 ---
 
+## Python Benchmarking & Plotting
 
-
-### **Decision Tree Models Comparison**
-
-Run the **Decision Tree Models Comparison** executable and choose from a variety of options to either run individual models, run all available tests, or view previous model comparisons.
-
+From the project root:
 ```bash
-./decision_tree
+cd script
+python3 benchmark.py   # runs experiments, writes CSV
+cd ../plots
+python3 plot.py        # reads CSV and generates figures
 ```
 
-Options available:
-```
-1: Run individual model
-2: Run all tests
-3: View models comparison
-```
-
-After selecting an option, you will be prompted with the following steps:
-
-#### **Option 1: Run Individual Model**
-
-1. Choose the model you want to use:
-   ```
-   1: Single Decision Tree
-   2: Bagging
-   3: Boosting
-   4: XGBoost
-   ```
-
-2. After selecting a model, you will be asked whether to load an existing tree model:
-   ```
-   Would you like to load an existing tree model? (1 = Yes (currently unused), 0 = No): 
-   ```
-
-3. If you choose **No**, you will then have the option to customize the parameters for the selected model:
-   ```
-   Do you want to customize parameters? (1 = Yes, 0 = No): 
-   ```
-
-   - If you choose **Yes**, you will be asked for various parameters specific to the model selected, such as:
-     - **Maximum depth** of the tree
-     - **Minimum samples** required to split a node
-     - **Splitting criteria** (MSE or MAE)
-     - **Learning rate** (for Boosting and XGBoost)
-
-   - If you choose **No**, the program will use the default parameters.
-
-4. Once the parameters are set, the program will train the selected model and display relevant performance metrics such as training time, evaluation time, and error metrics (MSE or MAE).
-
-#### **Option 2: Run All Tests**
-
-1. This option runs a suite of tests for all available models:
-   ```
-   === Math Functions Tests ===
-   === Decision Tree Tests ===
-   === Bagging Tests ===
-   === Boosting Tests ===
-   === XGBoost Tests ===
-   === Cross Validation Tests ===
-   ```
-
-2. After running the tests, performance metrics will be displayed for each test case.
-
-#### **Option 3: View Models Comparison**
-
-1. This option will display the results of previous model comparisons stored in the `all_models_comparison.md` file.
-   
-   If no previous results are available, the program will prompt:
-   ```
-   No previous results found. Please run tests first.
-   ```
+- `benchmark.py` writes its results to `script/benchmark_results_extended.csv`.
+- `plot.py` reads the CSV and outputs figures into `plots/figures/` as PNG files.
 
 ---
 
 
-## **CMake Configuration**
 
-Here is a simplified version of the **CMakeLists.txt** configuration:
-
-```cmake
-cmake_minimum_required(VERSION 3.10)
-project(DecisionTreeEnsembleModel)
-
-set(CMAKE_CXX_STANDARD 17)
-
-# Add subdirectories for submodules
-add_subdirectory(functions_io)
-add_subdirectory(functions_tree)
-add_subdirectory(ensemble_bagging)
-add_subdirectory(ensemble_boosting)
-add_subdirectory(ensemble_boosting_XGBoost)
-add_subdirectory(data_clean)
-
-# Create executables
-add_executable(DataClean main_data_clean.cpp)
-add_executable(MainEnsemble main.cpp)
-add_executable(MainKFold main_kfold.cpp)
-
-# Link libraries to the executables
-target_link_libraries(DataClean Data_Clean)
-
-target_link_libraries(MainEnsemble
-    FunctionsIO
-    FunctionsTree
-    Bagging
-    Boosting
-    Boosting_XGBoost
-)
-
-target_link_libraries(MainKFold
-    FunctionsIO
-    FunctionsTree
-    Bagging
-    Boosting
-)
+## Project Structure
+```
+/decision_tree_ensemble_model
+├─ CMakeLists.txt
+├─ src/            # C++ source (models, utilities, pipelines)
+├─ build/          # build artifacts
+├─ script/         # Python script to run batch experiments and export CSV
+├─ plots/          # Python script and output directory for generated figures
+└─ README.md       # project overview and instructions
 ```
 
-This file defines how the executables are built and the libraries they link to.
 
----
 
 ## **Usage Tips**
 
@@ -219,3 +195,9 @@ This file defines how the executables are built and the libraries they link to.
   ```bash
   chmod +x DataClean MainEnsemble MainKFold
   ```
+
+---
+
+## License / Ownership
+
+All code and materials produced during this project as part of the Université de Versailles Saint-Quentin-en-Yvelines (UVSQ) curriculum are the property of UVSQ. All rights reserved.
