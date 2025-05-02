@@ -104,6 +104,7 @@ void getModelParameters(int model_choice, std::string& parameters) {
             parameters += " " + std::to_string(criteria) + " " + std::to_string(max_depth) + " " + 
                          std::to_string(min_samples) + " " + 
                          std::to_string(min_impurity) + " " +
+                         std::to_string(useOMP) + " " +
                          std::to_string(numThreads);
             break;
         }
