@@ -1,0 +1,12 @@
+address;source_location;insn;indent
+0x71d5d;:0;VMOVSD	(%R10),%XMM5;
+0x71d62;:0;MOV	%R10,%RDX;
+0x71d65;:0;VCOMISD	%XMM6,%XMM5;
+0x71d69;:0;JA	71e80 <_ZSt16__introsort_loopIN9__gnu_cxx17__normal_iteratorIPSt4pairIdiESt6vectorIS3_SaIS3_EEEElNS0_5__ops15_Iter_less_iterEEvT_SB_T0_T1_.isra.0+0x210>;
+0x71d6f;:0;VCOMISD	%XMM5,%XMM6;
+0x71d73;:0;JNE	71d84 <_ZSt16__introsort_loopIN9__gnu_cxx17__normal_iteratorIPSt4pairIdiESt6vectorIS3_SaIS3_EEEElNS0_5__ops15_Iter_less_iterEEvT_SB_T0_T1_.isra.0+0x114>;
+0x71d75;:0;MOV	0x8(%R10),%ESI;
+0x71d79;:0;CMP	%ESI,0x8(%R12);
+0x71d7e;:0;JL	71e80 <_ZSt16__introsort_loopIN9__gnu_cxx17__normal_iteratorIPSt4pairIdiESt6vectorIS3_SaIS3_EEEElNS0_5__ops15_Iter_less_iterEEvT_SB_T0_T1_.isra.0+0x210>;
+0x71e80;:0;SUB	$0x10,%R10;
+0x71e84;:0;JMP	71d5d <_ZSt16__introsort_loopIN9__gnu_cxx17__normal_iteratorIPSt4pairIdiESt6vectorIS3_SaIS3_EEEElNS0_5__ops15_Iter_less_iterEEvT_SB_T0_T1_.isra.0+0xed>;

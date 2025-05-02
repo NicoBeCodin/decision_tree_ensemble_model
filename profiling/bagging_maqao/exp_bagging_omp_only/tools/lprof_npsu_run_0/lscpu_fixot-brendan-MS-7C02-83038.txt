@@ -1,0 +1,41 @@
+Architecture :                          x86_64
+Mode(s) opératoire(s) des processeurs : 32-bit, 64-bit
+Address sizes:                          43 bits physical, 48 bits virtual
+Boutisme :                              Little Endian
+Processeur(s) :                         6
+Liste de processeur(s) en ligne :       0-5
+Identifiant constructeur :              AuthenticAMD
+Nom de modèle :                         AMD Ryzen 5 3500X 6-Core Processor
+Famille de processeur :                 23
+Modèle :                                113
+Thread(s) par cœur :                    1
+Cœur(s) par socket :                    6
+Socket(s) :                             1
+Révision :                              0
+Frequency boost:                        enabled
+CPU(s) scaling MHz:                     77%
+Vitesse maximale du processeur en MHz : 4120,3120
+Vitesse minimale du processeur en MHz : 2200,0000
+BogoMIPS :                              7200,26
+Drapaux :                               fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 cqm rdt_a rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local clzero irperf xsaveerptr rdpru wbnoinvd arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif v_spec_ctrl umip rdpid overflow_recov succor smca sev sev_es
+Virtualisation :                        AMD-V
+Cache L1d :                             192 KiB (6 instances)
+Cache L1i :                             192 KiB (6 instances)
+Cache L2 :                              3 MiB (6 instances)
+Cache L3 :                              32 MiB (2 instances)
+Nœud(s) NUMA :                          1
+Nœud NUMA 0 de processeur(s) :          0-5
+Vulnerability Gather data sampling:     Not affected
+Vulnerability Itlb multihit:            Not affected
+Vulnerability L1tf:                     Not affected
+Vulnerability Mds:                      Not affected
+Vulnerability Meltdown:                 Not affected
+Vulnerability Mmio stale data:          Not affected
+Vulnerability Reg file data sampling:   Not affected
+Vulnerability Retbleed:                 Mitigation; untrained return thunk; SMT disabled
+Vulnerability Spec rstack overflow:     Mitigation; SMT disabled
+Vulnerability Spec store bypass:        Mitigation; Speculative Store Bypass disabled via prctl
+Vulnerability Spectre v1:               Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerability Spectre v2:               Mitigation; Retpolines; IBPB conditional; STIBP disabled; RSB filling; PBRSB-eIBRS Not affected; BHI Not affected
+Vulnerability Srbds:                    Not affected
+Vulnerability Tsx async abort:          Not affected

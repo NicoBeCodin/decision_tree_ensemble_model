@@ -1,0 +1,478 @@
+{
+  "report": [
+    {
+      "id_str": "Loop 777 - MainEnsemble",
+      "module": "MainEnsemble",
+      "id": 777,
+      "analysis": "Execution Time: 26 % - Vectorization Ratio: 0.00 % - Vector Length Use: 22.92 %",
+      "coverage": 26.322185516357,
+      "issues": [
+        {
+          "id_str": "Loop Computation Issues",
+          "score": 2,
+          "issues": [
+            {
+              "code": "L2_LC_6",
+              "analysis": "[SA] Presence of a large number of scalar integer instructions - Simplify loop structure, perform loop splitting or perform unroll and jam. This issue costs 2 points.",
+              "score": 2,
+            }
+          ]
+        },
+        {
+          "id_str": "Control Flow Issues",
+          "score": 2,
+          "issues": [
+            {
+              "code": "L2_CF_2",
+              "analysis": "[SA] Several paths (2 paths) - Simplify control structure or force the compiler to use masked instructions. There are 2 issues ( = paths) costing 1 point each.",
+              "score": 2,
+            }
+          ]
+        },
+        {
+          "id_str": "Vectorization Roadblocks",
+          "score": 2,
+          "issues": [
+            {
+              "code": "L2_CF_2",
+              "analysis": "[SA] Several paths (2 paths) - Simplify control structure or force the compiler to use masked instructions. There are 2 issues ( = paths) costing 1 point each.",
+              "score": 2,
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id_str": "Loop 773 - MainEnsemble",
+      "module": "MainEnsemble",
+      "id": 773,
+      "analysis": "Execution Time: 16 % - Vectorization Ratio: 0.00 % - Vector Length Use: 19.82 %",
+      "coverage": 16.048631668091,
+      "issues": [
+        {
+          "id_str": "Control Flow Issues",
+          "score": 2,
+          "issues": [
+            {
+              "code": "L2_CF_2",
+              "analysis": "[SA] Several paths (2 paths) - Simplify control structure or force the compiler to use masked instructions. There are 2 issues ( = paths) costing 1 point each.",
+              "score": 2,
+            }
+          ]
+        },
+        {
+          "id_str": "Vectorization Roadblocks",
+          "score": 2,
+          "issues": [
+            {
+              "code": "L2_CF_2",
+              "analysis": "[SA] Several paths (2 paths) - Simplify control structure or force the compiler to use masked instructions. There are 2 issues ( = paths) costing 1 point each.",
+              "score": 2,
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id_str": "Loop 779 - MainEnsemble",
+      "module": "MainEnsemble",
+      "id": 779,
+      "analysis": "Execution Time: 13 % - Vectorization Ratio: 0.00 % - Vector Length Use: 19.23 %",
+      "coverage": 13.61701965332,
+      "issues": [
+        {
+          "id_str": "Loop Computation Issues",
+          "score": 2,
+          "issues": [
+            {
+              "code": "L2_LC_6",
+              "analysis": "[SA] Presence of a large number of scalar integer instructions - Simplify loop structure, perform loop splitting or perform unroll and jam. This issue costs 2 points.",
+              "score": 2,
+            }
+          ]
+        },
+        {
+          "id_str": "Control Flow Issues",
+          "score": 14,
+          "issues": [
+            {
+              "code": "L2_CF_3",
+              "analysis": "[SA] Too many paths (8 paths) - Simplify control structure. There are 8 issues ( = paths) costing 1 point each with a malus of 4 points.",
+              "score": 12,
+            },
+            {
+              "code": "L2_CF_4",
+              "analysis": "[SA] Non innermost loop (InBetween) - Collapse loop with innermost ones. This issue costs 2 points.",
+              "score": 2,
+            }
+          ]
+        },
+        {
+          "id_str": "Vectorization Roadblocks",
+          "score": 14,
+          "issues": [
+            {
+              "code": "L2_CF_3",
+              "analysis": "[SA] Too many paths (8 paths) - Simplify control structure. There are 8 issues ( = paths) costing 1 point each with a malus of 4 points.",
+              "score": 12,
+            },
+            {
+              "code": "L2_CF_4",
+              "analysis": "[SA] Non innermost loop (InBetween) - Collapse loop with innermost ones. This issue costs 2 points.",
+              "score": 2,
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id_str": "Loop 776 - MainEnsemble",
+      "module": "MainEnsemble",
+      "id": 776,
+      "analysis": "Execution Time: 10 % - Vectorization Ratio: 0.00 % - Vector Length Use: 25.00 %",
+      "coverage": 10.82066822052,
+      "issues": [
+        {
+          "id_str": "Loop Computation Issues",
+          "score": 2,
+          "issues": [
+            {
+              "code": "L2_LC_6",
+              "analysis": "[SA] Presence of a large number of scalar integer instructions - Simplify loop structure, perform loop splitting or perform unroll and jam. This issue costs 2 points.",
+              "score": 2,
+            }
+          ]
+        },
+        {
+          "id_str": "Control Flow Issues",
+          "score": 16,
+          "issues": [
+            {
+              "code": "L2_CF_3",
+              "analysis": "[SA] Too many paths (10 paths) - Simplify control structure. There are 10 issues ( = paths) costing 1 point each with a malus of 4 points.",
+              "score": 14,
+            },
+            {
+              "code": "L2_CF_4",
+              "analysis": "[SA] Non innermost loop (Outermost) - Collapse loop with innermost ones. This issue costs 2 points.",
+              "score": 2,
+            }
+          ]
+        },
+        {
+          "id_str": "Vectorization Roadblocks",
+          "score": 16,
+          "issues": [
+            {
+              "code": "L2_CF_3",
+              "analysis": "[SA] Too many paths (10 paths) - Simplify control structure. There are 10 issues ( = paths) costing 1 point each with a malus of 4 points.",
+              "score": 14,
+            },
+            {
+              "code": "L2_CF_4",
+              "analysis": "[SA] Non innermost loop (Outermost) - Collapse loop with innermost ones. This issue costs 2 points.",
+              "score": 2,
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id_str": "Loop 793 - MainEnsemble",
+      "module": "MainEnsemble",
+      "id": 793,
+      "analysis": "Execution Time: 5 % - Vectorization Ratio: 0.00 % - Vector Length Use: 24.34 %",
+      "coverage": 5.896656036377,
+      "issues": [
+        {
+          "id_str": "Loop Computation Issues",
+          "score": 32,
+          "issues": [
+            {
+              "code": "L2_LC_2",
+              "analysis": "[SA] Presence of expensive FP instructions - Perform hoisting, change algorithm, use SVML or proper numerical library or perform value profiling (count the number of distinct input values). There are 8 issues (= instructions) costing 4 points each.",
+              "score": 32,
+            }
+          ]
+        },
+        {
+          "id_str": "Control Flow Issues",
+          "score": 29,
+          "issues": [
+            {
+              "code": "L2_CF_3",
+              "analysis": "[SA] Too many paths (25 paths) - Simplify control structure. There are 25 issues ( = paths) costing 1 point each with a malus of 4 points.",
+              "score": 29,
+            }
+          ]
+        },
+        {
+          "id_str": "Data Access Issues",
+          "score": 2,
+          "issues": [
+            {
+              "code": "L2_DA_6",
+              "analysis": "[SA] More than 20% of the loads are accessing the stack - Perform loop splitting to decrease pressure on registers. This issue costs 2 points.",
+              "score": 2,
+            }
+          ]
+        },
+        {
+          "id_str": "Vectorization Roadblocks",
+          "score": 29,
+          "issues": [
+            {
+              "code": "L2_CF_3",
+              "analysis": "[SA] Too many paths (25 paths) - Simplify control structure. There are 25 issues ( = paths) costing 1 point each with a malus of 4 points.",
+              "score": 29,
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id_str": "Loop 772 - MainEnsemble",
+      "module": "MainEnsemble",
+      "id": 772,
+      "analysis": "Execution Time: 5 % - Vectorization Ratio: 0.00 % - Vector Length Use: 0.00 %",
+      "coverage": 5.2279634475708,
+      "issues": [
+        {
+          "id_str": "Control Flow Issues",
+          "score": 6,
+          "issues": [
+            {
+              "code": "L2_CF_2",
+              "analysis": "[SA] Several paths (4 paths) - Simplify control structure or force the compiler to use masked instructions. There are 4 issues ( = paths) costing 1 point each.",
+              "score": 4,
+            },
+            {
+              "code": "L2_CF_4",
+              "analysis": "[SA] Non innermost loop (Outermost) - Collapse loop with innermost ones. This issue costs 2 points.",
+              "score": 2,
+            }
+          ]
+        },
+        {
+          "id_str": "Vectorization Roadblocks",
+          "score": 6,
+          "issues": [
+            {
+              "code": "L2_CF_2",
+              "analysis": "[SA] Several paths (4 paths) - Simplify control structure or force the compiler to use masked instructions. There are 4 issues ( = paths) costing 1 point each.",
+              "score": 4,
+            },
+            {
+              "code": "L2_CF_4",
+              "analysis": "[SA] Non innermost loop (Outermost) - Collapse loop with innermost ones. This issue costs 2 points.",
+              "score": 2,
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id_str": "Loop 767 - MainEnsemble",
+      "module": "MainEnsemble",
+      "id": 767,
+      "analysis": "Execution Time: 3 % - Vectorization Ratio: 0.00 % - Vector Length Use: 19.82 %",
+      "coverage": 3.0395133495331,
+      "issues": [
+        {
+          "id_str": "Control Flow Issues",
+          "score": 2,
+          "issues": [
+            {
+              "code": "L2_CF_2",
+              "analysis": "[SA] Several paths (2 paths) - Simplify control structure or force the compiler to use masked instructions. There are 2 issues ( = paths) costing 1 point each.",
+              "score": 2,
+            }
+          ]
+        },
+        {
+          "id_str": "Vectorization Roadblocks",
+          "score": 2,
+          "issues": [
+            {
+              "code": "L2_CF_2",
+              "analysis": "[SA] Several paths (2 paths) - Simplify control structure or force the compiler to use masked instructions. There are 2 issues ( = paths) costing 1 point each.",
+              "score": 2,
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id_str": "Loop 795 - MainEnsemble",
+      "module": "MainEnsemble",
+      "id": 795,
+      "analysis": "Execution Time: 2 % - Vectorization Ratio: 0.00 % - Vector Length Use: 21.09 %",
+      "coverage": 2.7355620861053,
+      "issues": [
+        {
+          "id_str": "Loop Computation Issues",
+          "score": 2,
+          "issues": [
+            {
+              "code": "L2_LC_6",
+              "analysis": "[SA] Presence of a large number of scalar integer instructions - Simplify loop structure, perform loop splitting or perform unroll and jam. This issue costs 2 points.",
+              "score": 2,
+            }
+          ]
+        },
+        {
+          "id_str": "Control Flow Issues",
+          "score": 2,
+          "issues": [
+            {
+              "code": "L2_CF_2",
+              "analysis": "[SA] Several paths (2 paths) - Simplify control structure or force the compiler to use masked instructions. There are 2 issues ( = paths) costing 1 point each.",
+              "score": 2,
+            }
+          ]
+        },
+        {
+          "id_str": "Data Access Issues",
+          "score": 8,
+          "issues": [
+            {
+              "code": "L2_DA_1",
+              "analysis": "[SA] Presence of constant non unit stride data access - Use array restructuring, perform loop interchange or use gather instructions to lower a bit the cost. There are 3 issues ( = data accesses) costing 2 point each.",
+              "score": 6,
+            },
+            {
+              "code": "L2_DA_6",
+              "analysis": "[SA] More than 20% of the loads are accessing the stack - Perform loop splitting to decrease pressure on registers. This issue costs 2 points.",
+              "score": 2,
+            }
+          ]
+        },
+        {
+          "id_str": "Vectorization Roadblocks",
+          "score": 8,
+          "issues": [
+            {
+              "code": "L2_CF_2",
+              "analysis": "[SA] Several paths (2 paths) - Simplify control structure or force the compiler to use masked instructions. There are 2 issues ( = paths) costing 1 point each.",
+              "score": 2,
+            },
+            {
+              "code": "L2_DA_1",
+              "analysis": "[SA] Presence of constant non unit stride data access - Use array restructuring, perform loop interchange or use gather instructions to lower a bit the cost. There are 3 issues ( = data accesses) costing 2 point each.",
+              "score": 6,
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id_str": "Loop 768 - MainEnsemble",
+      "module": "MainEnsemble",
+      "id": 768,
+      "analysis": "Execution Time: 1 % - Vectorization Ratio: 0.00 % - Vector Length Use: 21.21 %",
+      "coverage": 1.702127456665,
+      "issues": [
+        {
+          "id_str": "Loop Computation Issues",
+          "score": 2,
+          "issues": [
+            {
+              "code": "L2_LC_6",
+              "analysis": "[SA] Presence of a large number of scalar integer instructions - Simplify loop structure, perform loop splitting or perform unroll and jam. This issue costs 2 points.",
+              "score": 2,
+            }
+          ]
+        },
+        {
+          "id_str": "Control Flow Issues",
+          "score": 46,
+          "issues": [
+            {
+              "code": "L2_CF_3",
+              "analysis": "[SA] Too many paths (40 paths) - Simplify control structure. There are 40 issues ( = paths) costing 1 point each with a malus of 4 points.",
+              "score": 44,
+            },
+            {
+              "code": "L2_CF_4",
+              "analysis": "[SA] Non innermost loop (Outermost) - Collapse loop with innermost ones. This issue costs 2 points.",
+              "score": 2,
+            }
+          ]
+        },
+        {
+          "id_str": "Vectorization Roadblocks",
+          "score": 46,
+          "issues": [
+            {
+              "code": "L2_CF_3",
+              "analysis": "[SA] Too many paths (40 paths) - Simplify control structure. There are 40 issues ( = paths) costing 1 point each with a malus of 4 points.",
+              "score": 44,
+            },
+            {
+              "code": "L2_CF_4",
+              "analysis": "[SA] Non innermost loop (Outermost) - Collapse loop with innermost ones. This issue costs 2 points.",
+              "score": 2,
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id_str": "Loop 794 - MainEnsemble",
+      "module": "MainEnsemble",
+      "id": 794,
+      "analysis": "Execution Time: 1 % - Vectorization Ratio: 55.56 % - Vector Length Use: 56.94 %",
+      "coverage": 1.5197566747665,
+      "issues": [
+        {
+          "id_str": "Data Access Issues",
+          "score": 29,
+          "issues": [
+            {
+              "code": "L2_DA_1",
+              "analysis": "[SA] Presence of constant non unit stride data access - Use array restructuring, perform loop interchange or use gather instructions to lower a bit the cost. There are 2 issues ( = data accesses) costing 2 point each.",
+              "score": 4,
+            },
+            {
+              "code": "L2_DA_2",
+              "analysis": "[SA] Presence of indirect accesses - Use array restructuring or gather instructions to lower the cost. There are 1 issues ( = indirect data accesses) costing 4 point each.",
+              "score": 4,
+            },
+            {
+              "code": "L2_DA_5",
+              "analysis": "[SA] Presence of special instructions executing on a single port (INSERT/EXTRACT, BLEND/MERGE, SHUFFLE/PERM) - Simplify data access and try to get stride 1 access. There are 21 issues (= instructions) costing 1 point each.",
+              "score": 21,
+            }
+          ]
+        },
+        {
+          "id_str": "Vectorization Roadblocks",
+          "score": 8,
+          "issues": [
+            {
+              "code": "L2_DA_1",
+              "analysis": "[SA] Presence of constant non unit stride data access - Use array restructuring, perform loop interchange or use gather instructions to lower a bit the cost. There are 2 issues ( = data accesses) costing 2 point each.",
+              "score": 4,
+            },
+            {
+              "code": "L2_DA_2",
+              "analysis": "[SA] Presence of indirect accesses - Use array restructuring or gather instructions to lower the cost. There are 1 issues ( = indirect data accesses) costing 4 point each.",
+              "score": 4,
+            }
+          ]
+        },
+        {
+          "id_str": "Inefficient Vectorization",
+          "score": 21,
+          "issues": [
+            {
+              "code": "L2_DA_5",
+              "analysis": "[SA] Presence of special instructions executing on a single port (INSERT/EXTRACT, BLEND/MERGE, SHUFFLE/PERM) - Simplify data access and try to get stride 1 access. There are 21 issues (= instructions) costing 1 point each.",
+              "score": 21,
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

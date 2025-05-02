@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <iostream>
 #include <string>
+#include <map>
 
 // Simple header file for all the utility functions to go
 
@@ -25,6 +26,7 @@ struct ProgramOptions {
   bool load_request = false;
   std::string path_model_filename;
   std::vector<std::string> params;
+  std::map<std::string, std::string> flags;
 };
 
 ProgramOptions parseCommandLineArguments(int argc, char *argv[]);

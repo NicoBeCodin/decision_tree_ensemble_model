@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html translate="no" lang="en-US"><head><title>OV - Expert Summary</title>
+<meta charset="utf-8" />
+<meta name="google" content="notranslate" />
+<link rel="stylesheet" type="text/css" media="screen" href="css/ui.jqgrid.css" />
+<link rel="stylesheet" type="text/css" href="css/themes/redmond_custom/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="css/themes/redmond_custom/jquery.jqplot.min.css" />
+<link rel="stylesheet" type="text/css" href="css/MAQAO_theme.css" />
+<link rel="stylesheet" type="text/css" href="css/maqao_modal.css" />
+<link rel="stylesheet" type="text/css" href="css/global.css" />
+<link rel="stylesheet" type="text/css" href="css/maqao_menu.css" />
+<script src="js/jquery-1.9.0.min.js" ></script>
+<script src="js/jquery-ui-1.10.3.custom.min.js" ></script>
+<script src="js/grid.locale-en.js" ></script>
+<script src="js/jquery.jqGrid.min.js" ></script>
+<script src="js/d3.min.js" ></script>
+<script class="include" src="js/jquery.jqplot.min.js"></script>
+<script class="include" src="js/jqplot.pieRenderer.min.js"></script>
+<script class="include" src="js/jqplot.barRenderer.min.js"></script>
+<script class="include" src="js/jqplot.categoryAxisRenderer.min.js"></script>
+<script class="include" src="js/jqplot.pointLabels.min.js"></script>
+<script class="include" src="js/jqplot.cursor.min.js"></script>
+<script class="include" src="js/jqplot.canvasTextRenderer.min.js"></script>
+<script class="include" src="js/jqplot.canvasAxisTickRenderer.min.js"></script>
+<script class="include" src="js/jqplot.canvasAxisLabelRenderer.min.js"></script>
+<script class="include" src="js/jqplot.enhancedLegendRenderer.min.js"></script>
+<script class="include" src="js/jqplot.highlighter.min.js"></script>
+<script class="include" src="js/jqplot.logAxisRenderer.min.js"></script>
+<script class="include" src="js/maqao_menu.js"></script>
+<script>
+$( function() {
+  $( document ).tooltip({
+    content: function() {
+      if (this.classList.contains ("tooltip-maqao")
+      ||  this.classList.contains ("tooltip-maqao-button")) {
+        return tooltips_texts[$(this).attr('tooltip_id')];
+      }
+    },
+    position: {
+      my: "center bottom-20",
+        at: "center top",
+        using: function( position, feedback ) {
+          $( this ).css( position );
+          $( "<div>" )
+            .addClass( "arrow-tt" )
+            .addClass( feedback.vertical )
+            .addClass( feedback.horizontal )
+            .appendTo( this );
+        }
+      }
+  });
+} );
+
+// Code from https://www.htmlgoodies.com/beyond/javascript/article.php/3724571/Using-Multiple-JavaScript-Onload-Functions.htm
+function addLoadEvent(func) {
+  var oldonload = window.onload;
+  if (typeof window.onload != 'function') {
+    window.onload = func;
+  } else {
+    window.onload = function() {
+      if (oldonload) {
+        oldonload();
+      }
+      func();
+    }
+  }
+}
+function loadCSS(filename){ 
+  var file = document.createElement("link");
+  file.setAttribute("rel", "stylesheet");
+  file.setAttribute("type", "text/css");
+  file.setAttribute("href", filename);
+  document.head.appendChild(file);
+}
+addLoadEvent(function(){
+  var theme = localStorage.getItem("__MAQAO_OV_theme__");
+  if (theme) {
+    loadCSS("css/"+theme+".css");
+  }
+  else {
+    localStorage.setItem("__MAQAO_OV_theme__", "MAQAO_theme");
+    loadCSS("css/MAQAO_theme.css");
+  }
+});
+</script>
+</head><body>
+<div id="page_title"><img alt="MAQAO" id="maqao_logo" src="images/MAQAO_small_logo.png"/><ul id="maqao_menu"><li ><a  href="index.html">Global</a><ul><li ><a  href="config.html">Configurations</a></li><li ><a  href="env.html">Environment Variables</a></li><li ><a  href="outputs.html">Outputs</a></li><li ><a  href="log.html">Logs</a></li></ul></li><li ><a  href="summary.html">Summary</a></li><li ><a  href="application.html">Application</a></li><li ><a  href="fcts_and_loops.html">Functions</a></li><li ><a  href="loops_index.html">Loops</a></li><li ><a  href="topology.html">Topology</a><ul><li ><a  href="lstopo.html">lstopo</a></li><li ><a  href="lstopo_PU.html">lstopo_PU</a></li><li ><a  href="lstopo_threads.html">lstopo_threads</a></li></ul></li></ul>
+<span><img alt="options" id="menu_options_icon" src="images/gear_20.png" onclick="__open_options ()"/></span>
+</div>
+<script>
+function __change_theme () {
+  var new_theme = document.getElementById("select_theme").value;
+  localStorage.setItem("__MAQAO_OV_theme__", new_theme);
+    loadCSS("css/"+new_theme+".css");
+}
+function __open_options () {
+  var elem = document.getElementById ("options_configuration");
+  if (elem.dataset.open == "false") {
+    elem.dataset.open = "true";
+    elem.style.display = "block";
+  }
+  else {
+    elem.dataset.open = "false";
+    elem.style.display = "none";
+  }
+}
+</script>
+<div id="anchor_file_start"></div>
+<div id="maqao_content">
+<div>
+  <div id="spacer_page_title" ></div>
+  <div id="options_configuration" data-open="false" style="display:none;">
+    <h3 id="options_configuration_header">Report Configuration</h3>
+    <span style="margin-left:10px;"><label for="select_theme">Theme: </label>    <select name="theme" id="select_theme" onchange="__change_theme ()">  <option value="MAQAO_theme">MAQAO_theme</option>  <option value="darkgrey">darkgrey</option>  <option value="cyan">cyan</option></select></span></div>
+</div>
+<script>
+  let theme = localStorage.getItem("__MAQAO_OV_theme__");
+  if (theme) {
+    document.getElementById("select_theme").value = theme;
+  }
+document.getElementById("spacer_page_title").style.height = (document.getElementById("page_title").clientHeight + 25)+"px";
+var obj = document.getElementById("page_title");
+if (obj) {
+  var elems = document.getElementsByClassName ("_first_menu_level")
+  if (obj.clientHeight < 90) {
+    for (var i = 0; i < elems.length; i++) {
+      elems.item(i).style.borderBottomLeftRadius = "";
+      elems.item(i).style.borderBottomRightRadius = "";
+    }
+  }
+  else {
+    for (var i = 0; i < elems.length; i++) {
+      elems.item(i).style.borderBottomLeftRadius = "10px";
+      elems.item(i).style.borderBottomRightRadius = "10px";
+    }
+  }
+}
+</script>
+<button id="button_toggle_loop_index" onclick="toggle_loop_index();" type="button" style="margin-bottom: 10px;margin-right: 10px;cursor:pointer;">Show Innermost Profile</button><div class="_fixed_box" ><h3 class="_header">Expert Summary</h3>
+<div class="_content"><div class="_div_table" ><div class="_accordion_box" ><h3 id="_accordion_header_1" class="_header" onclick="_click_accordion_header(this)" ><span class="_accordion_box_button">&#x25BC;</span>Columns Filter<span class="tooltip-maqao-button help-maqao" title="" tooltip_id="0" ></span></h3><div id="_accordion_content_1" class="_content"><div style="max-height:165px;"><form>
+<span style="white-space:nowrap;"><input class="input_check_table_menu" type="checkbox" id="_table116_opt3" onclick="click_table_menu('_table116_opt3', '_table116_opt_all', 'list_opts_table116')" style="margin-left: 30px;vertical-align: middle;cursor:pointer;" checked ><span class="tooltip-maqao" title="" tooltip_id="1" >Source Location</span></span>
+<span style="white-space:nowrap;"><input class="input_check_table_menu" type="checkbox" id="_table116_opt4" onclick="click_table_menu('_table116_opt4', '_table116_opt_all', 'list_opts_table116')" style="margin-left: 30px;vertical-align: middle;cursor:pointer;" checked ><span class="tooltip-maqao" title="" tooltip_id="2" >Source Function</span></span>
+<span style="white-space:nowrap;"><input class="input_check_table_menu" type="checkbox" id="_table116_opt5" onclick="click_table_menu('_table116_opt5', '_table116_opt_all', 'list_opts_table116')" style="margin-left: 30px;vertical-align: middle;cursor:pointer;" checked ><span class="tooltip-maqao" title="" tooltip_id="3" >Level</span></span>
+<span style="white-space:nowrap;"><input class="input_check_table_menu" type="checkbox" id="_table116_opt6" onclick="click_table_menu('_table116_opt6', '_table116_opt_all', 'list_opts_table116')" style="margin-left: 30px;vertical-align: middle;cursor:pointer;" checked ><span class="tooltip-maqao" title="" tooltip_id="4" >Max Time Over Threads (s)</span></span>
+<span style="white-space:nowrap;"><input class="input_check_table_menu" type="checkbox" id="_table116_opt7" onclick="click_table_menu('_table116_opt7', '_table116_opt_all', 'list_opts_table116')" style="margin-left: 30px;vertical-align: middle;cursor:pointer;" checked ><span class="tooltip-maqao" title="" tooltip_id="5" >Time w.r.t. Wall Time (s)</span></span>
+<span style="white-space:nowrap;"><input class="input_check_table_menu" type="checkbox" id="_table116_opt8" onclick="click_table_menu('_table116_opt8', '_table116_opt_all', 'list_opts_table116')" style="margin-left: 30px;vertical-align: middle;cursor:pointer;" checked ><span class="tooltip-maqao" title="" tooltip_id="6" >Coverage (% app. time)</span></span>
+<span style="white-space:nowrap;"><input class="input_check_table_menu" type="checkbox" id="_table116_opt9" onclick="click_table_menu('_table116_opt9', '_table116_opt_all', 'list_opts_table116')" style="margin-left: 30px;vertical-align: middle;cursor:pointer;" checked ><span class="tooltip-maqao" title="" tooltip_id="7" >Speedup if no scalar integer</span></span>
+<span style="white-space:nowrap;"><input class="input_check_table_menu" type="checkbox" id="_table116_opt10" onclick="click_table_menu('_table116_opt10', '_table116_opt_all', 'list_opts_table116')" style="margin-left: 30px;vertical-align: middle;cursor:pointer;" checked ><span class="tooltip-maqao" title="" tooltip_id="8" >Speedup if FP arith vectorized</span></span>
+<span style="white-space:nowrap;"><input class="input_check_table_menu" type="checkbox" id="_table116_opt11" onclick="click_table_menu('_table116_opt11', '_table116_opt_all', 'list_opts_table116')" style="margin-left: 30px;vertical-align: middle;cursor:pointer;" checked ><span class="tooltip-maqao" title="" tooltip_id="9" >Speedup if fully vectorized</span></span>
+<span style="white-space:nowrap;"><input class="input_check_table_menu" type="checkbox" id="_table116_opt12" onclick="click_table_menu('_table116_opt12', '_table116_opt_all', 'list_opts_table116')" style="margin-left: 30px;vertical-align: middle;cursor:pointer;" checked ><span class="tooltip-maqao" title="" tooltip_id="10" >Speedup if FP only</span></span>
+<span style="white-space:nowrap;"><input class="input_check_table_menu" type="checkbox" id="_table116_opt13" onclick="click_table_menu('_table116_opt13', '_table116_opt_all', 'list_opts_table116')" style="margin-left: 30px;vertical-align: middle;cursor:pointer;" checked ><span class="tooltip-maqao" title="" tooltip_id="11" >Number of paths</span></span>
+<span style="white-space:nowrap;"><input class="input_check_table_menu" type="checkbox" id="_table116_opt14" onclick="click_table_menu('_table116_opt14', '_table116_opt_all', 'list_opts_table116')" style="margin-left: 30px;vertical-align: middle;cursor:pointer;" checked ><span class="tooltip-maqao" title="" tooltip_id="12" >Vectorization Ratio (%)</span></span>
+<span style="white-space:nowrap;"><input class="input_check_table_menu" type="checkbox" id="_table116_opt15" onclick="click_table_menu('_table116_opt15', '_table116_opt_all', 'list_opts_table116')" style="margin-left: 30px;vertical-align: middle;cursor:pointer;" checked ><span class="tooltip-maqao" title="" tooltip_id="13" >Vector Length Use (%)</span></span>
+<span style="white-space:nowrap;"><input class="input_check_table_menu" type="checkbox" id="_table116_opt16" onclick="click_table_menu('_table116_opt16', '_table116_opt_all', 'list_opts_table116')" style="margin-left: 30px;vertical-align: middle;cursor:pointer;" checked ><span class="tooltip-maqao" title="" tooltip_id="14" >CQA cycles</span></span>
+<span style="white-space:nowrap;"><input class="input_check_table_menu" type="checkbox" id="_table116_opt17" onclick="click_table_menu('_table116_opt17', '_table116_opt_all', 'list_opts_table116')" style="margin-left: 30px;vertical-align: middle;cursor:pointer;" checked ><span class="tooltip-maqao" title="" tooltip_id="15" >CQA cycles if no scalar integer</span></span>
+<span style="white-space:nowrap;"><input class="input_check_table_menu" type="checkbox" id="_table116_opt18" onclick="click_table_menu('_table116_opt18', '_table116_opt_all', 'list_opts_table116')" style="margin-left: 30px;vertical-align: middle;cursor:pointer;" checked ><span class="tooltip-maqao" title="" tooltip_id="16" >CQA cycles if FP arith vectorized</span></span>
+<span style="white-space:nowrap;"><input class="input_check_table_menu" type="checkbox" id="_table116_opt19" onclick="click_table_menu('_table116_opt19', '_table116_opt_all', 'list_opts_table116')" style="margin-left: 30px;vertical-align: middle;cursor:pointer;" checked ><span class="tooltip-maqao" title="" tooltip_id="17" >CQA cycles if fully vectorized</span></span>
+<span style="white-space:nowrap;"><input class="input_check_table_menu" type="checkbox" id="_table116_opt20" onclick="click_table_menu('_table116_opt20', '_table116_opt_all', 'list_opts_table116')" style="margin-left: 30px;vertical-align: middle;cursor:pointer;" checked ><span class="tooltip-maqao" title="" tooltip_id="18" >CQA cycles if FP only</span></span>
+<span style='white-space:nowrap;'><input class="input_check_table_menu" type="button" id="_table116_opt_all" onclick="set_all_table_menu(this, 'list_opts_table116')" style="margin-left: 30px;vertical-align: middle;cursor:pointer;" value="Select all"></span>
+</form></div>
+</div></div><div style="overflow:auto;">
+<table id="_tree_table_116" class="_tree_table"><tr><th class="_freezed_row  _left  tooltip-maqao" title="" tooltip_id="19"><span></span>ID</th><th class="_freezed_row  tooltip-maqao" title="" tooltip_id="20"><span></span>Module</th><th class="_freezed_row  _table116_opt3 tooltip-maqao" title="" tooltip_id="21"><span></span>Source Location</th><th class="_freezed_row  _table116_opt4 tooltip-maqao" title="" tooltip_id="22"><span></span>Source Function</th><th class="_freezed_row  _table116_opt5 tooltip-maqao" title="" tooltip_id="23"><span></span>Level</th><th class="_freezed_row  _table116_opt6 tooltip-maqao" title="" tooltip_id="24"><span></span>Max Time Over Threads (s)</th><th class="_freezed_row  _table116_opt7 tooltip-maqao" title="" tooltip_id="25"><span></span>Time w.r.t. Wall Time (s)</th><th class="_freezed_row  _table116_opt8 tooltip-maqao" title="" tooltip_id="26"><span></span>Coverage (% app. time)</th><th class="_freezed_row  _table116_opt9 tooltip-maqao" title="" tooltip_id="27"><span></span>Speedup if no scalar integer</th><th class="_freezed_row  _table116_opt10 tooltip-maqao" title="" tooltip_id="28"><span></span>Speedup if FP arith vectorized</th><th class="_freezed_row  _table116_opt11 tooltip-maqao" title="" tooltip_id="29"><span></span>Speedup if fully vectorized</th><th class="_freezed_row  _table116_opt12 tooltip-maqao" title="" tooltip_id="30"><span></span>Speedup if FP only</th><th class="_freezed_row  _table116_opt13 tooltip-maqao" title="" tooltip_id="31"><span></span>Number of paths</th><th class="_freezed_row  _table116_opt14 tooltip-maqao" title="" tooltip_id="32"><span></span>Vectorization Ratio (%)</th><th class="_freezed_row  _table116_opt15 tooltip-maqao" title="" tooltip_id="33"><span></span>Vector Length Use (%)</th><th class="_freezed_row  _table116_opt16 tooltip-maqao" title="" tooltip_id="34"><span></span>CQA cycles</th><th class="_freezed_row  _table116_opt17 tooltip-maqao" title="" tooltip_id="35"><span></span>CQA cycles if no scalar integer</th><th class="_freezed_row  _table116_opt18 tooltip-maqao" title="" tooltip_id="36"><span></span>CQA cycles if FP arith vectorized</th><th class="_freezed_row  _table116_opt19 tooltip-maqao" title="" tooltip_id="37"><span></span>CQA cycles if fully vectorized</th><th class="_freezed_row  _table116_opt20 tooltip-maqao" title="" tooltip_id="38"><span></span>CQA cycles if FP only</th></tr>
+<tr class=" _outer_row"  id="_tr_116_1"  ondblclick="_action_106(this,1,-1, 'loops/MainEnsemble_777.html');"  style="cursor:pointer;"><td id="_tr_116_1-1"  data-_i="1" data-_j="1"  class=" _left"  style="white-space: nowrap;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>Loop 777</td><td id="_tr_116_1-2"  data-_i="1" data-_j="2"  class=" _centered" >MainEnsemble</td><td id="_tr_116_1-3"  data-_i="1" data-_j="3"  class=" _table116_opt3"  style="word-break:break-all;" ></td><td id="_tr_116_1-4"  data-_i="1" data-_j="4"  class=" _table116_opt4"  style="word-break:break-all;" >void std::__introsort_loop<__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, long, __gnu_cxx::__ops::_Iter_less_iter>(__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, __gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, long, __gnu_cxx::__ops::_Iter_less_iter) [clone .isra.0]</td><td id="_tr_116_1-5"  data-_i="1" data-_j="5"  class=" _centered _table116_opt5" >Innermost</td><td id="_tr_116_1-6"  data-_i="1" data-_j="6"  class=" _centered _table116_opt6" >0.08</td><td id="_tr_116_1-7"  data-_i="1" data-_j="7"  class=" _centered _table116_opt7" >0.12</td><td id="_tr_116_1-8"  data-_i="1" data-_j="8"  class=" _centered _table116_opt8" >26.32</td><td id="_tr_116_1-9"  data-_i="1" data-_j="9"  class=" _centered _table116_opt9"  style="background:var(--score_color_acceptable);" >1.50</td><td id="_tr_116_1-10"  data-_i="1" data-_j="10"  class=" _centered _table116_opt10" >1.00</td><td id="_tr_116_1-11"  data-_i="1" data-_j="11"  class=" _centered _table116_opt11"  style="background:var(--score_color_medium);" >4.70</td><td id="_tr_116_1-12"  data-_i="1" data-_j="12"  class=" _centered _table116_opt12"  style="background:var(--score_color_acceptable);" >1.80</td><td id="_tr_116_1-13"  data-_i="1" data-_j="13"  class=" _centered _table116_opt13" >2</td><td id="_tr_116_1-14"  data-_i="1" data-_j="14"  class=" _centered _table116_opt14"  style="background:var(--score_color_bad);" >0.00</td><td id="_tr_116_1-15"  data-_i="1" data-_j="15"  class=" _centered _table116_opt15"  style="background:var(--score_color_bad);" >22.92</td><td id="_tr_116_1-16"  data-_i="1" data-_j="16"  class=" _centered _table116_opt16" >2.25</td><td id="_tr_116_1-17"  data-_i="1" data-_j="17"  class=" _centered _table116_opt17" >1.50</td><td id="_tr_116_1-18"  data-_i="1" data-_j="18"  class=" _centered _table116_opt18" >2.25</td><td id="_tr_116_1-19"  data-_i="1" data-_j="19"  class=" _centered _table116_opt19" >0.48</td><td id="_tr_116_1-20"  data-_i="1" data-_j="20"  class=" _centered _table116_opt20" >1.25</td></tr>
+<tr class=" _outer_row"  id="_tr_116_2"  ondblclick="_action_106(this,2,-1, 'loops/MainEnsemble_773.html');"  style="cursor:pointer;"><td id="_tr_116_2-1"  data-_i="2" data-_j="1"  class=" _left"  style="white-space: nowrap;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>Loop 773</td><td id="_tr_116_2-2"  data-_i="2" data-_j="2"  class=" _centered" >MainEnsemble</td><td id="_tr_116_2-3"  data-_i="2" data-_j="3"  class=" _table116_opt3"  style="word-break:break-all;" ></td><td id="_tr_116_2-4"  data-_i="2" data-_j="4"  class=" _table116_opt4"  style="word-break:break-all;" >void std::__final_insertion_sort<__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, __gnu_cxx::__ops::_Iter_less_iter>(__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, __gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, __gnu_cxx::__ops::_Iter_less_iter) [clone .isra.0]</td><td id="_tr_116_2-5"  data-_i="2" data-_j="5"  class=" _centered _table116_opt5" >Innermost</td><td id="_tr_116_2-6"  data-_i="2" data-_j="6"  class=" _centered _table116_opt6" >0.06</td><td id="_tr_116_2-7"  data-_i="2" data-_j="7"  class=" _centered _table116_opt7" >0.07</td><td id="_tr_116_2-8"  data-_i="2" data-_j="8"  class=" _centered _table116_opt8" >16.05</td><td id="_tr_116_2-9"  data-_i="2" data-_j="9"  class=" _centered _table116_opt9" >1.03</td><td id="_tr_116_2-10"  data-_i="2" data-_j="10"  class=" _centered _table116_opt10" >1.00</td><td id="_tr_116_2-11"  data-_i="2" data-_j="11"  class=" _centered _table116_opt11"  style="background:var(--score_color_medium);" >4.13</td><td id="_tr_116_2-12"  data-_i="2" data-_j="12"  class=" _centered _table116_opt12"  style="background:var(--score_color_medium);" >2.07</td><td id="_tr_116_2-13"  data-_i="2" data-_j="13"  class=" _centered _table116_opt13" >2</td><td id="_tr_116_2-14"  data-_i="2" data-_j="14"  class=" _centered _table116_opt14"  style="background:var(--score_color_bad);" >0.00</td><td id="_tr_116_2-15"  data-_i="2" data-_j="15"  class=" _centered _table116_opt15"  style="background:var(--score_color_bad);" >19.82</td><td id="_tr_116_2-16"  data-_i="2" data-_j="16"  class=" _centered _table116_opt16" >2.58</td><td id="_tr_116_2-17"  data-_i="2" data-_j="17"  class=" _centered _table116_opt17" >2.50</td><td id="_tr_116_2-18"  data-_i="2" data-_j="18"  class=" _centered _table116_opt18" >2.58</td><td id="_tr_116_2-19"  data-_i="2" data-_j="19"  class=" _centered _table116_opt19" >0.63</td><td id="_tr_116_2-20"  data-_i="2" data-_j="20"  class=" _centered _table116_opt20" >1.25</td></tr>
+<tr class=" _outer_row"  id="_tr_116_3"  ondblclick="_action_106(this,3,-1, 'loops/MainEnsemble_779.html');"  style="cursor:pointer;"><td id="_tr_116_3-1"  data-_i="3" data-_j="1"  class=" _left"  style="white-space: nowrap;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>Loop 779</td><td id="_tr_116_3-2"  data-_i="3" data-_j="2"  class=" _centered" >MainEnsemble</td><td id="_tr_116_3-3"  data-_i="3" data-_j="3"  class=" _table116_opt3"  style="word-break:break-all;" ></td><td id="_tr_116_3-4"  data-_i="3" data-_j="4"  class=" _table116_opt4"  style="word-break:break-all;" >void std::__introsort_loop<__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, long, __gnu_cxx::__ops::_Iter_less_iter>(__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, __gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, long, __gnu_cxx::__ops::_Iter_less_iter) [clone .isra.0]</td><td id="_tr_116_3-5"  data-_i="3" data-_j="5"  class=" _centered _table116_opt5" >InBetween</td><td id="_tr_116_3-6"  data-_i="3" data-_j="6"  class=" _centered _table116_opt6" >0.06</td><td id="_tr_116_3-7"  data-_i="3" data-_j="7"  class=" _centered _table116_opt7" >0.06</td><td id="_tr_116_3-8"  data-_i="3" data-_j="8"  class=" _centered _table116_opt8" >13.62</td><td id="_tr_116_3-9"  data-_i="3" data-_j="9"  class=" _centered _table116_opt9"  style="background:var(--score_color_acceptable);" >1.33</td><td id="_tr_116_3-10"  data-_i="3" data-_j="10"  class=" _centered _table116_opt10"  style="background:var(--score_color_acceptable);" >1.20</td><td id="_tr_116_3-11"  data-_i="3" data-_j="11"  class=" _centered _table116_opt11"  style="background:var(--score_color_medium);" >5.33</td><td id="_tr_116_3-12"  data-_i="3" data-_j="12"  class=" _centered _table116_opt12"  style="background:var(--score_color_medium);" >2.00</td><td id="_tr_116_3-13"  data-_i="3" data-_j="13"  class=" _centered _table116_opt13" >8</td><td id="_tr_116_3-14"  data-_i="3" data-_j="14"  class=" _centered _table116_opt14"  style="background:var(--score_color_bad);" >0.00</td><td id="_tr_116_3-15"  data-_i="3" data-_j="15"  class=" _centered _table116_opt15"  style="background:var(--score_color_bad);" >19.23</td><td id="_tr_116_3-16"  data-_i="3" data-_j="16"  class=" _centered _table116_opt16" >4.00</td><td id="_tr_116_3-17"  data-_i="3" data-_j="17"  class=" _centered _table116_opt17" >3.00</td><td id="_tr_116_3-18"  data-_i="3" data-_j="18"  class=" _centered _table116_opt18" >3.33</td><td id="_tr_116_3-19"  data-_i="3" data-_j="19"  class=" _centered _table116_opt19" >0.75</td><td id="_tr_116_3-20"  data-_i="3" data-_j="20"  class=" _centered _table116_opt20" >2.00</td></tr>
+<tr class=" _outer_row"  id="_tr_116_4"  ondblclick="_action_106(this,4,-1, 'loops/MainEnsemble_776.html');"  style="cursor:pointer;"><td id="_tr_116_4-1"  data-_i="4" data-_j="1"  class=" _left"  style="white-space: nowrap;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>Loop 776</td><td id="_tr_116_4-2"  data-_i="4" data-_j="2"  class=" _centered" >MainEnsemble</td><td id="_tr_116_4-3"  data-_i="4" data-_j="3"  class=" _table116_opt3"  style="word-break:break-all;" ></td><td id="_tr_116_4-4"  data-_i="4" data-_j="4"  class=" _table116_opt4"  style="word-break:break-all;" >void std::__introsort_loop<__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, long, __gnu_cxx::__ops::_Iter_less_iter>(__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, __gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, long, __gnu_cxx::__ops::_Iter_less_iter) [clone .isra.0]</td><td id="_tr_116_4-5"  data-_i="4" data-_j="5"  class=" _centered _table116_opt5" >Outermost</td><td id="_tr_116_4-6"  data-_i="4" data-_j="6"  class=" _centered _table116_opt6" >0.04</td><td id="_tr_116_4-7"  data-_i="4" data-_j="7"  class=" _centered _table116_opt7" >0.05</td><td id="_tr_116_4-8"  data-_i="4" data-_j="8"  class=" _centered _table116_opt8" >10.82</td><td id="_tr_116_4-9"  data-_i="4" data-_j="9"  class=" _centered _table116_opt9"  style="background:var(--score_color_acceptable);" >1.83</td><td id="_tr_116_4-10"  data-_i="4" data-_j="10"  class=" _centered _table116_opt10" >1.00</td><td id="_tr_116_4-11"  data-_i="4" data-_j="11"  class=" _centered _table116_opt11"  style="background:var(--score_color_medium);" >4.00</td><td id="_tr_116_4-12"  data-_i="4" data-_j="12"  class=" _centered _table116_opt12"  style="background:var(--score_color_medium);" >3.67</td><td id="_tr_116_4-13"  data-_i="4" data-_j="13"  class=" _centered _table116_opt13" >10</td><td id="_tr_116_4-14"  data-_i="4" data-_j="14"  class=" _centered _table116_opt14"  style="background:var(--score_color_bad);" >0.00</td><td id="_tr_116_4-15"  data-_i="4" data-_j="15"  class=" _centered _table116_opt15"  style="background:var(--score_color_bad);" >25.00</td><td id="_tr_116_4-16"  data-_i="4" data-_j="16"  class=" _centered _table116_opt16" >1.83</td><td id="_tr_116_4-17"  data-_i="4" data-_j="17"  class=" _centered _table116_opt17" >1.00</td><td id="_tr_116_4-18"  data-_i="4" data-_j="18"  class=" _centered _table116_opt18" >1.83</td><td id="_tr_116_4-19"  data-_i="4" data-_j="19"  class=" _centered _table116_opt19" >0.46</td><td id="_tr_116_4-20"  data-_i="4" data-_j="20"  class=" _centered _table116_opt20" >0.50</td></tr>
+<tr class=" _outer_row"  id="_tr_116_5"  ondblclick="_action_106(this,5,-1, 'loops/MainEnsemble_793.html');"  style="cursor:pointer;"><td id="_tr_116_5-1"  data-_i="5" data-_j="1"  class=" _left"  style="white-space: nowrap;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>Loop 793</td><td id="_tr_116_5-2"  data-_i="5" data-_j="2"  class=" _centered" >MainEnsemble</td><td id="_tr_116_5-3"  data-_i="5" data-_j="3"  class=" _table116_opt3"  style="word-break:break-all;" ></td><td id="_tr_116_5-4"  data-_i="5" data-_j="4"  class=" _table116_opt4"  style="word-break:break-all;" >DecisionTreeSingle::findBestSplitOMP(std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, double) [clone ._omp_fn.0]</td><td id="_tr_116_5-5"  data-_i="5" data-_j="5"  class=" _centered _table116_opt5" >Innermost</td><td id="_tr_116_5-6"  data-_i="5" data-_j="6"  class=" _centered _table116_opt6" >0.03</td><td id="_tr_116_5-7"  data-_i="5" data-_j="7"  class=" _centered _table116_opt7" >0.03</td><td id="_tr_116_5-8"  data-_i="5" data-_j="8"  class=" _centered _table116_opt8" >5.90</td><td id="_tr_116_5-9"  data-_i="5" data-_j="9"  class=" _centered _table116_opt9" >1.00</td><td id="_tr_116_5-10"  data-_i="5" data-_j="10"  class=" _centered _table116_opt10"  style="background:var(--score_color_medium);" >4.00</td><td id="_tr_116_5-11"  data-_i="5" data-_j="11"  class=" _centered _table116_opt11"  style="background:var(--score_color_medium);" >4.00</td><td id="_tr_116_5-12"  data-_i="5" data-_j="12"  class=" _centered _table116_opt12" >1.00</td><td id="_tr_116_5-13"  data-_i="5" data-_j="13"  class=" _centered _table116_opt13" >25</td><td id="_tr_116_5-14"  data-_i="5" data-_j="14"  class=" _centered _table116_opt14"  style="background:var(--score_color_bad);" >0.00</td><td id="_tr_116_5-15"  data-_i="5" data-_j="15"  class=" _centered _table116_opt15"  style="background:var(--score_color_bad);" >24.34</td><td id="_tr_116_5-16"  data-_i="5" data-_j="16"  class=" _centered _table116_opt16" >40.00 - 52.00</td><td id="_tr_116_5-17"  data-_i="5" data-_j="17"  class=" _centered _table116_opt17" >40.00 - 52.00</td><td id="_tr_116_5-18"  data-_i="5" data-_j="18"  class=" _centered _table116_opt18" >10.00 - 13.00</td><td id="_tr_116_5-19"  data-_i="5" data-_j="19"  class=" _centered _table116_opt19" >10.00 - 13.00</td><td id="_tr_116_5-20"  data-_i="5" data-_j="20"  class=" _centered _table116_opt20" >40.00 - 52.00</td></tr>
+<tr class=" _outer_row"  id="_tr_116_6"  ondblclick="_action_106(this,6,-1, 'loops/MainEnsemble_772.html');"  style="cursor:pointer;"><td id="_tr_116_6-1"  data-_i="6" data-_j="1"  class=" _left"  style="white-space: nowrap;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>Loop 772</td><td id="_tr_116_6-2"  data-_i="6" data-_j="2"  class=" _centered" >MainEnsemble</td><td id="_tr_116_6-3"  data-_i="6" data-_j="3"  class=" _table116_opt3"  style="word-break:break-all;" ></td><td id="_tr_116_6-4"  data-_i="6" data-_j="4"  class=" _table116_opt4"  style="word-break:break-all;" >void std::__final_insertion_sort<__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, __gnu_cxx::__ops::_Iter_less_iter>(__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, __gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, __gnu_cxx::__ops::_Iter_less_iter) [clone .isra.0]</td><td id="_tr_116_6-5"  data-_i="6" data-_j="5"  class=" _centered _table116_opt5" >Outermost</td><td id="_tr_116_6-6"  data-_i="6" data-_j="6"  class=" _centered _table116_opt6" >0.02</td><td id="_tr_116_6-7"  data-_i="6" data-_j="7"  class=" _centered _table116_opt7" >0.02</td><td id="_tr_116_6-8"  data-_i="6" data-_j="8"  class=" _centered _table116_opt8" >5.23</td><td id="_tr_116_6-9"  data-_i="6" data-_j="9"  class=" _centered _table116_opt9" >NA</td><td id="_tr_116_6-10"  data-_i="6" data-_j="10"  class=" _centered _table116_opt10" >NA</td><td id="_tr_116_6-11"  data-_i="6" data-_j="11"  class=" _centered _table116_opt11" >NA</td><td id="_tr_116_6-12"  data-_i="6" data-_j="12"  class=" _centered _table116_opt12" >NA</td><td id="_tr_116_6-13"  data-_i="6" data-_j="13"  class=" _centered _table116_opt13" >4</td><td id="_tr_116_6-14"  data-_i="6" data-_j="14"  class=" _centered _table116_opt14"  style="background:var(--score_color_bad);" >NA</td><td id="_tr_116_6-15"  data-_i="6" data-_j="15"  class=" _centered _table116_opt15"  style="background:var(--score_color_bad);" >NA</td><td id="_tr_116_6-16"  data-_i="6" data-_j="16"  class=" _centered _table116_opt16" >NA</td><td id="_tr_116_6-17"  data-_i="6" data-_j="17"  class=" _centered _table116_opt17" >NA</td><td id="_tr_116_6-18"  data-_i="6" data-_j="18"  class=" _centered _table116_opt18" >NA</td><td id="_tr_116_6-19"  data-_i="6" data-_j="19"  class=" _centered _table116_opt19" >NA</td><td id="_tr_116_6-20"  data-_i="6" data-_j="20"  class=" _centered _table116_opt20" >NA</td></tr>
+<tr class=" _outer_row"  id="_tr_116_7"  ondblclick="_action_106(this,7,-1, 'loops/MainEnsemble_767.html');"  style="cursor:pointer;"><td id="_tr_116_7-1"  data-_i="7" data-_j="1"  class=" _left"  style="white-space: nowrap;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>Loop 767</td><td id="_tr_116_7-2"  data-_i="7" data-_j="2"  class=" _centered" >MainEnsemble</td><td id="_tr_116_7-3"  data-_i="7" data-_j="3"  class=" _table116_opt3"  style="word-break:break-all;" ></td><td id="_tr_116_7-4"  data-_i="7" data-_j="4"  class=" _table116_opt4"  style="word-break:break-all;" >void std::__insertion_sort<__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, __gnu_cxx::__ops::_Iter_less_iter>(__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, __gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, __gnu_cxx::__ops::_Iter_less_iter) [clone .isra.0]</td><td id="_tr_116_7-5"  data-_i="7" data-_j="5"  class=" _centered _table116_opt5" >Innermost</td><td id="_tr_116_7-6"  data-_i="7" data-_j="6"  class=" _centered _table116_opt6" >0.01</td><td id="_tr_116_7-7"  data-_i="7" data-_j="7"  class=" _centered _table116_opt7" >0.01</td><td id="_tr_116_7-8"  data-_i="7" data-_j="8"  class=" _centered _table116_opt8" >3.04</td><td id="_tr_116_7-9"  data-_i="7" data-_j="9"  class=" _centered _table116_opt9" >1.03</td><td id="_tr_116_7-10"  data-_i="7" data-_j="10"  class=" _centered _table116_opt10" >1.00</td><td id="_tr_116_7-11"  data-_i="7" data-_j="11"  class=" _centered _table116_opt11"  style="background:var(--score_color_medium);" >4.13</td><td id="_tr_116_7-12"  data-_i="7" data-_j="12"  class=" _centered _table116_opt12"  style="background:var(--score_color_medium);" >2.07</td><td id="_tr_116_7-13"  data-_i="7" data-_j="13"  class=" _centered _table116_opt13" >2</td><td id="_tr_116_7-14"  data-_i="7" data-_j="14"  class=" _centered _table116_opt14"  style="background:var(--score_color_bad);" >0.00</td><td id="_tr_116_7-15"  data-_i="7" data-_j="15"  class=" _centered _table116_opt15"  style="background:var(--score_color_bad);" >19.82</td><td id="_tr_116_7-16"  data-_i="7" data-_j="16"  class=" _centered _table116_opt16" >2.58</td><td id="_tr_116_7-17"  data-_i="7" data-_j="17"  class=" _centered _table116_opt17" >2.50</td><td id="_tr_116_7-18"  data-_i="7" data-_j="18"  class=" _centered _table116_opt18" >2.58</td><td id="_tr_116_7-19"  data-_i="7" data-_j="19"  class=" _centered _table116_opt19" >0.63</td><td id="_tr_116_7-20"  data-_i="7" data-_j="20"  class=" _centered _table116_opt20" >1.25</td></tr>
+<tr class=" _outer_row"  id="_tr_116_8"  ondblclick="_action_106(this,8,-1, 'loops/MainEnsemble_795.html');"  style="cursor:pointer;"><td id="_tr_116_8-1"  data-_i="8" data-_j="1"  class=" _left"  style="white-space: nowrap;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>Loop 795</td><td id="_tr_116_8-2"  data-_i="8" data-_j="2"  class=" _centered" >MainEnsemble</td><td id="_tr_116_8-3"  data-_i="8" data-_j="3"  class=" _table116_opt3"  style="word-break:break-all;" ></td><td id="_tr_116_8-4"  data-_i="8" data-_j="4"  class=" _table116_opt4"  style="word-break:break-all;" >DecisionTreeSingle::findBestSplitOMP(std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, double) [clone ._omp_fn.0]</td><td id="_tr_116_8-5"  data-_i="8" data-_j="5"  class=" _centered _table116_opt5" >Innermost</td><td id="_tr_116_8-6"  data-_i="8" data-_j="6"  class=" _centered _table116_opt6" >0.01</td><td id="_tr_116_8-7"  data-_i="8" data-_j="7"  class=" _centered _table116_opt7" >0.01</td><td id="_tr_116_8-8"  data-_i="8" data-_j="8"  class=" _centered _table116_opt8" >2.74</td><td id="_tr_116_8-9"  data-_i="8" data-_j="9"  class=" _centered _table116_opt9"  style="background:var(--score_color_acceptable);" >1.49</td><td id="_tr_116_8-10"  data-_i="8" data-_j="10"  class=" _centered _table116_opt10"  style="background:var(--score_color_acceptable);" >1.17</td><td id="_tr_116_8-11"  data-_i="8" data-_j="11"  class=" _centered _table116_opt11"  style="background:var(--score_color_medium);" >7.52</td><td id="_tr_116_8-12"  data-_i="8" data-_j="12"  class=" _centered _table116_opt12"  style="background:var(--score_color_medium);" >4.58</td><td id="_tr_116_8-13"  data-_i="8" data-_j="13"  class=" _centered _table116_opt13" >2</td><td id="_tr_116_8-14"  data-_i="8" data-_j="14"  class=" _centered _table116_opt14"  style="background:var(--score_color_bad);" >0.00</td><td id="_tr_116_8-15"  data-_i="8" data-_j="15"  class=" _centered _table116_opt15"  style="background:var(--score_color_bad);" >21.09</td><td id="_tr_116_8-16"  data-_i="8" data-_j="16"  class=" _centered _table116_opt16" >4.58</td><td id="_tr_116_8-17"  data-_i="8" data-_j="17"  class=" _centered _table116_opt17" >3.08</td><td id="_tr_116_8-18"  data-_i="8" data-_j="18"  class=" _centered _table116_opt18" >3.92</td><td id="_tr_116_8-19"  data-_i="8" data-_j="19"  class=" _centered _table116_opt19" >0.61</td><td id="_tr_116_8-20"  data-_i="8" data-_j="20"  class=" _centered _table116_opt20" >1.00</td></tr>
+<tr class=" _outer_row"  id="_tr_116_9"  ondblclick="_action_106(this,9,-1, 'loops/MainEnsemble_768.html');"  style="cursor:pointer;"><td id="_tr_116_9-1"  data-_i="9" data-_j="1"  class=" _left"  style="white-space: nowrap;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>Loop 768</td><td id="_tr_116_9-2"  data-_i="9" data-_j="2"  class=" _centered" >MainEnsemble</td><td id="_tr_116_9-3"  data-_i="9" data-_j="3"  class=" _table116_opt3"  style="word-break:break-all;" ></td><td id="_tr_116_9-4"  data-_i="9" data-_j="4"  class=" _table116_opt4"  style="word-break:break-all;" >void std::__insertion_sort<__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, __gnu_cxx::__ops::_Iter_less_iter>(__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, __gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, __gnu_cxx::__ops::_Iter_less_iter) [clone .isra.0]</td><td id="_tr_116_9-5"  data-_i="9" data-_j="5"  class=" _centered _table116_opt5" >Outermost</td><td id="_tr_116_9-6"  data-_i="9" data-_j="6"  class=" _centered _table116_opt6" >0.01</td><td id="_tr_116_9-7"  data-_i="9" data-_j="7"  class=" _centered _table116_opt7" >0.01</td><td id="_tr_116_9-8"  data-_i="9" data-_j="8"  class=" _centered _table116_opt8" >1.70</td><td id="_tr_116_9-9"  data-_i="9" data-_j="9"  class=" _centered _table116_opt9"  style="background:var(--score_color_acceptable);" >1.60</td><td id="_tr_116_9-10"  data-_i="9" data-_j="10"  class=" _centered _table116_opt10" >1.07</td><td id="_tr_116_9-11"  data-_i="9" data-_j="11"  class=" _centered _table116_opt11"  style="background:var(--score_color_medium);" >6.04</td><td id="_tr_116_9-12"  data-_i="9" data-_j="12"  class=" _centered _table116_opt12"  style="background:var(--score_color_medium);" >2.46</td><td id="_tr_116_9-13"  data-_i="9" data-_j="13"  class=" _centered _table116_opt13" >40</td><td id="_tr_116_9-14"  data-_i="9" data-_j="14"  class=" _centered _table116_opt14"  style="background:var(--score_color_bad);" >0.00</td><td id="_tr_116_9-15"  data-_i="9" data-_j="15"  class=" _centered _table116_opt15"  style="background:var(--score_color_bad);" >21.21</td><td id="_tr_116_9-16"  data-_i="9" data-_j="16"  class=" _centered _table116_opt16" >16.00</td><td id="_tr_116_9-17"  data-_i="9" data-_j="17"  class=" _centered _table116_opt17" >10.00</td><td id="_tr_116_9-18"  data-_i="9" data-_j="18"  class=" _centered _table116_opt18" >15.00</td><td id="_tr_116_9-19"  data-_i="9" data-_j="19"  class=" _centered _table116_opt19" >2.65</td><td id="_tr_116_9-20"  data-_i="9" data-_j="20"  class=" _centered _table116_opt20" >6.50</td></tr>
+<tr class=" _outer_row"  id="_tr_116_10"  ondblclick="_action_106(this,10,-1, 'loops/MainEnsemble_794.html');"  style="cursor:pointer;"><td id="_tr_116_10-1"  data-_i="10" data-_j="1"  class=" _left"  style="white-space: nowrap;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>Loop 794</td><td id="_tr_116_10-2"  data-_i="10" data-_j="2"  class=" _centered" >MainEnsemble</td><td id="_tr_116_10-3"  data-_i="10" data-_j="3"  class=" _table116_opt3"  style="word-break:break-all;" ></td><td id="_tr_116_10-4"  data-_i="10" data-_j="4"  class=" _table116_opt4"  style="word-break:break-all;" >DecisionTreeSingle::findBestSplitOMP(std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, double) [clone ._omp_fn.0]</td><td id="_tr_116_10-5"  data-_i="10" data-_j="5"  class=" _centered _table116_opt5" >Innermost</td><td id="_tr_116_10-6"  data-_i="10" data-_j="6"  class=" _centered _table116_opt6" >0.01</td><td id="_tr_116_10-7"  data-_i="10" data-_j="7"  class=" _centered _table116_opt7" >0.01</td><td id="_tr_116_10-8"  data-_i="10" data-_j="8"  class=" _centered _table116_opt8" >1.52</td><td id="_tr_116_10-9"  data-_i="10" data-_j="9"  class=" _centered _table116_opt9" >1.00</td><td id="_tr_116_10-10"  data-_i="10" data-_j="10"  class=" _centered _table116_opt10" >1.00</td><td id="_tr_116_10-11"  data-_i="10" data-_j="11"  class=" _centered _table116_opt11"  style="background:var(--score_color_acceptable);" >1.41</td><td id="_tr_116_10-12"  data-_i="10" data-_j="12"  class=" _centered _table116_opt12"  style="background:var(--score_color_medium);" >3.22</td><td id="_tr_116_10-13"  data-_i="10" data-_j="13"  class=" _centered _table116_opt13" >1</td><td id="_tr_116_10-14"  data-_i="10" data-_j="14"  class=" _centered _table116_opt14"  style="background:var(--score_color_bad);" >55.56</td><td id="_tr_116_10-15"  data-_i="10" data-_j="15"  class=" _centered _table116_opt15"  style="background:var(--score_color_bad);" >56.94</td><td id="_tr_116_10-16"  data-_i="10" data-_j="16"  class=" _centered _table116_opt16" >9.67</td><td id="_tr_116_10-17"  data-_i="10" data-_j="17"  class=" _centered _table116_opt17" >9.67</td><td id="_tr_116_10-18"  data-_i="10" data-_j="18"  class=" _centered _table116_opt18" >9.67</td><td id="_tr_116_10-19"  data-_i="10" data-_j="19"  class=" _centered _table116_opt19" >6.83</td><td id="_tr_116_10-20"  data-_i="10" data-_j="20"  class=" _centered _table116_opt20" >3.00</td></tr>
+<tr class=" _outer_row"  id="_tr_116_11"  ondblclick="_action_106(this,11,-1, 'loops/MainEnsemble_800.html');"  style="cursor:pointer;"><td id="_tr_116_11-1"  data-_i="11" data-_j="1"  class=" _left"  style="white-space: nowrap;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>Loop 800</td><td id="_tr_116_11-2"  data-_i="11" data-_j="2"  class=" _centered" >MainEnsemble</td><td id="_tr_116_11-3"  data-_i="11" data-_j="3"  class=" _table116_opt3"  style="word-break:break-all;" ></td><td id="_tr_116_11-4"  data-_i="11" data-_j="4"  class=" _table116_opt4"  style="word-break:break-all;" >DecisionTreeSingle::splitNode(DecisionTreeSingle::Tree*, std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, int)</td><td id="_tr_116_11-5"  data-_i="11" data-_j="5"  class=" _centered _table116_opt5" >Single</td><td id="_tr_116_11-6"  data-_i="11" data-_j="6"  class=" _centered _table116_opt6" >0.01</td><td id="_tr_116_11-7"  data-_i="11" data-_j="7"  class=" _centered _table116_opt7" >0.01</td><td id="_tr_116_11-8"  data-_i="11" data-_j="8"  class=" _centered _table116_opt8" >1.22</td><td id="_tr_116_11-9"  data-_i="11" data-_j="9"  class=" _centered _table116_opt9"  style="background:var(--score_color_medium);" >4.37</td><td id="_tr_116_11-10"  data-_i="11" data-_j="10"  class=" _centered _table116_opt10" >1.00</td><td id="_tr_116_11-11"  data-_i="11" data-_j="11"  class=" _centered _table116_opt11"  style="background:var(--score_color_medium);" >6.59</td><td id="_tr_116_11-12"  data-_i="11" data-_j="12"  class=" _centered _table116_opt12"  style="background:var(--score_color_medium);" >6.05</td><td id="_tr_116_11-13"  data-_i="11" data-_j="13"  class=" _centered _table116_opt13" >256</td><td id="_tr_116_11-14"  data-_i="11" data-_j="14"  class=" _centered _table116_opt14"  style="background:var(--score_color_bad);" >0.00</td><td id="_tr_116_11-15"  data-_i="11" data-_j="15"  class=" _centered _table116_opt15"  style="background:var(--score_color_bad);" >21.00</td><td id="_tr_116_11-16"  data-_i="11" data-_j="16"  class=" _centered _table116_opt16" >39.33</td><td id="_tr_116_11-17"  data-_i="11" data-_j="17"  class=" _centered _table116_opt17" >9.00</td><td id="_tr_116_11-18"  data-_i="11" data-_j="18"  class=" _centered _table116_opt18" >39.33</td><td id="_tr_116_11-19"  data-_i="11" data-_j="19"  class=" _centered _table116_opt19" >5.97</td><td id="_tr_116_11-20"  data-_i="11" data-_j="20"  class=" _centered _table116_opt20" >6.50</td></tr>
+<tr class=" _outer_row"  id="_tr_116_12"  ondblclick="_action_106(this,12,-1, 'loops/MainEnsemble_786.html');"  style="cursor:pointer;"><td id="_tr_116_12-1"  data-_i="12" data-_j="1"  class=" _left"  style="white-space: nowrap;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>Loop 786</td><td id="_tr_116_12-2"  data-_i="12" data-_j="2"  class=" _centered" >MainEnsemble</td><td id="_tr_116_12-3"  data-_i="12" data-_j="3"  class=" _table116_opt3"  style="word-break:break-all;" ></td><td id="_tr_116_12-4"  data-_i="12" data-_j="4"  class=" _table116_opt4"  style="word-break:break-all;" >DecisionTreeSingle::predict(double const*, int) const</td><td id="_tr_116_12-5"  data-_i="12" data-_j="5"  class=" _centered _table116_opt5" >Outermost</td><td id="_tr_116_12-6"  data-_i="12" data-_j="6"  class=" _centered _table116_opt6" >0.09</td><td id="_tr_116_12-7"  data-_i="12" data-_j="7"  class=" _centered _table116_opt7" >0.01</td><td id="_tr_116_12-8"  data-_i="12" data-_j="8"  class=" _centered _table116_opt8" >1.09</td><td id="_tr_116_12-9"  data-_i="12" data-_j="9"  class=" _centered _table116_opt9" >1.00</td><td id="_tr_116_12-10"  data-_i="12" data-_j="10"  class=" _centered _table116_opt10" >NA</td><td id="_tr_116_12-11"  data-_i="12" data-_j="11"  class=" _centered _table116_opt11" >NA</td><td id="_tr_116_12-12"  data-_i="12" data-_j="12"  class=" _centered _table116_opt12" >1.00</td><td id="_tr_116_12-13"  data-_i="12" data-_j="13"  class=" _centered _table116_opt13" >1</td><td id="_tr_116_12-14"  data-_i="12" data-_j="14"  class=" _centered _table116_opt14"  style="background:var(--score_color_bad);" >NA</td><td id="_tr_116_12-15"  data-_i="12" data-_j="15"  class=" _centered _table116_opt15"  style="background:var(--score_color_bad);" >NA</td><td id="_tr_116_12-16"  data-_i="12" data-_j="16"  class=" _centered _table116_opt16" >0.50</td><td id="_tr_116_12-17"  data-_i="12" data-_j="17"  class=" _centered _table116_opt17" >0.50</td><td id="_tr_116_12-18"  data-_i="12" data-_j="18"  class=" _centered _table116_opt18" >NA</td><td id="_tr_116_12-19"  data-_i="12" data-_j="19"  class=" _centered _table116_opt19" >NA</td><td id="_tr_116_12-20"  data-_i="12" data-_j="20"  class=" _centered _table116_opt20" >0.50</td></tr>
+<tr class=" _outer_row"  id="_tr_116_13"  ondblclick="_action_106(this,13,-1, 'loops/MainEnsemble_778.html');"  style="cursor:pointer;"><td id="_tr_116_13-1"  data-_i="13" data-_j="1"  class=" _left"  style="white-space: nowrap;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>Loop 778</td><td id="_tr_116_13-2"  data-_i="13" data-_j="2"  class=" _centered" >MainEnsemble</td><td id="_tr_116_13-3"  data-_i="13" data-_j="3"  class=" _table116_opt3"  style="word-break:break-all;" ></td><td id="_tr_116_13-4"  data-_i="13" data-_j="4"  class=" _table116_opt4"  style="word-break:break-all;" >void std::__introsort_loop<__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, long, __gnu_cxx::__ops::_Iter_less_iter>(__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, __gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, long, __gnu_cxx::__ops::_Iter_less_iter) [clone .isra.0]</td><td id="_tr_116_13-5"  data-_i="13" data-_j="5"  class=" _centered _table116_opt5" >Single</td><td id="_tr_116_13-6"  data-_i="13" data-_j="6"  class=" _centered _table116_opt6" >0.01</td><td id="_tr_116_13-7"  data-_i="13" data-_j="7"  class=" _centered _table116_opt7" >0.00</td><td id="_tr_116_13-8"  data-_i="13" data-_j="8"  class=" _centered _table116_opt8" >0.85</td><td id="_tr_116_13-9"  data-_i="13" data-_j="9"  class=" _centered _table116_opt9"  style="background:var(--score_color_medium);" >3.33</td><td id="_tr_116_13-10"  data-_i="13" data-_j="10"  class=" _centered _table116_opt10" >1.00</td><td id="_tr_116_13-11"  data-_i="13" data-_j="11"  class=" _centered _table116_opt11"  style="background:var(--score_color_medium);" >4.00</td><td id="_tr_116_13-12"  data-_i="13" data-_j="12"  class=" _centered _table116_opt12"  style="background:var(--score_color_medium);" >3.33</td><td id="_tr_116_13-13"  data-_i="13" data-_j="13"  class=" _centered _table116_opt13" >1</td><td id="_tr_116_13-14"  data-_i="13" data-_j="14"  class=" _centered _table116_opt14"  style="background:var(--score_color_bad);" >0.00</td><td id="_tr_116_13-15"  data-_i="13" data-_j="15"  class=" _centered _table116_opt15"  style="background:var(--score_color_bad);" >25.00</td><td id="_tr_116_13-16"  data-_i="13" data-_j="16"  class=" _centered _table116_opt16" >5.00</td><td id="_tr_116_13-17"  data-_i="13" data-_j="17"  class=" _centered _table116_opt17" >1.50</td><td id="_tr_116_13-18"  data-_i="13" data-_j="18"  class=" _centered _table116_opt18" >5.00</td><td id="_tr_116_13-19"  data-_i="13" data-_j="19"  class=" _centered _table116_opt19" >1.25</td><td id="_tr_116_13-20"  data-_i="13" data-_j="20"  class=" _centered _table116_opt20" >1.50</td></tr>
+<tr class=" _outer_row"  id="_tr_116_14"  ondblclick="_action_106(this,14,-1, 'loops/MainEnsemble_792.html');"  style="cursor:pointer;"><td id="_tr_116_14-1"  data-_i="14" data-_j="1"  class=" _left"  style="white-space: nowrap;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>Loop 792</td><td id="_tr_116_14-2"  data-_i="14" data-_j="2"  class=" _centered" >MainEnsemble</td><td id="_tr_116_14-3"  data-_i="14" data-_j="3"  class=" _table116_opt3"  style="word-break:break-all;" ></td><td id="_tr_116_14-4"  data-_i="14" data-_j="4"  class=" _table116_opt4"  style="word-break:break-all;" >DecisionTreeSingle::findBestSplitOMP(std::vector<double, std::allocator<double> > const&, int, std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&, double) [clone ._omp_fn.0]</td><td id="_tr_116_14-5"  data-_i="14" data-_j="5"  class=" _centered _table116_opt5" >InBetween</td><td id="_tr_116_14-6"  data-_i="14" data-_j="6"  class=" _centered _table116_opt6" >0.01</td><td id="_tr_116_14-7"  data-_i="14" data-_j="7"  class=" _centered _table116_opt7" >0.00</td><td id="_tr_116_14-8"  data-_i="14" data-_j="8"  class=" _centered _table116_opt8" >0.79</td><td id="_tr_116_14-9"  data-_i="14" data-_j="9"  class=" _centered _table116_opt9" >NA</td><td id="_tr_116_14-10"  data-_i="14" data-_j="10"  class=" _centered _table116_opt10" >NA</td><td id="_tr_116_14-11"  data-_i="14" data-_j="11"  class=" _centered _table116_opt11" >NA</td><td id="_tr_116_14-12"  data-_i="14" data-_j="12"  class=" _centered _table116_opt12" >NA</td><td id="_tr_116_14-13"  data-_i="14" data-_j="13"  class=" _centered _table116_opt13" >NA</td><td id="_tr_116_14-14"  data-_i="14" data-_j="14"  class=" _centered _table116_opt14"  style="background:var(--score_color_bad);" >NA</td><td id="_tr_116_14-15"  data-_i="14" data-_j="15"  class=" _centered _table116_opt15"  style="background:var(--score_color_bad);" >NA</td><td id="_tr_116_14-16"  data-_i="14" data-_j="16"  class=" _centered _table116_opt16" >NA</td><td id="_tr_116_14-17"  data-_i="14" data-_j="17"  class=" _centered _table116_opt17" >NA</td><td id="_tr_116_14-18"  data-_i="14" data-_j="18"  class=" _centered _table116_opt18" >NA</td><td id="_tr_116_14-19"  data-_i="14" data-_j="19"  class=" _centered _table116_opt19" >NA</td><td id="_tr_116_14-20"  data-_i="14" data-_j="20"  class=" _centered _table116_opt20" >NA</td></tr>
+<tr class=" _outer_row"  id="_tr_116_15"  ondblclick="_action_106(this,15,-1, 'loops/MainEnsemble_787.html');"  style="cursor:pointer;"><td id="_tr_116_15-1"  data-_i="15" data-_j="1"  class=" _left"  style="white-space: nowrap;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>Loop 787</td><td id="_tr_116_15-2"  data-_i="15" data-_j="2"  class=" _centered" >MainEnsemble</td><td id="_tr_116_15-3"  data-_i="15" data-_j="3"  class=" _table116_opt3"  style="word-break:break-all;" ></td><td id="_tr_116_15-4"  data-_i="15" data-_j="4"  class=" _table116_opt4"  style="word-break:break-all;" >DecisionTreeSingle::predict(double const*, int) const</td><td id="_tr_116_15-5"  data-_i="15" data-_j="5"  class=" _centered _table116_opt5" >Innermost</td><td id="_tr_116_15-6"  data-_i="15" data-_j="6"  class=" _centered _table116_opt6" >0.05</td><td id="_tr_116_15-7"  data-_i="15" data-_j="7"  class=" _centered _table116_opt7" >0.00</td><td id="_tr_116_15-8"  data-_i="15" data-_j="8"  class=" _centered _table116_opt8" >0.55</td><td id="_tr_116_15-9"  data-_i="15" data-_j="9"  class=" _centered _table116_opt9" >1.00</td><td id="_tr_116_15-10"  data-_i="15" data-_j="10"  class=" _centered _table116_opt10" >1.00</td><td id="_tr_116_15-11"  data-_i="15" data-_j="11"  class=" _centered _table116_opt11"  style="background:var(--score_color_medium);" >4.00</td><td id="_tr_116_15-12"  data-_i="15" data-_j="12"  class=" _centered _table116_opt12" >1.00</td><td id="_tr_116_15-13"  data-_i="15" data-_j="13"  class=" _centered _table116_opt13" >1</td><td id="_tr_116_15-14"  data-_i="15" data-_j="14"  class=" _centered _table116_opt14"  style="background:var(--score_color_bad);" >0.00</td><td id="_tr_116_15-15"  data-_i="15" data-_j="15"  class=" _centered _table116_opt15"  style="background:var(--score_color_bad);" >25.00</td><td id="_tr_116_15-16"  data-_i="15" data-_j="16"  class=" _centered _table116_opt16" >3.00</td><td id="_tr_116_15-17"  data-_i="15" data-_j="17"  class=" _centered _table116_opt17" >3.00</td><td id="_tr_116_15-18"  data-_i="15" data-_j="18"  class=" _centered _table116_opt18" >3.00</td><td id="_tr_116_15-19"  data-_i="15" data-_j="19"  class=" _centered _table116_opt19" >0.75</td><td id="_tr_116_15-20"  data-_i="15" data-_j="20"  class=" _centered _table116_opt20" >3.00</td></tr>
+<tr class=" _outer_row"  id="_tr_116_16"  ondblclick="_action_106(this,16,-1, 'loops/MainEnsemble_257.html');"  style="cursor:pointer;"><td id="_tr_116_16-1"  data-_i="16" data-_j="1"  class=" _left"  style="white-space: nowrap;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>Loop 257</td><td id="_tr_116_16-2"  data-_i="16" data-_j="2"  class=" _centered" >MainEnsemble</td><td id="_tr_116_16-3"  data-_i="16" data-_j="3"  class=" _table116_opt3"  style="word-break:break-all;" ></td><td id="_tr_116_16-4"  data-_i="16" data-_j="4"  class=" _table116_opt4"  style="word-break:break-all;" >DataIO::readCSV(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int&)</td><td id="_tr_116_16-5"  data-_i="16" data-_j="5"  class=" _centered _table116_opt5" >Innermost</td><td id="_tr_116_16-6"  data-_i="16" data-_j="6"  class=" _centered _table116_opt6" >0.00</td><td id="_tr_116_16-7"  data-_i="16" data-_j="7"  class=" _centered _table116_opt7" >0.00</td><td id="_tr_116_16-8"  data-_i="16" data-_j="8"  class=" _centered _table116_opt8" >0.06</td><td id="_tr_116_16-9"  data-_i="16" data-_j="9"  class=" _centered _table116_opt9"  style="background:var(--score_color_medium);" >3.95</td><td id="_tr_116_16-10"  data-_i="16" data-_j="10"  class=" _centered _table116_opt10" >1.00</td><td id="_tr_116_16-11"  data-_i="16" data-_j="11"  class=" _centered _table116_opt11"  style="background:var(--score_color_medium);" >9.09</td><td id="_tr_116_16-12"  data-_i="16" data-_j="12"  class=" _centered _table116_opt12"  style="background:var(--score_color_medium);" >4.28</td><td id="_tr_116_16-13"  data-_i="16" data-_j="13"  class=" _centered _table116_opt13" >32</td><td id="_tr_116_16-14"  data-_i="16" data-_j="14"  class=" _centered _table116_opt14"  style="background:var(--score_color_bad);" >13.89</td><td id="_tr_116_16-15"  data-_i="16" data-_j="15"  class=" _centered _table116_opt15"  style="background:var(--score_color_bad);" >25.78</td><td id="_tr_116_16-16"  data-_i="16" data-_j="16"  class=" _centered _table116_opt16" >25.67</td><td id="_tr_116_16-17"  data-_i="16" data-_j="17"  class=" _centered _table116_opt17" >6.50</td><td id="_tr_116_16-18"  data-_i="16" data-_j="18"  class=" _centered _table116_opt18" >25.67</td><td id="_tr_116_16-19"  data-_i="16" data-_j="19"  class=" _centered _table116_opt19" >2.82</td><td id="_tr_116_16-20"  data-_i="16" data-_j="20"  class=" _centered _table116_opt20" >6.00</td></tr>
+<tr class=" _outer_row"  id="_tr_116_17"  ondblclick="_action_106(this,17,-1, 'loops/MainEnsemble_427.html');"  style="cursor:pointer;"><td id="_tr_116_17-1"  data-_i="17" data-_j="1"  class=" _left"  style="white-space: nowrap;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>Loop 427</td><td id="_tr_116_17-2"  data-_i="17" data-_j="2"  class=" _centered" >MainEnsemble</td><td id="_tr_116_17-3"  data-_i="17" data-_j="3"  class=" _table116_opt3"  style="word-break:break-all;" ></td><td id="_tr_116_17-4"  data-_i="17" data-_j="4"  class=" _table116_opt4"  style="word-break:break-all;" >FeatureImportance::calculateNodeImportances(DecisionTreeSingle::Tree const*, double, double)</td><td id="_tr_116_17-5"  data-_i="17" data-_j="5"  class=" _centered _table116_opt5" >Innermost</td><td id="_tr_116_17-6"  data-_i="17" data-_j="6"  class=" _centered _table116_opt6" >0.00</td><td id="_tr_116_17-7"  data-_i="17" data-_j="7"  class=" _centered _table116_opt7" >0.00</td><td id="_tr_116_17-8"  data-_i="17" data-_j="8"  class=" _centered _table116_opt8" >0.06</td><td id="_tr_116_17-9"  data-_i="17" data-_j="9"  class=" _centered _table116_opt9" >1.00</td><td id="_tr_116_17-10"  data-_i="17" data-_j="10"  class=" _centered _table116_opt10" >1.00</td><td id="_tr_116_17-11"  data-_i="17" data-_j="11"  class=" _centered _table116_opt11"  style="background:var(--score_color_medium);" >4.00</td><td id="_tr_116_17-12"  data-_i="17" data-_j="12"  class=" _centered _table116_opt12" >1.00</td><td id="_tr_116_17-13"  data-_i="17" data-_j="13"  class=" _centered _table116_opt13" >1</td><td id="_tr_116_17-14"  data-_i="17" data-_j="14"  class=" _centered _table116_opt14"  style="background:var(--score_color_bad);" >0.00</td><td id="_tr_116_17-15"  data-_i="17" data-_j="15"  class=" _centered _table116_opt15"  style="background:var(--score_color_bad);" >25.00</td><td id="_tr_116_17-16"  data-_i="17" data-_j="16"  class=" _centered _table116_opt16" >3.00</td><td id="_tr_116_17-17"  data-_i="17" data-_j="17"  class=" _centered _table116_opt17" >3.00</td><td id="_tr_116_17-18"  data-_i="17" data-_j="18"  class=" _centered _table116_opt18" >3.00</td><td id="_tr_116_17-19"  data-_i="17" data-_j="19"  class=" _centered _table116_opt19" >0.75</td><td id="_tr_116_17-20"  data-_i="17" data-_j="20"  class=" _centered _table116_opt20" >3.00</td></tr>
+<tr class=" _outer_row"  id="_tr_116_18"  ondblclick="_action_106(this,18,-1, 'loops/MainEnsemble_425.html');"  style="cursor:pointer;"><td id="_tr_116_18-1"  data-_i="18" data-_j="1"  class=" _left"  style="white-space: nowrap;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>Loop 425</td><td id="_tr_116_18-2"  data-_i="18" data-_j="2"  class=" _centered" >MainEnsemble</td><td id="_tr_116_18-3"  data-_i="18" data-_j="3"  class=" _table116_opt3"  style="word-break:break-all;" ></td><td id="_tr_116_18-4"  data-_i="18" data-_j="4"  class=" _table116_opt4"  style="word-break:break-all;" >FeatureImportance::calculateNodeImportances(DecisionTreeSingle::Tree const*, double, double)</td><td id="_tr_116_18-5"  data-_i="18" data-_j="5"  class=" _centered _table116_opt5" >Outermost</td><td id="_tr_116_18-6"  data-_i="18" data-_j="6"  class=" _centered _table116_opt6" >0.00</td><td id="_tr_116_18-7"  data-_i="18" data-_j="7"  class=" _centered _table116_opt7" >0.00</td><td id="_tr_116_18-8"  data-_i="18" data-_j="8"  class=" _centered _table116_opt8" >0.06</td><td id="_tr_116_18-9"  data-_i="18" data-_j="9"  class=" _centered _table116_opt9"  style="background:var(--score_color_medium);" >3.58</td><td id="_tr_116_18-10"  data-_i="18" data-_j="10"  class=" _centered _table116_opt10"  style="background:var(--score_color_medium);" >2.09</td><td id="_tr_116_18-11"  data-_i="18" data-_j="11"  class=" _centered _table116_opt11"  style="background:var(--score_color_medium);" >6.40</td><td id="_tr_116_18-12"  data-_i="18" data-_j="12"  class=" _centered _table116_opt12"  style="background:var(--score_color_medium);" >3.58</td><td id="_tr_116_18-13"  data-_i="18" data-_j="13"  class=" _centered _table116_opt13" >12</td><td id="_tr_116_18-14"  data-_i="18" data-_j="14"  class=" _centered _table116_opt14"  style="background:var(--score_color_bad);" >0.00</td><td id="_tr_116_18-15"  data-_i="18" data-_j="15"  class=" _centered _table116_opt15"  style="background:var(--score_color_bad);" >22.92</td><td id="_tr_116_18-16"  data-_i="18" data-_j="16"  class=" _centered _table116_opt16" >7.17</td><td id="_tr_116_18-17"  data-_i="18" data-_j="17"  class=" _centered _table116_opt17" >2.00</td><td id="_tr_116_18-18"  data-_i="18" data-_j="18"  class=" _centered _table116_opt18" >3.42</td><td id="_tr_116_18-19"  data-_i="18" data-_j="19"  class=" _centered _table116_opt19" >1.12</td><td id="_tr_116_18-20"  data-_i="18" data-_j="20"  class=" _centered _table116_opt20" >2.00</td></tr>
+<tr class=" _outer_row"  id="_tr_116_19"  ondblclick="_action_106(this,19,-1, 'loops/MainEnsemble_263.html');"  style="cursor:pointer;"><td id="_tr_116_19-1"  data-_i="19" data-_j="1"  class=" _left"  style="white-space: nowrap;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>Loop 263</td><td id="_tr_116_19-2"  data-_i="19" data-_j="2"  class=" _centered" >MainEnsemble</td><td id="_tr_116_19-3"  data-_i="19" data-_j="3"  class=" _table116_opt3"  style="word-break:break-all;" ></td><td id="_tr_116_19-4"  data-_i="19" data-_j="4"  class=" _table116_opt4"  style="word-break:break-all;" >std::_Rb_tree<int, std::pair<int const, double>, std::_Select1st<std::pair<int const, double> >, std::less<int>, std::allocator<std::pair<int const, double> > >::_M_erase(std::_Rb_tree_node<std::pair<int const, double> >*) [clone .isra.0]</td><td id="_tr_116_19-5"  data-_i="19" data-_j="5"  class=" _centered _table116_opt5" >InBetween</td><td id="_tr_116_19-6"  data-_i="19" data-_j="6"  class=" _centered _table116_opt6" >0.00</td><td id="_tr_116_19-7"  data-_i="19" data-_j="7"  class=" _centered _table116_opt7" >0.00</td><td id="_tr_116_19-8"  data-_i="19" data-_j="8"  class=" _centered _table116_opt8" >0.06</td><td id="_tr_116_19-9"  data-_i="19" data-_j="9"  class=" _centered _table116_opt9" >1.00</td><td id="_tr_116_19-10"  data-_i="19" data-_j="10"  class=" _centered _table116_opt10" >1.00</td><td id="_tr_116_19-11"  data-_i="19" data-_j="11"  class=" _centered _table116_opt11"  style="background:var(--score_color_medium);" >7.33</td><td id="_tr_116_19-12"  data-_i="19" data-_j="12"  class=" _centered _table116_opt12"  style="background:var(--score_color_medium);" >3.50</td><td id="_tr_116_19-13"  data-_i="19" data-_j="13"  class=" _centered _table116_opt13" >17</td><td id="_tr_116_19-14"  data-_i="19" data-_j="14"  class=" _centered _table116_opt14"  style="background:var(--score_color_bad);" >0.00</td><td id="_tr_116_19-15"  data-_i="19" data-_j="15"  class=" _centered _table116_opt15"  style="background:var(--score_color_bad);" >20.83</td><td id="_tr_116_19-16"  data-_i="19" data-_j="16"  class=" _centered _table116_opt16" >3.50</td><td id="_tr_116_19-17"  data-_i="19" data-_j="17"  class=" _centered _table116_opt17" >3.50</td><td id="_tr_116_19-18"  data-_i="19" data-_j="18"  class=" _centered _table116_opt18" >3.50</td><td id="_tr_116_19-19"  data-_i="19" data-_j="19"  class=" _centered _table116_opt19" >0.48</td><td id="_tr_116_19-20"  data-_i="19" data-_j="20"  class=" _centered _table116_opt20" >1.00</td></tr>
+<tr class=" _outer_row"  id="_tr_116_20"  ondblclick="_action_106(this,20,-1, 'loops/MainEnsemble_769.html');"  style="cursor:pointer;"><td id="_tr_116_20-1"  data-_i="20" data-_j="1"  class=" _left"  style="white-space: nowrap;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>Loop 769</td><td id="_tr_116_20-2"  data-_i="20" data-_j="2"  class=" _centered" >MainEnsemble</td><td id="_tr_116_20-3"  data-_i="20" data-_j="3"  class=" _table116_opt3"  style="word-break:break-all;" ></td><td id="_tr_116_20-4"  data-_i="20" data-_j="4"  class=" _table116_opt4"  style="word-break:break-all;" >void std::__insertion_sort<__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, __gnu_cxx::__ops::_Iter_less_iter>(__gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, __gnu_cxx::__normal_iterator<std::pair<double, int>*, std::vector<std::pair<double, int>, std::allocator<std::pair<double, int> > > >, __gnu_cxx::__ops::_Iter_less_iter) [clone .isra.0]</td><td id="_tr_116_20-5"  data-_i="20" data-_j="5"  class=" _centered _table116_opt5" >Innermost</td><td id="_tr_116_20-6"  data-_i="20" data-_j="6"  class=" _centered _table116_opt6" >0.00</td><td id="_tr_116_20-7"  data-_i="20" data-_j="7"  class=" _centered _table116_opt7" >0.00</td><td id="_tr_116_20-8"  data-_i="20" data-_j="8"  class=" _centered _table116_opt8" >0.06</td><td id="_tr_116_20-9"  data-_i="20" data-_j="9"  class=" _centered _table116_opt9"  style="background:var(--score_color_medium);" >2.00</td><td id="_tr_116_20-10"  data-_i="20" data-_j="10"  class=" _centered _table116_opt10"  style="background:var(--score_color_acceptable);" >1.50</td><td id="_tr_116_20-11"  data-_i="20" data-_j="11"  class=" _centered _table116_opt11"  style="background:var(--score_color_medium);" >8.00</td><td id="_tr_116_20-12"  data-_i="20" data-_j="12"  class=" _centered _table116_opt12"  style="background:var(--score_color_medium);" >32.00</td><td id="_tr_116_20-13"  data-_i="20" data-_j="13"  class=" _centered _table116_opt13" >1</td><td id="_tr_116_20-14"  data-_i="20" data-_j="14"  class=" _centered _table116_opt14"  style="background:var(--score_color_bad);" >0.00</td><td id="_tr_116_20-15"  data-_i="20" data-_j="15"  class=" _centered _table116_opt15"  style="background:var(--score_color_bad);" >18.94</td><td id="_tr_116_20-16"  data-_i="20" data-_j="16"  class=" _centered _table116_opt16" >16.00</td><td id="_tr_116_20-17"  data-_i="20" data-_j="17"  class=" _centered _table116_opt17" >8.00</td><td id="_tr_116_20-18"  data-_i="20" data-_j="18"  class=" _centered _table116_opt18" >10.67</td><td id="_tr_116_20-19"  data-_i="20" data-_j="19"  class=" _centered _table116_opt19" >2.00</td><td id="_tr_116_20-20"  data-_i="20" data-_j="20"  class=" _centered _table116_opt20" >0.50</td></tr>
+<tr class=" _outer_row"  id="_tr_116_21"  ondblclick="_action_106(this,21,-1, 'loops/MainEnsemble_857.html');"  style="cursor:pointer;"><td id="_tr_116_21-1"  data-_i="21" data-_j="1"  class=" _left"  style="white-space: nowrap;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>Loop 857</td><td id="_tr_116_21-2"  data-_i="21" data-_j="2"  class=" _centered" >MainEnsemble</td><td id="_tr_116_21-3"  data-_i="21" data-_j="3"  class=" _table116_opt3"  style="word-break:break-all;" ></td><td id="_tr_116_21-4"  data-_i="21" data-_j="4"  class=" _table116_opt4"  style="word-break:break-all;" >Math::calculateMSEWithIndices(std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&)</td><td id="_tr_116_21-5"  data-_i="21" data-_j="5"  class=" _centered _table116_opt5" >Single</td><td id="_tr_116_21-6"  data-_i="21" data-_j="6"  class=" _centered _table116_opt6" >0.00</td><td id="_tr_116_21-7"  data-_i="21" data-_j="7"  class=" _centered _table116_opt7" >0.00</td><td id="_tr_116_21-8"  data-_i="21" data-_j="8"  class=" _centered _table116_opt8" >0.06</td><td id="_tr_116_21-9"  data-_i="21" data-_j="9"  class=" _centered _table116_opt9" >1.00</td><td id="_tr_116_21-10"  data-_i="21" data-_j="10"  class=" _centered _table116_opt10" >1.00</td><td id="_tr_116_21-11"  data-_i="21" data-_j="11"  class=" _centered _table116_opt11"  style="background:var(--score_color_acceptable);" >1.60</td><td id="_tr_116_21-12"  data-_i="21" data-_j="12"  class=" _centered _table116_opt12"  style="background:var(--score_color_medium);" >2.67</td><td id="_tr_116_21-13"  data-_i="21" data-_j="13"  class=" _centered _table116_opt13" >1</td><td id="_tr_116_21-14"  data-_i="21" data-_j="14"  class=" _centered _table116_opt14"  style="background:var(--score_color_bad);" >33.33</td><td id="_tr_116_21-15"  data-_i="21" data-_j="15"  class=" _centered _table116_opt15"  style="background:var(--score_color_bad);" >41.67</td><td id="_tr_116_21-16"  data-_i="21" data-_j="16"  class=" _centered _table116_opt16" >16.00</td><td id="_tr_116_21-17"  data-_i="21" data-_j="17"  class=" _centered _table116_opt17" >16.00</td><td id="_tr_116_21-18"  data-_i="21" data-_j="18"  class=" _centered _table116_opt18" >16.00</td><td id="_tr_116_21-19"  data-_i="21" data-_j="19"  class=" _centered _table116_opt19" >10.00</td><td id="_tr_116_21-20"  data-_i="21" data-_j="20"  class=" _centered _table116_opt20" >6.00</td></tr>
+<tr class=" _outer_row"  id="_tr_116_22"  ondblclick="_action_106(this,22,-1, 'loops/MainEnsemble_856.html');"  style="cursor:pointer;"><td id="_tr_116_22-1"  data-_i="22" data-_j="1"  class=" _left"  style="white-space: nowrap;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>Loop 856</td><td id="_tr_116_22-2"  data-_i="22" data-_j="2"  class=" _centered" >MainEnsemble</td><td id="_tr_116_22-3"  data-_i="22" data-_j="3"  class=" _table116_opt3"  style="word-break:break-all;" ></td><td id="_tr_116_22-4"  data-_i="22" data-_j="4"  class=" _table116_opt4"  style="word-break:break-all;" >Math::calculateMSEWithIndices(std::vector<double, std::allocator<double> > const&, std::vector<int, std::allocator<int> > const&)</td><td id="_tr_116_22-5"  data-_i="22" data-_j="5"  class=" _centered _table116_opt5" >Single</td><td id="_tr_116_22-6"  data-_i="22" data-_j="6"  class=" _centered _table116_opt6" >0.00</td><td id="_tr_116_22-7"  data-_i="22" data-_j="7"  class=" _centered _table116_opt7" >0.00</td><td id="_tr_116_22-8"  data-_i="22" data-_j="8"  class=" _centered _table116_opt8" >0.06</td><td id="_tr_116_22-9"  data-_i="22" data-_j="9"  class=" _centered _table116_opt9" >1.00</td><td id="_tr_116_22-10"  data-_i="22" data-_j="10"  class=" _centered _table116_opt10" >1.00</td><td id="_tr_116_22-11"  data-_i="22" data-_j="11"  class=" _centered _table116_opt11"  style="background:var(--score_color_acceptable);" >1.60</td><td id="_tr_116_22-12"  data-_i="22" data-_j="12"  class=" _centered _table116_opt12"  style="background:var(--score_color_medium);" >2.67</td><td id="_tr_116_22-13"  data-_i="22" data-_j="13"  class=" _centered _table116_opt13" >1</td><td id="_tr_116_22-14"  data-_i="22" data-_j="14"  class=" _centered _table116_opt14"  style="background:var(--score_color_bad);" >46.67</td><td id="_tr_116_22-15"  data-_i="22" data-_j="15"  class=" _centered _table116_opt15"  style="background:var(--score_color_bad);" >53.33</td><td id="_tr_116_22-16"  data-_i="22" data-_j="16"  class=" _centered _table116_opt16" >16.00</td><td id="_tr_116_22-17"  data-_i="22" data-_j="17"  class=" _centered _table116_opt17" >16.00</td><td id="_tr_116_22-18"  data-_i="22" data-_j="18"  class=" _centered _table116_opt18" >16.00</td><td id="_tr_116_22-19"  data-_i="22" data-_j="19"  class=" _centered _table116_opt19" >10.00</td><td id="_tr_116_22-20"  data-_i="22" data-_j="20"  class=" _centered _table116_opt20" >6.00</td></tr>
+<tr class=" _outer_row"  id="_tr_116_23"  ondblclick="_action_106(this,23,-1, 'loops/MainEnsemble_422.html');"  style="cursor:pointer;"><td id="_tr_116_23-1"  data-_i="23" data-_j="1"  class=" _left"  style="white-space: nowrap;" ><span style="margin-right:10px;margin-left:3px;" >&#x25CB;</span>Loop 422</td><td id="_tr_116_23-2"  data-_i="23" data-_j="2"  class=" _centered" >MainEnsemble</td><td id="_tr_116_23-3"  data-_i="23" data-_j="3"  class=" _table116_opt3"  style="word-break:break-all;" ></td><td id="_tr_116_23-4"  data-_i="23" data-_j="4"  class=" _table116_opt4"  style="word-break:break-all;" >FeatureImportance::calculateNodeImportances(DecisionTreeSingle::Tree const*, double, double)</td><td id="_tr_116_23-5"  data-_i="23" data-_j="5"  class=" _centered _table116_opt5" >Outermost</td><td id="_tr_116_23-6"  data-_i="23" data-_j="6"  class=" _centered _table116_opt6" >0.00</td><td id="_tr_116_23-7"  data-_i="23" data-_j="7"  class=" _centered _table116_opt7" >0.00</td><td id="_tr_116_23-8"  data-_i="23" data-_j="8"  class=" _centered _table116_opt8" >0.06</td><td id="_tr_116_23-9"  data-_i="23" data-_j="9"  class=" _centered _table116_opt9"  style="background:var(--score_color_medium);" >3.58</td><td id="_tr_116_23-10"  data-_i="23" data-_j="10"  class=" _centered _table116_opt10"  style="background:var(--score_color_medium);" >2.22</td><td id="_tr_116_23-11"  data-_i="23" data-_j="11"  class=" _centered _table116_opt11"  style="background:var(--score_color_medium);" >6.59</td><td id="_tr_116_23-12"  data-_i="23" data-_j="12"  class=" _centered _table116_opt12"  style="background:var(--score_color_medium);" >3.58</td><td id="_tr_116_23-13"  data-_i="23" data-_j="13"  class=" _centered _table116_opt13" >12</td><td id="_tr_116_23-14"  data-_i="23" data-_j="14"  class=" _centered _table116_opt14"  style="background:var(--score_color_bad);" >0.00</td><td id="_tr_116_23-15"  data-_i="23" data-_j="15"  class=" _centered _table116_opt15"  style="background:var(--score_color_bad);" >22.92</td><td id="_tr_116_23-16"  data-_i="23" data-_j="16"  class=" _centered _table116_opt16" >7.17</td><td id="_tr_116_23-17"  data-_i="23" data-_j="17"  class=" _centered _table116_opt17" >2.00</td><td id="_tr_116_23-18"  data-_i="23" data-_j="18"  class=" _centered _table116_opt18" >3.23</td><td id="_tr_116_23-19"  data-_i="23" data-_j="19"  class=" _centered _table116_opt19" >1.09</td><td id="_tr_116_23-20"  data-_i="23" data-_j="20"  class=" _centered _table116_opt20" >2.00</td></tr>
+</table></div>
+</div>
+<script>
+function _action_106 (obj, i, j, p){open(""+p+"");}
+</script>
+<script>
+var list_opts_table116 = ['_table116_opt3','_table116_opt4','_table116_opt5','_table116_opt6','_table116_opt7','_table116_opt8','_table116_opt9','_table116_opt10','_table116_opt11','_table116_opt12','_table116_opt13','_table116_opt14','_table116_opt15','_table116_opt16','_table116_opt17','_table116_opt18','_table116_opt19','_table116_opt20',];
+function __reset_checkboxes_table116 () {
+  var displayed_columns = [{id:"_table116_opt1", value:true}, {id:"_table116_opt2", value:true}, {id:"_table116_opt3", value:true}, {id:"_table116_opt4", value:true}, {id:"_table116_opt5", value:true}, {id:"_table116_opt6", value:true}, {id:"_table116_opt7", value:true}, {id:"_table116_opt8", value:true}, {id:"_table116_opt9", value:true}, {id:"_table116_opt10", value:true}, {id:"_table116_opt11", value:true}, {id:"_table116_opt12", value:true}, {id:"_table116_opt13", value:true}, {id:"_table116_opt14", value:true}, {id:"_table116_opt15", value:true}, {id:"_table116_opt16", value:true}, {id:"_table116_opt17", value:true}, {id:"_table116_opt18", value:true}, {id:"_table116_opt19", value:true}, {id:"_table116_opt20", value:true}];
+  // Update initial state using localStorage
+  for (var i = 0; i < displayed_columns.length; i++) {
+    var dcol = displayed_columns[i];
+    var val = localStorage.getItem (dcol.id);
+    if (val) {
+      dcol.value = (val === "true");
+    }
+    var obj = document.getElementById(dcol.id);
+    if (obj) {
+      if (dcol.value == true) {
+        obj.checked = true;
+      }
+      else {
+        obj.checked = false;
+      }
+    }
+  }
+  // Update table
+  var table = document.getElementById("_tree_table_116");
+  for (let i in table.rows) {
+    let row = table.rows[i]
+    for (let j in row.cells) {
+      let col = row.cells[j]
+      if (col.classList) {
+        if (displayed_columns[j].value == true) {
+          col.classList.remove("_tcol_hidden");
+        }
+        else {
+          col.classList.add("_tcol_hidden");
+        }
+      }
+    }
+  }
+  {
+    var value = localStorage.getItem("_table116_opt_all");
+    if (value) {
+      var obj = document.getElementById ("_table116_opt_all");
+      if (obj) {
+        obj.value = value;
+      }
+    }
+  }
+  _check_all_checkbox_ ("_table116_opt_all", "list_opts_table116");
+};
+addLoadEvent(function(){
+  __reset_checkboxes_table116 ();
+});
+</script>
+<style>
+._filter_hidden {display: none;}
+</style>
+<script>
+function getQueryStringArray(){
+ var assoc=[]; 
+ var items = window.location.search.substring(1).split('&'); 
+ for(var j = 0; j < items.length; j++) { 
+    var a = items[j].split('='); assoc[a[0]] = a[1]; 
+ }
+    return assoc;
+}
+
+addLoadEvent(function(){
+  var id = "_tree_table_116";
+  var table_asm = document.getElementById(id);
+  var tab = [];
+  for (var i = 0, row; row = table_asm.rows[i]; i++) {
+    if (i > 0 && row.classList.contains ("_tree_hidden") == false) {
+        tab.push (row.firstChild.firstChild);
+    }
+  }
+  tab.forEach(function(item, index, array) {
+    _click_tree (item);
+  });
+  var qs = getQueryStringArray();
+  if (false) {}
+  else if (qs.view && qs.view !== "undefined" && qs.view == "paths") {
+    for (var i = 0, cell; cell = table_asm.rows[0].cells[i]; i++) {
+      var found = false;
+      if (false) {}
+      else if (cell.textContent == "ID") {
+        found = true;
+      }
+      else if (cell.textContent == "Module") {
+        found = true;
+      }
+      else if (cell.textContent == "Coverage (% app. time)") {
+        found = true;
+      }
+      else if (cell.textContent == "Number of paths") {
+        found = true;
+      }
+      else if (cell.textContent == "Function") {
+        found = true;
+      }
+      else if (cell.textContent == "Source") {
+        found = true;
+      }
+      var e = document.getElementById("_table116_opt" + (i + 1));
+      if (e != null) {
+          e.checked = found;
+          click_table_menu("_table116_opt" + (i + 1), "_table116_opt_all", "list_opts_table116");
+      }
+    }
+  }
+  else if (qs.view && qs.view !== "undefined" && qs.view == "iterations") {
+    for (var i = 0, cell; cell = table_asm.rows[0].cells[i]; i++) {
+      var found = false;
+      if (false) {}
+      else if (cell.textContent == "ID") {
+        found = true;
+      }
+      else if (cell.textContent == "Module") {
+        found = true;
+      }
+      else if (cell.textContent == "Coverage (% app. time)") {
+        found = true;
+      }
+      else if (cell.textContent == "min (Iteration count)") {
+        found = true;
+      }
+      else if (cell.textContent == "avg (Iteration count)") {
+        found = true;
+      }
+      else if (cell.textContent == "max (Iteration count)") {
+        found = true;
+      }
+      else if (cell.textContent == "Function") {
+        found = true;
+      }
+      else if (cell.textContent == "Source") {
+        found = true;
+      }
+      var e = document.getElementById("_table116_opt" + (i + 1));
+      if (e != null) {
+          e.checked = found;
+          click_table_menu("_table116_opt" + (i + 1), "_table116_opt_all", "list_opts_table116");
+      }
+    }
+  }
+});
+function getPos(el) {
+  for (var lx=0, ly=0;
+      el != null;
+      lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent);
+  return {x: lx,y: ly};
+}
+function toggle_loop_index() {
+  var table = document.getElementById("_tree_table_116");
+  var last_level;
+  var button = document.getElementById("button_toggle_loop_index");
+  if (button.innerHTML.localeCompare ("Show Full Profile") == 0) {
+    button.innerHTML = "Show Innermost Profile";
+    for (var i = 1, row; row = table.rows[i]; i++) {
+      row.classList.remove ("_filter_hidden");
+    }
+  }
+  else {
+    button.innerHTML = "Show Full Profile";
+    for (var i = 1, row; row = table.rows[i]; i++) {
+      var level = row.cells[4].innerHTML;
+      if (level != "") {
+        last_level = level;
+      }
+      if (last_level.localeCompare("Single") != 0
+      &&  last_level.localeCompare("Innermost") != 0) {
+        row.classList.add ("_filter_hidden");
+      }
+    }
+  }
+}
+function _onresize () {
+  __maqao_legacy_onresize ();
+  var d = document.getElementById ("_tree_table_116").parentNode;
+  d.style.maxHeight = (window.innerHeight - getPos (d).y - 20)+"px";
+}
+window.onresize = _onresize;
+addLoadEvent(function(){
+  _onresize ();
+});
+</script>
+</div></div>
+  <div id="MaqaoModal" class="maqao_modal">
+    <div class="maqao_modal-content">
+      <div class="maqao_modal-header">
+        <span class="maqao_close">&times;</span>
+      </div>
+      <div id="maqao_modal-body" class="maqao_modal-body">
+      </div>
+    </div>
+  </div>
+</div><script>
+var tooltips_texts = ['A set of filters to display / hide some columns',
+'Source file and source lines where the loop is defined',
+'Source function where the loop is defined',
+'Level in the loop hierarchy',
+'Maximal execution time over all threads spent in the loop.',
+'Time of the loop with regard to the global wall time.',
+'Percentage of time spent in the loop.',
+'Potential speedup if all data are in L1 cache and if instructions performing address computation are removed.',
+'Potential speedup if all data are in L1 cache and if floating point computation is vectorized.',
+'Potential speedup if all data are in L1 cache and if both floating point computation and memory accesses are vectorized.',
+'Potential speedup if only floating point computation is kept.',
+'Number of paths in the loop.',
+'Percentage of the loop that have been vectorized. The color is red when the value is lower than 70%, orange when the value is between 70% and 90% and green when it is greater than 90%',
+'Average width (percentage) of vector registers used by the loop. The color is red when the value is lower than 70%, orange when the value is between 70% and 90% and green when it is greater than 90%',
+'Number of cycles needed to run one iteration of the loop if all data are in L1.',
+'Number of cycles needed to run one iteration of the loop if all data are in L1 cache and if instructions performing address computation are removed.',
+'Number of cycles needed to run one iteration of the loop if all data are in L1 and if floating point computation is vectorized.',
+'Number of cycles needed to run one iteration of the loop if all data are in L1 and if both floating point computation and memory accesses are vectorized.',
+'Number of cycles needed to run one iteration of the loop if only floating point computation is kept.',
+'Internal uniq loop identifier. It is recognize by all MAQAO tools.',
+'Assembly file (binary or dynamic librarie) containing the loop.',
+'Source file and source lines where the loop is defined',
+'Source function where the loop is defined',
+'Level in the loop hierarchy',
+'Maximal execution time over all threads spent in the loop.',
+'Time of the loop with regard to the global wall time.',
+'Percentage of time spent in the loop.',
+'Potential speedup if all data are in L1 cache and if instructions performing address computation are removed.',
+'Potential speedup if all data are in L1 cache and if floating point computation is vectorized.',
+'Potential speedup if all data are in L1 cache and if both floating point computation and memory accesses are vectorized.',
+'Potential speedup if only floating point computation is kept.',
+'Number of paths in the loop.',
+'Percentage of the loop that have been vectorized. The color is red when the value is lower than 70%, orange when the value is between 70% and 90% and green when it is greater than 90%',
+'Average width (percentage) of vector registers used by the loop. The color is red when the value is lower than 70%, orange when the value is between 70% and 90% and green when it is greater than 90%',
+'Number of cycles needed to run one iteration of the loop if all data are in L1.',
+'Number of cycles needed to run one iteration of the loop if all data are in L1 cache and if instructions performing address computation are removed.',
+'Number of cycles needed to run one iteration of the loop if all data are in L1 and if floating point computation is vectorized.',
+'Number of cycles needed to run one iteration of the loop if all data are in L1 and if both floating point computation and memory accesses are vectorized.',
+'Number of cycles needed to run one iteration of the loop if only floating point computation is kept.'];
+var modal = document.getElementById('MaqaoModal');
+var span = document.getElementsByClassName("maqao_close")[0];
+span.onclick = function() {
+    modal.style.display = "none";
+}
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+const comparer = (idx, asc) => (a, b) => ((v1, v2) => 
+    v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v2 - v1 : v1.toString().localeCompare(v2)
+    )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+addLoadEvent(function(){
+  document.querySelectorAll('._fixed_table:not(._no_auto_sorting) th').forEach(th => th.addEventListener('click', (() => {
+    const table = th.closest('table');
+    // Remove all symbols in header
+    table.querySelectorAll('th').forEach(function (e) {
+      e.firstChild.textContent = "";
+    });
+    // Change the symbol on the clicked header
+    if (this.asc != true) {
+      th.firstChild.textContent = "\u25BC";
+    }
+    else {
+      th.firstChild.textContent = "\u25B2";
+    }
+    Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
+        .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+        .forEach(tr => table.appendChild(tr) );
+  })));
+});
+addLoadEvent(function(){
+  document.querySelectorAll('._tree_table:not(._no_auto_sorting) th').forEach(th => th.addEventListener('click', (() => {
+    const table = th.closest('table');
+    // Remove all symbols in header
+    table.querySelectorAll('th').forEach(function (e) {
+      e.firstChild.textContent = "";
+    });
+    // Change the symbol on the clicked header
+    if (this.asc != true) {
+      th.firstChild.textContent = "\u25BC";
+    }
+    else {
+      th.firstChild.textContent = "\u25B2";
+    }
+    let last_id = "";
+    const t_outermost = new Array ();
+    const t_children  = new Map ();
+    for (let i = 1, row; row = table.rows[i]; i++) {
+      if (row.classList.contains ("_outer_row")) {
+        t_outermost.push (row);
+        last_id = row.id;
+        t_children [last_id] = new Array ();
+      }
+      else {
+        t_children [last_id].push (row);
+      }
+    }
+    t_outermost.sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc));
+    for (let i = 0, row; row = t_outermost[i]; i++) {
+      table.appendChild(row)
+      for (let j = 0, child; child = t_children[row.id][j]; j++) {
+        table.appendChild(child)
+      }
+    }
+  })));
+});
+function _check_all_checkbox_ (obj_id, opts_ids) {
+  var obj   = document.getElementById (obj_id);
+  var opts  = window[opts_ids];
+  var count = 0
+  for (i = 0; i < opts.length; i++) {
+    var obj_s = document.getElementById(opts[i]);
+    if (obj_s.checked) {
+      count ++;
+    }
+  }
+  if (count == 0) {
+    obj.value = "Select all";
+  }
+  else if (count == opts.length) {
+    obj.value = "Select none";
+  }
+}
+// Fonction for table selector
+function click_table_menu (c, obj_id, opt_ids) {
+  var is_checked = document.getElementById (c).checked;
+  localStorage.setItem(c, is_checked);
+  $("."+c).each(function(index, element) {
+    if (is_checked) {
+      element.classList.remove("_tcol_hidden");
+    }
+    else {
+      element.classList.add("_tcol_hidden");
+    }
+  });
+  if (obj_id != undefined) {
+    _check_all_checkbox_ (obj_id, opt_ids)
+  }
+}
+function set_all_table_menu (obj, var_opt_ids) {
+  var opt_ids = window[var_opt_ids];
+  var is_selected = true
+  if (obj.value == "Select all") {
+    is_selected = false;
+  }
+  for (i = 0; i < opt_ids.length; i++) {
+    var obj_s = document.getElementById(opt_ids[i]);
+    if (is_selected == obj_s.checked) {
+      obj_s.checked = !obj_s.checked;
+      click_table_menu (opt_ids[i]);
+    }
+  }
+  if (is_selected == false) {
+    obj.value = "Select none";
+  } else {
+    obj.value = "Select all";
+  }
+  localStorage.setItem(obj.id, obj.value);
+}
+// Script for accordion box
+function _click_accordion_header(obj) {
+  var content = obj.nextSibling;
+  content.classList.toggle('collapsed');
+  obj.classList.toggle('collapsed');
+  obj.parentNode.classList.toggle('collapsed');
+  // Check if the box must be openned ...
+  if (obj.classList.contains ('collapsed'))
+  {
+    obj.firstChild.textContent = "\u25B6";
+  }
+  // or closed.
+  else 
+  {
+    obj.firstChild.textContent = "\u25BC";
+  }
+  if (typeof _onresize === "function") {
+    _onresize ();
+  }
+}
+  // Script for paged table
+function _click_paged_prev(obj) {
+  var pages_content_id = '_paged_tables_page_' + obj.parentNode.parentNode.id.substr (obj.parentNode.parentNode.id.lastIndexOf('_') + 1);
+  var pages_content = document.getElementById(pages_content_id).innerHTML;
+  var max_pages = pages_content.substr (pages_content.lastIndexOf('/') + 1);
+  var cur_page  = pages_content.substring (pages_content.lastIndexOf(' ') + 1, pages_content.lastIndexOf('/'));
+  max_pages = Number (max_pages);
+  cur_page  = Number (cur_page);
+  if (cur_page > 1) {
+    var div_paged = obj.parentNode.parentNode.id;
+    var i;
+    var x = document.getElementsByClassName(div_paged + '_' + (cur_page - 1));
+    for (i = 0; i < x.length; i++) {
+      x[i].classList.toggle('_paged_hidden');
+    }
+    x = document.getElementsByClassName(div_paged + '_' + (cur_page - 2));
+    for (i = 0; i < x.length; i++) {
+      x[i].classList.toggle('_paged_hidden');
+    }
+  document.getElementById(pages_content_id).textContent = "Page " + (cur_page - 1) + "/" + max_pages;
+  }
+}
+function _click_paged_next(obj) {
+  var pages_content_id = '_paged_tables_page_' + obj.parentNode.parentNode.id.substr (obj.parentNode.parentNode.id.lastIndexOf('_') + 1);
+  var pages_content = document.getElementById(pages_content_id).innerHTML;
+  var max_pages = pages_content.substr (pages_content.lastIndexOf('/') + 1);
+  var cur_page  = pages_content.substring (pages_content.lastIndexOf(' ') + 1, pages_content.lastIndexOf('/'));
+  max_pages = Number (max_pages);
+  cur_page  = Number (cur_page);
+  if (cur_page < max_pages) {
+    var div_paged = obj.parentNode.parentNode.id;
+    var i;
+    var x = document.getElementsByClassName(div_paged + '_' + (cur_page - 1));
+    for (i = 0; i < x.length; i++) {
+      x[i].classList.toggle('_paged_hidden');
+    }
+    x = document.getElementsByClassName(div_paged + '_' + cur_page);
+    for (i = 0; i < x.length; i++) {
+      x[i].classList.toggle('_paged_hidden');
+    }
+    document.getElementById(pages_content_id).textContent = "Page " + (cur_page + 1) + "/" + max_pages;
+  }
+}
+// Function for tree table
+function _click_tree(obj) {
+  if (obj.innerHTML == "\u25BA") {
+    obj.textContent = "\u25BC";
+    // Open childs
+    var x = document.getElementsByClassName(obj.parentNode.parentNode.id);
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.toggle('_tree_hidden');
+    }
+  }
+  else if (obj.innerHTML == "\u25BC") {
+    obj.textContent = "\u25BA";
+    // Close all childs
+    var trs = document.getElementsByTagName('tr');
+    var r   = obj.parentNode.parentNode.id+'_';
+    var re  = new RegExp (r, "g");
+    for (var i = 0; i < trs.length; i++) {
+      var s = trs[i].id+""
+      if (s.match(re)) {
+        var o = document.getElementById(s);
+        if (! o.classList.contains('_tree_hidden')) {
+          o.classList.toggle('_tree_hidden');
+        }
+        if (o.firstChild.firstChild.textContent == "\u25BC") {
+          o.firstChild.firstChild.textContent = "\u25BA";
+        }
+        if (o.firstChild.childNodes.length == 3) {
+          o.firstChild.childNodes[2].textContent = '+';
+        }
+      }
+    }
+    if (obj.parentNode.childNodes.length == 3) {
+      obj.parentNode.childNodes[2].textContent = '+';
+    }
+  }
+}
+function _click_expand (obj) {
+  var trs = document.getElementsByTagName('tr');
+  var r   = obj.parentNode.parentNode.id+'_';
+  var re  = new RegExp (r, "g");
+  // Symbole + => expand all
+  if (obj.textContent == "+") {
+    for (var i = 0; i < trs.length; i++) {
+      var s = trs[i].id+"";
+      if (s.match(re)) {
+        var o = document.getElementById(s);
+        if (o.classList.contains('_tree_hidden')) {
+           o.classList.toggle('_tree_hidden');
+        }
+        if (o.firstChild.firstChild.textContent == "\u25BA") {
+          o.firstChild.firstChild.textContent = "\u25BC";
+        }
+        if (o.firstChild.childNodes.length == 3) {
+          o.firstChild.childNodes[2].textContent = '\u2010';
+        }
+      }
+    }
+    var o = obj.parentNode.parentNode;
+    if (o.firstChild.firstChild.textContent == "\u25BA") {
+      o.firstChild.firstChild.textContent = "\u25BC";
+    }
+    obj.textContent = "\u2010";
+  }
+  // Symbole - => collapse all
+  else {
+    for (var i = 0; i < trs.length; i++) {
+      var s = trs[i].id+"";
+      if (s.match(re)) {
+        var o = document.getElementById(s);
+        if (! o.classList.contains('_tree_hidden')) {
+           o.classList.toggle('_tree_hidden');
+        }
+        if (o.firstChild.firstChild.textContent == "\u25BC") {
+          o.firstChild.firstChild.textContent = "\u25BA";
+        }
+        if (o.firstChild.childNodes.length == 3) {
+          o.firstChild.childNodes[2].textContent = '+';
+        }
+      }
+    }
+    var o = obj.parentNode.parentNode;
+    if (o.firstChild.firstChild.textContent == "\u25BC") {
+      o.firstChild.firstChild.textContent = "\u25BA";
+    }
+    obj.textContent = "+";
+  }
+}
+// Hide unselected tabs
+addLoadEvent(function(){
+  var x = document.getElementsByClassName("_tab_header_li");
+  for (var i = 0; i < x.length; i++) {
+    if (x[i].classList.contains("selected_tab") == false) {
+      var e = document.getElementById (x[i].dataset.tab);
+      e.style.display = "none";
+    }
+  }
+});
+// Change tab
+function change_tab (e, baseId) {
+  // Handle tabs
+  var i = 1;
+  while (true) {
+    var id = baseId + i;
+    var t = document.getElementById (id);
+    if (t == null) {
+      break;
+    }
+    if (id == e.dataset.tab) {
+      t.style.removeProperty("display");
+    }
+    else {
+      t.style.display = "none";
+    }
+    i = i + 1;
+  }
+  // Handle headers
+  $(e).siblings().each( function () {
+    this.classList.remove("selected_tab");
+  });
+  e.classList.add("selected_tab");
+}
+function __maqao_legacy_onresize () {
+  var obj = document.getElementById("spacer_page_title");
+  if (obj) {
+    obj.style.height = (document.getElementById("page_title").clientHeight + 20)+"px";
+  }
+  var obj = document.getElementById("page_title");
+  if (obj) {
+    var elems = document.getElementsByClassName ("_first_menu_level")
+    if (obj.clientHeight < 90) {
+      for (var i = 0; i < elems.length; i++) {
+        elems.item(i).style.borderBottomLeftRadius = "";
+        elems.item(i).style.borderBottomRightRadius = "";
+      }
+    }
+    else {
+      for (var i = 0; i < elems.length; i++) {
+        elems.item(i).style.borderBottomLeftRadius = "10px";
+        elems.item(i).style.borderBottomRightRadius = "10px";
+      }
+    }
+  }
+}
+</script>
+</body>
+</html>

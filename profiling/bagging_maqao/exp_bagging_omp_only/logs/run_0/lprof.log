@@ -1,0 +1,53 @@
+
+* Info: "ref-cycles" not supported on fixot-brendan-MS-7C02: fallback to "cpu-clock"X size : 147950
+y size : 14795
+Train size : 118360
+X_train size : 118360
+y_train size : 11836
+X_test size : 29590
+y_test size : 2959
+
+Training a Bagging model, please wait...
+Bagging process started, please wait...
+Training process started, please wait...
+OpenMP enabled.  max_active_levels=2, num_threads=6, OMP_NUM_THREADS=6
+Beware, OMP_NUM_THREADS is overridden by num_threads, this can be checked with htop
+Training time: 1.61248 seconds
+Evaluation time: 0.137334 seconds
+Model score with Bagging Mean Squared Error (MSE):  : 0.00016865
+
+Feature importance :
+------------------------------
+             p3          77.02
+             p6           8.20
+             p4           5.35
+             p1           2.92
+             p5           1.64
+  matrix_size_x           1.49
+             p8           1.14
+             p7           1.14
+             p2           0.55
+  matrix_size_y           0.55
+
+Would you like to genarate a visualisation of this model? (1 = Yes, 0 = No): 
+* Info: Dumping samples (host fixot-brendan-MS-7C02, process 83038)
+* Info: Dumping source info for callchain nodes (host fixot-brendan-MS-7C02, process 83038)
+* Info: Building/writing metadata (host fixot-brendan-MS-7C02)
+* Info: Finished collect step (host fixot-brendan-MS-7C02, process 83038)
+
+Your experiment path is /home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_bagging_omp_only/tools/lprof_npsu_run_0
+
+To display your profiling results:
+######################################################################################################################################################################
+#    LEVEL    |     REPORT     |                                                               COMMAND                                                               #
+######################################################################################################################################################################
+#  Functions  |  Cluster-wide  |  maqao lprof -df xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_bagging_omp_only/tools/lprof_npsu_run_0      #
+#  Functions  |  Per-node      |  maqao lprof -df -dn xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_bagging_omp_only/tools/lprof_npsu_run_0  #
+#  Functions  |  Per-process   |  maqao lprof -df -dp xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_bagging_omp_only/tools/lprof_npsu_run_0  #
+#  Functions  |  Per-thread    |  maqao lprof -df -dt xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_bagging_omp_only/tools/lprof_npsu_run_0  #
+#  Loops      |  Cluster-wide  |  maqao lprof -dl xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_bagging_omp_only/tools/lprof_npsu_run_0      #
+#  Loops      |  Per-node      |  maqao lprof -dl -dn xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_bagging_omp_only/tools/lprof_npsu_run_0  #
+#  Loops      |  Per-process   |  maqao lprof -dl -dp xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_bagging_omp_only/tools/lprof_npsu_run_0  #
+#  Loops      |  Per-thread    |  maqao lprof -dl -dt xp=/home/fixot-brendan/Desktop/decision_tree_ensemble_model/build/exp_bagging_omp_only/tools/lprof_npsu_run_0  #
+######################################################################################################################################################################
+

@@ -1,0 +1,28 @@
+{
+  "report": [
+    {
+      "name": "lvl0_optimization_level",
+      "status": "bad",
+      "score": 0,
+      "max_score": 9,
+      "text": "Compilation options are not available",
+      "desc": "Compilation options are an important optimization leverage but ONE-View is not able to analyze them."
+    },
+    {
+      "name": "lvl0_profiled_time",
+      "status": "bad",
+      "score": 0,
+      "max_score": 4,
+      "text": "Application profile is too short (0.47 s)",
+      "desc": "If the overall application profiling time is less than 10 seconds, many of the measurements at function or loop level will very likely be under the measurement quality threshold (0,1 seconds).\n Rerun to increase runtime duration: for example use a larger dataset or include a repetition loop."
+    },
+    {
+      "name": "lvl0_profiled_modules",
+      "status": "good",
+      "score": 2,
+      "max_score": 2,
+      "text": "Application is correctly profiled (\"Others\" category represents 0.36 % of the execution time)",
+      "desc": "To have a representative profiling, it is advised that the category \"Others\" represents less than 20% of the execution time in order to analyze as much as possible of the user code"
+    }
+  ]
+}

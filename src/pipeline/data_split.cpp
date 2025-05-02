@@ -9,7 +9,7 @@ bool splitDataset(DataParams& data_params) {
     DataIO data_io;
     
     data_params.rowLength = 0; // Initialize
-    auto [X, y] = data_io.readCSV("../datasets/processed/cleaned_data.csv", data_params.rowLength);
+    auto [X, y] = data_io.readCSV(data_params.dataPath, data_params.rowLength);
     
     if (X.empty() || y.empty()) {
       std::cerr << "Unable to open the data file, please check the path." << std::endl;

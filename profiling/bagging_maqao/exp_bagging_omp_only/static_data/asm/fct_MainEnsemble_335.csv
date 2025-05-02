@@ -1,0 +1,923 @@
+address;source_location;insn;indent
+0x33bc0;:0;ENDBR64;
+0x33bc4;:0;PUSH	%RBP;
+0x33bc5;:0;VPXOR	%XMM0,%XMM0,%XMM0;
+0x33bc9;:0;MOV	%RSP,%RBP;
+0x33bcc;:0;PUSH	%R15;
+0x33bce;:0;PUSH	%R14;
+0x33bd0;:0;PUSH	%R13;
+0x33bd2;:0;PUSH	%R12;
+0x33bd4;:0;PUSH	%RBX;
+0x33bd5;:0;MOV	%RDX,%RBX;
+0x33bd8;:0;AND	$-0x20,%RSP;
+0x33bdc;:0;SUB	$0x520,%RSP;
+0x33be3;:0;LEA	0x400(%RSP),%R13;
+0x33beb;:0;MOV	%RDI,0x38(%RSP);
+0x33bf0;:0;MOV	%RCX,0x30(%RSP);
+0x33bf5;:0;LEA	0x300(%RSP),%R15;
+0x33bfd;:0;MOV	%R13,%RDI;
+0x33c00;:0;MOV	%FS:0x28,%RAX;
+0x33c09;:0;MOV	%RAX,0x518(%RSP);
+0x33c11;:0;XOR	%EAX,%EAX;
+0x33c13;:0;VMOVDQA	%XMM0,0xc0(%RSP);
+0x33c1c;:0;MOVQ	$0,0xd0(%RSP);
+0x33c28;:0;VMOVDQA	%XMM0,0xe0(%RSP);
+0x33c31;:0;MOVQ	$0,0xf0(%RSP);
+0x33c3d;:0;MOV	%R15,0x60(%RSP);
+0x33c42;:0;MOV	%R13,0x20(%RSP);
+0x33c47;:0;CALL	d4d0 <.plt.sec@start+0x220>;
+0x33c4c;:0;MOV	0x6a10d(%RIP),%RDX;
+0x33c53;:0;VPXOR	%XMM1,%XMM1,%XMM1;
+0x33c57;:0;MOVW	$0,0x4e0(%RSP);
+0x33c61;:0;VMOVDQU	%YMM1,0x4e8(%RSP);
+0x33c6a;:0;MOV	0x6a0f7(%RIP),%RCX;
+0x33c71;:0;LEA	0x69db8(%RIP),%RAX;
+0x33c78;:0;MOVQ	$0,0x4d8(%RSP);
+0x33c84;:0;MOV	%RAX,0x400(%RSP);
+0x33c8c;:0;MOV	0x6a0cd(%RIP),%RDI;
+0x33c93;:0;MOV	-0x18(%RDX),%RSI;
+0x33c97;:0;MOV	%RDX,0x300(%RSP);
+0x33c9f;:0;MOV	%RCX,0x300(%RSP,%RSI,1);
+0x33ca7;:0;MOVQ	$0,0x308(%RSP);
+0x33cb3;:0;MOV	-0x18(%RDI),%RDI;
+0x33cb7;:0;XOR	%ESI,%ESI;
+0x33cb9;:0;ADD	%R15,%RDI;
+0x33cbc;:0;VZEROUPPER;
+0x33cbf;:0;CALL	ded0 <.plt.sec@start+0xc20>;
+0x33cc4;:0;LEA	0x69ecd(%RIP),%R8;
+0x33ccb;:0;LEA	0x310(%RSP),%R14;
+0x33cd3;:0;MOV	%R8,0x300(%RSP);
+0x33cdb;:0;MOV	%R14,%RDI;
+0x33cde;:0;ADD	$0x28,%R8;
+0x33ce2;:0;MOV	%R14,0x28(%RSP);
+0x33ce7;:0;MOV	%R8,0x400(%RSP);
+0x33cef;:0;CALL	dbc0 <.plt.sec@start+0x910>;
+0x33cf4;:0;MOV	%R14,%RSI;
+0x33cf7;:0;MOV	%R13,%RDI;
+0x33cfa;:0;CALL	ded0 <.plt.sec@start+0xc20>;
+0x33cff;:0;MOV	(%RBX),%RSI;
+0x33d02;:0;MOV	$0x8,%EDX;
+0x33d07;:0;MOV	%R14,%RDI;
+0x33d0a;:0;CALL	dad0 <.plt.sec@start+0x820>;
+0x33d0f;:0;MOV	0x300(%RSP),%R9;
+0x33d17;:0;MOV	-0x18(%R9),%RDI;
+0x33d1b;:0;ADD	%R15,%RDI;
+0x33d1e;:0;TEST	%RAX,%RAX;
+0x33d21;:0;JE	34980 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xdc0>;
+0x33d27;:0;XOR	%ESI,%ESI;
+0x33d29;:0;CALL	e250 <.plt.sec@start+0xfa0>;
+0x33d2e;:0;LEA	0x378(%RSP),%RDI;
+0x33d36;:0;MOV	%RDI,0x18(%RSP);
+0x33d3b;:0;CALL	d450 <.plt.sec@start+0x1a0>;
+0x33d40;:0;MOV	%AL,0x57(%RSP);
+0x33d44;:0;TEST	%AL,%AL;
+0x33d46;:0;JE	348f0 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xd30>;
+0x33d4c;:0;MOV	0x300(%RSP),%R12;
+0x33d54;:0;MOVQ	$0,0x128(%RSP);
+0x33d60;:0;MOVB	$0,0x130(%RSP);
+0x33d68;:0;LEA	0x130(%RSP),%R10;
+0x33d70;:0;MOV	%R10,0x10(%RSP);
+0x33d75;:0;MOV	%R10,0x120(%RSP);
+0x33d7d;:0;MOV	0x30(%RSP),%R11;
+0x33d82;:0;MOV	-0x18(%R12),%RBX;
+0x33d87;:0;MOVL	$0,(%R11);
+0x33d8e;:0;MOV	0x3f0(%RSP,%RBX,1),%R14;
+0x33d96;:0;TEST	%R14,%R14;
+0x33d99;:0;JE	34d96 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x11d6>;
+0x33d9f;:0;VMOVQ	0x6a541(%RIP),%XMM7;
+0x33da7;:0;LEA	0x120(%RSP),%R15;
+0x33daf;:0;LEA	0x69cea(%RIP),%RAX;
+0x33db6;:0;XOR	%R13D,%R13D;
+0x33db9;:0;MOV	%R15,0x58(%RSP);
+0x33dbe;:0;MOV	0x69c8b(%RIP),%R15;
+0x33dc5;:0;VPINSRQ	$0x1,%RAX,%XMM7,%XMM2;
+0x33dcb;:0;VMOVDQA	%XMM2,0x40(%RSP);
+0x33dd1;:0;NOPW	%CS:(%RAX,%RAX,1);
+0x33ddc;:0;NOPL	(%RAX);
+0x33de0;:0;CMPB	$0,0x38(%R14);  (251) 
+0x33de5;:0;JE	342d0 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x710>;  (251) 
+0x33deb;:0;MOVSX	0x43(%R14),%EDX;  (251) 
+0x33df0;:0;MOV	0x58(%RSP),%RSI;  (251) 
+0x33df5;:0;MOV	0x60(%RSP),%RDI;  (251) 
+0x33dfa;:0;CALL	e3b0 <.plt.sec@start+0x1100>;  (251) 
+0x33dff;:0;MOV	(%RAX),%RCX;  (251) 
+0x33e02;:0;MOV	-0x18(%RCX),%R8;  (251) 
+0x33e06;:0;TESTB	$0x5,0x20(%RAX,%R8,1);  (251) 
+0x33e0c;:0;JNE	34690 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xad0>;  (251) 
+0x33e12;:0;LEA	0x1e0(%RSP),%RDI;  (251) 
+0x33e1a;:0;LEA	0x69c0f(%RIP),%RBX;  (251) 
+0x33e21;:0;LEA	0x160(%RSP),%R14;  (251) 
+0x33e29;:0;MOV	%RDI,0x90(%RSP);  (251) 
+0x33e31;:0;CALL	d4d0 <.plt.sec@start+0x220>;  (251) 
+0x33e36;:0;VPXOR	%XMM8,%XMM8,%XMM8;  (251) 
+0x33e3b;:0;MOVW	$0,0x2c0(%RSP);  (251) 
+0x33e45;:0;VMOVDQU	%YMM8,0x2c8(%RSP);  (251) 
+0x33e4e;:0;MOV	%RBX,0x1e0(%RSP);  (251) 
+0x33e56;:0;MOVQ	$0,0x2b8(%RSP);  (251) 
+0x33e62;:0;XOR	%ESI,%ESI;  (251) 
+0x33e64;:0;MOV	%R15,0x160(%RSP);  (251) 
+0x33e6c;:0;MOV	-0x18(%R15),%R12;  (251) 
+0x33e70;:0;MOV	0x69be1(%RIP),%R9;  (251) 
+0x33e77;:0;MOV	%R9,0x160(%RSP,%R12,1);  (251) 
+0x33e7f;:0;MOVQ	$0,0x168(%RSP);  (251) 
+0x33e8b;:0;MOV	-0x18(%R15),%RDI;  (251) 
+0x33e8f;:0;ADD	%R14,%RDI;  (251) 
+0x33e92;:0;VZEROUPPER;  (251) 
+0x33e95;:0;CALL	ded0 <.plt.sec@start+0xc20>;  (251) 
+0x33e9a;:0;MOV	0x69bbf(%RIP),%R10;  (251) 
+0x33ea1;:0;MOV	0x69bc0(%RIP),%RAX;  (251) 
+0x33ea8;:0;XOR	%ESI,%ESI;  (251) 
+0x33eaa;:0;MOV	-0x18(%R10),%R11;  (251) 
+0x33eae;:0;MOV	%R10,0x170(%RSP);  (251) 
+0x33eb6;:0;LEA	0x170(%RSP,%R11,1),%RDI;  (251) 
+0x33ebe;:0;MOV	%RAX,(%RDI);  (251) 
+0x33ec1;:0;CALL	ded0 <.plt.sec@start+0xc20>;  (251) 
+0x33ec6;:0;MOV	0x69b7b(%RIP),%RSI;  (251) 
+0x33ecd;:0;VMOVDQA	0x40(%RSP),%XMM9;  (251) 
+0x33ed3;:0;LEA	0x69d0e(%RIP),%RDI;  (251) 
+0x33eda;:0;VPXOR	%XMM10,%XMM10,%XMM10;  (251) 
+0x33edf;:0;MOV	0x69b8a(%RIP),%RCX;  (251) 
+0x33ee6;:0;VPXOR	%XMM11,%XMM11,%XMM11;  (251) 
+0x33eeb;:0;LEA	0x69eae(%RIP),%RBX;  (251) 
+0x33ef2;:0;MOV	-0x18(%RSI),%R8;  (251) 
+0x33ef6;:0;MOV	%RCX,0x160(%RSP,%R8,1);  (251) 
+0x33efe;:0;MOV	%RDI,0x160(%RSP);  (251) 
+0x33f06;:0;ADD	$0x50,%RDI;  (251) 
+0x33f0a;:0;VMOVDQA	%XMM9,0x170(%RSP);  (251) 
+0x33f13;:0;MOV	%RDI,0x1e0(%RSP);  (251) 
+0x33f1b;:0;LEA	0x1b0(%RSP),%RDI;  (251) 
+0x33f23;:0;VMOVDQA	%YMM10,0x180(%RSP);  (251) 
+0x33f2c;:0;VMOVDQA	%XMM11,0x1a0(%RSP);  (251) 
+0x33f35;:0;MOV	%RDI,0x70(%RSP);  (251) 
+0x33f3a;:0;VZEROUPPER;  (251) 
+0x33f3d;:0;CALL	e500 <.plt.sec@start+0x1250>;  (251) 
+0x33f42;:0;LEA	0x1d0(%RSP),%R9;  (251) 
+0x33f4a;:0;MOV	%RBX,0x178(%RSP);  (251) 
+0x33f52;:0;MOV	0x120(%RSP),%R12;  (251) 
+0x33f5a;:0;MOVL	$0,0x1b8(%RSP);  (251) 
+0x33f65;:0;MOV	%R9,0x78(%RSP);  (251) 
+0x33f6a;:0;MOV	%R9,0x1c0(%RSP);  (251) 
+0x33f72;:0;MOV	0x128(%RSP),%RBX;  (251) 
+0x33f7a;:0;TEST	%R12,%R12;  (251) 
+0x33f7d;:0;JNE	33f88 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x3c8>;  (251) 
+0x33f7f;:0;TEST	%RBX,%RBX;  (251) 
+0x33f82;:0;JNE	34dbb <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x11fb>;  (251) 
+0x33f88;:0;MOV	%RBX,0x100(%RSP);  (251) 
+0x33f90;:0;CMP	$0xf,%RBX;  (251) 
+0x33f94;:0;JA	345f0 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xa30>;  (251) 
+0x33f9a;:0;CMP	$0x1,%RBX;  (251) 
+0x33f9e;:0;JNE	345e0 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xa20>;  (251) 
+0x33fa4;:0;MOVZX	(%R12),%R10D;  (251) 
+0x33fa9;:0;MOV	%R10B,0x1d0(%RSP);  (251) 
+0x33fb1;:0;MOV	0x78(%RSP),%RAX;  (251) 
+0x33fb6;:0;MOV	%RBX,0x1c8(%RSP);  (251) 
+0x33fbe;:0;MOVB	$0,(%RAX,%RBX,1);  (251) 
+0x33fc2;:0;MOV	0x1c0(%RSP),%RSI;  (251) 
+0x33fca;:0;LEA	0x178(%RSP),%R12;  (251) 
+0x33fd2;:0;XOR	%ECX,%ECX;  (251) 
+0x33fd4;:0;XOR	%EDX,%EDX;  (251) 
+0x33fd6;:0;MOV	%R12,%RDI;  (251) 
+0x33fd9;:0;MOVL	$0x18,0x1b8(%RSP);  (251) 
+0x33fe4;:0;CALL	de70 <.plt.sec@start+0xbc0>;  (251) 
+0x33fe9;:0;MOV	0x90(%RSP),%RDI;  (251) 
+0x33ff1;:0;MOV	%R12,%RSI;  (251) 
+0x33ff4;:0;CALL	ded0 <.plt.sec@start+0xc20>;  (251) 
+0x33ff9;:0;LEA	0x150(%RSP),%RDX;  (251) 
+0x34001;:0;MOVQ	$0,0x148(%RSP);  (251) 
+0x3400d;:0;MOVB	$0,0x150(%RSP);  (251) 
+0x34015;:0;MOV	%RDX,0x68(%RSP);  (251) 
+0x3401a;:0;MOV	%RDX,0x140(%RSP);  (251) 
+0x34022;:0;TEST	%R13B,%R13B;  (251) 
+0x34025;:0;JE	34360 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x7a0>;  (251) 
+0x3402b;:0;VPXOR	%XMM12,%XMM12,%XMM12;          (249) 
+0x34030;:0;LEA	0x140(%RSP),%R13;          (249) 
+0x34038;:0;MOVQ	$0,0x110(%RSP);          (249) 
+0x34044;:0;VMOVDQA	%XMM12,0x100(%RSP);          (249) 
+0x3404d;:0;MOV	%R13,0x98(%RSP);          (249) 
+0x34055;:0;NOPW	%CS:(%RAX,%RAX,1);          (249) 
+0x34060;:0;MOV	$0x2c,%EDX;            (257) 
+0x34065;:0;MOV	%R14,%RDI;            (257) 
+0x34068;:0;MOV	0x98(%RSP),%RSI;            (257) 
+0x34070;:0;CALL	e3b0 <.plt.sec@start+0x1100>;            (257) 
+0x34075;:0;MOV	(%RAX),%RSI;            (257) 
+0x34078;:0;MOV	-0x18(%RSI),%R8;            (257) 
+0x3407c;:0;TESTB	$0x5,0x20(%RAX,%R8,1);            (257) 
+0x34082;:0;JNE	341d0 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x610>;            (257) 
+0x34088;:0;MOV	0x140(%RSP),%R12;            (257) 
+0x34090;:0;CALL	d2d0 <.plt.sec@start+0x20>;            (257) 
+0x34095;:0;LEA	0xb8(%RSP),%RSI;            (257) 
+0x3409d;:0;MOV	(%RAX),%R13D;            (257) 
+0x340a0;:0;MOVL	$0,(%RAX);            (257) 
+0x340a6;:0;MOV	%RAX,%RBX;            (257) 
+0x340a9;:0;MOV	%R12,%RDI;            (257) 
+0x340ac;:0;CALL	d2a0 <.plt.got@start+0x10>;            (257) 
+0x340b1;:0;VMOVSD	%XMM0,0xa0(%RSP);            (257) 
+0x340ba;:0;CMP	0xb8(%RSP),%R12;            (257) 
+0x340c2;:0;JE	34cd6 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x1116>;            (257) 
+0x340c8;:0;MOV	(%RBX),%R11D;            (257) 
+0x340cb;:0;CMP	$0x22,%R11D;            (257) 
+0x340cf;:0;JE	34cf9 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x1139>;            (257) 
+0x340d5;:0;TEST	%R11D,%R11D;            (257) 
+0x340d8;:0;JNE	340dd <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x51d>;            (257) 
+0x340da;:0;MOV	%R13D,(%RBX);            (257) 
+0x340dd;:0;MOV	0x108(%RSP),%RBX;            (257) 
+0x340e5;:0;MOV	0x110(%RSP),%R12;            (257) 
+0x340ed;:0;CMP	%R12,%RBX;            (257) 
+0x340f0;:0;JE	34120 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x560>;            (257) 
+0x340f2;:0;VMOVSD	0xa0(%RSP),%XMM15;            (257) 
+0x340fb;:0;ADD	$0x8,%RBX;            (257) 
+0x340ff;:0;VMOVSD	%XMM15,-0x8(%RBX);            (257) 
+0x34104;:0;MOV	%RBX,0x108(%RSP);            (257) 
+0x3410c;:0;JMP	34060 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x4a0>;            (257) 
+0x34111;:0;NOPW	%CS:(%RAX,%RAX,1);
+0x3411c;:0;NOPL	(%RAX);
+0x34120;:0;MOV	0x100(%RSP),%RAX;            (257) 
+0x34128;:0;MOV	$0xfffffffffffffff,%RCX;            (257) 
+0x34132;:0;SUB	%RAX,%RBX;            (257) 
+0x34135;:0;MOV	%RAX,0x80(%RSP);            (257) 
+0x3413d;:0;MOV	%RBX,%R13;            (257) 
+0x34140;:0;SAR	$0x3,%R13;            (257) 
+0x34144;:0;CMP	%RCX,%R13;            (257) 
+0x34147;:0;JE	34d77 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x11b7>;            (257) 
+0x3414d;:0;MOV	0x80(%RSP),%RDX;            (257) 
+0x34155;:0;CMP	%RDX,%R12;            (257) 
+0x34158;:0;JE	34650 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xa90>;            (257) 
+0x3415e;:0;LEA	(%R13,%R13,1),%RSI;            (257) 
+0x34163;:0;CMP	%R13,%RSI;            (257) 
+0x34166;:0;JB	34680 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xac0>;            (257) 
+0x3416c;:0;XOR	%R13D,%R13D;            (257) 
+0x3416f;:0;XOR	%EDI,%EDI;            (257) 
+0x34171;:0;TEST	%RSI,%RSI;            (257) 
+0x34174;:0;JNE	34b9f <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xfdf>;            (257) 
+0x3417a;:0;VMOVSD	0xa0(%RSP),%XMM12;            (257) 
+0x34183;:0;LEA	0x8(%RDI,%RBX,1),%R9;            (257) 
+0x34188;:0;VMOVQ	%RDI,%XMM13;            (257) 
+0x3418d;:0;VPINSRQ	$0x1,%R9,%XMM13,%XMM14;            (257) 
+0x34193;:0;VMOVSD	%XMM12,(%RDI,%RBX,1);            (257) 
+0x34198;:0;TEST	%RBX,%RBX;            (257) 
+0x3419b;:0;JG	34310 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x750>;            (257) 
+0x341a1;:0;CMPQ	$0,0x80(%RSP);            (257) 
+0x341aa;:0;JNE	34332 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x772>;            (257) 
+0x341b0;:0;VMOVDQA	%XMM14,0x100(%RSP);            (257) 
+0x341b9;:0;MOV	%R13,0x110(%RSP);            (257) 
+0x341c1;:0;JMP	34060 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x4a0>;            (257) 
+0x341c6;:0;NOPW	%CS:(%RAX,%RAX,1);
+0x341d0;:0;MOV	0x108(%RSP),%RBX;          (249) 
+0x341d8;:0;MOV	0x100(%RSP),%R13;          (249) 
+0x341e0;:0;CMP	%R13,%RBX;          (249) 
+0x341e3;:0;JE	3456a <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x9aa>;          (249) 
+0x341e9;:0;MOV	0xe8(%RSP),%RDI;          (249) 
+0x341f1;:0;MOV	0xf0(%RSP),%R12;          (249) 
+0x341f9;:0;CMP	%R12,%RDI;          (249) 
+0x341fc;:0;JE	34990 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xdd0>;          (249) 
+0x34202;:0;VMOVSD	-0x8(%RBX),%XMM0;          (249) 
+0x34207;:0;ADD	$0x8,%RDI;          (249) 
+0x3420b;:0;VMOVSD	%XMM0,-0x8(%RDI);          (249) 
+0x34210;:0;MOV	%RDI,0xe8(%RSP);          (249) 
+0x34218;:0;SUB	$0x8,%RBX;          (249) 
+0x3421c;:0;MOV	0xc8(%RSP),%RCX;          (249) 
+0x34224;:0;MOV	%RBX,0x108(%RSP);          (249) 
+0x3422c;:0;CMP	%RBX,%R13;          (249) 
+0x3422f;:0;JE	348c0 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xd00>;          (249) 
+0x34235;:0;MOV	0xd0(%RSP),%R9;          (249) 
+0x3423d;:0;SUB	%R13,%RBX;          (249) 
+0x34240;:0;MOV	%RBX,%R12;          (249) 
+0x34243;:0;SAR	$0x3,%R12;          (249) 
+0x34247;:0;MOV	%R12,0xa0(%RSP);          (249) 
+0x3424f;:0;MOV	%R9,0x80(%RSP);          (249) 
+0x34257;:0;SUB	%RCX,%R9;          (249) 
+0x3425a;:0;CMP	%RBX,%R9;          (249) 
+0x3425d;:0;JB	34480 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x8c0>;          (249) 
+0x34263;:0;MOV	0x110(%RSP),%R14;          (249) 
+0x3426b;:0;CMP	$0x8,%RBX;          (249) 
+0x3426f;:0;JLE	34b81 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xfc1>;          (249) 
+0x34275;:0;MOV	%RBX,%RDX;          (249) 
+0x34278;:0;MOV	%R13,%RSI;          (249) 
+0x3427b;:0;MOV	%RCX,%RDI;          (249) 
+0x3427e;:0;CALL	da30 <.plt.sec@start+0x780>;          (249) 
+0x34283;:0;MOV	%RAX,%R8;          (249) 
+0x34286;:0;ADD	%RBX,%R8;          (249) 
+0x34289;:0;MOV	0x30(%RSP),%RBX;          (249) 
+0x3428e;:0;MOV	%R8,0xc8(%RSP);          (249) 
+0x34296;:0;MOV	(%RBX),%R9D;          (249) 
+0x34299;:0;TEST	%R9D,%R9D;          (249) 
+0x3429c;:0;JNE	34b76 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xfb6>;          (249) 
+0x342a2;:0;MOV	0xa0(%RSP),%R12D;        (250) 
+0x342aa;:0;INC	%R12D;        (250) 
+0x342ad;:0;MOV	%R12D,(%RBX);        (250) 
+0x342b0;:0;MOV	0x110(%RSP),%RSI;        (250) 
+0x342b8;:0;SUB	%R13,%RSI;          (253) 
+0x342bb;:0;MOV	%R13,%RDI;          (249) 
+0x342be;:0;CALL	dbb0 <.plt.sec@start+0x900>;          (249) 
+0x342c3;:0;JMP	34573 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x9b3>;(247) 
+0x342c8;:0;NOPL	(%RAX,%RAX,1);
+0x342d0;:0;MOV	%R14,%RDI;  (251) 
+0x342d3;:0;CALL	dce0 <.plt.sec@start+0xa30>;  (251) 
+0x342d8;:0;MOV	(%R14),%RDX;  (251) 
+0x342db;:0;LEA	-0x1c2f2(%RIP),%RSI;  (251) 
+0x342e2;:0;MOV	0x30(%RDX),%R12;  (251) 
+0x342e6;:0;MOV	$0xa,%EDX;  (251) 
+0x342eb;:0;CMP	%RSI,%R12;  (251) 
+0x342ee;:0;JE	33df0 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x230>;  (251) 
+0x342f4;:0;MOV	$0xa,%ESI;  (251) 
+0x342f9;:0;MOV	%R14,%RDI;  (251) 
+0x342fc;:0;CALL	%R12;  (251) 
+0x342ff;:0;MOVSX	%AL,%EDX;  (251) 
+0x34302;:0;JMP	33df0 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x230>;  (251) 
+0x34307;:0;NOPW	(%RAX,%RAX,1);
+0x34310;:0;MOV	0x80(%RSP),%RSI;            (257) 
+0x34318;:0;MOV	%RBX,%RDX;            (257) 
+0x3431b;:0;VMOVDQA	%XMM14,0xa0(%RSP);            (257) 
+0x34324;:0;CALL	e170 <.plt.sec@start+0xec0>;            (257) 
+0x34329;:0;VMOVDQA	0xa0(%RSP),%XMM14;            (257) 
+0x34332;:0;MOV	0x80(%RSP),%RDI;            (257) 
+0x3433a;:0;MOV	%R12,%RSI;            (257) 
+0x3433d;:0;VMOVDQA	%XMM14,0xa0(%RSP);            (257) 
+0x34346;:0;SUB	%RDI,%RSI;            (257) 
+0x34349;:0;CALL	dbb0 <.plt.sec@start+0x900>;            (257) 
+0x3434e;:0;VMOVDQA	0xa0(%RSP),%XMM14;            (257) 
+0x34357;:0;JMP	341b0 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x5f0>;            (257) 
+0x3435c;:0;NOPL	(%RAX);
+0x34360;:0;VMOVQ	0x69f80(%RIP),%XMM0;  (251) 
+0x34368;:0;LEA	0x69879(%RIP),%R10;  (251) 
+0x3436f;:0;LEA	0x69a2a(%RIP),%R14;  (251) 
+0x34376;:0;MOV	%R10,0x160(%RSP);  (251) 
+0x3437e;:0;ADD	$0x50,%R10;  (251) 
+0x34382;:0;MOV	%R10,0x1e0(%RSP);  (251) 
+0x3438a;:0;VPINSRQ	$0x1,%R14,%XMM0,%XMM11;  (251) 
+0x34390;:0;MOV	0x1c0(%RSP),%RDI;  (251) 
+0x34398;:0;MOV	0x78(%RSP),%R11;  (251) 
+0x3439d;:0;VMOVDQA	%XMM11,0x170(%RSP);  (251) 
+0x343a6;:0;CMP	%R11,%RDI;  (251) 
+0x343a9;:0;JE	343bc <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x7fc>;  (251) 
+0x343ab;:0;MOV	0x1d0(%RSP),%RBX;  (251) 
+0x343b3;:0;LEA	0x1(%RBX),%RSI;  (251) 
+0x343b7;:0;CALL	dbb0 <.plt.sec@start+0x900>;  (251) 
+0x343bc;:0;MOV	0x70(%RSP),%RDI;  (251) 
+0x343c1;:0;LEA	0x696d8(%RIP),%R12;  (251) 
+0x343c8;:0;MOV	%R12,0x178(%RSP);  (251) 
+0x343d0;:0;CALL	df60 <.plt.sec@start+0xcb0>;  (251) 
+0x343d5;:0;MOV	0x69684(%RIP),%RSI;  (251) 
+0x343dc;:0;LEA	0x6964d(%RIP),%R10;  (251) 
+0x343e3;:0;MOV	0x6965e(%RIP),%RAX;  (251) 
+0x343ea;:0;MOV	0x6967f(%RIP),%RCX;  (251) 
+0x343f1;:0;MOV	0x69670(%RIP),%R8;  (251) 
+0x343f8;:0;MOV	-0x18(%R15),%R13;  (251) 
+0x343fc;:0;MOV	0x69655(%RIP),%R9;  (251) 
+0x34403;:0;MOV	-0x18(%RSI),%RDI;  (251) 
+0x34407;:0;MOV	-0x18(%RAX),%RDX;  (251) 
+0x3440b;:0;MOV	%RCX,0x160(%RSP,%RDX,1);  (251) 
+0x34413;:0;MOV	%RSI,0x170(%RSP);  (251) 
+0x3441b;:0;MOV	%R8,0x170(%RSP,%RDI,1);  (251) 
+0x34423;:0;MOV	0x90(%RSP),%RDI;  (251) 
+0x3442b;:0;MOV	%R15,0x160(%RSP);  (251) 
+0x34433;:0;MOV	%R9,0x160(%RSP,%R13,1);  (251) 
+0x3443b;:0;MOVQ	$0,0x168(%RSP);  (251) 
+0x34447;:0;MOV	%R10,0x1e0(%RSP);  (251) 
+0x3444f;:0;CALL	d560 <.plt.sec@start+0x2b0>;  (251) 
+0x34454;:0;MOV	0x300(%RSP),%R14;  (251) 
+0x3445c;:0;MOV	-0x18(%R14),%R11;  (251) 
+0x34460;:0;MOV	0x3f0(%RSP,%R11,1),%R14;  (251) 
+0x34468;:0;TEST	%R14,%R14;  (251) 
+0x3446b;:0;JE	34d96 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x11d6>;  (251) 
+0x34471;:0;MOVZX	0x57(%RSP),%R13D;  (251) 
+0x34477;:0;JMP	33de0 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x220>;  (251) 
+0x3447c;:0;NOPL	(%RAX);
+0x34480;:0;MOV	0xc0(%RSP),%R10;      (248) 
+0x34488;:0;MOV	0xa0(%RSP),%RDI;      (248) 
+0x34490;:0;MOV	$0xfffffffffffffff,%RAX;      (248) 
+0x3449a;:0;SUB	%R10,%RCX;      (248) 
+0x3449d;:0;MOV	%R10,0x8(%RSP);      (248) 
+0x344a2;:0;MOV	%RCX,%R11;      (248) 
+0x344a5;:0;MOV	%RCX,%R12;      (248) 
+0x344a8;:0;SAR	$0x3,%R11;      (248) 
+0x344ac;:0;SUB	%R11,%RAX;      (248) 
+0x344af;:0;CMP	%RDI,%RAX;      (248) 
+0x344b2;:0;JB	34df0 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x1230>;      (248) 
+0x344b8;:0;CMP	%RBX,%R12;      (248) 
+0x344bb;:0;MOV	%RDI,%RCX;      (248) 
+0x344be;:0;CMOVAE	%R11,%RCX;      (248) 
+0x344c2;:0;ADD	%RCX,%R11;      (248) 
+0x344c5;:0;JB	34e24 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x1264>;      (248) 
+0x344cb;:0;TEST	%R11,%R11;      (248) 
+0x344ce;:0;JNE	34d3f <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x117f>;      (248) 
+0x344d4;:0;MOVQ	$0,0x98(%RSP);      (248) 
+0x344e0;:0;XOR	%R14D,%R14D;      (248) 
+0x344e3;:0;CMP	$0x8,%R12;      (248) 
+0x344e7;:0;JLE	34bbd <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xffd>;      (248) 
+0x344ed;:0;MOV	0x8(%RSP),%RSI;      (248) 
+0x344f2;:0;MOV	%R12,%RDX;      (248) 
+0x344f5;:0;MOV	%R14,%RDI;      (248) 
+0x344f8;:0;ADD	%R14,%R12;      (248) 
+0x344fb;:0;CALL	e170 <.plt.sec@start+0xec0>;      (248) 
+0x34500;:0;CMP	$0x8,%RBX;      (248) 
+0x34504;:0;JLE	34cc0 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x1100>;      (248) 
+0x3450a;:0;MOV	%R12,%RDI;      (248) 
+0x3450d;:0;MOV	%RBX,%RDX;      (248) 
+0x34510;:0;MOV	%R13,%RSI;      (248) 
+0x34513;:0;CALL	da30 <.plt.sec@start+0x780>;      (248) 
+0x34518;:0;ADD	%RBX,%R12;      (248) 
+0x3451b;:0;MOV	0x80(%RSP),%RSI;      (248) 
+0x34523;:0;MOV	0x8(%RSP),%RDI;      (248) 
+0x34528;:0;SUB	%RDI,%RSI;      (248) 
+0x3452b;:0;CALL	dbb0 <.plt.sec@start+0x900>;      (248) 
+0x34530;:0;MOV	0x98(%RSP),%R10;      (248) 
+0x34538;:0;VMOVQ	%R14,%XMM6;      (248) 
+0x3453d;:0;VPINSRQ	$0x1,%R12,%XMM6,%XMM8;      (248) 
+0x34543;:0;VMOVDQA	%XMM8,0xc0(%RSP);      (248) 
+0x3454c;:0;MOV	%R10,0xd0(%RSP);      (248) 
+0x34554;:0;MOV	0x30(%RSP),%RCX;        (256) 
+0x34559;:0;MOV	(%RCX),%EDX;        (256) 
+0x3455b;:0;TEST	%EDX,%EDX;        (256) 
+0x3455d;:0;JNE	3456a <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x9aa>;        (256) 
+0x3455f;:0;MOV	0xa0(%RSP),%EDI;      (248) 
+0x34566;:0;INC	%EDI;      (248) 
+0x34568;:0;MOV	%EDI,(%RCX);      (248) 
+0x3456a;:0;TEST	%R13,%R13;        (252) 
+0x3456d;:0;JNE	342b0 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x6f0>;        (252) 
+0x34573;:0;VMOVQ	0x69d6d(%RIP),%XMM10;(247) 
+0x3457b;:0;MOV	0x140(%RSP),%RDI;(247) 
+0x34583;:0;LEA	0x69816(%RIP),%R13;(247) 
+0x3458a;:0;MOV	0x68(%RSP),%RBX;(247) 
+0x3458f;:0;VPINSRQ	$0x1,%R13,%XMM10,%XMM11;(247) 
+0x34595;:0;CMP	%RBX,%RDI;(247) 
+0x34598;:0;JE	345bd <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x9fd>;(247) 
+0x3459a;:0;MOV	0x150(%RSP),%R10;(247) 
+0x345a2;:0;VMOVDQA	%XMM11,0xa0(%RSP);(247) 
+0x345ab;:0;LEA	0x1(%R10),%RSI;(247) 
+0x345af;:0;CALL	dbb0 <.plt.sec@start+0x900>;(247) 
+0x345b4;:0;VMOVDQA	0xa0(%RSP),%XMM11;(247) 
+0x345bd;:0;LEA	0x69624(%RIP),%R14;(247) 
+0x345c4;:0;MOV	%R14,0x160(%RSP);(247) 
+0x345cc;:0;ADD	$0x50,%R14;(247) 
+0x345d0;:0;MOV	%R14,0x1e0(%RSP);(247) 
+0x345d8;:0;JMP	34390 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x7d0>;(247) 
+0x345dd;:0;NOPL	(%RAX);
+0x345e0;:0;TEST	%RBX,%RBX;  (251) 
+0x345e3;:0;JE	33fb1 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x3f1>;  (251) 
+0x345e9;:0;MOV	0x78(%RSP),%RDI;  (251) 
+0x345ee;:0;JMP	34622 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xa62>;  (251) 
+0x345f0;:0;LEA	0x100(%RSP),%RSI;  (251) 
+0x345f8;:0;LEA	0x1c0(%RSP),%RDI;  (251) 
+0x34600;:0;XOR	%EDX,%EDX;  (251) 
+0x34602;:0;CALL	e320 <.plt.sec@start+0x1070>;  (251) 
+0x34607;:0;MOV	0x100(%RSP),%R11;  (251) 
+0x3460f;:0;MOV	%RAX,%RDI;  (251) 
+0x34612;:0;MOV	%RAX,0x1c0(%RSP);  (251) 
+0x3461a;:0;MOV	%R11,0x1d0(%RSP);  (251) 
+0x34622;:0;MOV	%RBX,%RDX;  (251) 
+0x34625;:0;MOV	%R12,%RSI;  (251) 
+0x34628;:0;CALL	da30 <.plt.sec@start+0x780>;  (251) 
+0x3462d;:0;MOV	0x100(%RSP),%RBX;  (251) 
+0x34635;:0;MOV	0x1c0(%RSP),%RAX;  (251) 
+0x3463d;:0;JMP	33fb6 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x3f6>;  (251) 
+0x34642;:0;NOPW	%CS:(%RAX,%RAX,1);
+0x3464d;:0;NOPL	(%RAX);
+0x34650;:0;ADD	$0x1,%R13;            (257) 
+0x34654;:0;JB	34680 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xac0>;            (257) 
+0x34656;:0;MOV	$0xfffffffffffffff,%R8;            (257) 
+0x34660;:0;CMP	%R8,%R13;            (257) 
+0x34663;:0;CMOVA	%R8,%R13;            (257) 
+0x34667;:0;SAL	$0x3,%R13;            (257) 
+0x3466b;:0;MOV	%R13,%RDI;            (257) 
+0x3466e;:0;CALL	db90 <.plt.sec@start+0x8e0>;            (257) 
+0x34673;:0;MOV	%RAX,%RDI;            (257) 
+0x34676;:0;ADD	%RAX,%R13;            (257) 
+0x34679;:0;JMP	3417a <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x5ba>;            (257) 
+0x3467e;:0;XCHG	%AX,%AX;
+0x34680;:0;MOV	$0x7ffffffffffffff8,%R13;            (257) 
+0x3468a;:0;JMP	3466b <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xaab>;            (257) 
+0x3468c;:0;NOPL	(%RAX);
+0x34690;:0;MOV	0x28(%RSP),%RDI;          (249) 
+0x34695;:0;CALL	d440 <.plt.sec@start+0x190>;          (249) 
+0x3469a;:0;TEST	%RAX,%RAX;          (249) 
+0x3469d;:0;JE	34b41 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xf81>;          (249) 
+0x346a3;:0;MOV	0xc0(%RSP),%RBX;          (249) 
+0x346ab;:0;MOV	0xc8(%RSP),%R14;          (249) 
+0x346b3;:0;VPXOR	%XMM3,%XMM3,%XMM3;          (249) 
+0x346b7;:0;MOV	0x38(%RSP),%RDI;          (249) 
+0x346bc;:0;SUB	%RBX,%R14;          (249) 
+0x346bf;:0;VMOVDQU	%XMM3,(%RDI);          (249) 
+0x346c3;:0;MOVQ	$0,0x10(%RDI);          (249) 
+0x346cb;:0;JE	34a50 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xe90>;          (249) 
+0x346d1;:0;MOV	$0x7ffffffffffffff8,%R10;          (249) 
+0x346db;:0;CMP	%R14,%R10;          (249) 
+0x346de;:0;JB	34c27 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x1067>;          (249) 
+0x346e4;:0;MOV	%R14,%RDI;      (248) 
+0x346e7;:0;CALL	db90 <.plt.sec@start+0x8e0>;      (248) 
+0x346ec;:0;MOV	0x38(%RSP),%R11;      (248) 
+0x346f1;:0;LEA	(%RAX,%R14,1),%R13;      (248) 
+0x346f5;:0;MOV	%RAX,%RDI;      (248) 
+0x346f8;:0;MOV	%RAX,(%R11);      (248) 
+0x346fb;:0;MOV	%R13,0x10(%R11);      (248) 
+0x346ff;:0;CMP	$0x8,%R14;      (248) 
+0x34703;:0;JLE	34e37 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x1277>;      (248) 
+0x34709;:0;MOV	%R14,%RDX;      (248) 
+0x3470c;:0;MOV	%RBX,%RSI;      (248) 
+0x3470f;:0;CALL	da30 <.plt.sec@start+0x780>;      (248) 
+0x34714;:0;MOV	0x38(%RSP),%R15;      (248) 
+0x34719;:0;MOV	0xe0(%RSP),%R12;      (248) 
+0x34721;:0;VPXOR	%XMM5,%XMM5,%XMM5;      (248) 
+0x34725;:0;MOV	%R13,0x8(%R15);      (248) 
+0x34729;:0;MOV	0xe8(%RSP),%R13;      (248) 
+0x34731;:0;VMOVDQU	%XMM5,0x18(%R15);      (248) 
+0x34737;:0;MOVQ	$0,0x28(%R15);      (248) 
+0x3473f;:0;SUB	%R12,%R13;      (248) 
+0x34742;:0;JE	34ae0 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xf20>;      (248) 
+0x34748;:0;MOV	$0x7ffffffffffffff8,%RAX;      (248) 
+0x34752;:0;CMP	%R13,%RAX;      (248) 
+0x34755;:0;JB	34c72 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x10b2>;      (248) 
+0x3475b;:0;MOV	%R13,%RDI;
+0x3475e;:0;CALL	db90 <.plt.sec@start+0x8e0>;
+0x34763;:0;MOV	0x38(%RSP),%RDX;
+0x34768;:0;LEA	(%RAX,%R13,1),%R14;
+0x3476c;:0;MOV	%RAX,%RDI;
+0x3476f;:0;MOV	%RAX,0x18(%RDX);
+0x34773;:0;MOV	%R14,0x28(%RDX);
+0x34777;:0;CMP	$0x8,%R13;
+0x3477b;:0;JLE	34e0f <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x124f>;
+0x34781;:0;MOV	%R13,%RDX;
+0x34784;:0;MOV	%R12,%RSI;
+0x34787;:0;CALL	da30 <.plt.sec@start+0x780>;
+0x3478c;:0;MOV	0x38(%RSP),%RSI;(246) 
+0x34791;:0;MOV	0x120(%RSP),%RDI;(246) 
+0x34799;:0;MOV	0x10(%RSP),%RCX;(246) 
+0x3479e;:0;MOV	%R14,0x20(%RSI);(246) 
+0x347a2;:0;CMP	%RCX,%RDI;(246) 
+0x347a5;:0;JE	347b8 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xbf8>;(246) 
+0x347a7;:0;MOV	0x130(%RSP),%R8;(246) 
+0x347af;:0;LEA	0x1(%R8),%RSI;(246) 
+0x347b3;:0;CALL	dbb0 <.plt.sec@start+0x900>;(246) 
+0x347b8;:0;MOV	0xd0(%RSP),%R13;(246) 
+0x347c0;:0;MOV	0xf0(%RSP),%R14;(246) 
+0x347c8;:0;SUB	%RBX,%R13;(246) 
+0x347cb;:0;SUB	%R12,%R14;(246) 
+0x347ce;:0;LEA	0x693c3(%RIP),%RDI;(246) 
+0x347d5;:0;LEA	0x6949c(%RIP),%R8;(246) 
+0x347dc;:0;MOV	%RDI,0x300(%RSP);(246) 
+0x347e4;:0;ADD	$0x28,%RDI;(246) 
+0x347e8;:0;MOV	%R8,0x310(%RSP);(246) 
+0x347f0;:0;MOV	%RDI,0x400(%RSP);(246) 
+0x347f8;:0;MOV	0x28(%RSP),%RDI;(246) 
+0x347fd;:0;CALL	d440 <.plt.sec@start+0x190>;(246) 
+0x34802;:0;MOV	0x18(%RSP),%RDI;(246) 
+0x34807;:0;LEA	0x69222(%RIP),%R15;(246) 
+0x3480e;:0;CALL	e3c0 <.plt.sec@start+0x1110>;(246) 
+0x34813;:0;LEA	0x69286(%RIP),%R9;(246) 
+0x3481a;:0;LEA	0x348(%RSP),%RDI;(246) 
+0x34822;:0;MOV	%R9,0x310(%RSP);(246) 
+0x3482a;:0;CALL	df60 <.plt.sec@start+0xcb0>;(246) 
+0x3482f;:0;MOV	0x6952a(%RIP),%R10;(246) 
+0x34836;:0;MOV	0x6952b(%RIP),%RAX;(246) 
+0x3483d;:0;MOV	0x20(%RSP),%RDI;(246) 
+0x34842;:0;MOV	-0x18(%R10),%R11;(246) 
+0x34846;:0;MOV	%R10,0x300(%RSP);(246) 
+0x3484e;:0;MOV	%RAX,0x300(%RSP,%R11,1);(246) 
+0x34856;:0;MOVQ	$0,0x308(%RSP);(246) 
+0x34862;:0;MOV	%R15,0x400(%RSP);(246) 
+0x3486a;:0;CALL	d560 <.plt.sec@start+0x2b0>;(246) 
+0x3486f;:0;TEST	%R12,%R12;(246) 
+0x34872;:0;JE	3487f <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xcbf>;(246) 
+0x34874;:0;MOV	%R14,%RSI;(246) 
+0x34877;:0;MOV	%R12,%RDI;(246) 
+0x3487a;:0;CALL	dbb0 <.plt.sec@start+0x900>;(246) 
+0x3487f;:0;TEST	%RBX,%RBX;(246) 
+0x34882;:0;JE	3488f <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xccf>;(246) 
+0x34884;:0;MOV	%R13,%RSI;(246) 
+0x34887;:0;MOV	%RBX,%RDI;(246) 
+0x3488a;:0;CALL	dbb0 <.plt.sec@start+0x900>;(246) 
+0x3488f;:0;MOV	0x518(%RSP),%RAX;(246) 
+0x34897;:0;SUB	%FS:0x28,%RAX;(246) 
+0x348a0;:0;JNE	34deb <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x122b>;(246) 
+0x348a6;:0;MOV	0x38(%RSP),%RAX;
+0x348ab;:0;LEA	-0x28(%RBP),%RSP;
+0x348af;:0;POP	%RBX;
+0x348b0;:0;POP	%R12;
+0x348b2;:0;POP	%R13;
+0x348b4;:0;POP	%R14;
+0x348b6;:0;POP	%R15;
+0x348b8;:0;POP	%RBP;
+0x348b9;:0;RET;
+0x348ba;:0;NOPW	(%RAX,%RAX,1);
+0x348c0;:0;MOV	0x30(%RSP),%R14;          (253) 
+0x348c5;:0;MOV	0x110(%RSP),%RSI;          (253) 
+0x348cd;:0;MOV	(%R14),%EBX;          (253) 
+0x348d0;:0;TEST	%EBX,%EBX;          (253) 
+0x348d2;:0;JNE	342b8 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x6f8>;          (253) 
+0x348d8;:0;MOVL	$0x1,(%R14);        (250) 
+0x348df;:0;JMP	342b0 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x6f0>;        (250) 
+0x348e4;:0;NOPW	%CS:(%RAX,%RAX,1);
+0x348ef;:0;NOP;
+0x348f0;:0;LEA	0x6ad89(%RIP),%R12;
+0x348f7;:0;MOV	$0x15,%EDX;
+0x348fc;:0;LEA	0x5db0e(%RIP),%RSI;
+0x34903;:0;MOV	%R12,%RDI;
+0x34906;:0;CALL	dcd0 <.plt.sec@start+0xa20>;
+0x3490b;:0;MOV	0x8(%RBX),%RDX;
+0x3490f;:0;MOV	(%RBX),%RSI;
+0x34912;:0;MOV	%R12,%RDI;
+0x34915;:0;CALL	dcd0 <.plt.sec@start+0xa20>;
+0x3491a;:0;MOV	(%RAX),%R11;
+0x3491d;:0;MOV	%RAX,%R13;
+0x34920;:0;MOV	-0x18(%R11),%RAX;
+0x34924;:0;MOV	0xf0(%R13,%RAX,1),%R15;
+0x3492c;:0;TEST	%R15,%R15;
+0x3492f;:0;JE	34e69 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x12a9>;
+0x34935;:0;CMPB	$0,0x38(%R15);
+0x3493a;:0;JE	34a67 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xea7>;
+0x34940;:0;MOVSX	0x43(%R15),%ESI;
+0x34945;:0;MOV	%R13,%RDI;
+0x34948;:0;CALL	d2c0 <.plt.sec@start+0x10>;
+0x3494d;:0;MOV	%RAX,%RDI;
+0x34950;:0;CALL	d870 <.plt.sec@start+0x5c0>;
+0x34955;:0;MOV	0x38(%RSP),%RSI;
+0x3495a;:0;VPXOR	%XMM1,%XMM1,%XMM1;
+0x3495e;:0;VPXOR	%XMM7,%XMM7,%XMM7;
+0x34962;:0;XOR	%R14D,%R14D;
+0x34965;:0;XOR	%R12D,%R12D;
+0x34968;:0;XOR	%R13D,%R13D;
+0x3496b;:0;XOR	%EBX,%EBX;
+0x3496d;:0;VMOVDQU	%YMM1,(%RSI);
+0x34971;:0;VMOVDQU	%XMM7,0x20(%RSI);
+0x34976;:0;VZEROUPPER;
+0x34979;:0;JMP	347ce <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xc0e>;
+0x3497e;:0;XCHG	%AX,%AX;
+0x34980;:0;MOV	0x20(%RDI),%ESI;
+0x34983;:0;OR	$0x4,%ESI;
+0x34986;:0;CALL	e250 <.plt.sec@start+0xfa0>;
+0x3498b;:0;JMP	33d2e <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x16e>;
+0x34990;:0;MOV	0xe0(%RSP),%RCX;          (249) 
+0x34998;:0;MOV	$0xfffffffffffffff,%R9;          (249) 
+0x349a2;:0;SUB	%RCX,%RDI;          (249) 
+0x349a5;:0;MOV	%RCX,0xa0(%RSP);          (249) 
+0x349ad;:0;MOV	%RDI,0x80(%RSP);          (249) 
+0x349b5;:0;SAR	$0x3,%RDI;          (249) 
+0x349b9;:0;CMP	%R9,%RDI;          (249) 
+0x349bc;:0;JE	34e4a <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x128a>;          (249) 
+0x349c2;:0;CMP	%RCX,%R12;          (249) 
+0x349c5;:0;JE	34a99 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xed9>;          (249) 
+0x349cb;:0;LEA	(%RDI,%RDI,1),%R10;          (249) 
+0x349cf;:0;CMP	%RDI,%R10;          (249) 
+0x349d2;:0;JB	34b62 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xfa2>;          (249) 
+0x349d8;:0;MOVQ	$0,0x8(%RSP);          (249) 
+0x349e1;:0;XOR	%EDI,%EDI;          (249) 
+0x349e3;:0;TEST	%R10,%R10;          (249) 
+0x349e6;:0;JNE	34d1c <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x115c>;          (249) 
+0x349ec;:0;VMOVSD	-0x8(%RBX),%XMM13;          (249) 
+0x349f1;:0;VMOVQ	%RDI,%XMM14;          (249) 
+0x349f6;:0;MOV	0x80(%RSP),%RDX;          (249) 
+0x349fe;:0;LEA	0x8(%RDI,%RDX,1),%RSI;          (249) 
+0x34a03;:0;VPINSRQ	$0x1,%RSI,%XMM14,%XMM15;          (249) 
+0x34a09;:0;VMOVSD	%XMM13,(%RDI,%RDX,1);          (249) 
+0x34a0e;:0;TEST	%RDX,%RDX;          (249) 
+0x34a11;:0;JG	34af8 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xf38>;          (249) 
+0x34a17;:0;CMPQ	$0,0xa0(%RSP);          (249) 
+0x34a20;:0;JNE	34b17 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xf57>;          (249) 
+0x34a26;:0;MOV	0x8(%RSP),%R8;          (249) 
+0x34a2b;:0;VMOVDQA	%XMM15,0xe0(%RSP);          (249) 
+0x34a34;:0;MOV	%R8,0xf0(%RSP);          (249) 
+0x34a3c;:0;JMP	34218 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x658>;          (249) 
+0x34a41;:0;NOPW	%CS:(%RAX,%RAX,1);
+0x34a4c;:0;NOPL	(%RAX);
+0x34a50;:0;MOVQ	$0,(%RDI);      (248) 
+0x34a57;:0;MOVQ	$0,0x10(%RDI);      (248) 
+0x34a5f;:0;XOR	%R13D,%R13D;      (248) 
+0x34a62;:0;JMP	34714 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xb54>;      (248) 
+0x34a67;:0;MOV	%R15,%RDI;
+0x34a6a;:0;CALL	dce0 <.plt.sec@start+0xa30>;
+0x34a6f;:0;MOV	(%R15),%RDX;
+0x34a72;:0;LEA	-0x1ca89(%RIP),%RCX;
+0x34a79;:0;MOV	$0xa,%ESI;
+0x34a7e;:0;MOV	0x30(%RDX),%R14;
+0x34a82;:0;CMP	%RCX,%R14;
+0x34a85;:0;JE	34945 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xd85>;
+0x34a8b;:0;MOV	%R15,%RDI;
+0x34a8e;:0;CALL	%R14;
+0x34a91;:0;MOVSX	%AL,%ESI;
+0x34a94;:0;JMP	34945 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xd85>;
+0x34a99;:0;ADD	$0x1,%RDI;          (249) 
+0x34a9d;:0;JB	34b62 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xfa2>;          (249) 
+0x34aa3;:0;MOV	$0xfffffffffffffff,%RAX;          (249) 
+0x34aad;:0;CMP	%RAX,%RDI;          (249) 
+0x34ab0;:0;CMOVA	%RAX,%RDI;          (249) 
+0x34ab4;:0;SAL	$0x3,%RDI;          (249) 
+0x34ab8;:0;MOV	%RDI,0x8(%RSP);          (249) 
+0x34abd;:0;CALL	db90 <.plt.sec@start+0x8e0>;          (249) 
+0x34ac2;:0;MOV	0x8(%RSP),%RDX;          (249) 
+0x34ac7;:0;MOV	%RAX,%RDI;          (249) 
+0x34aca;:0;ADD	%RAX,%RDX;          (249) 
+0x34acd;:0;MOV	%RDX,0x8(%RSP);          (249) 
+0x34ad2;:0;JMP	349ec <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xe2c>;          (249) 
+0x34ad7;:0;NOPW	(%RAX,%RAX,1);
+0x34ae0;:0;MOVQ	$0,0x18(%R15);
+0x34ae8;:0;MOVQ	$0,0x28(%R15);
+0x34af0;:0;XOR	%R14D,%R14D;
+0x34af3;:0;JMP	3478c <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xbcc>;
+0x34af8;:0;MOV	0xa0(%RSP),%RSI;          (249) 
+0x34b00;:0;VMOVDQA	%XMM15,0x80(%RSP);          (249) 
+0x34b09;:0;CALL	e170 <.plt.sec@start+0xec0>;          (249) 
+0x34b0e;:0;VMOVDQA	0x80(%RSP),%XMM15;          (249) 
+0x34b17;:0;MOV	0xa0(%RSP),%RDI;          (249) 
+0x34b1f;:0;MOV	%R12,%RSI;          (249) 
+0x34b22;:0;VMOVDQA	%XMM15,0x80(%RSP);          (249) 
+0x34b2b;:0;SUB	%RDI,%RSI;          (249) 
+0x34b2e;:0;CALL	dbb0 <.plt.sec@start+0x900>;          (249) 
+0x34b33;:0;VMOVDQA	0x80(%RSP),%XMM15;          (249) 
+0x34b3c;:0;JMP	34a26 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xe66>;          (249) 
+0x34b41;:0;MOV	0x300(%RSP),%R9;          (249) 
+0x34b49;:0;MOV	0x60(%RSP),%RDI;          (249) 
+0x34b4e;:0;ADD	-0x18(%R9),%RDI;          (249) 
+0x34b52;:0;MOV	0x20(%RDI),%ESI;          (249) 
+0x34b55;:0;OR	$0x4,%ESI;          (249) 
+0x34b58;:0;CALL	e250 <.plt.sec@start+0xfa0>;          (249) 
+0x34b5d;:0;JMP	346a3 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xae3>;          (249) 
+0x34b62;:0;MOV	$0x7ffffffffffffff8,%RDI;          (249) 
+0x34b6c;:0;MOV	%RDI,0x8(%RSP);          (249) 
+0x34b71;:0;JMP	34abd <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xefd>;          (249) 
+0x34b76;:0;MOV	%R14,%RSI;          (249) 
+0x34b79;:0;SUB	%R13,%RSI;          (249) 
+0x34b7c;:0;JMP	342bb <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x6fb>;          (249) 
+0x34b81;:0;MOV	0x30(%RSP),%R11;          (249) 
+0x34b86;:0;MOV	(%R11),%EAX;          (249) 
+0x34b89;:0;JE	34c43 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x1083>;          (249) 
+0x34b8f;:0;ADD	%RBX,%RCX;        (256) 
+0x34b92;:0;MOV	%RCX,0xc8(%RSP);        (256) 
+0x34b9a;:0;JMP	34554 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x994>;        (256) 
+0x34b9f;:0;MOV	$0xfffffffffffffff,%RDI;            (257) 
+0x34ba9;:0;CMP	%RDI,%RSI;            (257) 
+0x34bac;:0;CMOVA	%RDI,%RSI;            (257) 
+0x34bb0;:0;LEA	(,%RSI,8),%R13;            (257) 
+0x34bb8;:0;JMP	3466b <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xaab>;            (257) 
+0x34bbd;:0;JE	34c8e <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x10ce>;      (248) 
+0x34bc3;:0;ADD	%R14,%R12;    (255) 
+0x34bc6;:0;CMP	$0x8,%RBX;    (255) 
+0x34bca;:0;JLE	34dda <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x121a>;    (255) 
+0x34bd0;:0;MOV	%RBX,%RDX;    (255) 
+0x34bd3;:0;MOV	%R13,%RSI;    (255) 
+0x34bd6;:0;MOV	%R12,%RDI;    (255) 
+0x34bd9;:0;CALL	da30 <.plt.sec@start+0x780>;    (255) 
+0x34bde;:0;ADD	%RBX,%R12;    (255) 
+0x34be1;:0;CMPQ	$0,0x8(%RSP);    (255) 
+0x34be7;:0;JNE	3451b <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x95b>;    (255) 
+0x34bed;:0;MOV	0x30(%RSP),%RBX;    (255) 
+0x34bf2;:0;VMOVQ	%R14,%XMM7;    (255) 
+0x34bf7;:0;MOV	0x98(%RSP),%R8;    (255) 
+0x34bff;:0;VPINSRQ	$0x1,%R12,%XMM7,%XMM2;    (255) 
+0x34c05;:0;VMOVDQA	%XMM2,0xc0(%RSP);    (255) 
+0x34c0e;:0;MOV	(%RBX),%R12D;    (255) 
+0x34c11;:0;MOV	%R8,0xd0(%RSP);    (255) 
+0x34c19;:0;TEST	%R12D,%R12D;    (255) 
+0x34c1c;:0;JNE	342b0 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x6f0>;    (255) 
+0x34c22;:0;JMP	342a2 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x6e2>;    (255) 
+0x34c27;:0;MOV	0x518(%RSP),%RAX;          (249) 
+0x34c2f;:0;SUB	%FS:0x28,%RAX;          (249) 
+0x34c38;:0;JNE	34deb <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x122b>;          (249) 
+0x34c3e;:0;CALL	d990 <.plt.sec@start+0x6e0>;          (249) 
+0x34c43;:0;VMOVSD	(%R13),%XMM9;          (249) 
+0x34c49;:0;ADD	$0x8,%RCX;          (249) 
+0x34c4d;:0;VMOVSD	%XMM9,-0x8(%RCX);          (249) 
+0x34c52;:0;MOV	%RCX,0xc8(%RSP);          (249) 
+0x34c5a;:0;TEST	%EAX,%EAX;          (249) 
+0x34c5c;:0;JNE	34b76 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xfb6>;          (249) 
+0x34c62;:0;MOV	0x30(%RSP),%RSI;        (250) 
+0x34c67;:0;MOVL	$0x2,(%RSI);        (250) 
+0x34c6d;:0;JMP	342b0 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x6f0>;        (250) 
+0x34c72;:0;MOV	0x518(%RSP),%RAX;      (248) 
+0x34c7a;:0;SUB	%FS:0x28,%RAX;      (248) 
+0x34c83;:0;JNE	34deb <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x122b>;      (248) 
+0x34c89;:0;CALL	d990 <.plt.sec@start+0x6e0>;      (248) 
+0x34c8e;:0;MOV	0x8(%RSP),%R9;      (248) 
+0x34c93;:0;LEA	0x8(%R14),%R12;      (248) 
+0x34c97;:0;VMOVSD	(%R9),%XMM3;      (248) 
+0x34c9c;:0;VMOVSD	%XMM3,(%R14);      (248) 
+0x34ca1;:0;CMP	$0x8,%RBX;      (248) 
+0x34ca5;:0;JG	3450a <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x94a>;      (248) 
+0x34cab;:0;VMOVSD	(%R13),%XMM4;      (248) 
+0x34cb1;:0;LEA	0x10(%R14),%R12;      (248) 
+0x34cb5;:0;VMOVSD	%XMM4,0x8(%R14);      (248) 
+0x34cbb;:0;JMP	3451b <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x95b>;      (248) 
+0x34cc0;:0;VMOVSD	(%R13),%XMM5;      (248) 
+0x34cc6;:0;ADD	$0x8,%R12;      (248) 
+0x34cca;:0;VMOVSD	%XMM5,-0x8(%R12);      (248) 
+0x34cd1;:0;JMP	3451b <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x95b>;      (248) 
+0x34cd6;:0;MOV	0x518(%RSP),%RAX;          (249) 
+0x34cde;:0;SUB	%FS:0x28,%RAX;          (249) 
+0x34ce7;:0;JNE	34deb <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x122b>;          (249) 
+0x34ced;:0;LEA	0x5d1cc(%RIP),%RDI;          (249) 
+0x34cf4;:0;CALL	d7e0 <.plt.sec@start+0x530>;          (249) 
+0x34cf9;:0;MOV	0x518(%RSP),%RAX;          (249) 
+0x34d01;:0;SUB	%FS:0x28,%RAX;          (249) 
+0x34d0a;:0;JNE	34deb <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x122b>;          (249) 
+0x34d10;:0;LEA	0x5d1a9(%RIP),%RDI;          (249) 
+0x34d17;:0;CALL	dfe0 <.plt.sec@start+0xd30>;          (249) 
+0x34d1c;:0;MOV	$0xfffffffffffffff,%R11;          (249) 
+0x34d26;:0;CMP	%R11,%R10;          (249) 
+0x34d29;:0;CMOVA	%R11,%R10;          (249) 
+0x34d2d;:0;LEA	(,%R10,8),%RDI;          (249) 
+0x34d35;:0;MOV	%RDI,0x8(%RSP);          (249) 
+0x34d3a;:0;JMP	34abd <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xefd>;          (249) 
+0x34d3f;:0;MOV	$0xfffffffffffffff,%RDX;      (248) 
+0x34d49;:0;CMP	%RDX,%R11;      (248) 
+0x34d4c;:0;CMOVA	%RDX,%R11;      (248) 
+0x34d50;:0;SAL	$0x3,%R11;      (248) 
+0x34d54;:0;MOV	%R11,(%RSP);      (248) 
+0x34d58;:0;MOV	%R11,%RDI;      (248) 
+0x34d5b;:0;CALL	db90 <.plt.sec@start+0x8e0>;      (248) 
+0x34d60;:0;MOV	(%RSP),%RSI;      (248) 
+0x34d64;:0;MOV	%RAX,%R14;      (248) 
+0x34d67;:0;ADD	%RAX,%RSI;      (248) 
+0x34d6a;:0;MOV	%RSI,0x98(%RSP);      (248) 
+0x34d72;:0;JMP	344e3 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x923>;      (248) 
+0x34d77;:0;MOV	0x518(%RSP),%RAX;(247) 
+0x34d7f;:0;SUB	%FS:0x28,%RAX;(247) 
+0x34d88;:0;JNE	34deb <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x122b>;(247) 
+0x34d8a;:0;LEA	0x5d115(%RIP),%RDI;(247) 
+0x34d91;:0;CALL	d6b0 <.plt.sec@start+0x400>;(247) 
+0x34d96;:0;MOV	0x518(%RSP),%RAX;(247) 
+0x34d9e;:0;SUB	%FS:0x28,%RAX;(247) 
+0x34da7;:0;JNE	34deb <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x122b>;(247) 
+0x34da9;:0;LEA	0x120(%RSP),%RBX;(247) 
+0x34db1;:0;MOV	%RBX,0x58(%RSP);(247) 
+0x34db6;:0;CALL	dde0 <.plt.sec@start+0xb30>;(247) 
+0x34dbb;:0;MOV	0x518(%RSP),%RAX;  (258) 
+0x34dc3;:0;SUB	%FS:0x28,%RAX;  (258) 
+0x34dcc;:0;JNE	34deb <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x122b>;  (258) 
+0x34dce;:0;LEA	0x5c25b(%RIP),%RDI;(247) 
+0x34dd5;:0;CALL	d8c0 <.plt.sec@start+0x610>;(247) 
+0x34dda;:0;VMOVSD	(%R13),%XMM1;  (254) 
+0x34de0;:0;VMOVSD	%XMM1,(%R12);  (254) 
+0x34de6;:0;JMP	34bde <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x101e>;  (254) 
+0x34deb;:0;CALL	dcb0 <.plt.sec@start+0xa00>;(246) 
+0x34df0;:0;MOV	0x518(%RSP),%RAX;(246) 
+0x34df8;:0;SUB	%FS:0x28,%RAX;(246) 
+0x34e01;:0;JNE	34deb <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x122b>;(246) 
+0x34e03;:0;LEA	0x5d61d(%RIP),%RDI;(246) 
+0x34e0a;:0;CALL	d6b0 <.plt.sec@start+0x400>;(246) 
+0x34e0f;:0;JNE	3478c <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xbcc>;(246) 
+0x34e15;:0;VMOVSD	(%R12),%XMM6;(246) 
+0x34e1b;:0;VMOVSD	%XMM6,(%RAX);(246) 
+0x34e1f;:0;JMP	3478c <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xbcc>;(246) 
+0x34e24;:0;MOV	$0x7ffffffffffffff8,%RDI;      (248) 
+0x34e2e;:0;MOV	%RDI,(%RSP);      (248) 
+0x34e32;:0;JMP	34d5b <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x119b>;      (248) 
+0x34e37;:0;JNE	34714 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xb54>;      (248) 
+0x34e3d;:0;VMOVSD	(%RBX),%XMM4;      (248) 
+0x34e41;:0;VMOVSD	%XMM4,(%RAX);      (248) 
+0x34e45;:0;JMP	34714 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0xb54>;      (248) 
+0x34e4a;:0;MOV	0x518(%RSP),%RAX;
+0x34e52;:0;SUB	%FS:0x28,%RAX;
+0x34e5b;:0;JNE	34deb <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x122b>;
+0x34e5d;:0;LEA	0x5d042(%RIP),%RDI;
+0x34e64;:0;CALL	d6b0 <.plt.sec@start+0x400>;
+0x34e69;:0;MOV	0x518(%RSP),%RAX;
+0x34e71;:0;SUB	%FS:0x28,%RAX;
+0x34e7a;:0;JNE	34deb <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi+0x122b>;
+0x34e80;:0;CALL	dde0 <.plt.sec@start+0xb30>;
+0x34e85;:0;ENDBR64;
+0x34e89;:0;MOV	%RAX,%RBX;
+0x34e8c;:0;JMP	f38e <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi.cold>;
+0x34e91;:0;ENDBR64;
+0x34e95;:0;JMP	f48d <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi.cold+0xff>;
+0x34e9a;:0;ENDBR64;
+0x34e9e;:0;MOV	%RAX,%RBX;
+0x34ea1;:0;VZEROUPPER;
+0x34ea4;:0;JMP	f428 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi.cold+0x9a>;
+0x34ea9;:0;ENDBR64;
+0x34ead;:0;MOV	%RAX,%RBX;
+0x34eb0;:0;JMP	f498 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi.cold+0x10a>;
+0x34eb5;:0;ENDBR64;
+0x34eb9;:0;MOV	%RAX,%RDI;
+0x34ebc;:0;JMP	f4c4 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi.cold+0x136>;
+0x34ec1;:0;ENDBR64;
+0x34ec5;:0;MOV	%RAX,%RBX;
+0x34ec8;:0;VZEROUPPER;
+0x34ecb;:0;JMP	f44e <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi.cold+0xc0>;
+0x34ed0;:0;ENDBR64;
+0x34ed4;:0;MOV	%RAX,%RBX;
+0x34ed7;:0;JMP	f4d6 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi.cold+0x148>;
+0x34edc;:0;ENDBR64;
+0x34ee0;:0;MOV	%RAX,%RBX;
+0x34ee3;:0;VZEROUPPER;
+0x34ee6;:0;JMP	f3ad <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi.cold+0x1f>;
+0x34eeb;:0;ENDBR64;
+0x34eef;:0;MOV	%RAX,%RBX;
+0x34ef2;:0;VZEROUPPER;
+0x34ef5;:0;JMP	f4f8 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi.cold+0x16a>;
+0x34efa;:0;ENDBR64;
+0x34efe;:0;MOV	%RAX,%RBX;
+0x34f01;:0;VZEROUPPER;
+0x34f04;:0;JMP	f526 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi.cold+0x198>;
+0x34f09;:0;ENDBR64;
+0x34f0d;:0;MOV	%RAX,%RBX;
+0x34f10;:0;JMP	f4eb <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi.cold+0x15d>;
+0x34f15;:0;ENDBR64;
+0x34f19;:0;MOV	%RAX,%RBX;
+0x34f1c;:0;VZEROUPPER;
+0x34f1f;:0;JMP	f444 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi.cold+0xb6>;
+0x34f24;:0;ENDBR64;
+0x34f28;:0;MOV	%RAX,%RBX;
+0x34f2b;:0;JMP	f544 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi.cold+0x1b6>;
+0x34f30;:0;ENDBR64;
+0x34f34;:0;MOV	%RAX,%RBX;
+0x34f37;:0;JMP	f571 <_ZN6DataIO7readCSVERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERi.cold+0x1e3>;
+0x34f3c;:0;NOPL	(%RAX);

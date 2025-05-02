@@ -56,7 +56,7 @@ void runSingleDecisionTreeModel(DecisionTreeParams params,
   displayFeatureImportance(feature_importance);
 
   // Save model or not
-  saveModel(single_tree);
+  //saveModel(single_tree);
 
   // Save results for comparaison
   ModelResults results;
@@ -85,7 +85,7 @@ void runSingleDecisionTreeModel(DecisionTreeParams params,
   bool visualisation_ask = false;
   std::cout << "Would you like to generate a visualisation of this model? (1 "
                "= Yes, 0 = No): ";
-  std::cin >> visualisation_ask;
+  //std::cin >> visualisation_ask;
 
   if (visualisation_ask) {
     // Add image for visualization
@@ -158,7 +158,7 @@ void runBaggingModel(BaggingParams params, DataParams data_params) {
     displayFeatureImportance(feature_importance);
 
     // Save model if users wants it
-    saveModel(bagging_model);
+    //saveModel(bagging_model);
 
     // Save results
     ModelResults results;
@@ -187,7 +187,7 @@ void runBaggingModel(BaggingParams params, DataParams data_params) {
     bool visualisation_ask = false;
     std::cout << "Would you like to genarate a visualisation of this model? (1 "
                  "= Yes, 0 = No): ";
-    std::cin >> visualisation_ask;
+    //std::cin >> visualisation_ask;
     if (visualisation_ask) {
       // Add image for visualisation
       std::cout << "Génération de la visualisation des arbres avec critère: "
@@ -246,7 +246,7 @@ void runBoostingModel(BoostingParams params, DataParams data_params) {
   displayFeatureImportance(feature_importance);
 
   // Save model
-  saveModel(boosting_model);
+  //saveModel(boosting_model);
 
   // Save results for comparaison
   ModelResults results;
@@ -277,7 +277,7 @@ void runBoostingModel(BoostingParams params, DataParams data_params) {
   bool visualisation_ask = false;
   std::cout << "Would you like to genarate a visualisation of this model? (1 "
                "= Yes, 0 = No): ";
-  std::cin >> visualisation_ask;
+  //std::cin >> visualisation_ask;
 
   if (visualisation_ask) {
     // Generate images and save
@@ -355,7 +355,7 @@ void runLightGBMModel(const LightGBMParams &params,
   std::string model_dir = "../saved_models/lightgbm_models";
   createDirectory(model_dir);
   std::string model_file = model_dir + "/lightgbm.model";
-  model.saveModel(model_file);
+  //model.saveModel(model_file);
   std::cout << "Model saved to: " << model_file << std::endl;
 
   std::string imp_file = model_dir + "/feature_importance.txt";
@@ -456,7 +456,7 @@ void runAdvGBDTModel(const AdvGBDTParams& params, const DataParams& data_params)
   
   // Save model
   std::string model_file = "../saved_models/adv_gbdt_models/adv_gbdt_model.bin";
-  model.saveModel(model_file);
+  //model.saveModel(model_file);
   std::cout << "[AdvGBDT] Model saved to: " << model_file << std::endl;
   
   // Save results for comparison

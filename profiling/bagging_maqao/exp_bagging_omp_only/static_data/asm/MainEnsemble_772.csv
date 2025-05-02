@@ -1,0 +1,22 @@
+address;source_location;insn;indent
+0x71c10;:0;VCOMISD	%XMM0,%XMM1;  (773) 
+0x71c14;:0;JNE	71c1d <_ZSt22__final_insertion_sortIN9__gnu_cxx17__normal_iteratorIPSt4pairIdiESt6vectorIS3_SaIS3_EEEENS0_5__ops15_Iter_less_iterEEvT_SB_T0_.isra.0+0x3d>;  (773) 
+0x71c16;:0;MOV	-0x8(%RDI),%ECX;  (773) 
+0x71c19;:0;CMP	%ECX,%ESI;  (773) 
+0x71c1b;:0;JL	71c45 <_ZSt22__final_insertion_sortIN9__gnu_cxx17__normal_iteratorIPSt4pairIdiESt6vectorIS3_SaIS3_EEEENS0_5__ops15_Iter_less_iterEEvT_SB_T0_.isra.0+0x65>;  (773) 
+0x71c1d;:0;ADD	$0x10,%RDX;
+0x71c21;:0;VMOVSD	%XMM1,(%RDI);
+0x71c25;:0;MOV	%ESI,0x8(%RDI);
+0x71c28;:0;CMP	%RBP,%RDX;
+0x71c2b;:0;JE	71c0a <_ZSt22__final_insertion_sortIN9__gnu_cxx17__normal_iteratorIPSt4pairIdiESt6vectorIS3_SaIS3_EEEENS0_5__ops15_Iter_less_iterEEvT_SB_T0_.isra.0+0x2a>;
+0x71c2d;:0;VMOVSD	(%RDX),%XMM1;
+0x71c31;:0;MOV	0x8(%RDX),%ESI;
+0x71c34;:0;MOV	%RDX,%RDI;
+0x71c37;:0;VMOVSD	-0x10(%RDI),%XMM0;  (773) 
+0x71c3c;:0;VCOMISD	%XMM1,%XMM0;  (773) 
+0x71c40;:0;JBE	71c10 <_ZSt22__final_insertion_sortIN9__gnu_cxx17__normal_iteratorIPSt4pairIdiESt6vectorIS3_SaIS3_EEEENS0_5__ops15_Iter_less_iterEEvT_SB_T0_.isra.0+0x30>;  (773) 
+0x71c42;:0;MOV	-0x8(%RDI),%ECX;  (773) 
+0x71c45;:0;VMOVSD	%XMM0,(%RDI);  (773) 
+0x71c49;:0;MOV	%ECX,0x8(%RDI);  (773) 
+0x71c4c;:0;SUB	$0x10,%RDI;  (773) 
+0x71c50;:0;JMP	71c37 <_ZSt22__final_insertion_sortIN9__gnu_cxx17__normal_iteratorIPSt4pairIdiESt6vectorIS3_SaIS3_EEEENS0_5__ops15_Iter_less_iterEEvT_SB_T0_.isra.0+0x57>;  (773) 

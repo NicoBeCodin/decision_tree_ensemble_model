@@ -1,0 +1,4 @@
+group_size;pattern;opcodes;offsets;addresses;stride_status;stride;memory_status;accessed_memory;accessed_memory_nooverlap;accessed_memory_overlap;span;head;unroll_factor;
+14;LLLLLLLLLLLLLL;MOVSXD,MOVSXD,MOVSXD,MOVSXD,MOVSXD,MOVSXD,MOVSXD,MOVSXD,MOVSXD,MOVSXD,MOVSXD,MOVSXD,MOVSXD,MOVSXD,;-60,-52,-40,-48,-24,-32,-36,-44,-8,-20,-28,-16,-4,-12,;0x8d47b,0x8d47f,0x8d48f,0x8d493,0x8d4a3,0x8d4a7,0x8d4b6,0x8d4ba,0x8d4ca,0x8d4d9,0x8d4dd,0x8d4fd,0x8d507,0x8d51c,;Success;64;Success;56;56;0;60;0;1;
+2;LL;MOVSXD,MOVSXD,;0,8,;0x8d470,0x8d473,;Success;64;Success;8;8;0;12;0;2;
+16;LLLLLLLLLLLLLLLL;VMOVSD,VMOVSD,VMOVSD,VMOVSD,VMOVHPD,VMOVHPD,VMOVSD,VMOVHPD,VMOVHPD,VMOVSD,VMOVSD,VMOVHPD,VMOVSD,VMOVHPD,VMOVHPD,VMOVHPD,;0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,;0x8d483,0x8d489,0x8d497,0x8d49d,0x8d4ab,0x8d4b1,0x8d4c4,0x8d4ce,0x8d4d4,0x8d4e7,0x8d4f7,0x8d501,0x8d50b,0x8d511,0x8d517,0x8d526,;Indirect;0;Success;128;8;120;8;0;1;

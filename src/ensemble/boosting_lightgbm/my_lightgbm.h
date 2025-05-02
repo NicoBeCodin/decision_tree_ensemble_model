@@ -14,9 +14,10 @@ public:
 
     // Train the model
     void train(const std::vector<std::vector<float>>& X,
-               const std::vector<float>& y,
-               const std::string& params,
-               int n_iters);
+        const std::vector<float>& y,
+        const std::string& params,
+        int n_iters,
+        int num_threads = 1);
 
     // Predict using flattened input (row-major order)
     std::vector<double> predict(const std::vector<float>& data,

@@ -21,9 +21,10 @@ MyLightGBM::~MyLightGBM() {
 }
 
 void MyLightGBM::train(const std::vector<std::vector<float>>& X,
-                       const std::vector<float>& y,
-                       const std::string& params,
-                       int n_iters) {
+    const std::vector<float>& y,
+    const std::string& params,
+    int n_iters,
+    int num_threads) {
     n_samples_ = static_cast<int>(X.size());
     if (n_samples_ == 0) throw std::runtime_error("No training data.");
     n_features_ = static_cast<int>(X[0].size());

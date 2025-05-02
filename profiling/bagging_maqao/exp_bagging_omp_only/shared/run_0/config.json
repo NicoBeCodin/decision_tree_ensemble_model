@@ -1,0 +1,63 @@
+{
+  "config" : {
+    "experiment_name" : "",
+    "comments" : "",
+    "executable"     : "./MainEnsemble",
+    "external_libraries" : [],
+    "custom_categories" : [],
+    "run_command"    : "<executable>  2 -p 0 0 100 60 2 0.000001 1 6",
+    "batch_script"    : "",
+    "batch_command"   : "",
+    "number_processes" : 1,
+    "number_nodes" : 1,
+    "number_processes_per_node" : 1,
+    "mpi_command"    : "",
+    "pinning_command"    : "",
+    "filter" : {
+      "type" : "number",
+      "value" : 10
+    },
+    "profile_start": {
+      "unit": "none",
+      "value": 0
+    },
+    "run_directory"  : ".",
+    "dataset"        : "",
+    "dataset_handler": "link",
+    "_frequencies"    : [3600000, 2800000, 2200000],
+    "additional_hwc" : [],
+    "excluded_areas" : [],
+    "included_areas" : [],
+    "decan_multi_variant" : true,
+    "decan_all_variants" :true,
+    "decan_threshold" : 500,
+    "source_code_location" : "",
+    "maximal_path_number" : 4,
+    "optimizer_loop_count" : 10,
+    "is_sudo_available" : false,
+    "lprof_params" : "",
+    "lprof_post_process_params": {
+    },
+    "vprof_params": "",
+    "decan_params": "",
+    "cqa_params": {
+    },
+    "keep_executable_location": false,
+    "multiruns_params": [
+
+    ],
+    "scalability_reference": "main",
+    "base_run_name": "run_0",
+    "environment_variables": [
+    ],
+    "script_variables": {
+    },
+    "qplot_path": "nil",
+    "thread_filter_threshold" : "1%",
+    "object_coverage_threshold" : 0.01,
+    "repetitions" : 31,
+    "ranges_count" : 20,
+    "outliers_count" : 0,
+    "delay" : 0
+  }
+}

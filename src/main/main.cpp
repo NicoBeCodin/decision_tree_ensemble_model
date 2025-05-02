@@ -22,6 +22,10 @@ int main(int argc, char *argv[]) {
 
     ProgramOptions programOptions = parseCommandLineArguments(argc, argv);
     DataParams data_params;
+    auto it = programOptions.flags.find("data");
+    if (it != programOptions.flags.end()) {
+        data_params.dataPath = it->second;
+    }
     if (!splitDataset(data_params)) {
         return -1;
     }
