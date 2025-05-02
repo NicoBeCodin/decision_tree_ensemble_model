@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from itertools import product
 import numpy as np
 
-REPEATS = 5  # Number of times to repeat each configuration for error bars
+REPEATS = 3  # Number of times to repeat each configuration for error bars
 
 # Path to your executable; adjust relative to this script’s directory
 import os
@@ -23,38 +23,46 @@ models = {
 
 # Hyperparameter grids for each model
 param_grids = {
-    1: {"max_depth": [2, 5, 10, 20, 40, 80, 160], "use_omp": [0, 1]},
+    1: {
+        "max_depth": [10],
+        "use_omp": [0, 1],
+        "num_threads": [1, 2, 4, 8],
+    },
     2: {
-        "n_estimators": [10, 50, 100, 200, 400],
-        "max_depth": [2, 5, 10, 20, 40, 80],
-        "use_omp": [0, 1]
+        "n_estimators": [200],
+        "max_depth": [10],
+        "use_omp": [0, 1],
+        "num_threads": [1, 2, 4, 8],
     },
     3: {
-        "n_estimators": [50, 100, 200, 400, 800],
-        "max_depth": [3, 5, 7, 9],
-        "learning_rate": [0.001, 0.01, 0.05, 0.1],
-        "use_omp": [0, 1]
+        "n_estimators": [200],
+        "max_depth": [10],
+        "learning_rate": [0.1],
+        "use_omp": [0, 1],
+        "num_threads": [1, 2, 4, 8],
     },
     4: {
-        "n_estimators": [50, 100, 200],
-        "learning_rate": [0.05, 0.1],
-        "max_depth": [5, 10, 20],
-        "num_leaves": [31, 63, 127],
-        "subsample": [0.8, 1.0],
-        "colsample_bytree": [0.8, 1.0],
-        "use_omp": [0, 1]
+        "n_estimators": [200],
+        "learning_rate": [0.1],
+        "max_depth": [10],
+        "num_leaves": [31],
+        "subsample": [0.8],
+        "colsample_bytree": [0.8],
+        "use_omp": [0, 1],
+        "num_threads": [1, 2, 4, 8],
     },
     5: {
-        "n_estimators": [100, 200, 400],
-        "learning_rate": [0.01, 0.05],
-        "max_depth": [8, 16],
-        "min_data_leaf": [10, 20],
-        "num_bins": [128, 256],
+        "n_estimators": [200],
+        "learning_rate": [0.1],
+        "max_depth": [10],
+        "min_data_leaf": [10],
+        "num_bins": [128],
         "use_dart": [0, 1],
         "dropout_rate": [0.1],
         "skip_drop_rate": [0.5],
         "binning_method": [0, 1],
-        "use_omp": [0, 1]
+        "use_omp": [0, 1],
+        "num_threads": [1, 2, 4, 8],
     },
 }
 
@@ -67,12 +75,15 @@ for code, name in models.items():
         flags = dict(zip(keys, combo))
         # Build command
         cmd = [BIN, str(code)] + [f"--{k}={v}" for k, v in flags.items()]
+        env = os.environ.copy()
+        if "num_threads" in flags:
+            env["OMP_NUM_THREADS"] = str(flags["num_threads"])
         print("Running:", " ".join(cmd))
 
         # repeat the measurement REPEATS times
         t_trains, t_evals, mses, maes = [], [], [], []
         for _ in range(REPEATS):
-            proc = subprocess.run(cmd, capture_output=True, text=True, input="0\n0\n")
+            proc = subprocess.run(cmd, capture_output=True, text=True, input="0\n0\n", env=env)
             out = proc.stdout
             # parse metrics as before, naming parsed values t_t, t_e, m, a
             if code == 1:

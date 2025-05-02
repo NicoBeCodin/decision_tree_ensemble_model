@@ -1,175 +1,390 @@
 #!/usr/bin/env python3
-import os
+import os 
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Ensure output directory exists
-os.makedirs("plots", exist_ok=True)
-
-# 1. Load benchmark results
-# Locate the benchmark CSV in expected locations
-csv_candidates = [
-    os.path.join(os.path.dirname(__file__), "..", "benchmark_results_extended.csv"),
-    os.path.join(os.path.dirname(__file__), "..", "plots", "benchmark_results_extended.csv")
-]
-csv_path = None
-for candidate in csv_candidates:
-    if os.path.isfile(candidate):
-        csv_path = candidate
-        break
-if csv_path is None:
-    raise FileNotFoundError(
-        "benchmark_results_extended.csv not found; checked: "
-        + ", ".join(csv_candidates)
-    )
-df = pd.read_csv(csv_path)
-
-# Primary hyperparameter per model name
-primary_dict = {
-    "DecisionTree": "max_depth",
-    "Bagging":      "n_estimators",
-    "Boosting":     "n_estimators",
-    "LightGBM":     "n_estimators",
-    "AdvancedGBDT": "n_estimators",
+# hyperparameter grids per model
+param_grids = {
+    "DecisionTree": {"max_depth": [2, 5, 10, 20, 40, 80, 160], "use_omp": [0, 1]},
+    "Bagging": {
+        "n_estimators": [10, 50, 100, 200, 400],
+        "max_depth": [2, 5, 10, 20, 40, 80],
+        "use_omp": [0, 1]
+    },
+    "Boosting": {
+        "n_estimators": [50, 100, 200, 400, 800],
+        "max_depth": [3, 5, 7, 9],
+        "learning_rate": [0.001, 0.01, 0.05, 0.1],
+        "use_omp": [0, 1]
+    },
+    "LightGBM": {
+        "n_estimators": [50, 100, 200],
+        "max_depth": [5, 10, 20],
+        "learning_rate": [0.05, 0.1],
+        "use_omp": [0, 1]
+    },
+    "AdvancedGBDT": {
+        "n_estimators": [100, 200, 400],
+        "max_depth": [8, 16],
+        "learning_rate": [0.01, 0.05],
+        "use_omp": [0, 1]
+    },
 }
 
-# 1. Scalabilité temporelle (Training Time vs Hyperparamètre principal)
-for model_name, primary in primary_dict.items():
-    model_df = df[df["model"] == model_name]
-    if model_df.empty or primary not in model_df.columns:
-        continue
-    fig, ax = plt.subplots()
-    for omp_flag in sorted(model_df["use_omp"].unique()):
-        subdf = model_df[model_df["use_omp"] == omp_flag]
-        # average training times per hyperparam value
-        mean_df = subdf.groupby(primary)["train_time_s"].mean().reset_index()
-        ax.plot(mean_df[primary], mean_df["train_time_s"],
-                marker="o", label=f"use_omp={omp_flag}")
-    ax.set_xlabel(primary)
-    ax.set_ylabel("Training time (s)")
-    ax.set_title(f"{model_name}: Training Time vs {primary}")
-    ax.legend()
-    fig.savefig(f"plots/{model_name}_scaling_time.png")
-    plt.close(fig)
+def plot_time_scalability(df, hp_map):
+    """
+    For each model in the dataframe, plot training time vs hyperparameters.
+    DecisionTree: Training time vs max_depth (use_omp curves).
+    Ensemble models: 
+        - For fixed max_depth values, plot training time vs n_estimators.
+        - For fixed n_estimators values, plot training time vs max_depth.
+    """
+    for model, group in df.groupby('model'):
+        if 'DecisionTree' in model:
+            # decision tree only depends on max_depth
+            plt.figure()
+            for omp_flag in sorted(group['use_omp'].unique()):
+                sub = group[group['use_omp'] == omp_flag].sort_values('max_depth')
+                plt.errorbar(
+                    sub['max_depth'], sub['train_time_mean'], yerr=sub['train_time_std'],
+                    marker='o', markersize=4, linewidth=1, capsize=3, elinewidth=1, label=f"use_omp={int(omp_flag)}"
+                )
+            plt.xlabel('max_depth')
+            plt.ylabel("Temps d'entraînement moyen (s)")
+            plt.title(f"{model}: Training Time vs max_depth")
+            plt.legend()
+            plt.tight_layout()
+        elif model == "Bagging":
+            depths = param_grids["Bagging"]["max_depth"]
+            estims = param_grids["Bagging"]["n_estimators"]
+            # fixed max_depth plots
+            for depth in depths:
+                sub_depth = group[group['max_depth'] == depth]
+                if sub_depth.empty:
+                    continue
+                plt.figure()
+                for omp_flag in sorted(sub_depth['use_omp'].unique()):
+                    sub = sub_depth[sub_depth['use_omp'] == omp_flag].sort_values('n_estimators')
+                    plt.errorbar(
+                        sub['n_estimators'], sub['train_time_mean'], yerr=sub['train_time_std'],
+                        marker='o', markersize=4, linewidth=1, capsize=3, elinewidth=1, label=f"use_omp={int(omp_flag)}"
+                    )
+                plt.xlabel('n_estimators')
+                plt.ylabel("Temps d'entraînement moyen (s)")
+                plt.title(f"{model}: Training Time vs n_estimators (max_depth={depth})")
+                plt.legend()
+                plt.tight_layout()
+            # fixed n_estimators plots
+            for n in estims:
+                sub_n = group[group['n_estimators'] == n]
+                if sub_n.empty:
+                    continue
+                plt.figure()
+                for omp_flag in sorted(sub_n['use_omp'].unique()):
+                    sub = sub_n[sub_n['use_omp'] == omp_flag].sort_values('max_depth')
+                    plt.errorbar(
+                        sub['max_depth'], sub['train_time_mean'], yerr=sub['train_time_std'],
+                        marker='o', markersize=4, linewidth=1, capsize=3, elinewidth=1, label=f"use_omp={int(omp_flag)}"
+                    )
+                plt.xlabel('max_depth')
+                plt.ylabel("Temps d'entraînement moyen (s)")
+                plt.title(f"{model}: Training Time vs max_depth (n_estimators={n})")
+                plt.legend()
+                plt.tight_layout()
+        elif model == "Boosting":
+            depths = param_grids["Boosting"]["max_depth"]
+            estims = param_grids["Boosting"]["n_estimators"]
+            lrs = param_grids["Boosting"]["learning_rate"]
+            # fixed max_depth → train_time vs n_estimators
+            for depth in depths:
+                sub_depth = group[group['max_depth'] == depth]
+                if sub_depth.empty: continue
+                plt.figure()
+                for omp_flag in sorted(sub_depth['use_omp'].unique()):
+                    sub = sub_depth[sub_depth['use_omp'] == omp_flag]
+                    mean_t = sub.groupby('n_estimators')['train_time_mean'].mean()
+                    std_t = sub.groupby('n_estimators')['train_time_mean'].std().fillna(0)
+                    plt.errorbar(
+                        mean_t.index, mean_t.values, yerr=std_t.values,
+                        marker='o', markersize=4, linewidth=1, capsize=3, elinewidth=1,
+                        label=f"use_omp={int(omp_flag)}"
+                    )
+                plt.xlabel('n_estimators')
+                plt.ylabel("Temps d'entraînement moyen (s)")
+                plt.title(f"{model}: Training Time vs n_estimators (max_depth={depth})")
+                plt.legend()
+                plt.tight_layout()
+            # fixed n_estimators → train_time vs max_depth
+            for n in estims:
+                sub_n = group[group['n_estimators'] == n]
+                if sub_n.empty: continue
+                plt.figure()
+                for omp_flag in sorted(sub_n['use_omp'].unique()):
+                    sub = sub_n[sub_n['use_omp'] == omp_flag]
+                    mean_t = sub.groupby('max_depth')['train_time_mean'].mean()
+                    std_t = sub.groupby('max_depth')['train_time_mean'].std().fillna(0)
+                    plt.errorbar(
+                        mean_t.index, mean_t.values, yerr=std_t.values,
+                        marker='o', markersize=4, linewidth=1, capsize=3, elinewidth=1,
+                        label=f"use_omp={int(omp_flag)}"
+                    )
+                plt.xlabel('max_depth')
+                plt.ylabel("Temps d'entraînement moyen (s)")
+                plt.title(f"{model}: Training Time vs max_depth (n_estimators={n})")
+                plt.legend()
+                plt.tight_layout()
+            # learning_rate variations at max_depth=9
+            target_depth = depths[-1]
+            for lr in lrs:
+                sub_lr = group[(group['learning_rate'] == lr) & (group['max_depth'] == target_depth)]
+                if sub_lr.empty: continue
+                plt.figure()
+                for omp_flag in sorted(sub_lr['use_omp'].unique()):
+                    sub = sub_lr[sub_lr['use_omp'] == omp_flag]
+                    mean_t = sub.groupby('n_estimators')['train_time_mean'].mean()
+                    std_t = sub.groupby('n_estimators')['train_time_mean'].std().fillna(0)
+                    plt.errorbar(
+                        mean_t.index, mean_t.values, yerr=std_t.values,
+                        marker='o', markersize=4, linewidth=1, capsize=3, elinewidth=1,
+                        label=f"lr={lr}, omp={int(omp_flag)}"
+                    )
+                plt.xlabel('n_estimators')
+                plt.ylabel("Temps d'entraînement moyen (s)")
+                plt.title(f"{model}: Training Time vs n_estimators (max_depth={target_depth}, lr={lr})")
+                plt.legend()
+                plt.tight_layout()
+            # learning_rate variations at n_estimators=400
+            target_n = 400
+            for lr in lrs:
+                sub_lr = group[(group['learning_rate'] == lr) & (group['n_estimators'] == target_n)]
+                if sub_lr.empty: continue
+                plt.figure()
+                for omp_flag in sorted(sub_lr['use_omp'].unique()):
+                    sub = sub_lr[sub_lr['use_omp'] == omp_flag]
+                    mean_t = sub.groupby('max_depth')['train_time_mean'].mean()
+                    std_t = sub.groupby('max_depth')['train_time_mean'].std().fillna(0)
+                    plt.errorbar(
+                        mean_t.index, mean_t.values, yerr=std_t.values,
+                        marker='o', markersize=4, linewidth=1, capsize=3, elinewidth=1,
+                        label=f"lr={lr}, omp={int(omp_flag)}"
+                    )
+                plt.xlabel('max_depth')
+                plt.ylabel("Temps d'entraînement moyen (s)")
+                plt.title(f"{model}: Training Time vs max_depth (n_estimators={target_n}, lr={lr})")
+                plt.legend()
+                plt.tight_layout()
+        elif model == "LightGBM":
+            depths = param_grids["LightGBM"]["max_depth"]
+            estims = param_grids["LightGBM"]["n_estimators"]
+            lrs = param_grids["LightGBM"]["learning_rate"]
+            # fixed max_depth → train_time vs n_estimators
+            for depth in depths:
+                sub_depth = group[group['max_depth'] == depth]
+                if sub_depth.empty: continue
+                plt.figure()
+                for omp_flag in sorted(sub_depth['use_omp'].unique()):
+                    sub = sub_depth[sub_depth['use_omp'] == omp_flag].sort_values('n_estimators')
+                    plt.errorbar(
+                        sub['n_estimators'], sub['train_time_mean'], yerr=sub['train_time_std'],
+                        marker='o', markersize=4, linewidth=1, capsize=3, elinewidth=1,
+                        label=f"use_omp={int(omp_flag)}"
+                    )
+                plt.xlabel('n_estimators')
+                plt.ylabel("Temps d'entraînement moyen (s)")
+                plt.title(f"{model}: Training Time vs n_estimators (max_depth={depth})")
+                plt.legend()
+                plt.tight_layout()
+            # fixed n_estimators → train_time vs max_depth
+            for n in estims:
+                sub_n = group[group['n_estimators'] == n]
+                if sub_n.empty: continue
+                plt.figure()
+                for omp_flag in sorted(sub_n['use_omp'].unique()):
+                    sub = sub_n[sub_n['use_omp'] == omp_flag].sort_values('max_depth')
+                    plt.errorbar(
+                        sub['max_depth'], sub['train_time_mean'], yerr=sub['train_time_std'],
+                        marker='o', markersize=4, linewidth=1, capsize=3, elinewidth=1,
+                        label=f"use_omp={int(omp_flag)}"
+                    )
+                plt.xlabel('max_depth')
+                plt.ylabel("Temps d'entraînement moyen (s)")
+                plt.title(f"{model}: Training Time vs max_depth (n_estimators={n})")
+                plt.legend()
+                plt.tight_layout()
+            # learning_rate variations at max_depth = max value
+            target_depth = depths[-1]
+            for lr in lrs:
+                sub_lr = group[(group['learning_rate'] == lr) & (group['max_depth'] == target_depth)]
+                if sub_lr.empty: continue
+                plt.figure()
+                for omp_flag in sorted(sub_lr['use_omp'].unique()):
+                    sub = sub_lr[sub_lr['use_omp'] == omp_flag]
+                    mean_t = sub.groupby('n_estimators')['train_time_mean'].mean()
+                    std_t = sub.groupby('n_estimators')['train_time_mean'].std().fillna(0)
+                    plt.errorbar(
+                        mean_t.index, mean_t.values, yerr=std_t.values,
+                        marker='o', markersize=4, linewidth=1, capsize=3, elinewidth=1,
+                        label=f"lr={lr}, omp={int(omp_flag)}"
+                    )
+                plt.xlabel('n_estimators')
+                plt.ylabel("Temps d'entraînement moyen (s)")
+                plt.title(f"{model}: Training Time vs n_estimators (max_depth={target_depth}, lr={lr})")
+                plt.legend()
+                plt.tight_layout()
+            # learning_rate variations at n_estimators = max value
+            target_n = estims[-1]
+            for lr in lrs:
+                sub_lr = group[(group['learning_rate'] == lr) & (group['n_estimators'] == target_n)]
+                if sub_lr.empty: continue
+                plt.figure()
+                for omp_flag in sorted(sub_lr['use_omp'].unique()):
+                    sub = sub_lr[sub_lr['use_omp'] == omp_flag]
+                    mean_t = sub.groupby('max_depth')['train_time_mean'].mean()
+                    std_t = sub.groupby('max_depth')['train_time_mean'].std().fillna(0)
+                    plt.errorbar(
+                        mean_t.index, mean_t.values, yerr=std_t.values,
+                        marker='o', markersize=4, linewidth=1, capsize=3, elinewidth=1,
+                        label=f"lr={lr}, omp={int(omp_flag)}"
+                    )
+                plt.xlabel('max_depth')
+                plt.ylabel("Temps d'entraînement moyen (s)")
+                plt.title(f"{model}: Training Time vs max_depth (n_estimators={target_n}, lr={lr})")
+                plt.legend()
+                plt.tight_layout()
+        elif model == "AdvancedGBDT":
+            depths = param_grids["AdvancedGBDT"]["max_depth"]
+            estims = param_grids["AdvancedGBDT"]["n_estimators"]
+            lrs = param_grids["AdvancedGBDT"]["learning_rate"]
+            # fixed max_depth → train_time vs n_estimators
+            for depth in depths:
+                sub_depth = group[group['max_depth'] == depth]
+                if sub_depth.empty: continue
+                plt.figure()
+                for omp_flag in sorted(sub_depth['use_omp'].unique()):
+                    sub = sub_depth[sub_depth['use_omp'] == omp_flag].sort_values('n_estimators')
+                    plt.errorbar(
+                        sub['n_estimators'], sub['train_time_mean'], yerr=sub['train_time_std'],
+                        marker='o', markersize=4, linewidth=1, capsize=3, elinewidth=1,
+                        label=f"use_omp={int(omp_flag)}"
+                    )
+                plt.xlabel('n_estimators')
+                plt.ylabel("Temps d'entraînement moyen (s)")
+                plt.title(f"{model}: Training Time vs n_estimators (max_depth={depth})")
+                plt.legend()
+                plt.tight_layout()
+            # fixed n_estimators → train_time vs max_depth
+            for n in estims:
+                sub_n = group[group['n_estimators'] == n]
+                if sub_n.empty: continue
+                plt.figure()
+                for omp_flag in sorted(sub_n['use_omp'].unique()):
+                    sub = sub_n[sub_n['use_omp'] == omp_flag].sort_values('max_depth')
+                    plt.errorbar(
+                        sub['max_depth'], sub['train_time_mean'], yerr=sub['train_time_std'],
+                        marker='o', markersize=4, linewidth=1, capsize=3, elinewidth=1,
+                        label=f"use_omp={int(omp_flag)}"
+                    )
+                plt.xlabel('max_depth')
+                plt.ylabel("Temps d'entraînement moyen (s)")
+                plt.title(f"{model}: Training Time vs max_depth (n_estimators={n})")
+                plt.legend()
+                plt.tight_layout()
+            # learning_rate variations at max_depth = max value
+            target_depth = depths[-1]
+            for lr in lrs:
+                sub_lr = group[(group['learning_rate'] == lr) & (group['max_depth'] == target_depth)]
+                if sub_lr.empty: continue
+                plt.figure()
+                for omp_flag in sorted(sub_lr['use_omp'].unique()):
+                    sub = sub_lr[sub_lr['use_omp'] == omp_flag]
+                    mean_t = sub.groupby('n_estimators')['train_time_mean'].mean()
+                    std_t = sub.groupby('n_estimators')['train_time_mean'].std().fillna(0)
+                    plt.errorbar(
+                        mean_t.index, mean_t.values, yerr=std_t.values,
+                        marker='o', markersize=4, linewidth=1, capsize=3, elinewidth=1,
+                        label=f"lr={lr}, omp={int(omp_flag)}"
+                    )
+                plt.xlabel('n_estimators')
+                plt.ylabel("Temps d'entraînement moyen (s)")
+                plt.title(f"{model}: Training Time vs n_estimators (max_depth={target_depth}, lr={lr})")
+                plt.legend()
+                plt.tight_layout()
+            # learning_rate variations at n_estimators = max value
+            target_n = estims[-1]
+            for lr in lrs:
+                sub_lr = group[(group['learning_rate'] == lr) & (group['n_estimators'] == target_n)]
+                if sub_lr.empty: continue
+                plt.figure()
+                for omp_flag in sorted(sub_lr['use_omp'].unique()):
+                    sub = sub_lr[sub_lr['use_omp'] == omp_flag]
+                    mean_t = sub.groupby('max_depth')['train_time_mean'].mean()
+                    std_t = sub.groupby('max_depth')['train_time_mean'].std().fillna(0)
+                    plt.errorbar(
+                        mean_t.index, mean_t.values, yerr=std_t.values,
+                        marker='o', markersize=4, linewidth=1, capsize=3, elinewidth=1,
+                        label=f"lr={lr}, omp={int(omp_flag)}"
+                    )
+                plt.xlabel('max_depth')
+                plt.ylabel("Temps d'entraînement moyen (s)")
+                plt.title(f"{model}: Training Time vs max_depth (n_estimators={target_n}, lr={lr})")
+                plt.legend()
+                plt.tight_layout()
 
-# 4. Speed-up OpenMP (Speed-up = T1 / Tp)
-for model_name, group in df.groupby("model"):
-    primary = primary_dict.get(model_name)
-    if primary is None or primary not in group.columns:
-        continue
-    single = group[group["use_omp"] == 0][["train_time_s", primary]].set_index(primary)
-    multi = group[group["use_omp"] == 1][["train_time_s", primary]].set_index(primary)
-    shared = single.join(multi, lsuffix="_1", rsuffix="_p", how="inner")
-    shared["speedup"] = shared["train_time_s_1"] / shared["train_time_s_p"]
+def plot_mse_quality(df, hp_map):
     plt.figure()
-    plt.plot(shared.index, shared["speedup"], marker='o')
-    plt.xlabel(primary)
-    plt.ylabel("Speed-up (T1/Tp)")
-    plt.title(f"{model_name}: OpenMP Speed-up vs {primary}")
-    plt.savefig(f"plots/{model_name}_speedup.png")
-    plt.close()
+    for model, group in df.groupby('model'):
+        hp = hp_map[model]
+        for omp_flag in sorted(group['use_omp'].unique()):
+            sub = group[group['use_omp'] == omp_flag].sort_values(hp)
+            plt.plot(
+                sub[hp],
+                sub['mse_mean'],
+                marker='o', markersize=4, linewidth=1,
+                label=f"{model} omp={int(omp_flag)}"
+            )
+    plt.xlabel("Valeur de l'hyperparamètre")
+    plt.ylabel("MSE moyen")
+    plt.title("Qualité (MSE) vs Hyperparamètre")
+    plt.legend()
+    plt.tight_layout()
 
-# 5. Comparaison à hyperparamètre constant (bar charts)
-# Choose a common value (first encountered) per model
-const_vals = {
-    model: primary_dict.get(model)
-    for model in df["model"].unique()
-    if primary_dict.get(model) in df.columns
-}
-
-# Training time bar chart
-plt.figure()
-names, times = [], []
-for model_name, primary in const_vals.items():
-    row = df[(df["model"] == model_name) & (df[primary] == df[df["model"]==model_name][primary].unique()[0]) & (df["use_omp"]==0)]
-    if not row.empty:
-        names.append(model_name)
-        times.append(row["train_time_s"].iloc[0])
-plt.bar(names, times)
-plt.ylabel("Training time (s)")
-plt.title(f"Training Time at constant hyperparameter")
-plt.xticks(rotation=45)
-plt.savefig("plots/comparison_time_bar.png")
-plt.close()
-
-# MSE bar chart
-plt.figure()
-names, errs = [], []
-for model_name, primary in const_vals.items():
-    row = df[(df["model"] == model_name) & (df[primary] == df[df["model"]==model_name][primary].unique()[0]) & (df["use_omp"]==0)]
-    if not row.empty:
-        names.append(model_name)
-        errs.append(row["mse"].iloc[0])
-plt.bar(names, errs)
-plt.ylabel("MSE")
-plt.title(f"MSE at constant hyperparameter")
-plt.xticks(rotation=45)
-plt.savefig("plots/comparison_mse_bar.png")
-plt.close()
-
-# 6. Pareto front (Training time vs MSE)
-plt.figure()
-for model_name, group in df.groupby("model"):
-    plt.scatter(group["train_time_s"], group["mse"], label=model_name)
-plt.xlabel("Training time (s)")
-plt.ylabel("MSE")
-plt.title("Pareto front: Time vs MSE")
-plt.legend()
-plt.savefig("plots/pareto_time_mse.png")
-plt.close()
-
-# 7. Sensibilité aux hyperparamètres (heatmap) example for DecisionTree
-tree_df = df[df["model"] == "DecisionTree"]
-# Only plot heatmap if both hyperparameters are present in data
-if not tree_df.empty and "max_depth" in tree_df.columns and "min_samples_split" in tree_df.columns:
-    pivot = tree_df.pivot(index="max_depth", columns="min_samples_split", values="mse")
+def plot_speedup(df, hp_map):
     plt.figure()
-    plt.imshow(pivot, aspect='auto', origin='lower')
-    plt.colorbar(label="MSE")
-    plt.xlabel("min_samples_split")
-    plt.ylabel("max_depth")
-    plt.title("DecisionTree: MSE heatmap")
-    plt.savefig("plots/heatmap_tree_mse.png")
-    plt.close()
-else:
-    print("Skipping DecisionTree heatmap: 'min_samples_split' not found in data.")
+    # For each model, compute speedup as mean(T1)/mean(Tp) over primary hyperparam values
+    for model, group in df.groupby('model'):
+        hp = hp_map[model]
+        # average train_time_mean for mono-thread and multi-thread across other params
+        mono = group[group['use_omp'] == 0].groupby(hp)['train_time_mean'].mean()
+        multi = group[group['use_omp'] == 1].groupby(hp)['train_time_mean'].mean()
+        # find hyperparam values present in both
+        common = mono.index.intersection(multi.index).sort_values()
+        if len(common) > 0:
+            speedup = mono.loc[common] / multi.loc[common]
+            plt.plot(common, speedup, marker='o', markersize=4, linewidth=1, label=model)
+    plt.xlabel("Valeur de l'hyperparamètre")
+    plt.ylabel("Speedup (T₁ / Tₚ)")
+    plt.title("Accélération OpenMP vs Hyperparamètre")
+    plt.legend()
+    plt.tight_layout()
 
-# 8. Évolution de la perte (Boosting only)
-# If original loss logs were saved, else skip
+def main():
+    # Ajuste ici le chemin vers ton fichier CSV si nécessaire
+    df = pd.read_csv("benchmark_results_extended.csv")
 
-# 9. Importance des caractéristiques
-# Assuming importance columns exist: feature_importance.<feature>
-# We'll skip if not present
+    # Détermine l'hyperparamètre principal par modèle
+    hp_map = {}
+    for model in df['model'].unique():
+        if 'DecisionTree' in model:
+            hp_map[model] = 'max_depth'
+        else:
+            hp_map[model] = 'n_estimators'
 
-# 10. Comparaison multi-modèles radar (example simplified)
-# skip
+    # Dessine les 3 graphiques clés
+    plot_time_scalability(df, hp_map)
+    plot_mse_quality(df, hp_map)
+    plot_speedup(df, hp_map)
 
-# 11. Distribution des temps (boxplot)
-plt.figure()
-data = [group["train_time_s"] for _, group in df.groupby("model")]
-labels = df["model"].unique()
-plt.boxplot(data, labels=labels)
-plt.ylabel("Training time (s)")
-plt.title("Training time distribution")
-plt.xticks(rotation=45)
-plt.savefig("plots/boxplot_time.png")
-plt.close()
+    plt.show()
 
-# 12. 3D surface (for Boosting: n_estimators vs learning_rate vs mse)
-boost_df = df[df["model"]=="Boosting"]
-if not boost_df.empty and "learning_rate" in boost_df:
-    X = boost_df["n_estimators"].values
-    Y = boost_df["learning_rate"].values
-    Z = boost_df["mse"].values
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-    ax.plot_trisurf(X, Y, Z, cmap='viridis', edgecolor='none')
-    ax.set_xlabel("n_estimators")
-    ax.set_ylabel("learning_rate")
-    ax.set_zlabel("MSE")
-    plt.title("Boosting: MSE surface")
-    plt.savefig("plots/3d_boost_mse.png")
-    plt.close()
-
-plt.tight_layout()
-print("All plots generated in ./plots/")
+if __name__ == "__main__":
+    main()
