@@ -38,19 +38,20 @@ COLORS = {
     "Bagging":       TOL[1],
     "Boosting":      TOL[2],
     "LightGBM":      TOL[3],
-    # "AdvancedGBDT":  TOL[4],  # on l’ignore pour le moment
+    "AdvGBDT":       TOL[4],
 }
 NICE = {  # étiquettes courtes
     "DecisionTree": "Tree",
     "Bagging":      "Bagging",
     "Boosting":     "Boosting",
     "LightGBM":     "LightGBM",
+    "AdvGBDT":      "AdvGBDT",
 }
 
 # ──────────────────────────────────────────────────────────────────────────────
 # 2.  Lecture du CSV
 # ──────────────────────────────────────────────────────────────────────────────
-CSV = Path("scaling_results_without_mpi.csv")
+CSV = Path("scaling_results_all.csv")
 if not CSV.exists():
     raise SystemExit(f"❌ {CSV} introuvable")
 

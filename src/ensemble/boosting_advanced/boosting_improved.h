@@ -85,16 +85,17 @@ public:
     // Constructor with improved parameter organization
     ImprovedGBDT(int n_estimators, 
                  int max_depth, 
-                 double learning_rate = 0.1,
-                 bool useDart = false, 
-                 double drop_rate = 0.1, 
-                 double skip_rate = 0.0,
-                 BinningMethod binning_method = NONE, 
-                 int num_bins = 256,
-                 int min_samples_leaf = 1,
-                 double l2_reg = 1.0,
-                 double feature_sample_ratio = 1.0,
-                 int early_stopping_rounds = 0)
+                 double learning_rate,
+                 bool useDart, 
+                 double drop_rate, 
+                 double skip_rate,
+                 BinningMethod binning_method, 
+                 int num_bins,
+                 int min_samples_leaf,
+                 double l2_reg,
+                 double feature_sample_ratio,
+                 int early_stopping_rounds,
+                 int num_threads)
         : n_estimators(n_estimators), 
           max_depth(max_depth), 
           learning_rate(learning_rate),
@@ -106,7 +107,8 @@ public:
           min_samples_leaf(min_samples_leaf),
           l2_reg(l2_reg),
           feature_sample_ratio(feature_sample_ratio),
-          early_stopping_rounds(early_stopping_rounds) {
+          early_stopping_rounds(early_stopping_rounds),
+          num_threads(num_threads) {
         rng.seed(123);  // Fixed seed for reproducibility
         initial_prediction = 0.0;
     }

@@ -319,7 +319,6 @@ void ImprovedGBDT::fit(const std::vector<std::vector<double>>& X,
     if (n_samples == 0) return;
     
     n_features = X[0].size();
-    num_threads = omp_get_max_threads();
     
     // Initialize validation tracking
     best_val_score = std::numeric_limits<double>::max();

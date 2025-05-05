@@ -136,14 +136,15 @@ void runBaggingModel(BaggingParams params, DataParams data_params) {
                         std::move(loss_function), params.criteria,
                         params.whichLossFunction, params.useOMP, params.numThreads);
 
-  double score = 0.0;
+  double score_mse = 0.0;
+  double score_mae = 0.0;
   double train_duration_count = 0.0;
   double evaluation_duration_count = 0.0;
 
   trainAndEvaluateModel(bagging_model, data_params.X_train,
                         data_params.rowLength, data_params.y_train,
                         data_params.X_test, data_params.y_test, params.criteria,
-                        score, train_duration_count, evaluation_duration_count,
+                        score_mse, score_mae, train_duration_count, evaluation_duration_count,
                         printMAEorMSE, mpiRank);
 
 #ifdef USE_MPI
@@ -163,7 +164,7 @@ void runBaggingModel(BaggingParams params, DataParams data_params) {
     // Save results
     ModelResults results;
     results.model_name = "Bagging";
-    results.mse_or_mae = score;
+    results.mse_or_mae = score_mae;
     results.training_time = train_duration_count;
     results.evaluation_time = evaluation_duration_count;
     // Save parameters
@@ -223,7 +224,8 @@ void runBoostingModel(BoostingParams params, DataParams data_params) {
     printMAEorMSE = "Boosting Mean Absolute Error (MAE): ";
   }
 
-  double score = 0.0;
+  double score_mse = 0.0;
+  double score_mae = 0.0;
   double train_duration_count = 0.0;
   double eval_duration_count = 0.0;
 
@@ -237,7 +239,7 @@ void runBoostingModel(BoostingParams params, DataParams data_params) {
   trainAndEvaluateModel(boosting_model, data_params.X_train,
                         data_params.rowLength, data_params.y_train,
                         data_params.X_test, data_params.y_test, params.criteria,
-                        score, train_duration_count, eval_duration_count,
+                        score_mse, score_mae, train_duration_count, eval_duration_count,
                         printMAEorMSE, 0);
 
   // Compute and show feature importance
@@ -251,7 +253,7 @@ void runBoostingModel(BoostingParams params, DataParams data_params) {
   // Save results for comparaison
   ModelResults results;
   results.model_name = "Boosting";
-  results.mse_or_mae = score;
+  results.mse_or_mae = score_mse;
   results.training_time = train_duration_count;
   results.evaluation_time = eval_duration_count;
 
@@ -404,19 +406,33 @@ void runAdvGBDTModel(const AdvGBDTParams& params, const DataParams& data_params)
       params.nEstimators,
       params.maxDepth,
       params.learningRate,
-      false,            // Disable DART for stability
-      0.0,              // No dropout
-      0.0,              // No skip
+      params.useDart,            // Disable DART for stability
+      params.dropoutRate,              // No dropout
+      params.skipDropRate,              // No skip
       bin_method,
       params.numBins,
       params.minDataLeaf,
-      0.0,              // L2 regularization - match LightGBM default
+      1.0,              // L2 regularization - match LightGBM default
       0.8,              // Feature sampling ratio for randomization
-      0                 // Early stopping rounds
+      0,                 // Early stopping rounds
+      params.numThreads
   );
   
   // Set OpenMP threads
-  omp_set_num_threads(params.numThreads);
+  //omp_set_num_threads(params.numThreads);
+
+  // Affichage des paramètres
+  std::cout << "[AdvGBDT] Paramètres du modèle:" << std::endl;
+  std::cout << "  n_estimators     = " << params.nEstimators << std::endl;
+  std::cout << "  learning_rate    = " << params.learningRate << std::endl;
+  std::cout << "  max_depth        = " << params.maxDepth << std::endl;
+  std::cout << "  min_data_leaf    = " << params.minDataLeaf << std::endl;
+  std::cout << "  num_bins         = " << params.numBins << std::endl;
+  std::cout << "  use_dart         = " << params.useDart << std::endl;
+  std::cout << "  dropout_rate     = " << params.dropoutRate << std::endl;
+  std::cout << "  skip_drop_rate   = " << params.skipDropRate << std::endl;
+  std::cout << "  binning_method   = " << (params.binMethod == AdvBinMethod::Quantile ? "QUANTILE" : "FREQUENCY") << std::endl;
+  std::cout << "  num_threads      = " << params.numThreads << std::endl;
   
   // Train model
   auto train_start = std::chrono::high_resolution_clock::now();

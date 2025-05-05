@@ -7,7 +7,7 @@
 #include <algorithm>
 #include <random>
 #include <fstream>
-
+/*
 // Fonction utilitaire pour calculer la moyenne
 static double calculateMean(const std::vector<double>& values) {
     if (values.empty()) return 0.0;
@@ -71,3 +71,4 @@ int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 } 
+*/

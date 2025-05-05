@@ -13,7 +13,7 @@ struct DataParams {
     std::vector<double> X_test; 
     std::vector<double> y_test;
     int rowLength;
-    std::string dataPath; // par défaut
+    std::string dataPath = "../datasets/processed/cleaned_data_15k_ga_adaptative.csv"; // par défaut
 };
 
 // ==============================

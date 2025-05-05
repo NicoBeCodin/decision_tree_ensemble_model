@@ -15,6 +15,7 @@
 
 #include "../../functions/tree/decision_tree_single.h"
 #include "../../functions/loss/loss_function.h"
+#include "../../functions/math/math_functions.h"
 
 /**
  * Bagging Class
@@ -54,7 +55,7 @@ public:
      * @param test_labels Test target vector
      * @return (Loss metric MSE or MAE)
      */
-    double evaluate(const std::vector<double>& test_data, int rowLength,  const std::vector<double>& test_labels) const;
+    std::pair<double, double> evaluate(const std::vector<double>& test_data, int rowLength,  const std::vector<double>& test_labels) const;
 
     /**
      * @brief Get the trees in the ensemble

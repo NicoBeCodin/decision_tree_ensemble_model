@@ -334,8 +334,8 @@ bool getLightGBMParams(const ProgramOptions &options,
       out_params.numLeaves = std::stoi(options.flags.at("num_leaves"));
     if (options.flags.count("subsample"))
       out_params.subsample = std::stod(options.flags.at("subsample"));
-    if (options.flags.count("colsampleBytree"))
-      out_params.colsampleBytree = std::stod(options.flags.at("colsampleBytree"));
+    if (options.flags.count("colsample_bytree"))
+      out_params.colsampleBytree = std::stod(options.flags.at("colsample_bytree"));
     return true;
   }
 
@@ -374,8 +374,8 @@ bool getAdvGBDTParams(const ProgramOptions& o, AdvGBDTParams& p) {
       p.learningRate = std::stod(o.flags.at("learning_rate"));
     if (o.flags.count("max_depth"))
       p.maxDepth = std::stoi(o.flags.at("max_depth"));
-    if (o.flags.count("minDataLeaf"))
-      p.minDataLeaf = std::stoul(o.flags.at("minDataLeaf"));
+    if (o.flags.count("min_data_leaf"))
+      p.minDataLeaf = std::stoul(o.flags.at("min_data_leaf"));
     if (o.flags.count("num_bins"))
       p.numBins = std::stoi(o.flags.at("num_bins"));
     if (o.flags.count("use_dart"))

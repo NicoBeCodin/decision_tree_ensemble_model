@@ -152,9 +152,11 @@ std::vector<double> Boosting::predict(const std::vector<double>& X, int rowLengt
  * @param y_test Vector of target labels for test data
  * @return Mean Squared Error (MSE)
  */
-double Boosting::evaluate(const std::vector<double>& X_test, int rowLength, const std::vector<double>& y_test) const {
+std::pair<double, double> Boosting::evaluate(const std::vector<double>& X_test, int rowLength, const std::vector<double>& y_test) const {
     std::vector<double> y_pred = predict(X_test, rowLength);
-    return loss_function->computeLoss(y_test, y_pred);
+    double loss_mse = Math::computeLossMSE(y_test, y_pred);
+    double loss_mae = Math::computeLossMAE(y_test, y_pred);
+    return std::make_pair(loss_mse, loss_mae);
 }
 
 /**

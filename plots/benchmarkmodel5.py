@@ -12,12 +12,14 @@ ROOT_DIR     = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 DATA_DIR     = os.path.join(ROOT_DIR, "datasets", "processed")
 BIN          = os.path.join(ROOT_DIR, "build", "MainEnsemble")
 
-thread_counts      = [1, 2, 4, 6]           # cœurs à tester
+thread_counts      = [1, 2, 3, 4, 5, 6]           # cœurs à tester
 strong_data_file   = "cleaned_data_30k_ga_adaptative.csv"
 data_map = {                                # threads ➜ CSV (weak scaling)
     1: "cleaned_data_5k_ga_adaptative.csv",
     2: "cleaned_data_10k_ga_adaptative.csv",
+    3: "cleaned_data_15k_ga_adaptative.csv",
     4: "cleaned_data_20k_ga_adaptative.csv",
+    5: "cleaned_data_25k_ga_adaptative.csv",
     6: "cleaned_data_30k_ga_adaptative.csv",
 }
 

@@ -322,7 +322,7 @@ double Bagging::predict(const double *sample, int rowLength) const {
  * @param test_labels Target vector of the test set
  * @return Computed loss depending on the specified loss function
  */
-double Bagging::evaluate(const std::vector<double> &test_data, int rowLength,
+std::pair<double, double> Bagging::evaluate(const std::vector<double> &test_data, int rowLength,
                          const std::vector<double> &test_labels) const {
 
   std::vector<double> predictions;
@@ -333,7 +333,9 @@ double Bagging::evaluate(const std::vector<double> &test_data, int rowLength,
     const double *sample_ptr = &test_data[i * rowLength];
     predictions.push_back(predict(sample_ptr, rowLength));
   }
-  return loss_function->computeLoss(test_labels, predictions);
+  double loss_mse = Math::computeLossMSE(test_labels, predictions);
+  double loss_mae = Math::computeLossMAE(test_labels, predictions);
+  return std::make_pair(loss_mse, loss_mae);
 }
 
 /**

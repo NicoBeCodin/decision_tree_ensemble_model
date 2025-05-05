@@ -135,7 +135,6 @@ int main()
             double min_impurity_decrease = 1e-6;
             int criteria = 0;
             int whichLossFunc = 0;
-
             Bagging bagging_model(num_trees, max_depth, min_samples_split, min_impurity_decrease, std::unique_ptr<LeastSquaresLoss>(), criteria, whichLossFunc);
 
             auto train_start = std::chrono::high_resolution_clock::now();
@@ -145,7 +144,7 @@ int main()
             std::cout << "Training time (Bagging): " << train_duration << " seconds\n";
 
             auto eval_start = std::chrono::high_resolution_clock::now();
-            double mse_value = bagging_model.evaluate(X_test, rowLength, y_test);
+            auto [mse_value, mae_value] = bagging_model.evaluate(X_test, rowLength, y_test);
             auto eval_end = std::chrono::high_resolution_clock::now();
             double eval_duration = std::chrono::duration_cast<std::chrono::duration<double>>(eval_end - eval_start).count();
             std::cout << "Evaluation time (Bagging): " << eval_duration << " seconds\n";
@@ -175,7 +174,7 @@ int main()
             std::cout << "Training time: " << train_duration << " seconds\n";
 
             auto eval_start = std::chrono::high_resolution_clock::now();
-            double mse_value = boosting_model.evaluate(X_test, rowLength, y_test);
+            auto [mse_value, mae_value] = boosting_model.evaluate(X_test, rowLength, y_test);
             auto eval_end = std::chrono::high_resolution_clock::now();
             double eval_duration = std::chrono::duration_cast<std::chrono::duration<double>>(eval_end - eval_start).count();
             std::cout << "Evaluation time: " << eval_duration << " seconds\n";

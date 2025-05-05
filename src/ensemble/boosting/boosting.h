@@ -3,6 +3,7 @@
 
 #include "../../functions/tree/decision_tree_single.h"
 #include "../../functions/loss/loss_function.h"
+#include "../../functions/math/math_functions.h"
 #include <algorithm>
 #include <map>
 #include <memory>
@@ -63,7 +64,7 @@ public:
    * @param y_test Test target vector
    * @return Mean error of predictions on the test set
    */
-  double evaluate(const std::vector<double> &X_test, int rowLength,
+  std::pair<double, double> evaluate(const std::vector<double> &X_test, int rowLength,
                   const std::vector<double> &y_test) const;
 
   // New method to access the estimators

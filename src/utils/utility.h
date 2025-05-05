@@ -68,7 +68,7 @@ void trainAndEvaluateModel(ModelType &model, const std::vector<double> &X_train,
                            int rowLength, const std::vector<double> &y_train,
                            const std::vector<double> &X_test,
                            const std::vector<double> &y_test, int criteria,
-                           double &score, double &train_duration_count,
+                           double &score_mse, double &score_mae, double &train_duration_count,
                            double &eval_duration_count, std::string loss_func, int mpiRank) {
 
   if (mpiRank==0){
@@ -90,12 +90,13 @@ void trainAndEvaluateModel(ModelType &model, const std::vector<double> &X_train,
 
     
     auto eval_start = std::chrono::high_resolution_clock::now();
-    score = model.evaluate(X_test, rowLength, y_test);
+    auto [score_mse, score_mae] = model.evaluate(X_test, rowLength, y_test);
     auto eval_end = std::chrono::high_resolution_clock::now();
     eval_duration_count = std::chrono::duration_cast<std::chrono::duration<double>>(eval_end - eval_start).count();
     
     std::cout << "Evaluation time: " << eval_duration_count << " seconds\n";
-    std::cout << "Model score with " << loss_func << " : " << score << "\n";
+    std::cout << "Model score with Mean Squared Error (MSE)" << " : " << score_mse << "\n";
+    std::cout << "Model score with Mean Absolute Error (MAE)" << " : " << score_mae << "\n";
   }
 }
 
