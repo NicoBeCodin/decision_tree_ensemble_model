@@ -9,6 +9,7 @@ bool splitDataset(DataParams& data_params) {
     DataIO data_io;
     
     data_params.rowLength = 0; // Initialize
+    std::cout << "Chargement du fichier: " << data_params.dataPath << std::endl;
     auto [X, y] = data_io.readCSV(data_params.dataPath, data_params.rowLength);
     
     if (X.empty() || y.empty()) {
@@ -17,7 +18,6 @@ bool splitDataset(DataParams& data_params) {
     }
   
     if(mpiRank==0){
-      
           std::cout << "X size : " << X.size() << std::endl;
           std::cout << "y size : " << y.size() << std::endl;
     }

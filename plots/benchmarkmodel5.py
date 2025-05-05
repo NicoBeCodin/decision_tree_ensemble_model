@@ -24,14 +24,14 @@ data_map = {                                # threads ➜ CSV (weak scaling)
 # hyper-paramètres du modèle 5
 param_grid = {
     "n_estimators"    : [200],
-    "max_depth"       : [10],
     "learning_rate"   : [0.1],
-    "min_data_leaf"   : [10],
-    "num_bins"        : [128],
-    "use_dart"        : [0],
-    "dropout_rate"    : [0.1],
-    "skip_drop_rate"  : [0.5],
-    "binning_method"  : [0],
+    "max_depth"       : [10],
+    "min_data_leaf"   : [20],
+    "num_bins"        : [255],
+    "use_dart"        : [1],
+    "dropout_rate"    : [0.5],
+    "skip_drop_rate"  : [0.3],
+    "binning_method"  : [1],
 }
 
 # --------------------------------------------------------------------------

@@ -63,11 +63,38 @@ ProgramOptions parseCommandLineArguments(int argc, char *argv[]) {
         start_index = 3;
       } else if (std::string(argv[2]) == "-l") {
         options.load_request = true;
-        options.path_model_filename = argv[3];
+        if (3 < argc) {                       // sécurise l’accès
+          options.path_model_filename = argv[3];
+        }
+        start_index = 4;                      // ← on saute aussi -l <fichier>
       }
     }
-    for (int i = start_index; i < argc; i++) {
-      options.params.push_back(argv[i]);
+    for (int i = start_index; i < argc; ++i) {
+      std::string arg = argv[i];
+      
+      //------------------------------------------
+      //  --clé=valeur  ou  --clé valeur
+      //------------------------------------------
+      if (arg.rfind("--", 0) == 0) {            // commence par “--”
+        size_t eq = arg.find('=');
+        if (eq != std::string::npos) {        // --key=value
+          std::string key   = arg.substr(2, eq - 2);
+          std::string value = arg.substr(eq + 1);
+          options.flags[key] = value;
+        } else {                              // --key value
+          std::string key = arg.substr(2);
+          if (i + 1 < argc) {
+            options.flags[key] = argv[++i];
+          } else {
+            std::cerr << "Missing value for flag " << key << std::endl;
+          }
+        }
+      } else {
+        //--------------------------------------
+        //  Paramètres positionnels classiques
+        //--------------------------------------
+        options.params.push_back(arg);
+      }
     }
   } else {
     std::cout << "Choose the method you want to use:\n"

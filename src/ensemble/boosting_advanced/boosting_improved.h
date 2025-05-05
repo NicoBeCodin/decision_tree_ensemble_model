@@ -19,6 +19,39 @@
 #define MAX_BINS 2048          
 #define MIN_SAMPLES_FOR_PARALLEL 1000
 
+class MemoryPool {
+    public:
+        MemoryPool() = default;
+        ~MemoryPool() = default;
+    
+        void init(std::size_t max_vectors, std::size_t /*max_samples*/) {
+            next_ = 0;
+            pool_.clear();
+            pool_.reserve(max_vectors);
+            for (std::size_t i = 0; i < max_vectors; ++i)
+                pool_.emplace_back(std::make_unique<std::vector<int>>());
+        }
+    
+        std::vector<int>& get_vector() {
+            if (next_ >= pool_.size()) {
+                static std::vector<int> dummy;
+                dummy.clear();
+                return dummy; // fallback
+            }
+            auto* v = pool_[next_++].get();
+            v->clear();
+            return *v;
+        }
+    
+        void reset() {
+            next_ = 0;
+        }
+    
+    private:
+        std::vector<std::unique_ptr<std::vector<int>>> pool_;
+        std::size_t next_ = 0;
+    };
+
 class ImprovedGBDT {
 public:
     // Binning method enum
@@ -84,6 +117,15 @@ public:
             freeTree(tree.root);
         }
     }
+    
+    // Histogram entry with cache line alignment
+    struct alignas(64) HistogramEntry {
+        double grad_sum;
+        double hess_sum;
+        int count;
+        HistogramEntry() : grad_sum(0.0), hess_sum(0.0), count(0) {}
+    };
+
 
     // Core training method
     void fit(const std::vector<std::vector<double>>& X, 
@@ -127,6 +169,7 @@ private:
     double l2_reg;         // Configurable L2 regularization
     double feature_sample_ratio; // Feature sampling ratio
     int early_stopping_rounds;  // Early stopping rounds
+    MemoryPool memory_pool;
     
     // Model state
     double initial_prediction;
@@ -152,53 +195,6 @@ private:
     };
     FeatureBinCache bin_cache;
     
-    // Histogram entry with cache line alignment
-    struct alignas(64) HistogramEntry {
-        double grad_sum;
-        double hess_sum;
-        int count;
-        HistogramEntry() : grad_sum(0.0), hess_sum(0.0), count(0) {}
-    };
-    
-    // Memory pool for efficient allocation
-    struct MemoryPool {
-        std::vector<std::vector<int>> index_vectors;
-        size_t current_index = 0;
-        
-        void init(int n_vectors, int capacity) {
-            // Start with a reasonable number of vectors
-            index_vectors.resize(std::max(32, n_vectors));
-            for (auto& vec : index_vectors) {
-                vec.reserve(capacity);
-            }
-            current_index = 0;
-        }
-        
-        std::vector<int>& get_vector() {
-            if (current_index >= index_vectors.size()) {
-                // Double the size of the pool when needed
-                size_t old_size = index_vectors.size();
-                index_vectors.resize(old_size * 2);
-                for (size_t i = old_size; i < index_vectors.size(); ++i) {
-                    index_vectors[i].reserve(index_vectors[0].capacity());
-                }
-            }
-            
-            // Get next vector and clear it
-            std::vector<int>& result = index_vectors[current_index];
-            result.clear();
-            ++current_index;
-            
-            return result;
-        }
-        
-        void reset() {
-            // Don't actually resize the vector pool, just reset the index
-            current_index = 0;
-        }
-    };
-    MemoryPool memory_pool;
-
     // Recursive tree building methods
     Node* buildTreeRecursive(
         const std::vector<std::vector<double>>& X, 
@@ -219,7 +215,7 @@ private:
         int depth,
         double sum_gradients,
         double sum_hessians,
-        const std::vector<std::vector<HistogramEntry>>* parent_hist = nullptr);
+        std::shared_ptr<const std::vector<std::vector<HistogramEntry>>> parent_hist = nullptr);
     
     // Get bin index, optimized for inlining
     inline int getBinIndex(double value, int feature_idx, int sample_idx = -1) const {
