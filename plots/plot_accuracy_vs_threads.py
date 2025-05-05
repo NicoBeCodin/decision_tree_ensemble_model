@@ -17,7 +17,7 @@ import numpy as np
 from pathlib import Path         
 import matplotlib.ticker as mt
 
-df = pd.read_csv("adv_gbdt_scaling.csv")
+df = pd.read_csv("scaling_results_all2.csv")
 outdir = Path("figures")
 outdir.mkdir(exist_ok=True)
 

@@ -32,17 +32,17 @@ thread_counts = [1, 2, 3, 4, 5, 6]
 
 # pour Bagging (2) et Boosting (3) on teste MSE *et* MAE
 param_template = {
-    1: {"max_depth": [10]},                           # DecisionTree
-    2: {"n_estimators": [200], "max_depth": [10],     # Bagging
+    1: {"max_depth": [6]},                           # DecisionTree
+    2: {"n_estimators": [200], "max_depth": [6],     # Bagging
         "criteria":            [0],                #   0=MSE  1=MAE
         "which_loss_function": [0]},               #   idem
-    3: {"n_estimators": [200], "max_depth": [10],     # Boosting
+    3: {"n_estimators": [200], "max_depth": [6],     # Boosting
         "learning_rate":       [0.1],
         "criteria":            [0],
         "which_loss_function": [0]},
-    4: {"n_estimators": [200], "learning_rate": [0.1], "max_depth": [10],
+    4: {"n_estimators": [200], "learning_rate": [0.1], "max_depth": [6],
         "num_leaves": [31], "subsample": [0.8], "colsample_bytree": [0.8]},
-    5: {"n_estimators": [200], "learning_rate": [0.1], "max_depth": [10],
+    5: {"n_estimators": [200], "learning_rate": [0.1], "max_depth": [6],
         "min_data_leaf": [20], "num_bins": [255], "use_dart": [1],
         "dropout_rate": [0.5], "skip_drop_rate": [0.3], "binning_method": [1]
     },
@@ -144,6 +144,6 @@ for scaling in ["strong", "weak"]:
                     })
 
 # ---------- export ----------
-out_csv = "scaling_results_all.csv"
+out_csv = "scaling_results_all2.csv"
 pd.DataFrame(results).to_csv(out_csv, index=False)
 print(f"\n✔︎ Bench terminé – résultats dans {out_csv}")

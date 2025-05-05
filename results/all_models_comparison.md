@@ -29984,3 +29984,19058 @@ Feature importance not available for this model.
 
 ---
 
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.259e-310
+- Training Time: 7.519 seconds
+- Evaluation Time: 0.025 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 10.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 6.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 10.58%
+- matrix_size_y: 1.13%
+- p1: 7.25%
+- p2: 0.43%
+- p3: 36.91%
+- p4: 22.88%
+- p5: 5.88%
+- p6: 6.64%
+- p7: 4.00%
+- p8: 4.31%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.017e-310
+- Training Time: 7.770 seconds
+- Evaluation Time: 0.022 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 10.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 1.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 10.58%
+- matrix_size_y: 1.13%
+- p1: 7.25%
+- p2: 0.43%
+- p3: 36.91%
+- p4: 22.88%
+- p5: 5.88%
+- p6: 6.64%
+- p7: 4.00%
+- p8: 4.31%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.780e-310
+- Training Time: 4.726 seconds
+- Evaluation Time: 0.151 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.42%
+- matrix_size_y: 0.34%
+- p1: 9.63%
+- p2: 0.24%
+- p3: 70.23%
+- p4: 5.47%
+- p5: 4.59%
+- p6: 2.19%
+- p7: 0.48%
+- p8: 1.40%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.842e-310
+- Training Time: 4.917 seconds
+- Evaluation Time: 0.140 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.14%
+- matrix_size_y: 0.35%
+- p1: 9.79%
+- p2: 0.27%
+- p3: 70.29%
+- p4: 5.27%
+- p5: 4.64%
+- p6: 2.32%
+- p7: 0.61%
+- p8: 1.33%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.370e-310
+- Training Time: 2.235 seconds
+- Evaluation Time: 0.016 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 60.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 20.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 2.03%
+- matrix_size_y: 0.61%
+- p1: 3.24%
+- p2: 0.40%
+- p3: 74.93%
+- p4: 6.01%
+- p5: 1.47%
+- p6: 9.15%
+- p7: 1.07%
+- p8: 1.09%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.064e-310
+- Training Time: 2.232 seconds
+- Evaluation Time: 0.012 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 60.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 20.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.48%
+- matrix_size_y: 0.51%
+- p1: 2.67%
+- p2: 0.64%
+- p3: 76.90%
+- p4: 6.69%
+- p5: 1.52%
+- p6: 7.00%
+- p7: 0.84%
+- p8: 1.76%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.214e-310
+- Training Time: 0.433 seconds
+- Evaluation Time: 0.002 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 60.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 20.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.49%
+- matrix_size_y: 0.59%
+- p1: 3.29%
+- p2: 0.36%
+- p3: 77.39%
+- p4: 7.66%
+- p5: 2.04%
+- p6: 5.14%
+- p7: 0.94%
+- p8: 1.11%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.796e-310
+- Training Time: 0.619 seconds
+- Evaluation Time: 0.002 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 60.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 20.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.40%
+- matrix_size_y: 0.49%
+- p1: 4.26%
+- p2: 0.55%
+- p3: 74.52%
+- p4: 5.09%
+- p5: 1.59%
+- p6: 9.49%
+- p7: 1.18%
+- p8: 1.43%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.421e-310
+- Training Time: 0.583 seconds
+- Evaluation Time: 0.002 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 60.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 20.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.54%
+- matrix_size_y: 0.57%
+- p1: 3.65%
+- p2: 0.51%
+- p3: 76.41%
+- p4: 6.17%
+- p5: 1.44%
+- p6: 7.33%
+- p7: 1.23%
+- p8: 1.15%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.978e-310
+- Training Time: 3.859 seconds
+- Evaluation Time: 0.017 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 60.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 20.000
+- num_threads: 1.000
+- use_omp: 0.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.67%
+- matrix_size_y: 0.48%
+- p1: 9.55%
+- p2: 0.46%
+- p3: 67.98%
+- p4: 5.52%
+- p5: 5.74%
+- p6: 2.34%
+- p7: 0.72%
+- p8: 1.53%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.233e-310
+- Training Time: 3.861 seconds
+- Evaluation Time: 0.017 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 60.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 20.000
+- num_threads: 1.000
+- use_omp: 0.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.51%
+- matrix_size_y: 0.55%
+- p1: 9.77%
+- p2: 0.44%
+- p3: 68.02%
+- p4: 5.63%
+- p5: 4.48%
+- p6: 2.90%
+- p7: 0.87%
+- p8: 1.83%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.795e-310
+- Training Time: 3.864 seconds
+- Evaluation Time: 0.017 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 60.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 20.000
+- num_threads: 1.000
+- use_omp: 0.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.63%
+- matrix_size_y: 0.62%
+- p1: 9.77%
+- p2: 0.45%
+- p3: 67.86%
+- p4: 5.58%
+- p5: 4.42%
+- p6: 2.86%
+- p7: 0.88%
+- p8: 1.93%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.836e-310
+- Training Time: 4.742 seconds
+- Evaluation Time: 0.020 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 60.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 20.000
+- num_threads: 1.000
+- use_omp: 0.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 6.37%
+- matrix_size_y: 0.62%
+- p1: 9.52%
+- p2: 0.45%
+- p3: 67.73%
+- p4: 6.17%
+- p5: 4.14%
+- p6: 2.53%
+- p7: 0.91%
+- p8: 1.55%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.481e-310
+- Training Time: 4.761 seconds
+- Evaluation Time: 0.016 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 60.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 20.000
+- num_threads: 1.000
+- use_omp: 0.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.46%
+- matrix_size_y: 0.47%
+- p1: 9.79%
+- p2: 0.52%
+- p3: 68.45%
+- p4: 6.09%
+- p5: 4.96%
+- p6: 2.12%
+- p7: 0.80%
+- p8: 1.34%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.905e-310
+- Training Time: 27.607 seconds
+- Evaluation Time: 0.125 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.38%
+- matrix_size_y: 0.37%
+- p1: 9.85%
+- p2: 0.23%
+- p3: 70.21%
+- p4: 5.35%
+- p5: 4.11%
+- p6: 2.44%
+- p7: 0.64%
+- p8: 1.41%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.866e-310
+- Training Time: 27.594 seconds
+- Evaluation Time: 0.112 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.38%
+- matrix_size_y: 0.40%
+- p1: 10.02%
+- p2: 0.26%
+- p3: 69.88%
+- p4: 5.20%
+- p5: 4.18%
+- p6: 2.71%
+- p7: 0.57%
+- p8: 1.40%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.237e-310
+- Training Time: 27.536 seconds
+- Evaluation Time: 0.114 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.49%
+- matrix_size_y: 0.34%
+- p1: 9.77%
+- p2: 0.21%
+- p3: 70.41%
+- p4: 5.44%
+- p5: 4.45%
+- p6: 2.09%
+- p7: 0.54%
+- p8: 1.27%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.850e-310
+- Training Time: 14.114 seconds
+- Evaluation Time: 0.125 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.48%
+- matrix_size_y: 0.35%
+- p1: 9.63%
+- p2: 0.23%
+- p3: 70.41%
+- p4: 5.34%
+- p5: 4.01%
+- p6: 2.69%
+- p7: 0.65%
+- p8: 1.21%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.919e-310
+- Training Time: 14.378 seconds
+- Evaluation Time: 0.125 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.63%
+- matrix_size_y: 0.37%
+- p1: 9.99%
+- p2: 0.25%
+- p3: 70.25%
+- p4: 5.28%
+- p5: 3.83%
+- p6: 2.61%
+- p7: 0.61%
+- p8: 1.17%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.321e-310
+- Training Time: 14.377 seconds
+- Evaluation Time: 0.126 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.21%
+- matrix_size_y: 0.38%
+- p1: 9.93%
+- p2: 0.26%
+- p3: 70.19%
+- p4: 5.50%
+- p5: 4.35%
+- p6: 2.40%
+- p7: 0.53%
+- p8: 1.25%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.361e-310
+- Training Time: 9.760 seconds
+- Evaluation Time: 0.133 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.31%
+- matrix_size_y: 0.36%
+- p1: 9.49%
+- p2: 0.23%
+- p3: 70.59%
+- p4: 5.55%
+- p5: 4.34%
+- p6: 2.32%
+- p7: 0.54%
+- p8: 1.26%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.436e-310
+- Training Time: 9.573 seconds
+- Evaluation Time: 0.132 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.36%
+- matrix_size_y: 0.39%
+- p1: 9.70%
+- p2: 0.24%
+- p3: 70.65%
+- p4: 5.42%
+- p5: 4.08%
+- p6: 2.34%
+- p7: 0.56%
+- p8: 1.27%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.035e-310
+- Training Time: 10.501 seconds
+- Evaluation Time: 0.133 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.44%
+- matrix_size_y: 0.38%
+- p1: 9.82%
+- p2: 0.22%
+- p3: 69.88%
+- p4: 5.43%
+- p5: 4.47%
+- p6: 2.48%
+- p7: 0.64%
+- p8: 1.23%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.157e-310
+- Training Time: 9.178 seconds
+- Evaluation Time: 0.149 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.55%
+- matrix_size_y: 0.32%
+- p1: 10.12%
+- p2: 0.24%
+- p3: 69.89%
+- p4: 5.11%
+- p5: 4.41%
+- p6: 2.38%
+- p7: 0.72%
+- p8: 1.25%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.177e-310
+- Training Time: 8.966 seconds
+- Evaluation Time: 0.148 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.13%
+- matrix_size_y: 0.35%
+- p1: 10.17%
+- p2: 0.26%
+- p3: 69.96%
+- p4: 5.24%
+- p5: 4.62%
+- p6: 2.30%
+- p7: 0.57%
+- p8: 1.40%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.037e-310
+- Training Time: 9.100 seconds
+- Evaluation Time: 0.147 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.58%
+- matrix_size_y: 0.40%
+- p1: 9.73%
+- p2: 0.20%
+- p3: 70.02%
+- p4: 5.42%
+- p5: 4.27%
+- p6: 2.61%
+- p7: 0.57%
+- p8: 1.20%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.962e-310
+- Training Time: 8.125 seconds
+- Evaluation Time: 0.150 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.31%
+- matrix_size_y: 0.40%
+- p1: 9.84%
+- p2: 0.25%
+- p3: 70.10%
+- p4: 5.39%
+- p5: 4.37%
+- p6: 2.40%
+- p7: 0.62%
+- p8: 1.33%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.144e-310
+- Training Time: 8.307 seconds
+- Evaluation Time: 0.151 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.33%
+- matrix_size_y: 0.38%
+- p1: 9.88%
+- p2: 0.21%
+- p3: 69.78%
+- p4: 5.30%
+- p5: 4.73%
+- p6: 2.48%
+- p7: 0.58%
+- p8: 1.32%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.988e-310
+- Training Time: 8.537 seconds
+- Evaluation Time: 0.151 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.45%
+- matrix_size_y: 0.35%
+- p1: 9.96%
+- p2: 0.24%
+- p3: 70.30%
+- p4: 5.26%
+- p5: 4.38%
+- p6: 2.26%
+- p7: 0.54%
+- p8: 1.25%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.428e-310
+- Training Time: 8.651 seconds
+- Evaluation Time: 0.151 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.43%
+- matrix_size_y: 0.36%
+- p1: 10.00%
+- p2: 0.21%
+- p3: 70.21%
+- p4: 5.43%
+- p5: 4.33%
+- p6: 2.22%
+- p7: 0.48%
+- p8: 1.33%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.042e-310
+- Training Time: 8.708 seconds
+- Evaluation Time: 0.150 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.52%
+- matrix_size_y: 0.36%
+- p1: 9.77%
+- p2: 0.27%
+- p3: 70.39%
+- p4: 5.34%
+- p5: 4.23%
+- p6: 2.28%
+- p7: 0.66%
+- p8: 1.17%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.438e-310
+- Training Time: 8.838 seconds
+- Evaluation Time: 0.156 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.23%
+- matrix_size_y: 0.34%
+- p1: 9.81%
+- p2: 0.25%
+- p3: 70.15%
+- p4: 5.22%
+- p5: 4.60%
+- p6: 2.44%
+- p7: 0.60%
+- p8: 1.35%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.065e-310
+- Training Time: 27.835 seconds
+- Evaluation Time: 0.099 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.39%
+- matrix_size_y: 0.33%
+- p1: 9.94%
+- p2: 0.23%
+- p3: 70.12%
+- p4: 5.28%
+- p5: 4.52%
+- p6: 2.43%
+- p7: 0.56%
+- p8: 1.20%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.431e-310
+- Training Time: 27.862 seconds
+- Evaluation Time: 0.098 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.58%
+- matrix_size_y: 0.37%
+- p1: 9.74%
+- p2: 0.24%
+- p3: 69.81%
+- p4: 5.39%
+- p5: 4.43%
+- p6: 2.57%
+- p7: 0.53%
+- p8: 1.35%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.960e-310
+- Training Time: 27.864 seconds
+- Evaluation Time: 0.098 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.49%
+- matrix_size_y: 0.33%
+- p1: 9.69%
+- p2: 0.25%
+- p3: 70.15%
+- p4: 5.63%
+- p5: 4.18%
+- p6: 2.32%
+- p7: 0.69%
+- p8: 1.26%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.068e-310
+- Training Time: 16.487 seconds
+- Evaluation Time: 0.113 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.24%
+- matrix_size_y: 0.38%
+- p1: 9.97%
+- p2: 0.23%
+- p3: 70.45%
+- p4: 5.41%
+- p5: 4.09%
+- p6: 2.38%
+- p7: 0.50%
+- p8: 1.34%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.384e-310
+- Training Time: 16.354 seconds
+- Evaluation Time: 0.107 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.35%
+- matrix_size_y: 0.40%
+- p1: 9.85%
+- p2: 0.23%
+- p3: 70.22%
+- p4: 5.38%
+- p5: 4.32%
+- p6: 2.37%
+- p7: 0.59%
+- p8: 1.27%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.405e-310
+- Training Time: 16.058 seconds
+- Evaluation Time: 0.057 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.12%
+- matrix_size_y: 0.36%
+- p1: 9.82%
+- p2: 0.22%
+- p3: 70.44%
+- p4: 5.47%
+- p5: 4.42%
+- p6: 2.20%
+- p7: 0.58%
+- p8: 1.37%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.694e-310
+- Training Time: 9.928 seconds
+- Evaluation Time: 0.061 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.43%
+- matrix_size_y: 0.35%
+- p1: 9.85%
+- p2: 0.25%
+- p3: 70.36%
+- p4: 5.18%
+- p5: 4.37%
+- p6: 2.45%
+- p7: 0.57%
+- p8: 1.20%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.954e-310
+- Training Time: 9.986 seconds
+- Evaluation Time: 0.113 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.23%
+- matrix_size_y: 0.35%
+- p1: 9.68%
+- p2: 0.24%
+- p3: 69.95%
+- p4: 5.42%
+- p5: 4.78%
+- p6: 2.33%
+- p7: 0.68%
+- p8: 1.35%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.798e-310
+- Training Time: 9.558 seconds
+- Evaluation Time: 0.063 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.68%
+- matrix_size_y: 0.27%
+- p1: 9.84%
+- p2: 0.24%
+- p3: 69.97%
+- p4: 5.29%
+- p5: 4.19%
+- p6: 2.71%
+- p7: 0.66%
+- p8: 1.14%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.856e-310
+- Training Time: 8.821 seconds
+- Evaluation Time: 0.119 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.33%
+- matrix_size_y: 0.33%
+- p1: 9.88%
+- p2: 0.28%
+- p3: 70.30%
+- p4: 5.40%
+- p5: 4.30%
+- p6: 2.37%
+- p7: 0.58%
+- p8: 1.22%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.242e-310
+- Training Time: 8.779 seconds
+- Evaluation Time: 0.122 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.40%
+- matrix_size_y: 0.35%
+- p1: 9.96%
+- p2: 0.24%
+- p3: 70.10%
+- p4: 5.22%
+- p5: 4.25%
+- p6: 2.52%
+- p7: 0.56%
+- p8: 1.40%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.099e-310
+- Training Time: 8.630 seconds
+- Evaluation Time: 0.121 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.60%
+- matrix_size_y: 0.34%
+- p1: 9.79%
+- p2: 0.23%
+- p3: 70.65%
+- p4: 5.14%
+- p5: 4.27%
+- p6: 2.26%
+- p7: 0.50%
+- p8: 1.21%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.103e-310
+- Training Time: 7.880 seconds
+- Evaluation Time: 0.127 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.62%
+- matrix_size_y: 0.32%
+- p1: 9.79%
+- p2: 0.24%
+- p3: 70.24%
+- p4: 5.14%
+- p5: 4.31%
+- p6: 2.40%
+- p7: 0.66%
+- p8: 1.28%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.812e-310
+- Training Time: 8.000 seconds
+- Evaluation Time: 0.123 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.23%
+- matrix_size_y: 0.30%
+- p1: 10.09%
+- p2: 0.23%
+- p3: 70.06%
+- p4: 5.29%
+- p5: 4.45%
+- p6: 2.62%
+- p7: 0.61%
+- p8: 1.12%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.811e-310
+- Training Time: 7.641 seconds
+- Evaluation Time: 0.119 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.31%
+- matrix_size_y: 0.40%
+- p1: 9.90%
+- p2: 0.22%
+- p3: 70.09%
+- p4: 5.32%
+- p5: 4.31%
+- p6: 2.54%
+- p7: 0.59%
+- p8: 1.34%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.863e-310
+- Training Time: 7.557 seconds
+- Evaluation Time: 0.447 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.50%
+- matrix_size_y: 0.40%
+- p1: 9.93%
+- p2: 0.22%
+- p3: 70.25%
+- p4: 5.27%
+- p5: 4.13%
+- p6: 2.52%
+- p7: 0.54%
+- p8: 1.25%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.859e-310
+- Training Time: 7.627 seconds
+- Evaluation Time: 0.129 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.31%
+- matrix_size_y: 0.33%
+- p1: 9.79%
+- p2: 0.22%
+- p3: 70.25%
+- p4: 5.39%
+- p5: 4.32%
+- p6: 2.51%
+- p7: 0.59%
+- p8: 1.29%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.776e-310
+- Training Time: 8.363 seconds
+- Evaluation Time: 0.111 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.12%
+- matrix_size_y: 0.36%
+- p1: 10.25%
+- p2: 0.24%
+- p3: 69.98%
+- p4: 5.15%
+- p5: 4.64%
+- p6: 2.41%
+- p7: 0.59%
+- p8: 1.27%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.691e-310
+- Training Time: 28.022 seconds
+- Evaluation Time: 0.095 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.56%
+- matrix_size_y: 0.35%
+- p1: 9.79%
+- p2: 0.23%
+- p3: 69.94%
+- p4: 5.24%
+- p5: 4.49%
+- p6: 2.46%
+- p7: 0.62%
+- p8: 1.32%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.664e-310
+- Training Time: 28.046 seconds
+- Evaluation Time: 0.087 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.61%
+- matrix_size_y: 0.33%
+- p1: 9.84%
+- p2: 0.26%
+- p3: 69.92%
+- p4: 5.16%
+- p5: 4.56%
+- p6: 2.52%
+- p7: 0.61%
+- p8: 1.18%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.316e-310
+- Training Time: 28.249 seconds
+- Evaluation Time: 0.088 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.33%
+- matrix_size_y: 0.40%
+- p1: 9.53%
+- p2: 0.22%
+- p3: 70.45%
+- p4: 5.49%
+- p5: 4.61%
+- p6: 2.22%
+- p7: 0.52%
+- p8: 1.23%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.803e-310
+- Training Time: 16.675 seconds
+- Evaluation Time: 0.090 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.23%
+- matrix_size_y: 0.36%
+- p1: 9.81%
+- p2: 0.20%
+- p3: 70.59%
+- p4: 5.18%
+- p5: 4.58%
+- p6: 2.24%
+- p7: 0.59%
+- p8: 1.21%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.839e-310
+- Training Time: 16.977 seconds
+- Evaluation Time: 0.073 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.41%
+- matrix_size_y: 0.38%
+- p1: 9.56%
+- p2: 0.25%
+- p3: 70.51%
+- p4: 5.50%
+- p5: 4.24%
+- p6: 2.32%
+- p7: 0.63%
+- p8: 1.20%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.159e-310
+- Training Time: 17.244 seconds
+- Evaluation Time: 0.076 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.51%
+- matrix_size_y: 0.36%
+- p1: 9.79%
+- p2: 0.22%
+- p3: 70.48%
+- p4: 5.33%
+- p5: 3.98%
+- p6: 2.50%
+- p7: 0.62%
+- p8: 1.22%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.780e-310
+- Training Time: 9.351 seconds
+- Evaluation Time: 0.041 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.41%
+- matrix_size_y: 0.35%
+- p1: 9.80%
+- p2: 0.23%
+- p3: 69.99%
+- p4: 5.68%
+- p5: 4.31%
+- p6: 2.46%
+- p7: 0.53%
+- p8: 1.24%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.289e-310
+- Training Time: 9.624 seconds
+- Evaluation Time: 0.104 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.41%
+- matrix_size_y: 0.35%
+- p1: 9.76%
+- p2: 0.25%
+- p3: 70.31%
+- p4: 5.09%
+- p5: 4.43%
+- p6: 2.52%
+- p7: 0.64%
+- p8: 1.24%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.264e-310
+- Training Time: 9.408 seconds
+- Evaluation Time: 0.104 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.50%
+- matrix_size_y: 0.40%
+- p1: 9.92%
+- p2: 0.21%
+- p3: 70.17%
+- p4: 5.26%
+- p5: 4.25%
+- p6: 2.50%
+- p7: 0.54%
+- p8: 1.24%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.182e-310
+- Training Time: 8.722 seconds
+- Evaluation Time: 0.120 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.59%
+- matrix_size_y: 0.32%
+- p1: 10.21%
+- p2: 0.24%
+- p3: 69.92%
+- p4: 5.15%
+- p5: 4.24%
+- p6: 2.51%
+- p7: 0.63%
+- p8: 1.18%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.144e-310
+- Training Time: 8.719 seconds
+- Evaluation Time: 0.106 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.55%
+- matrix_size_y: 0.31%
+- p1: 9.90%
+- p2: 0.24%
+- p3: 69.89%
+- p4: 5.42%
+- p5: 4.23%
+- p6: 2.53%
+- p7: 0.64%
+- p8: 1.29%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.014e-310
+- Training Time: 8.900 seconds
+- Evaluation Time: 0.115 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.31%
+- matrix_size_y: 0.39%
+- p1: 9.81%
+- p2: 0.25%
+- p3: 70.05%
+- p4: 5.33%
+- p5: 4.41%
+- p6: 2.52%
+- p7: 0.58%
+- p8: 1.35%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.308e-310
+- Training Time: 7.039 seconds
+- Evaluation Time: 0.057 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.39%
+- matrix_size_y: 0.35%
+- p1: 9.92%
+- p2: 0.22%
+- p3: 70.39%
+- p4: 5.61%
+- p5: 4.02%
+- p6: 2.21%
+- p7: 0.55%
+- p8: 1.34%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.157e-310
+- Training Time: 7.786 seconds
+- Evaluation Time: 0.118 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.22%
+- matrix_size_y: 0.38%
+- p1: 9.92%
+- p2: 0.24%
+- p3: 70.30%
+- p4: 5.35%
+- p5: 4.52%
+- p6: 2.29%
+- p7: 0.54%
+- p8: 1.24%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.313e-310
+- Training Time: 6.819 seconds
+- Evaluation Time: 0.089 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.44%
+- matrix_size_y: 0.34%
+- p1: 9.86%
+- p2: 0.21%
+- p3: 70.15%
+- p4: 5.30%
+- p5: 4.45%
+- p6: 2.35%
+- p7: 0.54%
+- p8: 1.37%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.932e-310
+- Training Time: 7.765 seconds
+- Evaluation Time: 0.118 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.54%
+- matrix_size_y: 0.39%
+- p1: 9.78%
+- p2: 0.23%
+- p3: 70.51%
+- p4: 5.44%
+- p5: 4.11%
+- p6: 2.17%
+- p7: 0.60%
+- p8: 1.20%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.894e-310
+- Training Time: 8.438 seconds
+- Evaluation Time: 0.098 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.81%
+- matrix_size_y: 0.39%
+- p1: 9.92%
+- p2: 0.24%
+- p3: 70.14%
+- p4: 5.11%
+- p5: 4.35%
+- p6: 2.23%
+- p7: 0.53%
+- p8: 1.26%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.113e-310
+- Training Time: 7.840 seconds
+- Evaluation Time: 0.217 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.49%
+- matrix_size_y: 0.36%
+- p1: 9.87%
+- p2: 0.25%
+- p3: 70.06%
+- p4: 5.43%
+- p5: 4.24%
+- p6: 2.42%
+- p7: 0.55%
+- p8: 1.32%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.492e-310
+- Training Time: 28.075 seconds
+- Evaluation Time: 0.089 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.31%
+- matrix_size_y: 0.33%
+- p1: 9.86%
+- p2: 0.24%
+- p3: 70.45%
+- p4: 5.37%
+- p5: 4.32%
+- p6: 2.20%
+- p7: 0.66%
+- p8: 1.25%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.193e-310
+- Training Time: 28.020 seconds
+- Evaluation Time: 0.083 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.36%
+- matrix_size_y: 0.28%
+- p1: 9.92%
+- p2: 0.20%
+- p3: 70.07%
+- p4: 5.26%
+- p5: 4.27%
+- p6: 2.74%
+- p7: 0.62%
+- p8: 1.28%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.174e-310
+- Training Time: 27.992 seconds
+- Evaluation Time: 0.095 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.33%
+- matrix_size_y: 0.34%
+- p1: 9.63%
+- p2: 0.25%
+- p3: 70.59%
+- p4: 5.52%
+- p5: 4.26%
+- p6: 2.24%
+- p7: 0.55%
+- p8: 1.30%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.385e-310
+- Training Time: 17.588 seconds
+- Evaluation Time: 0.094 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.45%
+- matrix_size_y: 0.34%
+- p1: 9.98%
+- p2: 0.22%
+- p3: 69.97%
+- p4: 5.54%
+- p5: 4.17%
+- p6: 2.50%
+- p7: 0.60%
+- p8: 1.23%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.883e-310
+- Training Time: 17.252 seconds
+- Evaluation Time: 0.047 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.39%
+- matrix_size_y: 0.31%
+- p1: 10.01%
+- p2: 0.25%
+- p3: 70.01%
+- p4: 5.43%
+- p5: 4.21%
+- p6: 2.45%
+- p7: 0.69%
+- p8: 1.24%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.684e-310
+- Training Time: 17.351 seconds
+- Evaluation Time: 0.024 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.48%
+- matrix_size_y: 0.37%
+- p1: 9.65%
+- p2: 0.27%
+- p3: 70.41%
+- p4: 5.41%
+- p5: 4.16%
+- p6: 2.42%
+- p7: 0.66%
+- p8: 1.18%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.944e-310
+- Training Time: 9.406 seconds
+- Evaluation Time: 0.102 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.42%
+- matrix_size_y: 0.36%
+- p1: 9.92%
+- p2: 0.23%
+- p3: 70.07%
+- p4: 5.16%
+- p5: 4.38%
+- p6: 2.47%
+- p7: 0.59%
+- p8: 1.40%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.354e-310
+- Training Time: 9.926 seconds
+- Evaluation Time: 0.091 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.34%
+- matrix_size_y: 0.34%
+- p1: 9.84%
+- p2: 0.22%
+- p3: 70.51%
+- p4: 5.40%
+- p5: 4.20%
+- p6: 2.22%
+- p7: 0.60%
+- p8: 1.32%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.866e-310
+- Training Time: 9.943 seconds
+- Evaluation Time: 0.073 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.42%
+- matrix_size_y: 0.40%
+- p1: 9.63%
+- p2: 0.22%
+- p3: 70.20%
+- p4: 5.41%
+- p5: 4.43%
+- p6: 2.52%
+- p7: 0.53%
+- p8: 1.24%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.067e-310
+- Training Time: 8.870 seconds
+- Evaluation Time: 0.098 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.32%
+- matrix_size_y: 0.33%
+- p1: 10.19%
+- p2: 0.24%
+- p3: 70.10%
+- p4: 4.98%
+- p5: 4.65%
+- p6: 2.32%
+- p7: 0.62%
+- p8: 1.24%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.127e-310
+- Training Time: 9.098 seconds
+- Evaluation Time: 0.078 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.37%
+- matrix_size_y: 0.35%
+- p1: 9.84%
+- p2: 0.20%
+- p3: 70.32%
+- p4: 5.33%
+- p5: 4.28%
+- p6: 2.41%
+- p7: 0.56%
+- p8: 1.34%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.719e-310
+- Training Time: 9.078 seconds
+- Evaluation Time: 0.105 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.35%
+- matrix_size_y: 0.38%
+- p1: 9.80%
+- p2: 0.23%
+- p3: 70.73%
+- p4: 5.29%
+- p5: 4.30%
+- p6: 2.20%
+- p7: 0.55%
+- p8: 1.17%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.323e-310
+- Training Time: 7.568 seconds
+- Evaluation Time: 0.097 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.38%
+- matrix_size_y: 0.36%
+- p1: 9.98%
+- p2: 0.21%
+- p3: 70.35%
+- p4: 5.31%
+- p5: 4.37%
+- p6: 2.13%
+- p7: 0.59%
+- p8: 1.33%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.909e-310
+- Training Time: 6.810 seconds
+- Evaluation Time: 0.097 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.36%
+- matrix_size_y: 0.33%
+- p1: 9.77%
+- p2: 0.25%
+- p3: 70.59%
+- p4: 5.47%
+- p5: 4.16%
+- p6: 2.23%
+- p7: 0.58%
+- p8: 1.24%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.353e-310
+- Training Time: 7.325 seconds
+- Evaluation Time: 0.102 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.41%
+- matrix_size_y: 0.35%
+- p1: 10.01%
+- p2: 0.25%
+- p3: 70.44%
+- p4: 5.17%
+- p5: 4.20%
+- p6: 2.38%
+- p7: 0.53%
+- p8: 1.26%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.238e-310
+- Training Time: 7.731 seconds
+- Evaluation Time: 0.245 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.53%
+- matrix_size_y: 0.31%
+- p1: 9.98%
+- p2: 0.23%
+- p3: 70.36%
+- p4: 5.29%
+- p5: 4.07%
+- p6: 2.40%
+- p7: 0.62%
+- p8: 1.21%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.810e-310
+- Training Time: 8.289 seconds
+- Evaluation Time: 0.065 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.67%
+- matrix_size_y: 0.40%
+- p1: 9.89%
+- p2: 0.24%
+- p3: 70.41%
+- p4: 5.18%
+- p5: 4.28%
+- p6: 2.14%
+- p7: 0.49%
+- p8: 1.30%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.996e-310
+- Training Time: 7.294 seconds
+- Evaluation Time: 0.308 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.28%
+- matrix_size_y: 0.34%
+- p1: 9.76%
+- p2: 0.20%
+- p3: 70.69%
+- p4: 5.42%
+- p5: 4.12%
+- p6: 2.30%
+- p7: 0.56%
+- p8: 1.32%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.490e-310
+- Training Time: 28.090 seconds
+- Evaluation Time: 0.100 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.60%
+- matrix_size_y: 0.31%
+- p1: 9.78%
+- p2: 0.24%
+- p3: 70.39%
+- p4: 5.34%
+- p5: 4.44%
+- p6: 2.13%
+- p7: 0.56%
+- p8: 1.21%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.341e-310
+- Training Time: 28.138 seconds
+- Evaluation Time: 0.087 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.39%
+- matrix_size_y: 0.33%
+- p1: 9.44%
+- p2: 0.27%
+- p3: 70.20%
+- p4: 5.54%
+- p5: 4.50%
+- p6: 2.42%
+- p7: 0.56%
+- p8: 1.35%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.076e-310
+- Training Time: 28.114 seconds
+- Evaluation Time: 0.089 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.39%
+- matrix_size_y: 0.34%
+- p1: 9.56%
+- p2: 0.26%
+- p3: 70.22%
+- p4: 5.42%
+- p5: 4.70%
+- p6: 2.35%
+- p7: 0.51%
+- p8: 1.26%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.026e-310
+- Training Time: 17.118 seconds
+- Evaluation Time: 0.025 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.58%
+- matrix_size_y: 0.33%
+- p1: 9.61%
+- p2: 0.24%
+- p3: 70.34%
+- p4: 5.45%
+- p5: 4.03%
+- p6: 2.44%
+- p7: 0.67%
+- p8: 1.31%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.960e-310
+- Training Time: 17.658 seconds
+- Evaluation Time: 0.088 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.43%
+- matrix_size_y: 0.37%
+- p1: 9.81%
+- p2: 0.21%
+- p3: 70.24%
+- p4: 5.31%
+- p5: 4.25%
+- p6: 2.41%
+- p7: 0.63%
+- p8: 1.33%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.324e-310
+- Training Time: 17.512 seconds
+- Evaluation Time: 0.082 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.30%
+- matrix_size_y: 0.31%
+- p1: 9.71%
+- p2: 0.24%
+- p3: 70.75%
+- p4: 5.51%
+- p5: 4.13%
+- p6: 2.34%
+- p7: 0.57%
+- p8: 1.16%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.743e-310
+- Training Time: 10.087 seconds
+- Evaluation Time: 0.063 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.38%
+- matrix_size_y: 0.41%
+- p1: 9.91%
+- p2: 0.20%
+- p3: 70.43%
+- p4: 5.23%
+- p5: 4.42%
+- p6: 2.15%
+- p7: 0.62%
+- p8: 1.23%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.030e-310
+- Training Time: 9.917 seconds
+- Evaluation Time: 0.051 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.22%
+- matrix_size_y: 0.31%
+- p1: 9.95%
+- p2: 0.23%
+- p3: 70.31%
+- p4: 5.45%
+- p5: 4.19%
+- p6: 2.36%
+- p7: 0.59%
+- p8: 1.40%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.057e-310
+- Training Time: 9.880 seconds
+- Evaluation Time: 0.093 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.41%
+- matrix_size_y: 0.38%
+- p1: 10.06%
+- p2: 0.28%
+- p3: 70.23%
+- p4: 5.29%
+- p5: 4.20%
+- p6: 2.46%
+- p7: 0.53%
+- p8: 1.17%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.790e-310
+- Training Time: 8.643 seconds
+- Evaluation Time: 0.100 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.46%
+- matrix_size_y: 0.35%
+- p1: 9.71%
+- p2: 0.22%
+- p3: 70.26%
+- p4: 5.40%
+- p5: 4.36%
+- p6: 2.29%
+- p7: 0.54%
+- p8: 1.40%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.924e-310
+- Training Time: 8.601 seconds
+- Evaluation Time: 0.063 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.59%
+- matrix_size_y: 0.35%
+- p1: 10.01%
+- p2: 0.27%
+- p3: 70.12%
+- p4: 5.14%
+- p5: 4.36%
+- p6: 2.17%
+- p7: 0.66%
+- p8: 1.35%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.145e-310
+- Training Time: 8.933 seconds
+- Evaluation Time: 0.095 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.73%
+- matrix_size_y: 0.34%
+- p1: 9.97%
+- p2: 0.24%
+- p3: 70.14%
+- p4: 5.34%
+- p5: 4.06%
+- p6: 2.39%
+- p7: 0.51%
+- p8: 1.29%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.180e-310
+- Training Time: 7.385 seconds
+- Evaluation Time: 0.022 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.27%
+- matrix_size_y: 0.35%
+- p1: 9.72%
+- p2: 0.22%
+- p3: 70.23%
+- p4: 5.60%
+- p5: 4.31%
+- p6: 2.44%
+- p7: 0.45%
+- p8: 1.41%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.363e-310
+- Training Time: 6.866 seconds
+- Evaluation Time: 0.119 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.40%
+- matrix_size_y: 0.34%
+- p1: 9.90%
+- p2: 0.21%
+- p3: 70.63%
+- p4: 5.35%
+- p5: 4.14%
+- p6: 2.23%
+- p7: 0.52%
+- p8: 1.27%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.733e-310
+- Training Time: 7.184 seconds
+- Evaluation Time: 0.056 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.47%
+- matrix_size_y: 0.30%
+- p1: 9.91%
+- p2: 0.23%
+- p3: 70.54%
+- p4: 5.35%
+- p5: 4.35%
+- p6: 2.06%
+- p7: 0.54%
+- p8: 1.26%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.411e-310
+- Training Time: 7.997 seconds
+- Evaluation Time: 0.098 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.65%
+- matrix_size_y: 0.36%
+- p1: 9.92%
+- p2: 0.22%
+- p3: 70.33%
+- p4: 5.54%
+- p5: 3.97%
+- p6: 2.28%
+- p7: 0.62%
+- p8: 1.11%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.016e-310
+- Training Time: 7.880 seconds
+- Evaluation Time: 0.101 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.36%
+- matrix_size_y: 0.38%
+- p1: 9.85%
+- p2: 0.22%
+- p3: 70.43%
+- p4: 5.01%
+- p5: 4.52%
+- p6: 2.35%
+- p7: 0.63%
+- p8: 1.24%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.757e-310
+- Training Time: 7.483 seconds
+- Evaluation Time: 0.106 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.41%
+- matrix_size_y: 0.47%
+- p1: 9.84%
+- p2: 0.24%
+- p3: 70.53%
+- p4: 5.34%
+- p5: 4.07%
+- p6: 2.15%
+- p7: 0.64%
+- p8: 1.31%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.062e-310
+- Training Time: 28.843 seconds
+- Evaluation Time: 0.075 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.51%
+- matrix_size_y: 0.36%
+- p1: 9.76%
+- p2: 0.25%
+- p3: 70.37%
+- p4: 5.38%
+- p5: 4.10%
+- p6: 2.44%
+- p7: 0.67%
+- p8: 1.17%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.348e-310
+- Training Time: 28.797 seconds
+- Evaluation Time: 0.093 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.53%
+- matrix_size_y: 0.33%
+- p1: 9.74%
+- p2: 0.21%
+- p3: 70.40%
+- p4: 5.28%
+- p5: 4.08%
+- p6: 2.48%
+- p7: 0.59%
+- p8: 1.35%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.050e-310
+- Training Time: 28.837 seconds
+- Evaluation Time: 0.094 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.41%
+- matrix_size_y: 0.35%
+- p1: 9.88%
+- p2: 0.21%
+- p3: 70.25%
+- p4: 5.31%
+- p5: 4.38%
+- p6: 2.35%
+- p7: 0.59%
+- p8: 1.28%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.236e-310
+- Training Time: 17.303 seconds
+- Evaluation Time: 0.089 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.33%
+- matrix_size_y: 0.36%
+- p1: 9.82%
+- p2: 0.24%
+- p3: 70.25%
+- p4: 5.45%
+- p5: 4.44%
+- p6: 2.37%
+- p7: 0.57%
+- p8: 1.19%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.306e-310
+- Training Time: 17.168 seconds
+- Evaluation Time: 0.083 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.39%
+- matrix_size_y: 0.31%
+- p1: 10.05%
+- p2: 0.23%
+- p3: 70.28%
+- p4: 5.27%
+- p5: 4.29%
+- p6: 2.36%
+- p7: 0.60%
+- p8: 1.22%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.147e-310
+- Training Time: 17.447 seconds
+- Evaluation Time: 0.083 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.71%
+- matrix_size_y: 0.32%
+- p1: 9.89%
+- p2: 0.25%
+- p3: 70.48%
+- p4: 5.24%
+- p5: 3.69%
+- p6: 2.53%
+- p7: 0.63%
+- p8: 1.27%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.685e-310
+- Training Time: 9.705 seconds
+- Evaluation Time: 0.033 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.30%
+- matrix_size_y: 0.32%
+- p1: 9.82%
+- p2: 0.25%
+- p3: 70.33%
+- p4: 5.43%
+- p5: 4.32%
+- p6: 2.42%
+- p7: 0.55%
+- p8: 1.26%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.379e-310
+- Training Time: 9.980 seconds
+- Evaluation Time: 0.088 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.28%
+- matrix_size_y: 0.37%
+- p1: 9.92%
+- p2: 0.22%
+- p3: 70.43%
+- p4: 5.15%
+- p5: 4.40%
+- p6: 2.23%
+- p7: 0.61%
+- p8: 1.39%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.099e-310
+- Training Time: 9.835 seconds
+- Evaluation Time: 0.088 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.53%
+- matrix_size_y: 0.35%
+- p1: 9.50%
+- p2: 0.23%
+- p3: 70.56%
+- p4: 5.42%
+- p5: 4.05%
+- p6: 2.43%
+- p7: 0.60%
+- p8: 1.33%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.057e-310
+- Training Time: 8.810 seconds
+- Evaluation Time: 0.034 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.39%
+- matrix_size_y: 0.35%
+- p1: 9.95%
+- p2: 0.24%
+- p3: 70.46%
+- p4: 5.38%
+- p5: 4.09%
+- p6: 2.31%
+- p7: 0.56%
+- p8: 1.29%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.176e-310
+- Training Time: 9.222 seconds
+- Evaluation Time: 0.086 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.60%
+- matrix_size_y: 0.43%
+- p1: 10.04%
+- p2: 0.24%
+- p3: 70.31%
+- p4: 5.03%
+- p5: 4.19%
+- p6: 2.42%
+- p7: 0.57%
+- p8: 1.19%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.872e-310
+- Training Time: 9.166 seconds
+- Evaluation Time: 0.092 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.52%
+- matrix_size_y: 0.29%
+- p1: 9.74%
+- p2: 0.25%
+- p3: 70.09%
+- p4: 5.60%
+- p5: 4.23%
+- p6: 2.41%
+- p7: 0.51%
+- p8: 1.37%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.157e-310
+- Training Time: 7.118 seconds
+- Evaluation Time: 0.071 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.29%
+- matrix_size_y: 0.38%
+- p1: 9.86%
+- p2: 0.24%
+- p3: 70.08%
+- p4: 5.40%
+- p5: 4.43%
+- p6: 2.45%
+- p7: 0.60%
+- p8: 1.26%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.203e-310
+- Training Time: 6.956 seconds
+- Evaluation Time: 0.097 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.48%
+- matrix_size_y: 0.35%
+- p1: 10.02%
+- p2: 0.20%
+- p3: 70.28%
+- p4: 4.99%
+- p5: 4.47%
+- p6: 2.32%
+- p7: 0.67%
+- p8: 1.22%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.207e-310
+- Training Time: 7.303 seconds
+- Evaluation Time: 0.078 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.31%
+- matrix_size_y: 0.35%
+- p1: 9.84%
+- p2: 0.27%
+- p3: 70.26%
+- p4: 5.54%
+- p5: 4.25%
+- p6: 2.41%
+- p7: 0.53%
+- p8: 1.23%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.173e-310
+- Training Time: 7.641 seconds
+- Evaluation Time: 0.143 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.40%
+- matrix_size_y: 0.32%
+- p1: 9.65%
+- p2: 0.23%
+- p3: 70.71%
+- p4: 5.48%
+- p5: 4.07%
+- p6: 2.41%
+- p7: 0.45%
+- p8: 1.28%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.449e-310
+- Training Time: 7.407 seconds
+- Evaluation Time: 0.119 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.40%
+- matrix_size_y: 0.37%
+- p1: 9.82%
+- p2: 0.24%
+- p3: 70.33%
+- p4: 5.20%
+- p5: 4.47%
+- p6: 2.20%
+- p7: 0.70%
+- p8: 1.26%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.460e-310
+- Training Time: 7.662 seconds
+- Evaluation Time: 0.091 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.31%
+- matrix_size_y: 0.36%
+- p1: 10.24%
+- p2: 0.22%
+- p3: 70.08%
+- p4: 5.26%
+- p5: 4.35%
+- p6: 2.39%
+- p7: 0.62%
+- p8: 1.16%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.904e-310
+- Training Time: 4.158 seconds
+- Evaluation Time: 0.016 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.33%
+- matrix_size_y: 0.37%
+- p1: 2.27%
+- p2: 0.48%
+- p3: 78.26%
+- p4: 5.08%
+- p5: 0.71%
+- p6: 9.23%
+- p7: 0.97%
+- p8: 1.30%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.042e-310
+- Training Time: 4.123 seconds
+- Evaluation Time: 0.017 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.82%
+- matrix_size_y: 0.20%
+- p1: 2.76%
+- p2: 0.39%
+- p3: 80.14%
+- p4: 5.95%
+- p5: 0.73%
+- p6: 6.50%
+- p7: 0.72%
+- p8: 0.79%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.321e-310
+- Training Time: 4.168 seconds
+- Evaluation Time: 0.015 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.20%
+- matrix_size_y: 0.45%
+- p1: 3.33%
+- p2: 0.54%
+- p3: 75.55%
+- p4: 6.10%
+- p5: 1.06%
+- p6: 10.06%
+- p7: 0.53%
+- p8: 1.16%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.940e-310
+- Training Time: 2.269 seconds
+- Evaluation Time: 0.017 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.13%
+- matrix_size_y: 0.52%
+- p1: 1.96%
+- p2: 0.83%
+- p3: 80.17%
+- p4: 4.58%
+- p5: 1.06%
+- p6: 7.80%
+- p7: 0.84%
+- p8: 1.12%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.143e-310
+- Training Time: 2.277 seconds
+- Evaluation Time: 0.017 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.15%
+- matrix_size_y: 0.41%
+- p1: 2.74%
+- p2: 0.50%
+- p3: 78.93%
+- p4: 5.18%
+- p5: 1.06%
+- p6: 7.92%
+- p7: 0.97%
+- p8: 1.15%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.738e-310
+- Training Time: 2.329 seconds
+- Evaluation Time: 0.017 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.20%
+- matrix_size_y: 0.69%
+- p1: 3.35%
+- p2: 0.66%
+- p3: 76.72%
+- p4: 5.71%
+- p5: 1.00%
+- p6: 8.48%
+- p7: 0.69%
+- p8: 1.51%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.500e-310
+- Training Time: 1.498 seconds
+- Evaluation Time: 0.021 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.21%
+- matrix_size_y: 0.49%
+- p1: 3.32%
+- p2: 0.47%
+- p3: 78.06%
+- p4: 6.13%
+- p5: 0.81%
+- p6: 7.74%
+- p7: 0.68%
+- p8: 1.09%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.268e-310
+- Training Time: 1.422 seconds
+- Evaluation Time: 0.020 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.39%
+- matrix_size_y: 0.27%
+- p1: 3.80%
+- p2: 0.53%
+- p3: 76.38%
+- p4: 5.83%
+- p5: 1.12%
+- p6: 9.11%
+- p7: 0.67%
+- p8: 0.90%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.245e-310
+- Training Time: 1.497 seconds
+- Evaluation Time: 0.021 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.22%
+- matrix_size_y: 0.45%
+- p1: 3.10%
+- p2: 0.42%
+- p3: 75.41%
+- p4: 5.44%
+- p5: 1.17%
+- p6: 11.26%
+- p7: 0.52%
+- p8: 1.01%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.659e-310
+- Training Time: 1.257 seconds
+- Evaluation Time: 0.022 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.10%
+- matrix_size_y: 0.60%
+- p1: 3.35%
+- p2: 0.55%
+- p3: 77.36%
+- p4: 6.07%
+- p5: 0.94%
+- p6: 8.12%
+- p7: 0.64%
+- p8: 1.29%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.814e-310
+- Training Time: 1.348 seconds
+- Evaluation Time: 0.024 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.29%
+- matrix_size_y: 0.49%
+- p1: 3.22%
+- p2: 0.46%
+- p3: 74.45%
+- p4: 5.17%
+- p5: 1.04%
+- p6: 11.91%
+- p7: 0.74%
+- p8: 1.24%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.080e-310
+- Training Time: 1.334 seconds
+- Evaluation Time: 0.023 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.01%
+- matrix_size_y: 0.31%
+- p1: 3.06%
+- p2: 0.84%
+- p3: 77.99%
+- p4: 5.07%
+- p5: 0.96%
+- p6: 8.81%
+- p7: 1.00%
+- p8: 0.93%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.132e-310
+- Training Time: 1.155 seconds
+- Evaluation Time: 0.025 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.19%
+- matrix_size_y: 0.28%
+- p1: 3.40%
+- p2: 0.40%
+- p3: 77.53%
+- p4: 4.79%
+- p5: 1.19%
+- p6: 9.44%
+- p7: 0.75%
+- p8: 1.03%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.715e-310
+- Training Time: 1.161 seconds
+- Evaluation Time: 0.025 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.63%
+- matrix_size_y: 0.35%
+- p1: 3.46%
+- p2: 0.41%
+- p3: 78.14%
+- p4: 5.34%
+- p5: 1.17%
+- p6: 7.79%
+- p7: 0.48%
+- p8: 1.23%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.956e-310
+- Training Time: 1.092 seconds
+- Evaluation Time: 0.025 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.43%
+- matrix_size_y: 0.37%
+- p1: 3.08%
+- p2: 0.46%
+- p3: 75.72%
+- p4: 6.19%
+- p5: 1.28%
+- p6: 9.69%
+- p7: 0.81%
+- p8: 0.97%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.296e-310
+- Training Time: 1.237 seconds
+- Evaluation Time: 0.027 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.27%
+- matrix_size_y: 0.25%
+- p1: 2.96%
+- p2: 0.51%
+- p3: 77.87%
+- p4: 5.55%
+- p5: 0.84%
+- p6: 8.90%
+- p7: 0.65%
+- p8: 1.20%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.064e-310
+- Training Time: 1.176 seconds
+- Evaluation Time: 0.027 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.22%
+- matrix_size_y: 0.29%
+- p1: 3.24%
+- p2: 0.57%
+- p3: 79.09%
+- p4: 5.87%
+- p5: 0.91%
+- p6: 7.07%
+- p7: 0.72%
+- p8: 1.03%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.771e-310
+- Training Time: 1.200 seconds
+- Evaluation Time: 0.026 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.35%
+- matrix_size_y: 0.45%
+- p1: 3.19%
+- p2: 0.43%
+- p3: 79.31%
+- p4: 6.06%
+- p5: 1.13%
+- p6: 6.40%
+- p7: 0.57%
+- p8: 1.12%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.442e-310
+- Training Time: 8.951 seconds
+- Evaluation Time: 0.034 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.59%
+- matrix_size_y: 0.47%
+- p1: 3.18%
+- p2: 0.37%
+- p3: 79.08%
+- p4: 6.00%
+- p5: 0.97%
+- p6: 6.07%
+- p7: 0.98%
+- p8: 1.29%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.417e-310
+- Training Time: 9.014 seconds
+- Evaluation Time: 0.030 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.77%
+- matrix_size_y: 0.35%
+- p1: 2.58%
+- p2: 0.36%
+- p3: 77.08%
+- p4: 5.54%
+- p5: 1.31%
+- p6: 8.84%
+- p7: 0.99%
+- p8: 1.17%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.264e-310
+- Training Time: 8.974 seconds
+- Evaluation Time: 0.034 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.36%
+- matrix_size_y: 0.34%
+- p1: 2.81%
+- p2: 0.35%
+- p3: 77.70%
+- p4: 5.81%
+- p5: 1.33%
+- p6: 8.35%
+- p7: 0.81%
+- p8: 1.13%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.290e-310
+- Training Time: 5.311 seconds
+- Evaluation Time: 0.032 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.55%
+- matrix_size_y: 0.31%
+- p1: 3.05%
+- p2: 0.41%
+- p3: 77.90%
+- p4: 6.71%
+- p5: 1.10%
+- p6: 6.92%
+- p7: 0.94%
+- p8: 1.10%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.338e-310
+- Training Time: 5.360 seconds
+- Evaluation Time: 0.029 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.56%
+- matrix_size_y: 0.35%
+- p1: 3.00%
+- p2: 0.45%
+- p3: 77.56%
+- p4: 6.39%
+- p5: 1.10%
+- p6: 7.64%
+- p7: 0.88%
+- p8: 1.09%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.685e-310
+- Training Time: 5.310 seconds
+- Evaluation Time: 0.021 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.41%
+- matrix_size_y: 0.32%
+- p1: 3.16%
+- p2: 0.38%
+- p3: 78.42%
+- p4: 6.02%
+- p5: 1.15%
+- p6: 7.07%
+- p7: 0.91%
+- p8: 1.14%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.932e-310
+- Training Time: 3.270 seconds
+- Evaluation Time: 0.027 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.68%
+- matrix_size_y: 0.38%
+- p1: 3.08%
+- p2: 0.34%
+- p3: 77.64%
+- p4: 6.54%
+- p5: 1.02%
+- p6: 7.22%
+- p7: 0.92%
+- p8: 1.18%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.145e-310
+- Training Time: 3.232 seconds
+- Evaluation Time: 0.037 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.52%
+- matrix_size_y: 0.30%
+- p1: 3.48%
+- p2: 0.36%
+- p3: 78.59%
+- p4: 6.10%
+- p5: 1.17%
+- p6: 6.39%
+- p7: 0.86%
+- p8: 1.23%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.159e-310
+- Training Time: 3.174 seconds
+- Evaluation Time: 0.041 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.29%
+- matrix_size_y: 0.34%
+- p1: 3.39%
+- p2: 0.34%
+- p3: 78.35%
+- p4: 6.16%
+- p5: 1.01%
+- p6: 7.23%
+- p7: 0.74%
+- p8: 1.15%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.276e-310
+- Training Time: 2.645 seconds
+- Evaluation Time: 0.039 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.39%
+- matrix_size_y: 0.39%
+- p1: 2.69%
+- p2: 0.34%
+- p3: 78.02%
+- p4: 5.84%
+- p5: 1.46%
+- p6: 7.98%
+- p7: 0.74%
+- p8: 1.15%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.426e-310
+- Training Time: 2.719 seconds
+- Evaluation Time: 0.029 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.55%
+- matrix_size_y: 0.43%
+- p1: 3.19%
+- p2: 0.39%
+- p3: 77.01%
+- p4: 5.80%
+- p5: 1.13%
+- p6: 8.62%
+- p7: 0.75%
+- p8: 1.13%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.358e-310
+- Training Time: 2.702 seconds
+- Evaluation Time: 0.036 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.76%
+- matrix_size_y: 0.35%
+- p1: 3.41%
+- p2: 0.37%
+- p3: 77.94%
+- p4: 6.07%
+- p5: 1.11%
+- p6: 7.07%
+- p7: 0.81%
+- p8: 1.11%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.478e-310
+- Training Time: 2.295 seconds
+- Evaluation Time: 0.047 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.79%
+- matrix_size_y: 0.43%
+- p1: 3.33%
+- p2: 0.33%
+- p3: 77.48%
+- p4: 5.78%
+- p5: 1.14%
+- p6: 7.69%
+- p7: 0.78%
+- p8: 1.25%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.422e-310
+- Training Time: 2.435 seconds
+- Evaluation Time: 0.043 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.52%
+- matrix_size_y: 0.32%
+- p1: 3.57%
+- p2: 0.34%
+- p3: 78.57%
+- p4: 6.32%
+- p5: 1.27%
+- p6: 6.22%
+- p7: 0.83%
+- p8: 1.06%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.052e-310
+- Training Time: 2.117 seconds
+- Evaluation Time: 0.047 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.92%
+- matrix_size_y: 0.36%
+- p1: 2.75%
+- p2: 0.39%
+- p3: 78.02%
+- p4: 6.29%
+- p5: 1.27%
+- p6: 6.96%
+- p7: 1.00%
+- p8: 1.05%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.238e-310
+- Training Time: 2.408 seconds
+- Evaluation Time: 0.032 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.71%
+- matrix_size_y: 0.38%
+- p1: 3.40%
+- p2: 0.42%
+- p3: 77.85%
+- p4: 6.29%
+- p5: 1.11%
+- p6: 6.75%
+- p7: 0.85%
+- p8: 1.25%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.998e-310
+- Training Time: 2.579 seconds
+- Evaluation Time: 0.047 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.49%
+- matrix_size_y: 0.36%
+- p1: 3.08%
+- p2: 0.43%
+- p3: 78.26%
+- p4: 6.27%
+- p5: 1.06%
+- p6: 7.08%
+- p7: 0.88%
+- p8: 1.09%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.488e-310
+- Training Time: 2.412 seconds
+- Evaluation Time: 0.039 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.66%
+- matrix_size_y: 0.42%
+- p1: 3.26%
+- p2: 0.44%
+- p3: 78.41%
+- p4: 6.74%
+- p5: 1.23%
+- p6: 5.88%
+- p7: 0.77%
+- p8: 1.18%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.981e-310
+- Training Time: 13.936 seconds
+- Evaluation Time: 0.049 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.50%
+- matrix_size_y: 0.47%
+- p1: 2.87%
+- p2: 0.29%
+- p3: 77.47%
+- p4: 5.27%
+- p5: 1.45%
+- p6: 8.55%
+- p7: 0.94%
+- p8: 1.18%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.205e-310
+- Training Time: 13.882 seconds
+- Evaluation Time: 0.052 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.52%
+- matrix_size_y: 0.48%
+- p1: 3.17%
+- p2: 0.34%
+- p3: 78.99%
+- p4: 6.08%
+- p5: 1.23%
+- p6: 6.16%
+- p7: 0.86%
+- p8: 1.18%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.222e-310
+- Training Time: 13.912 seconds
+- Evaluation Time: 0.053 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.46%
+- matrix_size_y: 0.44%
+- p1: 2.96%
+- p2: 0.40%
+- p3: 77.81%
+- p4: 5.82%
+- p5: 1.49%
+- p6: 7.66%
+- p7: 0.79%
+- p8: 1.16%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.485e-310
+- Training Time: 8.284 seconds
+- Evaluation Time: 0.045 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.50%
+- matrix_size_y: 0.38%
+- p1: 2.74%
+- p2: 0.36%
+- p3: 78.96%
+- p4: 6.37%
+- p5: 1.34%
+- p6: 6.29%
+- p7: 0.98%
+- p8: 1.07%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.439e-310
+- Training Time: 8.346 seconds
+- Evaluation Time: 0.057 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.34%
+- matrix_size_y: 0.40%
+- p1: 2.75%
+- p2: 0.36%
+- p3: 79.22%
+- p4: 5.65%
+- p5: 1.30%
+- p6: 6.88%
+- p7: 0.99%
+- p8: 1.13%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.280e-310
+- Training Time: 8.275 seconds
+- Evaluation Time: 0.062 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.45%
+- matrix_size_y: 0.47%
+- p1: 3.25%
+- p2: 0.35%
+- p3: 78.94%
+- p4: 5.98%
+- p5: 1.37%
+- p6: 6.16%
+- p7: 0.82%
+- p8: 1.20%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.137e-310
+- Training Time: 4.776 seconds
+- Evaluation Time: 0.062 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.45%
+- matrix_size_y: 0.48%
+- p1: 2.44%
+- p2: 0.37%
+- p3: 79.21%
+- p4: 6.16%
+- p5: 1.38%
+- p6: 6.36%
+- p7: 1.06%
+- p8: 1.08%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.952e-310
+- Training Time: 4.767 seconds
+- Evaluation Time: 0.025 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.66%
+- matrix_size_y: 0.44%
+- p1: 2.87%
+- p2: 0.31%
+- p3: 78.67%
+- p4: 6.45%
+- p5: 1.21%
+- p6: 6.48%
+- p7: 0.84%
+- p8: 1.06%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.999e-310
+- Training Time: 4.843 seconds
+- Evaluation Time: 0.062 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.48%
+- matrix_size_y: 0.45%
+- p1: 3.38%
+- p2: 0.37%
+- p3: 78.51%
+- p4: 5.94%
+- p5: 1.28%
+- p6: 6.67%
+- p7: 0.81%
+- p8: 1.09%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.355e-310
+- Training Time: 3.982 seconds
+- Evaluation Time: 0.041 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.51%
+- matrix_size_y: 0.52%
+- p1: 3.26%
+- p2: 0.49%
+- p3: 76.97%
+- p4: 5.22%
+- p5: 1.27%
+- p6: 8.97%
+- p7: 0.78%
+- p8: 1.01%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.069e-310
+- Training Time: 4.252 seconds
+- Evaluation Time: 0.059 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.37%
+- matrix_size_y: 0.40%
+- p1: 2.91%
+- p2: 0.32%
+- p3: 78.46%
+- p4: 6.43%
+- p5: 1.30%
+- p6: 6.76%
+- p7: 0.87%
+- p8: 1.17%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.030e-310
+- Training Time: 4.095 seconds
+- Evaluation Time: 0.062 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.30%
+- matrix_size_y: 0.45%
+- p1: 2.97%
+- p2: 0.36%
+- p3: 78.04%
+- p4: 5.59%
+- p5: 1.30%
+- p6: 7.95%
+- p7: 0.81%
+- p8: 1.23%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.023e-310
+- Training Time: 3.181 seconds
+- Evaluation Time: 0.073 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.46%
+- matrix_size_y: 0.42%
+- p1: 2.99%
+- p2: 0.33%
+- p3: 78.08%
+- p4: 5.55%
+- p5: 1.55%
+- p6: 7.62%
+- p7: 0.83%
+- p8: 1.17%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.191e-310
+- Training Time: 3.356 seconds
+- Evaluation Time: 0.067 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.52%
+- matrix_size_y: 0.46%
+- p1: 3.33%
+- p2: 0.38%
+- p3: 77.06%
+- p4: 5.56%
+- p5: 1.41%
+- p6: 8.30%
+- p7: 0.83%
+- p8: 1.15%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.026e-310
+- Training Time: 3.439 seconds
+- Evaluation Time: 0.022 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.41%
+- matrix_size_y: 0.48%
+- p1: 3.28%
+- p2: 0.37%
+- p3: 77.28%
+- p4: 5.60%
+- p5: 1.40%
+- p6: 8.12%
+- p7: 0.87%
+- p8: 1.19%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.279e-310
+- Training Time: 3.664 seconds
+- Evaluation Time: 0.041 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.38%
+- matrix_size_y: 0.49%
+- p1: 3.32%
+- p2: 0.36%
+- p3: 78.34%
+- p4: 5.96%
+- p5: 1.31%
+- p6: 6.64%
+- p7: 0.93%
+- p8: 1.27%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.995e-310
+- Training Time: 3.782 seconds
+- Evaluation Time: 0.061 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.52%
+- matrix_size_y: 0.44%
+- p1: 2.76%
+- p2: 0.41%
+- p3: 78.39%
+- p4: 6.27%
+- p5: 1.35%
+- p6: 6.91%
+- p7: 0.85%
+- p8: 1.11%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.956e-310
+- Training Time: 3.801 seconds
+- Evaluation Time: 0.067 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.18%
+- matrix_size_y: 0.53%
+- p1: 2.75%
+- p2: 0.31%
+- p3: 78.31%
+- p4: 5.85%
+- p5: 1.42%
+- p6: 7.58%
+- p7: 0.98%
+- p8: 1.09%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.207e-310
+- Training Time: 18.644 seconds
+- Evaluation Time: 0.058 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.00%
+- matrix_size_y: 0.48%
+- p1: 10.06%
+- p2: 0.26%
+- p3: 72.61%
+- p4: 4.65%
+- p5: 3.13%
+- p6: 2.60%
+- p7: 0.92%
+- p8: 1.30%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.980e-310
+- Training Time: 18.696 seconds
+- Evaluation Time: 0.059 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.48%
+- matrix_size_y: 0.44%
+- p1: 10.11%
+- p2: 0.29%
+- p3: 72.56%
+- p4: 4.98%
+- p5: 2.93%
+- p6: 2.72%
+- p7: 0.83%
+- p8: 1.66%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.969e-310
+- Training Time: 18.667 seconds
+- Evaluation Time: 0.059 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.69%
+- matrix_size_y: 0.39%
+- p1: 10.25%
+- p2: 0.26%
+- p3: 72.13%
+- p4: 4.80%
+- p5: 3.57%
+- p6: 2.59%
+- p7: 0.92%
+- p8: 1.39%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.876e-310
+- Training Time: 11.465 seconds
+- Evaluation Time: 0.056 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.77%
+- matrix_size_y: 0.48%
+- p1: 10.15%
+- p2: 0.24%
+- p3: 72.61%
+- p4: 5.01%
+- p5: 3.23%
+- p6: 2.49%
+- p7: 0.64%
+- p8: 1.38%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.151e-310
+- Training Time: 11.550 seconds
+- Evaluation Time: 0.068 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.88%
+- matrix_size_y: 0.45%
+- p1: 10.05%
+- p2: 0.26%
+- p3: 72.77%
+- p4: 4.83%
+- p5: 2.99%
+- p6: 2.63%
+- p7: 0.80%
+- p8: 1.32%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.013e-310
+- Training Time: 11.379 seconds
+- Evaluation Time: 0.063 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.78%
+- matrix_size_y: 0.44%
+- p1: 10.12%
+- p2: 0.28%
+- p3: 72.95%
+- p4: 4.63%
+- p5: 3.08%
+- p6: 2.60%
+- p7: 0.83%
+- p8: 1.30%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.121e-310
+- Training Time: 6.634 seconds
+- Evaluation Time: 0.037 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.81%
+- matrix_size_y: 0.48%
+- p1: 9.80%
+- p2: 0.23%
+- p3: 73.10%
+- p4: 4.64%
+- p5: 3.38%
+- p6: 2.27%
+- p7: 0.89%
+- p8: 1.40%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.640e-310
+- Training Time: 6.657 seconds
+- Evaluation Time: 0.020 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.86%
+- matrix_size_y: 0.55%
+- p1: 10.26%
+- p2: 0.27%
+- p3: 72.56%
+- p4: 4.74%
+- p5: 3.02%
+- p6: 2.32%
+- p7: 0.80%
+- p8: 1.61%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.899e-310
+- Training Time: 6.567 seconds
+- Evaluation Time: 0.069 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.85%
+- matrix_size_y: 0.48%
+- p1: 10.88%
+- p2: 0.22%
+- p3: 72.03%
+- p4: 4.59%
+- p5: 3.34%
+- p6: 2.28%
+- p7: 0.87%
+- p8: 1.45%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.857e-310
+- Training Time: 5.677 seconds
+- Evaluation Time: 0.072 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.56%
+- matrix_size_y: 0.37%
+- p1: 10.27%
+- p2: 0.32%
+- p3: 72.88%
+- p4: 4.93%
+- p5: 3.08%
+- p6: 2.35%
+- p7: 0.73%
+- p8: 1.50%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.080e-310
+- Training Time: 5.389 seconds
+- Evaluation Time: 0.062 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.71%
+- matrix_size_y: 0.42%
+- p1: 9.78%
+- p2: 0.30%
+- p3: 72.88%
+- p4: 4.68%
+- p5: 3.39%
+- p6: 2.74%
+- p7: 0.73%
+- p8: 1.38%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.055e-310
+- Training Time: 5.527 seconds
+- Evaluation Time: 0.068 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.68%
+- matrix_size_y: 0.41%
+- p1: 10.09%
+- p2: 0.28%
+- p3: 72.76%
+- p4: 4.84%
+- p5: 3.08%
+- p6: 2.75%
+- p7: 0.77%
+- p8: 1.34%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.654e-310
+- Training Time: 4.783 seconds
+- Evaluation Time: 0.072 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.70%
+- matrix_size_y: 0.43%
+- p1: 10.57%
+- p2: 0.30%
+- p3: 72.83%
+- p4: 4.60%
+- p5: 2.94%
+- p6: 2.69%
+- p7: 0.65%
+- p8: 1.28%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.971e-310
+- Training Time: 4.396 seconds
+- Evaluation Time: 0.079 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.81%
+- matrix_size_y: 0.45%
+- p1: 10.09%
+- p2: 0.29%
+- p3: 72.55%
+- p4: 4.81%
+- p5: 3.20%
+- p6: 2.42%
+- p7: 0.86%
+- p8: 1.52%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.123e-310
+- Training Time: 4.749 seconds
+- Evaluation Time: 0.058 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.68%
+- matrix_size_y: 0.47%
+- p1: 10.27%
+- p2: 0.28%
+- p3: 73.19%
+- p4: 4.71%
+- p5: 3.01%
+- p6: 2.30%
+- p7: 0.74%
+- p8: 1.35%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.074e-310
+- Training Time: 4.473 seconds
+- Evaluation Time: 0.219 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.94%
+- matrix_size_y: 0.41%
+- p1: 10.54%
+- p2: 0.28%
+- p3: 72.28%
+- p4: 4.79%
+- p5: 3.27%
+- p6: 2.39%
+- p7: 0.72%
+- p8: 1.39%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.270e-310
+- Training Time: 4.442 seconds
+- Evaluation Time: 0.409 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.72%
+- matrix_size_y: 0.45%
+- p1: 10.24%
+- p2: 0.28%
+- p3: 72.66%
+- p4: 5.03%
+- p5: 3.11%
+- p6: 2.47%
+- p7: 0.62%
+- p8: 1.43%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.852e-310
+- Training Time: 5.133 seconds
+- Evaluation Time: 0.071 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.83%
+- matrix_size_y: 0.43%
+- p1: 9.87%
+- p2: 0.24%
+- p3: 72.56%
+- p4: 5.03%
+- p5: 3.30%
+- p6: 2.47%
+- p7: 0.71%
+- p8: 1.56%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.055e-310
+- Training Time: 23.532 seconds
+- Evaluation Time: 0.072 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.24%
+- matrix_size_y: 0.29%
+- p1: 9.32%
+- p2: 0.25%
+- p3: 71.06%
+- p4: 5.17%
+- p5: 4.05%
+- p6: 2.20%
+- p7: 0.81%
+- p8: 1.61%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.263e-310
+- Training Time: 23.451 seconds
+- Evaluation Time: 0.073 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.13%
+- matrix_size_y: 0.36%
+- p1: 9.73%
+- p2: 0.24%
+- p3: 71.06%
+- p4: 4.94%
+- p5: 3.91%
+- p6: 2.30%
+- p7: 0.85%
+- p8: 1.48%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.051e-310
+- Training Time: 23.490 seconds
+- Evaluation Time: 0.085 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.24%
+- matrix_size_y: 0.30%
+- p1: 9.93%
+- p2: 0.24%
+- p3: 70.47%
+- p4: 5.09%
+- p5: 4.18%
+- p6: 2.39%
+- p7: 0.76%
+- p8: 1.41%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.705e-310
+- Training Time: 14.324 seconds
+- Evaluation Time: 0.054 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.98%
+- matrix_size_y: 0.41%
+- p1: 9.66%
+- p2: 0.22%
+- p3: 70.85%
+- p4: 4.91%
+- p5: 4.31%
+- p6: 2.52%
+- p7: 0.72%
+- p8: 1.43%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.844e-310
+- Training Time: 14.345 seconds
+- Evaluation Time: 0.018 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.98%
+- matrix_size_y: 0.49%
+- p1: 9.69%
+- p2: 0.26%
+- p3: 70.75%
+- p4: 5.06%
+- p5: 4.09%
+- p6: 2.33%
+- p7: 0.81%
+- p8: 1.55%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.016e-310
+- Training Time: 14.095 seconds
+- Evaluation Time: 0.048 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.93%
+- matrix_size_y: 0.35%
+- p1: 9.79%
+- p2: 0.22%
+- p3: 70.74%
+- p4: 4.82%
+- p5: 4.27%
+- p6: 2.48%
+- p7: 0.74%
+- p8: 1.66%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.902e-310
+- Training Time: 7.937 seconds
+- Evaluation Time: 0.082 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.13%
+- matrix_size_y: 0.35%
+- p1: 9.49%
+- p2: 0.20%
+- p3: 70.82%
+- p4: 5.09%
+- p5: 3.97%
+- p6: 2.55%
+- p7: 0.90%
+- p8: 1.51%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.128e-310
+- Training Time: 8.049 seconds
+- Evaluation Time: 0.087 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.04%
+- matrix_size_y: 0.42%
+- p1: 9.85%
+- p2: 0.28%
+- p3: 70.90%
+- p4: 4.87%
+- p5: 4.12%
+- p6: 2.32%
+- p7: 0.77%
+- p8: 1.42%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.171e-310
+- Training Time: 8.286 seconds
+- Evaluation Time: 0.088 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.95%
+- matrix_size_y: 0.33%
+- p1: 9.62%
+- p2: 0.24%
+- p3: 71.33%
+- p4: 5.03%
+- p5: 3.98%
+- p6: 2.42%
+- p7: 0.72%
+- p8: 1.37%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.239e-310
+- Training Time: 7.142 seconds
+- Evaluation Time: 0.084 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.22%
+- matrix_size_y: 0.47%
+- p1: 9.27%
+- p2: 0.30%
+- p3: 70.62%
+- p4: 4.94%
+- p5: 4.31%
+- p6: 2.49%
+- p7: 0.82%
+- p8: 1.55%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.870e-310
+- Training Time: 7.008 seconds
+- Evaluation Time: 0.055 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.92%
+- matrix_size_y: 0.34%
+- p1: 9.62%
+- p2: 0.19%
+- p3: 70.92%
+- p4: 5.01%
+- p5: 4.36%
+- p6: 2.42%
+- p7: 0.80%
+- p8: 1.41%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.057e-310
+- Training Time: 7.169 seconds
+- Evaluation Time: 0.090 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.09%
+- matrix_size_y: 0.37%
+- p1: 9.81%
+- p2: 0.25%
+- p3: 70.88%
+- p4: 4.96%
+- p5: 4.07%
+- p6: 2.48%
+- p7: 0.77%
+- p8: 1.32%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.305e-310
+- Training Time: 5.734 seconds
+- Evaluation Time: 0.038 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.39%
+- matrix_size_y: 0.38%
+- p1: 9.66%
+- p2: 0.32%
+- p3: 70.26%
+- p4: 5.00%
+- p5: 4.07%
+- p6: 2.62%
+- p7: 0.88%
+- p8: 1.43%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.113e-310
+- Training Time: 5.603 seconds
+- Evaluation Time: 0.084 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.62%
+- matrix_size_y: 0.36%
+- p1: 9.75%
+- p2: 0.26%
+- p3: 70.93%
+- p4: 5.01%
+- p5: 4.40%
+- p6: 2.48%
+- p7: 0.73%
+- p8: 1.46%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.274e-310
+- Training Time: 5.898 seconds
+- Evaluation Time: 0.086 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.11%
+- matrix_size_y: 0.38%
+- p1: 9.50%
+- p2: 0.25%
+- p3: 70.70%
+- p4: 4.94%
+- p5: 4.48%
+- p6: 2.50%
+- p7: 0.78%
+- p8: 1.36%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.140e-310
+- Training Time: 5.642 seconds
+- Evaluation Time: 0.255 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.49%
+- matrix_size_y: 0.35%
+- p1: 9.59%
+- p2: 0.24%
+- p3: 70.52%
+- p4: 4.83%
+- p5: 4.06%
+- p6: 2.73%
+- p7: 0.80%
+- p8: 1.39%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.745e-310
+- Training Time: 6.518 seconds
+- Evaluation Time: 0.089 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.95%
+- matrix_size_y: 0.34%
+- p1: 9.77%
+- p2: 0.25%
+- p3: 71.14%
+- p4: 4.93%
+- p5: 3.71%
+- p6: 2.41%
+- p7: 0.82%
+- p8: 1.68%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.649e-310
+- Training Time: 6.684 seconds
+- Evaluation Time: 0.083 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.04%
+- matrix_size_y: 0.38%
+- p1: 9.59%
+- p2: 0.25%
+- p3: 71.72%
+- p4: 4.61%
+- p5: 4.09%
+- p6: 2.17%
+- p7: 0.87%
+- p8: 1.29%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.187e-310
+- Training Time: 28.865 seconds
+- Evaluation Time: 0.086 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.50%
+- matrix_size_y: 0.36%
+- p1: 9.89%
+- p2: 0.22%
+- p3: 70.37%
+- p4: 5.32%
+- p5: 4.15%
+- p6: 2.40%
+- p7: 0.59%
+- p8: 1.20%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.285e-310
+- Training Time: 28.756 seconds
+- Evaluation Time: 0.085 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.57%
+- matrix_size_y: 0.38%
+- p1: 9.72%
+- p2: 0.22%
+- p3: 70.47%
+- p4: 5.38%
+- p5: 3.76%
+- p6: 2.38%
+- p7: 0.66%
+- p8: 1.45%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.020e-310
+- Training Time: 28.739 seconds
+- Evaluation Time: 0.090 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.27%
+- matrix_size_y: 0.35%
+- p1: 9.75%
+- p2: 0.24%
+- p3: 70.33%
+- p4: 5.52%
+- p5: 4.35%
+- p6: 2.21%
+- p7: 0.58%
+- p8: 1.42%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.448e-310
+- Training Time: 17.767 seconds
+- Evaluation Time: 0.085 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.53%
+- matrix_size_y: 0.34%
+- p1: 9.84%
+- p2: 0.25%
+- p3: 70.44%
+- p4: 5.27%
+- p5: 4.10%
+- p6: 2.37%
+- p7: 0.58%
+- p8: 1.27%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.339e-310
+- Training Time: 17.521 seconds
+- Evaluation Time: 0.084 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.11%
+- matrix_size_y: 0.33%
+- p1: 9.73%
+- p2: 0.26%
+- p3: 70.49%
+- p4: 5.23%
+- p5: 4.42%
+- p6: 2.52%
+- p7: 0.59%
+- p8: 1.32%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.740e-310
+- Training Time: 17.580 seconds
+- Evaluation Time: 0.097 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.47%
+- matrix_size_y: 0.33%
+- p1: 9.82%
+- p2: 0.23%
+- p3: 70.58%
+- p4: 5.24%
+- p5: 4.27%
+- p6: 2.19%
+- p7: 0.63%
+- p8: 1.24%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.203e-310
+- Training Time: 9.860 seconds
+- Evaluation Time: 0.030 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.39%
+- matrix_size_y: 0.36%
+- p1: 9.80%
+- p2: 0.20%
+- p3: 70.31%
+- p4: 5.46%
+- p5: 4.19%
+- p6: 2.37%
+- p7: 0.52%
+- p8: 1.38%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.198e-310
+- Training Time: 10.031 seconds
+- Evaluation Time: 0.092 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.36%
+- matrix_size_y: 0.39%
+- p1: 9.83%
+- p2: 0.28%
+- p3: 70.06%
+- p4: 5.32%
+- p5: 4.77%
+- p6: 2.34%
+- p7: 0.56%
+- p8: 1.10%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.775e-310
+- Training Time: 9.431 seconds
+- Evaluation Time: 0.092 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.48%
+- matrix_size_y: 0.33%
+- p1: 9.88%
+- p2: 0.24%
+- p3: 70.02%
+- p4: 5.61%
+- p5: 3.92%
+- p6: 2.59%
+- p7: 0.64%
+- p8: 1.31%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.126e-310
+- Training Time: 27.564 seconds
+- Evaluation Time: 0.113 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.04%
+- matrix_size_y: 0.30%
+- p1: 10.03%
+- p2: 0.24%
+- p3: 70.54%
+- p4: 5.50%
+- p5: 4.25%
+- p6: 2.33%
+- p7: 0.57%
+- p8: 1.21%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.227e-310
+- Training Time: 27.490 seconds
+- Evaluation Time: 0.113 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.32%
+- matrix_size_y: 0.44%
+- p1: 9.78%
+- p2: 0.25%
+- p3: 70.27%
+- p4: 5.26%
+- p5: 4.54%
+- p6: 2.50%
+- p7: 0.50%
+- p8: 1.15%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.456e-310
+- Training Time: 27.553 seconds
+- Evaluation Time: 0.112 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.41%
+- matrix_size_y: 0.32%
+- p1: 9.90%
+- p2: 0.22%
+- p3: 70.41%
+- p4: 5.44%
+- p5: 4.18%
+- p6: 2.25%
+- p7: 0.60%
+- p8: 1.26%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.684e-310
+- Training Time: 14.413 seconds
+- Evaluation Time: 0.124 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.53%
+- matrix_size_y: 0.32%
+- p1: 9.76%
+- p2: 0.28%
+- p3: 70.53%
+- p4: 5.27%
+- p5: 4.13%
+- p6: 2.39%
+- p7: 0.52%
+- p8: 1.27%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.241e-310
+- Training Time: 13.768 seconds
+- Evaluation Time: 0.123 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.33%
+- matrix_size_y: 0.32%
+- p1: 9.68%
+- p2: 0.25%
+- p3: 70.18%
+- p4: 5.26%
+- p5: 4.59%
+- p6: 2.45%
+- p7: 0.64%
+- p8: 1.29%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.269e-310
+- Training Time: 13.963 seconds
+- Evaluation Time: 0.123 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.63%
+- matrix_size_y: 0.31%
+- p1: 9.94%
+- p2: 0.22%
+- p3: 70.26%
+- p4: 5.35%
+- p5: 4.19%
+- p6: 2.21%
+- p7: 0.51%
+- p8: 1.37%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.983e-310
+- Training Time: 10.379 seconds
+- Evaluation Time: 0.135 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.84%
+- matrix_size_y: 0.38%
+- p1: 10.10%
+- p2: 0.26%
+- p3: 70.18%
+- p4: 5.18%
+- p5: 3.91%
+- p6: 2.41%
+- p7: 0.49%
+- p8: 1.25%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.369e-310
+- Training Time: 9.724 seconds
+- Evaluation Time: 0.132 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.47%
+- matrix_size_y: 0.32%
+- p1: 10.00%
+- p2: 0.23%
+- p3: 70.32%
+- p4: 5.25%
+- p5: 4.01%
+- p6: 2.58%
+- p7: 0.54%
+- p8: 1.29%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.031e-310
+- Training Time: 9.876 seconds
+- Evaluation Time: 0.133 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.24%
+- matrix_size_y: 0.38%
+- p1: 9.89%
+- p2: 0.25%
+- p3: 70.56%
+- p4: 5.14%
+- p5: 4.06%
+- p6: 2.58%
+- p7: 0.53%
+- p8: 1.38%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.645e-310
+- Training Time: 9.166 seconds
+- Evaluation Time: 0.147 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.59%
+- matrix_size_y: 0.35%
+- p1: 9.65%
+- p2: 0.21%
+- p3: 70.32%
+- p4: 5.44%
+- p5: 3.83%
+- p6: 2.60%
+- p7: 0.66%
+- p8: 1.35%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.034e-310
+- Training Time: 8.924 seconds
+- Evaluation Time: 0.148 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.28%
+- matrix_size_y: 0.37%
+- p1: 10.02%
+- p2: 0.27%
+- p3: 70.15%
+- p4: 5.39%
+- p5: 4.10%
+- p6: 2.40%
+- p7: 0.62%
+- p8: 1.40%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.163e-310
+- Training Time: 9.056 seconds
+- Evaluation Time: 0.147 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.20%
+- matrix_size_y: 0.30%
+- p1: 9.69%
+- p2: 0.22%
+- p3: 70.22%
+- p4: 5.46%
+- p5: 4.72%
+- p6: 2.34%
+- p7: 0.57%
+- p8: 1.27%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.011e-310
+- Training Time: 8.340 seconds
+- Evaluation Time: 0.150 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.45%
+- matrix_size_y: 0.37%
+- p1: 10.05%
+- p2: 0.26%
+- p3: 70.40%
+- p4: 5.21%
+- p5: 4.05%
+- p6: 2.39%
+- p7: 0.65%
+- p8: 1.17%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.677e-310
+- Training Time: 8.704 seconds
+- Evaluation Time: 0.151 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.58%
+- matrix_size_y: 0.33%
+- p1: 9.71%
+- p2: 0.21%
+- p3: 70.35%
+- p4: 5.36%
+- p5: 4.27%
+- p6: 2.24%
+- p7: 0.63%
+- p8: 1.32%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.435e-310
+- Training Time: 7.934 seconds
+- Evaluation Time: 0.150 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.63%
+- matrix_size_y: 0.37%
+- p1: 9.95%
+- p2: 0.22%
+- p3: 70.19%
+- p4: 5.41%
+- p5: 4.01%
+- p6: 2.44%
+- p7: 0.51%
+- p8: 1.26%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.744e-310
+- Training Time: 8.913 seconds
+- Evaluation Time: 0.155 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.30%
+- matrix_size_y: 0.38%
+- p1: 9.75%
+- p2: 0.26%
+- p3: 70.33%
+- p4: 5.41%
+- p5: 4.43%
+- p6: 2.33%
+- p7: 0.56%
+- p8: 1.26%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.367e-310
+- Training Time: 9.005 seconds
+- Evaluation Time: 0.152 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.36%
+- matrix_size_y: 0.36%
+- p1: 9.89%
+- p2: 0.23%
+- p3: 70.23%
+- p4: 5.32%
+- p5: 4.19%
+- p6: 2.44%
+- p7: 0.61%
+- p8: 1.36%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.008e-310
+- Training Time: 8.916 seconds
+- Evaluation Time: 0.151 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.54%
+- matrix_size_y: 0.31%
+- p1: 9.94%
+- p2: 0.25%
+- p3: 70.46%
+- p4: 5.20%
+- p5: 4.09%
+- p6: 2.36%
+- p7: 0.62%
+- p8: 1.22%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.185e-310
+- Training Time: 27.837 seconds
+- Evaluation Time: 0.095 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.49%
+- matrix_size_y: 0.39%
+- p1: 9.73%
+- p2: 0.30%
+- p3: 70.33%
+- p4: 5.66%
+- p5: 4.17%
+- p6: 2.07%
+- p7: 0.63%
+- p8: 1.24%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.347e-310
+- Training Time: 27.856 seconds
+- Evaluation Time: 0.095 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.38%
+- matrix_size_y: 0.32%
+- p1: 9.97%
+- p2: 0.24%
+- p3: 70.55%
+- p4: 5.23%
+- p5: 4.35%
+- p6: 2.22%
+- p7: 0.49%
+- p8: 1.25%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.833e-310
+- Training Time: 27.852 seconds
+- Evaluation Time: 0.098 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.72%
+- matrix_size_y: 0.36%
+- p1: 10.00%
+- p2: 0.25%
+- p3: 70.25%
+- p4: 5.35%
+- p5: 4.12%
+- p6: 2.09%
+- p7: 0.63%
+- p8: 1.23%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.422e-310
+- Training Time: 16.198 seconds
+- Evaluation Time: 0.098 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.53%
+- matrix_size_y: 0.36%
+- p1: 9.83%
+- p2: 0.26%
+- p3: 70.16%
+- p4: 5.43%
+- p5: 4.34%
+- p6: 2.26%
+- p7: 0.55%
+- p8: 1.29%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.357e-310
+- Training Time: 16.264 seconds
+- Evaluation Time: 0.110 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.60%
+- matrix_size_y: 0.33%
+- p1: 9.77%
+- p2: 0.25%
+- p3: 70.37%
+- p4: 5.22%
+- p5: 4.09%
+- p6: 2.42%
+- p7: 0.54%
+- p8: 1.42%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.726e-310
+- Training Time: 15.988 seconds
+- Evaluation Time: 0.107 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.48%
+- matrix_size_y: 0.34%
+- p1: 10.01%
+- p2: 0.20%
+- p3: 70.74%
+- p4: 5.26%
+- p5: 4.08%
+- p6: 2.06%
+- p7: 0.64%
+- p8: 1.20%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.757e-310
+- Training Time: 9.901 seconds
+- Evaluation Time: 0.116 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.39%
+- matrix_size_y: 0.40%
+- p1: 9.90%
+- p2: 0.25%
+- p3: 70.40%
+- p4: 5.18%
+- p5: 4.15%
+- p6: 2.32%
+- p7: 0.56%
+- p8: 1.45%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.045e-310
+- Training Time: 9.375 seconds
+- Evaluation Time: 0.115 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.36%
+- matrix_size_y: 0.34%
+- p1: 9.71%
+- p2: 0.23%
+- p3: 70.42%
+- p4: 5.40%
+- p5: 4.27%
+- p6: 2.49%
+- p7: 0.47%
+- p8: 1.32%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.686e-310
+- Training Time: 9.698 seconds
+- Evaluation Time: 0.087 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.32%
+- matrix_size_y: 0.35%
+- p1: 10.05%
+- p2: 0.23%
+- p3: 70.21%
+- p4: 5.28%
+- p5: 4.40%
+- p6: 2.26%
+- p7: 0.61%
+- p8: 1.29%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.119e-310
+- Training Time: 9.110 seconds
+- Evaluation Time: 0.121 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.24%
+- matrix_size_y: 0.38%
+- p1: 9.86%
+- p2: 0.25%
+- p3: 70.24%
+- p4: 5.26%
+- p5: 4.40%
+- p6: 2.55%
+- p7: 0.61%
+- p8: 1.21%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.385e-310
+- Training Time: 8.748 seconds
+- Evaluation Time: 0.119 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.42%
+- matrix_size_y: 0.39%
+- p1: 9.74%
+- p2: 0.23%
+- p3: 70.16%
+- p4: 5.33%
+- p5: 4.35%
+- p6: 2.47%
+- p7: 0.56%
+- p8: 1.36%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.803e-310
+- Training Time: 8.921 seconds
+- Evaluation Time: 0.121 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.10%
+- matrix_size_y: 0.40%
+- p1: 9.90%
+- p2: 0.22%
+- p3: 70.70%
+- p4: 5.04%
+- p5: 4.40%
+- p6: 2.38%
+- p7: 0.65%
+- p8: 1.22%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.123e-310
+- Training Time: 7.437 seconds
+- Evaluation Time: 0.129 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.47%
+- matrix_size_y: 0.35%
+- p1: 9.96%
+- p2: 0.22%
+- p3: 69.96%
+- p4: 5.39%
+- p5: 4.16%
+- p6: 2.60%
+- p7: 0.57%
+- p8: 1.33%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.152e-310
+- Training Time: 8.207 seconds
+- Evaluation Time: 0.122 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.37%
+- matrix_size_y: 0.33%
+- p1: 9.69%
+- p2: 0.23%
+- p3: 70.53%
+- p4: 5.76%
+- p5: 4.10%
+- p6: 2.18%
+- p7: 0.52%
+- p8: 1.28%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.443e-310
+- Training Time: 7.700 seconds
+- Evaluation Time: 0.086 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.49%
+- matrix_size_y: 0.37%
+- p1: 10.12%
+- p2: 0.25%
+- p3: 70.35%
+- p4: 5.52%
+- p5: 3.96%
+- p6: 2.19%
+- p7: 0.57%
+- p8: 1.19%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.071e-310
+- Training Time: 8.210 seconds
+- Evaluation Time: 0.129 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.45%
+- matrix_size_y: 0.34%
+- p1: 9.99%
+- p2: 0.26%
+- p3: 70.59%
+- p4: 5.22%
+- p5: 4.29%
+- p6: 2.13%
+- p7: 0.58%
+- p8: 1.17%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.139e-310
+- Training Time: 7.504 seconds
+- Evaluation Time: 0.115 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.24%
+- matrix_size_y: 0.38%
+- p1: 9.80%
+- p2: 0.20%
+- p3: 70.30%
+- p4: 5.53%
+- p5: 4.31%
+- p6: 2.26%
+- p7: 0.60%
+- p8: 1.37%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.472e-310
+- Training Time: 8.151 seconds
+- Evaluation Time: 0.128 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.58%
+- matrix_size_y: 0.34%
+- p1: 9.84%
+- p2: 0.24%
+- p3: 70.15%
+- p4: 5.33%
+- p5: 4.31%
+- p6: 2.40%
+- p7: 0.51%
+- p8: 1.29%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.985e-310
+- Training Time: 28.080 seconds
+- Evaluation Time: 0.090 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.65%
+- matrix_size_y: 0.40%
+- p1: 9.82%
+- p2: 0.21%
+- p3: 70.43%
+- p4: 5.21%
+- p5: 4.22%
+- p6: 2.26%
+- p7: 0.58%
+- p8: 1.21%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.187e-310
+- Training Time: 28.078 seconds
+- Evaluation Time: 0.096 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.60%
+- matrix_size_y: 0.35%
+- p1: 9.79%
+- p2: 0.25%
+- p3: 70.33%
+- p4: 5.48%
+- p5: 4.23%
+- p6: 2.23%
+- p7: 0.57%
+- p8: 1.16%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.309e-310
+- Training Time: 28.004 seconds
+- Evaluation Time: 0.090 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.70%
+- matrix_size_y: 0.34%
+- p1: 9.67%
+- p2: 0.24%
+- p3: 70.46%
+- p4: 5.29%
+- p5: 4.25%
+- p6: 2.22%
+- p7: 0.55%
+- p8: 1.29%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.877e-310
+- Training Time: 17.321 seconds
+- Evaluation Time: 0.099 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.34%
+- matrix_size_y: 0.32%
+- p1: 10.14%
+- p2: 0.23%
+- p3: 70.43%
+- p4: 5.32%
+- p5: 4.21%
+- p6: 2.22%
+- p7: 0.61%
+- p8: 1.20%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.804e-310
+- Training Time: 16.979 seconds
+- Evaluation Time: 0.100 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.61%
+- matrix_size_y: 0.36%
+- p1: 9.95%
+- p2: 0.22%
+- p3: 69.76%
+- p4: 5.29%
+- p5: 4.35%
+- p6: 2.44%
+- p7: 0.67%
+- p8: 1.34%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.981e-310
+- Training Time: 17.179 seconds
+- Evaluation Time: 0.101 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.50%
+- matrix_size_y: 0.33%
+- p1: 9.78%
+- p2: 0.22%
+- p3: 70.43%
+- p4: 5.43%
+- p5: 4.32%
+- p6: 2.24%
+- p7: 0.54%
+- p8: 1.20%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.253e-310
+- Training Time: 9.239 seconds
+- Evaluation Time: 0.078 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.38%
+- matrix_size_y: 0.39%
+- p1: 9.91%
+- p2: 0.24%
+- p3: 70.34%
+- p4: 5.58%
+- p5: 4.18%
+- p6: 2.10%
+- p7: 0.56%
+- p8: 1.32%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.219e-310
+- Training Time: 9.645 seconds
+- Evaluation Time: 0.108 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.31%
+- matrix_size_y: 0.40%
+- p1: 10.04%
+- p2: 0.25%
+- p3: 70.35%
+- p4: 5.27%
+- p5: 4.43%
+- p6: 2.15%
+- p7: 0.58%
+- p8: 1.21%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.173e-310
+- Training Time: 9.547 seconds
+- Evaluation Time: 0.039 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.58%
+- matrix_size_y: 0.39%
+- p1: 9.81%
+- p2: 0.22%
+- p3: 69.99%
+- p4: 5.40%
+- p5: 4.37%
+- p6: 2.45%
+- p7: 0.54%
+- p8: 1.23%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.916e-310
+- Training Time: 9.138 seconds
+- Evaluation Time: 0.104 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.40%
+- matrix_size_y: 0.36%
+- p1: 9.67%
+- p2: 0.22%
+- p3: 70.39%
+- p4: 5.26%
+- p5: 4.17%
+- p6: 2.44%
+- p7: 0.67%
+- p8: 1.42%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.436e-310
+- Training Time: 8.907 seconds
+- Evaluation Time: 0.109 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.36%
+- matrix_size_y: 0.31%
+- p1: 9.94%
+- p2: 0.25%
+- p3: 70.13%
+- p4: 5.37%
+- p5: 4.40%
+- p6: 2.48%
+- p7: 0.56%
+- p8: 1.21%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.983e-310
+- Training Time: 8.894 seconds
+- Evaluation Time: 0.112 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.32%
+- matrix_size_y: 0.38%
+- p1: 9.85%
+- p2: 0.27%
+- p3: 70.04%
+- p4: 5.40%
+- p5: 4.42%
+- p6: 2.32%
+- p7: 0.62%
+- p8: 1.39%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.451e-310
+- Training Time: 6.930 seconds
+- Evaluation Time: 0.118 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.63%
+- matrix_size_y: 0.45%
+- p1: 9.91%
+- p2: 0.23%
+- p3: 70.33%
+- p4: 5.24%
+- p5: 3.81%
+- p6: 2.50%
+- p7: 0.58%
+- p8: 1.32%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.683e-310
+- Training Time: 7.200 seconds
+- Evaluation Time: 0.054 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.45%
+- matrix_size_y: 0.34%
+- p1: 9.82%
+- p2: 0.21%
+- p3: 70.46%
+- p4: 5.33%
+- p5: 4.25%
+- p6: 2.33%
+- p7: 0.51%
+- p8: 1.30%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.722e-310
+- Training Time: 7.209 seconds
+- Evaluation Time: 0.110 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.32%
+- matrix_size_y: 0.35%
+- p1: 10.25%
+- p2: 0.24%
+- p3: 70.23%
+- p4: 5.20%
+- p5: 4.28%
+- p6: 2.22%
+- p7: 0.56%
+- p8: 1.35%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.884e-310
+- Training Time: 7.573 seconds
+- Evaluation Time: 0.118 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.73%
+- matrix_size_y: 0.31%
+- p1: 9.99%
+- p2: 0.27%
+- p3: 70.07%
+- p4: 5.34%
+- p5: 4.21%
+- p6: 2.32%
+- p7: 0.65%
+- p8: 1.11%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.441e-310
+- Training Time: 7.921 seconds
+- Evaluation Time: 0.115 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.47%
+- matrix_size_y: 0.38%
+- p1: 9.96%
+- p2: 0.24%
+- p3: 70.16%
+- p4: 5.38%
+- p5: 4.00%
+- p6: 2.46%
+- p7: 0.74%
+- p8: 1.22%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.459e-310
+- Training Time: 8.133 seconds
+- Evaluation Time: 0.122 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.59%
+- matrix_size_y: 0.35%
+- p1: 9.88%
+- p2: 0.23%
+- p3: 70.03%
+- p4: 5.41%
+- p5: 4.12%
+- p6: 2.59%
+- p7: 0.59%
+- p8: 1.21%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.056e-310
+- Training Time: 27.937 seconds
+- Evaluation Time: 0.094 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.21%
+- matrix_size_y: 0.37%
+- p1: 9.92%
+- p2: 0.23%
+- p3: 70.41%
+- p4: 5.33%
+- p5: 4.22%
+- p6: 2.52%
+- p7: 0.58%
+- p8: 1.21%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.027e-310
+- Training Time: 27.877 seconds
+- Evaluation Time: 0.085 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.43%
+- matrix_size_y: 0.36%
+- p1: 10.02%
+- p2: 0.24%
+- p3: 70.13%
+- p4: 5.28%
+- p5: 4.33%
+- p6: 2.49%
+- p7: 0.50%
+- p8: 1.22%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.384e-310
+- Training Time: 27.946 seconds
+- Evaluation Time: 0.085 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.35%
+- matrix_size_y: 0.37%
+- p1: 9.76%
+- p2: 0.26%
+- p3: 70.50%
+- p4: 5.36%
+- p5: 4.09%
+- p6: 2.43%
+- p7: 0.47%
+- p8: 1.41%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.781e-310
+- Training Time: 17.174 seconds
+- Evaluation Time: 0.045 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.56%
+- matrix_size_y: 0.35%
+- p1: 9.81%
+- p2: 0.22%
+- p3: 70.02%
+- p4: 5.31%
+- p5: 4.29%
+- p6: 2.66%
+- p7: 0.60%
+- p8: 1.17%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.438e-310
+- Training Time: 17.520 seconds
+- Evaluation Time: 0.090 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.36%
+- matrix_size_y: 0.32%
+- p1: 10.02%
+- p2: 0.21%
+- p3: 70.46%
+- p4: 5.43%
+- p5: 4.25%
+- p6: 2.14%
+- p7: 0.51%
+- p8: 1.29%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.264e-310
+- Training Time: 17.127 seconds
+- Evaluation Time: 0.097 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.25%
+- matrix_size_y: 0.30%
+- p1: 10.02%
+- p2: 0.23%
+- p3: 70.08%
+- p4: 5.28%
+- p5: 4.61%
+- p6: 2.41%
+- p7: 0.58%
+- p8: 1.25%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.710e-310
+- Training Time: 9.737 seconds
+- Evaluation Time: 0.047 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.51%
+- matrix_size_y: 0.37%
+- p1: 9.83%
+- p2: 0.20%
+- p3: 70.75%
+- p4: 5.09%
+- p5: 4.15%
+- p6: 2.28%
+- p7: 0.59%
+- p8: 1.23%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.008e-310
+- Training Time: 9.664 seconds
+- Evaluation Time: 0.102 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.55%
+- matrix_size_y: 0.31%
+- p1: 9.89%
+- p2: 0.20%
+- p3: 70.42%
+- p4: 5.27%
+- p5: 4.32%
+- p6: 2.34%
+- p7: 0.57%
+- p8: 1.12%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.780e-310
+- Training Time: 9.989 seconds
+- Evaluation Time: 0.049 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.18%
+- matrix_size_y: 0.36%
+- p1: 9.94%
+- p2: 0.22%
+- p3: 70.28%
+- p4: 5.17%
+- p5: 4.86%
+- p6: 2.19%
+- p7: 0.62%
+- p8: 1.17%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.214e-310
+- Training Time: 9.088 seconds
+- Evaluation Time: 0.043 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.25%
+- matrix_size_y: 0.35%
+- p1: 9.75%
+- p2: 0.24%
+- p3: 70.54%
+- p4: 5.17%
+- p5: 4.23%
+- p6: 2.60%
+- p7: 0.60%
+- p8: 1.29%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.214e-310
+- Training Time: 9.150 seconds
+- Evaluation Time: 0.104 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.24%
+- matrix_size_y: 0.31%
+- p1: 10.01%
+- p2: 0.24%
+- p3: 70.34%
+- p4: 5.41%
+- p5: 4.22%
+- p6: 2.30%
+- p7: 0.59%
+- p8: 1.34%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.018e-310
+- Training Time: 9.027 seconds
+- Evaluation Time: 0.036 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.34%
+- matrix_size_y: 0.39%
+- p1: 9.67%
+- p2: 0.22%
+- p3: 70.57%
+- p4: 5.28%
+- p5: 4.30%
+- p6: 2.24%
+- p7: 0.58%
+- p8: 1.42%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.912e-310
+- Training Time: 7.251 seconds
+- Evaluation Time: 0.109 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.19%
+- matrix_size_y: 0.33%
+- p1: 9.87%
+- p2: 0.21%
+- p3: 70.69%
+- p4: 5.41%
+- p5: 4.21%
+- p6: 2.21%
+- p7: 0.66%
+- p8: 1.22%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.446e-310
+- Training Time: 7.224 seconds
+- Evaluation Time: 0.089 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.85%
+- matrix_size_y: 0.35%
+- p1: 9.76%
+- p2: 0.22%
+- p3: 70.19%
+- p4: 5.24%
+- p5: 4.02%
+- p6: 2.47%
+- p7: 0.53%
+- p8: 1.37%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.236e-310
+- Training Time: 6.820 seconds
+- Evaluation Time: 0.102 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.37%
+- matrix_size_y: 0.44%
+- p1: 9.93%
+- p2: 0.25%
+- p3: 70.22%
+- p4: 5.28%
+- p5: 4.15%
+- p6: 2.63%
+- p7: 0.52%
+- p8: 1.21%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.656e-310
+- Training Time: 7.358 seconds
+- Evaluation Time: 0.100 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.27%
+- matrix_size_y: 0.38%
+- p1: 9.79%
+- p2: 0.22%
+- p3: 70.45%
+- p4: 5.54%
+- p5: 4.26%
+- p6: 2.26%
+- p7: 0.49%
+- p8: 1.35%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.345e-310
+- Training Time: 5.644 seconds
+- Evaluation Time: 0.499 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.36%
+- matrix_size_y: 0.36%
+- p1: 9.81%
+- p2: 0.25%
+- p3: 70.08%
+- p4: 5.32%
+- p5: 4.69%
+- p6: 2.25%
+- p7: 0.57%
+- p8: 1.31%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.099e-310
+- Training Time: 7.701 seconds
+- Evaluation Time: 0.107 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.31%
+- matrix_size_y: 0.37%
+- p1: 9.85%
+- p2: 0.24%
+- p3: 70.17%
+- p4: 5.30%
+- p5: 4.42%
+- p6: 2.53%
+- p7: 0.64%
+- p8: 1.17%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.947e-310
+- Training Time: 27.946 seconds
+- Evaluation Time: 0.089 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.31%
+- matrix_size_y: 0.41%
+- p1: 9.99%
+- p2: 0.22%
+- p3: 70.51%
+- p4: 5.23%
+- p5: 4.38%
+- p6: 2.27%
+- p7: 0.53%
+- p8: 1.16%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.144e-310
+- Training Time: 27.919 seconds
+- Evaluation Time: 0.090 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.65%
+- matrix_size_y: 0.47%
+- p1: 9.90%
+- p2: 0.24%
+- p3: 70.20%
+- p4: 5.26%
+- p5: 4.01%
+- p6: 2.31%
+- p7: 0.60%
+- p8: 1.37%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.069e-310
+- Training Time: 28.065 seconds
+- Evaluation Time: 0.089 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.60%
+- matrix_size_y: 0.35%
+- p1: 9.79%
+- p2: 0.20%
+- p3: 70.40%
+- p4: 5.13%
+- p5: 4.44%
+- p6: 2.27%
+- p7: 0.57%
+- p8: 1.25%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.744e-310
+- Training Time: 17.594 seconds
+- Evaluation Time: 0.019 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.40%
+- matrix_size_y: 0.33%
+- p1: 10.03%
+- p2: 0.23%
+- p3: 70.18%
+- p4: 5.32%
+- p5: 4.18%
+- p6: 2.55%
+- p7: 0.59%
+- p8: 1.20%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.737e-310
+- Training Time: 17.459 seconds
+- Evaluation Time: 0.055 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.62%
+- matrix_size_y: 0.41%
+- p1: 9.76%
+- p2: 0.21%
+- p3: 70.56%
+- p4: 5.22%
+- p5: 3.99%
+- p6: 2.43%
+- p7: 0.50%
+- p8: 1.31%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.925e-310
+- Training Time: 17.505 seconds
+- Evaluation Time: 0.091 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.34%
+- matrix_size_y: 0.36%
+- p1: 9.78%
+- p2: 0.25%
+- p3: 70.33%
+- p4: 5.24%
+- p5: 4.40%
+- p6: 2.40%
+- p7: 0.57%
+- p8: 1.33%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.911e-310
+- Training Time: 9.660 seconds
+- Evaluation Time: 0.077 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.68%
+- matrix_size_y: 0.38%
+- p1: 9.83%
+- p2: 0.21%
+- p3: 70.31%
+- p4: 5.24%
+- p5: 3.96%
+- p6: 2.48%
+- p7: 0.71%
+- p8: 1.21%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.999e-310
+- Training Time: 9.973 seconds
+- Evaluation Time: 0.076 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.45%
+- matrix_size_y: 0.35%
+- p1: 10.01%
+- p2: 0.22%
+- p3: 69.73%
+- p4: 5.26%
+- p5: 4.44%
+- p6: 2.59%
+- p7: 0.63%
+- p8: 1.31%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.166e-310
+- Training Time: 9.414 seconds
+- Evaluation Time: 0.028 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.18%
+- matrix_size_y: 0.36%
+- p1: 9.90%
+- p2: 0.20%
+- p3: 70.11%
+- p4: 5.54%
+- p5: 4.58%
+- p6: 2.45%
+- p7: 0.49%
+- p8: 1.18%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.371e-310
+- Training Time: 9.004 seconds
+- Evaluation Time: 0.096 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.52%
+- matrix_size_y: 0.37%
+- p1: 9.88%
+- p2: 0.26%
+- p3: 70.24%
+- p4: 5.31%
+- p5: 4.32%
+- p6: 2.28%
+- p7: 0.55%
+- p8: 1.28%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.266e-310
+- Training Time: 8.672 seconds
+- Evaluation Time: 0.095 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.21%
+- matrix_size_y: 0.31%
+- p1: 10.04%
+- p2: 0.21%
+- p3: 70.01%
+- p4: 5.38%
+- p5: 4.70%
+- p6: 2.25%
+- p7: 0.57%
+- p8: 1.31%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.283e-310
+- Training Time: 8.747 seconds
+- Evaluation Time: 0.055 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.03%
+- matrix_size_y: 0.34%
+- p1: 10.07%
+- p2: 0.20%
+- p3: 70.30%
+- p4: 5.35%
+- p5: 4.67%
+- p6: 2.24%
+- p7: 0.50%
+- p8: 1.31%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.756e-310
+- Training Time: 6.760 seconds
+- Evaluation Time: 0.112 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.14%
+- matrix_size_y: 0.33%
+- p1: 10.09%
+- p2: 0.25%
+- p3: 70.20%
+- p4: 5.14%
+- p5: 4.63%
+- p6: 2.43%
+- p7: 0.60%
+- p8: 1.18%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.325e-310
+- Training Time: 7.252 seconds
+- Evaluation Time: 0.061 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.41%
+- matrix_size_y: 0.29%
+- p1: 9.81%
+- p2: 0.22%
+- p3: 70.35%
+- p4: 5.48%
+- p5: 4.23%
+- p6: 2.41%
+- p7: 0.56%
+- p8: 1.24%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.855e-310
+- Training Time: 6.902 seconds
+- Evaluation Time: 0.102 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.39%
+- matrix_size_y: 0.38%
+- p1: 9.95%
+- p2: 0.23%
+- p3: 70.42%
+- p4: 5.16%
+- p5: 4.39%
+- p6: 2.32%
+- p7: 0.57%
+- p8: 1.19%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.372e-310
+- Training Time: 6.719 seconds
+- Evaluation Time: 0.236 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.41%
+- matrix_size_y: 0.40%
+- p1: 9.58%
+- p2: 0.18%
+- p3: 70.60%
+- p4: 5.39%
+- p5: 4.43%
+- p6: 2.08%
+- p7: 0.68%
+- p8: 1.25%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.970e-310
+- Training Time: 7.876 seconds
+- Evaluation Time: 0.102 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.40%
+- matrix_size_y: 0.36%
+- p1: 9.87%
+- p2: 0.25%
+- p3: 70.45%
+- p4: 5.13%
+- p5: 4.22%
+- p6: 2.46%
+- p7: 0.51%
+- p8: 1.34%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.640e-310
+- Training Time: 7.830 seconds
+- Evaluation Time: 0.096 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.11%
+- matrix_size_y: 0.35%
+- p1: 9.97%
+- p2: 0.26%
+- p3: 69.99%
+- p4: 5.27%
+- p5: 4.47%
+- p6: 2.56%
+- p7: 0.64%
+- p8: 1.40%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.935e-310
+- Training Time: 28.837 seconds
+- Evaluation Time: 0.089 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.13%
+- matrix_size_y: 0.36%
+- p1: 9.73%
+- p2: 0.26%
+- p3: 70.43%
+- p4: 5.42%
+- p5: 4.46%
+- p6: 2.46%
+- p7: 0.56%
+- p8: 1.19%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.729e-310
+- Training Time: 28.710 seconds
+- Evaluation Time: 0.089 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.42%
+- matrix_size_y: 0.34%
+- p1: 9.93%
+- p2: 0.24%
+- p3: 70.62%
+- p4: 5.35%
+- p5: 4.08%
+- p6: 2.37%
+- p7: 0.47%
+- p8: 1.19%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.292e-310
+- Training Time: 28.782 seconds
+- Evaluation Time: 0.090 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.46%
+- matrix_size_y: 0.40%
+- p1: 9.79%
+- p2: 0.26%
+- p3: 70.07%
+- p4: 5.28%
+- p5: 4.61%
+- p6: 2.36%
+- p7: 0.60%
+- p8: 1.18%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.424e-310
+- Training Time: 17.284 seconds
+- Evaluation Time: 0.091 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.31%
+- matrix_size_y: 0.37%
+- p1: 9.89%
+- p2: 0.23%
+- p3: 70.39%
+- p4: 5.36%
+- p5: 4.02%
+- p6: 2.50%
+- p7: 0.58%
+- p8: 1.35%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.760e-310
+- Training Time: 17.400 seconds
+- Evaluation Time: 0.091 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.52%
+- matrix_size_y: 0.31%
+- p1: 9.90%
+- p2: 0.23%
+- p3: 69.95%
+- p4: 5.42%
+- p5: 4.22%
+- p6: 2.48%
+- p7: 0.58%
+- p8: 1.38%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.324e-310
+- Training Time: 17.306 seconds
+- Evaluation Time: 0.051 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.26%
+- matrix_size_y: 0.34%
+- p1: 9.69%
+- p2: 0.27%
+- p3: 70.27%
+- p4: 5.53%
+- p5: 4.49%
+- p6: 2.21%
+- p7: 0.64%
+- p8: 1.29%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.849e-310
+- Training Time: 9.844 seconds
+- Evaluation Time: 0.091 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.17%
+- matrix_size_y: 0.39%
+- p1: 9.80%
+- p2: 0.24%
+- p3: 70.53%
+- p4: 5.45%
+- p5: 4.30%
+- p6: 2.36%
+- p7: 0.52%
+- p8: 1.24%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.142e-310
+- Training Time: 9.571 seconds
+- Evaluation Time: 0.037 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.52%
+- matrix_size_y: 0.35%
+- p1: 9.81%
+- p2: 0.25%
+- p3: 70.15%
+- p4: 5.36%
+- p5: 3.99%
+- p6: 2.63%
+- p7: 0.56%
+- p8: 1.37%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.369e-310
+- Training Time: 9.931 seconds
+- Evaluation Time: 0.045 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.26%
+- matrix_size_y: 0.35%
+- p1: 9.67%
+- p2: 0.22%
+- p3: 70.37%
+- p4: 5.29%
+- p5: 4.62%
+- p6: 2.36%
+- p7: 0.56%
+- p8: 1.30%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.121e-310
+- Training Time: 9.128 seconds
+- Evaluation Time: 0.092 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.23%
+- matrix_size_y: 0.41%
+- p1: 9.99%
+- p2: 0.24%
+- p3: 70.48%
+- p4: 5.27%
+- p5: 4.20%
+- p6: 2.27%
+- p7: 0.59%
+- p8: 1.33%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.328e-310
+- Training Time: 8.199 seconds
+- Evaluation Time: 0.081 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.18%
+- matrix_size_y: 0.38%
+- p1: 9.91%
+- p2: 0.23%
+- p3: 70.41%
+- p4: 5.33%
+- p5: 4.44%
+- p6: 2.27%
+- p7: 0.59%
+- p8: 1.26%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.376e-310
+- Training Time: 8.902 seconds
+- Evaluation Time: 0.048 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.29%
+- matrix_size_y: 0.38%
+- p1: 9.76%
+- p2: 0.25%
+- p3: 70.30%
+- p4: 5.31%
+- p5: 4.52%
+- p6: 2.39%
+- p7: 0.59%
+- p8: 1.20%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.368e-310
+- Training Time: 6.952 seconds
+- Evaluation Time: 0.086 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.35%
+- matrix_size_y: 0.35%
+- p1: 9.81%
+- p2: 0.24%
+- p3: 70.32%
+- p4: 5.57%
+- p5: 4.14%
+- p6: 2.25%
+- p7: 0.66%
+- p8: 1.30%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.467e-310
+- Training Time: 7.039 seconds
+- Evaluation Time: 0.090 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.23%
+- matrix_size_y: 0.37%
+- p1: 9.57%
+- p2: 0.20%
+- p3: 70.56%
+- p4: 5.52%
+- p5: 4.26%
+- p6: 2.32%
+- p7: 0.58%
+- p8: 1.39%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.776e-310
+- Training Time: 7.242 seconds
+- Evaluation Time: 0.079 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.61%
+- matrix_size_y: 0.37%
+- p1: 9.58%
+- p2: 0.21%
+- p3: 70.40%
+- p4: 5.37%
+- p5: 4.30%
+- p6: 2.28%
+- p7: 0.63%
+- p8: 1.26%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.189e-310
+- Training Time: 7.462 seconds
+- Evaluation Time: 0.113 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.34%
+- matrix_size_y: 0.36%
+- p1: 9.72%
+- p2: 0.16%
+- p3: 70.53%
+- p4: 5.21%
+- p5: 4.17%
+- p6: 2.46%
+- p7: 0.66%
+- p8: 1.37%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.208e-310
+- Training Time: 7.526 seconds
+- Evaluation Time: 0.093 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.46%
+- matrix_size_y: 0.37%
+- p1: 9.67%
+- p2: 0.21%
+- p3: 70.22%
+- p4: 5.28%
+- p5: 4.39%
+- p6: 2.42%
+- p7: 0.66%
+- p8: 1.32%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.654e-310
+- Training Time: 7.569 seconds
+- Evaluation Time: 0.088 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.43%
+- matrix_size_y: 0.31%
+- p1: 9.99%
+- p2: 0.21%
+- p3: 70.22%
+- p4: 5.07%
+- p5: 4.49%
+- p6: 2.34%
+- p7: 0.65%
+- p8: 1.29%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.745e-310
+- Training Time: 4.163 seconds
+- Evaluation Time: 0.015 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.01%
+- matrix_size_y: 0.53%
+- p1: 3.78%
+- p2: 0.35%
+- p3: 74.53%
+- p4: 5.88%
+- p5: 0.65%
+- p6: 11.22%
+- p7: 1.20%
+- p8: 0.86%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.742e-310
+- Training Time: 4.122 seconds
+- Evaluation Time: 0.016 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.29%
+- matrix_size_y: 0.36%
+- p1: 3.70%
+- p2: 0.59%
+- p3: 78.00%
+- p4: 4.88%
+- p5: 1.13%
+- p6: 8.22%
+- p7: 0.78%
+- p8: 1.05%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.123e-310
+- Training Time: 4.128 seconds
+- Evaluation Time: 0.016 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.44%
+- matrix_size_y: 0.36%
+- p1: 3.41%
+- p2: 0.59%
+- p3: 78.22%
+- p4: 6.96%
+- p5: 1.01%
+- p6: 6.52%
+- p7: 0.51%
+- p8: 0.99%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.240e-310
+- Training Time: 2.320 seconds
+- Evaluation Time: 0.017 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.39%
+- matrix_size_y: 0.27%
+- p1: 4.35%
+- p2: 0.63%
+- p3: 77.29%
+- p4: 4.53%
+- p5: 0.66%
+- p6: 8.67%
+- p7: 1.07%
+- p8: 1.13%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.203e-310
+- Training Time: 2.351 seconds
+- Evaluation Time: 0.017 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.26%
+- matrix_size_y: 0.82%
+- p1: 3.90%
+- p2: 0.46%
+- p3: 76.64%
+- p4: 6.01%
+- p5: 0.78%
+- p6: 7.99%
+- p7: 0.68%
+- p8: 1.46%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.396e-310
+- Training Time: 2.372 seconds
+- Evaluation Time: 0.017 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.43%
+- matrix_size_y: 0.42%
+- p1: 2.89%
+- p2: 0.58%
+- p3: 78.17%
+- p4: 6.87%
+- p5: 0.67%
+- p6: 7.12%
+- p7: 0.85%
+- p8: 1.00%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.377e-310
+- Training Time: 1.416 seconds
+- Evaluation Time: 0.020 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.59%
+- matrix_size_y: 0.27%
+- p1: 2.62%
+- p2: 0.33%
+- p3: 78.58%
+- p4: 6.26%
+- p5: 0.85%
+- p6: 7.90%
+- p7: 0.72%
+- p8: 0.87%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.968e-310
+- Training Time: 1.372 seconds
+- Evaluation Time: 0.021 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.04%
+- matrix_size_y: 0.26%
+- p1: 3.09%
+- p2: 0.45%
+- p3: 80.29%
+- p4: 6.01%
+- p5: 1.18%
+- p6: 6.02%
+- p7: 0.55%
+- p8: 1.11%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.269e-310
+- Training Time: 1.454 seconds
+- Evaluation Time: 0.020 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.13%
+- matrix_size_y: 0.41%
+- p1: 3.39%
+- p2: 0.61%
+- p3: 77.03%
+- p4: 6.03%
+- p5: 1.54%
+- p6: 8.31%
+- p7: 0.57%
+- p8: 0.98%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.146e-310
+- Training Time: 1.313 seconds
+- Evaluation Time: 0.023 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.20%
+- matrix_size_y: 0.66%
+- p1: 2.48%
+- p2: 0.41%
+- p3: 77.88%
+- p4: 5.35%
+- p5: 0.89%
+- p6: 9.57%
+- p7: 0.71%
+- p8: 0.86%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.145e-310
+- Training Time: 1.289 seconds
+- Evaluation Time: 0.023 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.23%
+- matrix_size_y: 0.38%
+- p1: 2.77%
+- p2: 0.47%
+- p3: 77.66%
+- p4: 4.92%
+- p5: 1.02%
+- p6: 10.31%
+- p7: 0.51%
+- p8: 0.73%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.093e-310
+- Training Time: 1.344 seconds
+- Evaluation Time: 0.023 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.15%
+- matrix_size_y: 0.30%
+- p1: 3.11%
+- p2: 0.61%
+- p3: 78.83%
+- p4: 5.17%
+- p5: 1.00%
+- p6: 8.23%
+- p7: 0.66%
+- p8: 0.93%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.078e-310
+- Training Time: 1.193 seconds
+- Evaluation Time: 0.025 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.31%
+- matrix_size_y: 0.58%
+- p1: 3.81%
+- p2: 0.38%
+- p3: 76.20%
+- p4: 4.40%
+- p5: 1.11%
+- p6: 10.87%
+- p7: 0.68%
+- p8: 0.66%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.848e-310
+- Training Time: 1.133 seconds
+- Evaluation Time: 0.026 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.31%
+- matrix_size_y: 0.41%
+- p1: 3.38%
+- p2: 0.51%
+- p3: 77.61%
+- p4: 5.56%
+- p5: 0.80%
+- p6: 8.52%
+- p7: 0.98%
+- p8: 0.93%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.662e-310
+- Training Time: 1.193 seconds
+- Evaluation Time: 0.025 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.31%
+- matrix_size_y: 0.37%
+- p1: 3.45%
+- p2: 0.56%
+- p3: 77.80%
+- p4: 4.54%
+- p5: 0.89%
+- p6: 9.26%
+- p7: 0.96%
+- p8: 0.86%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.154e-310
+- Training Time: 1.143 seconds
+- Evaluation Time: 0.026 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.45%
+- matrix_size_y: 0.37%
+- p1: 3.50%
+- p2: 0.50%
+- p3: 76.61%
+- p4: 5.33%
+- p5: 0.96%
+- p6: 9.39%
+- p7: 0.98%
+- p8: 0.91%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.880e-310
+- Training Time: 1.273 seconds
+- Evaluation Time: 0.026 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.42%
+- matrix_size_y: 0.57%
+- p1: 3.12%
+- p2: 0.46%
+- p3: 78.91%
+- p4: 4.86%
+- p5: 0.81%
+- p6: 8.13%
+- p7: 0.61%
+- p8: 1.12%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.793e-310
+- Training Time: 1.280 seconds
+- Evaluation Time: 0.026 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.43%
+- matrix_size_y: 0.41%
+- p1: 2.94%
+- p2: 0.56%
+- p3: 78.61%
+- p4: 5.21%
+- p5: 0.90%
+- p6: 8.50%
+- p7: 0.60%
+- p8: 0.84%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.284e-310
+- Training Time: 8.982 seconds
+- Evaluation Time: 0.031 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.54%
+- matrix_size_y: 0.28%
+- p1: 3.84%
+- p2: 0.34%
+- p3: 78.52%
+- p4: 6.34%
+- p5: 1.33%
+- p6: 5.98%
+- p7: 0.63%
+- p8: 1.20%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.302e-310
+- Training Time: 8.936 seconds
+- Evaluation Time: 0.031 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.58%
+- matrix_size_y: 0.32%
+- p1: 2.74%
+- p2: 0.36%
+- p3: 79.09%
+- p4: 5.94%
+- p5: 1.30%
+- p6: 6.51%
+- p7: 0.94%
+- p8: 1.21%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.999e-310
+- Training Time: 8.955 seconds
+- Evaluation Time: 0.031 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.33%
+- matrix_size_y: 0.34%
+- p1: 3.72%
+- p2: 0.33%
+- p3: 76.77%
+- p4: 5.33%
+- p5: 1.29%
+- p6: 8.75%
+- p7: 1.16%
+- p8: 0.97%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.388e-310
+- Training Time: 5.285 seconds
+- Evaluation Time: 0.021 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.48%
+- matrix_size_y: 0.43%
+- p1: 3.84%
+- p2: 0.25%
+- p3: 78.78%
+- p4: 6.06%
+- p5: 1.13%
+- p6: 5.85%
+- p7: 0.81%
+- p8: 1.36%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.773e-310
+- Training Time: 5.247 seconds
+- Evaluation Time: 0.037 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.43%
+- matrix_size_y: 0.35%
+- p1: 3.87%
+- p2: 0.38%
+- p3: 78.05%
+- p4: 6.53%
+- p5: 1.04%
+- p6: 6.19%
+- p7: 1.00%
+- p8: 1.15%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.891e-310
+- Training Time: 5.260 seconds
+- Evaluation Time: 0.036 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.64%
+- matrix_size_y: 0.40%
+- p1: 3.45%
+- p2: 0.38%
+- p3: 77.81%
+- p4: 5.53%
+- p5: 1.31%
+- p6: 7.27%
+- p7: 1.07%
+- p8: 1.14%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.099e-310
+- Training Time: 3.142 seconds
+- Evaluation Time: 0.042 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.91%
+- matrix_size_y: 0.29%
+- p1: 2.88%
+- p2: 0.41%
+- p3: 78.27%
+- p4: 6.01%
+- p5: 1.50%
+- p6: 6.96%
+- p7: 0.72%
+- p8: 1.05%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.291e-310
+- Training Time: 3.315 seconds
+- Evaluation Time: 0.022 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.38%
+- matrix_size_y: 0.38%
+- p1: 3.58%
+- p2: 0.39%
+- p3: 78.05%
+- p4: 6.41%
+- p5: 1.19%
+- p6: 6.75%
+- p7: 0.68%
+- p8: 1.19%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.348e-310
+- Training Time: 3.261 seconds
+- Evaluation Time: 0.043 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.52%
+- matrix_size_y: 0.38%
+- p1: 2.98%
+- p2: 0.42%
+- p3: 77.46%
+- p4: 5.05%
+- p5: 1.18%
+- p6: 8.72%
+- p7: 1.16%
+- p8: 1.14%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.487e-310
+- Training Time: 2.717 seconds
+- Evaluation Time: 0.050 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.25%
+- matrix_size_y: 0.50%
+- p1: 3.31%
+- p2: 0.37%
+- p3: 78.03%
+- p4: 6.23%
+- p5: 1.13%
+- p6: 7.08%
+- p7: 0.91%
+- p8: 1.19%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.742e-310
+- Training Time: 2.880 seconds
+- Evaluation Time: 0.052 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.37%
+- matrix_size_y: 0.38%
+- p1: 3.42%
+- p2: 0.39%
+- p3: 78.99%
+- p4: 5.65%
+- p5: 1.10%
+- p6: 6.74%
+- p7: 0.72%
+- p8: 1.25%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.433e-310
+- Training Time: 2.653 seconds
+- Evaluation Time: 0.044 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.57%
+- matrix_size_y: 0.42%
+- p1: 3.70%
+- p2: 0.38%
+- p3: 78.11%
+- p4: 5.94%
+- p5: 1.22%
+- p6: 6.65%
+- p7: 0.84%
+- p8: 1.17%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.324e-310
+- Training Time: 2.376 seconds
+- Evaluation Time: 0.023 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.60%
+- matrix_size_y: 0.45%
+- p1: 3.59%
+- p2: 0.34%
+- p3: 78.19%
+- p4: 5.52%
+- p5: 1.24%
+- p6: 6.92%
+- p7: 0.95%
+- p8: 1.19%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.424e-310
+- Training Time: 2.327 seconds
+- Evaluation Time: 0.045 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.51%
+- matrix_size_y: 0.49%
+- p1: 2.87%
+- p2: 0.49%
+- p3: 78.14%
+- p4: 6.21%
+- p5: 1.01%
+- p6: 7.25%
+- p7: 1.01%
+- p8: 1.02%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.666e-310
+- Training Time: 2.271 seconds
+- Evaluation Time: 0.044 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.61%
+- matrix_size_y: 0.43%
+- p1: 4.06%
+- p2: 0.36%
+- p3: 77.26%
+- p4: 6.07%
+- p5: 1.39%
+- p6: 6.90%
+- p7: 0.78%
+- p8: 1.15%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.950e-310
+- Training Time: 2.369 seconds
+- Evaluation Time: 0.083 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.47%
+- matrix_size_y: 0.42%
+- p1: 3.31%
+- p2: 0.37%
+- p3: 77.37%
+- p4: 5.78%
+- p5: 1.19%
+- p6: 8.13%
+- p7: 0.88%
+- p8: 1.08%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.715e-310
+- Training Time: 2.522 seconds
+- Evaluation Time: 0.049 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.49%
+- matrix_size_y: 0.45%
+- p1: 3.38%
+- p2: 0.32%
+- p3: 78.01%
+- p4: 5.94%
+- p5: 1.12%
+- p6: 7.42%
+- p7: 0.79%
+- p8: 1.08%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.794e-310
+- Training Time: 2.522 seconds
+- Evaluation Time: 0.102 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.35%
+- matrix_size_y: 0.32%
+- p1: 3.47%
+- p2: 0.35%
+- p3: 78.16%
+- p4: 6.62%
+- p5: 1.28%
+- p6: 6.56%
+- p7: 0.81%
+- p8: 1.07%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.431e-310
+- Training Time: 13.852 seconds
+- Evaluation Time: 0.053 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.41%
+- matrix_size_y: 0.43%
+- p1: 3.01%
+- p2: 0.32%
+- p3: 79.50%
+- p4: 6.07%
+- p5: 1.28%
+- p6: 5.70%
+- p7: 0.92%
+- p8: 1.35%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.670e-310
+- Training Time: 13.843 seconds
+- Evaluation Time: 0.047 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.38%
+- matrix_size_y: 0.50%
+- p1: 3.15%
+- p2: 0.46%
+- p3: 77.51%
+- p4: 5.66%
+- p5: 1.23%
+- p6: 8.25%
+- p7: 0.71%
+- p8: 1.14%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.488e-310
+- Training Time: 13.843 seconds
+- Evaluation Time: 0.056 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.36%
+- matrix_size_y: 0.43%
+- p1: 3.18%
+- p2: 0.37%
+- p3: 79.37%
+- p4: 6.68%
+- p5: 1.28%
+- p6: 5.59%
+- p7: 0.71%
+- p8: 1.03%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.980e-310
+- Training Time: 8.088 seconds
+- Evaluation Time: 0.056 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.62%
+- matrix_size_y: 0.48%
+- p1: 3.84%
+- p2: 0.34%
+- p3: 76.68%
+- p4: 6.05%
+- p5: 1.47%
+- p6: 7.25%
+- p7: 1.22%
+- p8: 1.06%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.010e-310
+- Training Time: 8.238 seconds
+- Evaluation Time: 0.047 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.40%
+- matrix_size_y: 0.43%
+- p1: 3.06%
+- p2: 0.35%
+- p3: 77.79%
+- p4: 6.25%
+- p5: 1.53%
+- p6: 7.14%
+- p7: 0.74%
+- p8: 1.31%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.088e-310
+- Training Time: 8.187 seconds
+- Evaluation Time: 0.050 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.42%
+- matrix_size_y: 0.33%
+- p1: 3.00%
+- p2: 0.32%
+- p3: 77.76%
+- p4: 5.81%
+- p5: 1.43%
+- p6: 8.09%
+- p7: 0.77%
+- p8: 1.08%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.004e-310
+- Training Time: 4.729 seconds
+- Evaluation Time: 0.043 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.58%
+- matrix_size_y: 0.40%
+- p1: 3.13%
+- p2: 0.38%
+- p3: 78.44%
+- p4: 5.79%
+- p5: 1.27%
+- p6: 7.34%
+- p7: 0.63%
+- p8: 1.04%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.386e-310
+- Training Time: 4.738 seconds
+- Evaluation Time: 0.056 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.43%
+- matrix_size_y: 0.39%
+- p1: 2.87%
+- p2: 0.49%
+- p3: 78.29%
+- p4: 6.39%
+- p5: 1.19%
+- p6: 7.03%
+- p7: 0.73%
+- p8: 1.18%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.023e-310
+- Training Time: 4.728 seconds
+- Evaluation Time: 0.038 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.67%
+- matrix_size_y: 0.38%
+- p1: 2.93%
+- p2: 0.35%
+- p3: 78.88%
+- p4: 6.85%
+- p5: 1.35%
+- p6: 5.79%
+- p7: 0.75%
+- p8: 1.05%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.915e-310
+- Training Time: 3.921 seconds
+- Evaluation Time: 0.062 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.57%
+- matrix_size_y: 0.47%
+- p1: 2.91%
+- p2: 0.39%
+- p3: 77.99%
+- p4: 5.89%
+- p5: 1.36%
+- p6: 7.59%
+- p7: 0.80%
+- p8: 1.04%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.220e-310
+- Training Time: 4.157 seconds
+- Evaluation Time: 0.063 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.30%
+- matrix_size_y: 0.44%
+- p1: 2.89%
+- p2: 0.35%
+- p3: 77.70%
+- p4: 5.84%
+- p5: 1.22%
+- p6: 8.11%
+- p7: 0.95%
+- p8: 1.20%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.739e-310
+- Training Time: 4.207 seconds
+- Evaluation Time: 0.063 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.38%
+- matrix_size_y: 0.44%
+- p1: 3.02%
+- p2: 0.29%
+- p3: 78.56%
+- p4: 5.74%
+- p5: 1.29%
+- p6: 7.31%
+- p7: 0.90%
+- p8: 1.08%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.844e-310
+- Training Time: 3.536 seconds
+- Evaluation Time: 0.047 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.19%
+- matrix_size_y: 0.45%
+- p1: 3.32%
+- p2: 0.39%
+- p3: 78.66%
+- p4: 5.84%
+- p5: 1.37%
+- p6: 6.74%
+- p7: 0.89%
+- p8: 1.15%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.120e-310
+- Training Time: 3.515 seconds
+- Evaluation Time: 0.033 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.21%
+- matrix_size_y: 0.44%
+- p1: 3.35%
+- p2: 0.40%
+- p3: 77.72%
+- p4: 5.29%
+- p5: 1.45%
+- p6: 8.02%
+- p7: 0.92%
+- p8: 1.19%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.719e-310
+- Training Time: 3.290 seconds
+- Evaluation Time: 0.022 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.72%
+- matrix_size_y: 0.51%
+- p1: 3.59%
+- p2: 0.31%
+- p3: 78.04%
+- p4: 5.26%
+- p5: 1.42%
+- p6: 7.07%
+- p7: 0.83%
+- p8: 1.25%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.656e-310
+- Training Time: 3.575 seconds
+- Evaluation Time: 0.067 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.44%
+- matrix_size_y: 0.44%
+- p1: 2.82%
+- p2: 0.39%
+- p3: 78.99%
+- p4: 5.75%
+- p5: 1.35%
+- p6: 6.86%
+- p7: 0.92%
+- p8: 1.04%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.139e-310
+- Training Time: 3.697 seconds
+- Evaluation Time: 0.062 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.37%
+- matrix_size_y: 0.41%
+- p1: 3.21%
+- p2: 0.41%
+- p3: 78.13%
+- p4: 5.90%
+- p5: 1.38%
+- p6: 7.13%
+- p7: 0.92%
+- p8: 1.12%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.642e-310
+- Training Time: 3.628 seconds
+- Evaluation Time: 0.071 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.54%
+- matrix_size_y: 0.38%
+- p1: 3.27%
+- p2: 0.36%
+- p3: 78.01%
+- p4: 5.76%
+- p5: 1.41%
+- p6: 7.26%
+- p7: 0.74%
+- p8: 1.26%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.117e-310
+- Training Time: 18.565 seconds
+- Evaluation Time: 0.060 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.70%
+- matrix_size_y: 0.46%
+- p1: 10.16%
+- p2: 0.27%
+- p3: 73.21%
+- p4: 4.64%
+- p5: 2.84%
+- p6: 2.43%
+- p7: 0.78%
+- p8: 1.51%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.960e-310
+- Training Time: 18.536 seconds
+- Evaluation Time: 0.061 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.20%
+- matrix_size_y: 0.39%
+- p1: 10.19%
+- p2: 0.22%
+- p3: 72.83%
+- p4: 4.52%
+- p5: 3.23%
+- p6: 2.14%
+- p7: 0.92%
+- p8: 1.35%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.723e-310
+- Training Time: 18.588 seconds
+- Evaluation Time: 0.060 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.98%
+- matrix_size_y: 0.35%
+- p1: 9.84%
+- p2: 0.22%
+- p3: 72.78%
+- p4: 4.86%
+- p5: 3.06%
+- p6: 2.49%
+- p7: 0.84%
+- p8: 1.58%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.726e-310
+- Training Time: 11.498 seconds
+- Evaluation Time: 0.054 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.86%
+- matrix_size_y: 0.50%
+- p1: 10.24%
+- p2: 0.32%
+- p3: 72.53%
+- p4: 4.62%
+- p5: 3.35%
+- p6: 2.43%
+- p7: 0.86%
+- p8: 1.29%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.481e-310
+- Training Time: 11.434 seconds
+- Evaluation Time: 0.034 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.59%
+- matrix_size_y: 0.41%
+- p1: 9.67%
+- p2: 0.30%
+- p3: 73.31%
+- p4: 4.77%
+- p5: 3.28%
+- p6: 2.60%
+- p7: 0.73%
+- p8: 1.34%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.951e-310
+- Training Time: 11.351 seconds
+- Evaluation Time: 0.062 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.77%
+- matrix_size_y: 0.38%
+- p1: 10.40%
+- p2: 0.26%
+- p3: 73.04%
+- p4: 4.81%
+- p5: 2.99%
+- p6: 2.20%
+- p7: 0.72%
+- p8: 1.41%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.353e-310
+- Training Time: 6.490 seconds
+- Evaluation Time: 0.060 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.55%
+- matrix_size_y: 0.52%
+- p1: 10.10%
+- p2: 0.25%
+- p3: 72.79%
+- p4: 5.12%
+- p5: 3.21%
+- p6: 2.43%
+- p7: 0.68%
+- p8: 1.35%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.675e-310
+- Training Time: 6.470 seconds
+- Evaluation Time: 0.054 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.66%
+- matrix_size_y: 0.40%
+- p1: 9.68%
+- p2: 0.29%
+- p3: 73.21%
+- p4: 4.85%
+- p5: 2.98%
+- p6: 2.57%
+- p7: 0.85%
+- p8: 1.52%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.676e-310
+- Training Time: 6.357 seconds
+- Evaluation Time: 0.073 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.39%
+- matrix_size_y: 0.42%
+- p1: 10.36%
+- p2: 0.23%
+- p3: 73.15%
+- p4: 4.95%
+- p5: 2.98%
+- p6: 2.39%
+- p7: 0.68%
+- p8: 1.43%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.110e-310
+- Training Time: 5.691 seconds
+- Evaluation Time: 0.061 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.89%
+- matrix_size_y: 0.44%
+- p1: 10.34%
+- p2: 0.30%
+- p3: 72.74%
+- p4: 4.47%
+- p5: 2.99%
+- p6: 2.46%
+- p7: 0.92%
+- p8: 1.46%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.112e-310
+- Training Time: 5.337 seconds
+- Evaluation Time: 0.068 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.28%
+- matrix_size_y: 0.53%
+- p1: 10.97%
+- p2: 0.31%
+- p3: 72.95%
+- p4: 4.50%
+- p5: 3.04%
+- p6: 2.34%
+- p7: 0.79%
+- p8: 1.28%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.641e-310
+- Training Time: 5.451 seconds
+- Evaluation Time: 0.061 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.26%
+- matrix_size_y: 0.42%
+- p1: 10.35%
+- p2: 0.29%
+- p3: 72.21%
+- p4: 4.85%
+- p5: 2.94%
+- p6: 2.53%
+- p7: 0.68%
+- p8: 1.48%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.073e-310
+- Training Time: 4.573 seconds
+- Evaluation Time: 0.074 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.51%
+- matrix_size_y: 0.47%
+- p1: 10.80%
+- p2: 0.29%
+- p3: 72.34%
+- p4: 4.69%
+- p5: 3.14%
+- p6: 2.39%
+- p7: 0.87%
+- p8: 1.51%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.329e-310
+- Training Time: 4.418 seconds
+- Evaluation Time: 0.062 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.70%
+- matrix_size_y: 0.51%
+- p1: 10.23%
+- p2: 0.29%
+- p3: 72.73%
+- p4: 4.70%
+- p5: 3.41%
+- p6: 2.32%
+- p7: 0.86%
+- p8: 1.24%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.767e-310
+- Training Time: 4.717 seconds
+- Evaluation Time: 0.070 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.78%
+- matrix_size_y: 0.41%
+- p1: 9.95%
+- p2: 0.29%
+- p3: 72.79%
+- p4: 4.67%
+- p5: 3.26%
+- p6: 2.45%
+- p7: 0.82%
+- p8: 1.59%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.978e-310
+- Training Time: 4.891 seconds
+- Evaluation Time: 0.077 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.13%
+- matrix_size_y: 0.41%
+- p1: 10.12%
+- p2: 0.31%
+- p3: 72.08%
+- p4: 4.84%
+- p5: 3.26%
+- p6: 2.42%
+- p7: 0.93%
+- p8: 1.51%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.395e-310
+- Training Time: 4.785 seconds
+- Evaluation Time: 0.074 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.59%
+- matrix_size_y: 0.56%
+- p1: 10.15%
+- p2: 0.24%
+- p3: 72.87%
+- p4: 4.78%
+- p5: 3.40%
+- p6: 2.28%
+- p7: 0.77%
+- p8: 1.37%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.657e-310
+- Training Time: 4.883 seconds
+- Evaluation Time: 0.064 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 3.54%
+- matrix_size_y: 0.33%
+- p1: 10.32%
+- p2: 0.25%
+- p3: 73.12%
+- p4: 4.85%
+- p5: 3.00%
+- p6: 2.40%
+- p7: 0.87%
+- p8: 1.33%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.138e-310
+- Training Time: 23.435 seconds
+- Evaluation Time: 0.075 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.95%
+- matrix_size_y: 0.44%
+- p1: 9.40%
+- p2: 0.23%
+- p3: 71.29%
+- p4: 5.08%
+- p5: 3.87%
+- p6: 2.63%
+- p7: 0.75%
+- p8: 1.37%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.130e-310
+- Training Time: 23.479 seconds
+- Evaluation Time: 0.075 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.18%
+- matrix_size_y: 0.37%
+- p1: 9.77%
+- p2: 0.23%
+- p3: 70.71%
+- p4: 4.96%
+- p5: 4.49%
+- p6: 2.14%
+- p7: 0.78%
+- p8: 1.37%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.169e-310
+- Training Time: 23.459 seconds
+- Evaluation Time: 0.075 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.84%
+- matrix_size_y: 0.35%
+- p1: 9.98%
+- p2: 0.25%
+- p3: 70.31%
+- p4: 4.73%
+- p5: 4.81%
+- p6: 2.45%
+- p7: 0.69%
+- p8: 1.58%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.147e-310
+- Training Time: 14.193 seconds
+- Evaluation Time: 0.051 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.80%
+- matrix_size_y: 0.36%
+- p1: 9.71%
+- p2: 0.21%
+- p3: 70.98%
+- p4: 5.02%
+- p5: 3.97%
+- p6: 2.55%
+- p7: 0.79%
+- p8: 1.61%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.671e-310
+- Training Time: 14.541 seconds
+- Evaluation Time: 0.067 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.22%
+- matrix_size_y: 0.39%
+- p1: 9.63%
+- p2: 0.24%
+- p3: 70.69%
+- p4: 4.87%
+- p5: 4.45%
+- p6: 2.52%
+- p7: 0.66%
+- p8: 1.34%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.041e-310
+- Training Time: 14.614 seconds
+- Evaluation Time: 0.054 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.44%
+- matrix_size_y: 0.39%
+- p1: 9.28%
+- p2: 0.26%
+- p3: 70.77%
+- p4: 5.08%
+- p5: 4.32%
+- p6: 2.43%
+- p7: 0.67%
+- p8: 1.36%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.054e-310
+- Training Time: 7.896 seconds
+- Evaluation Time: 0.024 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.15%
+- matrix_size_y: 0.39%
+- p1: 9.64%
+- p2: 0.24%
+- p3: 70.57%
+- p4: 5.03%
+- p5: 4.35%
+- p6: 2.54%
+- p7: 0.72%
+- p8: 1.37%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.426e-310
+- Training Time: 7.894 seconds
+- Evaluation Time: 0.032 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.94%
+- matrix_size_y: 0.40%
+- p1: 9.54%
+- p2: 0.26%
+- p3: 70.53%
+- p4: 4.99%
+- p5: 4.50%
+- p6: 2.57%
+- p7: 0.77%
+- p8: 1.50%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.099e-310
+- Training Time: 8.118 seconds
+- Evaluation Time: 0.061 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.18%
+- matrix_size_y: 0.40%
+- p1: 9.69%
+- p2: 0.25%
+- p3: 70.60%
+- p4: 4.88%
+- p5: 4.07%
+- p6: 2.71%
+- p7: 0.84%
+- p8: 1.35%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.819e-310
+- Training Time: 5.809 seconds
+- Evaluation Time: 0.078 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.75%
+- matrix_size_y: 0.39%
+- p1: 9.68%
+- p2: 0.25%
+- p3: 70.94%
+- p4: 5.09%
+- p5: 4.13%
+- p6: 2.58%
+- p7: 0.75%
+- p8: 1.45%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.348e-310
+- Training Time: 6.835 seconds
+- Evaluation Time: 0.037 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.05%
+- matrix_size_y: 0.32%
+- p1: 9.88%
+- p2: 0.22%
+- p3: 70.52%
+- p4: 4.80%
+- p5: 4.46%
+- p6: 2.55%
+- p7: 0.82%
+- p8: 1.38%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.938e-310
+- Training Time: 7.238 seconds
+- Evaluation Time: 0.078 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.15%
+- matrix_size_y: 0.43%
+- p1: 9.67%
+- p2: 0.24%
+- p3: 71.10%
+- p4: 5.03%
+- p5: 4.04%
+- p6: 2.39%
+- p7: 0.68%
+- p8: 1.27%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.289e-310
+- Training Time: 5.358 seconds
+- Evaluation Time: 0.127 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.09%
+- matrix_size_y: 0.37%
+- p1: 9.67%
+- p2: 0.26%
+- p3: 70.79%
+- p4: 4.68%
+- p5: 4.17%
+- p6: 2.74%
+- p7: 0.73%
+- p8: 1.50%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.129e-310
+- Training Time: 6.134 seconds
+- Evaluation Time: 0.078 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.95%
+- matrix_size_y: 0.40%
+- p1: 9.62%
+- p2: 0.25%
+- p3: 70.82%
+- p4: 4.96%
+- p5: 4.17%
+- p6: 2.71%
+- p7: 0.69%
+- p8: 1.43%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.043e-310
+- Training Time: 5.676 seconds
+- Evaluation Time: 0.088 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.18%
+- matrix_size_y: 0.36%
+- p1: 9.76%
+- p2: 0.22%
+- p3: 70.72%
+- p4: 4.93%
+- p5: 4.08%
+- p6: 2.59%
+- p7: 0.83%
+- p8: 1.33%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.977e-310
+- Training Time: 6.148 seconds
+- Evaluation Time: 0.090 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.96%
+- matrix_size_y: 0.31%
+- p1: 9.83%
+- p2: 0.23%
+- p3: 70.34%
+- p4: 5.03%
+- p5: 4.24%
+- p6: 2.71%
+- p7: 0.86%
+- p8: 1.49%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.397e-310
+- Training Time: 6.573 seconds
+- Evaluation Time: 0.140 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.56%
+- matrix_size_y: 0.27%
+- p1: 9.57%
+- p2: 0.22%
+- p3: 70.50%
+- p4: 4.48%
+- p5: 3.96%
+- p6: 2.97%
+- p7: 0.88%
+- p8: 1.58%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.203e-310
+- Training Time: 6.340 seconds
+- Evaluation Time: 0.090 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.76%
+- matrix_size_y: 0.37%
+- p1: 9.87%
+- p2: 0.24%
+- p3: 70.53%
+- p4: 5.16%
+- p5: 4.46%
+- p6: 2.34%
+- p7: 0.81%
+- p8: 1.46%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.943e-310
+- Training Time: 28.729 seconds
+- Evaluation Time: 0.089 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.43%
+- matrix_size_y: 0.30%
+- p1: 9.72%
+- p2: 0.26%
+- p3: 70.40%
+- p4: 5.34%
+- p5: 4.24%
+- p6: 2.41%
+- p7: 0.60%
+- p8: 1.31%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.015e-310
+- Training Time: 28.799 seconds
+- Evaluation Time: 0.089 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.32%
+- matrix_size_y: 0.40%
+- p1: 9.83%
+- p2: 0.18%
+- p3: 70.10%
+- p4: 5.42%
+- p5: 4.65%
+- p6: 2.19%
+- p7: 0.65%
+- p8: 1.27%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.700e-310
+- Training Time: 28.724 seconds
+- Evaluation Time: 0.089 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.39%
+- matrix_size_y: 0.29%
+- p1: 9.87%
+- p2: 0.25%
+- p3: 70.39%
+- p4: 5.24%
+- p5: 4.10%
+- p6: 2.70%
+- p7: 0.58%
+- p8: 1.19%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.125e-310
+- Training Time: 17.052 seconds
+- Evaluation Time: 0.087 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.39%
+- matrix_size_y: 0.40%
+- p1: 9.63%
+- p2: 0.22%
+- p3: 70.41%
+- p4: 5.38%
+- p5: 4.07%
+- p6: 2.55%
+- p7: 0.60%
+- p8: 1.35%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.044e-310
+- Training Time: 17.392 seconds
+- Evaluation Time: 0.106 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.26%
+- matrix_size_y: 0.33%
+- p1: 9.85%
+- p2: 0.24%
+- p3: 70.13%
+- p4: 5.24%
+- p5: 4.71%
+- p6: 2.38%
+- p7: 0.52%
+- p8: 1.34%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.359e-310
+- Training Time: 17.608 seconds
+- Evaluation Time: 0.091 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.69%
+- matrix_size_y: 0.31%
+- p1: 9.88%
+- p2: 0.24%
+- p3: 70.58%
+- p4: 5.23%
+- p5: 3.77%
+- p6: 2.49%
+- p7: 0.60%
+- p8: 1.22%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.797e-310
+- Training Time: 9.941 seconds
+- Evaluation Time: 0.091 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.46%
+- matrix_size_y: 0.35%
+- p1: 10.17%
+- p2: 0.22%
+- p3: 69.80%
+- p4: 5.17%
+- p5: 4.33%
+- p6: 2.50%
+- p7: 0.57%
+- p8: 1.43%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.206e-310
+- Training Time: 9.629 seconds
+- Evaluation Time: 0.091 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.26%
+- matrix_size_y: 0.40%
+- p1: 9.73%
+- p2: 0.23%
+- p3: 70.36%
+- p4: 5.49%
+- p5: 4.15%
+- p6: 2.45%
+- p7: 0.68%
+- p8: 1.24%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.684e-310
+- Training Time: 9.656 seconds
+- Evaluation Time: 0.076 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.42%
+- matrix_size_y: 0.38%
+- p1: 9.93%
+- p2: 0.22%
+- p3: 70.06%
+- p4: 5.37%
+- p5: 4.46%
+- p6: 2.33%
+- p7: 0.52%
+- p8: 1.28%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.244e-310
+- Training Time: 9.027 seconds
+- Evaluation Time: 0.074 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.47%
+- matrix_size_y: 0.36%
+- p1: 9.95%
+- p2: 0.25%
+- p3: 70.28%
+- p4: 5.44%
+- p5: 4.08%
+- p6: 2.43%
+- p7: 0.55%
+- p8: 1.18%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.030e-310
+- Training Time: 8.731 seconds
+- Evaluation Time: 0.092 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.39%
+- matrix_size_y: 0.30%
+- p1: 9.76%
+- p2: 0.30%
+- p3: 70.55%
+- p4: 5.53%
+- p5: 3.95%
+- p6: 2.42%
+- p7: 0.62%
+- p8: 1.18%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.820e-310
+- Training Time: 8.894 seconds
+- Evaluation Time: 0.034 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.50%
+- matrix_size_y: 0.36%
+- p1: 9.99%
+- p2: 0.24%
+- p3: 70.49%
+- p4: 5.09%
+- p5: 4.24%
+- p6: 2.32%
+- p7: 0.58%
+- p8: 1.18%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.926e-310
+- Training Time: 6.764 seconds
+- Evaluation Time: 0.089 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.55%
+- matrix_size_y: 0.31%
+- p1: 9.82%
+- p2: 0.27%
+- p3: 70.53%
+- p4: 5.47%
+- p5: 3.99%
+- p6: 2.31%
+- p7: 0.53%
+- p8: 1.23%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.960e-310
+- Training Time: 6.312 seconds
+- Evaluation Time: 0.027 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.28%
+- matrix_size_y: 0.34%
+- p1: 9.91%
+- p2: 0.24%
+- p3: 70.45%
+- p4: 5.60%
+- p5: 4.25%
+- p6: 2.15%
+- p7: 0.54%
+- p8: 1.24%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.943e-310
+- Training Time: 7.130 seconds
+- Evaluation Time: 0.107 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.56%
+- matrix_size_y: 0.37%
+- p1: 9.90%
+- p2: 0.24%
+- p3: 69.95%
+- p4: 5.37%
+- p5: 4.08%
+- p6: 2.70%
+- p7: 0.56%
+- p8: 1.27%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.759e-310
+- Training Time: 7.432 seconds
+- Evaluation Time: 0.095 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.21%
+- matrix_size_y: 0.35%
+- p1: 9.78%
+- p2: 0.20%
+- p3: 70.37%
+- p4: 5.52%
+- p5: 4.41%
+- p6: 2.24%
+- p7: 0.55%
+- p8: 1.37%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.220e-310
+- Training Time: 7.310 seconds
+- Evaluation Time: 0.087 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.27%
+- matrix_size_y: 0.35%
+- p1: 9.88%
+- p2: 0.25%
+- p3: 70.45%
+- p4: 5.30%
+- p5: 4.32%
+- p6: 2.14%
+- p7: 0.62%
+- p8: 1.43%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.678e-310
+- Training Time: 7.414 seconds
+- Evaluation Time: 0.092 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 10.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.10%
+- matrix_size_y: 0.29%
+- p1: 10.27%
+- p2: 0.25%
+- p3: 70.30%
+- p4: 5.39%
+- p5: 4.43%
+- p6: 2.26%
+- p7: 0.60%
+- p8: 1.10%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 6.787e-05
+- Training Time: 0.082 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 1.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 4.27%
+- matrix_size_y: 0.02%
+- p1: 10.82%
+- p2: 0.00%
+- p3: 77.12%
+- p4: 2.98%
+- p5: 3.76%
+- p6: 0.86%
+- p7: 0.00%
+- p8: 0.17%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 6.787e-05
+- Training Time: 0.027 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 1.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 4.27%
+- matrix_size_y: 0.02%
+- p1: 10.82%
+- p2: 0.00%
+- p3: 77.12%
+- p4: 2.98%
+- p5: 3.76%
+- p6: 0.86%
+- p7: 0.00%
+- p8: 0.17%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 6.787e-05
+- Training Time: 0.029 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 1.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 4.27%
+- matrix_size_y: 0.02%
+- p1: 10.82%
+- p2: 0.00%
+- p3: 77.12%
+- p4: 2.98%
+- p5: 3.76%
+- p6: 0.86%
+- p7: 0.00%
+- p8: 0.17%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 6.787e-05
+- Training Time: 0.059 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 2.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 4.27%
+- matrix_size_y: 0.02%
+- p1: 10.82%
+- p2: 0.00%
+- p3: 77.12%
+- p4: 2.98%
+- p5: 3.76%
+- p6: 0.86%
+- p7: 0.00%
+- p8: 0.17%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 6.787e-05
+- Training Time: 0.060 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 2.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 4.27%
+- matrix_size_y: 0.02%
+- p1: 10.82%
+- p2: 0.00%
+- p3: 77.12%
+- p4: 2.98%
+- p5: 3.76%
+- p6: 0.86%
+- p7: 0.00%
+- p8: 0.17%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 6.787e-05
+- Training Time: 0.060 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 2.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 4.27%
+- matrix_size_y: 0.02%
+- p1: 10.82%
+- p2: 0.00%
+- p3: 77.12%
+- p4: 2.98%
+- p5: 3.76%
+- p6: 0.86%
+- p7: 0.00%
+- p8: 0.17%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 6.787e-05
+- Training Time: 0.060 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 2.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 4.27%
+- matrix_size_y: 0.02%
+- p1: 10.82%
+- p2: 0.00%
+- p3: 77.12%
+- p4: 2.98%
+- p5: 3.76%
+- p6: 0.86%
+- p7: 0.00%
+- p8: 0.17%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 6.787e-05
+- Training Time: 0.060 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 2.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 4.27%
+- matrix_size_y: 0.02%
+- p1: 10.82%
+- p2: 0.00%
+- p3: 77.12%
+- p4: 2.98%
+- p5: 3.76%
+- p6: 0.86%
+- p7: 0.00%
+- p8: 0.17%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 6.787e-05
+- Training Time: 0.060 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 2.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 4.27%
+- matrix_size_y: 0.02%
+- p1: 10.82%
+- p2: 0.00%
+- p3: 77.12%
+- p4: 2.98%
+- p5: 3.76%
+- p6: 0.86%
+- p7: 0.00%
+- p8: 0.17%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 6.787e-05
+- Training Time: 0.049 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 4.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 4.27%
+- matrix_size_y: 0.02%
+- p1: 10.82%
+- p2: 0.00%
+- p3: 77.12%
+- p4: 2.98%
+- p5: 3.76%
+- p6: 0.86%
+- p7: 0.00%
+- p8: 0.17%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 6.787e-05
+- Training Time: 0.053 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 4.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 4.27%
+- matrix_size_y: 0.02%
+- p1: 10.82%
+- p2: 0.00%
+- p3: 77.12%
+- p4: 2.98%
+- p5: 3.76%
+- p6: 0.86%
+- p7: 0.00%
+- p8: 0.17%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 6.787e-05
+- Training Time: 0.045 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 4.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 4.27%
+- matrix_size_y: 0.02%
+- p1: 10.82%
+- p2: 0.00%
+- p3: 77.12%
+- p4: 2.98%
+- p5: 3.76%
+- p6: 0.86%
+- p7: 0.00%
+- p8: 0.17%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 6.787e-05
+- Training Time: 0.047 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 4.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 4.27%
+- matrix_size_y: 0.02%
+- p1: 10.82%
+- p2: 0.00%
+- p3: 77.12%
+- p4: 2.98%
+- p5: 3.76%
+- p6: 0.86%
+- p7: 0.00%
+- p8: 0.17%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 6.787e-05
+- Training Time: 0.050 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 4.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 4.27%
+- matrix_size_y: 0.02%
+- p1: 10.82%
+- p2: 0.00%
+- p3: 77.12%
+- p4: 2.98%
+- p5: 3.76%
+- p6: 0.86%
+- p7: 0.00%
+- p8: 0.17%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 6.787e-05
+- Training Time: 0.047 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 4.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 4.27%
+- matrix_size_y: 0.02%
+- p1: 10.82%
+- p2: 0.00%
+- p3: 77.12%
+- p4: 2.98%
+- p5: 3.76%
+- p6: 0.86%
+- p7: 0.00%
+- p8: 0.17%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 6.787e-05
+- Training Time: 0.046 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 4.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 4.27%
+- matrix_size_y: 0.02%
+- p1: 10.82%
+- p2: 0.00%
+- p3: 77.12%
+- p4: 2.98%
+- p5: 3.76%
+- p6: 0.86%
+- p7: 0.00%
+- p8: 0.17%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 6.787e-05
+- Training Time: 0.044 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 4.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 4.27%
+- matrix_size_y: 0.02%
+- p1: 10.82%
+- p2: 0.00%
+- p3: 77.12%
+- p4: 2.98%
+- p5: 3.76%
+- p6: 0.86%
+- p7: 0.00%
+- p8: 0.17%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 6.787e-05
+- Training Time: 0.046 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 4.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 4.27%
+- matrix_size_y: 0.02%
+- p1: 10.82%
+- p2: 0.00%
+- p3: 77.12%
+- p4: 2.98%
+- p5: 3.76%
+- p6: 0.86%
+- p7: 0.00%
+- p8: 0.17%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.683e-310
+- Training Time: 6.165 seconds
+- Evaluation Time: 0.027 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.29%
+- matrix_size_y: 0.00%
+- p1: 10.03%
+- p2: 0.00%
+- p3: 76.59%
+- p4: 3.79%
+- p5: 2.76%
+- p6: 1.42%
+- p7: 0.03%
+- p8: 0.09%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.862e-310
+- Training Time: 6.131 seconds
+- Evaluation Time: 0.027 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.68%
+- matrix_size_y: 0.01%
+- p1: 10.40%
+- p2: 0.00%
+- p3: 76.87%
+- p4: 3.13%
+- p5: 3.50%
+- p6: 1.21%
+- p7: 0.01%
+- p8: 0.18%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.915e-310
+- Training Time: 6.222 seconds
+- Evaluation Time: 0.027 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.42%
+- matrix_size_y: 0.10%
+- p1: 9.70%
+- p2: 0.00%
+- p3: 77.34%
+- p4: 3.13%
+- p5: 2.70%
+- p6: 1.40%
+- p7: 0.00%
+- p8: 0.20%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.502e-310
+- Training Time: 6.089 seconds
+- Evaluation Time: 0.027 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.70%
+- matrix_size_y: 0.01%
+- p1: 9.91%
+- p2: 0.00%
+- p3: 77.14%
+- p4: 3.15%
+- p5: 3.37%
+- p6: 1.21%
+- p7: 0.00%
+- p8: 0.52%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.297e-310
+- Training Time: 6.117 seconds
+- Evaluation Time: 0.028 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.95%
+- matrix_size_y: 0.01%
+- p1: 9.83%
+- p2: 0.01%
+- p3: 76.99%
+- p4: 3.19%
+- p5: 3.60%
+- p6: 1.13%
+- p7: 0.02%
+- p8: 0.27%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.726e-310
+- Training Time: 6.096 seconds
+- Evaluation Time: 0.029 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.06%
+- matrix_size_y: 0.02%
+- p1: 9.80%
+- p2: 0.01%
+- p3: 76.94%
+- p4: 3.32%
+- p5: 3.17%
+- p6: 1.46%
+- p7: 0.00%
+- p8: 0.22%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.825e-310
+- Training Time: 4.267 seconds
+- Evaluation Time: 0.031 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.67%
+- matrix_size_y: 0.08%
+- p1: 9.87%
+- p2: 0.00%
+- p3: 77.33%
+- p4: 3.28%
+- p5: 3.06%
+- p6: 1.22%
+- p7: 0.03%
+- p8: 0.45%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.302e-310
+- Training Time: 4.261 seconds
+- Evaluation Time: 0.031 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.83%
+- matrix_size_y: 0.02%
+- p1: 9.82%
+- p2: 0.00%
+- p3: 77.06%
+- p4: 3.36%
+- p5: 3.27%
+- p6: 1.23%
+- p7: 0.04%
+- p8: 0.36%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.778e-310
+- Training Time: 4.208 seconds
+- Evaluation Time: 0.031 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.47%
+- matrix_size_y: 0.00%
+- p1: 9.72%
+- p2: 0.01%
+- p3: 76.73%
+- p4: 3.61%
+- p5: 3.74%
+- p6: 1.47%
+- p7: 0.03%
+- p8: 0.21%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.831e-310
+- Training Time: 3.386 seconds
+- Evaluation Time: 0.034 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.84%
+- matrix_size_y: 0.05%
+- p1: 9.73%
+- p2: 0.01%
+- p3: 76.71%
+- p4: 3.61%
+- p5: 3.70%
+- p6: 1.04%
+- p7: 0.03%
+- p8: 0.28%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.852e-310
+- Training Time: 3.401 seconds
+- Evaluation Time: 0.034 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.74%
+- matrix_size_y: 0.03%
+- p1: 9.81%
+- p2: 0.01%
+- p3: 77.50%
+- p4: 3.27%
+- p5: 3.20%
+- p6: 1.25%
+- p7: 0.02%
+- p8: 0.19%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.408e-310
+- Training Time: 3.455 seconds
+- Evaluation Time: 0.034 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.03%
+- matrix_size_y: 0.01%
+- p1: 10.29%
+- p2: 0.00%
+- p3: 76.88%
+- p4: 3.01%
+- p5: 3.39%
+- p6: 1.25%
+- p7: 0.06%
+- p8: 0.07%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.160e-310
+- Training Time: 3.223 seconds
+- Evaluation Time: 0.038 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.24%
+- matrix_size_y: 0.01%
+- p1: 9.88%
+- p2: 0.01%
+- p3: 76.12%
+- p4: 3.18%
+- p5: 3.80%
+- p6: 1.46%
+- p7: 0.01%
+- p8: 0.30%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.952e-310
+- Training Time: 3.209 seconds
+- Evaluation Time: 0.037 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.21%
+- matrix_size_y: 0.02%
+- p1: 9.53%
+- p2: 0.00%
+- p3: 77.18%
+- p4: 3.50%
+- p5: 3.21%
+- p6: 1.01%
+- p7: 0.08%
+- p8: 0.27%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.379e-310
+- Training Time: 3.227 seconds
+- Evaluation Time: 0.036 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.88%
+- matrix_size_y: 0.02%
+- p1: 9.74%
+- p2: 0.00%
+- p3: 77.36%
+- p4: 3.35%
+- p5: 3.27%
+- p6: 0.94%
+- p7: 0.05%
+- p8: 0.39%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.827e-310
+- Training Time: 3.163 seconds
+- Evaluation Time: 0.040 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.42%
+- matrix_size_y: 0.01%
+- p1: 9.78%
+- p2: 0.00%
+- p3: 76.69%
+- p4: 3.22%
+- p5: 2.98%
+- p6: 1.51%
+- p7: 0.03%
+- p8: 0.35%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.983e-310
+- Training Time: 3.175 seconds
+- Evaluation Time: 0.037 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.54%
+- matrix_size_y: 0.00%
+- p1: 9.71%
+- p2: 0.01%
+- p3: 76.93%
+- p4: 3.26%
+- p5: 2.83%
+- p6: 1.45%
+- p7: 0.02%
+- p8: 0.25%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.324e-310
+- Training Time: 3.225 seconds
+- Evaluation Time: 0.038 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.84%
+- matrix_size_y: 0.01%
+- p1: 9.71%
+- p2: 0.01%
+- p3: 76.54%
+- p4: 3.43%
+- p5: 3.76%
+- p6: 1.25%
+- p7: 0.02%
+- p8: 0.44%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 5.239e-310
+- Training Time: 5.775 seconds
+- Evaluation Time: 0.005 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.037
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.97%
+- matrix_size_y: 1.90%
+- p1: 23.02%
+- p2: 1.03%
+- p3: 13.78%
+- p4: 12.44%
+- p5: 12.03%
+- p6: 10.55%
+- p7: 2.27%
+- p8: 7.02%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 5.126e-310
+- Training Time: 5.763 seconds
+- Evaluation Time: 0.009 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.037
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.96%
+- matrix_size_y: 1.90%
+- p1: 23.02%
+- p2: 1.03%
+- p3: 13.78%
+- p4: 12.43%
+- p5: 12.04%
+- p6: 10.55%
+- p7: 2.27%
+- p8: 7.02%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 5.179e-310
+- Training Time: 5.775 seconds
+- Evaluation Time: 0.006 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.037
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.97%
+- matrix_size_y: 1.90%
+- p1: 23.02%
+- p2: 1.03%
+- p3: 13.78%
+- p4: 12.43%
+- p5: 12.04%
+- p6: 10.55%
+- p7: 2.27%
+- p8: 7.02%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 5.323e-310
+- Training Time: 14.614 seconds
+- Evaluation Time: 0.007 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.037
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.96%
+- matrix_size_y: 1.90%
+- p1: 23.03%
+- p2: 1.04%
+- p3: 13.79%
+- p4: 12.43%
+- p5: 12.02%
+- p6: 10.55%
+- p7: 2.26%
+- p8: 7.02%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 4.802e-310
+- Training Time: 14.678 seconds
+- Evaluation Time: 0.007 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.037
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.96%
+- matrix_size_y: 1.90%
+- p1: 23.03%
+- p2: 1.04%
+- p3: 13.79%
+- p4: 12.43%
+- p5: 12.02%
+- p6: 10.55%
+- p7: 2.26%
+- p8: 7.02%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 4.986e-310
+- Training Time: 14.668 seconds
+- Evaluation Time: 0.007 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.037
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.96%
+- matrix_size_y: 1.90%
+- p1: 23.03%
+- p2: 1.04%
+- p3: 13.79%
+- p4: 12.43%
+- p5: 12.02%
+- p6: 10.55%
+- p7: 2.26%
+- p8: 7.02%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 5.415e-310
+- Training Time: 14.944 seconds
+- Evaluation Time: 0.009 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.037
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.96%
+- matrix_size_y: 1.90%
+- p1: 23.03%
+- p2: 1.04%
+- p3: 13.79%
+- p4: 12.43%
+- p5: 12.02%
+- p6: 10.55%
+- p7: 2.26%
+- p8: 7.02%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 4.694e-310
+- Training Time: 14.851 seconds
+- Evaluation Time: 0.008 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.037
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.96%
+- matrix_size_y: 1.90%
+- p1: 23.03%
+- p2: 1.04%
+- p3: 13.79%
+- p4: 12.43%
+- p5: 12.02%
+- p6: 10.55%
+- p7: 2.26%
+- p8: 7.02%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 5.082e-310
+- Training Time: 14.724 seconds
+- Evaluation Time: 0.007 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.037
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.96%
+- matrix_size_y: 1.90%
+- p1: 23.03%
+- p2: 1.04%
+- p3: 13.79%
+- p4: 12.43%
+- p5: 12.02%
+- p6: 10.55%
+- p7: 2.26%
+- p8: 7.02%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 5.349e-310
+- Training Time: 13.985 seconds
+- Evaluation Time: 0.009 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.037
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.96%
+- matrix_size_y: 1.90%
+- p1: 23.03%
+- p2: 1.04%
+- p3: 13.79%
+- p4: 12.43%
+- p5: 12.02%
+- p6: 10.55%
+- p7: 2.26%
+- p8: 7.02%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 4.745e-310
+- Training Time: 13.862 seconds
+- Evaluation Time: 0.009 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.037
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.96%
+- matrix_size_y: 1.90%
+- p1: 23.03%
+- p2: 1.04%
+- p3: 13.79%
+- p4: 12.43%
+- p5: 12.02%
+- p6: 10.55%
+- p7: 2.26%
+- p8: 7.02%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 5.448e-310
+- Training Time: 14.023 seconds
+- Evaluation Time: 0.008 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.037
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.96%
+- matrix_size_y: 1.90%
+- p1: 23.03%
+- p2: 1.04%
+- p3: 13.79%
+- p4: 12.43%
+- p5: 12.02%
+- p6: 10.55%
+- p7: 2.26%
+- p8: 7.02%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 5.315e-310
+- Training Time: 13.994 seconds
+- Evaluation Time: 0.008 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.037
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.96%
+- matrix_size_y: 1.90%
+- p1: 23.03%
+- p2: 1.04%
+- p3: 13.79%
+- p4: 12.43%
+- p5: 12.02%
+- p6: 10.55%
+- p7: 2.26%
+- p8: 7.02%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 4.651e-310
+- Training Time: 13.906 seconds
+- Evaluation Time: 0.008 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.037
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.96%
+- matrix_size_y: 1.90%
+- p1: 23.03%
+- p2: 1.04%
+- p3: 13.79%
+- p4: 12.43%
+- p5: 12.02%
+- p6: 10.55%
+- p7: 2.26%
+- p8: 7.02%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 4.724e-310
+- Training Time: 13.901 seconds
+- Evaluation Time: 0.008 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.037
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.96%
+- matrix_size_y: 1.90%
+- p1: 23.03%
+- p2: 1.04%
+- p3: 13.79%
+- p4: 12.43%
+- p5: 12.02%
+- p6: 10.55%
+- p7: 2.26%
+- p8: 7.02%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 4.894e-310
+- Training Time: 14.076 seconds
+- Evaluation Time: 0.008 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.037
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.96%
+- matrix_size_y: 1.90%
+- p1: 23.03%
+- p2: 1.04%
+- p3: 13.79%
+- p4: 12.43%
+- p5: 12.02%
+- p6: 10.55%
+- p7: 2.26%
+- p8: 7.02%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 4.811e-310
+- Training Time: 14.002 seconds
+- Evaluation Time: 0.011 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.037
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.96%
+- matrix_size_y: 1.90%
+- p1: 23.03%
+- p2: 1.04%
+- p3: 13.79%
+- p4: 12.43%
+- p5: 12.02%
+- p6: 10.55%
+- p7: 2.26%
+- p8: 7.02%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 5.489e-310
+- Training Time: 14.351 seconds
+- Evaluation Time: 0.008 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.037
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.96%
+- matrix_size_y: 1.90%
+- p1: 23.03%
+- p2: 1.04%
+- p3: 13.79%
+- p4: 12.43%
+- p5: 12.02%
+- p6: 10.55%
+- p7: 2.26%
+- p8: 7.02%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.225 seconds
+- Evaluation Time: 0.045 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 867.51%
+- F1: 27.89%
+- F2: 2692.72%
+- F3: 1785.25%
+- F4: 382.65%
+- F5: 574.67%
+- F6: 446.25%
+- F7: 257.32%
+- F8: 872.16%
+- F9: 120.03%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.224 seconds
+- Evaluation Time: 0.045 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 867.51%
+- F1: 27.89%
+- F2: 2692.72%
+- F3: 1785.25%
+- F4: 382.65%
+- F5: 574.67%
+- F6: 446.25%
+- F7: 257.32%
+- F8: 872.16%
+- F9: 120.03%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.224 seconds
+- Evaluation Time: 0.047 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 867.51%
+- F1: 27.89%
+- F2: 2692.72%
+- F3: 1785.25%
+- F4: 382.65%
+- F5: 574.67%
+- F6: 446.25%
+- F7: 257.32%
+- F8: 872.16%
+- F9: 120.03%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.224 seconds
+- Evaluation Time: 0.045 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 867.51%
+- F1: 27.89%
+- F2: 2692.72%
+- F3: 1785.25%
+- F4: 382.65%
+- F5: 574.67%
+- F6: 446.25%
+- F7: 257.32%
+- F8: 872.16%
+- F9: 120.03%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.224 seconds
+- Evaluation Time: 0.045 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 867.51%
+- F1: 27.89%
+- F2: 2692.72%
+- F3: 1785.25%
+- F4: 382.65%
+- F5: 574.67%
+- F6: 446.25%
+- F7: 257.32%
+- F8: 872.16%
+- F9: 120.03%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.225 seconds
+- Evaluation Time: 0.045 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 867.51%
+- F1: 27.89%
+- F2: 2692.72%
+- F3: 1785.25%
+- F4: 382.65%
+- F5: 574.67%
+- F6: 446.25%
+- F7: 257.32%
+- F8: 872.16%
+- F9: 120.03%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.224 seconds
+- Evaluation Time: 0.045 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 867.51%
+- F1: 27.89%
+- F2: 2692.72%
+- F3: 1785.25%
+- F4: 382.65%
+- F5: 574.67%
+- F6: 446.25%
+- F7: 257.32%
+- F8: 872.16%
+- F9: 120.03%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.224 seconds
+- Evaluation Time: 0.046 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 867.51%
+- F1: 27.89%
+- F2: 2692.72%
+- F3: 1785.25%
+- F4: 382.65%
+- F5: 574.67%
+- F6: 446.25%
+- F7: 257.32%
+- F8: 872.16%
+- F9: 120.03%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.226 seconds
+- Evaluation Time: 0.045 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 867.51%
+- F1: 27.89%
+- F2: 2692.72%
+- F3: 1785.25%
+- F4: 382.65%
+- F5: 574.67%
+- F6: 446.25%
+- F7: 257.32%
+- F8: 872.16%
+- F9: 120.03%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.225 seconds
+- Evaluation Time: 0.046 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 867.51%
+- F1: 27.89%
+- F2: 2692.72%
+- F3: 1785.25%
+- F4: 382.65%
+- F5: 574.67%
+- F6: 446.25%
+- F7: 257.32%
+- F8: 872.16%
+- F9: 120.03%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.224 seconds
+- Evaluation Time: 0.046 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 867.51%
+- F1: 27.89%
+- F2: 2692.72%
+- F3: 1785.25%
+- F4: 382.65%
+- F5: 574.67%
+- F6: 446.25%
+- F7: 257.32%
+- F8: 872.16%
+- F9: 120.03%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.225 seconds
+- Evaluation Time: 0.045 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 867.51%
+- F1: 27.89%
+- F2: 2692.72%
+- F3: 1785.25%
+- F4: 382.65%
+- F5: 574.67%
+- F6: 446.25%
+- F7: 257.32%
+- F8: 872.16%
+- F9: 120.03%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.225 seconds
+- Evaluation Time: 0.046 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 867.51%
+- F1: 27.89%
+- F2: 2692.72%
+- F3: 1785.25%
+- F4: 382.65%
+- F5: 574.67%
+- F6: 446.25%
+- F7: 257.32%
+- F8: 872.16%
+- F9: 120.03%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.223 seconds
+- Evaluation Time: 0.045 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 867.51%
+- F1: 27.89%
+- F2: 2692.72%
+- F3: 1785.25%
+- F4: 382.65%
+- F5: 574.67%
+- F6: 446.25%
+- F7: 257.32%
+- F8: 872.16%
+- F9: 120.03%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.224 seconds
+- Evaluation Time: 0.046 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 867.51%
+- F1: 27.89%
+- F2: 2692.72%
+- F3: 1785.25%
+- F4: 382.65%
+- F5: 574.67%
+- F6: 446.25%
+- F7: 257.32%
+- F8: 872.16%
+- F9: 120.03%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.224 seconds
+- Evaluation Time: 0.045 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 867.51%
+- F1: 27.89%
+- F2: 2692.72%
+- F3: 1785.25%
+- F4: 382.65%
+- F5: 574.67%
+- F6: 446.25%
+- F7: 257.32%
+- F8: 872.16%
+- F9: 120.03%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.224 seconds
+- Evaluation Time: 0.046 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 867.51%
+- F1: 27.89%
+- F2: 2692.72%
+- F3: 1785.25%
+- F4: 382.65%
+- F5: 574.67%
+- F6: 446.25%
+- F7: 257.32%
+- F8: 872.16%
+- F9: 120.03%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.224 seconds
+- Evaluation Time: 0.046 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 867.51%
+- F1: 27.89%
+- F2: 2692.72%
+- F3: 1785.25%
+- F4: 382.65%
+- F5: 574.67%
+- F6: 446.25%
+- F7: 257.32%
+- F8: 872.16%
+- F9: 120.03%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 4.911e-310
+- Training Time: 2.575 seconds
+- Evaluation Time: 0.004 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 1.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.29%
+- matrix_size_y: 0.00%
+- p1: 5.74%
+- p2: 0.00%
+- p3: 51.17%
+- p4: 17.69%
+- p5: 8.04%
+- p6: 0.87%
+- p7: 0.21%
+- p8: 0.99%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.480e-310
+- Training Time: 2.476 seconds
+- Evaluation Time: 0.004 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 1.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.29%
+- matrix_size_y: 0.00%
+- p1: 5.74%
+- p2: 0.00%
+- p3: 51.17%
+- p4: 17.69%
+- p5: 8.04%
+- p6: 0.87%
+- p7: 0.21%
+- p8: 0.99%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 4.818e-310
+- Training Time: 2.577 seconds
+- Evaluation Time: 0.004 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 1.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.29%
+- matrix_size_y: 0.00%
+- p1: 5.74%
+- p2: 0.00%
+- p3: 51.17%
+- p4: 17.69%
+- p5: 8.04%
+- p6: 0.87%
+- p7: 0.21%
+- p8: 0.99%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.252e-310
+- Training Time: 2.465 seconds
+- Evaluation Time: 0.004 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 2.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.29%
+- matrix_size_y: 0.00%
+- p1: 5.74%
+- p2: 0.00%
+- p3: 51.17%
+- p4: 17.69%
+- p5: 8.04%
+- p6: 0.87%
+- p7: 0.21%
+- p8: 0.99%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 4.655e-310
+- Training Time: 2.605 seconds
+- Evaluation Time: 0.004 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 2.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.29%
+- matrix_size_y: 0.00%
+- p1: 5.74%
+- p2: 0.00%
+- p3: 51.17%
+- p4: 17.69%
+- p5: 8.04%
+- p6: 0.87%
+- p7: 0.21%
+- p8: 0.99%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.306e-310
+- Training Time: 2.549 seconds
+- Evaluation Time: 0.004 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 2.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.29%
+- matrix_size_y: 0.00%
+- p1: 5.74%
+- p2: 0.00%
+- p3: 51.17%
+- p4: 17.69%
+- p5: 8.04%
+- p6: 0.87%
+- p7: 0.21%
+- p8: 0.99%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.068e-310
+- Training Time: 2.575 seconds
+- Evaluation Time: 0.004 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 3.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.29%
+- matrix_size_y: 0.00%
+- p1: 5.74%
+- p2: 0.00%
+- p3: 51.17%
+- p4: 17.69%
+- p5: 8.04%
+- p6: 0.87%
+- p7: 0.21%
+- p8: 0.99%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.435e-310
+- Training Time: 2.483 seconds
+- Evaluation Time: 0.004 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 3.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.29%
+- matrix_size_y: 0.00%
+- p1: 5.74%
+- p2: 0.00%
+- p3: 51.17%
+- p4: 17.69%
+- p5: 8.04%
+- p6: 0.87%
+- p7: 0.21%
+- p8: 0.99%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.069e-310
+- Training Time: 2.557 seconds
+- Evaluation Time: 0.004 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 3.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.29%
+- matrix_size_y: 0.00%
+- p1: 5.74%
+- p2: 0.00%
+- p3: 51.17%
+- p4: 17.69%
+- p5: 8.04%
+- p6: 0.87%
+- p7: 0.21%
+- p8: 0.99%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.115e-310
+- Training Time: 2.506 seconds
+- Evaluation Time: 0.006 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 4.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.29%
+- matrix_size_y: 0.00%
+- p1: 5.74%
+- p2: 0.00%
+- p3: 51.17%
+- p4: 17.69%
+- p5: 8.04%
+- p6: 0.87%
+- p7: 0.21%
+- p8: 0.99%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 4.861e-310
+- Training Time: 2.770 seconds
+- Evaluation Time: 0.004 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 4.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.29%
+- matrix_size_y: 0.00%
+- p1: 5.74%
+- p2: 0.00%
+- p3: 51.17%
+- p4: 17.69%
+- p5: 8.04%
+- p6: 0.87%
+- p7: 0.21%
+- p8: 0.99%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.283e-310
+- Training Time: 2.492 seconds
+- Evaluation Time: 0.004 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 4.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.29%
+- matrix_size_y: 0.00%
+- p1: 5.74%
+- p2: 0.00%
+- p3: 51.17%
+- p4: 17.69%
+- p5: 8.04%
+- p6: 0.87%
+- p7: 0.21%
+- p8: 0.99%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.038e-310
+- Training Time: 2.559 seconds
+- Evaluation Time: 0.004 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 5.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.29%
+- matrix_size_y: 0.00%
+- p1: 5.74%
+- p2: 0.00%
+- p3: 51.17%
+- p4: 17.69%
+- p5: 8.04%
+- p6: 0.87%
+- p7: 0.21%
+- p8: 0.99%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 4.706e-310
+- Training Time: 2.462 seconds
+- Evaluation Time: 0.004 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 5.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.29%
+- matrix_size_y: 0.00%
+- p1: 5.74%
+- p2: 0.00%
+- p3: 51.17%
+- p4: 17.69%
+- p5: 8.04%
+- p6: 0.87%
+- p7: 0.21%
+- p8: 0.99%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 4.938e-310
+- Training Time: 2.564 seconds
+- Evaluation Time: 0.004 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 5.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.29%
+- matrix_size_y: 0.00%
+- p1: 5.74%
+- p2: 0.00%
+- p3: 51.17%
+- p4: 17.69%
+- p5: 8.04%
+- p6: 0.87%
+- p7: 0.21%
+- p8: 0.99%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.283e-310
+- Training Time: 2.516 seconds
+- Evaluation Time: 0.004 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 6.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.29%
+- matrix_size_y: 0.00%
+- p1: 5.74%
+- p2: 0.00%
+- p3: 51.17%
+- p4: 17.69%
+- p5: 8.04%
+- p6: 0.87%
+- p7: 0.21%
+- p8: 0.99%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 4.757e-310
+- Training Time: 2.543 seconds
+- Evaluation Time: 0.004 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 6.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.29%
+- matrix_size_y: 0.00%
+- p1: 5.74%
+- p2: 0.00%
+- p3: 51.17%
+- p4: 17.69%
+- p5: 8.04%
+- p6: 0.87%
+- p7: 0.21%
+- p8: 0.99%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.081e-310
+- Training Time: 2.519 seconds
+- Evaluation Time: 0.004 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 6.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.29%
+- matrix_size_y: 0.00%
+- p1: 5.74%
+- p2: 0.00%
+- p3: 51.17%
+- p4: 17.69%
+- p5: 8.04%
+- p6: 0.87%
+- p7: 0.21%
+- p8: 0.99%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 4.461e-04
+- Training Time: 0.014 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 1.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 0.09%
+- matrix_size_y: 0.00%
+- p1: 1.18%
+- p2: 0.40%
+- p3: 79.76%
+- p4: 4.73%
+- p5: 0.54%
+- p6: 12.20%
+- p7: 0.83%
+- p8: 0.26%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 4.527e-04
+- Training Time: 0.012 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 1.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 0.06%
+- matrix_size_y: 0.06%
+- p1: 1.18%
+- p2: 0.40%
+- p3: 79.76%
+- p4: 4.70%
+- p5: 0.54%
+- p6: 12.20%
+- p7: 0.83%
+- p8: 0.26%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 4.527e-04
+- Training Time: 0.013 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 1.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 0.06%
+- matrix_size_y: 0.00%
+- p1: 1.18%
+- p2: 0.40%
+- p3: 79.76%
+- p4: 4.70%
+- p5: 0.54%
+- p6: 12.37%
+- p7: 0.72%
+- p8: 0.26%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 3.366e-04
+- Training Time: 0.019 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 2.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 0.61%
+- matrix_size_y: 0.00%
+- p1: 1.54%
+- p2: 0.00%
+- p3: 83.89%
+- p4: 6.75%
+- p5: 0.91%
+- p6: 5.66%
+- p7: 0.00%
+- p8: 0.63%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 3.366e-04
+- Training Time: 0.019 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 2.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 0.61%
+- matrix_size_y: 0.00%
+- p1: 1.54%
+- p2: 0.00%
+- p3: 83.89%
+- p4: 6.75%
+- p5: 0.91%
+- p6: 5.66%
+- p7: 0.00%
+- p8: 0.63%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 3.366e-04
+- Training Time: 0.019 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 2.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 0.61%
+- matrix_size_y: 0.00%
+- p1: 1.54%
+- p2: 0.00%
+- p3: 83.89%
+- p4: 6.75%
+- p5: 0.91%
+- p6: 5.66%
+- p7: 0.00%
+- p8: 0.63%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 3.532e-04
+- Training Time: 0.030 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 2.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 0.00%
+- matrix_size_y: 0.00%
+- p1: 0.95%
+- p2: 0.02%
+- p3: 85.60%
+- p4: 6.05%
+- p5: 0.49%
+- p6: 6.10%
+- p7: 0.46%
+- p8: 0.33%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 3.532e-04
+- Training Time: 0.030 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 2.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 0.00%
+- matrix_size_y: 0.00%
+- p1: 0.95%
+- p2: 0.02%
+- p3: 85.60%
+- p4: 6.05%
+- p5: 0.49%
+- p6: 6.10%
+- p7: 0.46%
+- p8: 0.33%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 3.532e-04
+- Training Time: 0.030 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 2.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 0.00%
+- matrix_size_y: 0.00%
+- p1: 0.95%
+- p2: 0.02%
+- p3: 85.60%
+- p4: 6.05%
+- p5: 0.49%
+- p6: 6.10%
+- p7: 0.46%
+- p8: 0.33%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 1.231e-04
+- Training Time: 0.030 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 4.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 3.08%
+- matrix_size_y: 0.00%
+- p1: 9.25%
+- p2: 0.00%
+- p3: 82.46%
+- p4: 2.37%
+- p5: 1.28%
+- p6: 0.74%
+- p7: 0.00%
+- p8: 0.83%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 1.231e-04
+- Training Time: 0.031 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 4.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 3.08%
+- matrix_size_y: 0.00%
+- p1: 9.25%
+- p2: 0.00%
+- p3: 82.46%
+- p4: 2.37%
+- p5: 1.28%
+- p6: 0.74%
+- p7: 0.00%
+- p8: 0.83%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 1.231e-04
+- Training Time: 0.029 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 4.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 3.08%
+- matrix_size_y: 0.00%
+- p1: 9.25%
+- p2: 0.00%
+- p3: 82.46%
+- p4: 2.37%
+- p5: 1.28%
+- p6: 0.74%
+- p7: 0.00%
+- p8: 0.83%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 1.001e-04
+- Training Time: 0.038 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 4.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 3.52%
+- matrix_size_y: 0.00%
+- p1: 9.40%
+- p2: 0.00%
+- p3: 78.66%
+- p4: 2.81%
+- p5: 3.16%
+- p6: 1.11%
+- p7: 0.00%
+- p8: 1.34%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 1.001e-04
+- Training Time: 0.040 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 4.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 3.52%
+- matrix_size_y: 0.00%
+- p1: 9.40%
+- p2: 0.00%
+- p3: 78.66%
+- p4: 2.81%
+- p5: 3.16%
+- p6: 1.11%
+- p7: 0.00%
+- p8: 1.34%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 1.001e-04
+- Training Time: 0.038 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 4.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 3.52%
+- matrix_size_y: 0.00%
+- p1: 9.40%
+- p2: 0.00%
+- p3: 78.66%
+- p4: 2.81%
+- p5: 3.16%
+- p6: 1.11%
+- p7: 0.00%
+- p8: 1.34%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 6.787e-05
+- Training Time: 0.052 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 4.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 4.27%
+- matrix_size_y: 0.02%
+- p1: 10.82%
+- p2: 0.00%
+- p3: 77.12%
+- p4: 2.98%
+- p5: 3.76%
+- p6: 0.86%
+- p7: 0.00%
+- p8: 0.17%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 6.787e-05
+- Training Time: 0.046 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 4.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 4.27%
+- matrix_size_y: 0.02%
+- p1: 10.82%
+- p2: 0.00%
+- p3: 77.12%
+- p4: 2.98%
+- p5: 3.76%
+- p6: 0.86%
+- p7: 0.00%
+- p8: 0.17%
+
+---
+
+### Arbre de décision simple
+
+#### Performance Metrics
+- MSE: 6.787e-05
+- Training Time: 0.046 seconds
+- Evaluation Time: 0.000 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- num_threads: 4.000
+- use_omp: 1.000
+
+#### Feature Importance
+- matrix_size_x: 4.27%
+- matrix_size_y: 0.02%
+- p1: 10.82%
+- p2: 0.00%
+- p3: 77.12%
+- p4: 2.98%
+- p5: 3.76%
+- p6: 0.86%
+- p7: 0.00%
+- p8: 0.17%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.318e-310
+- Training Time: 2.200 seconds
+- Evaluation Time: 0.005 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 0.60%
+- matrix_size_y: 0.03%
+- p1: 2.99%
+- p2: 0.13%
+- p3: 82.48%
+- p4: 4.47%
+- p5: 0.82%
+- p6: 7.44%
+- p7: 0.48%
+- p8: 0.56%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.168e-310
+- Training Time: 2.226 seconds
+- Evaluation Time: 0.005 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 0.62%
+- matrix_size_y: 0.11%
+- p1: 2.53%
+- p2: 0.20%
+- p3: 81.91%
+- p4: 5.37%
+- p5: 0.58%
+- p6: 8.48%
+- p7: 0.09%
+- p8: 0.11%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.774e-310
+- Training Time: 2.169 seconds
+- Evaluation Time: 0.005 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 0.95%
+- matrix_size_y: 0.07%
+- p1: 1.68%
+- p2: 0.18%
+- p3: 79.16%
+- p4: 3.52%
+- p5: 0.49%
+- p6: 12.75%
+- p7: 0.90%
+- p8: 0.30%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.823e-310
+- Training Time: 1.921 seconds
+- Evaluation Time: 0.010 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 0.50%
+- matrix_size_y: 0.04%
+- p1: 2.39%
+- p2: 0.08%
+- p3: 83.67%
+- p4: 4.69%
+- p5: 0.85%
+- p6: 7.18%
+- p7: 0.23%
+- p8: 0.37%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.996e-310
+- Training Time: 1.935 seconds
+- Evaluation Time: 0.010 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 0.56%
+- matrix_size_y: 0.18%
+- p1: 2.38%
+- p2: 0.05%
+- p3: 84.04%
+- p4: 6.10%
+- p5: 0.72%
+- p6: 5.22%
+- p7: 0.37%
+- p8: 0.39%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.829e-310
+- Training Time: 1.956 seconds
+- Evaluation Time: 0.010 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 0.50%
+- matrix_size_y: 0.02%
+- p1: 2.05%
+- p2: 0.22%
+- p3: 84.39%
+- p4: 5.26%
+- p5: 0.55%
+- p6: 6.41%
+- p7: 0.33%
+- p8: 0.27%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.077e-310
+- Training Time: 2.075 seconds
+- Evaluation Time: 0.018 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 0.45%
+- matrix_size_y: 0.11%
+- p1: 1.58%
+- p2: 0.02%
+- p3: 81.71%
+- p4: 5.18%
+- p5: 0.91%
+- p6: 9.35%
+- p7: 0.28%
+- p8: 0.42%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.209e-310
+- Training Time: 2.158 seconds
+- Evaluation Time: 0.018 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 0.46%
+- matrix_size_y: 0.09%
+- p1: 1.51%
+- p2: 0.04%
+- p3: 82.39%
+- p4: 3.84%
+- p5: 1.04%
+- p6: 9.88%
+- p7: 0.42%
+- p8: 0.32%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.409e-310
+- Training Time: 2.082 seconds
+- Evaluation Time: 0.017 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 0.63%
+- matrix_size_y: 0.02%
+- p1: 2.12%
+- p2: 0.09%
+- p3: 84.87%
+- p4: 5.03%
+- p5: 0.73%
+- p6: 5.92%
+- p7: 0.26%
+- p8: 0.34%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.800e-310
+- Training Time: 2.256 seconds
+- Evaluation Time: 0.025 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 2.98%
+- matrix_size_y: 0.00%
+- p1: 10.06%
+- p2: 0.01%
+- p3: 79.15%
+- p4: 3.53%
+- p5: 1.79%
+- p6: 1.81%
+- p7: 0.01%
+- p8: 0.67%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.879e-310
+- Training Time: 2.253 seconds
+- Evaluation Time: 0.024 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 2.70%
+- matrix_size_y: 0.04%
+- p1: 9.82%
+- p2: 0.00%
+- p3: 79.65%
+- p4: 3.10%
+- p5: 1.97%
+- p6: 1.79%
+- p7: 0.01%
+- p8: 0.91%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.384e-310
+- Training Time: 2.262 seconds
+- Evaluation Time: 0.025 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 2.90%
+- matrix_size_y: 0.00%
+- p1: 9.99%
+- p2: 0.01%
+- p3: 79.19%
+- p4: 2.77%
+- p5: 2.11%
+- p6: 2.27%
+- p7: 0.06%
+- p8: 0.69%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.370e-310
+- Training Time: 2.713 seconds
+- Evaluation Time: 0.032 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.45%
+- matrix_size_y: 0.05%
+- p1: 9.12%
+- p2: 0.01%
+- p3: 78.48%
+- p4: 2.73%
+- p5: 2.77%
+- p6: 1.87%
+- p7: 0.02%
+- p8: 0.50%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.462e-310
+- Training Time: 2.700 seconds
+- Evaluation Time: 0.033 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.51%
+- matrix_size_y: 0.00%
+- p1: 9.73%
+- p2: 0.02%
+- p3: 77.41%
+- p4: 2.90%
+- p5: 3.52%
+- p6: 1.33%
+- p7: 0.11%
+- p8: 0.48%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.779e-310
+- Training Time: 2.690 seconds
+- Evaluation Time: 0.031 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.82%
+- matrix_size_y: 0.04%
+- p1: 9.50%
+- p2: 0.01%
+- p3: 77.92%
+- p4: 2.72%
+- p5: 2.95%
+- p6: 1.51%
+- p7: 0.04%
+- p8: 0.48%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.147e-310
+- Training Time: 3.189 seconds
+- Evaluation Time: 0.038 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.75%
+- matrix_size_y: 0.01%
+- p1: 9.81%
+- p2: 0.00%
+- p3: 76.32%
+- p4: 3.38%
+- p5: 3.94%
+- p6: 1.48%
+- p7: 0.04%
+- p8: 0.27%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 5.391e-310
+- Training Time: 3.237 seconds
+- Evaluation Time: 0.038 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.16%
+- matrix_size_y: 0.01%
+- p1: 9.50%
+- p2: 0.01%
+- p3: 77.11%
+- p4: 3.21%
+- p5: 3.41%
+- p6: 1.19%
+- p7: 0.02%
+- p8: 0.39%
+
+---
+
+### Bagging
+
+#### Performance Metrics
+- MSE: 4.843e-310
+- Training Time: 3.178 seconds
+- Evaluation Time: 0.036 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 2.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.90%
+- matrix_size_y: 0.01%
+- p1: 9.83%
+- p2: 0.00%
+- p3: 76.99%
+- p4: 3.35%
+- p5: 3.43%
+- p6: 1.21%
+- p7: 0.03%
+- p8: 0.26%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 5.277e-310
+- Training Time: 1.161 seconds
+- Evaluation Time: 0.001 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.047
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.00%
+- matrix_size_y: 1.95%
+- p1: 9.20%
+- p2: 1.67%
+- p3: 22.79%
+- p4: 17.56%
+- p5: 4.05%
+- p6: 33.07%
+- p7: 2.57%
+- p8: 3.13%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 5.488e-310
+- Training Time: 1.119 seconds
+- Evaluation Time: 0.005 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.047
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.00%
+- matrix_size_y: 1.97%
+- p1: 9.14%
+- p2: 1.68%
+- p3: 22.77%
+- p4: 17.63%
+- p5: 4.04%
+- p6: 33.07%
+- p7: 2.58%
+- p8: 3.13%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 5.448e-310
+- Training Time: 1.135 seconds
+- Evaluation Time: 0.005 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.047
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 1.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 4.00%
+- matrix_size_y: 1.97%
+- p1: 9.14%
+- p2: 1.67%
+- p3: 22.76%
+- p4: 17.62%
+- p5: 4.05%
+- p6: 33.04%
+- p7: 2.61%
+- p8: 3.14%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 5.174e-310
+- Training Time: 5.015 seconds
+- Evaluation Time: 0.004 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.047
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 6.09%
+- matrix_size_y: 1.38%
+- p1: 10.20%
+- p2: 1.00%
+- p3: 27.15%
+- p4: 19.53%
+- p5: 6.52%
+- p6: 20.20%
+- p7: 2.69%
+- p8: 5.23%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 5.480e-310
+- Training Time: 5.020 seconds
+- Evaluation Time: 0.003 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.047
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 6.09%
+- matrix_size_y: 1.38%
+- p1: 10.20%
+- p2: 1.00%
+- p3: 27.15%
+- p4: 19.53%
+- p5: 6.52%
+- p6: 20.20%
+- p7: 2.69%
+- p8: 5.23%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 5.157e-310
+- Training Time: 5.003 seconds
+- Evaluation Time: 0.003 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.047
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 2.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 6.09%
+- matrix_size_y: 1.38%
+- p1: 10.20%
+- p2: 1.00%
+- p3: 27.15%
+- p4: 19.53%
+- p5: 6.52%
+- p6: 20.20%
+- p7: 2.69%
+- p8: 5.23%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 5.232e-310
+- Training Time: 8.264 seconds
+- Evaluation Time: 0.005 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.048
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.60%
+- matrix_size_y: 1.31%
+- p1: 9.48%
+- p2: 1.18%
+- p3: 29.53%
+- p4: 19.10%
+- p5: 6.89%
+- p6: 19.49%
+- p7: 3.08%
+- p8: 4.33%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 4.808e-310
+- Training Time: 8.178 seconds
+- Evaluation Time: 0.006 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.048
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.60%
+- matrix_size_y: 1.31%
+- p1: 9.48%
+- p2: 1.18%
+- p3: 29.53%
+- p4: 19.10%
+- p5: 6.89%
+- p6: 19.49%
+- p7: 3.08%
+- p8: 4.33%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 4.644e-310
+- Training Time: 8.228 seconds
+- Evaluation Time: 0.006 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.048
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 3.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 5.60%
+- matrix_size_y: 1.31%
+- p1: 9.48%
+- p2: 1.18%
+- p3: 29.53%
+- p4: 19.10%
+- p5: 6.89%
+- p6: 19.49%
+- p7: 3.08%
+- p8: 4.33%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 4.784e-310
+- Training Time: 9.310 seconds
+- Evaluation Time: 0.006 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.040
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 13.98%
+- matrix_size_y: 1.93%
+- p1: 21.10%
+- p2: 1.13%
+- p3: 17.19%
+- p4: 13.00%
+- p5: 10.01%
+- p6: 11.47%
+- p7: 3.03%
+- p8: 7.16%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 5.143e-310
+- Training Time: 9.206 seconds
+- Evaluation Time: 0.005 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.040
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 13.98%
+- matrix_size_y: 1.93%
+- p1: 21.10%
+- p2: 1.13%
+- p3: 17.19%
+- p4: 13.00%
+- p5: 10.01%
+- p6: 11.47%
+- p7: 3.03%
+- p8: 7.16%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 4.976e-310
+- Training Time: 9.341 seconds
+- Evaluation Time: 0.006 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.040
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 4.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 13.98%
+- matrix_size_y: 1.93%
+- p1: 21.10%
+- p2: 1.13%
+- p3: 17.19%
+- p4: 13.00%
+- p5: 10.01%
+- p6: 11.47%
+- p7: 3.03%
+- p8: 7.16%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 4.698e-310
+- Training Time: 11.926 seconds
+- Evaluation Time: 0.008 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.039
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 16.45%
+- matrix_size_y: 2.01%
+- p1: 20.51%
+- p2: 0.94%
+- p3: 13.81%
+- p4: 12.60%
+- p5: 11.88%
+- p6: 11.59%
+- p7: 2.87%
+- p8: 7.33%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 4.746e-310
+- Training Time: 11.874 seconds
+- Evaluation Time: 0.008 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.039
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 16.45%
+- matrix_size_y: 2.01%
+- p1: 20.51%
+- p2: 0.94%
+- p3: 13.81%
+- p4: 12.60%
+- p5: 11.88%
+- p6: 11.59%
+- p7: 2.87%
+- p8: 7.33%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 4.845e-310
+- Training Time: 11.967 seconds
+- Evaluation Time: 0.007 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.039
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 5.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 16.45%
+- matrix_size_y: 2.01%
+- p1: 20.51%
+- p2: 0.94%
+- p3: 13.81%
+- p4: 12.60%
+- p5: 11.88%
+- p6: 11.59%
+- p7: 2.87%
+- p8: 7.33%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 5.371e-310
+- Training Time: 14.084 seconds
+- Evaluation Time: 0.009 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.037
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.96%
+- matrix_size_y: 1.90%
+- p1: 23.03%
+- p2: 1.04%
+- p3: 13.79%
+- p4: 12.43%
+- p5: 12.02%
+- p6: 10.55%
+- p7: 2.26%
+- p8: 7.02%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 4.824e-310
+- Training Time: 14.080 seconds
+- Evaluation Time: 0.008 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.037
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.96%
+- matrix_size_y: 1.90%
+- p1: 23.03%
+- p2: 1.04%
+- p3: 13.79%
+- p4: 12.43%
+- p5: 12.02%
+- p6: 10.55%
+- p7: 2.26%
+- p8: 7.02%
+
+---
+
+### Boosting
+
+#### Performance Metrics
+- MSE: 5.192e-310
+- Training Time: 14.076 seconds
+- Evaluation Time: 0.009 seconds
+
+#### Model Parameters
+- criteria: 0.000
+- initial_prediction: 0.037
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_impurity_decrease: 0.000
+- min_samples_split: 3.000
+- n_estimators: 200.000
+- num_threads: 6.000
+- use_omp: 1.000
+- which_loss_function: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.96%
+- matrix_size_y: 1.90%
+- p1: 23.03%
+- p2: 1.04%
+- p3: 13.79%
+- p4: 12.43%
+- p5: 12.02%
+- p6: 10.55%
+- p7: 2.26%
+- p8: 7.02%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.059 seconds
+- Evaluation Time: 0.008 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 75.35%
+- F1: 9.73%
+- F2: 607.29%
+- F3: 471.42%
+- F4: 70.10%
+- F5: 299.56%
+- F6: 117.85%
+- F7: 48.27%
+- F8: 68.32%
+- F9: 26.06%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.059 seconds
+- Evaluation Time: 0.008 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 75.35%
+- F1: 9.73%
+- F2: 607.29%
+- F3: 471.42%
+- F4: 70.10%
+- F5: 299.56%
+- F6: 117.85%
+- F7: 48.27%
+- F8: 68.32%
+- F9: 26.06%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.059 seconds
+- Evaluation Time: 0.008 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 75.35%
+- F1: 9.73%
+- F2: 607.29%
+- F3: 471.42%
+- F4: 70.10%
+- F5: 299.56%
+- F6: 117.85%
+- F7: 48.27%
+- F8: 68.32%
+- F9: 26.06%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.098 seconds
+- Evaluation Time: 0.018 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 155.92%
+- F1: 12.95%
+- F2: 1220.47%
+- F3: 916.64%
+- F4: 117.86%
+- F5: 524.43%
+- F6: 287.39%
+- F7: 123.55%
+- F8: 176.22%
+- F9: 47.06%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.098 seconds
+- Evaluation Time: 0.018 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 155.92%
+- F1: 12.95%
+- F2: 1220.47%
+- F3: 916.64%
+- F4: 117.86%
+- F5: 524.43%
+- F6: 287.39%
+- F7: 123.55%
+- F8: 176.22%
+- F9: 47.06%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.098 seconds
+- Evaluation Time: 0.018 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 155.92%
+- F1: 12.95%
+- F2: 1220.47%
+- F3: 916.64%
+- F4: 117.86%
+- F5: 524.43%
+- F6: 287.39%
+- F7: 123.55%
+- F8: 176.22%
+- F9: 47.06%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.133 seconds
+- Evaluation Time: 0.026 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 219.66%
+- F1: 13.40%
+- F2: 1854.25%
+- F3: 1413.80%
+- F4: 183.83%
+- F5: 828.93%
+- F6: 456.90%
+- F7: 200.26%
+- F8: 285.50%
+- F9: 82.93%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.133 seconds
+- Evaluation Time: 0.026 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 219.66%
+- F1: 13.40%
+- F2: 1854.25%
+- F3: 1413.80%
+- F4: 183.83%
+- F5: 828.93%
+- F6: 456.90%
+- F7: 200.26%
+- F8: 285.50%
+- F9: 82.93%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.133 seconds
+- Evaluation Time: 0.027 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 219.66%
+- F1: 13.40%
+- F2: 1854.25%
+- F3: 1413.80%
+- F4: 183.83%
+- F5: 828.93%
+- F6: 456.90%
+- F7: 200.26%
+- F8: 285.50%
+- F9: 82.93%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.166 seconds
+- Evaluation Time: 0.033 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 529.41%
+- F1: 25.24%
+- F2: 2036.66%
+- F3: 1372.33%
+- F4: 234.77%
+- F5: 523.99%
+- F6: 381.69%
+- F7: 199.07%
+- F8: 582.75%
+- F9: 86.88%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.164 seconds
+- Evaluation Time: 0.033 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 529.41%
+- F1: 25.24%
+- F2: 2036.66%
+- F3: 1372.33%
+- F4: 234.77%
+- F5: 523.99%
+- F6: 381.69%
+- F7: 199.07%
+- F8: 582.75%
+- F9: 86.88%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.165 seconds
+- Evaluation Time: 0.034 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 529.41%
+- F1: 25.24%
+- F2: 2036.66%
+- F3: 1372.33%
+- F4: 234.77%
+- F5: 523.99%
+- F6: 381.69%
+- F7: 199.07%
+- F8: 582.75%
+- F9: 86.88%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.194 seconds
+- Evaluation Time: 0.040 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 717.02%
+- F1: 25.06%
+- F2: 2416.04%
+- F3: 1599.54%
+- F4: 291.87%
+- F5: 510.30%
+- F6: 438.64%
+- F7: 255.29%
+- F8: 768.55%
+- F9: 108.18%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.194 seconds
+- Evaluation Time: 0.039 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 717.02%
+- F1: 25.06%
+- F2: 2416.04%
+- F3: 1599.54%
+- F4: 291.87%
+- F5: 510.30%
+- F6: 438.64%
+- F7: 255.29%
+- F8: 768.55%
+- F9: 108.18%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.192 seconds
+- Evaluation Time: 0.040 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 717.02%
+- F1: 25.06%
+- F2: 2416.04%
+- F3: 1599.54%
+- F4: 291.87%
+- F5: 510.30%
+- F6: 438.64%
+- F7: 255.29%
+- F8: 768.55%
+- F9: 108.18%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.224 seconds
+- Evaluation Time: 0.045 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 867.51%
+- F1: 27.89%
+- F2: 2692.72%
+- F3: 1785.25%
+- F4: 382.65%
+- F5: 574.67%
+- F6: 446.25%
+- F7: 257.32%
+- F8: 872.16%
+- F9: 120.03%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.224 seconds
+- Evaluation Time: 0.045 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 867.51%
+- F1: 27.89%
+- F2: 2692.72%
+- F3: 1785.25%
+- F4: 382.65%
+- F5: 574.67%
+- F6: 446.25%
+- F7: 257.32%
+- F8: 872.16%
+- F9: 120.03%
+
+---
+
+### LightGBM
+
+#### Performance Metrics
+- MSE: 6.953e-310
+- Training Time: 0.224 seconds
+- Evaluation Time: 0.046 seconds
+
+#### Model Parameters
+- colsample_bytree: 0.800
+- learning_rate: 0.100
+- max_depth: 6.000
+- n_estimators: 200.000
+- num_leaves: 31.000
+- subsample: 0.800
+
+#### Feature Importance
+- F0: 867.51%
+- F1: 27.89%
+- F2: 2692.72%
+- F3: 1785.25%
+- F4: 382.65%
+- F5: 574.67%
+- F6: 446.25%
+- F7: 257.32%
+- F8: 872.16%
+- F9: 120.03%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.176e-310
+- Training Time: 2.656 seconds
+- Evaluation Time: 0.001 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 1.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.75%
+- matrix_size_y: 0.11%
+- p1: 1.73%
+- p2: 0.11%
+- p3: 61.51%
+- p4: 29.64%
+- p5: 0.17%
+- p6: 3.55%
+- p7: 0.52%
+- p8: 0.91%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.270e-310
+- Training Time: 2.563 seconds
+- Evaluation Time: 0.001 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 1.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.75%
+- matrix_size_y: 0.11%
+- p1: 1.73%
+- p2: 0.11%
+- p3: 61.51%
+- p4: 29.64%
+- p5: 0.17%
+- p6: 3.55%
+- p7: 0.52%
+- p8: 0.91%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.417e-310
+- Training Time: 2.633 seconds
+- Evaluation Time: 0.001 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 1.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 1.75%
+- matrix_size_y: 0.11%
+- p1: 1.73%
+- p2: 0.11%
+- p3: 61.51%
+- p4: 29.64%
+- p5: 0.17%
+- p6: 3.55%
+- p7: 0.52%
+- p8: 0.91%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 4.739e-310
+- Training Time: 1.872 seconds
+- Evaluation Time: 0.002 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 2.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 2.10%
+- matrix_size_y: 0.07%
+- p1: 1.70%
+- p2: 0.00%
+- p3: 61.31%
+- p4: 28.70%
+- p5: 0.40%
+- p6: 3.64%
+- p7: 0.78%
+- p8: 1.29%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 4.845e-310
+- Training Time: 1.943 seconds
+- Evaluation Time: 0.002 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 2.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 2.10%
+- matrix_size_y: 0.07%
+- p1: 1.70%
+- p2: 0.00%
+- p3: 61.31%
+- p4: 28.70%
+- p5: 0.40%
+- p6: 3.64%
+- p7: 0.78%
+- p8: 1.29%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.463e-310
+- Training Time: 1.830 seconds
+- Evaluation Time: 0.002 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 2.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 2.10%
+- matrix_size_y: 0.07%
+- p1: 1.70%
+- p2: 0.00%
+- p3: 61.31%
+- p4: 28.70%
+- p5: 0.40%
+- p6: 3.64%
+- p7: 0.78%
+- p8: 1.29%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 4.831e-310
+- Training Time: 2.088 seconds
+- Evaluation Time: 0.003 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 3.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 2.26%
+- matrix_size_y: 0.31%
+- p1: 1.49%
+- p2: 0.00%
+- p3: 60.47%
+- p4: 28.86%
+- p5: 0.35%
+- p6: 3.87%
+- p7: 0.68%
+- p8: 1.72%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.254e-310
+- Training Time: 2.167 seconds
+- Evaluation Time: 0.003 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 3.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 2.26%
+- matrix_size_y: 0.31%
+- p1: 1.49%
+- p2: 0.00%
+- p3: 60.47%
+- p4: 28.86%
+- p5: 0.35%
+- p6: 3.87%
+- p7: 0.68%
+- p8: 1.72%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.253e-310
+- Training Time: 2.078 seconds
+- Evaluation Time: 0.003 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 3.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 2.26%
+- matrix_size_y: 0.31%
+- p1: 1.49%
+- p2: 0.00%
+- p3: 60.47%
+- p4: 28.86%
+- p5: 0.35%
+- p6: 3.87%
+- p7: 0.68%
+- p8: 1.72%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.426e-310
+- Training Time: 2.289 seconds
+- Evaluation Time: 0.003 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 4.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 12.33%
+- matrix_size_y: 0.19%
+- p1: 4.86%
+- p2: 0.07%
+- p3: 55.08%
+- p4: 20.89%
+- p5: 4.49%
+- p6: 0.85%
+- p7: 0.05%
+- p8: 1.18%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.475e-310
+- Training Time: 2.422 seconds
+- Evaluation Time: 0.003 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 4.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 12.33%
+- matrix_size_y: 0.19%
+- p1: 4.86%
+- p2: 0.07%
+- p3: 55.08%
+- p4: 20.89%
+- p5: 4.49%
+- p6: 0.85%
+- p7: 0.05%
+- p8: 1.18%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.012e-310
+- Training Time: 2.280 seconds
+- Evaluation Time: 0.003 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 4.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 12.33%
+- matrix_size_y: 0.19%
+- p1: 4.86%
+- p2: 0.07%
+- p3: 55.08%
+- p4: 20.89%
+- p5: 4.49%
+- p6: 0.85%
+- p7: 0.05%
+- p8: 1.18%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.152e-310
+- Training Time: 2.347 seconds
+- Evaluation Time: 0.004 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 5.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 14.34%
+- matrix_size_y: 0.00%
+- p1: 5.86%
+- p2: 0.03%
+- p3: 52.66%
+- p4: 18.29%
+- p5: 6.64%
+- p6: 1.16%
+- p7: 0.35%
+- p8: 0.68%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 5.349e-310
+- Training Time: 2.357 seconds
+- Evaluation Time: 0.003 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 5.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 14.34%
+- matrix_size_y: 0.00%
+- p1: 5.86%
+- p2: 0.03%
+- p3: 52.66%
+- p4: 18.29%
+- p5: 6.64%
+- p6: 1.16%
+- p7: 0.35%
+- p8: 0.68%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 4.826e-310
+- Training Time: 2.325 seconds
+- Evaluation Time: 0.003 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 5.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 14.34%
+- matrix_size_y: 0.00%
+- p1: 5.86%
+- p2: 0.03%
+- p3: 52.66%
+- p4: 18.29%
+- p5: 6.64%
+- p6: 1.16%
+- p7: 0.35%
+- p8: 0.68%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 4.719e-310
+- Training Time: 2.541 seconds
+- Evaluation Time: 0.004 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 6.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.29%
+- matrix_size_y: 0.00%
+- p1: 5.74%
+- p2: 0.00%
+- p3: 51.17%
+- p4: 17.69%
+- p5: 8.04%
+- p6: 0.87%
+- p7: 0.21%
+- p8: 0.99%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 4.821e-310
+- Training Time: 2.488 seconds
+- Evaluation Time: 0.004 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 6.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.29%
+- matrix_size_y: 0.00%
+- p1: 5.74%
+- p2: 0.00%
+- p3: 51.17%
+- p4: 17.69%
+- p5: 8.04%
+- p6: 0.87%
+- p7: 0.21%
+- p8: 0.99%
+
+---
+
+### Advanced GBDT
+
+#### Performance Metrics
+- MSE: 4.948e-310
+- Training Time: 2.534 seconds
+- Evaluation Time: 0.004 seconds
+
+#### Model Parameters
+- binning_method: 1.000
+- learning_rate: 0.100
+- max_depth: 6.000
+- min_data_leaf: 20.000
+- n_estimators: 200.000
+- num_bins: 255.000
+- num_threads: 6.000
+- use_dart: 0.000
+
+#### Feature Importance
+- matrix_size_x: 15.29%
+- matrix_size_y: 0.00%
+- p1: 5.74%
+- p2: 0.00%
+- p3: 51.17%
+- p4: 17.69%
+- p5: 8.04%
+- p6: 0.87%
+- p7: 0.21%
+- p8: 0.99%
+
+---
+
