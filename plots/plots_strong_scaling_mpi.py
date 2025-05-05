@@ -1,63 +1,109 @@
-# Script: make_fig01_strong_scaling_split.py
+#!/usr/bin/env python3
+"""
+fig_bagging_mpi_strong.png / .pdf
+ - runtime   (haut)
+ - speed-up  (bas)
+à partir d’un CSV du type :
+
+scaling,mpi_ranks,omp_threads,n_estimators,max_depth,criteria,...
+strong,1,1,200,10,0,0,27.53, ...
+strong,1,2,200,10,0,0,14.04, ...
+strong,2,1,200,10,0,0,27.84, ...
+...
+"""
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 from pathlib import Path
-import matplotlib.ticker as mticker
+import matplotlib.ticker as mt
 
-df = pd.read_csv("scaling_results_all2.csv")
-group1 = ["Bagging", "Boosting"]
-group2 = ["DecisionTree", "LightGBM", "AdvGBDT"]
+# ───────────────────────────
+# 1.  Paramètres d’apparence
+# ───────────────────────────
+plt.rcParams.update({
+    "figure.figsize": (7.0, 4.6),
+    "savefig.dpi": 320,
+    "font.size": 11,
+    "axes.spines.right": False,
+    "axes.spines.top":   False,
+    "axes.grid": True,
+    "grid.linestyle": ":",
+    "grid.alpha": 0.55,
+    "legend.frameon": False,
+})
 
-COLORS = {
-    "Bagging": "#117733",
-    "Boosting": "#44AA99",
-    "DecisionTree": "#332288",
-    "LightGBM": "#88CCEE",
-    "AdvGBDT": "#DDCC77",
-}
-NICE = {
-    "Bagging": "Bagging",
-    "Boosting": "Boosting",
-    "DecisionTree": "Tree",
-    "LightGBM": "LightGBM",
-    "AdvGBDT": "AdvGBDT",
-}
+PALETTE = ["#332288", "#117733", "#44AA99", "#88CCEE", "#CC6677", "#AA4499"]
 
-fig, axs = plt.subplots(2, 1, sharex=True, figsize=(7.3, 5.5),
-                        gridspec_kw={"height_ratios": (1.2, 1)})
-df_strong = df[df.scaling == "strong"]
+# ───────────────────────────
+# 2.  Lecture du CSV
+# ───────────────────────────
+CSV = Path("bagging_hybrid_scaling.csv")          # ← adapte le nom si besoin
+if not CSV.exists():
+    raise SystemExit(f"❌  {CSV} introuvable")
 
-def plot_group(models, marker):
-    for model in models:
-        g = df_strong[df_strong.model == model].sort_values("num_threads")
-        base = g[g.num_threads == 1].train_time_mean.iloc[0]
-        speedup = base / g.train_time_mean
-        err_rt = g.train_time_std
-        err_sp = speedup * (g.train_time_std / g.train_time_mean)
-        axs[0].errorbar(g.num_threads, g.train_time_mean, yerr=err_rt,
-                        marker=marker, lw=1.8, ms=5, label=NICE[model],
-                        color=COLORS[model])
-        axs[1].errorbar(g.num_threads, speedup, yerr=err_sp,
-                        marker=marker, lw=1.8, ms=5, color=COLORS[model])
-        for x, s in zip(g.num_threads, speedup):
-            eta = s / x
-            axs[1].annotate(f"{eta:.2f}", (x, s), textcoords="offset points",
-                            xytext=(0, 5), ha="center", fontsize=8, color=COLORS[model])
+df = pd.read_csv(CSV)
+strong = df[df.scaling == "strong"].copy()
 
-plot_group(group1, "o")
-plot_group(group2, "^")
+# ───────────────────────────
+# 3.  Figure runtime + speed-up
+# ───────────────────────────
+fig, (ax_rt, ax_sp) = plt.subplots(
+    2, 1, sharex=True, gridspec_kw={"height_ratios": (1.25, 1)}
+)
 
-p_vals = np.array(sorted(df_strong.num_threads.unique()))
-axs[1].plot(p_vals, p_vals, "--", color="grey", lw=1, label="Idéal")
+for idx, (ranks, grp) in enumerate(strong.groupby("mpi_ranks")):
+    g = grp.sort_values("omp_threads")
+    base = g[g.omp_threads == 1].train_time_mean.iloc[0]
+    speedup = base / g.train_time_mean
+    err_rt  = g.train_time_std
+    err_sp  = speedup * (g.train_time_std / g.train_time_mean)
 
-axs[0].set_ylabel("Temps d’entraînement [s]")
-axs[0].set_title("Strong scaling – runtime")
-axs[1].set_xlabel("Nombre de threads")
-axs[1].set_ylabel("Speed-up\n(baseline 1 thread)")
-axs[1].set_xlim(0.8)
-axs[1].xaxis.set_major_locator(mticker.MaxNLocator(integer=True))
-axs[0].legend(ncol=3, fontsize=9)
+    color = PALETTE[idx % len(PALETTE)]
+    label = f"{ranks} proc."
+
+    # Temps d’entraînement
+    ax_rt.errorbar(
+        g.omp_threads, g.train_time_mean, yerr=err_rt,
+        marker="o", lw=1.8, ms=5, color=color, label=label
+    )
+
+    # Speed-up
+    ax_sp.errorbar(
+        g.omp_threads, speedup, yerr=err_sp,
+        marker="o", lw=1.8, ms=5, color=color
+    )
+
+    # Affiche l’efficacité η = S/p
+    for x, s in zip(g.omp_threads, speedup):
+        eta = s / x
+        ax_sp.annotate(f"{eta:.2f}", (x, s), textcoords="offset points",
+                       xytext=(0, 5), ha="center", fontsize=8, color=color)
+
+# Ligne idéale (1 procès) — même abscisse pour comparaison
+p_vals = np.sort(strong.omp_threads.unique())
+ax_sp.plot(p_vals, p_vals, "--", color="grey", lw=1, label="Idéal 1 proc.")
+
+# ───────────────
+# 4.  Habillage
+# ───────────────
+ax_rt.set_ylabel("Temps d’entraînement [s]")
+ax_rt.set_title("Bagging MPI – strong scaling")
+
+ax_sp.set_xlabel("Threads OpenMP par processus")
+ax_sp.set_ylabel("Speed-up\n(baseline = 1 thread)")
+ax_sp.set_xlim(0.8)
+ax_sp.xaxis.set_major_locator(mt.MaxNLocator(integer=True))
+
+ax_rt.legend(ncol=3, fontsize=9)
 fig.tight_layout()
 
-fig.savefig("figures/fig01_strong_scaling_split.png", dpi=300)
+# ───────────────
+# 5.  Export
+# ───────────────
+out = Path("figures")
+out.mkdir(exist_ok=True)
+for ext in ("png", "pdf"):
+    fig.savefig(out / f"fig_bagging_mpi_strong.{ext}")
+
+print("✔︎  Figure enregistrée :", out / "fig_bagging_mpi_strong.png")
