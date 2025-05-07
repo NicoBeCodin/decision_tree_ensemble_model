@@ -68,13 +68,10 @@ void ImprovedGBDT::buildHistogram(
     const int n_bins      = num_bins;
 
     // 1. 函数级 static，所有线程共享这块缓冲区
-    static std::vector<std::vector<HistogramEntry>> thread_hist;
-    if ((int)thread_hist.size() != max_threads) {
-        thread_hist.assign(
-            max_threads,
-            std::vector<HistogramEntry>(n_feats * (n_bins + 1))
-        );
-    }
+    std::vector<std::vector<HistogramEntry>> thread_hist(
+        max_threads,
+        std::vector<HistogramEntry>(n_feats * (n_bins + 1))
+    );
 
     // 2. 清空主直方图
     for (int f : feature_indices) {
@@ -322,7 +319,6 @@ void ImprovedGBDT::fit(const std::vector<std::vector<double>>& X,
     if (n_samples == 0) return;
     
     n_features = X[0].size();
-    num_threads = omp_get_max_threads();
     
     // Initialize validation tracking
     best_val_score = std::numeric_limits<double>::max();
@@ -333,8 +329,10 @@ void ImprovedGBDT::fit(const std::vector<std::vector<double>>& X,
     bool use_early_stopping = (early_stopping_rounds > 0 && X_val != nullptr && y_val != nullptr);
     
     // Initialize memory pool based on tree depth and sample count
-    int estimated_max_nodes = std::min(n_samples, 1 << (max_depth + 1));
-    memory_pool.init(num_threads * 8, n_samples);
+    std::size_t max_vecs =
+    static_cast<std::size_t>(num_threads) *
+    static_cast<std::size_t>((1ULL << (max_depth + 1)) - 1);  // ≃ nœuds max
+    memory_pool.init(max_vecs, n_samples);
 
     // Initialize binning methods
     if (binning_method == QUANTILE) {
@@ -615,7 +613,7 @@ ImprovedGBDT::Node* ImprovedGBDT::buildTreeRecursiveBinned(
     int depth,
     double sum_gradients,
     double sum_hessians,
-    const std::vector<std::vector<HistogramEntry>>* parent_hist) {
+    std::shared_ptr<const std::vector<std::vector<HistogramEntry>>> parent_hist) {
     
     const int n_samples = indices.size();
     
@@ -719,17 +717,19 @@ ImprovedGBDT::Node* ImprovedGBDT::buildTreeRecursiveBinned(
     node->sum_grad = sum_gradients;
     node->sum_hess = sum_hessians;
     node->sample_count = n_samples;
+
+    auto hist_ptr = std::make_shared<std::vector<std::vector<HistogramEntry>>>(std::move(hist));
     
     // Build child nodes
     node->left = buildTreeRecursiveBinned(X, gradients, hessians, left_indices, 
                                         feature_indices, depth + 1, 
                                         left_grad_sum, left_hess_sum, 
-                                        &hist);
+                                        hist_ptr);
     
     node->right = buildTreeRecursiveBinned(X, gradients, hessians, right_indices, 
                                          feature_indices, depth + 1, 
                                          right_grad_sum, right_hess_sum, 
-                                         &hist);
+                                         hist_ptr);
     
     // If both children are nullptr, convert to leaf
     if (!node->left && !node->right) {
@@ -956,7 +956,7 @@ ImprovedGBDT::Node* ImprovedGBDT::buildTreeRecursive(
     }
     
     // Split the node
-    std::vector<int>& left_indices = memory_pool.get_vector();
+    std::vector<int>& left_indices  = memory_pool.get_vector();
     std::vector<int>& right_indices = memory_pool.get_vector();
     left_indices.reserve(n_samples/2);
     right_indices.reserve(n_samples/2);

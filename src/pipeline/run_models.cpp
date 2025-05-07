@@ -401,22 +401,36 @@ void runAdvGBDTModel(const AdvGBDTParams& params, const DataParams& data_params)
   
   // Initialize model with optimized parameters
   ImprovedGBDT model(
-      params.nEstimators,
-      params.maxDepth,
-      params.learningRate,
-      false,            // Disable DART for stability
-      0.0,              // No dropout
-      0.0,              // No skip
-      bin_method,
-      params.numBins,
-      params.minDataLeaf,
-      0.0,              // L2 regularization - match LightGBM default
-      0.8,              // Feature sampling ratio for randomization
-      0                 // Early stopping rounds
+    params.nEstimators,
+    params.maxDepth,
+    params.learningRate,
+    params.useDart,            // Disable DART for stability
+    params.dropoutRate,              // No dropout
+    params.skipDropRate,              // No skip
+    bin_method,
+    params.numBins,
+    params.minDataLeaf,
+    1.0,              // L2 regularization - match LightGBM default
+    0.8,              // Feature sampling ratio for randomization
+    0,                 // Early stopping rounds
+    params.numThreads
   );
   
   // Set OpenMP threads
-  omp_set_num_threads(params.numThreads);
+  //omp_set_num_threads(params.numThreads);
+
+  // Affichage des paramètres
+  std::cout << "[AdvGBDT] Paramètres du modèle:" << std::endl;
+  std::cout << "  n_estimators     = " << params.nEstimators << std::endl;
+  std::cout << "  learning_rate    = " << params.learningRate << std::endl;
+  std::cout << "  max_depth        = " << params.maxDepth << std::endl;
+  std::cout << "  min_data_leaf    = " << params.minDataLeaf << std::endl;
+  std::cout << "  num_bins         = " << params.numBins << std::endl;
+  std::cout << "  use_dart         = " << params.useDart << std::endl;
+  std::cout << "  dropout_rate     = " << params.dropoutRate << std::endl;
+  std::cout << "  skip_drop_rate   = " << params.skipDropRate << std::endl;
+  std::cout << "  binning_method   = " << (params.binMethod == AdvBinMethod::Quantile ? "QUANTILE" : "FREQUENCY") << std::endl;
+  std::cout << "  num_threads      = " << params.numThreads << std::endl;
   
   // Train model
   auto train_start = std::chrono::high_resolution_clock::now();
