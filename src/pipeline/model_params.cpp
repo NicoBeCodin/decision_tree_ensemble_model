@@ -4,6 +4,34 @@ bool getDecisionTreeParams(const ProgramOptions &options,
                            DecisionTreeParams &out_params) {
   // Create folder if non existent
   createDirectory("../saved_models/tree_models");
+  // Override with CLI flags if present
+  if (!options.flags.empty()) {
+    // Set default values
+    out_params.criteria = 0;
+    out_params.maxDepth = 60;
+    out_params.minSamplesSplit = 2;
+    out_params.minImpurityDecrease = 1e-12;
+    out_params.useSplitHistogram = false;
+    out_params.useOMP = false;
+    out_params.numThreads = 1;
+
+    // Override with provided flags
+    if (options.flags.count("criteria"))
+      out_params.criteria = std::stoi(options.flags.at("criteria"));
+    if (options.flags.count("max_depth"))
+      out_params.maxDepth = std::stoi(options.flags.at("max_depth"));
+    if (options.flags.count("min_samples_split"))
+      out_params.minSamplesSplit = std::stoi(options.flags.at("min_samples_split"));
+    if (options.flags.count("min_impurity_decrease"))
+      out_params.minImpurityDecrease = std::stod(options.flags.at("min_impurity_decrease"));
+    if (options.flags.count("use_split_histogram"))
+      out_params.useSplitHistogram = (options.flags.at("use_split_histogram") != "0");
+    if (options.flags.count("use_omp"))
+      out_params.useOMP = (options.flags.at("use_omp") != "0");
+    if (options.flags.count("num_threads"))
+      out_params.numThreads = adjustNumThreads(std::stoi(options.flags.at("num_threads")));
+    return true;
+  }
 
   if (options.use_custom_params && options.params.size() > 5) {
     out_params.criteria = std::stoi(options.params[0]);
@@ -69,6 +97,43 @@ bool getBaggingParams(const ProgramOptions &options,
 
   // Create folder if non existent
   createDirectory("../saved_models/bagging_models");
+  // Override with CLI flags if present
+  if (!options.flags.empty()) {
+    // Set default values
+    out_params.criteria = 0;
+    out_params.whichLossFunction = 0;
+    out_params.numTrees = 20;
+    out_params.maxDepth = 60;
+    out_params.minSamplesSplit = 2;
+    out_params.minImpurityDecrease = 1e-6;
+    out_params.useSplitHistogram = false;
+    out_params.useOMP = false;
+    out_params.numThreads = 1;
+
+    // Override with provided flags
+    if (options.flags.count("criteria"))
+      out_params.criteria = std::stoi(options.flags.at("criteria"));
+    if (options.flags.count("which_loss_function"))
+      out_params.whichLossFunction = std::stoi(options.flags.at("which_loss_function"));
+    if (options.flags.count("num_trees"))
+      out_params.numTrees = std::stoi(options.flags.at("num_trees"));
+    // Also accept 'n_estimators' as synonym for number of trees
+    if (options.flags.count("n_estimators"))
+      out_params.numTrees = std::stoi(options.flags.at("n_estimators"));
+    if (options.flags.count("max_depth"))
+      out_params.maxDepth = std::stoi(options.flags.at("max_depth"));
+    if (options.flags.count("min_samples_split"))
+      out_params.minSamplesSplit = std::stoi(options.flags.at("min_samples_split"));
+    if (options.flags.count("min_impurity_decrease"))
+      out_params.minImpurityDecrease = std::stod(options.flags.at("min_impurity_decrease"));
+    if (options.flags.count("use_split_histogram"))
+      out_params.useSplitHistogram = (options.flags.at("use_split_histogram") != "0");
+    if (options.flags.count("use_omp"))
+      out_params.useOMP = (options.flags.at("use_omp") != "0");
+    if (options.flags.count("num_threads"))
+      out_params.numThreads = std::stoi(options.flags.at("num_threads"));
+    return true;
+  }
 
   if (options.use_custom_params && options.params.size() > 6) {
     out_params.criteria = std::stoi(options.params[0]);
@@ -140,6 +205,43 @@ bool getBoostingParams(const ProgramOptions &options,
                        BoostingParams &out_params) {
   // Create boosting folder if new
   createDirectory("../saved_models/boosting_models");
+  // Override with CLI flags if present
+  if (!options.flags.empty()) {
+    // Set default values for Boosting
+    out_params.criteria = 0;
+    out_params.whichLossFunction = 0;
+    out_params.nEstimators = 75;
+    out_params.maxDepth = 15;
+    out_params.minSamplesSplit = 3;
+    out_params.minImpurityDecrease = 1e-5;
+    out_params.learningRate = 0.07;
+    out_params.useSplitHistogram = true;
+    out_params.useOMP = false;
+    out_params.numThreads = 1;
+
+    // Override with provided flags
+    if (options.flags.count("criteria"))
+      out_params.criteria = std::stoi(options.flags.at("criteria"));
+    if (options.flags.count("which_loss_function"))
+      out_params.whichLossFunction = std::stoi(options.flags.at("which_loss_function"));
+    if (options.flags.count("n_estimators"))
+      out_params.nEstimators = std::stoi(options.flags.at("n_estimators"));
+    if (options.flags.count("max_depth"))
+      out_params.maxDepth = std::stoi(options.flags.at("max_depth"));
+    if (options.flags.count("min_samples_split"))
+      out_params.minSamplesSplit = std::stoi(options.flags.at("min_samples_split"));
+    if (options.flags.count("min_impurity_decrease"))
+      out_params.minImpurityDecrease = std::stod(options.flags.at("min_impurity_decrease"));
+    if (options.flags.count("learning_rate"))
+      out_params.learningRate = std::stod(options.flags.at("learning_rate"));
+    if (options.flags.count("use_split_histogram"))
+      out_params.useSplitHistogram = (options.flags.at("use_split_histogram") != "0");
+    if (options.flags.count("use_omp"))
+      out_params.useOMP = (options.flags.at("use_omp") != "0");
+    if (options.flags.count("num_threads"))
+      out_params.numThreads = std::stoi(options.flags.at("num_threads"));
+    return true;
+  }
 
   if (options.use_custom_params && options.params.size() > 6) {
     out_params.criteria = std::stoi(options.params[0]);
@@ -210,6 +312,22 @@ bool getLightGBMParams(const ProgramOptions &options,
                        LightGBMParams &out_params) {
 
   createDirectory("../saved_models/lightgbm_models");
+  // Override with CLI flags if present
+  if (!options.flags.empty()) {
+    if (options.flags.count("n_estimators"))
+      out_params.nEstimators = std::stoi(options.flags.at("n_estimators"));
+    if (options.flags.count("learning_rate"))
+      out_params.learningRate = std::stod(options.flags.at("learning_rate"));
+    if (options.flags.count("max_depth"))
+      out_params.maxDepth = std::stoi(options.flags.at("max_depth"));
+    if (options.flags.count("num_leaves"))
+      out_params.numLeaves = std::stoi(options.flags.at("num_leaves"));
+    if (options.flags.count("subsample"))
+      out_params.subsample = std::stod(options.flags.at("subsample"));
+    if (options.flags.count("colsampleBytree"))
+      out_params.colsampleBytree = std::stod(options.flags.at("colsampleBytree"));
+    return true;
+  }
 
   if (options.use_custom_params && options.params.size() >= 6) {
     out_params.nEstimators = std::stoi(options.params[0]);
@@ -238,6 +356,30 @@ bool getLightGBMParams(const ProgramOptions &options,
 
 bool getAdvGBDTParams(const ProgramOptions& options, AdvGBDTParams& out_params) {
   createDirectory("../saved_models/adv_gbdt_models");
+  // Override with CLI flags if present
+  if (!o.flags.empty()) {
+    if (o.flags.count("n_estimators"))
+      p.nEstimators = std::stoi(o.flags.at("n_estimators"));
+    if (o.flags.count("learning_rate"))
+      p.learningRate = std::stod(o.flags.at("learning_rate"));
+    if (o.flags.count("max_depth"))
+      p.maxDepth = std::stoi(o.flags.at("max_depth"));
+    if (o.flags.count("minDataLeaf"))
+      p.minDataLeaf = std::stoul(o.flags.at("minDataLeaf"));
+    if (o.flags.count("num_bins"))
+      p.numBins = std::stoi(o.flags.at("num_bins"));
+    if (o.flags.count("use_dart"))
+      p.useDart = (o.flags.at("use_dart") != "0");
+    if (o.flags.count("dropout_rate"))
+      p.dropoutRate = std::stod(o.flags.at("dropout_rate"));
+    if (o.flags.count("skip_drop_rate"))
+      p.skipDropRate = std::stod(o.flags.at("skip_drop_rate"));
+    if (o.flags.count("num_threads"))
+      p.numThreads = std::stoi(o.flags.at("num_threads"));
+    if (o.flags.count("binning_method"))
+      p.binMethod = (std::stoi(o.flags.at("binning_method")) == 0) ? AdvBinMethod::Quantile : AdvBinMethod::Frequency;
+    return true;
+  }
   
   // Debug output
   std::cout << "use_custom_params: " << (options.use_custom_params ? "true" : "false") << std::endl;

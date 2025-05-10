@@ -6,8 +6,12 @@ target_include_directories(Boosting_Advanced
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 # OpenMP configuration
-find_package(OpenMP REQUIRED)
-target_link_libraries(Boosting_Advanced PRIVATE OpenMP::OpenMP_CXX)
+if(NOT APPLE)
+    find_package(OpenMP REQUIRED)
+endif()
+if (OPENMP)
+    target_link_libraries(Boosting_Advanced PRIVATE ${OPENMP_LIB})
+endif()
 
 # Headers for other targets to use
 set_target_properties(Boosting_Advanced PROPERTIES

@@ -7,46 +7,75 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -march=native -ffast-math -funroll-loops")
 
 # Find LightGBM library
-if (NOT LGBM_LIB)
-    find_library(LGBM_LIB NAMES lightgbm lightgbm _lightgbm lib_lightgbm PATHS
-        /usr/local/lib
-        /usr/lib
-        "$ENV{HOME}/lightgbm_install/lib"
-        NO_DEFAULT_PATH
-    )
-endif()
+# Add /opt/homebrew/lib (standard path for Homebrew on Apple Silicon)
+# Add specific Cellar path as a fallback due to linking issues
+# Search for 'lightgbm' (standard) AND 'lib_lightgbm' (actual name found in Cellar)
+find_library(LGBM_LIB NAMES lib_lightgbm.dylib lightgbm PATHS
+    /opt/homebrew/Cellar/lightgbm/4.6.0/lib # Specific Cellar path
+    /opt/homebrew/lib                     # Standard Homebrew path
+    /usr/local/lib
+    /usr/lib
+    "$ENV{HOME}/lightgbm_install/lib"
+    # NO_DEFAULT_PATH # Removed to potentially allow CMake find prefixes
+)
 
 if (NOT LGBM_LIB)
-    message(FATAL_ERROR "LightGBM library (lib_lightgbm.so) not found. Please run 'sudo make install' for LightGBM, or specify the path manually with -DLGBM_LIB=...")
+    # Updated error message for clarity, mentioning .dylib for macOS
+    message(FATAL_ERROR "LightGBM library (liblightgbm.dylib) not found. \nEnsure LightGBM is installed (e.g., 'brew install lightgbm' on macOS) \nor specify the path manually with -DLGBM_LIB=/path/to/liblightgbm.dylib")
 else()
     message(STATUS "Found LightGBM library: ${LGBM_LIB}")
 endif()
 
-# Find LightGBM headers
-if (EXISTS "/usr/local/include/LightGBM")
-    set(LGBM_INCLUDE "/usr/local/include/LightGBM")
+# Find LightGBM headers using find_path for robustness
+# Search in both ARM and x86_64 Homebrew include paths
+# Add specific Cellar path as a fallback
+find_path(LGBM_INCLUDE_DIR NAMES LightGBM/c_api.h PATHS
+    /opt/homebrew/Cellar/lightgbm/4.6.0/include # Specific Cellar path
+    /opt/homebrew/include                      # Standard Homebrew path
+    /usr/local/include
+    "$ENV{HOME}/lightgbm_install/include"
+)
+
+if (NOT LGBM_INCLUDE_DIR)
+    message(FATAL_ERROR "LightGBM header directory not found. \nSearched for 'LightGBM/c_api.h' in /opt/homebrew/include, /usr/local/include, etc. \nEnsure LightGBM is installed or specify the include path manually.")
 else()
-    message(FATAL_ERROR "LightGBM header directory not found (/usr/local/include/LightGBM).")
+    message(STATUS "Found LightGBM include directory: ${LGBM_INCLUDE_DIR}")
 endif()
 
-# OpenMP setup
-option(OPENMP "Enable OpenMP" ON)
-if (OPENMP)
-    find_package(OpenMP REQUIRED)
-    if (OpenMP_CXX_FOUND)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
-        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
-        message(STATUS "OpenMP enabled")
-        set(OPENMP_LIB OpenMP::OpenMP_CXX)
-    else()
-        message(WARNING "OpenMP requested but not found")
-        set(OPENMP_LIB "")
-    endif()
-else()
-    message(STATUS "OpenMP disabled")
-    set(OPENMP_LIB "")
-endif()
-
+  # OpenMP setup
+  option(OPENMP "Enable OpenMP" ON)
+  if (OPENMP)
+      if (APPLE)
+          find_library(OMP_LIB NAMES omp PATHS /opt/homebrew/opt/libomp/lib)
+          if (OMP_LIB)
+              include_directories("/opt/homebrew/opt/libomp/include")
+              link_directories("/opt/homebrew/opt/libomp/lib")
+              set(OpenMP_C_FLAGS "-Xpreprocessor -fopenmp")
+              set(OpenMP_CXX_FLAGS "-Xpreprocessor -fopenmp")
+              set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+              set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+              set(OPENMP_LIB omp)
+              message(STATUS "OpenMP enabled for Apple Clang via libomp")
+          else()
+              message(WARNING "libomp not found; OpenMP disabled")
+              set(OPENMP_LIB "")
+          endif()
+      else()
+          find_package(OpenMP REQUIRED)
+          if (OpenMP_CXX_FOUND)
+              set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+              set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+              set(OPENMP_LIB OpenMP::OpenMP_CXX)
+              message(STATUS "OpenMP enabled")
+          else()
+              message(WARNING "OpenMP requested but not found; disabling")
+              set(OPENMP_LIB "")
+          endif()
+      endif()
+  else()
+      message(STATUS "OpenMP disabled")
+      set(OPENMP_LIB "")
+  endif()
 # MPI Setup
 option(USE_MPI "Enable MPI" ON)
 if (USE_MPI)
@@ -218,6 +247,7 @@ target_include_directories(MainEnsemble PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/pipeline
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main
     ${CMAKE_CURRENT_SOURCE_DIR}/src/utils
+    ${LGBM_INCLUDE_DIR}
 )
 
 target_include_directories(MainKFold PRIVATE
@@ -228,6 +258,10 @@ target_include_directories(MainKFold PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/functions/loss
     ${CMAKE_CURRENT_SOURCE_DIR}/src/ensemble/bagging
     ${CMAKE_CURRENT_SOURCE_DIR}/src/ensemble/boosting
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/pipeline
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/main
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/utils
+    ${LGBM_INCLUDE_DIR}
 )
 
 target_include_directories(MainComparison PRIVATE
